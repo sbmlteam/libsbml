@@ -1,3 +1,21 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$class_x_m_l_attributes.html" title=" " alt="" coords="5,5,120,32"/>
+<area shape="rect" id="Node000000" href="$class_validator.html" title=" " alt="" coords="5,203,85,228"/>
+<area shape="rect" id="Node000001" href="$class_comp_validator.html" title=" " alt="" coords="137,5,256,31"/>
+<area shape="poly" id="edge311_Node000000_Node000001" title=" " alt="" coords="51,189,61,155,78,116,101,75,132,40,149,29,152,33,135,44,106,79,83,118,66,157,56,190"/>
+<area shape="rect" id="Node000002" href="$class_distrib_validator.html" title=" " alt="" coords="135,55,258,80"/>
+<area shape="poly" id="edge312_Node000000_Node000002" title=" " alt="" coords="56,189,86,139,107,113,132,89,151,78,154,82,135,93,111,116,90,142,61,192"/>
+<area shape="rect" id="Node000003" href="$class_fbc_validator.html" title=" " alt="" coords="145,104,248,129"/>
+<area shape="poly" id="edge313_Node000000_Node000003" title=" " alt="" coords="67,190,97,164,132,138,155,127,158,132,135,143,100,168,71,194"/>
+<area shape="rect" id="Node000004" href="$class_groups_validator.html" title=" " alt="" coords="133,153,260,179"/>
+<area shape="poly" id="edge314_Node000000_Node000004" title=" " alt="" coords="97,196,156,176,158,181,99,201"/>
+<area shape="rect" id="Node000005" href="$class_layout_validator.html" title=" " alt="" coords="135,203,259,228"/>
+<area shape="poly" id="edge315_Node000000_Node000005" title=" " alt="" coords="99,213,134,213,134,218,99,218"/>
+<area shape="rect" id="Node000006" href="$class_multi_validator.html" title=" " alt="" coords="140,252,253,277"/>
+<area shape="poly" id="edge316_Node000000_Node000006" title=" " alt="" coords="99,230,158,249,156,254,97,235"/>
+<area shape="rect" id="Node000007" href="$class_qual_validator.html" title=" " alt="" coords="141,301,252,327"/>
+<area shape="poly" id="edge317_Node000000_Node000007" title=" " alt="" coords="71,236,100,262,135,286,160,299,157,303,132,291,97,266,67,240"/>
+<area shape="rect" id="Node000008" href="$class_render_validator.html" title=" " alt="" coords="133,351,260,376"/>
+<area shape="poly" id="edge318_Node000000_Node000008" title=" " alt="" coords="61,239,91,288,111,313,135,336,156,348,153,353,132,340,107,317,87,291,56,242"/>
+<area shape="rect" id="Node000009" href="$class_spatial_validator.html" title=" " alt="" coords="134,400,259,425"/>
+<area shape="poly" id="edge319_Node000000_Node000009" title=" " alt="" coords="56,240,83,312,106,351,135,385,154,398,151,402,132,389,102,354,78,314,51,242"/>
 </map>

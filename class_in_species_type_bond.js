@@ -128,7 +128,7 @@ var class_in_species_type_bond =
     [ "setSBOTerm", "class_in_species_type_bond.html#a37287e48bd51353012b74e4d200bb446", null ],
     [ "setUserData", "class_in_species_type_bond.html#ac3b1bbfe22bad0dbc577b61c529f37bb", null ],
     [ "toSBML", "class_in_species_type_bond.html#ae8317d5157b70e4f1bc68e33e5c84001", null ],
-    [ "toXMLNode", "class_in_species_type_bond.html#a5c949d524aca47b84b18b57b76e6ee0a", null ],
+    [ "toXMLNode", "class_in_species_type_bond.html#a616754bfc4592922a488f2159f96b3ce", null ],
     [ "unsetAnnotation", "class_in_species_type_bond.html#a9121d6a4f7401fe957cc75647a1e95ed", null ],
     [ "unsetBindingSite1", "class_in_species_type_bond.html#a93c53cf2250fb78e6a5bdd147cb91fa0", null ],
     [ "unsetBindingSite2", "class_in_species_type_bond.html#ac08291c76d41d321fa568eee79e88bd6", null ],

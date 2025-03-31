@@ -1,6 +1,9 @@
 <map id="CompressionUtil.h" name="CompressionUtil.h">
-<area shape="rect" id="node1" title="Functions useful for various compression algorithms." alt="" coords="61,5,204,32"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,80,68,107"/>
-<area shape="rect" id="node3" title=" " alt="" coords="93,80,173,107"/>
-<area shape="rect" id="node4" title=" " alt="" coords="197,80,263,107"/>
+<area shape="rect" id="Node000001" title="Functions useful for various compression algorithms." alt="" coords="61,5,204,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,79,68,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="119,33,65,72,62,68,116,29"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="93,79,173,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="135,31,135,65,130,65,130,31"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="197,79,263,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="150,29,204,68,201,72,147,33"/>
 </map>

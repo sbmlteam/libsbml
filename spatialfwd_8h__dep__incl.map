@@ -1,110 +1,367 @@
 <map id="spatialfwd.h" name="spatialfwd.h">
-<area shape="rect" id="node1" title="Definition of spatialfwd." alt="" coords="4075,5,4177,32"/>
-<area shape="rect" id="node2" href="$_spatial_extension_types_8h.html" title="Definition of SpatialExtensionTypes." alt="" coords="3397,528,3577,555"/>
-<area shape="rect" id="node4" href="$_spatial_reaction_plugin_8h.html" title="Definition of the SpatialReactionPlugin class." alt="" coords="19,453,195,480"/>
-<area shape="rect" id="node7" href="$_spatial_species_plugin_8h.html" title="Definition of the SpatialSpeciesPlugin class." alt="" coords="220,453,389,480"/>
-<area shape="rect" id="node9" href="$_adjacent_domains_8h.html" title="Definition of the AdjacentDomains class." alt="" coords="1315,80,1465,107"/>
-<area shape="rect" id="node11" href="$_list_of_adjacent_domains_8h.html" title="Definition of the ListOfAdjacentDomains class." alt="" coords="1369,155,1555,181"/>
-<area shape="rect" id="node12" href="$_geometry_8h.html" title="Definition of the Geometry class." alt="" coords="4241,379,4339,405"/>
-<area shape="rect" id="node17" href="$_advection_coefficient_8h.html" title="Definition of the AdvectionCoefficient class." alt="" coords="823,379,992,405"/>
-<area shape="rect" id="node21" href="$_analytic_geometry_8h.html" title="Definition of the AnalyticGeometry class." alt="" coords="4885,304,5036,331"/>
-<area shape="rect" id="node26" href="$_analytic_volume_8h.html" title="Definition of the AnalyticVolume class." alt="" coords="961,155,1097,181"/>
-<area shape="rect" id="node28" href="$_list_of_analytic_volumes_8h.html" title="Definition of the ListOfAnalyticVolumes class." alt="" coords="814,229,995,256"/>
-<area shape="rect" id="node30" href="$_boundary_8h.html" title="Definition of the Boundary class." alt="" coords="1815,80,1909,107"/>
-<area shape="rect" id="node32" href="$_coordinate_component_8h.html" title="Definition of the CoordinateComponent class." alt="" coords="1599,155,1779,181"/>
-<area shape="rect" id="node34" href="$_list_of_coordinate_components_8h.html" title="Definition of the ListOfCoordinateComponents class." alt="" coords="1739,229,1964,256"/>
-<area shape="rect" id="node36" href="$_boundary_condition_8h.html" title="Definition of the BoundaryCondition class." alt="" coords="559,379,717,405"/>
-<area shape="rect" id="node38" href="$_compartment_mapping_8h.html" title="Definition of the CompartmentMapping class." alt="" coords="1128,379,1308,405"/>
-<area shape="rect" id="node42" href="$_c_s_geometry_8h.html" title="Definition of the CSGeometry class." alt="" coords="5061,304,5175,331"/>
-<area shape="rect" id="node44" href="$_c_s_g_homogeneous_transformation_8h.html" title="Definition of the CSGHomogeneousTransformation class." alt="" coords="3462,229,3715,256"/>
-<area shape="rect" id="node51" href="$_c_s_g_node_8h.html" title="Definition of the CSGNode class." alt="" coords="4025,80,4120,107"/>
-<area shape="rect" id="node52" href="$_c_s_g_object_8h.html" title="Definition of the CSGObject class." alt="" coords="2491,155,2593,181"/>
-<area shape="rect" id="node53" href="$_list_of_c_s_g_objects_8h.html" title="Definition of the ListOfCSGObjects class." alt="" coords="2305,229,2453,256"/>
-<area shape="rect" id="node55" href="$_c_s_g_primitive_8h.html" title="Definition of the CSGPrimitive class." alt="" coords="4161,229,4281,256"/>
-<area shape="rect" id="node57" href="$_c_s_g_set_operator_8h.html" title="Definition of the CSGSetOperator class." alt="" coords="3947,229,4086,256"/>
-<area shape="rect" id="node58" href="$_c_s_g_transformation_8h.html" title="Definition of the CSGTransformation class." alt="" coords="3541,155,3700,181"/>
-<area shape="rect" id="node59" href="$_c_s_g_rotation_8h.html" title="Definition of the CSGRotation class." alt="" coords="3201,229,3317,256"/>
-<area shape="rect" id="node61" href="$_c_s_g_scale_8h.html" title="Definition of the CSGScale class." alt="" coords="3342,229,3438,256"/>
-<area shape="rect" id="node63" href="$_c_s_g_translation_8h.html" title="Definition of the CSGTranslation class." alt="" coords="3791,229,3923,256"/>
-<area shape="rect" id="node65" href="$_list_of_c_s_g_nodes_8h.html" title="Definition of the ListOfCSGNodes class." alt="" coords="4105,155,4245,181"/>
-<area shape="rect" id="node66" href="$_diffusion_coefficient_8h.html" title="Definition of the DiffusionCoefficient class." alt="" coords="1862,379,2025,405"/>
-<area shape="rect" id="node68" href="$_domain_8h.html" title="Definition of the Domain class." alt="" coords="6435,229,6521,256"/>
-<area shape="rect" id="node70" href="$_list_of_domains_8h.html" title="Definition of the ListOfDomains class." alt="" coords="6259,304,6390,331"/>
-<area shape="rect" id="node72" href="$_domain_type_8h.html" title="Definition of the DomainType class." alt="" coords="4591,80,4706,107"/>
-<area shape="rect" id="node74" href="$_list_of_domain_types_8h.html" title="Definition of the ListOfDomainTypes class." alt="" coords="4679,155,4839,181"/>
-<area shape="rect" id="node76" href="$_geometry_definition_8h.html" title="Definition of the GeometryDefinition class." alt="" coords="5182,155,5345,181"/>
-<area shape="rect" id="node77" href="$_list_of_geometry_definitions_8h.html" title="Definition of the ListOfGeometryDefinitions class." alt="" coords="5301,229,5508,256"/>
-<area shape="rect" id="node78" href="$_mixed_geometry_8h.html" title="Definition of the MixedGeometry class." alt="" coords="5437,304,5573,331"/>
-<area shape="rect" id="node79" href="$_parametric_geometry_8h.html" title="Definition of the ParametricGeometry class." alt="" coords="5597,304,5764,331"/>
-<area shape="rect" id="node81" href="$_sampled_field_geometry_8h.html" title="Definition of the SampledFieldGeometry class." alt="" coords="5999,304,6184,331"/>
-<area shape="rect" id="node83" href="$_interior_point_8h.html" title="Definition of the InteriorPoint class." alt="" coords="5983,80,6098,107"/>
-<area shape="rect" id="node85" href="$_list_of_interior_points_8h.html" title="Definition of the ListOfInteriorPoints class." alt="" coords="6083,155,6241,181"/>
-<area shape="rect" id="node87" href="$_list_of_ordinal_mappings_8h.html" title="Definition of the ListOfOrdinalMappings class." alt="" coords="6545,229,6728,256"/>
-<area shape="rect" id="node90" href="$_list_of_parametric_objects_8h.html" title="Definition of the ListOfParametricObjects class." alt="" coords="7427,229,7617,256"/>
-<area shape="rect" id="node93" href="$_list_of_sampled_fields_8h.html" title="Definition of the ListOfSampledFields class." alt="" coords="6913,155,7080,181"/>
-<area shape="rect" id="node96" href="$_list_of_sampled_volumes_8h.html" title="Definition of the ListOfSampledVolumes class." alt="" coords="7800,229,7985,256"/>
-<area shape="rect" id="node99" href="$_ordinal_mapping_8h.html" title="Definition of the OrdinalMapping class." alt="" coords="6625,155,6763,181"/>
-<area shape="rect" id="node100" href="$_parametric_object_8h.html" title="Definition of the ParametricObject class." alt="" coords="7325,155,7471,181"/>
-<area shape="rect" id="node101" href="$_sampled_field_8h.html" title="Definition of the SampledField class." alt="" coords="7006,80,7129,107"/>
-<area shape="rect" id="node102" href="$_sampled_volume_8h.html" title="Definition of the SampledVolume class." alt="" coords="7905,155,8045,181"/>
-<area shape="rect" id="node103" href="$_spatial_points_8h.html" title="Definition of the SpatialPoints class." alt="" coords="5736,229,5855,256"/>
-<area shape="rect" id="node105" href="$_spatial_symbol_reference_8h.html" title="Definition of the SpatialSymbolReference class." alt="" coords="2082,379,2277,405"/>
-<area shape="rect" id="node107" href="$_transformation_component_8h.html" title="Definition of the TransformationComponent class." alt="" coords="2853,155,3060,181"/>
-<area shape="rect" id="node3" href="$_spatial_validator_8cpp.html" title="Definition of SpatialValidator." alt="" coords="3412,603,3563,629"/>
-<area shape="rect" id="node5" href="$_spatial_extension_8cpp.html" title="Implementation of SpatialExtension." alt="" coords="905,528,1064,555"/>
-<area shape="rect" id="node6" href="$_spatial_reaction_plugin_8cpp.html" title="Implementation of the SpatialReactionPlugin class." alt="" coords="5,528,196,555"/>
-<area shape="rect" id="node8" href="$_spatial_species_plugin_8cpp.html" title="Implementation of the SpatialSpeciesPlugin class." alt="" coords="221,528,405,555"/>
-<area shape="rect" id="node10" href="$_adjacent_domains_8cpp.html" title="Implementation of the AdjacentDomains class." alt="" coords="1172,229,1336,256"/>
-<area shape="rect" id="node16" href="$_list_of_adjacent_domains_8cpp.html" title="Implementation of the ListOfAdjacentDomains class." alt="" coords="1361,229,1563,256"/>
-<area shape="rect" id="node13" href="$_spatial_model_plugin_8h.html" title="Definition of the SpatialModelPlugin class." alt="" coords="4292,453,4451,480"/>
-<area shape="rect" id="node15" href="$_geometry_8cpp.html" title="Implementation of the Geometry class." alt="" coords="5205,453,5317,480"/>
-<area shape="rect" id="node14" href="$_spatial_model_plugin_8cpp.html" title="Implementation of the SpatialModelPlugin class." alt="" coords="4284,528,4459,555"/>
-<area shape="rect" id="node18" href="$_spatial_parameter_plugin_8h.html" title="Definition of the SpatialParameterPlugin class." alt="" coords="1105,453,1291,480"/>
-<area shape="rect" id="node20" href="$_advection_coefficient_8cpp.html" title="Implementation of the AdvectionCoefficient class." alt="" coords="662,453,846,480"/>
-<area shape="rect" id="node19" href="$_spatial_parameter_plugin_8cpp.html" title="Implementation of the SpatialParameterPlugin class." alt="" coords="1097,528,1299,555"/>
-<area shape="rect" id="node22" href="$_analytic_geometry_8cpp.html" title="Implementation of the AnalyticGeometry class." alt="" coords="4414,379,4579,405"/>
-<area shape="rect" id="node23" href="$_geometry_definition_8cpp.html" title="Implementation of the GeometryDefinition class." alt="" coords="4961,379,5139,405"/>
-<area shape="rect" id="node24" href="$_list_of_geometry_definitions_8cpp.html" title="Implementation of the ListOfGeometryDefinitions class." alt="" coords="5163,379,5385,405"/>
-<area shape="rect" id="node25" href="$_mixed_geometry_8cpp.html" title="Implementation of the MixedGeometry class." alt="" coords="5409,379,5560,405"/>
-<area shape="rect" id="node27" href="$_analytic_volume_8cpp.html" title="Implementation of the AnalyticVolume class." alt="" coords="1035,304,1185,331"/>
-<area shape="rect" id="node29" href="$_list_of_analytic_volumes_8cpp.html" title="Implementation of the ListOfAnalyticVolumes class." alt="" coords="815,304,1011,331"/>
-<area shape="rect" id="node31" href="$_boundary_8cpp.html" title="Implementation of the Boundary class." alt="" coords="1803,155,1913,181"/>
-<area shape="rect" id="node33" href="$_coordinate_component_8cpp.html" title="Implementation of the CoordinateComponent class." alt="" coords="1505,304,1699,331"/>
-<area shape="rect" id="node35" href="$_list_of_coordinate_components_8cpp.html" title="Implementation of the ListOfCoordinateComponents class." alt="" coords="1723,304,1963,331"/>
-<area shape="rect" id="node37" href="$_boundary_condition_8cpp.html" title="Implementation of the BoundaryCondition class." alt="" coords="414,453,587,480"/>
-<area shape="rect" id="node39" href="$_spatial_compartment_plugin_8h.html" title="Definition of the SpatialCompartmentPlugin class." alt="" coords="871,453,1080,480"/>
-<area shape="rect" id="node41" href="$_compartment_mapping_8cpp.html" title="Implementation of the CompartmentMapping class." alt="" coords="1366,453,1561,480"/>
-<area shape="rect" id="node40" href="$_spatial_compartment_plugin_8cpp.html" title="Implementation of the SpatialCompartmentPlugin class." alt="" coords="657,528,881,555"/>
-<area shape="rect" id="node43" href="$_c_s_geometry_8cpp.html" title="Implementation of the CSGeometry class." alt="" coords="4705,379,4835,405"/>
-<area shape="rect" id="node45" href="$_c_s_g_homogeneous_transformation_8cpp.html" title="Implementation of the CSGHomogeneousTransformation class." alt="" coords="3165,304,3433,331"/>
-<area shape="rect" id="node46" href="$_c_s_g_node_8cpp.html" title="Implementation of the CSGNode class." alt="" coords="4235,304,4345,331"/>
-<area shape="rect" id="node47" href="$_c_s_g_object_8cpp.html" title="Implementation of the CSGObject class." alt="" coords="2971,304,3089,331"/>
-<area shape="rect" id="node48" href="$_c_s_g_set_operator_8cpp.html" title="Implementation of the CSGSetOperator class." alt="" coords="3457,304,3611,331"/>
-<area shape="rect" id="node49" href="$_c_s_g_transformation_8cpp.html" title="Implementation of the CSGTransformation class." alt="" coords="3635,304,3809,331"/>
-<area shape="rect" id="node50" href="$_list_of_c_s_g_nodes_8cpp.html" title="Implementation of the ListOfCSGNodes class." alt="" coords="4055,304,4210,331"/>
-<area shape="rect" id="node54" href="$_list_of_c_s_g_objects_8cpp.html" title="Implementation of the ListOfCSGObjects class." alt="" coords="2291,304,2454,331"/>
-<area shape="rect" id="node56" href="$_c_s_g_primitive_8cpp.html" title="Implementation of the CSGPrimitive class." alt="" coords="4472,304,4607,331"/>
-<area shape="rect" id="node60" href="$_c_s_g_rotation_8cpp.html" title="Implementation of the CSGRotation class." alt="" coords="2630,304,2761,331"/>
-<area shape="rect" id="node62" href="$_c_s_g_scale_8cpp.html" title="Implementation of the CSGScale class." alt="" coords="2836,304,2947,331"/>
-<area shape="rect" id="node64" href="$_c_s_g_translation_8cpp.html" title="Implementation of the CSGTranslation class." alt="" coords="3885,304,4031,331"/>
-<area shape="rect" id="node67" href="$_diffusion_coefficient_8cpp.html" title="Implementation of the DiffusionCoefficient class." alt="" coords="1839,453,2016,480"/>
-<area shape="rect" id="node69" href="$_domain_8cpp.html" title="Implementation of the Domain class." alt="" coords="6592,379,6692,405"/>
-<area shape="rect" id="node71" href="$_list_of_domains_8cpp.html" title="Implementation of the ListOfDomains class." alt="" coords="6423,379,6568,405"/>
-<area shape="rect" id="node73" href="$_domain_type_8cpp.html" title="Implementation of the DomainType class." alt="" coords="4591,229,4722,256"/>
-<area shape="rect" id="node75" href="$_list_of_domain_types_8cpp.html" title="Implementation of the ListOfDomainTypes class." alt="" coords="4797,229,4972,256"/>
-<area shape="rect" id="node80" href="$_parametric_geometry_8cpp.html" title="Implementation of the ParametricGeometry class." alt="" coords="5737,379,5920,405"/>
-<area shape="rect" id="node82" href="$_sampled_field_geometry_8cpp.html" title="Implementation of the SampledFieldGeometry class." alt="" coords="6097,379,6297,405"/>
-<area shape="rect" id="node84" href="$_interior_point_8cpp.html" title="Implementation of the InteriorPoint class." alt="" coords="6032,229,6161,256"/>
-<area shape="rect" id="node86" href="$_list_of_interior_points_8cpp.html" title="Implementation of the ListOfInteriorPoints class." alt="" coords="6185,229,6360,256"/>
-<area shape="rect" id="node88" href="$_list_of_ordinal_mappings_8cpp.html" title="Implementation of the ListOfOrdinalMappings class." alt="" coords="6515,304,6713,331"/>
-<area shape="rect" id="node89" href="$_ordinal_mapping_8cpp.html" title="Implementation of the OrdinalMapping class." alt="" coords="6737,304,6889,331"/>
-<area shape="rect" id="node91" href="$_list_of_parametric_objects_8cpp.html" title="Implementation of the ListOfParametricObjects class." alt="" coords="7561,304,7768,331"/>
-<area shape="rect" id="node92" href="$_parametric_object_8cpp.html" title="Implementation of the ParametricObject class." alt="" coords="7376,304,7537,331"/>
-<area shape="rect" id="node94" href="$_list_of_sampled_fields_8cpp.html" title="Implementation of the ListOfSampledFields class." alt="" coords="6905,229,7088,256"/>
-<area shape="rect" id="node95" href="$_sampled_field_8cpp.html" title="Implementation of the SampledField class." alt="" coords="7112,229,7249,256"/>
-<area shape="rect" id="node97" href="$_list_of_sampled_volumes_8cpp.html" title="Implementation of the ListOfSampledVolumes class." alt="" coords="7793,304,7993,331"/>
-<area shape="rect" id="node98" href="$_sampled_volume_8cpp.html" title="Implementation of the SampledVolume class." alt="" coords="8017,304,8171,331"/>
-<area shape="rect" id="node104" href="$_spatial_points_8cpp.html" title="Implementation of the SpatialPoints class." alt="" coords="5840,304,5975,331"/>
-<area shape="rect" id="node106" href="$_spatial_symbol_reference_8cpp.html" title="Implementation of the SpatialSymbolReference class." alt="" coords="2092,453,2301,480"/>
-<area shape="rect" id="node108" href="$_transformation_component_8cpp.html" title="Implementation of the TransformationComponent class." alt="" coords="2579,229,2801,256"/>
+<area shape="rect" id="Node000001" title="Definition of spatialfwd." alt="" coords="4167,5,4268,31"/>
+<area shape="rect" id="Node000002" href="$_adjacent_domains_8h.html" title="Definition of the AdjacentDomains class." alt="" coords="155,79,304,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="4152,22,2738,36,1630,53,480,81,305,89,304,83,480,76,1630,48,2738,30,4152,17"/>
+<area shape="rect" id="Node000004" href="$_list_of_adjacent_domains_8h.html" title="Definition of the ListOfAdjacentDomains class." alt="" coords="240,152,427,177"/>
+<area shape="poly" id="edge193_Node000001_Node000004" title=" " alt="" coords="4152,22,3475,26,2395,37,1333,55,941,67,710,81,614,96,520,116,373,154,371,149,518,111,613,91,709,76,940,61,1333,49,2395,31,3475,21,4152,17"/>
+<area shape="rect" id="Node000005" href="$_geometry_8h.html" title="Definition of the Geometry class." alt="" coords="3066,372,3163,397"/>
+<area shape="poly" id="edge155_Node000001_Node000005" title=" " alt="" coords="4153,23,3886,33,3711,43,3531,56,3363,75,3222,99,3168,113,3126,129,3100,146,3094,155,3092,164,3092,239,3094,277,3100,315,3114,371,3109,373,3095,316,3089,278,3087,239,3087,163,3089,152,3097,142,3124,124,3166,108,3221,94,3362,70,3531,51,3711,37,3885,28,4153,18"/>
+<area shape="rect" id="Node000007" href="$_spatial_extension_types_8h.html" title="Definition of SpatialExtensionTypes." alt="" coords="4435,519,4615,544"/>
+<area shape="poly" id="edge237_Node000001_Node000007" title=" " alt="" coords="4282,16,4861,16,5760,21,6223,27,6637,38,6960,54,7074,64,7150,76,7215,85,7274,92,7298,100,7318,113,7330,134,7335,163,7335,386,7331,411,7321,430,7306,443,7286,452,7238,462,7184,473,7140,480,7056,486,6793,497,6021,514,4616,532,4615,527,6021,509,6793,491,7056,480,7139,474,7184,468,7237,457,7285,447,7303,438,7317,427,7326,410,7329,386,7329,164,7325,136,7314,117,7296,105,7273,98,7214,90,7149,81,7074,70,6960,60,6637,44,6223,33,5760,26,4861,21,4282,22"/>
+<area shape="rect" id="Node000013" href="$_advection_coefficient_8h.html" title="Definition of the AdvectionCoefficient class." alt="" coords="3727,372,3897,397"/>
+<area shape="poly" id="edge15_Node000001_Node000013" title=" " alt="" coords="4153,28,4009,49,3941,63,3894,81,3867,98,3846,114,3833,134,3828,164,3828,239,3824,315,3816,372,3811,371,3818,315,3823,239,3823,163,3828,132,3842,110,3864,93,3892,76,3940,58,4008,43,4152,23"/>
+<area shape="rect" id="Node000017" href="$_analytic_geometry_8h.html" title="Definition of the AnalyticGeometry class." alt="" coords="821,299,971,324"/>
+<area shape="poly" id="edge22_Node000001_Node000017" title=" " alt="" coords="4153,23,2598,40,1705,58,1399,69,1302,75,1250,81,1157,105,1087,130,1023,167,950,227,921,264,903,299,898,297,916,262,946,223,1020,163,1085,125,1156,100,1249,76,1301,70,1399,64,1705,52,2598,35,4152,17"/>
+<area shape="rect" id="Node000022" href="$_analytic_volume_8h.html" title="Definition of the AnalyticVolume class." alt="" coords="519,152,655,177"/>
+<area shape="poly" id="edge29_Node000001_Node000022" title=" " alt="" coords="4153,22,2368,40,1330,58,972,69,858,75,798,81,743,96,690,116,609,154,607,149,688,111,742,91,797,76,858,70,972,64,1330,53,2368,35,4153,17"/>
+<area shape="rect" id="Node000024" href="$_list_of_analytic_volumes_8h.html" title="Definition of the ListOfAnalyticVolumes class." alt="" coords="560,225,741,251"/>
+<area shape="poly" id="edge194_Node000001_Node000024" title=" " alt="" coords="4152,22,3474,24,2409,33,1869,40,1398,51,1051,64,941,72,883,81,848,95,813,113,749,154,698,196,664,227,660,223,694,192,746,150,811,108,846,90,882,76,941,67,1051,59,1398,45,1869,35,2409,27,3474,19,4152,17"/>
+<area shape="rect" id="Node000026" href="$_boundary_8h.html" title="Definition of the Boundary class." alt="" coords="3590,79,3685,104"/>
+<area shape="poly" id="edge36_Node000001_Node000026" title=" " alt="" coords="4153,30,3685,87,3684,82,4153,25"/>
+<area shape="rect" id="Node000028" href="$_coordinate_component_8h.html" title="Definition of the CoordinateComponent class." alt="" coords="3373,152,3553,177"/>
+<area shape="poly" id="edge136_Node000001_Node000028" title=" " alt="" coords="4153,24,4019,29,3852,39,3693,56,3628,68,3580,81,3548,97,3519,116,3476,154,3472,149,3516,112,3545,92,3578,76,3627,62,3692,51,3852,34,4019,24,4153,18"/>
+<area shape="rect" id="Node000030" href="$_list_of_coordinate_components_8h.html" title="Definition of the ListOfCoordinateComponents class." alt="" coords="3222,225,3447,251"/>
+<area shape="poly" id="edge197_Node000001_Node000030" title=" " alt="" coords="4153,25,3829,44,3655,61,3583,71,3529,81,3436,103,3401,120,3363,154,3352,171,3345,190,3338,225,3333,224,3339,189,3347,168,3359,150,3398,116,3435,98,3527,76,3582,65,3654,56,3829,39,4153,20"/>
+<area shape="rect" id="Node000032" href="$_boundary_condition_8h.html" title="Definition of the BoundaryCondition class." alt="" coords="3527,372,3686,397"/>
+<area shape="poly" id="edge46_Node000001_Node000032" title=" " alt="" coords="4153,27,3985,46,3904,62,3848,81,3819,97,3796,113,3782,134,3777,164,3777,239,3776,266,3772,287,3762,306,3745,326,3725,343,3703,356,3657,374,3655,370,3700,351,3722,338,3741,322,3757,303,3767,285,3771,265,3772,239,3772,163,3777,132,3793,110,3816,93,3846,76,3903,57,3984,41,4153,22"/>
+<area shape="rect" id="Node000034" href="$_c_s_g_homogeneous_transformation_8h.html" title="Definition of the CSGHomogeneousTransformation class." alt="" coords="5059,225,5312,251"/>
+<area shape="poly" id="edge50_Node000001_Node000034" title=" " alt="" coords="4282,30,4487,76,4637,108,4703,124,4785,150,4814,163,4842,175,4965,204,5080,223,5079,228,4964,209,4840,180,4811,167,4783,154,4701,129,4636,113,4486,81,4281,36"/>
+<area shape="rect" id="Node000041" href="$_c_s_g_node_8h.html" title="Definition of the CSGNode class." alt="" coords="5378,79,5473,104"/>
+<area shape="poly" id="edge58_Node000001_Node000041" title=" " alt="" coords="4282,20,5378,85,5377,90,4281,26"/>
+<area shape="rect" id="Node000042" href="$_c_s_g_object_8h.html" title="Definition of the CSGObject class." alt="" coords="4669,152,4771,177"/>
+<area shape="poly" id="edge121_Node000001_Node000042" title=" " alt="" coords="4271,32,4681,149,4679,154,4269,37"/>
+<area shape="rect" id="Node000043" href="$_list_of_c_s_g_objects_8h.html" title="Definition of the ListOfCSGObjects class." alt="" coords="4522,225,4670,251"/>
+<area shape="poly" id="edge196_Node000001_Node000043" title=" " alt="" coords="4238,39,4306,106,4351,143,4400,175,4468,204,4535,223,4534,228,4467,209,4397,180,4348,147,4302,110,4234,43"/>
+<area shape="rect" id="Node000044" href="$_c_s_geometry_8h.html" title="Definition of the CSGeometry class." alt="" coords="1709,299,1824,324"/>
+<area shape="poly" id="edge128_Node000001_Node000044" title=" " alt="" coords="4153,22,3819,22,3329,29,3071,36,2828,47,2619,61,2462,81,2359,103,2256,131,2059,195,1897,257,1793,301,1791,296,1895,252,2058,190,2254,125,2358,98,2461,76,2618,56,2828,41,3070,31,3329,23,3819,17,4153,16"/>
+<area shape="rect" id="Node000047" href="$_c_s_g_primitive_8h.html" title="Definition of the CSGPrimitive class." alt="" coords="5336,225,5456,251"/>
+<area shape="poly" id="edge122_Node000001_Node000047" title=" " alt="" coords="4282,27,4564,76,5339,223,5338,228,4564,81,4281,33"/>
+<area shape="rect" id="Node000049" href="$_c_s_g_set_operator_8h.html" title="Definition of the CSGSetOperator class." alt="" coords="5632,225,5771,251"/>
+<area shape="poly" id="edge125_Node000001_Node000049" title=" " alt="" coords="4282,16,4539,18,4898,25,5085,32,5259,43,5409,57,5522,76,5573,86,5615,96,5651,115,5687,150,5698,169,5703,189,5705,225,5700,225,5698,190,5693,171,5683,154,5648,119,5613,101,5572,92,5521,81,5408,62,5259,48,5084,37,4898,30,4539,23,4282,22"/>
+<area shape="rect" id="Node000050" href="$_c_s_g_transformation_8h.html" title="Definition of the CSGTransformation class." alt="" coords="5918,152,6077,177"/>
+<area shape="poly" id="edge126_Node000001_Node000050" title=" " alt="" coords="4281,17,4634,17,5139,24,5393,32,5619,42,5794,57,5855,66,5896,76,5926,92,5952,112,5990,150,5986,154,5949,116,5923,96,5894,81,5854,71,5793,62,5619,48,5393,37,5139,30,4634,23,4281,22"/>
+<area shape="rect" id="Node000051" href="$_c_s_g_rotation_8h.html" title="Definition of the CSGRotation class." alt="" coords="6073,225,6189,251"/>
+<area shape="poly" id="edge123_Node000001_Node000051" title=" " alt="" coords="4282,17,4641,22,5157,33,5649,51,5829,62,5935,76,5983,88,6020,100,6054,118,6091,150,6106,168,6117,188,6130,224,6125,226,6112,191,6101,171,6087,154,6051,123,6018,104,5982,93,5934,81,5829,68,5649,56,5157,38,4641,28,4282,23"/>
+<area shape="rect" id="Node000053" href="$_c_s_g_scale_8h.html" title="Definition of the CSGScale class." alt="" coords="5952,225,6048,251"/>
+<area shape="poly" id="edge124_Node000001_Node000053" title=" " alt="" coords="4281,16,4559,16,4953,23,5159,30,5352,41,5517,56,5642,76,5746,108,5844,150,5927,192,5982,223,5980,228,5924,196,5842,155,5744,113,5641,81,5517,61,5351,46,5159,35,4953,28,4559,22,4281,22"/>
+<area shape="rect" id="Node000055" href="$_c_s_g_translation_8h.html" title="Definition of the CSGTranslation class." alt="" coords="5795,225,5927,251"/>
+<area shape="poly" id="edge127_Node000001_Node000055" title=" " alt="" coords="4281,18,4576,23,4985,34,5370,52,5510,63,5593,76,5673,108,5747,150,5808,191,5849,223,5846,227,5805,196,5744,154,5671,113,5591,81,5509,68,5369,57,4984,40,4576,29,4281,23"/>
+<area shape="rect" id="Node000057" href="$_list_of_c_s_g_nodes_8h.html" title="Definition of the ListOfCSGNodes class." alt="" coords="5505,152,5645,177"/>
+<area shape="poly" id="edge195_Node000001_Node000057" title=" " alt="" coords="4282,17,4557,20,4933,29,5285,47,5412,60,5457,68,5486,76,5513,92,5537,112,5569,150,5565,154,5533,116,5510,96,5484,81,5456,73,5411,65,5284,52,4933,35,4557,26,4282,22"/>
+<area shape="rect" id="Node000058" href="$_compartment_mapping_8h.html" title="Definition of the CompartmentMapping class." alt="" coords="7634,372,7814,397"/>
+<area shape="poly" id="edge129_Node000001_Node000058" title=" " alt="" coords="4282,17,4982,19,6088,27,6649,34,7139,45,7501,58,7616,67,7677,76,7724,88,7765,101,7781,110,7794,123,7802,140,7805,163,7805,240,7798,281,7780,319,7757,351,7738,374,7734,370,7753,348,7775,316,7793,279,7800,239,7800,163,7797,142,7790,126,7778,114,7763,106,7722,93,7675,81,7615,72,7501,64,7139,50,6649,40,6088,32,4982,24,4282,22"/>
+<area shape="rect" id="Node000062" href="$_diffusion_coefficient_8h.html" title="Definition of the DiffusionCoefficient class." alt="" coords="3931,372,4093,397"/>
+<area shape="poly" id="edge137_Node000001_Node000062" title=" " alt="" coords="4153,22,4069,29,4023,37,3978,50,3939,68,3907,93,3886,124,3881,143,3879,163,3879,239,3882,284,3889,302,3903,322,3919,338,3938,351,3976,370,3974,374,3935,356,3916,342,3899,326,3885,305,3877,286,3873,239,3873,163,3875,142,3881,122,3903,89,3936,64,3977,45,4021,32,4068,23,4153,16"/>
+<area shape="rect" id="Node000064" href="$_domain_8h.html" title="Definition of the Domain class." alt="" coords="6753,225,6839,251"/>
+<area shape="poly" id="edge141_Node000001_Node000064" title=" " alt="" coords="4282,17,4822,23,5635,34,6384,52,6631,63,6703,69,6736,76,6753,92,6767,111,6786,153,6795,194,6798,225,6793,225,6790,195,6781,154,6763,113,6749,95,6733,81,6702,75,6630,69,6384,57,5634,40,4822,28,4282,23"/>
+<area shape="rect" id="Node000066" href="$_list_of_domains_8h.html" title="Definition of the ListOfDomains class." alt="" coords="6961,299,7092,324"/>
+<area shape="poly" id="edge199_Node000001_Node000066" title=" " alt="" coords="4282,17,4791,18,5553,25,5935,32,6266,42,6509,57,6585,66,6625,76,6651,95,6668,116,6679,138,6687,161,6704,207,6719,229,6743,248,6773,259,6829,272,6962,296,6961,302,6828,277,6772,264,6740,253,6716,232,6700,210,6682,163,6674,140,6664,118,6647,99,6623,81,6584,71,6508,62,6266,48,5935,37,5553,30,4791,23,4282,22"/>
+<area shape="rect" id="Node000068" href="$_domain_type_8h.html" title="Definition of the DomainType class." alt="" coords="7023,79,7137,104"/>
+<area shape="poly" id="edge148_Node000001_Node000068" title=" " alt="" coords="4282,17,4674,19,5324,27,6117,44,6530,58,6936,76,7023,82,7022,87,6936,81,6530,64,6117,50,5324,32,4674,24,4282,22"/>
+<area shape="rect" id="Node000070" href="$_list_of_domain_types_8h.html" title="Definition of the ListOfDomainTypes class." alt="" coords="6921,152,7081,177"/>
+<area shape="poly" id="edge198_Node000001_Node000070" title=" " alt="" coords="4282,17,4798,19,5587,26,5991,34,6353,44,6635,58,6735,66,6801,76,6854,91,6904,111,6982,149,6980,154,6902,116,6852,96,6799,81,6734,72,6634,63,6353,49,5991,39,5587,32,4798,24,4282,22"/>
+<area shape="rect" id="Node000072" href="$_geometry_definition_8h.html" title="Definition of the GeometryDefinition class." alt="" coords="1207,152,1369,177"/>
+<area shape="poly" id="edge156_Node000001_Node000072" title=" " alt="" coords="4153,22,3567,25,2667,33,2214,41,1819,51,1529,64,1437,72,1389,81,1361,96,1335,116,1299,154,1295,150,1332,112,1358,92,1387,76,1436,67,1528,59,1819,46,2214,35,2667,28,3567,19,4153,17"/>
+<area shape="rect" id="Node000073" href="$_list_of_geometry_definitions_8h.html" title="Definition of the ListOfGeometryDefinitions class." alt="" coords="1059,225,1266,251"/>
+<area shape="poly" id="edge200_Node000001_Node000073" title=" " alt="" coords="4153,23,2643,40,1780,58,1483,69,1389,75,1339,81,1294,93,1260,104,1229,123,1197,154,1185,171,1176,191,1167,226,1162,224,1171,189,1180,169,1193,150,1226,118,1257,99,1293,87,1338,76,1389,70,1483,63,1780,52,2643,35,4153,17"/>
+<area shape="rect" id="Node000074" href="$_mixed_geometry_8h.html" title="Definition of the MixedGeometry class." alt="" coords="1199,299,1335,324"/>
+<area shape="poly" id="edge218_Node000001_Node000074" title=" " alt="" coords="4153,22,3610,27,2786,38,2011,56,1746,68,1662,74,1618,81,1562,102,1508,129,1409,193,1330,256,1280,300,1277,296,1326,252,1406,189,1506,125,1560,98,1617,76,1662,69,1746,62,2011,51,2786,33,3610,22,4153,17"/>
+<area shape="rect" id="Node000075" href="$_parametric_geometry_8h.html" title="Definition of the ParametricGeometry class." alt="" coords="1518,299,1685,324"/>
+<area shape="poly" id="edge223_Node000001_Node000075" title=" " alt="" coords="4153,22,3801,23,3277,29,3001,37,2740,47,2516,62,2347,81,2277,96,2224,112,2104,155,1638,301,1636,296,2102,149,2223,107,2276,91,2346,76,2515,57,2740,42,3000,31,3277,24,3801,17,4153,16"/>
+<area shape="rect" id="Node000077" href="$_sampled_field_geometry_8h.html" title="Definition of the SampledFieldGeometry class." alt="" coords="1849,299,2034,324"/>
+<area shape="poly" id="edge232_Node000001_Node000077" title=" " alt="" coords="4153,22,3837,22,3377,28,3135,35,2908,46,2713,61,2566,81,2473,103,2380,131,2203,195,2058,257,1965,301,1963,296,2056,252,2201,190,2378,125,2472,98,2565,76,2712,56,2908,40,3135,30,3377,22,3837,16,4153,16"/>
+<area shape="rect" id="Node000079" href="$_interior_point_8h.html" title="Definition of the InteriorPoint class." alt="" coords="6497,79,6612,104"/>
+<area shape="poly" id="edge186_Node000001_Node000079" title=" " alt="" coords="4282,18,5114,35,5731,52,6368,76,6497,83,6497,89,6368,81,5731,57,5114,40,4282,23"/>
+<area shape="rect" id="Node000081" href="$_list_of_interior_points_8h.html" title="Definition of the ListOfInteriorPoints class." alt="" coords="6417,152,6575,177"/>
+<area shape="poly" id="edge201_Node000001_Node000081" title=" " alt="" coords="4282,17,4643,20,5181,28,5734,46,5966,59,6140,76,6231,91,6321,111,6460,149,6458,154,6319,117,6230,97,6140,81,5965,65,5734,51,5181,34,4643,25,4282,22"/>
+<area shape="rect" id="Node000083" href="$_list_of_ordinal_mappings_8h.html" title="Definition of the ListOfOrdinalMappings class." alt="" coords="2299,225,2482,251"/>
+<area shape="poly" id="edge202_Node000001_Node000083" title=" " alt="" coords="4153,23,3471,39,3065,56,2895,68,2767,81,2610,98,2544,116,2508,132,2467,154,2445,171,2426,190,2400,226,2396,223,2422,187,2442,167,2464,150,2505,127,2542,111,2609,93,2766,76,2895,63,3064,51,3471,34,4153,18"/>
+<area shape="rect" id="Node000086" href="$_list_of_parametric_objects_8h.html" title="Definition of the ListOfParametricObjects class." alt="" coords="2778,225,2969,251"/>
+<area shape="poly" id="edge206_Node000001_Node000086" title=" " alt="" coords="4153,23,3902,28,3565,39,3251,57,3137,68,3071,81,3041,95,3011,113,2957,154,2913,196,2885,227,2881,223,2909,192,2953,150,3008,109,3038,91,3070,76,3136,63,3250,51,3564,34,3902,23,4153,18"/>
+<area shape="rect" id="Node000089" href="$_list_of_sampled_fields_8h.html" title="Definition of the ListOfSampledFields class." alt="" coords="7378,152,7545,177"/>
+<area shape="poly" id="edge210_Node000001_Node000089" title=" " alt="" coords="4282,17,4923,19,5923,27,6428,34,6869,45,7194,58,7297,67,7351,76,7383,91,7412,111,7453,150,7449,154,7409,116,7381,96,7350,81,7296,72,7193,64,6869,50,6428,40,5923,32,4923,24,4282,22"/>
+<area shape="rect" id="Node000092" href="$_list_of_sampled_volumes_8h.html" title="Definition of the ListOfSampledVolumes class." alt="" coords="3965,225,4150,251"/>
+<area shape="poly" id="edge214_Node000001_Node000092" title=" " alt="" coords="4213,45,4190,109,4171,145,4147,179,4116,207,4083,227,4080,223,4112,203,4143,176,4166,143,4185,107,4208,43"/>
+<area shape="rect" id="Node000095" href="$_ordinal_mapping_8h.html" title="Definition of the OrdinalMapping class." alt="" coords="2477,152,2614,177"/>
+<area shape="poly" id="edge219_Node000001_Node000095" title=" " alt="" coords="4153,23,3534,41,3169,58,3017,69,2902,81,2811,97,2723,117,2584,155,2582,149,2721,112,2810,92,2901,76,3016,64,3168,53,3533,36,4153,18"/>
+<area shape="rect" id="Node000096" href="$_parametric_object_8h.html" title="Definition of the ParametricObject class." alt="" coords="2721,152,2868,177"/>
+<area shape="poly" id="edge224_Node000001_Node000096" title=" " alt="" coords="4153,22,3907,23,3566,30,3389,38,3223,48,3082,63,2975,81,2928,97,2883,116,2814,154,2811,150,2881,112,2926,92,2974,76,3081,57,3223,43,3388,32,3565,25,3907,18,4153,16"/>
+<area shape="rect" id="Node000097" href="$_sampled_field_8h.html" title="Definition of the SampledField class." alt="" coords="7541,79,7664,104"/>
+<area shape="poly" id="edge228_Node000001_Node000097" title=" " alt="" coords="4282,17,4737,18,5509,25,6458,43,6954,57,7441,76,7541,82,7541,88,7441,81,6954,63,6458,48,5509,31,4737,23,4282,22"/>
+<area shape="rect" id="Node000098" href="$_sampled_volume_8h.html" title="Definition of the SampledVolume class." alt="" coords="3993,152,4133,177"/>
+<area shape="poly" id="edge233_Node000001_Node000098" title=" " alt="" coords="4196,42,4077,154,4073,150,4193,39"/>
+<area shape="rect" id="Node000099" href="$_spatial_points_8h.html" title="Definition of the SpatialPoints class." alt="" coords="1445,225,1563,251"/>
+<area shape="poly" id="edge238_Node000001_Node000099" title=" " alt="" coords="4153,22,3618,25,2808,34,2402,41,2050,51,1790,65,1709,72,1666,81,1639,95,1614,113,1570,154,1535,195,1513,227,1509,223,1531,192,1566,150,1611,108,1637,90,1664,76,1708,67,1790,59,2049,46,2402,36,2808,28,3618,20,4153,17"/>
+<area shape="rect" id="Node000101" href="$_spatial_reaction_plugin_8h.html" title="Definition of the SpatialReactionPlugin class." alt="" coords="7924,445,8100,471"/>
+<area shape="poly" id="edge242_Node000001_Node000101" title=" " alt="" coords="4282,17,4993,22,6118,33,7189,51,7558,63,7675,69,7738,76,7807,84,7871,90,7897,98,7918,111,7931,132,7936,163,7936,312,7943,353,7961,390,7983,421,8002,443,7998,447,7979,424,7956,392,7938,354,7931,313,7931,164,7926,134,7914,115,7895,103,7870,96,7807,90,7737,81,7674,74,7557,68,7189,57,6118,39,4993,27,4282,22"/>
+<area shape="rect" id="Node000103" href="$_spatial_species_plugin_8h.html" title="Definition of the SpatialSpeciesPlugin class." alt="" coords="8125,445,8294,471"/>
+<area shape="poly" id="edge246_Node000001_Node000103" title=" " alt="" coords="4282,17,4978,17,6094,23,6673,30,7193,41,7599,56,7743,65,7838,76,7883,80,7929,81,8012,80,8047,86,8075,99,8086,111,8094,125,8100,163,8100,313,8103,334,8110,355,8135,392,8165,422,8193,443,8190,447,8162,426,8130,395,8105,357,8097,335,8095,313,8095,164,8089,127,8081,114,8072,104,8046,91,8012,86,7929,86,7883,86,7837,81,7742,71,7599,61,7192,46,6673,36,6094,29,4978,22,4282,22"/>
+<area shape="rect" id="Node000105" href="$_spatial_symbol_reference_8h.html" title="Definition of the SpatialSymbolReference class." alt="" coords="4259,372,4453,397"/>
+<area shape="poly" id="edge250_Node000001_Node000105" title=" " alt="" coords="4221,44,4232,137,4246,194,4266,249,4284,274,4306,297,4352,370,4347,373,4302,300,4280,277,4262,252,4241,196,4227,138,4216,45"/>
+<area shape="rect" id="Node000107" href="$_transformation_component_8h.html" title="Definition of the TransformationComponent class." alt="" coords="4410,152,4617,177"/>
+<area shape="poly" id="edge254_Node000001_Node000107" title=" " alt="" coords="4262,33,4364,76,4438,115,4496,150,4493,154,4435,120,4362,81,4260,38"/>
+<area shape="rect" id="Node000003" href="$_adjacent_domains_8cpp.html" title="Implementation of the AdjacentDomains class." alt="" coords="43,225,207,251"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="215,117,136,227,132,224,211,114"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="259,110,318,150,315,154,256,114"/>
+<area shape="poly" id="edge14_Node000002_Node000007" title=" " alt="" coords="158,110,107,127,58,154,38,170,22,190,12,212,8,237,8,386,11,426,21,457,36,479,56,495,82,505,111,510,182,508,264,496,354,480,447,468,539,468,887,489,1319,502,1808,509,2324,511,3330,511,3763,512,4112,516,4435,524,4435,530,4112,521,3763,517,3330,517,2324,517,1808,514,1319,507,887,494,539,473,447,474,355,485,265,501,183,513,111,516,80,510,54,500,32,483,16,459,6,427,3,386,3,236,7,210,18,187,34,166,55,149,104,123,156,105"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="288,184,160,228,158,223,286,179"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="441,171,507,175,808,187,1042,192,1276,200,1576,223,1838,243,1952,260,2094,296,2122,309,2149,321,2232,337,2342,349,2609,367,2875,376,3066,380,3066,385,2875,381,2609,372,2342,354,2231,342,2147,327,2119,314,2092,301,1951,265,1838,248,1576,228,1276,206,1042,197,807,192,507,180,440,176"/>
+<area shape="rect" id="Node000012" href="$_list_of_adjacent_domains_8cpp.html" title="Implementation of the ListOfAdjacentDomains class." alt="" coords="232,225,435,251"/>
+<area shape="poly" id="edge13_Node000004_Node000012" title=" " alt="" coords="336,191,336,225,331,225,331,191"/>
+<area shape="rect" id="Node000006" href="$_geometry_8cpp.html" title="Implementation of the Geometry class." alt="" coords="2048,445,2160,471"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="3053,393,2160,455,2160,450,3052,388"/>
+<area shape="poly" id="edge7_Node000005_Node000007" title=" " alt="" coords="3105,411,3096,442,3098,456,3104,468,3151,473,3272,480,3657,497,4435,524,4435,530,3656,502,3272,486,3150,479,3101,473,3092,458,3091,441,3099,409"/>
+<area shape="rect" id="Node000009" href="$_spatial_model_plugin_8h.html" title="Definition of the SpatialModelPlugin class." alt="" coords="3114,445,3273,471"/>
+<area shape="poly" id="edge9_Node000005_Node000009" title=" " alt="" coords="3139,405,3182,443,3179,447,3136,409"/>
+<area shape="rect" id="Node000008" href="$_spatial_validator_8cpp.html" title="Definition of SpatialValidator." alt="" coords="4450,592,4601,617"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="4528,558,4528,592,4523,592,4523,558"/>
+<area shape="poly" id="edge11_Node000009_Node000007" title=" " alt="" coords="3287,468,3292,468,3622,491,3947,507,4435,525,4435,530,3947,513,3622,496,3292,473,3287,473"/>
+<area shape="rect" id="Node000010" href="$_spatial_extension_8cpp.html" title="Implementation of SpatialExtension." alt="" coords="7491,519,7650,544"/>
+<area shape="poly" id="edge10_Node000009_Node000010" title=" " alt="" coords="3287,462,3437,468,4064,485,4701,498,5920,516,6911,524,7491,527,7491,532,6911,530,5920,521,4701,503,4064,490,3437,473,3287,467"/>
+<area shape="rect" id="Node000011" href="$_spatial_model_plugin_8cpp.html" title="Implementation of the SpatialModelPlugin class." alt="" coords="3106,519,3281,544"/>
+<area shape="poly" id="edge12_Node000009_Node000011" title=" " alt="" coords="3196,484,3196,519,3191,519,3191,484"/>
+<area shape="poly" id="edge17_Node000013_Node000007" title=" " alt="" coords="3755,404,3722,417,3694,433,3685,441,3681,450,3681,459,3687,469,3717,478,3784,487,3990,503,4435,524,4435,530,3990,509,3783,492,3716,483,3684,473,3676,461,3675,449,3681,438,3691,428,3719,412,3753,399"/>
+<area shape="rect" id="Node000014" href="$_advection_coefficient_8cpp.html" title="Implementation of the AdvectionCoefficient class." alt="" coords="3697,445,3881,471"/>
+<area shape="poly" id="edge16_Node000013_Node000014" title=" " alt="" coords="3807,412,3796,446,3790,444,3802,410"/>
+<area shape="rect" id="Node000015" href="$_spatial_parameter_plugin_8h.html" title="Definition of the SpatialParameterPlugin class." alt="" coords="3905,445,4092,471"/>
+<area shape="poly" id="edge18_Node000013_Node000015" title=" " alt="" coords="3855,400,3969,443,3967,448,3854,405"/>
+<area shape="poly" id="edge20_Node000015_Node000007" title=" " alt="" coords="4097,470,4441,516,4440,521,4097,475"/>
+<area shape="poly" id="edge19_Node000015_Node000010" title=" " alt="" coords="4106,465,4156,468,4667,488,5187,503,6183,520,6999,527,7491,528,7491,533,6999,532,6183,526,5187,508,4666,493,4156,473,4105,470"/>
+<area shape="rect" id="Node000016" href="$_spatial_parameter_plugin_8cpp.html" title="Implementation of the SpatialParameterPlugin class." alt="" coords="3898,519,4099,544"/>
+<area shape="poly" id="edge21_Node000015_Node000016" title=" " alt="" coords="4001,484,4001,519,3996,519,3996,484"/>
+<area shape="poly" id="edge24_Node000017_Node000006" title=" " alt="" coords="937,327,1038,362,1099,380,1160,395,1241,406,1347,417,1602,434,2048,452,2047,458,1602,439,1346,422,1240,412,1160,400,1097,386,1036,367,935,332"/>
+<area shape="poly" id="edge28_Node000017_Node000007" title=" " alt="" coords="909,336,946,416,965,451,977,468,1023,476,1129,483,1485,495,1978,503,2539,509,4112,516,4435,525,4435,530,4112,521,2539,514,1978,508,1485,500,1128,489,1022,481,975,473,960,454,941,418,904,338"/>
+<area shape="rect" id="Node000018" href="$_analytic_geometry_8cpp.html" title="Implementation of the AnalyticGeometry class." alt="" coords="741,372,907,397"/>
+<area shape="poly" id="edge23_Node000017_Node000018" title=" " alt="" coords="876,336,838,374,834,370,872,332"/>
+<area shape="rect" id="Node000019" href="$_geometry_definition_8cpp.html" title="Implementation of the GeometryDefinition class." alt="" coords="1185,372,1362,397"/>
+<area shape="poly" id="edge25_Node000017_Node000019" title=" " alt="" coords="970,324,1213,369,1212,375,969,329"/>
+<area shape="rect" id="Node000020" href="$_list_of_geometry_definitions_8cpp.html" title="Implementation of the ListOfGeometryDefinitions class." alt="" coords="1386,372,1609,397"/>
+<area shape="poly" id="edge26_Node000017_Node000020" title=" " alt="" coords="985,320,1401,369,1400,375,985,326"/>
+<area shape="rect" id="Node000021" href="$_mixed_geometry_8cpp.html" title="Implementation of the MixedGeometry class." alt="" coords="1683,372,1834,397"/>
+<area shape="poly" id="edge27_Node000017_Node000021" title=" " alt="" coords="986,317,1622,369,1683,374,1683,380,1621,375,985,323"/>
+<area shape="poly" id="edge35_Node000022_Node000007" title=" " alt="" coords="558,187,448,253,421,265,399,271,380,281,364,300,360,311,364,323,394,364,425,395,458,416,493,430,574,449,674,468,741,476,867,482,1262,493,2391,507,4112,516,4435,525,4435,530,4112,521,2391,512,1262,498,867,488,740,481,673,473,573,454,491,435,456,421,422,399,390,368,359,325,354,311,359,297,377,276,397,266,420,260,445,248,555,182"/>
+<area shape="rect" id="Node000023" href="$_analytic_volume_8cpp.html" title="Implementation of the AnalyticVolume class." alt="" coords="374,299,525,324"/>
+<area shape="poly" id="edge30_Node000022_Node000023" title=" " alt="" coords="568,189,462,300,458,297,564,186"/>
+<area shape="poly" id="edge31_Node000022_Node000024" title=" " alt="" coords="608,186,642,223,638,227,604,189"/>
+<area shape="poly" id="edge32_Node000024_Node000017" title=" " alt="" coords="704,252,857,296,856,301,702,257"/>
+<area shape="poly" id="edge33_Node000024_Node000023" title=" " alt="" coords="606,258,483,301,481,296,604,253"/>
+<area shape="rect" id="Node000025" href="$_list_of_analytic_volumes_8cpp.html" title="Implementation of the ListOfAnalyticVolumes class." alt="" coords="549,299,745,324"/>
+<area shape="poly" id="edge34_Node000024_Node000025" title=" " alt="" coords="652,265,650,299,645,298,647,264"/>
+<area shape="poly" id="edge45_Node000026_Node000007" title=" " alt="" coords="3628,117,3619,146,3619,177,3627,200,3639,220,3667,254,3679,270,3685,287,3685,305,3674,326,3657,344,3640,354,3621,359,3602,360,3562,361,3540,365,3517,374,3474,395,3434,417,3421,429,3413,441,3414,454,3423,468,3460,475,3551,483,3837,499,4435,524,4435,529,3837,505,3550,489,3459,481,3420,473,3409,456,3408,440,3417,426,3431,413,3471,391,3515,370,3539,360,3561,356,3602,355,3620,353,3637,349,3654,339,3670,322,3680,304,3680,287,3674,272,3663,257,3635,223,3622,202,3613,178,3614,145,3623,116"/>
+<area shape="rect" id="Node000027" href="$_boundary_8cpp.html" title="Implementation of the Boundary class." alt="" coords="3628,152,3737,177"/>
+<area shape="poly" id="edge37_Node000026_Node000027" title=" " alt="" coords="3654,114,3678,150,3673,153,3650,117"/>
+<area shape="poly" id="edge38_Node000026_Node000028" title=" " alt="" coords="3598,112,3492,154,3490,149,3596,107"/>
+<area shape="poly" id="edge44_Node000028_Node000007" title=" " alt="" coords="3511,180,3569,204,3625,238,3646,258,3659,279,3661,302,3650,326,3627,348,3603,360,3578,364,3552,363,3498,360,3468,364,3437,374,3394,395,3355,417,3342,429,3335,441,3335,454,3344,468,3384,476,3483,484,3794,500,4435,524,4435,530,3793,506,3483,489,3383,481,3341,473,3330,456,3329,440,3337,425,3352,413,3391,390,3435,370,3467,359,3497,355,3552,358,3577,359,3601,355,3624,344,3646,322,3656,301,3654,281,3642,261,3622,242,3567,209,3509,185"/>
+<area shape="rect" id="Node000029" href="$_coordinate_component_8cpp.html" title="Implementation of the CoordinateComponent class." alt="" coords="3441,299,3636,324"/>
+<area shape="poly" id="edge39_Node000028_Node000029" title=" " alt="" coords="3478,188,3535,297,3530,300,3473,191"/>
+<area shape="poly" id="edge40_Node000028_Node000030" title=" " alt="" coords="3431,186,3357,227,3354,223,3429,182"/>
+<area shape="poly" id="edge42_Node000030_Node000005" title=" " alt="" coords="3259,257,3211,274,3167,301,3151,318,3138,337,3121,373,3116,371,3133,335,3147,314,3164,297,3209,269,3257,252"/>
+<area shape="poly" id="edge41_Node000030_Node000029" title=" " alt="" coords="3381,253,3507,296,3505,301,3379,258"/>
+<area shape="rect" id="Node000031" href="$_list_of_coordinate_components_8cpp.html" title="Implementation of the ListOfCoordinateComponents class." alt="" coords="3177,299,3417,324"/>
+<area shape="poly" id="edge43_Node000030_Node000031" title=" " alt="" coords="3325,264,3306,300,3301,297,3320,262"/>
+<area shape="poly" id="edge48_Node000032_Node000007" title=" " alt="" coords="3522,403,3480,414,3447,430,3436,438,3431,447,3432,457,3439,468,3475,475,3564,483,3846,499,4435,524,4435,529,3846,505,3564,488,3474,481,3436,473,3427,459,3426,446,3432,435,3444,425,3478,409,3520,398"/>
+<area shape="poly" id="edge49_Node000032_Node000015" title=" " alt="" coords="3683,397,3936,443,3935,448,3682,402"/>
+<area shape="rect" id="Node000033" href="$_boundary_condition_8cpp.html" title="Implementation of the BoundaryCondition class." alt="" coords="3449,445,3623,471"/>
+<area shape="poly" id="edge47_Node000032_Node000033" title=" " alt="" coords="3587,409,3549,447,3546,443,3583,405"/>
+<area shape="poly" id="edge57_Node000034_Node000007" title=" " alt="" coords="5179,265,5164,296,5141,326,5102,360,5068,386,5035,405,5002,421,4931,445,4839,473,4724,503,4616,522,4615,517,4723,498,4838,468,4929,440,5000,416,5032,401,5065,381,5099,356,5137,322,5159,293,5174,263"/>
+<area shape="rect" id="Node000035" href="$_c_s_g_homogeneous_transformation_8cpp.html" title="Implementation of the CSGHomogeneousTransformation class." alt="" coords="4858,299,5126,324"/>
+<area shape="poly" id="edge51_Node000034_Node000035" title=" " alt="" coords="5143,258,5025,301,5023,296,5141,253"/>
+<area shape="rect" id="Node000036" href="$_c_s_g_node_8cpp.html" title="Implementation of the CSGNode class." alt="" coords="5555,299,5666,324"/>
+<area shape="poly" id="edge52_Node000034_Node000036" title=" " alt="" coords="5268,250,5544,296,5555,298,5555,303,5544,301,5268,256"/>
+<area shape="rect" id="Node000037" href="$_c_s_g_object_8cpp.html" title="Implementation of the CSGObject class." alt="" coords="5413,299,5531,324"/>
+<area shape="poly" id="edge53_Node000034_Node000037" title=" " alt="" coords="5245,251,5426,296,5425,301,5244,257"/>
+<area shape="rect" id="Node000038" href="$_c_s_g_set_operator_8cpp.html" title="Implementation of the CSGSetOperator class." alt="" coords="5921,299,6074,324"/>
+<area shape="poly" id="edge54_Node000034_Node000038" title=" " alt="" coords="5326,248,5908,296,5921,297,5920,303,5908,301,5325,253"/>
+<area shape="rect" id="Node000039" href="$_c_s_g_transformation_8cpp.html" title="Implementation of the CSGTransformation class." alt="" coords="6321,299,6495,324"/>
+<area shape="poly" id="edge55_Node000034_Node000039" title=" " alt="" coords="5326,248,5589,263,5794,273,6257,296,6321,300,6320,306,6257,301,5793,278,5589,269,5326,253"/>
+<area shape="rect" id="Node000040" href="$_list_of_c_s_g_nodes_8cpp.html" title="Implementation of the ListOfCSGNodes class." alt="" coords="5741,299,5896,324"/>
+<area shape="poly" id="edge56_Node000034_Node000040" title=" " alt="" coords="5301,250,5741,299,5741,304,5300,255"/>
+<area shape="poly" id="edge120_Node000041_Node000007" title=" " alt="" coords="5365,103,5258,123,5123,160,5051,186,4980,218,4911,256,4848,301,4827,322,4813,343,4797,387,4780,430,4764,452,4742,473,4712,491,4681,505,4616,523,4615,518,4679,500,4710,486,4738,469,4760,448,4775,428,4792,385,4808,341,4823,318,4845,297,4908,252,4977,213,5049,181,5122,155,5257,118,5364,98"/>
+<area shape="poly" id="edge59_Node000041_Node000036" title=" " alt="" coords="5445,113,5495,176,5602,297,5598,300,5491,179,5441,117"/>
+<area shape="poly" id="edge60_Node000041_Node000042" title=" " alt="" coords="5365,101,4772,161,4771,156,5364,96"/>
+<area shape="poly" id="edge73_Node000041_Node000047" title=" " alt="" coords="5423,118,5401,226,5396,225,5418,117"/>
+<area shape="poly" id="edge81_Node000041_Node000049" title=" " alt="" coords="5487,92,5528,98,5573,108,5618,125,5659,150,5675,167,5687,187,5701,224,5696,226,5683,190,5671,170,5656,154,5616,130,5572,113,5527,103,5486,97"/>
+<area shape="poly" id="edge88_Node000041_Node000050" title=" " alt="" coords="5487,98,5918,151,5917,156,5486,103"/>
+<area shape="poly" id="edge116_Node000041_Node000057" title=" " alt="" coords="5463,107,5551,149,5549,154,5460,112"/>
+<area shape="poly" id="edge72_Node000042_Node000007" title=" " alt="" coords="4732,190,4749,248,4761,326,4761,366,4754,406,4739,442,4714,473,4690,490,4665,503,4611,521,4609,516,4662,498,4688,485,4710,469,4734,439,4749,404,4756,366,4756,326,4744,250,4727,191"/>
+<area shape="poly" id="edge61_Node000042_Node000037" title=" " alt="" coords="4771,179,4896,213,5047,248,5248,281,5413,301,5412,307,5247,286,5046,253,4895,218,4770,184"/>
+<area shape="poly" id="edge62_Node000042_Node000043" title=" " alt="" coords="4690,186,4618,227,4615,223,4687,182"/>
+<area shape="poly" id="edge63_Node000043_Node000037" title=" " alt="" coords="4684,243,5350,296,5412,302,5412,307,5349,301,4684,249"/>
+<area shape="poly" id="edge64_Node000043_Node000044" title=" " alt="" coords="4508,253,4102,276,3757,283,3453,280,3171,271,2888,263,2586,262,2242,273,2049,285,1838,301,1824,303,1824,297,1837,296,2048,279,2242,268,2585,257,2888,258,3171,266,3453,274,3757,278,4101,271,4508,248"/>
+<area shape="rect" id="Node000046" href="$_list_of_c_s_g_objects_8cpp.html" title="Implementation of the ListOfCSGObjects class." alt="" coords="4417,299,4580,324"/>
+<area shape="poly" id="edge71_Node000043_Node000046" title=" " alt="" coords="4571,261,4516,301,4513,296,4568,257"/>
+<area shape="poly" id="edge66_Node000044_Node000006" title=" " alt="" coords="1838,322,2002,350,2099,370,2110,388,2113,409,2110,445,2104,445,2108,409,2105,390,2096,374,2001,355,1837,327"/>
+<area shape="poly" id="edge70_Node000044_Node000007" title=" " alt="" coords="1837,321,1838,321,1970,335,2074,341,2178,349,2310,369,2388,390,2487,420,2586,450,2664,468,3428,495,4435,525,4435,530,3428,500,2664,473,2585,455,2486,425,2387,395,2309,375,2177,355,2074,346,1970,340,1837,327,1837,327"/>
+<area shape="poly" id="edge67_Node000044_Node000019" title=" " alt="" coords="1696,327,1359,375,1358,369,1696,322"/>
+<area shape="poly" id="edge68_Node000044_Node000020" title=" " alt="" coords="1711,330,1542,374,1540,369,1710,325"/>
+<area shape="poly" id="edge69_Node000044_Node000021" title=" " alt="" coords="1766,338,1763,372,1757,372,1761,337"/>
+<area shape="rect" id="Node000045" href="$_c_s_geometry_8cpp.html" title="Implementation of the CSGeometry class." alt="" coords="2167,372,2297,397"/>
+<area shape="poly" id="edge65_Node000044_Node000045" title=" " alt="" coords="1837,321,1838,321,2167,371,2167,376,1837,327,1837,327"/>
+<area shape="poly" id="edge80_Node000047_Node000007" title=" " alt="" coords="5391,265,5375,297,5351,326,5293,369,5240,399,5189,419,5139,432,5031,448,4968,458,4897,473,4749,503,4616,522,4615,517,4748,497,4895,468,4967,453,5030,443,5138,427,5188,414,5237,394,5290,365,5347,322,5371,294,5386,263"/>
+<area shape="poly" id="edge74_Node000047_Node000036" title=" " alt="" coords="5444,252,5577,296,5575,301,5443,257"/>
+<area shape="poly" id="edge75_Node000047_Node000037" title=" " alt="" coords="5420,258,5461,296,5458,300,5416,262"/>
+<area shape="poly" id="edge77_Node000047_Node000038" title=" " alt="" coords="5470,245,5908,296,5921,298,5920,303,5908,301,5469,250"/>
+<area shape="poly" id="edge78_Node000047_Node000039" title=" " alt="" coords="5470,242,6258,296,6321,301,6320,306,6257,301,5469,247"/>
+<area shape="poly" id="edge79_Node000047_Node000040" title=" " alt="" coords="5470,249,5751,296,5750,301,5469,254"/>
+<area shape="rect" id="Node000048" href="$_c_s_g_primitive_8cpp.html" title="Implementation of the CSGPrimitive class." alt="" coords="5202,299,5337,324"/>
+<area shape="poly" id="edge76_Node000047_Node000048" title=" " alt="" coords="5365,260,5291,301,5289,296,5362,255"/>
+<area shape="poly" id="edge87_Node000049_Node000007" title=" " alt="" coords="5704,265,5698,297,5691,312,5681,326,5638,363,5597,393,5557,416,5518,434,5479,446,5440,455,5362,462,5191,459,5093,461,4983,473,4787,502,4616,523,4615,518,4786,497,4982,468,5092,455,5191,453,5361,456,5439,449,5478,441,5516,429,5555,411,5594,388,5635,359,5677,322,5686,310,5693,295,5699,264"/>
+<area shape="poly" id="edge82_Node000049_Node000036" title=" " alt="" coords="5677,261,5627,301,5624,296,5674,257"/>
+<area shape="poly" id="edge83_Node000049_Node000037" title=" " alt="" coords="5652,257,5510,301,5508,296,5650,252"/>
+<area shape="poly" id="edge84_Node000049_Node000038" title=" " alt="" coords="5763,251,5950,296,5949,301,5761,256"/>
+<area shape="poly" id="edge85_Node000049_Node000039" title=" " alt="" coords="5785,248,6084,279,6321,300,6320,305,6083,284,5784,253"/>
+<area shape="poly" id="edge86_Node000049_Node000040" title=" " alt="" coords="5733,255,5801,296,5798,301,5731,260"/>
+<area shape="poly" id="edge115_Node000050_Node000007" title=" " alt="" coords="6063,178,6251,223,6295,236,6339,248,6398,253,6479,254,6670,254,6759,259,6829,270,6854,278,6871,291,6877,306,6872,325,6850,354,6824,379,6792,400,6757,417,6676,442,6588,457,6498,465,6412,468,6273,473,6031,493,5784,508,5304,526,4895,533,4616,533,4616,528,4895,528,5304,521,5784,503,6031,488,6273,468,6412,463,6498,459,6587,451,6675,437,6755,412,6790,395,6820,375,6846,351,6867,323,6872,307,6866,294,6851,283,6827,275,6758,264,6670,260,6479,260,6397,259,6338,253,6294,242,6250,228,6062,183"/>
+<area shape="poly" id="edge89_Node000050_Node000034" title=" " alt="" coords="5905,177,5313,228,5312,223,5904,171"/>
+<area shape="poly" id="edge106_Node000050_Node000039" title=" " alt="" coords="6056,178,6202,223,6303,262,6383,296,6381,301,6301,267,6200,228,6054,184"/>
+<area shape="poly" id="edge90_Node000050_Node000051" title=" " alt="" coords="6032,181,6110,223,6108,227,6029,186"/>
+<area shape="poly" id="edge98_Node000050_Node000053" title=" " alt="" coords="6001,191,6002,225,5997,225,5996,191"/>
+<area shape="poly" id="edge107_Node000050_Node000055" title=" " alt="" coords="5965,186,5885,227,5882,223,5962,181"/>
+<area shape="poly" id="edge97_Node000051_Node000007" title=" " alt="" coords="6203,242,6591,272,6770,287,6850,297,6856,311,6850,326,6832,342,6805,358,6729,386,6625,411,6497,433,6350,452,6188,469,5832,495,5465,512,5117,524,4615,532,4615,527,5117,518,5465,507,5832,489,6187,463,6350,447,6496,428,6624,406,6727,381,6803,353,6829,338,6846,322,6851,311,6846,301,6770,292,6591,277,6202,247"/>
+<area shape="poly" id="edge91_Node000051_Node000036" title=" " alt="" coords="6059,253,5666,306,5666,301,6059,248"/>
+<area shape="poly" id="edge92_Node000051_Node000037" title=" " alt="" coords="6059,253,5913,269,5800,278,5687,286,5544,301,5532,303,5531,298,5544,296,5686,281,5799,272,5913,264,6059,248"/>
+<area shape="poly" id="edge94_Node000051_Node000038" title=" " alt="" coords="6099,259,6020,301,6018,296,6096,255"/>
+<area shape="poly" id="edge95_Node000051_Node000039" title=" " alt="" coords="6189,251,6364,296,6362,301,6188,257"/>
+<area shape="poly" id="edge96_Node000051_Node000040" title=" " alt="" coords="6068,256,5870,301,5869,296,6067,251"/>
+<area shape="rect" id="Node000052" href="$_c_s_g_rotation_8cpp.html" title="Implementation of the CSGRotation class." alt="" coords="6705,299,6836,324"/>
+<area shape="poly" id="edge93_Node000051_Node000052" title=" " alt="" coords="6203,244,6687,296,6705,298,6705,304,6686,301,6202,249"/>
+<area shape="poly" id="edge105_Node000053_Node000007" title=" " alt="" coords="6061,248,6062,248,6127,252,6219,253,6432,254,6531,259,6607,271,6633,280,6650,292,6654,307,6645,326,6628,340,6603,354,6534,380,6439,403,6324,423,6044,458,5724,484,5392,504,5077,518,4616,531,4616,526,5077,512,5392,499,5724,479,6044,452,6323,418,6438,397,6532,375,6601,349,6625,336,6641,322,6649,307,6645,295,6631,285,6605,276,6530,265,6432,260,6219,258,6127,257,6061,253,6061,253"/>
+<area shape="poly" id="edge99_Node000053_Node000036" title=" " alt="" coords="5939,254,5667,303,5666,298,5938,248"/>
+<area shape="poly" id="edge100_Node000053_Node000037" title=" " alt="" coords="5938,253,5740,279,5544,301,5532,303,5531,298,5544,296,5739,273,5938,248"/>
+<area shape="poly" id="edge102_Node000053_Node000038" title=" " alt="" coords="6002,265,6000,299,5995,298,5996,264"/>
+<area shape="poly" id="edge103_Node000053_Node000039" title=" " alt="" coords="6061,248,6062,248,6340,296,6339,301,6061,253,6060,253"/>
+<area shape="poly" id="edge104_Node000053_Node000040" title=" " alt="" coords="5959,258,5849,301,5847,296,5957,253"/>
+<area shape="rect" id="Node000054" href="$_c_s_g_scale_8cpp.html" title="Implementation of the CSGScale class." alt="" coords="6519,299,6630,324"/>
+<area shape="poly" id="edge101_Node000053_Node000054" title=" " alt="" coords="6061,248,6062,248,6187,264,6285,273,6383,281,6508,296,6519,298,6519,303,6508,301,6382,286,6284,278,6186,269,6061,253,6061,253"/>
+<area shape="poly" id="edge114_Node000055_Node000007" title=" " alt="" coords="5941,248,6259,297,6266,311,6259,326,6226,349,6170,371,6095,391,6003,409,5780,442,5524,469,5256,491,5000,509,4616,529,4615,524,5000,503,5256,486,5523,464,5779,437,6002,404,6094,385,6169,366,6223,344,6255,322,6260,311,6256,301,5940,254"/>
+<area shape="poly" id="edge108_Node000055_Node000036" title=" " alt="" coords="5809,257,5652,301,5651,296,5807,252"/>
+<area shape="poly" id="edge109_Node000055_Node000037" title=" " alt="" coords="5786,256,5532,302,5531,297,5785,250"/>
+<area shape="poly" id="edge110_Node000055_Node000038" title=" " alt="" coords="5896,254,5976,296,5974,301,5894,259"/>
+<area shape="poly" id="edge111_Node000055_Node000039" title=" " alt="" coords="5941,248,6321,297,6320,302,5941,253"/>
+<area shape="poly" id="edge113_Node000055_Node000040" title=" " alt="" coords="5850,264,5828,300,5823,297,5845,261"/>
+<area shape="rect" id="Node000056" href="$_c_s_g_translation_8cpp.html" title="Implementation of the CSGTranslation class." alt="" coords="6099,299,6245,324"/>
+<area shape="poly" id="edge112_Node000055_Node000056" title=" " alt="" coords="5925,251,6122,296,6121,301,5924,256"/>
+<area shape="poly" id="edge117_Node000057_Node000036" title=" " alt="" coords="5574,191,5574,220,5579,250,5590,276,5604,297,5599,300,5585,278,5573,251,5569,220,5569,191"/>
+<area shape="poly" id="edge119_Node000057_Node000040" title=" " alt="" coords="5584,190,5599,221,5622,249,5649,267,5680,281,5742,299,5741,304,5678,286,5647,272,5618,253,5594,223,5580,192"/>
+<area shape="poly" id="edge118_Node000057_Node000049" title=" " alt="" coords="5608,182,5682,223,5679,227,5606,186"/>
+<area shape="poly" id="edge135_Node000058_Node000007" title=" " alt="" coords="7643,402,7554,422,7460,448,7431,461,7402,473,7330,484,7221,494,6914,509,6519,519,6076,527,5205,533,4616,533,4616,528,5205,527,6076,521,6519,514,6913,503,7221,488,7329,479,7401,468,7429,457,7458,443,7553,416,7642,397"/>
+<area shape="rect" id="Node000059" href="$_compartment_mapping_8cpp.html" title="Implementation of the CompartmentMapping class." alt="" coords="7471,445,7665,471"/>
+<area shape="poly" id="edge130_Node000058_Node000059" title=" " alt="" coords="7688,405,7595,448,7592,443,7685,401"/>
+<area shape="rect" id="Node000060" href="$_spatial_compartment_plugin_8h.html" title="Definition of the SpatialCompartmentPlugin class." alt="" coords="7690,445,7899,471"/>
+<area shape="poly" id="edge131_Node000058_Node000060" title=" " alt="" coords="7747,405,7785,443,7781,447,7743,409"/>
+<area shape="poly" id="edge134_Node000060_Node000007" title=" " alt="" coords="7676,473,7377,486,6988,497,6071,515,4616,532,4615,527,6070,509,6988,492,7377,481,7676,468"/>
+<area shape="poly" id="edge133_Node000060_Node000010" title=" " alt="" coords="7747,477,7608,521,7606,516,7745,472"/>
+<area shape="rect" id="Node000061" href="$_spatial_compartment_plugin_8cpp.html" title="Implementation of the SpatialCompartmentPlugin class." alt="" coords="7675,519,7899,544"/>
+<area shape="poly" id="edge132_Node000060_Node000061" title=" " alt="" coords="7794,485,7791,519,7785,518,7789,484"/>
+<area shape="poly" id="edge139_Node000062_Node000007" title=" " alt="" coords="4042,402,4104,441,4157,468,4228,490,4302,505,4436,522,4435,528,4301,510,4227,495,4155,473,4101,445,4040,407"/>
+<area shape="poly" id="edge140_Node000062_Node000015" title=" " alt="" coords="4010,412,4003,446,3998,445,4005,411"/>
+<area shape="rect" id="Node000063" href="$_diffusion_coefficient_8cpp.html" title="Implementation of the DiffusionCoefficient class." alt="" coords="4167,445,4345,471"/>
+<area shape="poly" id="edge138_Node000062_Node000063" title=" " alt="" coords="4065,399,4217,443,4216,448,4063,404"/>
+<area shape="poly" id="edge147_Node000064_Node000007" title=" " alt="" coords="6853,247,6858,248,6900,253,6937,254,7002,251,7032,252,7063,259,7094,273,7128,297,7152,320,7167,345,7170,371,7157,399,7125,433,7092,454,7059,466,7023,470,6946,469,6902,469,6854,473,6645,493,6369,508,6049,518,5708,526,5061,532,4616,533,4616,528,5061,527,5708,520,6049,513,6369,502,6645,488,6853,468,6902,464,6946,464,7023,465,7057,461,7090,450,7121,429,7152,396,7164,370,7162,346,7148,323,7125,301,7092,278,7061,264,7031,258,7002,256,6937,259,6899,258,6857,253,6852,252"/>
+<area shape="rect" id="Node000065" href="$_domain_8cpp.html" title="Implementation of the Domain class." alt="" coords="7042,372,7142,397"/>
+<area shape="poly" id="edge142_Node000064_Node000065" title=" " alt="" coords="6853,247,7106,297,7114,316,7114,337,7101,372,7096,371,7109,336,7109,317,7102,301,6852,253"/>
+<area shape="poly" id="edge143_Node000064_Node000066" title=" " alt="" coords="6847,252,6990,296,6989,301,6846,257"/>
+<area shape="poly" id="edge145_Node000066_Node000005" title=" " alt="" coords="6948,321,6848,327,6341,344,5911,354,5182,360,4453,362,4024,366,3516,375,3164,384,3163,379,3516,369,4024,361,4453,357,5182,355,5911,349,6341,339,6848,321,6947,316"/>
+<area shape="poly" id="edge144_Node000066_Node000065" title=" " alt="" coords="7049,333,7083,370,7079,374,7045,336"/>
+<area shape="rect" id="Node000067" href="$_list_of_domains_8cpp.html" title="Implementation of the ListOfDomains class." alt="" coords="6873,372,7018,397"/>
+<area shape="poly" id="edge146_Node000066_Node000067" title=" " alt="" coords="7005,335,6960,374,6957,370,7002,331"/>
+<area shape="poly" id="edge154_Node000068_Node000007" title=" " alt="" coords="7141,106,7188,124,7235,151,7254,168,7270,188,7280,211,7284,236,7284,386,7279,418,7265,439,7243,453,7216,460,7151,465,7079,473,7016,483,6920,491,6651,504,6304,515,5915,522,5145,530,4615,533,4615,527,5145,525,5915,517,6304,509,6650,499,6920,485,7015,477,7078,468,7150,460,7215,455,7241,448,7261,436,7274,416,7279,386,7279,237,7275,213,7265,191,7250,172,7231,155,7186,129,7139,111"/>
+<area shape="rect" id="Node000069" href="$_domain_type_8cpp.html" title="Implementation of the DomainType class." alt="" coords="7113,225,7244,251"/>
+<area shape="poly" id="edge149_Node000068_Node000069" title=" " alt="" coords="7098,114,7173,224,7169,227,7093,117"/>
+<area shape="poly" id="edge150_Node000068_Node000070" title=" " alt="" coords="7059,115,7016,154,7012,150,7055,111"/>
+<area shape="poly" id="edge152_Node000070_Node000005" title=" " alt="" coords="6908,171,4842,228,4803,238,4771,250,4718,277,4665,304,4632,316,4592,327,4374,341,3944,358,3164,384,3164,379,3944,353,4373,336,4592,321,4631,311,4663,299,4715,272,4768,245,4801,233,4841,223,6908,166"/>
+<area shape="poly" id="edge151_Node000070_Node000069" title=" " alt="" coords="7044,180,7151,223,7149,228,7042,185"/>
+<area shape="rect" id="Node000071" href="$_list_of_domain_types_8cpp.html" title="Implementation of the ListOfDomainTypes class." alt="" coords="6914,225,7089,251"/>
+<area shape="poly" id="edge153_Node000070_Node000071" title=" " alt="" coords="7004,191,7004,225,6999,225,6999,191"/>
+<area shape="poly" id="edge185_Node000072_Node000007" title=" " alt="" coords="1193,177,1075,195,1011,210,949,228,876,258,809,301,773,324,741,345,730,356,724,368,724,381,732,396,738,408,740,420,730,441,706,458,670,473,624,485,570,494,449,508,325,514,217,515,144,512,125,509,121,502,175,493,318,486,569,480,948,476,1473,477,2163,483,3036,495,4112,516,4435,525,4435,530,4112,521,3036,501,2163,488,1473,482,948,481,569,485,318,491,176,498,126,504,127,504,144,506,217,510,325,509,448,502,569,489,622,479,668,468,704,454,726,438,735,419,733,410,727,399,719,382,719,367,726,353,737,341,770,319,807,296,873,253,947,223,1010,204,1074,190,1193,172"/>
+<area shape="poly" id="edge157_Node000072_Node000017" title=" " alt="" coords="1194,175,1094,192,1041,207,992,228,966,244,942,264,907,300,903,297,938,260,962,240,989,223,1040,202,1092,187,1193,169"/>
+<area shape="poly" id="edge159_Node000072_Node000019" title=" " alt="" coords="1194,180,1105,199,1070,212,1049,227,1041,240,1037,252,1042,274,1059,296,1086,315,1156,347,1227,369,1225,374,1155,352,1083,320,1055,300,1037,277,1032,251,1036,238,1045,224,1068,207,1104,193,1193,175"/>
+<area shape="poly" id="edge158_Node000072_Node000044" title=" " alt="" coords="1383,174,1490,193,1602,223,1686,260,1750,296,1747,301,1684,265,1600,228,1489,198,1383,179"/>
+<area shape="poly" id="edge160_Node000072_Node000073" title=" " alt="" coords="1257,186,1184,227,1182,223,1255,182"/>
+<area shape="poly" id="edge170_Node000072_Node000074" title=" " alt="" coords="1288,191,1281,251,1272,299,1267,298,1276,250,1283,191"/>
+<area shape="poly" id="edge171_Node000072_Node000075" title=" " alt="" coords="1383,172,1497,191,1545,205,1578,223,1591,241,1599,261,1604,298,1599,299,1594,263,1586,243,1574,227,1543,210,1496,196,1382,178"/>
+<area shape="poly" id="edge178_Node000072_Node000077" title=" " alt="" coords="1383,176,1510,196,1649,223,1793,261,1908,296,1906,301,1792,266,1647,228,1509,201,1383,181"/>
+<area shape="poly" id="edge161_Node000073_Node000005" title=" " alt="" coords="1280,242,1720,267,1928,282,2047,296,2076,309,2105,321,2165,330,2268,339,2549,356,3066,379,3066,384,2549,361,2267,344,2164,335,2103,327,2074,314,2046,301,1927,287,1719,272,1279,248"/>
+<area shape="poly" id="edge162_Node000073_Node000019" title=" " alt="" coords="1151,263,1140,293,1140,309,1145,323,1159,339,1176,352,1216,370,1214,374,1173,356,1155,343,1140,325,1135,309,1135,292,1146,261"/>
+<area shape="poly" id="edge163_Node000073_Node000020" title=" " alt="" coords="1166,264,1172,295,1179,310,1188,322,1218,334,1275,346,1414,369,1413,375,1274,352,1216,339,1185,326,1174,312,1167,297,1160,265"/>
+<area shape="poly" id="edge164_Node000073_Node000074" title=" " alt="" coords="1192,256,1251,296,1248,301,1189,261"/>
+<area shape="poly" id="edge165_Node000074_Node000006" title=" " alt="" coords="1226,332,1200,346,1179,362,1169,379,1170,387,1175,395,1187,401,1212,406,1295,416,1548,434,2048,453,2048,458,1548,439,1295,422,1211,411,1185,406,1172,399,1165,389,1164,378,1175,359,1197,341,1224,327"/>
+<area shape="poly" id="edge169_Node000074_Node000007" title=" " alt="" coords="1220,331,1191,345,1168,361,1156,378,1157,386,1162,396,1196,430,1229,456,1262,476,1295,490,1328,499,1362,503,1431,501,1586,477,1675,468,1772,468,2128,490,2429,503,2694,509,2941,510,3454,508,3755,510,4112,516,4435,525,4435,530,4112,521,3755,515,3454,514,2941,515,2694,514,2429,508,2128,495,1772,473,1675,473,1587,483,1432,506,1361,508,1327,504,1293,495,1259,481,1226,461,1192,434,1158,399,1151,388,1151,377,1164,357,1188,340,1217,327"/>
+<area shape="poly" id="edge166_Node000074_Node000019" title=" " alt="" coords="1272,338,1275,372,1270,372,1266,338"/>
+<area shape="poly" id="edge167_Node000074_Node000020" title=" " alt="" coords="1318,326,1461,369,1459,374,1316,331"/>
+<area shape="poly" id="edge168_Node000074_Node000021" title=" " alt="" coords="1349,322,1684,370,1683,375,1348,327"/>
+<area shape="poly" id="edge172_Node000075_Node000006" title=" " alt="" coords="1699,322,1923,350,2054,370,2073,386,2087,407,2103,444,2098,446,2082,409,2069,390,2052,374,1922,355,1698,327"/>
+<area shape="poly" id="edge177_Node000075_Node000007" title=" " alt="" coords="1616,334,1640,366,1674,395,1723,422,1766,439,1807,450,1846,456,1930,461,2036,468,2238,484,2489,495,3073,507,3658,511,4112,516,4435,525,4435,530,4112,521,3657,516,3073,512,2489,501,2238,490,2036,473,1930,466,1845,461,1806,455,1765,444,1720,426,1670,400,1636,370,1612,337"/>
+<area shape="poly" id="edge173_Node000075_Node000019" title=" " alt="" coords="1536,329,1327,374,1326,369,1535,324"/>
+<area shape="poly" id="edge174_Node000075_Node000020" title=" " alt="" coords="1575,334,1516,374,1513,370,1572,330"/>
+<area shape="poly" id="edge175_Node000075_Node000021" title=" " alt="" coords="1640,327,1734,369,1732,374,1638,332"/>
+<area shape="rect" id="Node000076" href="$_parametric_geometry_8cpp.html" title="Implementation of the ParametricGeometry class." alt="" coords="1858,372,2041,397"/>
+<area shape="poly" id="edge176_Node000075_Node000076" title=" " alt="" coords="1671,324,1894,369,1892,375,1670,329"/>
+<area shape="poly" id="edge179_Node000077_Node000006" title=" " alt="" coords="2044,323,2213,348,2280,360,2311,370,2322,390,2318,407,2303,421,2281,432,2222,447,2160,455,2160,450,2221,442,2279,427,2300,416,2313,404,2316,391,2308,374,2278,365,2212,353,2043,328"/>
+<area shape="poly" id="edge184_Node000077_Node000007" title=" " alt="" coords="2048,322,2186,324,2356,324,2440,327,2518,335,2585,348,2636,370,2650,381,2658,394,2666,421,2673,447,2681,458,2693,468,3429,494,4435,525,4435,530,3429,500,2691,473,2677,462,2668,449,2661,422,2653,396,2646,385,2633,374,2584,353,2517,340,2440,332,2356,329,2186,329,2048,327"/>
+<area shape="poly" id="edge180_Node000077_Node000019" title=" " alt="" coords="1835,327,1375,375,1363,376,1362,371,1374,369,1834,322"/>
+<area shape="poly" id="edge181_Node000077_Node000020" title=" " alt="" coords="1857,329,1569,375,1568,369,1856,324"/>
+<area shape="poly" id="edge182_Node000077_Node000021" title=" " alt="" coords="1900,331,1790,374,1788,369,1898,326"/>
+<area shape="rect" id="Node000078" href="$_sampled_field_geometry_8cpp.html" title="Implementation of the SampledFieldGeometry class." alt="" coords="2423,372,2623,397"/>
+<area shape="poly" id="edge183_Node000077_Node000078" title=" " alt="" coords="2048,323,2430,369,2429,375,2047,328"/>
+<area shape="poly" id="edge192_Node000079_Node000007" title=" " alt="" coords="6594,107,6852,223,6877,237,6904,248,6942,257,6977,260,7039,257,7068,256,7098,261,7128,274,7159,297,7180,320,7192,345,7193,371,7181,399,7162,423,7143,439,7123,450,7101,457,6995,473,6934,482,6842,490,6582,503,5873,520,5130,529,4616,532,4615,527,5130,524,5873,515,6582,497,6842,484,6933,477,6994,468,7100,452,7120,445,7140,435,7158,419,7176,396,7188,370,7187,346,7176,323,7156,301,7125,278,7096,266,7068,262,7039,262,6977,265,6941,263,6902,253,6875,241,6849,228,6592,112"/>
+<area shape="rect" id="Node000080" href="$_interior_point_8cpp.html" title="Implementation of the InteriorPoint class." alt="" coords="6549,225,6678,251"/>
+<area shape="poly" id="edge187_Node000079_Node000080" title=" " alt="" coords="6572,115,6590,151,6604,191,6613,224,6608,226,6599,192,6586,153,6567,117"/>
+<area shape="poly" id="edge188_Node000079_Node000081" title=" " alt="" coords="6538,116,6508,154,6503,150,6534,113"/>
+<area shape="poly" id="edge189_Node000081_Node000064" title=" " alt="" coords="6558,178,6754,224,6753,229,6557,183"/>
+<area shape="poly" id="edge190_Node000081_Node000080" title=" " alt="" coords="6528,182,6596,223,6593,227,6525,187"/>
+<area shape="rect" id="Node000082" href="$_list_of_interior_points_8cpp.html" title="Implementation of the ListOfInteriorPoints class." alt="" coords="6350,225,6525,251"/>
+<area shape="poly" id="edge191_Node000081_Node000082" title=" " alt="" coords="6480,190,6449,227,6445,224,6476,186"/>
+<area shape="poly" id="edge204_Node000083_Node000074" title=" " alt="" coords="2286,245,1874,263,1612,279,1348,301,1335,303,1335,297,1348,296,1612,274,1874,258,2285,240"/>
+<area shape="rect" id="Node000084" href="$_list_of_ordinal_mappings_8cpp.html" title="Implementation of the ListOfOrdinalMappings class." alt="" coords="2160,299,2357,324"/>
+<area shape="poly" id="edge203_Node000083_Node000084" title=" " alt="" coords="2359,259,2282,301,2279,296,2356,255"/>
+<area shape="rect" id="Node000085" href="$_ordinal_mapping_8cpp.html" title="Implementation of the OrdinalMapping class." alt="" coords="2381,299,2533,324"/>
+<area shape="poly" id="edge205_Node000083_Node000085" title=" " alt="" coords="2413,259,2448,297,2445,300,2409,263"/>
+<area shape="poly" id="edge208_Node000086_Node000075" title=" " alt="" coords="2764,245,2300,263,2000,280,1698,301,1685,302,1685,297,1697,296,2000,274,2299,258,2764,240"/>
+<area shape="rect" id="Node000087" href="$_list_of_parametric_objects_8cpp.html" title="Implementation of the ListOfParametricObjects class." alt="" coords="2845,299,3051,324"/>
+<area shape="poly" id="edge207_Node000086_Node000087" title=" " alt="" coords="2897,258,2938,297,2934,300,2893,262"/>
+<area shape="rect" id="Node000088" href="$_parametric_object_8cpp.html" title="Implementation of the ParametricObject class." alt="" coords="2659,299,2821,324"/>
+<area shape="poly" id="edge209_Node000086_Node000088" title=" " alt="" coords="2841,259,2763,301,2761,296,2839,255"/>
+<area shape="poly" id="edge211_Node000089_Node000005" title=" " alt="" coords="7364,172,7093,180,6645,184,6069,186,5773,190,5493,197,5246,209,5047,228,4986,238,4934,250,4848,277,4762,304,4648,327,4420,339,3973,356,3163,384,3163,379,3972,351,4420,334,4648,321,4760,299,4846,272,4933,245,4984,233,5046,223,5245,204,5493,191,5772,184,6069,181,6645,179,7093,175,7364,167"/>
+<area shape="rect" id="Node000090" href="$_list_of_sampled_fields_8cpp.html" title="Implementation of the ListOfSampledFields class." alt="" coords="7370,225,7553,251"/>
+<area shape="poly" id="edge212_Node000089_Node000090" title=" " alt="" coords="7464,191,7464,225,7459,225,7459,191"/>
+<area shape="rect" id="Node000091" href="$_sampled_field_8cpp.html" title="Implementation of the SampledField class." alt="" coords="7577,225,7714,251"/>
+<area shape="poly" id="edge213_Node000089_Node000091" title=" " alt="" coords="7505,180,7616,223,7614,228,7503,185"/>
+<area shape="poly" id="edge216_Node000092_Node000077" title=" " alt="" coords="3951,244,3199,264,2148,301,2035,307,2034,302,2148,296,3199,259,3951,239"/>
+<area shape="rect" id="Node000093" href="$_list_of_sampled_volumes_8cpp.html" title="Implementation of the ListOfSampledVolumes class." alt="" coords="4092,299,4292,324"/>
+<area shape="poly" id="edge215_Node000092_Node000093" title=" " alt="" coords="4092,255,4171,296,4169,301,4090,259"/>
+<area shape="rect" id="Node000094" href="$_sampled_volume_8cpp.html" title="Implementation of the SampledVolume class." alt="" coords="3913,299,4068,324"/>
+<area shape="poly" id="edge217_Node000092_Node000094" title=" " alt="" coords="4039,263,4003,300,4000,297,4035,259"/>
+<area shape="poly" id="edge222_Node000095_Node000007" title=" " alt="" coords="2557,189,2586,253,2608,289,2634,322,2674,363,2712,393,2749,415,2787,431,2872,451,2980,468,3193,481,3615,497,4435,525,4435,530,3615,502,3193,486,2980,473,2871,456,2786,436,2747,420,2709,397,2671,367,2630,326,2604,292,2582,255,2552,191"/>
+<area shape="poly" id="edge220_Node000095_Node000083" title=" " alt="" coords="2509,185,2417,228,2415,223,2507,181"/>
+<area shape="poly" id="edge221_Node000095_Node000085" title=" " alt="" coords="2534,191,2497,252,2467,300,2463,297,2492,249,2529,188"/>
+<area shape="poly" id="edge227_Node000096_Node000007" title=" " alt="" coords="2758,186,2712,211,2668,245,2652,264,2643,283,2641,303,2650,322,2675,340,2723,361,2861,407,3003,447,3088,468,3284,480,3672,497,4435,524,4435,530,3672,502,3283,486,3088,473,3001,452,2860,412,2721,366,2672,344,2646,326,2636,304,2638,282,2648,261,2664,241,2709,207,2755,181"/>
+<area shape="poly" id="edge225_Node000096_Node000086" title=" " alt="" coords="2819,185,2862,223,2859,227,2816,189"/>
+<area shape="poly" id="edge226_Node000096_Node000088" title=" " alt="" coords="2785,191,2769,226,2746,299,2741,298,2764,224,2780,189"/>
+<area shape="poly" id="edge231_Node000097_Node000007" title=" " alt="" coords="7637,109,7676,135,7713,169,7726,188,7735,209,7736,230,7729,252,7668,295,7544,368,7419,439,7351,473,7303,480,7214,487,6932,498,6108,516,5222,527,4616,532,4616,527,5222,521,6108,510,6932,493,7214,481,7303,475,7350,468,7416,434,7542,364,7665,291,7725,249,7731,230,7730,210,7722,191,7709,173,7672,139,7634,113"/>
+<area shape="poly" id="edge229_Node000097_Node000089" title=" " alt="" coords="7569,112,7486,154,7483,149,7567,108"/>
+<area shape="poly" id="edge230_Node000097_Node000091" title=" " alt="" coords="7613,117,7644,224,7639,226,7607,118"/>
+<area shape="poly" id="edge236_Node000098_Node000007" title=" " alt="" coords="4101,181,4417,329,4573,405,4645,444,4650,458,4649,470,4642,482,4631,492,4602,509,4569,521,4567,516,4600,504,4628,488,4638,479,4644,469,4645,458,4641,447,4571,410,4414,334,4098,186"/>
+<area shape="poly" id="edge234_Node000098_Node000092" title=" " alt="" coords="4063,191,4061,225,4056,225,4058,191"/>
+<area shape="poly" id="edge235_Node000098_Node000094" title=" " alt="" coords="4008,185,3979,202,3956,227,3952,245,3957,264,3981,297,3977,300,3952,266,3946,245,3951,224,3975,198,4006,180"/>
+<area shape="poly" id="edge240_Node000099_Node000007" title=" " alt="" coords="1431,248,1293,268,1230,282,1188,301,1164,321,1149,343,1143,367,1149,397,1159,422,1170,440,1186,455,1209,468,1252,474,1350,480,1681,490,2657,504,4112,516,4435,525,4435,530,4112,521,2657,510,1681,495,1350,485,1251,480,1207,473,1183,459,1166,444,1155,424,1144,398,1138,367,1144,341,1160,318,1185,296,1229,277,1292,262,1430,243"/>
+<area shape="poly" id="edge239_Node000099_Node000075" title=" " alt="" coords="1532,257,1587,296,1584,301,1529,261"/>
+<area shape="rect" id="Node000100" href="$_spatial_points_8cpp.html" title="Implementation of the SpatialPoints class." alt="" coords="1359,299,1494,324"/>
+<area shape="poly" id="edge241_Node000099_Node000100" title=" " alt="" coords="1483,262,1441,300,1438,296,1480,258"/>
+<area shape="poly" id="edge244_Node000101_Node000007" title=" " alt="" coords="7910,473,7588,488,7168,501,6177,518,5229,528,4616,532,4616,527,5229,523,6177,513,7168,495,7588,483,7910,468"/>
+<area shape="poly" id="edge243_Node000101_Node000010" title=" " alt="" coords="7928,475,7642,521,7641,516,7927,470"/>
+<area shape="rect" id="Node000102" href="$_spatial_reaction_plugin_8cpp.html" title="Implementation of the SpatialReactionPlugin class." alt="" coords="7923,519,8114,544"/>
+<area shape="poly" id="edge245_Node000101_Node000102" title=" " alt="" coords="8017,484,8020,518,8015,519,8012,485"/>
+<area shape="poly" id="edge248_Node000103_Node000007" title=" " alt="" coords="8111,473,7769,489,7322,502,6268,520,5262,529,4616,532,4616,527,5262,524,6268,515,7322,497,7769,484,8111,468"/>
+<area shape="poly" id="edge247_Node000103_Node000010" title=" " alt="" coords="8111,473,7663,521,7651,523,7650,517,7662,516,8111,468"/>
+<area shape="rect" id="Node000104" href="$_spatial_species_plugin_8cpp.html" title="Implementation of the SpatialSpeciesPlugin class." alt="" coords="8139,519,8323,544"/>
+<area shape="poly" id="edge249_Node000103_Node000104" title=" " alt="" coords="8219,483,8230,518,8225,519,8214,485"/>
+<area shape="poly" id="edge251_Node000105_Node000007" title=" " alt="" coords="4369,409,4387,440,4411,469,4452,497,4493,516,4491,521,4449,501,4408,473,4382,443,4365,412"/>
+<area shape="poly" id="edge252_Node000105_Node000015" title=" " alt="" coords="4286,403,4057,448,4056,443,4285,397"/>
+<area shape="rect" id="Node000106" href="$_spatial_symbol_reference_8cpp.html" title="Implementation of the SpatialSymbolReference class." alt="" coords="4421,445,4630,471"/>
+<area shape="poly" id="edge253_Node000105_Node000106" title=" " alt="" coords="4397,400,4499,443,4497,448,4395,405"/>
+<area shape="poly" id="edge256_Node000107_Node000007" title=" " alt="" coords="4620,179,4656,197,4685,224,4706,256,4721,287,4731,318,4735,348,4732,378,4724,408,4709,439,4689,472,4673,490,4654,503,4612,521,4610,516,4652,499,4670,486,4685,469,4705,437,4719,406,4727,377,4729,348,4726,319,4717,289,4701,259,4681,227,4653,201,4618,184"/>
+<area shape="poly" id="edge255_Node000107_Node000034" title=" " alt="" coords="4631,176,5078,223,5077,228,4630,181"/>
+<area shape="rect" id="Node000108" href="$_transformation_component_8cpp.html" title="Implementation of the TransformationComponent class." alt="" coords="4275,225,4498,251"/>
+<area shape="poly" id="edge257_Node000107_Node000108" title=" " alt="" coords="4482,186,4409,227,4406,223,4480,182"/>
 </map>

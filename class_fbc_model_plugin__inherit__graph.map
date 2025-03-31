@@ -1,5 +1,7 @@
 <map id="FbcModelPlugin" name="FbcModelPlugin">
-<area shape="rect" id="node1" title=" " alt="" coords="5,155,131,181"/>
-<area shape="rect" id="node2" href="$class_fbc_s_base_plugin.html" title=" " alt="" coords="5,80,131,107"/>
-<area shape="rect" id="node3" href="$class_s_base_plugin.html" title=" " alt="" coords="17,5,119,32"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,152,131,177"/>
+<area shape="rect" id="Node000002" href="$class_fbc_s_base_plugin.html" title=" " alt="" coords="5,79,131,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="71,118,71,152,65,152,65,118"/>
+<area shape="rect" id="Node000003" href="$class_s_base_plugin.html" title=" " alt="" coords="17,5,119,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="71,44,71,79,65,79,65,44"/>
 </map>

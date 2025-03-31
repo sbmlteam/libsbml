@@ -1,11 +1,24 @@
 <map id="SpeciesFeature.h" name="SpeciesFeature.h">
-<area shape="rect" id="node1" title=": Implementation of the SpeciesFeature class" alt="" coords="154,5,288,32"/>
-<area shape="rect" id="node2" href="$_multi_extension_types_8h.html" title=": Implementation of the MultiExtensionTypes class" alt="" coords="58,229,226,256"/>
-<area shape="rect" id="node4" href="$_multi_species_plugin_8h.html" title=": Implementation of the MultiSpeciesPlugin class" alt="" coords="245,155,402,181"/>
-<area shape="rect" id="node7" href="$_species_feature_8cpp.html" title=": Implementation of the SpeciesFeature class" alt="" coords="22,155,170,181"/>
-<area shape="rect" id="node8" href="$_sub_list_of_species_features_8cpp.html" title=": Implementation of the SubListOfSpeciesFeatures class" alt="" coords="427,155,644,181"/>
-<area shape="rect" id="node9" href="$_sub_list_of_species_features_8h.html" title=": Implementation of the SubListOfSpeciesFeatures class" alt="" coords="120,80,322,107"/>
-<area shape="rect" id="node3" href="$_multi_validator_8cpp.html" title=": Implementation of the MultiValidator class" alt="" coords="73,304,212,331"/>
-<area shape="rect" id="node5" href="$_multi_extension_8cpp.html" title=": Implementation of the MultiExtension class" alt="" coords="250,229,397,256"/>
-<area shape="rect" id="node6" href="$_multi_species_plugin_8cpp.html" title=": Implementation of the MultiSpeciesPlugin class" alt="" coords="422,229,594,256"/>
+<area shape="rect" id="Node000001" title=": Implementation of the SpeciesFeature class" alt="" coords="154,5,288,31"/>
+<area shape="rect" id="Node000002" href="$_multi_extension_types_8h.html" title=": Implementation of the MultiExtensionTypes class" alt="" coords="58,225,226,251"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="166,37,123,54,79,79,40,112,24,131,11,153,8,166,10,177,27,196,55,212,88,223,86,228,53,217,23,201,5,179,3,166,6,151,19,128,36,108,76,74,121,50,164,32"/>
+<area shape="rect" id="Node000004" href="$_multi_species_plugin_8h.html" title=": Implementation of the MultiSpeciesPlugin class" alt="" coords="245,152,402,177"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="281,34,312,51,337,77,343,97,342,118,332,153,327,151,337,117,338,98,332,80,309,55,278,38"/>
+<area shape="rect" id="Node000007" href="$_species_feature_8cpp.html" title=": Implementation of the SpeciesFeature class" alt="" coords="22,152,170,177"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="168,38,136,55,110,80,101,98,97,117,97,152,91,152,92,117,96,96,105,77,133,51,165,33"/>
+<area shape="rect" id="Node000008" href="$_sub_list_of_species_features_8cpp.html" title=": Implementation of the SubListOfSpeciesFeatures class" alt="" coords="427,152,644,177"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="261,34,357,76,513,150,511,154,354,81,259,39"/>
+<area shape="rect" id="Node000009" href="$_sub_list_of_species_features_8h.html" title=": Implementation of the SubListOfSpeciesFeatures class" alt="" coords="120,79,322,104"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="224,44,224,79,218,79,218,44"/>
+<area shape="rect" id="Node000003" href="$_multi_validator_8cpp.html" title=": Implementation of the MultiValidator class" alt="" coords="73,299,212,324"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="145,264,145,299,140,299,140,264"/>
+<area shape="poly" id="edge5_Node000004_Node000002" title=" " alt="" coords="283,185,173,228,171,223,281,180"/>
+<area shape="rect" id="Node000005" href="$_multi_extension_8cpp.html" title=": Implementation of the MultiExtension class" alt="" coords="250,225,397,251"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="326,191,326,225,321,225,321,191"/>
+<area shape="rect" id="Node000006" href="$_multi_species_plugin_8cpp.html" title=": Implementation of the MultiSpeciesPlugin class" alt="" coords="422,225,594,251"/>
+<area shape="poly" id="edge6_Node000004_Node000006" title=" " alt="" coords="367,180,478,223,477,228,365,185"/>
+<area shape="poly" id="edge10_Node000009_Node000002" title=" " alt="" coords="213,118,183,179,153,227,148,224,179,176,208,115"/>
+<area shape="poly" id="edge11_Node000009_Node000004" title=" " alt="" coords="250,110,308,150,305,154,247,114"/>
+<area shape="poly" id="edge12_Node000009_Node000007" title=" " alt="" coords="190,113,117,154,115,149,188,108"/>
+<area shape="poly" id="edge13_Node000009_Node000008" title=" " alt="" coords="285,104,485,149,484,154,284,110"/>
 </map>

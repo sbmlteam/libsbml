@@ -144,7 +144,7 @@ var class_bounding_box =
     [ "setZ", "class_bounding_box.html#acc5c1c1f93b3fae6b932dcdc507ecd3f", null ],
     [ "toSBML", "class_bounding_box.html#ae8317d5157b70e4f1bc68e33e5c84001", null ],
     [ "toXML", "class_bounding_box.html#ac6717b498645c6b2bdbb01f0cbb4a28b", null ],
-    [ "toXMLNode", "class_bounding_box.html#a5c949d524aca47b84b18b57b76e6ee0a", null ],
+    [ "toXMLNode", "class_bounding_box.html#a616754bfc4592922a488f2159f96b3ce", null ],
     [ "unsetAnnotation", "class_bounding_box.html#a9121d6a4f7401fe957cc75647a1e95ed", null ],
     [ "unsetCreatedDate", "class_bounding_box.html#ad3be0bf5891c2b6bf4340cce12b8630f", null ],
     [ "unsetCVTerms", "class_bounding_box.html#a1e89a7890f2fb291f1ba4c38866d1dcc", null ],

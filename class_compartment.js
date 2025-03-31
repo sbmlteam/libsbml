@@ -148,7 +148,7 @@ var class_compartment =
     [ "setUserData", "class_compartment.html#ac3b1bbfe22bad0dbc577b61c529f37bb", null ],
     [ "setVolume", "class_compartment.html#a435ceb1e2141d3e6cdeab1a167e656bf", null ],
     [ "toSBML", "class_compartment.html#ae8317d5157b70e4f1bc68e33e5c84001", null ],
-    [ "toXMLNode", "class_compartment.html#a5c949d524aca47b84b18b57b76e6ee0a", null ],
+    [ "toXMLNode", "class_compartment.html#a616754bfc4592922a488f2159f96b3ce", null ],
     [ "unsetAnnotation", "class_compartment.html#a9121d6a4f7401fe957cc75647a1e95ed", null ],
     [ "unsetCompartmentType", "class_compartment.html#a0693fb79dda8e72b20fee33ccebede86", null ],
     [ "unsetConstant", "class_compartment.html#a43c292a207f9febe79fd87703b124e96", null ],

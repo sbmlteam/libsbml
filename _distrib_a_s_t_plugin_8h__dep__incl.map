@@ -1,5 +1,7 @@
 <map id="DistribASTPlugin.h" name="DistribASTPlugin.h">
-<area shape="rect" id="node1" title="Definition of the DistribASTPlugin class." alt="" coords="103,5,246,32"/>
-<area shape="rect" id="node2" href="$_distrib_a_s_t_plugin_8cpp.html" title="Implementation of the DistribASTPlugin class." alt="" coords="5,80,163,107"/>
-<area shape="rect" id="node3" href="$_distrib_extension_8cpp.html" title="Implementation of DistribExtension." alt="" coords="187,80,343,107"/>
+<area shape="rect" id="Node000001" title="Definition of the DistribASTPlugin class." alt="" coords="103,5,246,31"/>
+<area shape="rect" id="Node000002" href="$_distrib_a_s_t_plugin_8cpp.html" title="Implementation of the DistribASTPlugin class." alt="" coords="5,79,163,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="151,41,100,81,97,76,148,37"/>
+<area shape="rect" id="Node000003" href="$_distrib_extension_8cpp.html" title="Implementation of DistribExtension." alt="" coords="187,79,343,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="202,37,252,76,249,81,199,41"/>
 </map>

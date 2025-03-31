@@ -1,7 +1,7 @@
 var _list_of_deletions_8cpp =
 [
-    [ "ListOfDeletions_getById", "_list_of_deletions_8cpp.html#a5f3fc4882f00fd26ccc56edd7e22e22f", null ],
-    [ "ListOfDeletions_getDeletion", "_list_of_deletions_8cpp.html#ac3ed3c2da9ab4234bac2dee28129718b", null ],
-    [ "ListOfDeletions_remove", "_list_of_deletions_8cpp.html#a0565b33c17b4a544bb9a901f131eda2e", null ],
-    [ "ListOfDeletions_removeById", "_list_of_deletions_8cpp.html#a50e0d59f65b32aac8ba786d4c71bfa20", null ]
+    [ "ListOfDeletions_getById", "_list_of_deletions_8cpp.html#aba79b59fd68be41b9bdfd83ba85f64b0", null ],
+    [ "ListOfDeletions_getDeletion", "_list_of_deletions_8cpp.html#a5d5bb909aed4c4ee9e1a944643c8ebee", null ],
+    [ "ListOfDeletions_remove", "_list_of_deletions_8cpp.html#ae81a0f3df7a28a9a8a0ad5ffd30cac13", null ],
+    [ "ListOfDeletions_removeById", "_list_of_deletions_8cpp.html#a0128b761710b1930bdfa95e2eda88c00", null ]
 ];

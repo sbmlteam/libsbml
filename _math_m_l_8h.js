@@ -1,7 +1,7 @@
 var _math_m_l_8h =
 [
-    [ "readMathMLFromString", "_math_m_l_8h.html#a0fb4f7430eb05834379253ce3611a00a", null ],
-    [ "readMathMLFromStringWithNamespaces", "_math_m_l_8h.html#a1d729c4aaaa595437aca19b230f5f222", null ],
-    [ "writeMathMLToString", "_math_m_l_8h.html#adb8922d30a82a6884e0fd7860056cdd7", null ],
-    [ "writeMathMLWithNamespaceToString", "_math_m_l_8h.html#a9885f851b0eab278fea652cdfa8cb162", null ]
+    [ "readMathMLFromString", "_math_m_l_8h.html#a7f358b912b5d2479e7184d1f657d5819", null ],
+    [ "readMathMLFromStringWithNamespaces", "_math_m_l_8h.html#a52e588cb2afd2cabd317ea70f10b3c97", null ],
+    [ "writeMathMLToString", "_math_m_l_8h.html#a988e70c7afa39b921d879cdab7a426b6", null ],
+    [ "writeMathMLWithNamespaceToString", "_math_m_l_8h.html#ac70fefd98ddedee8b0214220018608c0", null ]
 ];

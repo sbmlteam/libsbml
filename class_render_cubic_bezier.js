@@ -188,7 +188,7 @@ var class_render_cubic_bezier =
     [ "setZ", "class_render_cubic_bezier.html#ab32ab389b4ec465685066ed3ae8401a8", null ],
     [ "toSBML", "class_render_cubic_bezier.html#ae8317d5157b70e4f1bc68e33e5c84001", null ],
     [ "toXML", "class_render_cubic_bezier.html#a89fea64fa35d33c5fd2dabf71e25c447", null ],
-    [ "toXMLNode", "class_render_cubic_bezier.html#a5c949d524aca47b84b18b57b76e6ee0a", null ],
+    [ "toXMLNode", "class_render_cubic_bezier.html#a616754bfc4592922a488f2159f96b3ce", null ],
     [ "unsetAnnotation", "class_render_cubic_bezier.html#a9121d6a4f7401fe957cc75647a1e95ed", null ],
     [ "unsetBasePoint1_x", "class_render_cubic_bezier.html#ab7feda3e8ab9a933e99d3bfee24247a3", null ],
     [ "unsetBasePoint1_y", "class_render_cubic_bezier.html#a7ca9537c23fe7bd4b8584f28b483df77", null ],

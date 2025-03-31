@@ -1,9 +1,15 @@
 <map id="CSGTransformation" name="CSGTransformation">
-<area shape="rect" id="node1" title=" " alt="" coords="309,155,455,181"/>
-<area shape="rect" id="node4" href="$class_c_s_g_homogeneous_transformation.html" title=" " alt="" coords="5,229,247,256"/>
-<area shape="rect" id="node5" href="$class_c_s_g_rotation.html" title=" " alt="" coords="271,229,375,256"/>
-<area shape="rect" id="node6" href="$class_c_s_g_scale.html" title=" " alt="" coords="400,229,484,256"/>
-<area shape="rect" id="node7" href="$class_c_s_g_translation.html" title=" " alt="" coords="509,229,629,256"/>
-<area shape="rect" id="node2" href="$class_c_s_g_node.html" title=" " alt="" coords="341,80,423,107"/>
-<area shape="rect" id="node3" href="$class_s_base.html" title=" " alt="" coords="351,5,413,32"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="309,152,455,177"/>
+<area shape="rect" id="Node000004" href="$class_c_s_g_homogeneous_transformation.html" title=" " alt="" coords="5,225,247,251"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="329,183,168,228,167,223,327,178"/>
+<area shape="rect" id="Node000005" href="$class_c_s_g_rotation.html" title=" " alt="" coords="271,225,375,251"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="366,190,335,227,331,224,362,186"/>
+<area shape="rect" id="Node000006" href="$class_c_s_g_scale.html" title=" " alt="" coords="400,225,484,251"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="403,186,434,223,430,227,399,190"/>
+<area shape="rect" id="Node000007" href="$class_c_s_g_translation.html" title=" " alt="" coords="509,225,629,251"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="425,180,539,223,537,228,424,185"/>
+<area shape="rect" id="Node000002" href="$class_c_s_g_node.html" title=" " alt="" coords="341,79,423,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="385,118,385,152,379,152,379,118"/>
+<area shape="rect" id="Node000003" href="$class_s_base.html" title=" " alt="" coords="351,5,413,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="385,44,385,79,379,79,379,44"/>
 </map>

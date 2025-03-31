@@ -124,7 +124,7 @@ var class_modifier_species_reference =
     [ "setSpecies", "class_modifier_species_reference.html#a7859ff57ba7c9d0355550a6b278a720b", null ],
     [ "setUserData", "class_modifier_species_reference.html#ac3b1bbfe22bad0dbc577b61c529f37bb", null ],
     [ "toSBML", "class_modifier_species_reference.html#ae8317d5157b70e4f1bc68e33e5c84001", null ],
-    [ "toXMLNode", "class_modifier_species_reference.html#a5c949d524aca47b84b18b57b76e6ee0a", null ],
+    [ "toXMLNode", "class_modifier_species_reference.html#a616754bfc4592922a488f2159f96b3ce", null ],
     [ "unsetAnnotation", "class_modifier_species_reference.html#a9121d6a4f7401fe957cc75647a1e95ed", null ],
     [ "unsetCreatedDate", "class_modifier_species_reference.html#ad3be0bf5891c2b6bf4340cce12b8630f", null ],
     [ "unsetCVTerms", "class_modifier_species_reference.html#a1e89a7890f2fb291f1ba4c38866d1dcc", null ],

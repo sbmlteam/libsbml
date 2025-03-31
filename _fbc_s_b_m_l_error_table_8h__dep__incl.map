@@ -1,4 +1,5 @@
 <map id="FbcSBMLErrorTable.h" name="FbcSBMLErrorTable.h">
-<area shape="rect" id="node1" title="Represents SBML errors and other diagnostics." alt="" coords="5,5,164,32"/>
-<area shape="rect" id="node2" href="$_fbc_extension_8cpp.html" title="Implementation of FbcExtension, the core module of fbc package." alt="" coords="17,80,153,107"/>
+<area shape="rect" id="Node000001" title="Represents SBML errors and other diagnostics." alt="" coords="5,5,164,31"/>
+<area shape="rect" id="Node000002" href="$_fbc_extension_8cpp.html" title="Implementation of FbcExtension, the core module of fbc package." alt="" coords="17,79,153,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="87,44,87,79,82,79,82,44"/>
 </map>

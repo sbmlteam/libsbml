@@ -1,5 +1,7 @@
 <map id="FbcV2ToV1Converter.h" name="FbcV2ToV1Converter.h">
-<area shape="rect" id="node1" title="Definition of a fbc v2 to fbc v1 converter." alt="" coords="81,5,249,32"/>
-<area shape="rect" id="node2" href="$_fbc_extension_8cpp.html" title="Implementation of FbcExtension, the core module of fbc package." alt="" coords="5,80,141,107"/>
-<area shape="rect" id="node3" href="$_fbc_v2_to_v1_converter_8cpp.html" title="Implementation of a fbc v2 to fbc v1 converter." alt="" coords="166,80,349,107"/>
+<area shape="rect" id="Node000001" title="Definition of a fbc v2 to fbc v1 converter." alt="" coords="81,5,249,31"/>
+<area shape="rect" id="Node000002" href="$_fbc_extension_8cpp.html" title="Implementation of FbcExtension, the core module of fbc package." alt="" coords="5,79,141,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="142,41,90,81,87,76,138,37"/>
+<area shape="rect" id="Node000003" href="$_fbc_v2_to_v1_converter_8cpp.html" title="Implementation of a fbc v2 to fbc v1 converter." alt="" coords="166,79,349,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="192,37,244,76,241,81,189,41"/>
 </map>

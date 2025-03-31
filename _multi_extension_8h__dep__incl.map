@@ -1,48 +1,138 @@
 <map id="MultiExtension.h" name="MultiExtension.h">
-<area shape="rect" id="node1" title=": Implementation of the MultiExtension class" alt="" coords="2023,5,2153,32"/>
-<area shape="rect" id="node2" href="$_multi_extension_types_8h.html" title=": Implementation of the MultiExtensionTypes class" alt="" coords="2415,483,2583,509"/>
-<area shape="rect" id="node4" href="$_multi_extension_8cpp.html" title=": Implementation of the MultiExtension class" alt="" coords="1024,483,1171,509"/>
-<area shape="rect" id="node5" href="$_multi_list_of_reactions_plugin_8h.html" title=": Implementation of the MultiListOfReactionsPlugin class" alt="" coords="13,401,222,427"/>
-<area shape="rect" id="node7" href="$_multi_s_b_m_l_document_plugin_8h.html" title=": Implementation of the MultiSBMLDocumentPlugin class" alt="" coords="559,401,769,427"/>
-<area shape="rect" id="node9" href="$_multi_simple_species_reference_plugin_8h.html" title=": Implementation of the MultiSimpleSpeciesReferencePlugin class" alt="" coords="1137,304,1353,345"/>
-<area shape="rect" id="node13" href="$_binding_site_species_type_8h.html" title=": Implementation of the BindingSiteSpeciesType class" alt="" coords="1979,311,2167,338"/>
-<area shape="rect" id="node18" href="$_compartment_reference_8h.html" title=": Implementation of the CompartmentReference class" alt="" coords="2929,311,3119,338"/>
-<area shape="rect" id="node22" href="$_in_species_type_bond_8h.html" title=": Implementation of the InSpeciesTypeBond class" alt="" coords="1838,155,1997,181"/>
-<area shape="rect" id="node24" href="$_multi_species_type_8h.html" title=": Implementation of the MultiSpeciesType class" alt="" coords="2164,229,2311,256"/>
-<area shape="rect" id="node25" href="$_intra_species_reaction_8h.html" title=": Implementation of the IntraSpeciesReaction class" alt="" coords="305,311,476,338"/>
-<area shape="rect" id="node27" href="$_outward_binding_site_8h.html" title=": Implementation of the OutwardBindingSite class" alt="" coords="3963,311,4125,338"/>
-<area shape="rect" id="node31" href="$_possible_species_feature_value_8h.html" title=": Implementation of the PossibleSpeciesFeatureValue class" alt="" coords="2703,80,2926,107"/>
-<area shape="rect" id="node33" href="$_species_feature_type_8h.html" title=": Implementation of the SpeciesFeatureType class" alt="" coords="2652,155,2815,181"/>
-<area shape="rect" id="node35" href="$_species_feature_8h.html" title=": Implementation of the SpeciesFeature class" alt="" coords="3261,229,3395,256"/>
-<area shape="rect" id="node38" href="$_sub_list_of_species_features_8h.html" title=": Implementation of the SubListOfSpeciesFeatures class" alt="" coords="3476,311,3679,338"/>
-<area shape="rect" id="node39" href="$_species_feature_value_8h.html" title=": Implementation of the SpeciesFeatureValue class" alt="" coords="3381,155,3550,181"/>
-<area shape="rect" id="node41" href="$_species_type_component_index_8h.html" title=": Implementation of the SpeciesTypeComponentIndex class" alt="" coords="2125,155,2350,181"/>
-<area shape="rect" id="node43" href="$_species_type_component_map_in_product_8h.html" title=": Implementation of the SpeciesTypeComponentMapInProduct class" alt="" coords="1417,304,1634,345"/>
-<area shape="rect" id="node45" href="$_species_type_instance_8h.html" title=": Implementation of the SpeciesTypeInstance class" alt="" coords="2383,155,2553,181"/>
-<area shape="rect" id="node3" href="$_multi_validator_8cpp.html" title=": Implementation of the MultiValidator class" alt="" coords="2429,557,2568,584"/>
-<area shape="rect" id="node6" href="$_multi_list_of_reactions_plugin_8cpp.html" title=": Implementation of the MultiListOfReactionsPlugin class" alt="" coords="5,483,229,509"/>
-<area shape="rect" id="node8" href="$_multi_s_b_m_l_document_plugin_8cpp.html" title=": Implementation of the MultiSBMLDocumentPlugin class" alt="" coords="551,483,777,509"/>
-<area shape="rect" id="node10" href="$_multi_simple_species_reference_plugin_8cpp.html" title=": Implementation of the MultiSimpleSpeciesReferencePlugin class" alt="" coords="844,393,1060,435"/>
-<area shape="rect" id="node11" href="$_multi_species_reference_plugin_8h.html" title=": Implementation of the MultiSpeciesReferencePlugin class" alt="" coords="1134,401,1357,427"/>
-<area shape="rect" id="node12" href="$_multi_species_reference_plugin_8cpp.html" title=": Implementation of the MultiSpeciesReferencePlugin class" alt="" coords="1195,483,1434,509"/>
-<area shape="rect" id="node14" href="$_multi_model_plugin_8h.html" title=": Implementation of the MultiModelPlugin class" alt="" coords="1724,401,1871,427"/>
-<area shape="rect" id="node16" href="$_binding_site_species_type_8cpp.html" title=": Implementation of the BindingSiteSpeciesType class" alt="" coords="1945,401,2148,427"/>
-<area shape="rect" id="node17" href="$_multi_species_type_8cpp.html" title=": Implementation of the MultiSpeciesType class" alt="" coords="2273,401,2436,427"/>
-<area shape="rect" id="node15" href="$_multi_model_plugin_8cpp.html" title=": Implementation of the MultiModelPlugin class" alt="" coords="820,483,983,509"/>
-<area shape="rect" id="node19" href="$_multi_compartment_plugin_8h.html" title=": Implementation of the MultiCompartmentPlugin class" alt="" coords="2993,401,3191,427"/>
-<area shape="rect" id="node21" href="$_compartment_reference_8cpp.html" title=": Implementation of the CompartmentReference class" alt="" coords="2713,401,2919,427"/>
-<area shape="rect" id="node20" href="$_multi_compartment_plugin_8cpp.html" title=": Implementation of the MultiCompartmentPlugin class" alt="" coords="2986,483,3198,509"/>
-<area shape="rect" id="node23" href="$_in_species_type_bond_8cpp.html" title=": Implementation of the InSpeciesTypeBond class" alt="" coords="1650,229,1825,256"/>
-<area shape="rect" id="node26" href="$_intra_species_reaction_8cpp.html" title=": Implementation of the IntraSpeciesReaction class" alt="" coords="297,401,484,427"/>
-<area shape="rect" id="node28" href="$_multi_species_plugin_8h.html" title=": Implementation of the MultiSpeciesPlugin class" alt="" coords="3731,401,3888,427"/>
-<area shape="rect" id="node30" href="$_outward_binding_site_8cpp.html" title=": Implementation of the OutwardBindingSite class" alt="" coords="4013,401,4192,427"/>
-<area shape="rect" id="node29" href="$_multi_species_plugin_8cpp.html" title=": Implementation of the MultiSpeciesPlugin class" alt="" coords="3723,483,3895,509"/>
-<area shape="rect" id="node32" href="$_possible_species_feature_value_8cpp.html" title=": Implementation of the PossibleSpeciesFeatureValue class" alt="" coords="2942,155,3181,181"/>
-<area shape="rect" id="node34" href="$_species_feature_type_8cpp.html" title=": Implementation of the SpeciesFeatureType class" alt="" coords="2644,229,2823,256"/>
-<area shape="rect" id="node36" href="$_species_feature_8cpp.html" title=": Implementation of the SpeciesFeature class" alt="" coords="3266,401,3414,427"/>
-<area shape="rect" id="node37" href="$_sub_list_of_species_features_8cpp.html" title=": Implementation of the SubListOfSpeciesFeatures class" alt="" coords="3438,401,3655,427"/>
-<area shape="rect" id="node40" href="$_species_feature_value_8cpp.html" title=": Implementation of the SpeciesFeatureValue class" alt="" coords="3419,229,3603,256"/>
-<area shape="rect" id="node42" href="$_species_type_component_index_8cpp.html" title=": Implementation of the SpeciesTypeComponentIndex class" alt="" coords="1900,229,2140,256"/>
-<area shape="rect" id="node44" href="$_species_type_component_map_in_product_8cpp.html" title=": Implementation of the SpeciesTypeComponentMapInProduct class" alt="" coords="1431,393,1649,435"/>
-<area shape="rect" id="node46" href="$_species_type_instance_8cpp.html" title=": Implementation of the SpeciesTypeInstance class" alt="" coords="2385,229,2569,256"/>
+<area shape="rect" id="Node000001" title=": Implementation of the MultiExtension class" alt="" coords="2101,5,2231,31"/>
+<area shape="rect" id="Node000002" href="$_binding_site_species_type_8h.html" title=": Implementation of the BindingSiteSpeciesType class" alt="" coords="1536,306,1724,331"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="2087,27,1937,44,1851,60,1767,81,1721,97,1687,114,1610,154,1564,171,1525,180,1492,194,1477,207,1463,227,1457,241,1459,254,1466,265,1479,275,1515,292,1558,303,1556,308,1513,297,1476,280,1462,268,1454,255,1452,240,1458,224,1473,204,1489,190,1523,175,1562,166,1607,150,1684,109,1719,92,1765,76,1850,55,1936,39,2087,22"/>
+<area shape="rect" id="Node000004" href="$_multi_extension_types_8h.html" title=": Implementation of the MultiExtensionTypes class" alt="" coords="2107,475,2275,500"/>
+<area shape="poly" id="edge34_Node000001_Node000004" title=" " alt="" coords="2169,44,2169,163,2169,320,2171,365,2177,409,2191,474,2186,475,2172,410,2166,365,2163,320,2163,163,2163,44"/>
+<area shape="rect" id="Node000007" href="$_multi_extension_8cpp.html" title=": Implementation of the MultiExtension class" alt="" coords="1129,475,1275,500"/>
+<area shape="poly" id="edge33_Node000001_Node000007" title=" " alt="" coords="2087,22,1747,24,1524,31,1294,42,1077,59,897,85,826,101,773,120,740,141,731,152,729,164,729,320,728,379,734,402,753,425,771,433,805,442,905,457,1128,478,1128,484,904,462,804,447,769,438,750,429,730,404,722,380,723,320,723,163,727,150,736,137,771,115,825,96,896,80,1077,54,1293,36,1524,25,1747,19,2087,16"/>
+<area shape="rect" id="Node000010" href="$_compartment_reference_8h.html" title=": Implementation of the CompartmentReference class" alt="" coords="1241,306,1432,331"/>
+<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="2087,25,1907,42,1801,58,1696,81,1604,109,1567,127,1521,154,1466,194,1417,238,1348,308,1345,304,1413,234,1463,190,1518,150,1564,122,1602,104,1695,76,1800,53,1906,37,2087,20"/>
+<area shape="rect" id="Node000014" href="$_in_species_type_bond_8h.html" title=": Implementation of the InSpeciesTypeBond class" alt="" coords="1621,152,1780,177"/>
+<area shape="poly" id="edge17_Node000001_Node000014" title=" " alt="" coords="2087,25,2026,31,1957,41,1885,57,1816,81,1785,97,1757,117,1714,154,1710,150,1753,113,1783,93,1814,76,1884,52,1956,36,2025,25,2086,20"/>
+<area shape="rect" id="Node000016" href="$_multi_species_type_8h.html" title=": Implementation of the MultiSpeciesType class" alt="" coords="1723,225,1870,251"/>
+<area shape="poly" id="edge48_Node000001_Node000016" title=" " alt="" coords="2132,39,2035,89,1919,154,1813,227,1810,223,1916,150,2032,84,2129,34"/>
+<area shape="rect" id="Node000017" href="$_intra_species_reaction_8h.html" title=": Implementation of the IntraSpeciesReaction class" alt="" coords="263,306,434,331"/>
+<area shape="poly" id="edge25_Node000001_Node000017" title=" " alt="" coords="2087,23,1716,28,1207,39,745,57,590,68,541,74,516,81,483,104,453,132,427,164,405,198,373,261,355,306,350,305,368,259,401,195,423,161,449,129,480,100,514,76,540,69,589,63,745,51,1207,34,1716,23,2087,18"/>
+<area shape="rect" id="Node000019" href="$_multi_list_of_reactions_plugin_8h.html" title=": Implementation of the MultiListOfReactionsPlugin class" alt="" coords="244,394,453,419"/>
+<area shape="poly" id="edge35_Node000001_Node000019" title=" " alt="" coords="2087,23,1759,26,1312,36,895,53,744,66,691,73,656,81,611,94,572,107,557,115,546,127,539,142,537,163,537,240,532,269,520,296,501,320,478,341,428,375,381,396,379,392,425,370,475,337,497,317,515,294,527,268,531,239,531,163,534,141,542,124,554,111,570,102,609,89,655,76,690,68,743,60,895,48,1312,30,1759,21,2087,17"/>
+<area shape="rect" id="Node000021" href="$_multi_s_b_m_l_document_plugin_8h.html" title=": Implementation of the MultiSBMLDocumentPlugin class" alt="" coords="478,394,689,419"/>
+<area shape="poly" id="edge36_Node000001_Node000021" title=" " alt="" coords="2087,22,1769,23,1337,29,1124,37,936,47,791,62,741,71,708,81,677,96,653,112,638,133,633,164,633,239,628,286,616,330,591,395,586,393,611,328,623,285,627,239,627,163,633,131,649,108,674,91,706,76,740,66,790,57,935,42,1123,31,1337,24,1769,17,2087,16"/>
+<area shape="rect" id="Node000023" href="$_multi_simple_species_reference_plugin_8h.html" title=": Implementation of the MultiSimpleSpeciesReferencePlugin class" alt="" coords="2399,299,2615,339"/>
+<area shape="poly" id="edge40_Node000001_Node000023" title=" " alt="" coords="2213,33,2321,79,2383,112,2441,150,2482,181,2496,199,2508,224,2515,264,2513,299,2508,298,2510,264,2503,226,2491,202,2478,185,2438,154,2380,116,2319,84,2211,38"/>
+<area shape="rect" id="Node000027" href="$_outward_binding_site_8h.html" title=": Implementation of the OutwardBindingSite class" alt="" coords="3222,306,3385,331"/>
+<area shape="poly" id="edge49_Node000001_Node000027" title=" " alt="" coords="2245,18,2459,23,2729,34,2973,51,3060,62,3111,76,3148,100,3182,129,3212,161,3238,195,3278,259,3300,304,3296,307,3273,262,3233,198,3207,165,3178,133,3145,104,3109,81,3059,68,2972,56,2729,39,2459,29,2245,23"/>
+<area shape="rect" id="Node000031" href="$_possible_species_feature_value_8h.html" title=": Implementation of the PossibleSpeciesFeatureValue class" alt="" coords="2875,79,3097,104"/>
+<area shape="poly" id="edge56_Node000001_Node000031" title=" " alt="" coords="2245,23,2874,78,2874,83,2245,29"/>
+<area shape="rect" id="Node000033" href="$_species_feature_type_8h.html" title=": Implementation of the SpeciesFeatureType class" alt="" coords="2581,152,2743,177"/>
+<area shape="poly" id="edge73_Node000001_Node000033" title=" " alt="" coords="2245,18,2312,22,2390,32,2472,50,2551,76,2582,93,2611,113,2652,150,2649,154,2607,117,2579,97,2549,81,2471,55,2389,38,2312,28,2245,23"/>
+<area shape="rect" id="Node000035" href="$_species_feature_8h.html" title=": Implementation of the SpeciesFeature class" alt="" coords="3747,225,3881,251"/>
+<area shape="poly" id="edge63_Node000001_Node000035" title=" " alt="" coords="2245,16,2523,17,2904,24,3100,31,3284,42,3441,56,3560,76,3609,89,3647,103,3683,122,3726,150,3772,188,3806,223,3802,227,3769,192,3723,154,3680,127,3645,108,3608,94,3559,81,3440,62,3283,47,3100,36,2904,29,2523,22,2245,22"/>
+<area shape="rect" id="Node000038" href="$_sub_list_of_species_features_8h.html" title=": Implementation of the SubListOfSpeciesFeatures class" alt="" coords="3597,306,3799,331"/>
+<area shape="poly" id="edge90_Node000001_Node000038" title=" " alt="" coords="2245,18,2447,22,2708,32,2963,50,3068,62,3148,76,3209,93,3260,112,3342,152,3422,197,3528,248,3668,303,3666,308,3526,253,3420,202,3339,157,3257,117,3207,98,3147,81,3067,67,2962,55,2707,38,2447,28,2245,23"/>
+<area shape="rect" id="Node000039" href="$_species_feature_value_8h.html" title=": Implementation of the SpeciesFeatureValue class" alt="" coords="3543,152,3712,177"/>
+<area shape="poly" id="edge74_Node000001_Node000039" title=" " alt="" coords="2245,17,2542,21,2940,31,3309,48,3443,61,3521,76,3552,92,3580,112,3619,150,3616,154,3576,116,3549,96,3520,81,3442,66,3309,54,2940,36,2542,27,2245,23"/>
+<area shape="rect" id="Node000041" href="$_species_type_component_index_8h.html" title=": Implementation of the SpeciesTypeComponentIndex class" alt="" coords="2203,152,2428,177"/>
+<area shape="poly" id="edge78_Node000001_Node000041" title=" " alt="" coords="2190,39,2305,150,2301,154,2186,42"/>
+<area shape="rect" id="Node000043" href="$_species_type_component_map_in_product_8h.html" title=": Implementation of the SpeciesTypeComponentMapInProduct class" alt="" coords="2819,299,3036,339"/>
+<area shape="poly" id="edge82_Node000001_Node000043" title=" " alt="" coords="2245,21,2407,38,2500,54,2592,76,2640,92,2676,108,2756,150,2797,167,2829,178,2860,194,2892,224,2914,261,2926,298,2921,299,2910,263,2888,227,2857,199,2827,183,2795,172,2754,154,2674,113,2638,97,2590,81,2499,59,2406,43,2245,26"/>
+<area shape="rect" id="Node000045" href="$_species_type_instance_8h.html" title=": Implementation of the SpeciesTypeInstance class" alt="" coords="1931,152,2100,177"/>
+<area shape="poly" id="edge86_Node000001_Node000045" title=" " alt="" coords="2146,42,2029,154,2025,150,2142,39"/>
+<area shape="rect" id="Node000003" href="$_binding_site_species_type_8cpp.html" title=": Implementation of the BindingSiteSpeciesType class" alt="" coords="1486,394,1689,419"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="1620,345,1596,395,1591,392,1616,343"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="1654,339,1711,391,1752,424,1818,443,1911,458,2107,478,2106,483,1911,464,1817,448,1750,429,1708,395,1650,343"/>
+<area shape="rect" id="Node000006" href="$_multi_model_plugin_8h.html" title=": Implementation of the MultiModelPlugin class" alt="" coords="1265,394,1411,419"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="1578,338,1378,396,1376,391,1577,333"/>
+<area shape="rect" id="Node000009" href="$_multi_species_type_8cpp.html" title=": Implementation of the MultiSpeciesType class" alt="" coords="1763,394,1926,419"/>
+<area shape="poly" id="edge9_Node000002_Node000009" title=" " alt="" coords="1673,334,1817,391,1815,396,1671,339"/>
+<area shape="rect" id="Node000005" href="$_multi_validator_8cpp.html" title=": Implementation of the MultiValidator class" alt="" coords="2122,548,2261,573"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="2194,514,2194,548,2189,548,2189,514"/>
+<area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="1402,419,1430,424,1619,446,1807,463,2107,480,2107,485,1807,468,1619,452,1429,429,1401,425"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="1307,429,1223,477,1221,472,1305,424"/>
+<area shape="rect" id="Node000008" href="$_multi_model_plugin_8cpp.html" title=": Implementation of the MultiModelPlugin class" alt="" coords="302,475,465,500"/>
+<area shape="poly" id="edge8_Node000006_Node000008" title=" " alt="" coords="1279,425,1253,429,1135,444,1035,453,865,459,695,463,477,477,465,478,464,473,476,472,695,458,865,454,1035,447,1135,438,1252,424,1278,420"/>
+<area shape="poly" id="edge16_Node000010_Node000004" title=" " alt="" coords="1364,338,1425,385,1449,407,1459,416,1475,424,1527,439,1598,452,1772,469,1955,478,2107,482,2107,488,1955,484,1771,474,1597,457,1526,444,1473,429,1456,421,1445,411,1421,389,1361,342"/>
+<area shape="rect" id="Node000011" href="$_compartment_reference_8cpp.html" title=": Implementation of the CompartmentReference class" alt="" coords="1035,394,1241,419"/>
+<area shape="poly" id="edge11_Node000010_Node000011" title=" " alt="" coords="1298,339,1166,396,1164,391,1296,334"/>
+<area shape="rect" id="Node000012" href="$_multi_compartment_plugin_8h.html" title=": Implementation of the MultiCompartmentPlugin class" alt="" coords="763,394,961,419"/>
+<area shape="poly" id="edge12_Node000010_Node000012" title=" " alt="" coords="1260,336,925,397,925,391,1259,331"/>
+<area shape="poly" id="edge15_Node000012_Node000004" title=" " alt="" coords="939,419,979,424,1306,451,1627,468,1907,478,2107,482,2107,488,1907,483,1627,474,1305,456,979,429,938,424"/>
+<area shape="poly" id="edge14_Node000012_Node000007" title=" " alt="" coords="925,420,1153,472,1152,477,924,425"/>
+<area shape="rect" id="Node000013" href="$_multi_compartment_plugin_8cpp.html" title=": Implementation of the MultiCompartmentPlugin class" alt="" coords="756,475,968,500"/>
+<area shape="poly" id="edge13_Node000012_Node000013" title=" " alt="" coords="865,433,865,474,859,474,859,433"/>
+<area shape="poly" id="edge19_Node000014_Node000004" title=" " alt="" coords="1701,191,1703,220,1713,249,1737,274,1771,299,1862,349,2032,424,2098,451,2157,472,2155,477,2096,456,2030,429,1859,354,1769,304,1733,278,1709,252,1697,222,1695,191"/>
+<area shape="rect" id="Node000015" href="$_in_species_type_bond_8cpp.html" title=": Implementation of the InSpeciesTypeBond class" alt="" coords="1473,225,1648,251"/>
+<area shape="poly" id="edge18_Node000014_Node000015" title=" " alt="" coords="1667,186,1585,227,1582,223,1665,181"/>
+<area shape="poly" id="edge20_Node000014_Node000016" title=" " alt="" coords="1729,183,1782,223,1779,227,1725,188"/>
+<area shape="poly" id="edge21_Node000016_Node000002" title=" " alt="" coords="1761,259,1655,308,1653,304,1759,254"/>
+<area shape="poly" id="edge22_Node000016_Node000004" title=" " alt="" coords="1828,256,2174,472,2171,477,1825,261"/>
+<area shape="poly" id="edge23_Node000016_Node000006" title=" " alt="" coords="1710,254,1619,272,1524,301,1443,344,1358,396,1355,392,1440,340,1522,296,1618,267,1709,249"/>
+<area shape="poly" id="edge24_Node000016_Node000009" title=" " alt="" coords="1806,263,1844,393,1839,395,1801,265"/>
+<area shape="poly" id="edge27_Node000017_Node000004" title=" " alt="" coords="448,321,581,329,732,341,873,359,930,371,974,384,990,394,1000,405,1009,416,1024,424,1089,437,1200,448,1509,466,1846,476,2107,482,2107,487,1846,482,1509,471,1199,454,1088,442,1022,429,1006,420,996,409,986,398,971,389,929,376,872,365,732,346,580,334,447,327"/>
+<area shape="poly" id="edge32_Node000017_Node000008" title=" " alt="" coords="250,324,154,331,107,339,66,349,33,362,13,379,9,388,9,399,13,411,22,425,54,434,126,447,302,473,301,478,125,452,53,439,19,429,8,414,3,400,4,387,9,376,30,357,64,343,106,333,153,326,249,319"/>
+<area shape="rect" id="Node000018" href="$_intra_species_reaction_8cpp.html" title=": Implementation of the IntraSpeciesReaction class" alt="" coords="33,394,219,419"/>
+<area shape="poly" id="edge26_Node000017_Node000018" title=" " alt="" coords="307,339,157,396,155,391,305,334"/>
+<area shape="poly" id="edge28_Node000017_Node000019" title=" " alt="" coords="351,345,351,393,346,393,346,345"/>
+<area shape="poly" id="edge30_Node000019_Node000004" title=" " alt="" coords="425,419,466,424,617,435,817,445,1295,463,2107,482,2107,487,1295,468,817,451,617,441,466,429,424,424"/>
+<area shape="poly" id="edge29_Node000019_Node000007" title=" " alt="" coords="428,419,466,424,653,444,838,460,1128,479,1128,485,838,465,652,449,466,429,427,424"/>
+<area shape="rect" id="Node000020" href="$_multi_list_of_reactions_plugin_8cpp.html" title=": Implementation of the MultiListOfReactionsPlugin class" alt="" coords="54,475,278,500"/>
+<area shape="poly" id="edge31_Node000019_Node000020" title=" " alt="" coords="310,427,194,477,191,472,308,422"/>
+<area shape="poly" id="edge38_Node000021_Node000004" title=" " alt="" coords="689,418,751,424,1149,449,1539,466,2107,482,2107,487,1539,471,1149,454,751,429,688,423"/>
+<area shape="poly" id="edge37_Node000021_Node000007" title=" " alt="" coords="670,419,708,424,1129,475,1128,481,707,429,670,424"/>
+<area shape="rect" id="Node000022" href="$_multi_s_b_m_l_document_plugin_8cpp.html" title=": Implementation of the MultiSBMLDocumentPlugin class" alt="" coords="489,475,715,500"/>
+<area shape="poly" id="edge39_Node000021_Node000022" title=" " alt="" coords="592,432,602,474,597,475,587,433"/>
+<area shape="poly" id="edge42_Node000023_Node000004" title=" " alt="" coords="2511,353,2505,392,2496,412,2484,429,2449,448,2396,463,2276,481,2275,476,2395,458,2447,443,2480,425,2492,409,2499,391,2506,352"/>
+<area shape="poly" id="edge41_Node000023_Node000007" title=" " alt="" coords="2410,344,2194,387,1938,429,1751,451,1566,467,1275,485,1275,480,1566,462,1751,445,1937,424,2194,382,2409,339"/>
+<area shape="rect" id="Node000024" href="$_multi_simple_species_reference_plugin_8cpp.html" title=": Implementation of the MultiSimpleSpeciesReferencePlugin class" alt="" coords="2254,387,2470,427"/>
+<area shape="poly" id="edge43_Node000023_Node000024" title=" " alt="" coords="2465,348,2395,389,2392,384,2462,343"/>
+<area shape="rect" id="Node000025" href="$_multi_species_reference_plugin_8h.html" title=": Implementation of the MultiSpeciesReferencePlugin class" alt="" coords="2544,394,2767,419"/>
+<area shape="poly" id="edge44_Node000023_Node000025" title=" " alt="" coords="2553,343,2637,392,2634,396,2550,348"/>
+<area shape="poly" id="edge46_Node000025_Node000004" title=" " alt="" coords="2575,424,2259,477,2258,472,2574,419"/>
+<area shape="poly" id="edge45_Node000025_Node000007" title=" " alt="" coords="2546,423,2482,429,2128,452,1781,469,1276,487,1275,481,1780,464,2128,447,2482,424,2545,418"/>
+<area shape="rect" id="Node000026" href="$_multi_species_reference_plugin_8cpp.html" title=": Implementation of the MultiSpeciesReferencePlugin class" alt="" coords="2536,475,2775,500"/>
+<area shape="poly" id="edge47_Node000025_Node000026" title=" " alt="" coords="2658,433,2658,474,2653,474,2653,433"/>
+<area shape="poly" id="edge50_Node000027_Node000004" title=" " alt="" coords="3333,337,3357,357,3377,380,3386,404,3385,417,3377,429,3237,441,2923,457,2276,485,2275,480,2923,452,3237,435,3374,424,3380,415,3381,405,3372,383,3353,361,3330,341"/>
+<area shape="rect" id="Node000028" href="$_multi_species_plugin_8h.html" title=": Implementation of the MultiSpeciesPlugin class" alt="" coords="3489,394,3646,419"/>
+<area shape="poly" id="edge51_Node000027_Node000028" title=" " alt="" coords="3353,333,3533,391,3531,396,3351,338"/>
+<area shape="rect" id="Node000030" href="$_outward_binding_site_8cpp.html" title=": Implementation of the OutwardBindingSite class" alt="" coords="3185,394,3363,419"/>
+<area shape="poly" id="edge55_Node000027_Node000030" title=" " alt="" coords="3297,345,3280,394,3275,393,3292,343"/>
+<area shape="poly" id="edge53_Node000028_Node000004" title=" " alt="" coords="3502,424,3470,429,3271,443,2928,459,2276,485,2275,480,2928,453,3271,437,3470,424,3502,419"/>
+<area shape="poly" id="edge52_Node000028_Node000007" title=" " alt="" coords="3475,421,3375,429,2916,449,2291,466,1276,487,1275,482,2291,461,2915,443,3375,424,3475,416"/>
+<area shape="rect" id="Node000029" href="$_multi_species_plugin_8cpp.html" title=": Implementation of the MultiSpeciesPlugin class" alt="" coords="3481,475,3653,500"/>
+<area shape="poly" id="edge54_Node000028_Node000029" title=" " alt="" coords="3570,433,3570,474,3565,474,3565,433"/>
+<area shape="poly" id="edge57_Node000031_Node000004" title=" " alt="" coords="3052,106,3090,123,3124,150,3139,171,3147,190,3150,237,3150,320,3148,355,3139,383,3123,407,3095,429,3058,438,2983,446,2754,462,2275,485,2275,480,2753,457,2982,441,3057,433,3093,424,3119,403,3135,381,3142,354,3145,320,3145,237,3142,191,3134,173,3120,154,3088,128,3050,111"/>
+<area shape="rect" id="Node000032" href="$_possible_species_feature_value_8cpp.html" title=": Implementation of the PossibleSpeciesFeatureValue class" alt="" coords="2871,152,3109,177"/>
+<area shape="poly" id="edge58_Node000031_Node000032" title=" " alt="" coords="2990,118,2992,152,2987,152,2985,118"/>
+<area shape="poly" id="edge59_Node000031_Node000033" title=" " alt="" coords="2921,110,2715,154,2714,149,2920,104"/>
+<area shape="poly" id="edge60_Node000033_Node000004" title=" " alt="" coords="2670,190,2690,250,2706,277,2727,301,2771,342,2787,362,2796,382,2795,404,2780,429,2754,442,2708,453,2572,470,2415,480,2276,486,2275,481,2414,475,2572,464,2707,448,2752,437,2776,425,2790,403,2791,383,2783,365,2767,346,2724,304,2702,280,2685,252,2665,192"/>
+<area shape="poly" id="edge61_Node000033_Node000016" title=" " alt="" coords="2567,174,2262,195,1882,228,1870,229,1870,224,1882,223,2262,189,2567,169"/>
+<area shape="rect" id="Node000034" href="$_species_feature_type_8cpp.html" title=": Implementation of the SpeciesFeatureType class" alt="" coords="2699,225,2878,251"/>
+<area shape="poly" id="edge62_Node000033_Node000034" title=" " alt="" coords="2696,182,2769,223,2767,227,2693,186"/>
+<area shape="poly" id="edge64_Node000035_Node000004" title=" " alt="" coords="3884,251,3982,277,4033,295,4079,316,4116,340,4139,366,4144,381,4144,396,4138,412,4125,429,4101,435,4048,440,3866,450,3328,465,2523,477,2276,486,2275,480,2523,472,3328,459,3866,445,4047,435,4100,430,4122,424,4133,410,4139,395,4139,382,4134,369,4112,344,4076,321,4031,300,3980,282,3883,256"/>
+<area shape="poly" id="edge65_Node000035_Node000028" title=" " alt="" coords="3744,256,3645,279,3606,291,3586,301,3573,323,3567,348,3568,394,3563,394,3562,348,3568,321,3583,297,3604,286,3644,274,3743,251"/>
+<area shape="rect" id="Node000036" href="$_species_feature_8cpp.html" title=": Implementation of the SpeciesFeature class" alt="" coords="3963,394,4111,419"/>
+<area shape="poly" id="edge66_Node000035_Node000036" title=" " alt="" coords="3842,257,4023,392,4020,396,3838,261"/>
+<area shape="rect" id="Node000037" href="$_sub_list_of_species_features_8cpp.html" title=": Implementation of the SubListOfSpeciesFeatures class" alt="" coords="3721,394,3939,419"/>
+<area shape="poly" id="edge67_Node000035_Node000037" title=" " alt="" coords="3819,264,3831,394,3826,394,3814,265"/>
+<area shape="poly" id="edge68_Node000035_Node000038" title=" " alt="" coords="3787,261,3717,308,3714,304,3784,256"/>
+<area shape="poly" id="edge69_Node000038_Node000004" title=" " alt="" coords="3699,346,3688,389,3677,411,3659,429,3081,455,2276,486,2275,480,3080,450,3657,424,3672,408,3683,387,3694,344"/>
+<area shape="poly" id="edge70_Node000038_Node000028" title=" " alt="" coords="3670,341,3586,396,3583,392,3668,337"/>
+<area shape="poly" id="edge71_Node000038_Node000036" title=" " alt="" coords="3757,332,3992,391,3991,397,3756,337"/>
+<area shape="poly" id="edge72_Node000038_Node000037" title=" " alt="" coords="3728,337,3813,391,3810,396,3726,341"/>
+<area shape="poly" id="edge75_Node000039_Node000004" title=" " alt="" coords="3590,186,3559,204,3529,227,3506,255,3490,282,3471,335,3461,360,3448,385,3429,408,3399,429,3354,435,3250,443,2929,459,2276,486,2275,480,2929,454,3250,437,3353,430,3397,424,3425,404,3444,382,3457,358,3466,333,3485,279,3501,251,3525,223,3556,200,3587,181"/>
+<area shape="poly" id="edge76_Node000039_Node000035" title=" " alt="" coords="3671,180,3784,223,3782,228,3669,185"/>
+<area shape="rect" id="Node000040" href="$_species_feature_value_8cpp.html" title=": Implementation of the SpeciesFeatureValue class" alt="" coords="3539,225,3723,251"/>
+<area shape="poly" id="edge77_Node000039_Node000040" title=" " alt="" coords="3631,191,3633,225,3628,225,3626,191"/>
+<area shape="poly" id="edge79_Node000041_Node000004" title=" " alt="" coords="2284,187,2262,205,2244,227,2227,260,2215,295,2199,368,2194,432,2193,475,2188,475,2188,431,2194,367,2210,294,2223,258,2240,224,2259,201,2281,183"/>
+<area shape="poly" id="edge80_Node000041_Node000016" title=" " alt="" coords="2219,182,1870,229,1870,224,2218,177"/>
+<area shape="rect" id="Node000042" href="$_species_type_component_index_8cpp.html" title=": Implementation of the SpeciesTypeComponentIndex class" alt="" coords="2254,225,2494,251"/>
+<area shape="poly" id="edge81_Node000041_Node000042" title=" " alt="" coords="2336,186,2366,224,2362,227,2331,190"/>
+<area shape="poly" id="edge83_Node000043_Node000004" title=" " alt="" coords="3002,341,3038,358,3068,378,3078,390,3083,402,3082,415,3073,429,3039,440,2966,449,2744,466,2275,486,2275,481,2744,461,2965,444,3037,434,3070,425,3077,413,3078,403,3073,392,3065,382,3036,362,3000,346"/>
+<area shape="poly" id="edge84_Node000043_Node000025" title=" " alt="" coords="2855,345,2692,397,2691,391,2854,340"/>
+<area shape="rect" id="Node000044" href="$_species_type_component_map_in_product_8cpp.html" title=": Implementation of the SpeciesTypeComponentMapInProduct class" alt="" coords="2841,387,3059,427"/>
+<area shape="poly" id="edge85_Node000043_Node000044" title=" " alt="" coords="2938,351,2947,386,2942,387,2933,353"/>
+<area shape="poly" id="edge87_Node000045_Node000004" title=" " alt="" coords="2049,183,2072,201,2092,224,2108,252,2117,277,2125,323,2131,370,2138,396,2150,425,2166,452,2183,473,2179,476,2161,455,2145,428,2133,398,2126,371,2120,324,2112,278,2103,254,2088,227,2068,205,2046,187"/>
+<area shape="poly" id="edge88_Node000045_Node000016" title=" " alt="" coords="1968,184,1833,228,1831,223,1966,179"/>
+<area shape="rect" id="Node000046" href="$_species_type_instance_8cpp.html" title=": Implementation of the SpeciesTypeInstance class" alt="" coords="1894,225,2078,251"/>
+<area shape="poly" id="edge89_Node000045_Node000046" title=" " alt="" coords="2008,191,1993,226,1988,224,2003,189"/>
 </map>

@@ -1,0 +1,27 @@
+var dir_3f96c34ad80e9031c68706862fabf1a4 =
+[
+    [ "ASTBasePlugin.cpp", "_a_s_t_base_plugin_8cpp.html", null ],
+    [ "ASTBasePlugin.h", "_a_s_t_base_plugin_8h.html", null ],
+    [ "ISBMLExtensionNamespaces.cpp", "_i_s_b_m_l_extension_namespaces_8cpp.html", null ],
+    [ "ISBMLExtensionNamespaces.h", "_i_s_b_m_l_extension_namespaces_8h.html", null ],
+    [ "SBaseExtensionPoint.cpp", "_s_base_extension_point_8cpp.html", "_s_base_extension_point_8cpp" ],
+    [ "SBaseExtensionPoint.h", "_s_base_extension_point_8h.html", null ],
+    [ "SBasePlugin.cpp", "_s_base_plugin_8cpp.html", null ],
+    [ "SBasePlugin.h", "_s_base_plugin_8h.html", null ],
+    [ "SBasePluginCreator.h", "_s_base_plugin_creator_8h.html", null ],
+    [ "SBasePluginCreatorBase.cpp", "_s_base_plugin_creator_base_8cpp.html", null ],
+    [ "SBasePluginCreatorBase.h", "_s_base_plugin_creator_base_8h.html", null ],
+    [ "SBMLDocumentPlugin.cpp", "_s_b_m_l_document_plugin_8cpp.html", null ],
+    [ "SBMLDocumentPlugin.h", "_s_b_m_l_document_plugin_8h.html", null ],
+    [ "SBMLDocumentPluginNotRequired.cpp", "_s_b_m_l_document_plugin_not_required_8cpp.html", null ],
+    [ "SBMLDocumentPluginNotRequired.h", "_s_b_m_l_document_plugin_not_required_8h.html", null ],
+    [ "SBMLExtension.cpp", "_s_b_m_l_extension_8cpp.html", "_s_b_m_l_extension_8cpp" ],
+    [ "SBMLExtension.h", "_s_b_m_l_extension_8h.html", "_s_b_m_l_extension_8h" ],
+    [ "SBMLExtensionException.cpp", "_s_b_m_l_extension_exception_8cpp.html", null ],
+    [ "SBMLExtensionException.h", "_s_b_m_l_extension_exception_8h.html", null ],
+    [ "SBMLExtensionNamespaces.cpp", "_s_b_m_l_extension_namespaces_8cpp.html", null ],
+    [ "SBMLExtensionNamespaces.h", "_s_b_m_l_extension_namespaces_8h.html", null ],
+    [ "SBMLExtensionRegister.h", "_s_b_m_l_extension_register_8h.html", null ],
+    [ "SBMLExtensionRegistry.cpp", "_s_b_m_l_extension_registry_8cpp.html", null ],
+    [ "SBMLExtensionRegistry.h", "_s_b_m_l_extension_registry_8h.html", null ]
+];

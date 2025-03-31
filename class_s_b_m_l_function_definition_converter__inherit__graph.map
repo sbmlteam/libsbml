@@ -1,4 +1,5 @@
 <map id="SBMLFunctionDefinitionConverter" name="SBMLFunctionDefinitionConverter">
-<area shape="rect" id="node1" title=" " alt="" coords="5,80,245,107"/>
-<area shape="rect" id="node2" href="$class_s_b_m_l_converter.html" title=" " alt="" coords="64,5,187,32"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,79,245,104"/>
+<area shape="rect" id="Node000002" href="$class_s_b_m_l_converter.html" title=" " alt="" coords="64,5,187,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="128,44,128,79,123,79,123,44"/>
 </map>

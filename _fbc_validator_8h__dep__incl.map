@@ -1,5 +1,7 @@
 <map id="FbcValidator.h" name="FbcValidator.h">
-<area shape="rect" id="node1" title="Base class for SBML CompValidators." alt="" coords="153,5,267,32"/>
-<area shape="rect" id="node2" href="$_fbc_s_b_m_l_document_plugin_8cpp.html" title="Implementation of the FbcSBMLDocumentPlugin class." alt="" coords="5,80,220,107"/>
-<area shape="rect" id="node3" href="$_fbc_validator_8cpp.html" title="Base class for SBML Validators." alt="" coords="244,80,373,107"/>
+<area shape="rect" id="Node000001" title="Base class for SBML CompValidators." alt="" coords="153,5,267,31"/>
+<area shape="rect" id="Node000002" href="$_fbc_s_b_m_l_document_plugin_8cpp.html" title="Implementation of the FbcSBMLDocumentPlugin class." alt="" coords="5,79,220,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="185,41,130,81,127,76,182,37"/>
+<area shape="rect" id="Node000003" href="$_fbc_validator_8cpp.html" title="Base class for SBML Validators." alt="" coords="244,79,373,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="238,36,294,76,291,81,235,41"/>
 </map>

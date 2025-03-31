@@ -1,11 +1,19 @@
 <map id="UnitConsistencyValidator.h" name="UnitConsistencyValidator.h">
-<area shape="rect" id="node1" title=" " alt="" coords="519,5,717,32"/>
-<area shape="rect" id="node2" href="$_s_b_m_l_level_version_converter_8h.html" title="Definition of SBMLLevelVersionConverter, the base class for SBML conversion." alt="" coords="195,80,411,107"/>
-<area shape="rect" id="node7" href="$_s_b_m_l_internal_validator_8cpp.html" title="Implementation of SBMLInternalValidator, the validator for all internal validation performed by libSB..." alt="" coords="435,80,627,107"/>
-<area shape="rect" id="node8" href="$_validator_8cpp.html" title="Base class for SBML Validators." alt="" coords="651,80,758,107"/>
-<area shape="rect" id="node9" href="$_s_b_m_l_document_8cpp.html" title="Implementation of the top&#45;level container for an SBML Model and associated data." alt="" coords="782,80,934,107"/>
-<area shape="rect" id="node3" href="$_register_converters_8cpp.html" title="Registers all available converters." alt="" coords="19,155,193,181"/>
-<area shape="rect" id="node5" href="$_s_b_m_l_converter_types_8h.html" title="Definition of SBMLConverterTypes." alt="" coords="218,155,389,181"/>
-<area shape="rect" id="node6" href="$_s_b_m_l_level_version_converter_8cpp.html" title="Implementation of SBMLLevelVersionConverter, the base class of package extensions." alt="" coords="413,155,644,181"/>
-<area shape="rect" id="node4" href="$_s_b_m_l_converter_registry_8cpp.html" title="Implementation of SBMLConverterRegistry, a registry of available converters." alt="" coords="5,229,207,256"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="292,5,489,31"/>
+<area shape="rect" id="Node000002" href="$_s_b_m_l_document_8cpp.html" title="Implementation of the top&#45;level container for an SBML Model and associated data." alt="" coords="5,79,157,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="329,36,132,81,131,76,327,31"/>
+<area shape="rect" id="Node000003" href="$_s_b_m_l_internal_validator_8cpp.html" title="Implementation of SBMLInternalValidator, the validator for all internal validation performed by libSB..." alt="" coords="181,79,373,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="362,40,297,81,294,76,359,36"/>
+<area shape="rect" id="Node000004" href="$_s_b_m_l_level_version_converter_8h.html" title="Definition of SBMLLevelVersionConverter, the base class for SBML conversion." alt="" coords="397,79,613,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="422,35,488,76,485,81,419,40"/>
+<area shape="rect" id="Node000009" href="$_validator_8cpp.html" title="Base class for SBML Validators." alt="" coords="637,79,744,104"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="452,31,643,76,641,81,451,36"/>
+<area shape="rect" id="Node000005" href="$_register_converters_8cpp.html" title="Registers all available converters." alt="" coords="221,152,395,177"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="462,111,341,154,339,149,460,106"/>
+<area shape="rect" id="Node000007" href="$_s_b_m_l_converter_types_8h.html" title="Definition of SBMLConverterTypes." alt="" coords="420,152,591,177"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="508,118,508,152,503,152,503,118"/>
+<area shape="rect" id="Node000008" href="$_s_b_m_l_level_version_converter_8cpp.html" title="Implementation of SBMLLevelVersionConverter, the base class of package extensions." alt="" coords="615,152,846,177"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="555,106,695,149,693,154,554,111"/>
+<area shape="rect" id="Node000006" href="$_s_b_m_l_converter_registry_8cpp.html" title="Implementation of SBMLConverterRegistry, a registry of available converters." alt="" coords="207,225,409,251"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="311,191,311,225,305,225,305,191"/>
 </map>

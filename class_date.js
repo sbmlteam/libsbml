@@ -5,7 +5,7 @@ var class_date =
     [ "~Date", "class_date.html#ade4b469433b7966cc034cbcc6799233b", null ],
     [ "Date", "class_date.html#a73adc3e2e234a2d9ec68643cd7e3640b", null ],
     [ "clone", "class_date.html#af8be8057021067a4d3c6e1bb076405b3", null ],
-    [ "getDateAsString", "class_date.html#ac6127849fb1a765faf39e49017609927", null ],
+    [ "getDateAsString", "class_date.html#a8b94259f995f8fc36efff19577736281", null ],
     [ "getDay", "class_date.html#a13855b25efb79eaf7dccf08555421a1d", null ],
     [ "getHour", "class_date.html#a5c9066c2ad9424e5e0baaef4f0bf7af9", null ],
     [ "getHoursOffset", "class_date.html#ad15eade0dbad6aa1035980f3b3f877cb", null ],

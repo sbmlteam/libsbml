@@ -1,4 +1,5 @@
 <map id="FbcIdentifierConsistencyValidator.h" name="FbcIdentifierConsistencyValidator.h">
-<area shape="rect" id="node1" title=" " alt="" coords="21,5,204,47"/>
-<area shape="rect" id="node2" href="$_fbc_s_b_m_l_document_plugin_8cpp.html" title="Implementation of the FbcSBMLDocumentPlugin class." alt="" coords="5,95,220,121"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="21,5,204,45"/>
+<area shape="rect" id="Node000002" href="$_fbc_s_b_m_l_document_plugin_8cpp.html" title="Implementation of the FbcSBMLDocumentPlugin class." alt="" coords="5,93,220,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="115,59,115,93,110,93,110,59"/>
 </map>

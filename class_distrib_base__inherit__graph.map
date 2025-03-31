@@ -1,7 +1,11 @@
 <map id="DistribBase" name="DistribBase">
-<area shape="rect" id="node1" title=" " alt="" coords="92,80,189,107"/>
-<area shape="rect" id="node3" href="$class_uncert_parameter.html" title=" " alt="" coords="5,155,137,181"/>
-<area shape="rect" id="node5" href="$class_uncertainty.html" title=" " alt="" coords="162,155,261,181"/>
-<area shape="rect" id="node2" href="$class_s_base.html" title=" " alt="" coords="109,5,172,32"/>
-<area shape="rect" id="node4" href="$class_uncert_span.html" title=" " alt="" coords="23,229,120,256"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="92,79,189,104"/>
+<area shape="rect" id="Node000003" href="$class_uncert_parameter.html" title=" " alt="" coords="5,152,137,177"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="122,116,84,154,81,150,118,112"/>
+<area shape="rect" id="Node000005" href="$class_uncertainty.html" title=" " alt="" coords="162,152,261,177"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="164,112,202,150,198,154,160,116"/>
+<area shape="rect" id="Node000002" href="$class_s_base.html" title=" " alt="" coords="109,5,172,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="143,44,143,79,138,79,138,44"/>
+<area shape="rect" id="Node000004" href="$class_uncert_span.html" title=" " alt="" coords="23,225,120,251"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="74,191,74,225,69,225,69,191"/>
 </map>

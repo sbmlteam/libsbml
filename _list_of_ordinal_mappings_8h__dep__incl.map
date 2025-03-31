@@ -1,12 +1,21 @@
 <map id="ListOfOrdinalMappings.h" name="ListOfOrdinalMappings.h">
-<area shape="rect" id="node1" title="Definition of the ListOfOrdinalMappings class." alt="" coords="344,5,527,32"/>
-<area shape="rect" id="node2" href="$_list_of_ordinal_mappings_8cpp.html" title="Implementation of the ListOfOrdinalMappings class." alt="" coords="146,80,343,107"/>
-<area shape="rect" id="node3" href="$_mixed_geometry_8h.html" title="Definition of the MixedGeometry class." alt="" coords="367,80,503,107"/>
-<area shape="rect" id="node10" href="$_ordinal_mapping_8cpp.html" title="Implementation of the OrdinalMapping class." alt="" coords="527,80,679,107"/>
-<area shape="rect" id="node4" href="$_spatial_extension_types_8h.html" title="Definition of SpatialExtensionTypes." alt="" coords="5,155,185,181"/>
-<area shape="rect" id="node6" href="$_geometry_8cpp.html" title="Implementation of the Geometry class." alt="" coords="210,155,322,181"/>
-<area shape="rect" id="node7" href="$_geometry_definition_8cpp.html" title="Implementation of the GeometryDefinition class." alt="" coords="347,155,524,181"/>
-<area shape="rect" id="node8" href="$_list_of_geometry_definitions_8cpp.html" title="Implementation of the ListOfGeometryDefinitions class." alt="" coords="548,155,771,181"/>
-<area shape="rect" id="node9" href="$_mixed_geometry_8cpp.html" title="Implementation of the MixedGeometry class." alt="" coords="795,155,945,181"/>
-<area shape="rect" id="node5" href="$_spatial_validator_8cpp.html" title="Definition of SpatialValidator." alt="" coords="20,229,171,256"/>
+<area shape="rect" id="Node000001" title="Definition of the ListOfOrdinalMappings class." alt="" coords="363,5,546,31"/>
+<area shape="rect" id="Node000002" href="$_list_of_ordinal_mappings_8cpp.html" title="Implementation of the ListOfOrdinalMappings class." alt="" coords="165,79,363,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="412,38,296,81,294,76,410,33"/>
+<area shape="rect" id="Node000003" href="$_mixed_geometry_8h.html" title="Definition of the MixedGeometry class." alt="" coords="387,79,523,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="457,44,457,79,452,79,452,44"/>
+<area shape="rect" id="Node000010" href="$_ordinal_mapping_8cpp.html" title="Implementation of the OrdinalMapping class." alt="" coords="547,79,699,104"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="495,34,596,76,594,81,493,38"/>
+<area shape="rect" id="Node000004" href="$_geometry_8cpp.html" title="Implementation of the Geometry class." alt="" coords="5,152,117,177"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="379,109,118,156,117,151,378,104"/>
+<area shape="rect" id="Node000005" href="$_geometry_definition_8cpp.html" title="Implementation of the GeometryDefinition class." alt="" coords="142,152,319,177"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="407,111,268,154,266,149,405,106"/>
+<area shape="rect" id="Node000006" href="$_list_of_geometry_definitions_8cpp.html" title="Implementation of the ListOfGeometryDefinitions class." alt="" coords="343,152,566,177"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="457,118,457,152,452,152,452,118"/>
+<area shape="rect" id="Node000007" href="$_mixed_geometry_8cpp.html" title="Implementation of the MixedGeometry class." alt="" coords="590,152,741,177"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="502,106,632,149,630,154,500,111"/>
+<area shape="rect" id="Node000008" href="$_spatial_extension_types_8h.html" title="Definition of SpatialExtensionTypes." alt="" coords="765,152,945,177"/>
+<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="533,104,790,149,789,155,532,109"/>
+<area shape="rect" id="Node000009" href="$_spatial_validator_8cpp.html" title="Definition of SpatialValidator." alt="" coords="779,225,930,251"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="857,191,857,225,852,225,852,191"/>
 </map>

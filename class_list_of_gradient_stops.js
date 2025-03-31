@@ -140,7 +140,7 @@ var class_list_of_gradient_stops =
     [ "size", "class_list_of_gradient_stops.html#affcde1ad43dfb5ef45cf9e4aa308f8fd", null ],
     [ "toSBML", "class_list_of_gradient_stops.html#ae8317d5157b70e4f1bc68e33e5c84001", null ],
     [ "toXML", "class_list_of_gradient_stops.html#a7afa6b366943219b2956f6c2c74ecb48", null ],
-    [ "toXMLNode", "class_list_of_gradient_stops.html#a5c949d524aca47b84b18b57b76e6ee0a", null ],
+    [ "toXMLNode", "class_list_of_gradient_stops.html#a616754bfc4592922a488f2159f96b3ce", null ],
     [ "unsetAnnotation", "class_list_of_gradient_stops.html#a9121d6a4f7401fe957cc75647a1e95ed", null ],
     [ "unsetCreatedDate", "class_list_of_gradient_stops.html#ad3be0bf5891c2b6bf4340cce12b8630f", null ],
     [ "unsetCVTerms", "class_list_of_gradient_stops.html#a1e89a7890f2fb291f1ba4c38866d1dcc", null ],

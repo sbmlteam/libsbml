@@ -1,12 +1,12 @@
 var _style_8cpp =
 [
-    [ "Style_clone", "_style_8cpp.html#a58a362ad3f4332b346569188af3fd9ee", null ],
-    [ "Style_createGlobalStyle", "_style_8cpp.html#a501142b42e75291f51942c4887cdb44a", null ],
-    [ "Style_createLocalStyle", "_style_8cpp.html#a80d88ceca3f75405ebd4fb8473b507dc", null ],
+    [ "Style_clone", "_style_8cpp.html#aedca66755a3e74f743dbe6b30d17e48f", null ],
+    [ "Style_createGlobalStyle", "_style_8cpp.html#a095173f52158f800e6268f69c12855a5", null ],
+    [ "Style_createLocalStyle", "_style_8cpp.html#af89a2d59b34eb531546b9e2b49f9d959", null ],
     [ "Style_free", "_style_8cpp.html#ac8fe01825400e8a0e3ac305b45638d14", null ],
-    [ "Style_getGroup", "_style_8cpp.html#af1ca1d23ed59ebaed2ee08e4b1bd24eb", null ],
-    [ "Style_getId", "_style_8cpp.html#a1f0f1db38d0856331865f800d6c3725b", null ],
-    [ "Style_getName", "_style_8cpp.html#ab8b2e927528e8b769f13c857342b004d", null ],
+    [ "Style_getGroup", "_style_8cpp.html#abb651b2afa579243bccbe75d19b5ce2c", null ],
+    [ "Style_getId", "_style_8cpp.html#ad8fd109034308e25799332146074c6a9", null ],
+    [ "Style_getName", "_style_8cpp.html#a2f4811889549643c5d6b98c4dcc39c1d", null ],
     [ "Style_hasRequiredAttributes", "_style_8cpp.html#a6839121c49df4e6c5008451879d7c9cd", null ],
     [ "Style_isGlobalStyle", "_style_8cpp.html#a125e6b70acd65aec2d9799f36919c18d", null ],
     [ "Style_isLocalStyle", "_style_8cpp.html#a1e14ded1fe811d5193c511b4109e482a", null ],

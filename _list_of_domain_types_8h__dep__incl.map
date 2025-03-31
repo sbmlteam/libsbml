@@ -1,12 +1,22 @@
 <map id="ListOfDomainTypes.h" name="ListOfDomainTypes.h">
-<area shape="rect" id="node1" title="Definition of the ListOfDomainTypes class." alt="" coords="189,5,349,32"/>
-<area shape="rect" id="node2" href="$_domain_type_8cpp.html" title="Implementation of the DomainType class." alt="" coords="65,80,195,107"/>
-<area shape="rect" id="node3" href="$_geometry_8h.html" title="Definition of the Geometry class." alt="" coords="220,80,317,107"/>
-<area shape="rect" id="node10" href="$_list_of_domain_types_8cpp.html" title="Implementation of the ListOfDomainTypes class." alt="" coords="341,80,516,107"/>
-<area shape="rect" id="node4" href="$_spatial_extension_types_8h.html" title="Definition of SpatialExtensionTypes." alt="" coords="5,229,185,256"/>
-<area shape="rect" id="node6" href="$_spatial_model_plugin_8h.html" title="Definition of the SpatialModelPlugin class." alt="" coords="189,155,348,181"/>
-<area shape="rect" id="node9" href="$_geometry_8cpp.html" title="Implementation of the Geometry class." alt="" coords="373,155,485,181"/>
-<area shape="rect" id="node5" href="$_spatial_validator_8cpp.html" title="Definition of SpatialValidator." alt="" coords="20,304,171,331"/>
-<area shape="rect" id="node7" href="$_spatial_extension_8cpp.html" title="Implementation of SpatialExtension." alt="" coords="209,229,368,256"/>
-<area shape="rect" id="node8" href="$_spatial_model_plugin_8cpp.html" title="Implementation of the SpatialModelPlugin class." alt="" coords="392,229,567,256"/>
+<area shape="rect" id="Node000001" title="Definition of the ListOfDomainTypes class." alt="" coords="129,5,289,31"/>
+<area shape="rect" id="Node000002" href="$_domain_type_8cpp.html" title="Implementation of the DomainType class." alt="" coords="5,79,136,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="176,39,95,81,92,76,174,34"/>
+<area shape="rect" id="Node000003" href="$_geometry_8h.html" title="Definition of the Geometry class." alt="" coords="161,79,258,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="212,44,212,79,207,79,207,44"/>
+<area shape="rect" id="Node000010" href="$_list_of_domain_types_8cpp.html" title="Implementation of the ListOfDomainTypes class." alt="" coords="282,79,457,104"/>
+<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="248,34,344,76,342,81,246,39"/>
+<area shape="rect" id="Node000004" href="$_geometry_8cpp.html" title="Implementation of the Geometry class." alt="" coords="60,152,172,177"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="185,114,133,154,130,150,182,110"/>
+<area shape="rect" id="Node000005" href="$_spatial_extension_types_8h.html" title="Definition of SpatialExtensionTypes." alt="" coords="101,225,281,251"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="209,118,195,225,190,225,203,118"/>
+<area shape="rect" id="Node000007" href="$_spatial_model_plugin_8h.html" title="Definition of the SpatialModelPlugin class." alt="" coords="285,152,443,177"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="248,107,340,149,338,154,245,112"/>
+<area shape="rect" id="Node000006" href="$_spatial_validator_8cpp.html" title="Definition of SpatialValidator." alt="" coords="115,299,266,324"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="193,264,193,299,188,299,188,264"/>
+<area shape="poly" id="edge8_Node000007_Node000005" title=" " alt="" coords="325,185,220,228,218,223,323,180"/>
+<area shape="rect" id="Node000008" href="$_spatial_extension_8cpp.html" title="Implementation of SpatialExtension." alt="" coords="305,225,463,251"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="374,190,383,224,378,226,368,191"/>
+<area shape="rect" id="Node000009" href="$_spatial_model_plugin_8cpp.html" title="Implementation of the SpatialModelPlugin class." alt="" coords="487,225,662,251"/>
+<area shape="poly" id="edge9_Node000007_Node000009" title=" " alt="" coords="411,179,541,223,540,228,410,184"/>
 </map>

@@ -1,5 +1,7 @@
 <map id="ListOfReactionGlyphs" name="ListOfReactionGlyphs">
-<area shape="rect" id="node1" title=" " alt="" coords="5,155,168,181"/>
-<area shape="rect" id="node2" href="$class_list_of.html" title=" " alt="" coords="57,80,117,107"/>
-<area shape="rect" id="node3" href="$class_s_base.html" title=" " alt="" coords="55,5,118,32"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,152,168,177"/>
+<area shape="rect" id="Node000002" href="$class_list_of.html" title=" " alt="" coords="57,79,117,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="89,118,89,152,84,152,84,118"/>
+<area shape="rect" id="Node000003" href="$class_s_base.html" title=" " alt="" coords="55,5,118,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="89,44,89,79,84,79,84,44"/>
 </map>

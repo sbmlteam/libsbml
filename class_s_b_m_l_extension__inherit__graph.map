@@ -1,12 +1,21 @@
 <map id="SBMLExtension" name="SBMLExtension">
-<area shape="rect" id="node1" title=" " alt="" coords="5,208,128,235"/>
-<area shape="rect" id="node2" href="$class_comp_extension.html" title=" " alt="" coords="180,5,304,32"/>
-<area shape="rect" id="node3" href="$class_distrib_extension.html" title=" " alt="" coords="177,56,307,83"/>
-<area shape="rect" id="node4" href="$class_fbc_extension.html" title=" " alt="" coords="187,107,297,133"/>
-<area shape="rect" id="node5" href="$class_groups_extension.html" title=" " alt="" coords="176,157,308,184"/>
-<area shape="rect" id="node6" href="$class_layout_extension.html" title=" " alt="" coords="177,208,307,235"/>
-<area shape="rect" id="node7" href="$class_multi_extension.html" title=" " alt="" coords="183,259,301,285"/>
-<area shape="rect" id="node8" href="$class_qual_extension.html" title=" " alt="" coords="184,309,300,336"/>
-<area shape="rect" id="node9" href="$class_render_extension.html" title=" " alt="" coords="176,360,308,387"/>
-<area shape="rect" id="node10" href="$class_spatial_extension.html" title=" " alt="" coords="177,411,307,437"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,203,128,228"/>
+<area shape="rect" id="Node000002" href="$class_comp_extension.html" title=" " alt="" coords="180,5,304,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="75,189,112,116,140,75,174,40,193,28,196,33,178,44,144,79,116,118,80,191"/>
+<area shape="rect" id="Node000003" href="$class_distrib_extension.html" title=" " alt="" coords="177,55,307,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="81,190,120,139,146,113,175,89,196,78,198,82,177,94,149,117,124,143,86,193"/>
+<area shape="rect" id="Node000004" href="$class_fbc_extension.html" title=" " alt="" coords="187,104,297,129"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="93,192,131,165,175,138,201,127,203,132,177,143,134,169,96,196"/>
+<area shape="rect" id="Node000005" href="$class_groups_extension.html" title=" " alt="" coords="176,153,308,179"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="125,196,195,176,196,181,126,201"/>
+<area shape="rect" id="Node000006" href="$class_layout_extension.html" title=" " alt="" coords="177,203,307,228"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="142,213,176,213,176,218,142,218"/>
+<area shape="rect" id="Node000007" href="$class_multi_extension.html" title=" " alt="" coords="183,252,301,277"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="126,229,196,249,195,254,125,234"/>
+<area shape="rect" id="Node000008" href="$class_qual_extension.html" title=" " alt="" coords="184,301,300,327"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="97,234,134,260,177,286,205,299,203,304,175,291,131,265,94,239"/>
+<area shape="rect" id="Node000009" href="$class_render_extension.html" title=" " alt="" coords="176,351,308,376"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="86,238,125,287,150,313,177,336,201,348,198,353,175,340,146,317,120,290,82,241"/>
+<area shape="rect" id="Node000010" href="$class_spatial_extension.html" title=" " alt="" coords="177,400,307,425"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="80,239,117,311,144,351,178,385,198,398,195,402,174,389,140,354,112,314,75,242"/>
 </map>

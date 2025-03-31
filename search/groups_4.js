@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['hierarchical_20model_20composition_20269',['Hierarchical Model Composition',['../group__comp.html',1,'']]]
+  ['flux_20balance_20constraints_0',['Flux Balance Constraints',['../group__fbc.html',1,'']]]
 ];

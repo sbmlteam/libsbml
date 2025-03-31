@@ -1,43 +1,138 @@
 <map id="RenderGroup.h" name="RenderGroup.h">
-<area shape="rect" id="node1" title="Definition of the RenderGroup class." alt="" coords="1265,5,1384,32"/>
-<area shape="rect" id="node2" href="$_render_extension_types_8h.html" title="Definition of RenderExtensionTypes." alt="" coords="1750,528,1931,555"/>
-<area shape="rect" id="node9" href="$_graphical_primitive1_d_8cpp.html" title="abstract base class for graphical 1D objects" alt="" coords="217,229,405,256"/>
-<area shape="rect" id="node10" href="$_graphical_primitive2_d_8cpp.html" title="Implementation of the GraphicalPrimitive2D class." alt="" coords="5,229,193,256"/>
-<area shape="rect" id="node11" href="$_line_ending_8h.html" title="class representing line endings, e.g." alt="" coords="955,80,1060,107"/>
-<area shape="rect" id="node13" href="$_list_of_drawables_8cpp.html" title="Implementation of the ListOfDrawables class." alt="" coords="429,229,585,256"/>
-<area shape="rect" id="node16" href="$_render_group_8cpp.html" title="Implementation of the RenderGroup class." alt="" coords="1257,229,1392,256"/>
-<area shape="rect" id="node30" href="$_transformation_8cpp.html" title="class representing a 3D affine transformation" alt="" coords="1417,229,1563,256"/>
-<area shape="rect" id="node31" href="$_transformation2_d_8cpp.html" title="class representing a 2D affine transformation" alt="" coords="1587,229,1753,256"/>
-<area shape="rect" id="node32" href="$_style_8h.html" title="Definition of the Style class." alt="" coords="2213,80,2279,107"/>
-<area shape="rect" id="node3" href="$_render_layout_plugin_8cpp.html" title="Implementation of RenderLayoutPlugin, the plugin class of the fbc package for the Model element." alt="" coords="2114,677,2293,704"/>
-<area shape="rect" id="node4" href="$_render_layout_converter_8cpp.html" title="Simple converter to convert Layout + Render from l2 to L3 and vice versa." alt="" coords="1531,603,1734,629"/>
-<area shape="rect" id="node5" href="$_render_utilities_8cpp.html" title="implementation of RenderUtilities, a class of utility functions for the render package" alt="" coords="1821,677,1967,704"/>
-<area shape="rect" id="node6" href="$_render_utilities_8h.html" title="Definition of RenderUtilities, a class of utility functions for the render package." alt="" coords="1985,603,2115,629"/>
-<area shape="rect" id="node8" href="$_render_validator_8cpp.html" title="Definition of RenderValidator." alt="" coords="1809,603,1961,629"/>
-<area shape="rect" id="node7" href="$_render_list_of_layouts_plugin_8cpp.html" title="Implementation of RenderListOfLayoutsPlugin, the plugin class of the fbc package for the Model elemen..." alt="" coords="1003,677,1227,704"/>
-<area shape="rect" id="node12" href="$_line_ending_8cpp.html" title="class representing line endings,e.g." alt="" coords="610,229,730,256"/>
-<area shape="rect" id="node14" href="$_list_of_line_endings_8h.html" title="Definition of the ListOfLineEndings class." alt="" coords="819,155,969,181"/>
-<area shape="rect" id="node17" href="$_render_information_base_8h.html" title="Definition of the RenderInformationBase class." alt="" coords="1045,229,1233,256"/>
-<area shape="rect" id="node15" href="$_list_of_line_endings_8cpp.html" title="Implementation of the ListOfLineEndings class." alt="" coords="754,229,919,256"/>
-<area shape="rect" id="node18" href="$_global_render_information_8h.html" title="Definition of the GlobalRenderInformation class." alt="" coords="1199,304,1397,331"/>
-<area shape="rect" id="node24" href="$_render_information_base_8cpp.html" title="Implementation of the RenderInformationBase class." alt="" coords="1979,453,2182,480"/>
-<area shape="rect" id="node25" href="$_local_render_information_8h.html" title="Definition of the LocalRenderInformation class." alt="" coords="2429,304,2620,331"/>
-<area shape="rect" id="node19" href="$_render_list_of_layouts_plugin_8h.html" title="Definition of RenderListOfLayoutsPlugin, the plugin class of fbc package for the Model element." alt="" coords="1389,453,1599,480"/>
-<area shape="rect" id="node21" href="$_global_render_information_8cpp.html" title="class for the storage of global render information" alt="" coords="1151,453,1365,480"/>
-<area shape="rect" id="node22" href="$_list_of_global_render_information_8h.html" title="Definition of the ListOfGlobalRenderInformation class." alt="" coords="1025,379,1261,405"/>
-<area shape="rect" id="node20" href="$_render_extension_8cpp.html" title="Implementation of RenderExtension, the core module of the render package." alt="" coords="1956,528,2115,555"/>
-<area shape="rect" id="node23" href="$_list_of_global_render_information_8cpp.html" title="Implementation of the ListOfGlobalRenderInformation class." alt="" coords="826,453,1077,480"/>
-<area shape="rect" id="node26" href="$_render_layout_plugin_8h.html" title="Definition of RenderLayoutPlugin, the plugin class of fbc package for the Model element." alt="" coords="2905,453,3069,480"/>
-<area shape="rect" id="node27" href="$_list_of_local_render_information_8h.html" title="Definition of the ListOfLocalRenderInformation class." alt="" coords="2325,379,2553,405"/>
-<area shape="rect" id="node29" href="$_local_render_information_8cpp.html" title="Implementation of the LocalRenderInformation class." alt="" coords="2574,453,2779,480"/>
-<area shape="rect" id="node28" href="$_list_of_local_render_information_8cpp.html" title="Implementation of the ListOfLocalRenderInformation class." alt="" coords="2307,453,2550,480"/>
-<area shape="rect" id="node33" href="$_global_style_8h.html" title="Definition of the GlobalStyle class." alt="" coords="2191,155,2301,181"/>
-<area shape="rect" id="node37" href="$_style_8cpp.html" title="Implementation of the Style class." alt="" coords="2322,304,2405,331"/>
-<area shape="rect" id="node38" href="$_local_style_8h.html" title="Definition of the LocalStyle class." alt="" coords="2551,155,2653,181"/>
-<area shape="rect" id="node34" href="$_global_style_8cpp.html" title="Implementation of the GlobalStyle class." alt="" coords="2123,304,2247,331"/>
-<area shape="rect" id="node35" href="$_list_of_global_styles_8h.html" title="Definition of the ListOfGlobalStyles class." alt="" coords="1989,229,2143,256"/>
-<area shape="rect" id="node36" href="$_list_of_global_styles_8cpp.html" title="Implementation of the ListOfGlobalStyles class." alt="" coords="1929,304,2099,331"/>
-<area shape="rect" id="node39" href="$_list_of_local_styles_8h.html" title="Definition of the ListOfLocalStyles class." alt="" coords="2579,229,2726,256"/>
-<area shape="rect" id="node41" href="$_local_style_8cpp.html" title="class for representing a local style" alt="" coords="2881,304,2997,331"/>
-<area shape="rect" id="node40" href="$_list_of_local_styles_8cpp.html" title="Implementation of the ListOfLocalStyles class." alt="" coords="2696,304,2857,331"/>
+<area shape="rect" id="Node000001" title="Definition of the RenderGroup class." alt="" coords="1215,5,1333,31"/>
+<area shape="rect" id="Node000002" href="$_graphical_primitive1_d_8cpp.html" title="abstract base class for graphical 1D objects" alt="" coords="217,225,405,251"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1202,32,1066,53,911,81,755,115,600,155,349,228,347,223,599,149,753,110,909,76,1065,48,1201,27"/>
+<area shape="rect" id="Node000003" href="$_graphical_primitive2_d_8cpp.html" title="Implementation of the GraphicalPrimitive2D class." alt="" coords="5,225,193,251"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="1201,29,1014,49,788,81,615,114,444,155,144,228,143,223,443,149,614,109,787,76,1013,44,1201,24"/>
+<area shape="rect" id="Node000004" href="$_line_ending_8h.html" title="class representing line endings, e.g." alt="" coords="1036,79,1141,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="1233,38,1120,81,1118,76,1231,33"/>
+<area shape="rect" id="Node000006" href="$_list_of_drawables_8cpp.html" title="Implementation of the ListOfDrawables class." alt="" coords="429,225,585,251"/>
+<area shape="poly" id="edge67_Node000001_Node000006" title=" " alt="" coords="1206,36,995,84,866,117,737,155,625,193,536,228,534,223,623,188,736,149,865,112,994,79,1205,31"/>
+<area shape="rect" id="Node000009" href="$_render_extension_types_8h.html" title="Definition of RenderExtensionTypes." alt="" coords="2083,519,2265,544"/>
+<area shape="poly" id="edge68_Node000001_Node000009" title=" " alt="" coords="1347,19,1752,33,2316,61,2589,81,2819,104,2909,116,2977,130,3021,145,3033,154,3038,163,3038,239,3032,317,3024,350,3012,379,2995,405,2972,429,2944,451,2909,473,2853,494,2780,507,2696,515,2606,518,2430,518,2293,521,2265,524,2264,519,2293,516,2429,513,2606,513,2696,509,2780,502,2851,489,2906,468,2941,447,2969,425,2991,402,3007,376,3019,348,3027,317,3033,239,3033,164,3029,157,3019,150,2976,135,2908,122,2818,109,2589,86,2316,66,1752,38,1347,24"/>
+<area shape="rect" id="Node000016" href="$_render_group_8cpp.html" title="Implementation of the RenderGroup class." alt="" coords="1207,225,1341,251"/>
+<area shape="poly" id="edge69_Node000001_Node000016" title=" " alt="" coords="1277,45,1277,225,1271,225,1271,45"/>
+<area shape="rect" id="Node000030" href="$_transformation_8cpp.html" title="class representing a 3D affine transformation" alt="" coords="1366,225,1513,251"/>
+<area shape="poly" id="edge94_Node000001_Node000030" title=" " alt="" coords="1293,40,1433,223,1428,227,1289,43"/>
+<area shape="rect" id="Node000031" href="$_transformation2_d_8cpp.html" title="class representing a 2D affine transformation" alt="" coords="1537,225,1702,251"/>
+<area shape="poly" id="edge95_Node000001_Node000031" title=" " alt="" coords="1305,36,1602,223,1600,227,1302,40"/>
+<area shape="rect" id="Node000032" href="$_style_8h.html" title="Definition of the Style class." alt="" coords="2129,79,2195,104"/>
+<area shape="poly" id="edge70_Node000001_Node000032" title=" " alt="" coords="1348,23,2129,85,2128,90,1347,28"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="1023,106,732,155,365,228,364,223,731,149,1022,100"/>
+<area shape="poly" id="edge5_Node000004_Node000003" title=" " alt="" coords="1023,102,832,124,600,155,356,193,161,228,160,223,355,188,599,149,832,119,1022,97"/>
+<area shape="rect" id="Node000005" href="$_line_ending_8cpp.html" title="class representing line endings,e.g." alt="" coords="610,225,730,251"/>
+<area shape="poly" id="edge6_Node000004_Node000005" title=" " alt="" coords="1026,110,951,129,870,155,772,193,695,228,693,223,770,188,868,149,949,124,1025,105"/>
+<area shape="poly" id="edge7_Node000004_Node000006" title=" " alt="" coords="1023,106,919,126,804,155,738,180,643,207,559,228,557,223,641,202,736,175,803,149,918,121,1022,101"/>
+<area shape="rect" id="Node000007" href="$_list_of_line_endings_8h.html" title="Definition of the ListOfLineEndings class." alt="" coords="881,152,1032,177"/>
+<area shape="poly" id="edge8_Node000004_Node000007" title=" " alt="" coords="1057,113,980,154,977,149,1054,108"/>
+<area shape="poly" id="edge62_Node000004_Node000009" title=" " alt="" coords="1155,104,1373,149,1426,158,1472,163,1552,167,1589,171,1628,180,1669,197,1715,223,1752,252,1777,283,1794,315,1807,347,1820,379,1837,410,1861,440,1897,468,1941,491,1989,508,2038,518,2083,524,2083,530,2037,523,1988,513,1939,496,1894,473,1858,444,1833,413,1815,381,1802,349,1789,317,1772,286,1748,256,1713,228,1667,202,1626,185,1588,176,1551,172,1472,168,1425,164,1372,155,1154,109"/>
+<area shape="poly" id="edge63_Node000004_Node000016" title=" " alt="" coords="1116,111,1261,223,1258,227,1113,115"/>
+<area shape="rect" id="Node000017" href="$_render_information_base_8h.html" title="Definition of the RenderInformationBase class." alt="" coords="995,225,1183,251"/>
+<area shape="poly" id="edge64_Node000004_Node000017" title=" " alt="" coords="1091,118,1091,225,1086,225,1086,118"/>
+<area shape="poly" id="edge65_Node000004_Node000030" title=" " alt="" coords="1130,107,1413,223,1411,228,1128,112"/>
+<area shape="poly" id="edge66_Node000004_Node000031" title=" " alt="" coords="1144,105,1578,223,1577,228,1143,110"/>
+<area shape="poly" id="edge9_Node000007_Node000002" title=" " alt="" coords="867,178,406,229,405,224,867,173"/>
+<area shape="poly" id="edge10_Node000007_Node000003" title=" " alt="" coords="867,175,573,197,205,228,194,229,193,224,204,223,573,192,867,170"/>
+<area shape="poly" id="edge11_Node000007_Node000005" title=" " alt="" coords="898,183,717,228,716,223,897,178"/>
+<area shape="poly" id="edge12_Node000007_Node000006" title=" " alt="" coords="871,182,580,228,579,223,870,177"/>
+<area shape="rect" id="Node000008" href="$_list_of_line_endings_8cpp.html" title="Implementation of the ListOfLineEndings class." alt="" coords="754,225,919,251"/>
+<area shape="poly" id="edge13_Node000007_Node000008" title=" " alt="" coords="927,187,858,227,855,223,924,182"/>
+<area shape="poly" id="edge14_Node000007_Node000009" title=" " alt="" coords="952,191,934,252,920,286,902,317,866,371,854,395,850,419,855,443,873,469,889,476,924,483,1038,495,1385,513,1778,522,2083,527,2083,532,1778,528,1385,518,1037,501,923,488,888,481,870,473,850,445,844,419,849,394,862,368,897,314,915,284,929,250,947,190"/>
+<area shape="poly" id="edge23_Node000007_Node000016" title=" " alt="" coords="1022,178,1223,223,1222,228,1020,183"/>
+<area shape="poly" id="edge24_Node000007_Node000017" title=" " alt="" coords="991,181,1068,223,1066,227,988,186"/>
+<area shape="poly" id="edge60_Node000007_Node000030" title=" " alt="" coords="1046,176,1366,223,1365,229,1045,182"/>
+<area shape="poly" id="edge61_Node000007_Node000031" title=" " alt="" coords="1046,172,1525,223,1537,224,1536,229,1524,228,1045,178"/>
+<area shape="rect" id="Node000010" href="$_render_layout_converter_8cpp.html" title="Simple converter to convert Layout + Render from l2 to L3 and vice versa." alt="" coords="2274,592,2477,617"/>
+<area shape="poly" id="edge15_Node000009_Node000010" title=" " alt="" coords="2220,546,2343,589,2342,594,2219,551"/>
+<area shape="rect" id="Node000011" href="$_render_layout_plugin_8cpp.html" title="Implementation of RenderLayoutPlugin, the plugin class of the fbc package for the Model element." alt="" coords="2475,665,2654,691"/>
+<area shape="poly" id="edge16_Node000009_Node000011" title=" " alt="" coords="2279,542,2400,562,2453,575,2490,590,2513,606,2533,627,2560,664,2556,667,2529,630,2510,610,2487,594,2451,580,2399,568,2278,548"/>
+<area shape="rect" id="Node000012" href="$_render_utilities_8cpp.html" title="implementation of RenderUtilities, a class of utility functions for the render package" alt="" coords="1885,665,2031,691"/>
+<area shape="poly" id="edge17_Node000009_Node000012" title=" " alt="" coords="2070,548,1986,566,1954,579,1933,594,1927,610,1931,629,1951,664,1946,666,1926,631,1922,610,1929,590,1951,574,1985,561,2069,543"/>
+<area shape="rect" id="Node000013" href="$_render_utilities_8h.html" title="Definition of RenderUtilities, a class of utility functions for the render package." alt="" coords="1943,592,2074,617"/>
+<area shape="poly" id="edge18_Node000009_Node000013" title=" " alt="" coords="2136,552,2037,594,2035,589,2134,547"/>
+<area shape="rect" id="Node000015" href="$_render_validator_8cpp.html" title="Definition of RenderValidator." alt="" coords="2098,592,2250,617"/>
+<area shape="poly" id="edge22_Node000009_Node000015" title=" " alt="" coords="2177,558,2177,592,2171,592,2171,558"/>
+<area shape="poly" id="edge19_Node000013_Node000011" title=" " alt="" coords="2088,615,2475,664,2475,669,2087,620"/>
+<area shape="poly" id="edge21_Node000013_Node000012" title=" " alt="" coords="1994,630,1968,667,1964,664,1990,627"/>
+<area shape="rect" id="Node000014" href="$_render_list_of_layouts_plugin_8cpp.html" title="Implementation of RenderListOfLayoutsPlugin, the plugin class of the fbc package for the Model elemen..." alt="" coords="1205,665,1429,691"/>
+<area shape="poly" id="edge20_Node000013_Node000014" title=" " alt="" coords="1930,617,1428,668,1427,663,1929,611"/>
+<area shape="poly" id="edge58_Node000017_Node000009" title=" " alt="" coords="1197,249,1309,268,1428,296,1628,382,1828,468,1961,499,2084,518,2083,523,1960,504,1827,473,1626,387,1426,301,1308,273,1196,254"/>
+<area shape="rect" id="Node000018" href="$_global_render_information_8h.html" title="Definition of the GlobalRenderInformation class." alt="" coords="1216,299,1415,324"/>
+<area shape="poly" id="edge25_Node000017_Node000018" title=" " alt="" coords="1139,252,1279,296,1278,301,1137,257"/>
+<area shape="rect" id="Node000024" href="$_render_information_base_8cpp.html" title="Implementation of the RenderInformationBase class." alt="" coords="1934,445,2137,471"/>
+<area shape="poly" id="edge59_Node000017_Node000024" title=" " alt="" coords="1197,248,1328,257,1431,261,1532,270,1657,296,1766,330,1869,372,2015,443,2013,448,1867,377,1764,335,1656,301,1531,276,1431,266,1328,263,1197,253"/>
+<area shape="rect" id="Node000025" href="$_local_render_information_8h.html" title="Definition of the LocalRenderInformation class." alt="" coords="2379,299,2569,324"/>
+<area shape="poly" id="edge42_Node000017_Node000025" title=" " alt="" coords="1197,248,1526,266,1783,272,2039,278,2366,296,2379,297,2378,302,2366,301,2039,283,1783,277,1526,271,1196,253"/>
+<area shape="poly" id="edge38_Node000018_Node000009" title=" " alt="" coords="1368,325,1527,375,1720,443,1749,456,1777,468,1857,488,1938,503,2083,521,2083,526,1937,508,1856,493,1776,473,1747,461,1718,448,1525,380,1367,330"/>
+<area shape="poly" id="edge40_Node000018_Node000014" title=" " alt="" coords="1228,329,1129,348,1022,374,930,408,896,427,873,447,860,471,854,492,856,512,865,531,880,549,900,565,953,594,1019,618,1091,637,1226,663,1225,668,1090,642,1018,623,951,599,897,570,876,553,860,534,851,514,849,492,855,469,869,444,893,422,927,403,1021,369,1128,343,1227,324"/>
+<area shape="rect" id="Node000019" href="$_global_render_information_8cpp.html" title="class for the storage of global render information" alt="" coords="883,445,1097,471"/>
+<area shape="poly" id="edge26_Node000018_Node000019" title=" " alt="" coords="1278,332,1017,448,1015,443,1276,327"/>
+<area shape="rect" id="Node000020" href="$_list_of_global_render_information_8h.html" title="Definition of the ListOfGlobalRenderInformation class." alt="" coords="1197,372,1433,397"/>
+<area shape="poly" id="edge27_Node000018_Node000020" title=" " alt="" coords="1309,338,1311,372,1306,372,1304,338"/>
+<area shape="rect" id="Node000022" href="$_render_list_of_layouts_plugin_8h.html" title="Definition of RenderListOfLayoutsPlugin, the plugin class of fbc package for the Model element." alt="" coords="1497,445,1707,471"/>
+<area shape="poly" id="edge41_Node000018_Node000022" title=" " alt="" coords="1356,327,1447,370,1583,443,1581,448,1445,374,1353,332"/>
+<area shape="poly" id="edge39_Node000018_Node000024" title=" " alt="" coords="1396,324,1645,369,1986,443,1985,448,1644,375,1395,329"/>
+<area shape="poly" id="edge31_Node000020_Node000009" title=" " alt="" coords="1352,401,1487,468,1537,479,1603,489,1766,505,2083,524,2083,529,1765,510,1603,494,1536,484,1485,473,1350,406"/>
+<area shape="poly" id="edge32_Node000020_Node000014" title=" " alt="" coords="1223,404,1189,421,1161,447,1153,462,1149,478,1152,510,1166,542,1189,573,1217,601,1247,626,1300,663,1296,667,1244,631,1214,605,1185,576,1161,544,1146,511,1144,477,1148,460,1157,444,1185,417,1221,399"/>
+<area shape="poly" id="edge29_Node000020_Node000018" title=" " alt="" coords="1321,359,1320,324,1325,324,1327,358"/>
+<area shape="poly" id="edge28_Node000020_Node000019" title=" " alt="" coords="1250,403,1043,448,1042,443,1249,398"/>
+<area shape="rect" id="Node000021" href="$_list_of_global_render_information_8cpp.html" title="Implementation of the ListOfGlobalRenderInformation class." alt="" coords="1171,445,1422,471"/>
+<area shape="poly" id="edge30_Node000020_Node000021" title=" " alt="" coords="1311,411,1302,446,1297,445,1306,410"/>
+<area shape="poly" id="edge33_Node000020_Node000022" title=" " alt="" coords="1375,398,1556,443,1555,448,1374,403"/>
+<area shape="poly" id="edge35_Node000022_Node000009" title=" " alt="" coords="1708,470,2084,516,2083,521,1707,475"/>
+<area shape="poly" id="edge37_Node000022_Node000012" title=" " alt="" coords="1634,476,1941,663,1938,667,1631,480"/>
+<area shape="poly" id="edge36_Node000022_Node000014" title=" " alt="" coords="1578,481,1333,667,1330,663,1575,477"/>
+<area shape="rect" id="Node000023" href="$_render_extension_8cpp.html" title="Implementation of RenderExtension, the core module of the render package." alt="" coords="2304,519,2463,544"/>
+<area shape="poly" id="edge34_Node000022_Node000023" title=" " alt="" coords="1721,466,2277,516,2304,519,2303,524,2276,521,1721,472"/>
+<area shape="poly" id="edge54_Node000025_Node000009" title=" " alt="" coords="2436,332,2397,351,2358,374,2324,399,2300,421,2245,473,2189,521,2186,517,2242,469,2296,417,2321,395,2355,370,2395,346,2433,327"/>
+<area shape="poly" id="edge57_Node000025_Node000022" title=" " alt="" coords="2392,329,1671,448,1670,443,2391,324"/>
+<area shape="poly" id="edge55_Node000025_Node000024" title=" " alt="" coords="2427,331,2071,448,2069,443,2426,326"/>
+<area shape="rect" id="Node000026" href="$_list_of_local_render_information_8h.html" title="Definition of the ListOfLocalRenderInformation class." alt="" coords="2368,372,2596,397"/>
+<area shape="poly" id="edge43_Node000025_Node000026" title=" " alt="" coords="2479,337,2483,372,2478,372,2474,338"/>
+<area shape="rect" id="Node000028" href="$_local_render_information_8cpp.html" title="Implementation of the LocalRenderInformation class." alt="" coords="2630,445,2835,471"/>
+<area shape="poly" id="edge53_Node000025_Node000028" title=" " alt="" coords="2518,327,2610,370,2672,409,2720,443,2716,447,2669,413,2607,374,2516,332"/>
+<area shape="rect" id="Node000029" href="$_render_layout_plugin_8h.html" title="Definition of RenderLayoutPlugin, the plugin class of fbc package for the Model element." alt="" coords="3037,445,3201,471"/>
+<area shape="poly" id="edge56_Node000025_Node000029" title=" " alt="" coords="2539,324,3069,443,3068,448,2538,330"/>
+<area shape="poly" id="edge46_Node000026_Node000009" title=" " alt="" coords="2445,405,2352,448,2199,521,2196,516,2350,443,2443,401"/>
+<area shape="poly" id="edge47_Node000026_Node000024" title=" " alt="" coords="2397,402,2108,448,2107,443,2396,397"/>
+<area shape="rect" id="Node000027" href="$_list_of_local_render_information_8cpp.html" title="Implementation of the ListOfLocalRenderInformation class." alt="" coords="2363,445,2606,471"/>
+<area shape="poly" id="edge44_Node000026_Node000027" title=" " alt="" coords="2486,411,2487,445,2482,445,2480,411"/>
+<area shape="poly" id="edge45_Node000026_Node000028" title=" " alt="" coords="2536,399,2693,443,2691,448,2535,404"/>
+<area shape="poly" id="edge48_Node000026_Node000029" title=" " alt="" coords="2598,396,3037,445,3037,450,2598,402"/>
+<area shape="poly" id="edge50_Node000029_Node000009" title=" " alt="" coords="3023,473,3018,473,2814,489,2656,498,2497,507,2293,521,2265,524,2264,518,2292,516,2496,502,2655,493,2814,484,3018,468,3023,468"/>
+<area shape="poly" id="edge51_Node000029_Node000011" title=" " alt="" coords="3078,478,2595,668,2593,663,3077,473"/>
+<area shape="poly" id="edge52_Node000029_Node000012" title=" " alt="" coords="3064,477,2769,554,2608,594,2489,620,2364,640,2238,655,2032,674,2031,669,2238,650,2363,634,2488,615,2607,589,2768,549,3063,472"/>
+<area shape="poly" id="edge49_Node000029_Node000023" title=" " alt="" coords="3024,473,3018,473,2496,521,2463,525,2463,519,2495,516,3018,468,3023,467"/>
+<area shape="poly" id="edge92_Node000032_Node000009" title=" " alt="" coords="2116,104,2019,128,1964,147,1911,171,1866,200,1832,235,1821,255,1815,276,1814,299,1819,323,1870,397,1924,469,1961,489,2002,504,2084,522,2083,527,2001,509,1959,494,1920,473,1865,400,1814,325,1809,299,1810,275,1816,253,1828,232,1862,196,1909,166,1962,142,2018,123,2115,98"/>
+<area shape="rect" id="Node000033" href="$_global_style_8h.html" title="Definition of the GlobalStyle class." alt="" coords="2107,152,2217,177"/>
+<area shape="poly" id="edge71_Node000032_Node000033" title=" " alt="" coords="2165,118,2165,152,2159,152,2159,118"/>
+<area shape="rect" id="Node000037" href="$_style_8cpp.html" title="Implementation of the Style class." alt="" coords="2271,299,2354,324"/>
+<area shape="poly" id="edge93_Node000032_Node000037" title=" " alt="" coords="2189,111,2231,150,2260,185,2283,224,2301,264,2312,298,2307,299,2296,266,2278,227,2255,188,2227,154,2185,115"/>
+<area shape="rect" id="Node000038" href="$_local_style_8h.html" title="Definition of the LocalStyle class." alt="" coords="2490,152,2591,177"/>
+<area shape="poly" id="edge81_Node000032_Node000038" title=" " alt="" coords="2210,99,2490,151,2489,156,2209,104"/>
+<area shape="poly" id="edge79_Node000033_Node000009" title=" " alt="" coords="2173,190,2183,225,2195,286,2201,334,2203,445,2203,471,2194,498,2183,519,2179,517,2189,496,2198,470,2198,445,2196,335,2190,287,2178,226,2168,191"/>
+<area shape="rect" id="Node000034" href="$_global_style_8cpp.html" title="Implementation of the GlobalStyle class." alt="" coords="1828,299,1952,324"/>
+<area shape="poly" id="edge72_Node000033_Node000034" title=" " alt="" coords="2109,184,2057,203,2003,228,1947,265,1905,300,1901,296,1944,261,2001,223,2055,198,2107,179"/>
+<area shape="rect" id="Node000035" href="$_list_of_global_styles_8h.html" title="Definition of the ListOfGlobalStyles class." alt="" coords="2014,225,2169,251"/>
+<area shape="poly" id="edge73_Node000033_Node000035" title=" " alt="" coords="2143,189,2105,227,2101,223,2139,185"/>
+<area shape="poly" id="edge80_Node000033_Node000037" title=" " alt="" coords="2197,182,2226,200,2255,223,2287,262,2309,297,2304,300,2283,266,2251,227,2223,205,2194,186"/>
+<area shape="poly" id="edge77_Node000035_Node000009" title=" " alt="" coords="2124,256,2144,274,2160,297,2172,328,2180,360,2186,424,2184,481,2179,519,2173,518,2178,480,2181,424,2175,361,2167,329,2156,300,2140,278,2120,260"/>
+<area shape="poly" id="edge74_Node000035_Node000018" title=" " alt="" coords="2001,250,1415,304,1415,298,2000,245"/>
+<area shape="poly" id="edge75_Node000035_Node000034" title=" " alt="" coords="2047,258,1924,301,1922,296,2045,253"/>
+<area shape="rect" id="Node000036" href="$_list_of_global_styles_8cpp.html" title="Implementation of the ListOfGlobalStyles class." alt="" coords="1976,299,2145,324"/>
+<area shape="poly" id="edge76_Node000035_Node000036" title=" " alt="" coords="2083,264,2068,300,2063,297,2078,262"/>
+<area shape="poly" id="edge78_Node000035_Node000037" title=" " alt="" coords="2140,252,2278,296,2276,301,2139,257"/>
+<area shape="poly" id="edge90_Node000038_Node000009" title=" " alt="" coords="2592,179,2733,223,2774,232,2817,237,2897,245,2929,252,2953,267,2961,277,2965,290,2962,324,2949,373,2935,411,2912,443,2874,473,2822,495,2754,508,2675,516,2590,519,2422,519,2293,521,2265,524,2264,519,2293,516,2422,513,2590,513,2675,510,2754,503,2821,489,2871,468,2909,439,2930,408,2944,371,2957,324,2960,291,2956,280,2949,271,2927,257,2896,250,2816,242,2773,237,2732,228,2590,184"/>
+<area shape="poly" id="edge88_Node000038_Node000025" title=" " alt="" coords="2532,191,2482,300,2477,297,2527,189"/>
+<area shape="poly" id="edge91_Node000038_Node000037" title=" " alt="" coords="2512,187,2332,301,2330,296,2509,183"/>
+<area shape="rect" id="Node000039" href="$_list_of_local_styles_8h.html" title="Definition of the ListOfLocalStyles class." alt="" coords="2529,225,2675,251"/>
+<area shape="poly" id="edge82_Node000038_Node000039" title=" " alt="" coords="2562,186,2594,223,2590,227,2558,190"/>
+<area shape="rect" id="Node000041" href="$_local_style_8cpp.html" title="class for representing a local style" alt="" coords="2831,299,2947,324"/>
+<area shape="poly" id="edge89_Node000038_Node000041" title=" " alt="" coords="2583,180,2688,223,2863,296,2861,301,2686,228,2581,185"/>
+<area shape="poly" id="edge86_Node000039_Node000009" title=" " alt="" coords="2609,264,2619,294,2636,322,2669,350,2711,369,2799,396,2835,408,2859,422,2865,432,2866,444,2861,457,2849,473,2836,481,2815,488,2752,499,2578,512,2293,521,2265,524,2264,519,2293,516,2577,507,2751,494,2813,483,2834,476,2846,469,2856,455,2861,443,2860,434,2855,426,2833,412,2797,401,2709,374,2666,354,2632,326,2614,296,2604,265"/>
+<area shape="poly" id="edge84_Node000039_Node000025" title=" " alt="" coords="2571,260,2496,301,2494,296,2568,255"/>
+<area shape="poly" id="edge87_Node000039_Node000037" title=" " alt="" coords="2543,257,2355,302,2354,297,2542,251"/>
+<area shape="rect" id="Node000040" href="$_list_of_local_styles_8cpp.html" title="Implementation of the ListOfLocalStyles class." alt="" coords="2645,299,2807,324"/>
+<area shape="poly" id="edge83_Node000039_Node000040" title=" " alt="" coords="2635,255,2707,296,2704,301,2632,260"/>
+<area shape="poly" id="edge85_Node000039_Node000041" title=" " alt="" coords="2662,251,2843,296,2842,301,2661,257"/>
 </map>

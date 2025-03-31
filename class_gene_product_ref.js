@@ -131,7 +131,7 @@ var class_gene_product_ref =
     [ "setUserData", "class_gene_product_ref.html#ac3b1bbfe22bad0dbc577b61c529f37bb", null ],
     [ "toInfix", "class_gene_product_ref.html#a0187059ac54ee8e1fc238ff3a893737f", null ],
     [ "toSBML", "class_gene_product_ref.html#ae8317d5157b70e4f1bc68e33e5c84001", null ],
-    [ "toXMLNode", "class_gene_product_ref.html#a5c949d524aca47b84b18b57b76e6ee0a", null ],
+    [ "toXMLNode", "class_gene_product_ref.html#a616754bfc4592922a488f2159f96b3ce", null ],
     [ "unsetAnnotation", "class_gene_product_ref.html#a9121d6a4f7401fe957cc75647a1e95ed", null ],
     [ "unsetCreatedDate", "class_gene_product_ref.html#ad3be0bf5891c2b6bf4340cce12b8630f", null ],
     [ "unsetCVTerms", "class_gene_product_ref.html#a1e89a7890f2fb291f1ba4c38866d1dcc", null ],

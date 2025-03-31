@@ -131,7 +131,7 @@ var class_gene_association =
     [ "setUserData", "class_gene_association.html#ac3b1bbfe22bad0dbc577b61c529f37bb", null ],
     [ "toSBML", "class_gene_association.html#ae8317d5157b70e4f1bc68e33e5c84001", null ],
     [ "toXML", "class_gene_association.html#a6692be0cfc98ed92241d9872890ff953", null ],
-    [ "toXMLNode", "class_gene_association.html#a5c949d524aca47b84b18b57b76e6ee0a", null ],
+    [ "toXMLNode", "class_gene_association.html#a616754bfc4592922a488f2159f96b3ce", null ],
     [ "unsetAnnotation", "class_gene_association.html#a9121d6a4f7401fe957cc75647a1e95ed", null ],
     [ "unsetAssociation", "class_gene_association.html#a307112c78c4bae7c9642705da332741c", null ],
     [ "unsetCreatedDate", "class_gene_association.html#ad3be0bf5891c2b6bf4340cce12b8630f", null ],

@@ -1,7 +1,7 @@
 var _list_of_adjacent_domains_8cpp =
 [
-    [ "ListOfAdjacentDomains_getAdjacentDomains", "_list_of_adjacent_domains_8cpp.html#a838fcb58ff96b2596d094eb0d470d87a", null ],
-    [ "ListOfAdjacentDomains_getById", "_list_of_adjacent_domains_8cpp.html#aa0b83185e12909d347e85159f8d97343", null ],
-    [ "ListOfAdjacentDomains_remove", "_list_of_adjacent_domains_8cpp.html#a4cb30fe833b84594dbc97d9f25f038a7", null ],
-    [ "ListOfAdjacentDomains_removeById", "_list_of_adjacent_domains_8cpp.html#aa35e4d5c7d654be6a49b9770848a51e9", null ]
+    [ "ListOfAdjacentDomains_getAdjacentDomains", "_list_of_adjacent_domains_8cpp.html#a754fd06984e435a4f36eba64b72d059d", null ],
+    [ "ListOfAdjacentDomains_getById", "_list_of_adjacent_domains_8cpp.html#a138ef5c6e77c2248a3ad3ce16f41daa2", null ],
+    [ "ListOfAdjacentDomains_remove", "_list_of_adjacent_domains_8cpp.html#ac9d3ff7ff65c50e45ad67213797a4fe4", null ],
+    [ "ListOfAdjacentDomains_removeById", "_list_of_adjacent_domains_8cpp.html#a49d423b0bbfcac47c3ea38e45466d1be", null ]
 ];

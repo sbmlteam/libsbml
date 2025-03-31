@@ -1,5 +1,7 @@
 <map id="SpeciesReferenceRole.h" name="SpeciesReferenceRole.h">
-<area shape="rect" id="node1" title="Definition of SpeciesReferenceRole enum for SBML Layout." alt="" coords="5,5,184,32"/>
-<area shape="rect" id="node2" href="$extern_8h.html" title="Definitions of LIBSBML_EXTERN and related things." alt="" coords="8,80,181,107"/>
-<area shape="rect" id="node3" title=" " alt="" coords="11,155,178,196"/>
+<area shape="rect" id="Node000001" title="Definition of SpeciesReferenceRole enum for SBML Layout." alt="" coords="5,5,184,31"/>
+<area shape="rect" id="Node000002" href="$extern_8h.html" title="Definitions of LIBSBML_EXTERN and related things." alt="" coords="8,79,181,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="97,31,97,65,92,65,92,31"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="11,152,178,192"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="97,104,97,138,92,138,92,104"/>
 </map>

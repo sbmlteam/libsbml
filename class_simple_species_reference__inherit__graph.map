@@ -1,6 +1,9 @@
 <map id="SimpleSpeciesReference" name="SimpleSpeciesReference">
-<area shape="rect" id="node1" title=" " alt="" coords="104,80,287,107"/>
-<area shape="rect" id="node3" href="$class_modifier_species_reference.html" title=" " alt="" coords="5,155,196,181"/>
-<area shape="rect" id="node4" href="$class_species_reference.html" title=" " alt="" coords="221,155,359,181"/>
-<area shape="rect" id="node2" href="$class_s_base.html" title=" " alt="" coords="164,5,227,32"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="104,79,287,104"/>
+<area shape="rect" id="Node000003" href="$class_modifier_species_reference.html" title=" " alt="" coords="5,152,196,177"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="171,114,118,154,115,150,168,110"/>
+<area shape="rect" id="Node000004" href="$class_species_reference.html" title=" " alt="" coords="221,152,359,177"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="223,110,276,150,273,154,220,114"/>
+<area shape="rect" id="Node000002" href="$class_s_base.html" title=" " alt="" coords="164,5,227,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="198,44,198,79,193,79,193,44"/>
 </map>

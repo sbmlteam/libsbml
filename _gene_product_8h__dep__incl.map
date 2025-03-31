@@ -1,16 +1,30 @@
 <map id="GeneProduct.h" name="GeneProduct.h">
-<area shape="rect" id="node1" title="Implementation of the GeneProduct class." alt="" coords="800,5,917,32"/>
-<area shape="rect" id="node2" href="$_fbc_extension_types_8h.html" title="Includes all SBML types of the fbc package extension in a single header file." alt="" coords="439,155,598,181"/>
-<area shape="rect" id="node8" href="$_fbc_model_plugin_8h.html" title="Definition of FbcModelPlugin, the plugin class of fbc package for the Model element." alt="" coords="790,80,927,107"/>
-<area shape="rect" id="node14" href="$_gene_product_8cpp.html" title="Implementation of the GeneProduct class." alt="" coords="951,80,1083,107"/>
-<area shape="rect" id="node3" href="$_cobra_to_fbc_converter_8cpp.html" title="Implementation of a cobra 2 fbc converter." alt="" coords="5,229,192,256"/>
-<area shape="rect" id="node4" href="$_fbc_to_cobra_converter_8cpp.html" title="Implementation of a fbc 2 cobra converter." alt="" coords="216,229,403,256"/>
-<area shape="rect" id="node5" href="$_fbc_v1_to_v2_converter_8cpp.html" title="Implementation of a fbc v1 to fbc v2 converter." alt="" coords="427,229,610,256"/>
-<area shape="rect" id="node6" href="$_fbc_v2_to_v1_converter_8cpp.html" title="Implementation of a fbc v2 to fbc v1 converter." alt="" coords="634,229,817,256"/>
-<area shape="rect" id="node7" href="$_fbc_validator_8cpp.html" title="Base class for SBML Validators." alt="" coords="841,229,970,256"/>
-<area shape="rect" id="node9" href="$_fbc_extension_8cpp.html" title="Implementation of FbcExtension, the core module of fbc package." alt="" coords="623,155,759,181"/>
-<area shape="rect" id="node10" href="$_fbc_model_plugin_8cpp.html" title="Implementation of FbcModelPlugin, the plugin class of the fbc package for the Model element." alt="" coords="783,155,935,181"/>
-<area shape="rect" id="node11" href="$_fbc_association_8cpp.html" title="Implementation of the FbcAssociation class." alt="" coords="959,155,1105,181"/>
-<area shape="rect" id="node12" href="$_gene_product_association_8cpp.html" title="Implementation of the GeneProductAssociation class." alt="" coords="1130,155,1337,181"/>
-<area shape="rect" id="node13" href="$_gene_product_ref_8cpp.html" title="Implementation of the GeneProductRef class." alt="" coords="1361,155,1514,181"/>
+<area shape="rect" id="Node000001" title="Implementation of the GeneProduct class." alt="" coords="803,5,920,31"/>
+<area shape="rect" id="Node000002" href="$_fbc_extension_types_8h.html" title="Includes all SBML types of the fbc package extension in a single header file." alt="" coords="439,152,598,177"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="822,39,547,154,545,149,820,34"/>
+<area shape="rect" id="Node000008" href="$_fbc_model_plugin_8h.html" title="Definition of FbcModelPlugin, the plugin class of fbc package for the Model element." alt="" coords="793,79,930,104"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="864,44,864,79,859,79,859,44"/>
+<area shape="rect" id="Node000014" href="$_gene_product_8cpp.html" title="Implementation of the GeneProduct class." alt="" coords="954,79,1086,104"/>
+<area shape="poly" id="edge14_Node000001_Node000014" title=" " alt="" coords="900,34,995,76,993,81,898,39"/>
+<area shape="rect" id="Node000003" href="$_cobra_to_fbc_converter_8cpp.html" title="Implementation of a cobra 2 fbc converter." alt="" coords="5,225,192,251"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="438,182,167,228,166,223,437,177"/>
+<area shape="rect" id="Node000004" href="$_fbc_to_cobra_converter_8cpp.html" title="Implementation of a fbc 2 cobra converter." alt="" coords="216,225,403,251"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="473,184,344,228,342,223,471,179"/>
+<area shape="rect" id="Node000005" href="$_fbc_v1_to_v2_converter_8cpp.html" title="Implementation of a fbc v1 to fbc v2 converter." alt="" coords="427,225,610,251"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="521,191,521,225,516,225,516,191"/>
+<area shape="rect" id="Node000006" href="$_fbc_v2_to_v1_converter_8cpp.html" title="Implementation of a fbc v2 to fbc v1 converter." alt="" coords="634,225,817,251"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="566,179,693,223,691,228,564,184"/>
+<area shape="rect" id="Node000007" href="$_fbc_validator_8cpp.html" title="Base class for SBML Validators." alt="" coords="841,225,970,251"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="595,177,843,223,842,228,594,182"/>
+<area shape="poly" id="edge10_Node000008_Node000002" title=" " alt="" coords="794,109,575,155,574,149,793,104"/>
+<area shape="rect" id="Node000009" href="$_fbc_association_8cpp.html" title="Implementation of the FbcAssociation class." alt="" coords="623,152,769,177"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="823,112,724,154,722,149,821,107"/>
+<area shape="rect" id="Node000010" href="$_fbc_extension_8cpp.html" title="Implementation of FbcExtension, the core module of fbc package." alt="" coords="793,152,929,177"/>
+<area shape="poly" id="edge9_Node000008_Node000010" title=" " alt="" coords="864,118,864,152,859,152,859,118"/>
+<area shape="rect" id="Node000011" href="$_fbc_model_plugin_8cpp.html" title="Implementation of FbcModelPlugin, the plugin class of the fbc package for the Model element." alt="" coords="953,152,1105,177"/>
+<area shape="poly" id="edge11_Node000008_Node000011" title=" " alt="" coords="902,107,1003,149,1001,154,900,112"/>
+<area shape="rect" id="Node000012" href="$_gene_product_association_8cpp.html" title="Implementation of the GeneProductAssociation class." alt="" coords="1130,152,1337,177"/>
+<area shape="poly" id="edge12_Node000008_Node000012" title=" " alt="" coords="935,104,1174,149,1173,155,934,109"/>
+<area shape="rect" id="Node000013" href="$_gene_product_ref_8cpp.html" title="Implementation of the GeneProductRef class." alt="" coords="1361,152,1514,177"/>
+<area shape="poly" id="edge13_Node000008_Node000013" title=" " alt="" coords="944,101,1350,149,1361,151,1360,156,1349,155,943,107"/>
 </map>

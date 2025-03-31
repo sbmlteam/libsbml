@@ -7,5 +7,5 @@ var _outward_binding_site_8h =
       [ "MULTI_BINDING_STATUS_UNKNOWN", "_outward_binding_site_8h.html#a38ca5eea847f52b04e69946bebc2a1b7ada05826d0fc573385562922822343369", null ]
     ] ],
     [ "BindingStatus_fromString", "_outward_binding_site_8h.html#a39f4dcbed9d1d250e13dfda8014eb29a", null ],
-    [ "BindingStatus_toString", "_outward_binding_site_8h.html#a2368522d85111cf5c9087a102e22b929", null ]
+    [ "BindingStatus_toString", "_outward_binding_site_8h.html#ac3f0d68bacb34cecb86a70a9b2e2bebc", null ]
 ];

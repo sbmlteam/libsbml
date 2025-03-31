@@ -1,58 +1,113 @@
 <map id="SpatialSBMLError.h" name="SpatialSBMLError.h">
-<area shape="rect" id="node1" title="Definition of the SpatialSBMLError class." alt="" coords="5003,5,5149,32"/>
-<area shape="rect" id="node2" href="$_spatial_compartment_plugin_8cpp.html" title="Implementation of the SpatialCompartmentPlugin class." alt="" coords="5,80,229,107"/>
-<area shape="rect" id="node3" href="$_spatial_model_plugin_8cpp.html" title="Implementation of the SpatialModelPlugin class." alt="" coords="254,80,429,107"/>
-<area shape="rect" id="node4" href="$_spatial_parameter_plugin_8cpp.html" title="Implementation of the SpatialParameterPlugin class." alt="" coords="453,80,654,107"/>
-<area shape="rect" id="node5" href="$_spatial_reaction_plugin_8cpp.html" title="Implementation of the SpatialReactionPlugin class." alt="" coords="678,80,869,107"/>
-<area shape="rect" id="node6" href="$_spatial_s_b_m_l_document_plugin_8cpp.html" title="Implementation of the SpatialSBMLDocumentPlugin class." alt="" coords="893,80,1131,107"/>
-<area shape="rect" id="node7" href="$_spatial_species_plugin_8cpp.html" title="Implementation of the SpatialSpeciesPlugin class." alt="" coords="1155,80,1339,107"/>
-<area shape="rect" id="node8" href="$_adjacent_domains_8cpp.html" title="Implementation of the AdjacentDomains class." alt="" coords="1363,80,1527,107"/>
-<area shape="rect" id="node9" href="$_advection_coefficient_8cpp.html" title="Implementation of the AdvectionCoefficient class." alt="" coords="1552,80,1736,107"/>
-<area shape="rect" id="node10" href="$_analytic_geometry_8cpp.html" title="Implementation of the AnalyticGeometry class." alt="" coords="1760,80,1925,107"/>
-<area shape="rect" id="node11" href="$_analytic_volume_8cpp.html" title="Implementation of the AnalyticVolume class." alt="" coords="1950,80,2101,107"/>
-<area shape="rect" id="node12" href="$_boundary_8cpp.html" title="Implementation of the Boundary class." alt="" coords="2125,80,2235,107"/>
-<area shape="rect" id="node13" href="$_boundary_condition_8cpp.html" title="Implementation of the BoundaryCondition class." alt="" coords="2259,80,2432,107"/>
-<area shape="rect" id="node14" href="$_compartment_mapping_8cpp.html" title="Implementation of the CompartmentMapping class." alt="" coords="2456,80,2651,107"/>
-<area shape="rect" id="node15" href="$_coordinate_component_8cpp.html" title="Implementation of the CoordinateComponent class." alt="" coords="2675,80,2869,107"/>
-<area shape="rect" id="node16" href="$_c_s_geometry_8cpp.html" title="Implementation of the CSGeometry class." alt="" coords="2894,80,3023,107"/>
-<area shape="rect" id="node17" href="$_c_s_g_homogeneous_transformation_8cpp.html" title="Implementation of the CSGHomogeneousTransformation class." alt="" coords="3047,80,3315,107"/>
-<area shape="rect" id="node18" href="$_c_s_g_node_8cpp.html" title="Implementation of the CSGNode class." alt="" coords="3339,80,3450,107"/>
-<area shape="rect" id="node19" href="$_c_s_g_object_8cpp.html" title="Implementation of the CSGObject class." alt="" coords="3474,80,3593,107"/>
-<area shape="rect" id="node20" href="$_c_s_g_primitive_8cpp.html" title="Implementation of the CSGPrimitive class." alt="" coords="3617,80,3751,107"/>
-<area shape="rect" id="node21" href="$_c_s_g_rotation_8cpp.html" title="Implementation of the CSGRotation class." alt="" coords="3776,80,3907,107"/>
-<area shape="rect" id="node22" href="$_c_s_g_scale_8cpp.html" title="Implementation of the CSGScale class." alt="" coords="3931,80,4042,107"/>
-<area shape="rect" id="node23" href="$_c_s_g_set_operator_8cpp.html" title="Implementation of the CSGSetOperator class." alt="" coords="4066,80,4219,107"/>
-<area shape="rect" id="node24" href="$_c_s_g_transformation_8cpp.html" title="Implementation of the CSGTransformation class." alt="" coords="4243,80,4418,107"/>
-<area shape="rect" id="node25" href="$_c_s_g_translation_8cpp.html" title="Implementation of the CSGTranslation class." alt="" coords="4443,80,4589,107"/>
-<area shape="rect" id="node26" href="$_diffusion_coefficient_8cpp.html" title="Implementation of the DiffusionCoefficient class." alt="" coords="4614,80,4791,107"/>
-<area shape="rect" id="node27" href="$_domain_8cpp.html" title="Implementation of the Domain class." alt="" coords="4815,80,4915,107"/>
-<area shape="rect" id="node28" href="$_domain_type_8cpp.html" title="Implementation of the DomainType class." alt="" coords="4939,80,5069,107"/>
-<area shape="rect" id="node29" href="$_geometry_8cpp.html" title="Implementation of the Geometry class." alt="" coords="5093,80,5205,107"/>
-<area shape="rect" id="node30" href="$_geometry_definition_8cpp.html" title="Implementation of the GeometryDefinition class." alt="" coords="5230,80,5407,107"/>
-<area shape="rect" id="node31" href="$_interior_point_8cpp.html" title="Implementation of the InteriorPoint class." alt="" coords="5431,80,5561,107"/>
-<area shape="rect" id="node32" href="$_list_of_adjacent_domains_8cpp.html" title="Implementation of the ListOfAdjacentDomains class." alt="" coords="5585,80,5788,107"/>
-<area shape="rect" id="node33" href="$_list_of_analytic_volumes_8cpp.html" title="Implementation of the ListOfAnalyticVolumes class." alt="" coords="5813,80,6009,107"/>
-<area shape="rect" id="node34" href="$_list_of_coordinate_components_8cpp.html" title="Implementation of the ListOfCoordinateComponents class." alt="" coords="6033,80,6273,107"/>
-<area shape="rect" id="node35" href="$_list_of_c_s_g_nodes_8cpp.html" title="Implementation of the ListOfCSGNodes class." alt="" coords="6297,80,6452,107"/>
-<area shape="rect" id="node36" href="$_list_of_c_s_g_objects_8cpp.html" title="Implementation of the ListOfCSGObjects class." alt="" coords="6476,80,6639,107"/>
-<area shape="rect" id="node37" href="$_list_of_domains_8cpp.html" title="Implementation of the ListOfDomains class." alt="" coords="6663,80,6809,107"/>
-<area shape="rect" id="node38" href="$_list_of_domain_types_8cpp.html" title="Implementation of the ListOfDomainTypes class." alt="" coords="6833,80,7007,107"/>
-<area shape="rect" id="node39" href="$_list_of_geometry_definitions_8cpp.html" title="Implementation of the ListOfGeometryDefinitions class." alt="" coords="7031,80,7254,107"/>
-<area shape="rect" id="node40" href="$_list_of_interior_points_8cpp.html" title="Implementation of the ListOfInteriorPoints class." alt="" coords="7278,80,7453,107"/>
-<area shape="rect" id="node41" href="$_list_of_ordinal_mappings_8cpp.html" title="Implementation of the ListOfOrdinalMappings class." alt="" coords="7477,80,7675,107"/>
-<area shape="rect" id="node42" href="$_list_of_parametric_objects_8cpp.html" title="Implementation of the ListOfParametricObjects class." alt="" coords="7699,80,7906,107"/>
-<area shape="rect" id="node43" href="$_list_of_sampled_fields_8cpp.html" title="Implementation of the ListOfSampledFields class." alt="" coords="7930,80,8113,107"/>
-<area shape="rect" id="node44" href="$_list_of_sampled_volumes_8cpp.html" title="Implementation of the ListOfSampledVolumes class." alt="" coords="8137,80,8337,107"/>
-<area shape="rect" id="node45" href="$_mixed_geometry_8cpp.html" title="Implementation of the MixedGeometry class." alt="" coords="8362,80,8513,107"/>
-<area shape="rect" id="node46" href="$_ordinal_mapping_8cpp.html" title="Implementation of the OrdinalMapping class." alt="" coords="8537,80,8689,107"/>
-<area shape="rect" id="node47" href="$_parametric_geometry_8cpp.html" title="Implementation of the ParametricGeometry class." alt="" coords="8714,80,8897,107"/>
-<area shape="rect" id="node48" href="$_parametric_object_8cpp.html" title="Implementation of the ParametricObject class." alt="" coords="8921,80,9082,107"/>
-<area shape="rect" id="node49" href="$_sampled_field_8cpp.html" title="Implementation of the SampledField class." alt="" coords="9106,80,9243,107"/>
-<area shape="rect" id="node50" href="$_sampled_field_geometry_8cpp.html" title="Implementation of the SampledFieldGeometry class." alt="" coords="9268,80,9468,107"/>
-<area shape="rect" id="node51" href="$_sampled_volume_8cpp.html" title="Implementation of the SampledVolume class." alt="" coords="9492,80,9647,107"/>
-<area shape="rect" id="node52" href="$_spatial_points_8cpp.html" title="Implementation of the SpatialPoints class." alt="" coords="9671,80,9806,107"/>
-<area shape="rect" id="node53" href="$_spatial_symbol_reference_8cpp.html" title="Implementation of the SpatialSymbolReference class." alt="" coords="9830,80,10039,107"/>
-<area shape="rect" id="node54" href="$_transformation_component_8cpp.html" title="Implementation of the TransformationComponent class." alt="" coords="10063,80,10286,107"/>
-<area shape="rect" id="node55" href="$_spatial_s_b_m_l_error_table_8h.html" title="Definition of the SpatialSBMLErrorTable class." alt="" coords="10310,80,10490,107"/>
-<area shape="rect" id="node56" href="$_spatial_extension_8cpp.html" title="Implementation of SpatialExtension." alt="" coords="10321,155,10479,181"/>
+<area shape="rect" id="Node000001" title="Definition of the SpatialSBMLError class." alt="" coords="4772,5,4917,31"/>
+<area shape="rect" id="Node000002" href="$_adjacent_domains_8cpp.html" title="Implementation of the AdjacentDomains class." alt="" coords="5,79,169,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="4759,22,3941,22,2614,28,1897,35,1215,46,626,61,182,81,170,82,169,77,182,76,626,56,1215,40,1897,30,2614,23,3941,17,4759,17"/>
+<area shape="rect" id="Node000003" href="$_advection_coefficient_8cpp.html" title="Implementation of the AdvectionCoefficient class." alt="" coords="194,79,378,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="4758,22,3973,24,2707,31,1374,49,813,63,390,81,379,82,378,77,390,76,813,58,1374,44,2707,26,3973,18,4758,17"/>
+<area shape="rect" id="Node000004" href="$_analytic_geometry_8cpp.html" title="Implementation of the AnalyticGeometry class." alt="" coords="402,79,567,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="4758,22,4003,23,2792,31,2139,38,1520,48,984,63,581,81,568,82,567,77,581,76,984,57,1520,43,2139,33,2792,25,4003,18,4758,17"/>
+<area shape="rect" id="Node000005" href="$_analytic_volume_8cpp.html" title="Implementation of the AnalyticVolume class." alt="" coords="592,79,743,104"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="4758,22,4031,23,2871,30,2246,37,1654,47,1141,62,756,81,743,82,743,77,755,76,1141,57,1653,42,2246,31,2871,24,4031,18,4758,17"/>
+<area shape="rect" id="Node000006" href="$_boundary_8cpp.html" title="Implementation of the Boundary class." alt="" coords="767,79,877,104"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="4758,22,2769,39,1584,57,1147,68,889,81,877,83,877,77,888,76,1147,63,1584,52,2769,34,4758,17"/>
+<area shape="rect" id="Node000007" href="$_boundary_condition_8cpp.html" title="Implementation of the BoundaryCondition class." alt="" coords="901,79,1074,104"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="4758,22,4083,25,3019,34,1908,52,1440,65,1087,81,1074,82,1074,77,1087,76,1440,60,1907,47,3019,29,4083,20,4758,17"/>
+<area shape="rect" id="Node000008" href="$_c_s_g_homogeneous_transformation_8cpp.html" title="Implementation of the CSGHomogeneousTransformation class." alt="" coords="1099,79,1367,104"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="4758,22,4254,21,3427,27,2420,45,1895,60,1379,81,1367,82,1367,77,1379,76,1895,55,2420,40,3426,22,4254,16,4758,16"/>
+<area shape="rect" id="Node000009" href="$_c_s_g_node_8cpp.html" title="Implementation of the CSGNode class." alt="" coords="1391,79,1501,104"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="4758,22,4151,22,3211,29,2709,36,2234,47,1823,61,1514,81,1502,83,1501,77,1514,76,1823,56,2234,41,2709,30,3211,23,4151,17,4758,16"/>
+<area shape="rect" id="Node000010" href="$_c_s_g_object_8cpp.html" title="Implementation of the CSGObject class." alt="" coords="1525,79,1644,104"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="4758,22,4174,24,3276,31,2796,38,2343,49,1952,63,1657,81,1645,83,1644,77,1656,76,1952,58,2343,44,2796,33,3276,26,4174,18,4758,17"/>
+<area shape="rect" id="Node000011" href="$_c_s_g_primitive_8cpp.html" title="Implementation of the CSGPrimitive class." alt="" coords="1668,79,1803,104"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="4758,22,4200,25,3348,35,2465,52,2095,65,1816,81,1803,82,1803,77,1815,76,2095,60,2465,47,3348,29,4200,20,4758,17"/>
+<area shape="rect" id="Node000012" href="$_c_s_g_rotation_8cpp.html" title="Implementation of the CSGRotation class." alt="" coords="1827,79,1958,104"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="4758,22,4226,26,3419,35,2585,53,2235,66,1972,81,1959,83,1958,77,1971,76,2235,60,2585,48,3419,30,4226,21,4758,17"/>
+<area shape="rect" id="Node000013" href="$_c_s_g_scale_8cpp.html" title="Implementation of the CSGScale class." alt="" coords="1983,79,2093,104"/>
+<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="4758,22,4247,25,3480,34,2688,51,2356,65,2106,81,2094,83,2093,77,2106,76,2356,59,2688,46,3479,28,4247,20,4758,17"/>
+<area shape="rect" id="Node000014" href="$_c_s_g_set_operator_8cpp.html" title="Implementation of the CSGSetOperator class." alt="" coords="2117,79,2271,104"/>
+<area shape="poly" id="edge13_Node000001_Node000014" title=" " alt="" coords="4758,23,3561,40,2825,57,2516,68,2284,81,2271,82,2271,77,2283,76,2516,63,2825,52,3561,34,4758,17"/>
+<area shape="rect" id="Node000015" href="$_c_s_g_transformation_8cpp.html" title="Implementation of the CSGTransformation class." alt="" coords="2295,79,2469,104"/>
+<area shape="poly" id="edge14_Node000001_Node000015" title=" " alt="" coords="4758,21,4396,22,3837,28,3169,46,2822,61,2482,81,2470,82,2470,77,2482,76,2822,56,3168,41,3837,23,4396,16,4758,16"/>
+<area shape="rect" id="Node000016" href="$_c_s_g_translation_8cpp.html" title="Implementation of the CSGTranslation class." alt="" coords="2494,79,2641,104"/>
+<area shape="poly" id="edge15_Node000001_Node000016" title=" " alt="" coords="4758,23,3731,42,3110,59,2851,70,2654,81,2641,82,2641,77,2654,76,2850,64,3110,54,3731,36,4758,18"/>
+<area shape="rect" id="Node000017" href="$_c_s_geometry_8cpp.html" title="Implementation of the CSGeometry class." alt="" coords="2665,79,2795,104"/>
+<area shape="poly" id="edge16_Node000001_Node000017" title=" " alt="" coords="4759,23,3802,41,3229,59,2989,69,2808,81,2795,83,2795,77,2807,76,2989,64,3228,53,3802,36,4758,18"/>
+<area shape="rect" id="Node000018" href="$_compartment_mapping_8cpp.html" title="Implementation of the CompartmentMapping class." alt="" coords="2819,79,3014,104"/>
+<area shape="poly" id="edge17_Node000001_Node000018" title=" " alt="" coords="4758,23,4471,26,4044,36,3541,53,3026,81,3015,82,3014,77,3026,76,3541,48,4044,31,4471,21,4758,17"/>
+<area shape="rect" id="Node000019" href="$_coordinate_component_8cpp.html" title="Implementation of the CoordinateComponent class." alt="" coords="3038,79,3233,104"/>
+<area shape="poly" id="edge18_Node000001_Node000019" title=" " alt="" coords="4758,23,4128,39,3692,56,3246,81,3233,82,3233,77,3246,76,3692,51,4128,33,4758,18"/>
+<area shape="rect" id="Node000020" href="$_diffusion_coefficient_8cpp.html" title="Implementation of the DiffusionCoefficient class." alt="" coords="3257,79,3435,104"/>
+<area shape="poly" id="edge19_Node000001_Node000020" title=" " alt="" coords="4758,24,4206,40,3830,57,3448,81,3435,82,3435,77,3447,76,3830,52,4206,35,4758,18"/>
+<area shape="rect" id="Node000021" href="$_domain_8cpp.html" title="Implementation of the Domain class." alt="" coords="3459,79,3559,104"/>
+<area shape="poly" id="edge20_Node000001_Node000021" title=" " alt="" coords="4758,22,4548,24,4254,33,3914,51,3741,64,3570,81,3559,83,3558,78,3570,76,3740,59,3914,45,4253,27,4548,19,4758,17"/>
+<area shape="rect" id="Node000022" href="$_domain_type_8cpp.html" title="Implementation of the DomainType class." alt="" coords="3582,79,3713,104"/>
+<area shape="poly" id="edge21_Node000001_Node000022" title=" " alt="" coords="4758,24,4315,40,4022,57,3725,81,3713,83,3712,77,3724,76,4022,52,4315,35,4758,19"/>
+<area shape="rect" id="Node000023" href="$_geometry_8cpp.html" title="Implementation of the Geometry class." alt="" coords="3737,79,3849,104"/>
+<area shape="poly" id="edge22_Node000001_Node000023" title=" " alt="" coords="4758,24,4370,41,4117,58,3862,81,3849,83,3849,78,3862,76,4117,52,4369,36,4758,19"/>
+<area shape="rect" id="Node000024" href="$_geometry_definition_8cpp.html" title="Implementation of the GeometryDefinition class." alt="" coords="3873,79,4051,104"/>
+<area shape="poly" id="edge23_Node000001_Node000024" title=" " alt="" coords="4759,28,4452,49,4064,81,4051,83,4051,77,4063,76,4451,44,4758,22"/>
+<area shape="rect" id="Node000025" href="$_interior_point_8cpp.html" title="Implementation of the InteriorPoint class." alt="" coords="4075,79,4204,104"/>
+<area shape="poly" id="edge24_Node000001_Node000025" title=" " alt="" coords="4758,29,4514,50,4217,81,4205,83,4204,78,4216,76,4514,45,4758,23"/>
+<area shape="rect" id="Node000026" href="$_list_of_adjacent_domains_8cpp.html" title="Implementation of the ListOfAdjacentDomains class." alt="" coords="4229,79,4431,104"/>
+<area shape="poly" id="edge25_Node000001_Node000026" title=" " alt="" coords="4758,34,4413,81,4412,76,4757,29"/>
+<area shape="rect" id="Node000027" href="$_list_of_analytic_volumes_8cpp.html" title="Implementation of the ListOfAnalyticVolumes class." alt="" coords="4456,79,4652,104"/>
+<area shape="poly" id="edge26_Node000001_Node000027" title=" " alt="" coords="4785,37,4602,81,4600,76,4784,31"/>
+<area shape="rect" id="Node000028" href="$_list_of_c_s_g_nodes_8cpp.html" title="Implementation of the ListOfCSGNodes class." alt="" coords="4677,79,4831,104"/>
+<area shape="poly" id="edge27_Node000001_Node000028" title=" " alt="" coords="4821,41,4770,81,4767,76,4818,37"/>
+<area shape="rect" id="Node000029" href="$_list_of_c_s_g_objects_8cpp.html" title="Implementation of the ListOfCSGObjects class." alt="" coords="4855,79,5018,104"/>
+<area shape="poly" id="edge28_Node000001_Node000029" title=" " alt="" coords="4872,37,4923,76,4920,81,4868,41"/>
+<area shape="rect" id="Node000030" href="$_list_of_coordinate_components_8cpp.html" title="Implementation of the ListOfCoordinateComponents class." alt="" coords="5042,79,5282,104"/>
+<area shape="poly" id="edge29_Node000001_Node000030" title=" " alt="" coords="4910,31,5111,76,5110,81,4908,36"/>
+<area shape="rect" id="Node000031" href="$_list_of_domain_types_8cpp.html" title="Implementation of the ListOfDomainTypes class." alt="" coords="5307,79,5481,104"/>
+<area shape="poly" id="edge30_Node000001_Node000031" title=" " alt="" coords="4931,28,5307,76,5306,81,4931,33"/>
+<area shape="rect" id="Node000032" href="$_list_of_domains_8cpp.html" title="Implementation of the ListOfDomains class." alt="" coords="5505,79,5651,104"/>
+<area shape="poly" id="edge31_Node000001_Node000032" title=" " alt="" coords="4932,23,5184,45,5494,76,5505,77,5505,83,5494,81,5184,50,4931,29"/>
+<area shape="rect" id="Node000033" href="$_list_of_geometry_definitions_8cpp.html" title="Implementation of the ListOfGeometryDefinitions class." alt="" coords="5675,79,5897,104"/>
+<area shape="poly" id="edge32_Node000001_Node000033" title=" " alt="" coords="4931,22,5664,76,5675,77,5674,82,5663,81,4931,28"/>
+<area shape="rect" id="Node000034" href="$_list_of_interior_points_8cpp.html" title="Implementation of the ListOfInteriorPoints class." alt="" coords="5921,79,6096,104"/>
+<area shape="poly" id="edge33_Node000001_Node000034" title=" " alt="" coords="4932,20,5353,39,5630,55,5910,76,5921,77,5921,82,5910,81,5629,60,5353,44,4931,25"/>
+<area shape="rect" id="Node000035" href="$_list_of_ordinal_mappings_8cpp.html" title="Implementation of the ListOfOrdinalMappings class." alt="" coords="6121,79,6318,104"/>
+<area shape="poly" id="edge34_Node000001_Node000035" title=" " alt="" coords="4931,19,5431,37,5767,54,6109,76,6121,77,6120,82,6108,81,5767,59,5431,43,4931,24"/>
+<area shape="rect" id="Node000036" href="$_list_of_parametric_objects_8cpp.html" title="Implementation of the ListOfParametricObjects class." alt="" coords="6343,79,6549,104"/>
+<area shape="poly" id="edge35_Node000001_Node000036" title=" " alt="" coords="4931,18,5517,35,5920,52,6330,76,6343,77,6342,82,6330,81,5919,58,5517,41,4931,24"/>
+<area shape="rect" id="Node000037" href="$_list_of_sampled_fields_8cpp.html" title="Implementation of the ListOfSampledFields class." alt="" coords="6573,79,6756,104"/>
+<area shape="poly" id="edge36_Node000001_Node000037" title=" " alt="" coords="4931,17,5204,21,5607,31,6079,48,6562,76,6573,77,6573,82,6562,81,6079,53,5607,36,5204,27,4931,23"/>
+<area shape="rect" id="Node000038" href="$_list_of_sampled_volumes_8cpp.html" title="Implementation of the ListOfSampledVolumes class." alt="" coords="6781,79,6981,104"/>
+<area shape="poly" id="edge37_Node000001_Node000038" title=" " alt="" coords="4931,17,5233,21,5686,30,6221,47,6769,76,6781,77,6780,82,6769,81,6221,53,5686,35,5233,26,4931,23"/>
+<area shape="rect" id="Node000039" href="$_mixed_geometry_8cpp.html" title="Implementation of the MixedGeometry class." alt="" coords="7005,79,7156,104"/>
+<area shape="poly" id="edge38_Node000001_Node000039" title=" " alt="" coords="4931,16,5263,16,5771,22,6374,40,6687,55,6993,76,7005,77,7005,82,6992,81,6686,61,6374,45,5771,27,5263,21,4931,21"/>
+<area shape="rect" id="Node000040" href="$_ordinal_mapping_8cpp.html" title="Implementation of the OrdinalMapping class." alt="" coords="7181,79,7333,104"/>
+<area shape="poly" id="edge39_Node000001_Node000040" title=" " alt="" coords="4931,18,6019,36,6682,53,6959,64,7169,76,7181,77,7180,82,7168,81,6959,69,6682,58,6019,41,4931,23"/>
+<area shape="rect" id="Node000041" href="$_parametric_geometry_8cpp.html" title="Implementation of the ParametricGeometry class." alt="" coords="7357,79,7540,104"/>
+<area shape="poly" id="edge40_Node000001_Node000041" title=" " alt="" coords="4931,16,5311,16,5904,22,6614,40,6983,55,7345,76,7357,77,7357,82,7344,81,6983,61,6614,45,5904,27,5310,21,4931,21"/>
+<area shape="rect" id="Node000042" href="$_parametric_object_8cpp.html" title="Implementation of the ParametricObject class." alt="" coords="7564,79,7725,104"/>
+<area shape="poly" id="edge41_Node000001_Node000042" title=" " alt="" coords="4931,17,6195,34,6977,51,7305,63,7553,76,7564,77,7564,82,7552,81,7305,68,6977,57,6195,39,4931,23"/>
+<area shape="rect" id="Node000043" href="$_sampled_field_8cpp.html" title="Implementation of the SampledField class." alt="" coords="7749,79,7887,104"/>
+<area shape="poly" id="edge42_Node000001_Node000043" title=" " alt="" coords="4932,17,5468,21,6280,30,7120,48,7472,60,7738,76,7749,77,7749,82,7738,81,7472,66,7120,53,6280,35,5468,26,4932,22"/>
+<area shape="rect" id="Node000044" href="$_sampled_field_geometry_8cpp.html" title="Implementation of the SampledFieldGeometry class." alt="" coords="7911,79,8111,104"/>
+<area shape="poly" id="edge43_Node000001_Node000044" title=" " alt="" coords="4931,17,6353,35,7243,52,7617,63,7899,76,7911,77,7911,82,7899,81,7617,69,7243,57,6353,40,4931,23"/>
+<area shape="rect" id="Node000045" href="$_sampled_volume_8cpp.html" title="Implementation of the SampledVolume class." alt="" coords="8135,79,8290,104"/>
+<area shape="poly" id="edge44_Node000001_Node000045" title=" " alt="" coords="4931,17,5530,20,6454,30,7415,47,7819,60,8124,76,8135,77,8135,82,8123,81,7819,65,7415,53,6454,35,5530,26,4931,22"/>
+<area shape="rect" id="Node000046" href="$_spatial_compartment_plugin_8cpp.html" title="Implementation of the SpatialCompartmentPlugin class." alt="" coords="8314,79,8538,104"/>
+<area shape="poly" id="edge45_Node000001_Node000046" title=" " alt="" coords="4931,17,6534,34,7552,52,7980,63,8302,76,8314,77,8314,82,8302,81,7979,68,7552,57,6534,39,4931,23"/>
+<area shape="rect" id="Node000047" href="$_spatial_model_plugin_8cpp.html" title="Implementation of the SpatialModelPlugin class." alt="" coords="8563,79,8737,104"/>
+<area shape="poly" id="edge46_Node000001_Node000047" title=" " alt="" coords="4931,17,5597,20,6646,29,7742,47,8203,60,8550,76,8562,77,8562,82,8550,81,8203,65,7742,52,6646,35,5597,25,4931,22"/>
+<area shape="rect" id="Node000048" href="$_spatial_parameter_plugin_8cpp.html" title="Implementation of the SpatialParameterPlugin class." alt="" coords="8761,79,8963,104"/>
+<area shape="poly" id="edge47_Node000001_Node000048" title=" " alt="" coords="4931,17,5629,21,6736,30,7895,48,8383,61,8750,76,8761,77,8761,82,8750,81,8383,66,7895,53,6736,36,5629,26,4931,22"/>
+<area shape="rect" id="Node000049" href="$_spatial_points_8cpp.html" title="Implementation of the SpatialPoints class." alt="" coords="8987,79,9121,104"/>
+<area shape="poly" id="edge48_Node000001_Node000049" title=" " alt="" coords="4931,16,5665,16,6838,21,7469,28,8068,39,8586,55,8976,76,8987,77,8986,82,8975,81,8586,60,8068,44,7469,33,6838,27,5665,21,4931,22"/>
+<area shape="rect" id="Node000050" href="$_spatial_reaction_plugin_8cpp.html" title="Implementation of the SpatialReactionPlugin class." alt="" coords="9145,79,9336,104"/>
+<area shape="poly" id="edge49_Node000001_Node000050" title=" " alt="" coords="4931,17,5690,19,6908,27,8189,45,8728,59,9134,76,9146,77,9145,82,9134,81,8728,64,8188,50,6908,33,5690,24,4931,22"/>
+<area shape="rect" id="Node000051" href="$_spatial_s_b_m_l_document_plugin_8cpp.html" title="Implementation of the SpatialSBMLDocumentPlugin class." alt="" coords="9361,79,9598,104"/>
+<area shape="poly" id="edge50_Node000001_Node000051" title=" " alt="" coords="4931,17,5724,21,7005,30,8353,48,8921,61,9349,76,9361,77,9360,82,9349,81,8921,66,8353,53,7004,36,5724,26,4931,22"/>
+<area shape="rect" id="Node000052" href="$_spatial_s_b_m_l_error_table_8h.html" title="Definition of the SpatialSBMLErrorTable class." alt="" coords="9623,79,9803,104"/>
+<area shape="poly" id="edge51_Node000001_Node000052" title=" " alt="" coords="4931,17,5765,17,7122,24,7856,31,8553,42,9156,57,9610,76,9623,77,9622,82,9610,81,9156,62,8553,47,7856,37,7122,29,5765,23,4931,22"/>
+<area shape="rect" id="Node000054" href="$_spatial_species_plugin_8cpp.html" title="Implementation of the SpatialSpeciesPlugin class." alt="" coords="9827,79,10011,104"/>
+<area shape="poly" id="edge53_Node000001_Node000054" title=" " alt="" coords="4931,17,5796,17,7212,23,7980,30,8709,41,9341,56,9815,76,9827,77,9827,82,9815,81,9340,61,8709,46,7980,36,7212,29,5796,22,4931,22"/>
+<area shape="rect" id="Node000055" href="$_spatial_symbol_reference_8cpp.html" title="Implementation of the SpatialSymbolReference class." alt="" coords="10036,79,10245,104"/>
+<area shape="poly" id="edge54_Node000001_Node000055" title=" " alt="" coords="4931,17,5829,18,7305,25,8107,32,8868,43,9528,57,10023,76,10036,77,10036,82,10023,81,9527,63,8868,48,8107,38,7305,30,5829,23,4931,22"/>
+<area shape="rect" id="Node000056" href="$_transformation_component_8cpp.html" title="Implementation of the TransformationComponent class." alt="" coords="10269,79,10492,104"/>
+<area shape="poly" id="edge55_Node000001_Node000056" title=" " alt="" coords="4931,17,5865,18,7410,25,8249,32,9047,43,9738,57,10258,76,10269,77,10269,82,10258,81,9738,62,9047,48,8249,38,7410,30,5865,23,4931,22"/>
+<area shape="rect" id="Node000053" href="$_spatial_extension_8cpp.html" title="Implementation of SpatialExtension." alt="" coords="9633,152,9792,177"/>
+<area shape="poly" id="edge52_Node000052_Node000053" title=" " alt="" coords="9715,118,9715,152,9710,152,9710,118"/>
 </map>

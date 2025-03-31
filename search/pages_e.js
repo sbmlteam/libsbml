@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['working_20with_20math_20297',['Working with math',['../libsbml-math.html',1,'libsbml-api-guide']]]
+  ['questions_20reporting_20issues_0',['Asking questions, reporting issues',['../libsbml-communications.html',1,'libsbml-help']]]
 ];

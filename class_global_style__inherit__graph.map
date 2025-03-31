@@ -1,5 +1,7 @@
 <map id="GlobalStyle" name="GlobalStyle">
-<area shape="rect" id="node1" title=" " alt="" coords="5,155,103,181"/>
-<area shape="rect" id="node2" href="$class_style.html" title=" " alt="" coords="27,80,81,107"/>
-<area shape="rect" id="node3" href="$class_s_base.html" title=" " alt="" coords="23,5,85,32"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,152,103,177"/>
+<area shape="rect" id="Node000002" href="$class_style.html" title=" " alt="" coords="27,79,81,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="57,118,57,152,51,152,51,118"/>
+<area shape="rect" id="Node000003" href="$class_s_base.html" title=" " alt="" coords="23,5,85,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="57,44,57,79,51,79,51,44"/>
 </map>

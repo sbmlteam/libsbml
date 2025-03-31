@@ -1,12 +1,12 @@
 var _render_point_8cpp =
 [
-    [ "RenderPoint_clone", "_render_point_8cpp.html#a96e8e2b5b7633255e1c2e33fb18bddb4", null ],
-    [ "RenderPoint_createRenderCubicBezier", "_render_point_8cpp.html#a17b4183b0f9e15d02fe963b476c20df7", null ],
-    [ "RenderPoint_createRenderPoint", "_render_point_8cpp.html#adb500643603fd6b0259446a754a13d8b", null ],
+    [ "RenderPoint_clone", "_render_point_8cpp.html#a03094650b967d89e6a6bbbe04cd72d69", null ],
+    [ "RenderPoint_createRenderCubicBezier", "_render_point_8cpp.html#a6accec3ba5c427c53e812016ff6f5320", null ],
+    [ "RenderPoint_createRenderPoint", "_render_point_8cpp.html#a4b9ffd4559354d2454ab9ac595a2eb53", null ],
     [ "RenderPoint_free", "_render_point_8cpp.html#a5b3ae08259f0879987e57c03703d2ff8", null ],
-    [ "RenderPoint_getX", "_render_point_8cpp.html#adb73cafd8c6d9970c4f1887f05a1e9b2", null ],
-    [ "RenderPoint_getY", "_render_point_8cpp.html#af1ed137a1c5e647bfd81b0dfe8ebd7f9", null ],
-    [ "RenderPoint_getZ", "_render_point_8cpp.html#a7c4e47b4bb3c657dd7006c675605a498", null ],
+    [ "RenderPoint_getX", "_render_point_8cpp.html#ad3e0ec33d71abd500ff66b38ea39881b", null ],
+    [ "RenderPoint_getY", "_render_point_8cpp.html#a5c4bd437f657bda508b2f3871c9423c1", null ],
+    [ "RenderPoint_getZ", "_render_point_8cpp.html#a82887f074a4d8fb9f29da1e43e838e0b", null ],
     [ "RenderPoint_hasRequiredAttributes", "_render_point_8cpp.html#af78a800ee42a66b3faf37af20db97a57", null ],
     [ "RenderPoint_isRenderCubicBezier", "_render_point_8cpp.html#ad3e8874fd6d7476c75a3782ea33b1c76", null ],
     [ "RenderPoint_isRenderPoint", "_render_point_8cpp.html#ae05f87926d6143e053e5408e7329a325", null ],

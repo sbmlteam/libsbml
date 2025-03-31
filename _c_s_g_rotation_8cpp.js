@@ -1,7 +1,7 @@
 var _c_s_g_rotation_8cpp =
 [
-    [ "CSGRotation_clone", "_c_s_g_rotation_8cpp.html#afd98d3653354c4c686b6e4effcc6c971", null ],
-    [ "CSGRotation_create", "_c_s_g_rotation_8cpp.html#a456b75d089e7cf7129b0a201053811b6", null ],
+    [ "CSGRotation_clone", "_c_s_g_rotation_8cpp.html#adfff1b1b99cacea84a03fce24c7cf6c1", null ],
+    [ "CSGRotation_create", "_c_s_g_rotation_8cpp.html#a0c492d1b7afaae0ef53aa24fec6cf587", null ],
     [ "CSGRotation_free", "_c_s_g_rotation_8cpp.html#acc67d3f046899bfe9d04c1a147e123ce", null ],
     [ "CSGRotation_getRotateAngleInRadians", "_c_s_g_rotation_8cpp.html#ad785622545f5ac71f942f1100dc237d5", null ],
     [ "CSGRotation_getRotateX", "_c_s_g_rotation_8cpp.html#a0dd4c83bbab84e379f636b671b6a0a3a", null ],

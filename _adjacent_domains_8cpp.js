@@ -1,12 +1,12 @@
 var _adjacent_domains_8cpp =
 [
-    [ "AdjacentDomains_clone", "_adjacent_domains_8cpp.html#a5f09bf3f83d0ae0bd0ee2d376456de4f", null ],
-    [ "AdjacentDomains_create", "_adjacent_domains_8cpp.html#a7fb78ee4bc8794f154d708c107b53c05", null ],
+    [ "AdjacentDomains_clone", "_adjacent_domains_8cpp.html#a2616680f5a9449fad392f38ba70dc29b", null ],
+    [ "AdjacentDomains_create", "_adjacent_domains_8cpp.html#a5bc5b4a294b9e71789b5b137a94eafd7", null ],
     [ "AdjacentDomains_free", "_adjacent_domains_8cpp.html#abb5a6b6035b921c47dce6c3baceef759", null ],
-    [ "AdjacentDomains_getDomain1", "_adjacent_domains_8cpp.html#afbdc9d294aab7a968d65b8c027d10207", null ],
-    [ "AdjacentDomains_getDomain2", "_adjacent_domains_8cpp.html#a34236e17427202608efa5f977abef08f", null ],
-    [ "AdjacentDomains_getId", "_adjacent_domains_8cpp.html#afc17819bbc743fece1fa292b6cc3dd50", null ],
-    [ "AdjacentDomains_getName", "_adjacent_domains_8cpp.html#ab963cb6b0095bdd7ca86fbddfa2c2430", null ],
+    [ "AdjacentDomains_getDomain1", "_adjacent_domains_8cpp.html#adb46a3d1985591b3336a27012c23ea27", null ],
+    [ "AdjacentDomains_getDomain2", "_adjacent_domains_8cpp.html#a3435ab2be86131c97f06215433bd467b", null ],
+    [ "AdjacentDomains_getId", "_adjacent_domains_8cpp.html#a2e4fbcb9e6bcc87cb9dbd988002057ea", null ],
+    [ "AdjacentDomains_getName", "_adjacent_domains_8cpp.html#aee7a94ef98f60e079f7412f660763f62", null ],
     [ "AdjacentDomains_hasRequiredAttributes", "_adjacent_domains_8cpp.html#a89afa6d7076a93e6013ecd252076cce1", null ],
     [ "AdjacentDomains_isSetDomain1", "_adjacent_domains_8cpp.html#a4035cb41799b68d47f52129f5251f287", null ],
     [ "AdjacentDomains_isSetDomain2", "_adjacent_domains_8cpp.html#a0094769ee89a228796f3554fec06cd03", null ],

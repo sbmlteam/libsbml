@@ -1,5 +1,7 @@
 <map id="ExpressionAnalyser.h" name="ExpressionAnalyser.h">
-<area shape="rect" id="node1" title="Definition of ExpressionAnalyser, a class for analysing expressions." alt="" coords="121,5,282,32"/>
-<area shape="rect" id="node2" href="$_expression_analyser_8cpp.html" title="Implementation of ExpressionAnalyser." alt="" coords="5,80,181,107"/>
-<area shape="rect" id="node3" href="$_s_b_m_l_rate_rule_converter_8cpp.html" title="Implementation of SBMLRateRuleConverter, a converter from raterule to reaction." alt="" coords="206,80,413,107"/>
+<area shape="rect" id="Node000001" title="Definition of ExpressionAnalyser, a class for analysing expressions." alt="" coords="121,5,282,31"/>
+<area shape="rect" id="Node000002" href="$_expression_analyser_8cpp.html" title="Implementation of ExpressionAnalyser." alt="" coords="5,79,181,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="174,40,112,81,110,76,171,36"/>
+<area shape="rect" id="Node000003" href="$_s_b_m_l_rate_rule_converter_8cpp.html" title="Implementation of SBMLRateRuleConverter, a converter from raterule to reaction." alt="" coords="206,79,413,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="231,36,293,76,290,81,229,40"/>
 </map>

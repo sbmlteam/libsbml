@@ -1,4 +1,5 @@
 <map id="SBMLErrorTable.h" name="SBMLErrorTable.h">
-<area shape="rect" id="node1" title="Represents SBML errors and other diagnostics." alt="" coords="5,5,140,32"/>
-<area shape="rect" id="node2" href="$_s_b_m_l_error_8cpp.html" title="Represents SBML errors and other diagnostics." alt="" coords="15,80,130,107"/>
+<area shape="rect" id="Node000001" title="Represents SBML errors and other diagnostics." alt="" coords="5,5,140,31"/>
+<area shape="rect" id="Node000002" href="$_s_b_m_l_error_8cpp.html" title="Represents SBML errors and other diagnostics." alt="" coords="15,79,130,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="75,44,75,79,70,79,70,44"/>
 </map>

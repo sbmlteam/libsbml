@@ -1,11 +1,11 @@
 var _advection_coefficient_8cpp =
 [
-    [ "AdvectionCoefficient_clone", "_advection_coefficient_8cpp.html#a07877bff15f9736b59a196737e0b57b5", null ],
-    [ "AdvectionCoefficient_create", "_advection_coefficient_8cpp.html#adf4dc50ce70233d92e15430c03c0f85c", null ],
+    [ "AdvectionCoefficient_clone", "_advection_coefficient_8cpp.html#adf4a72d8f3f38fe14f20a65165c45221", null ],
+    [ "AdvectionCoefficient_create", "_advection_coefficient_8cpp.html#ae74ebf902ef1ac73d78f6a2f29532930", null ],
     [ "AdvectionCoefficient_free", "_advection_coefficient_8cpp.html#a671d8da630de97e0c20c20afa0931b4c", null ],
     [ "AdvectionCoefficient_getCoordinate", "_advection_coefficient_8cpp.html#a6a7d24249e1d2fb53ac746d73b6da5c0", null ],
-    [ "AdvectionCoefficient_getCoordinateAsString", "_advection_coefficient_8cpp.html#a00725c947fe776195004d99a6ee683b0", null ],
-    [ "AdvectionCoefficient_getVariable", "_advection_coefficient_8cpp.html#a089de2b0c2999c8d0dc0dfdbfa718269", null ],
+    [ "AdvectionCoefficient_getCoordinateAsString", "_advection_coefficient_8cpp.html#afeecd0e81d83fc4d5b0e1289a105c184", null ],
+    [ "AdvectionCoefficient_getVariable", "_advection_coefficient_8cpp.html#ab05b505057784b7e8e8b76237cf91823", null ],
     [ "AdvectionCoefficient_hasRequiredAttributes", "_advection_coefficient_8cpp.html#a827a3a892d9f5cb58df917e5f67ad361", null ],
     [ "AdvectionCoefficient_isSetCoordinate", "_advection_coefficient_8cpp.html#a72cb1fd093163b4177a15eb5ddf2add6", null ],
     [ "AdvectionCoefficient_isSetVariable", "_advection_coefficient_8cpp.html#ac4591518cf9b1fb41a871af145a1469c", null ],

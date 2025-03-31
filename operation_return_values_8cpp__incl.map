@@ -1,7 +1,11 @@
 <map id="operationReturnValues.cpp" name="operationReturnValues.cpp">
-<area shape="rect" id="node1" title="Enumeration of values returned by operations within libSBML." alt="" coords="27,5,225,32"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,87,76,114"/>
-<area shape="rect" id="node3" href="$operation_return_values_8h.html" title="Enumeration of values returned by operations within libSBML." alt="" coords="101,80,325,121"/>
-<area shape="rect" id="node4" href="$extern_8h.html" title="Definitions of LIBSBML_EXTERN and related things." alt="" coords="126,169,299,196"/>
-<area shape="rect" id="node5" title=" " alt="" coords="129,244,296,285"/>
+<area shape="rect" id="Node000001" title="Enumeration of values returned by operations within libSBML." alt="" coords="27,5,225,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,86,76,111"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="115,33,65,78,62,75,112,29"/>
+<area shape="rect" id="Node000003" href="$operation_return_values_8h.html" title="Enumeration of values returned by operations within libSBML." alt="" coords="101,79,325,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="141,29,183,67,180,71,137,33"/>
+<area shape="rect" id="Node000004" href="$extern_8h.html" title="Definitions of LIBSBML_EXTERN and related things." alt="" coords="126,167,299,192"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="215,119,215,153,210,153,210,119"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="129,240,296,280"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="215,192,215,226,210,226,210,192"/>
 </map>

@@ -171,7 +171,7 @@ var class_image =
     [ "setZ", "class_image.html#a7d18bed2f606c0064a53fd5c70b13ca5", null ],
     [ "toSBML", "class_image.html#ae8317d5157b70e4f1bc68e33e5c84001", null ],
     [ "toXML", "class_image.html#aa48c0aedd55976c95e9c9a2893438b98", null ],
-    [ "toXMLNode", "class_image.html#a5c949d524aca47b84b18b57b76e6ee0a", null ],
+    [ "toXMLNode", "class_image.html#a616754bfc4592922a488f2159f96b3ce", null ],
     [ "unsetAnnotation", "class_image.html#a9121d6a4f7401fe957cc75647a1e95ed", null ],
     [ "unsetCreatedDate", "class_image.html#ad3be0bf5891c2b6bf4340cce12b8630f", null ],
     [ "unsetCVTerms", "class_image.html#a1e89a7890f2fb291f1ba4c38866d1dcc", null ],

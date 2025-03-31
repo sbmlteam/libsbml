@@ -1,47 +1,154 @@
 <map id="CompSBMLError.h" name="CompSBMLError.h">
-<area shape="rect" id="node1" title="Represents SBML errors and other diagnostics." alt="" coords="1469,5,1608,32"/>
-<area shape="rect" id="node2" href="$_comp_extension_types_8h.html" title="Include all SBML types of Comp extension in a single header file." alt="" coords="1669,603,1843,629"/>
-<area shape="rect" id="node3" href="$_comp_flattening_converter_8cpp.html" title="Implementation of a first flattening converter." alt="" coords="833,677,1049,704"/>
-<area shape="rect" id="node5" href="$_comp_model_plugin_8cpp.html" title="Implementation of CompModelPlugin, the plugin class of comp package for the SBase element." alt="" coords="1118,603,1285,629"/>
-<area shape="rect" id="node6" href="$_comp_s_base_plugin_8cpp.html" title="Implementation of CompSBasePlugin, the plugin class of comp package for the SBase element." alt="" coords="1475,528,1642,555"/>
-<area shape="rect" id="node7" href="$_comp_s_b_m_l_document_plugin_8cpp.html" title="Implementation of CompSBMLDocumentPlugin, the plugin class of comp package for the SBase element." alt="" coords="2974,603,3205,629"/>
-<area shape="rect" id="node8" href="$_comp_base_8cpp.html" title="Implementation of CompBase, the base class of extension entities plugged in SBase derived classes in ..." alt="" coords="78,603,197,629"/>
-<area shape="rect" id="node9" href="$_comp_base_8h.html" title="Definition of CompBase, the base class of extension entities plugged in SBase derived classes in the ..." alt="" coords="1949,80,2053,107"/>
-<area shape="rect" id="node15" href="$_submodel_8cpp.html" title="Implementation of Submodel, the SBase&#45;derived class of the comp package." alt="" coords="2835,603,2949,629"/>
-<area shape="rect" id="node20" href="$_model_definition_8cpp.html" title="Implementation of ModelDefinition, the SBase&#45;derived class of the comp package." alt="" coords="2632,528,2784,555"/>
-<area shape="rect" id="node23" href="$_deletion_8cpp.html" title="Implementation of Deletion, the SBaseRef derived class of deletions package." alt="" coords="1535,453,1639,480"/>
-<area shape="rect" id="node29" href="$_replaced_by_8cpp.html" title="Implementation of ReplacedBy, the SBaseRef derived class of the comp package." alt="" coords="693,603,817,629"/>
-<area shape="rect" id="node30" href="$_replaced_element_8cpp.html" title="Implementation of ReplacedElement, the SBaseRef derived class of replacedElements package." alt="" coords="479,603,641,629"/>
-<area shape="rect" id="node31" href="$_replacing_8cpp.html" title="Implementation of Replacing, the SBaseRef derived class of Replacings package." alt="" coords="253,603,366,629"/>
-<area shape="rect" id="node38" href="$_port_8cpp.html" title="Implementation of Port, the SBase&#45;derived class of the comp package." alt="" coords="448,528,523,555"/>
-<area shape="rect" id="node45" href="$_comp_s_b_m_l_error_table_8h.html" title="Represents SBML errors and other diagnostics." alt="" coords="3573,528,3747,555"/>
-<area shape="rect" id="node4" href="$_comp_validator_8cpp.html" title=" " alt="" coords="1684,677,1828,704"/>
-<area shape="rect" id="node10" href="$_external_model_definition_8h.html" title="Definition of ExternalModelDefinition, the SBase derived class of the comp package." alt="" coords="2258,379,2449,405"/>
-<area shape="rect" id="node17" href="$_model_definition_8h.html" title="Definition of ModelDefinition, the SBase derived class of the comp package." alt="" coords="2582,379,2719,405"/>
-<area shape="rect" id="node21" href="$_s_base_ref_8h.html" title="Definition of SBaseRef, the SBase derived class of the comp package." alt="" coords="1629,155,1723,181"/>
-<area shape="rect" id="node26" href="$_submodel_8h.html" title="Definition of Submodel, the SBase derived class of the comp package." alt="" coords="1952,379,2051,405"/>
-<area shape="rect" id="node11" href="$_external_model_definition_8cpp.html" title="Implementation of ExternalModelDefinition, the SBase&#45;derived class of the comp package." alt="" coords="3415,603,3622,629"/>
-<area shape="rect" id="node12" href="$_list_of_external_model_definitions_8h.html" title="Definition of ListOfExternalModelDefinitions, the SBase derived class of the Hierarchial Model Defint..." alt="" coords="2250,453,2486,480"/>
-<area shape="rect" id="node13" href="$_comp_s_b_m_l_document_plugin_8h.html" title="Definition of CompSBMLDocumentPlugin, the plugin class of comp package for the Model element." alt="" coords="3131,528,3346,555"/>
-<area shape="rect" id="node16" href="$_list_of_external_model_definitions_8cpp.html" title="Implementation of ListOfExternalModelDefinitions." alt="" coords="2256,528,2507,555"/>
-<area shape="rect" id="node14" href="$_comp_extension_8cpp.html" title="Implementation of CompExtension, the core module of comp package." alt="" coords="1247,677,1398,704"/>
-<area shape="rect" id="node18" href="$_list_of_model_definitions_8h.html" title="Definition of ListOfModelDefinitions, the SBase derived class of modelDefinitions package." alt="" coords="2795,453,2978,480"/>
-<area shape="rect" id="node19" href="$_list_of_model_definitions_8cpp.html" title="Implementation of ListOfModelDefinitions from the comp package." alt="" coords="2859,528,3056,555"/>
-<area shape="rect" id="node22" href="$_deletion_8h.html" title="Definition of Deletion, the SBase derived class of deletions package." alt="" coords="1670,229,1759,256"/>
-<area shape="rect" id="node32" href="$_s_base_ref_8cpp.html" title="Implementation of SBaseRef, the SBase&#45;derived class of the comp package." alt="" coords="3281,603,3391,629"/>
-<area shape="rect" id="node35" href="$_port_8h.html" title="Definition of Port, the SBase derived class of the comp package." alt="" coords="587,379,647,405"/>
-<area shape="rect" id="node39" href="$_replacing_8h.html" title="Definition of Replacing, the SBaseRef&#45;derived class of the comp package." alt="" coords="1005,229,1104,256"/>
-<area shape="rect" id="node24" href="$_list_of_deletions_8h.html" title="Definition of ListOfDeletions, the SBase derived class of deletions package." alt="" coords="1662,304,1797,331"/>
-<area shape="rect" id="node25" href="$_list_of_deletions_8cpp.html" title="Implementation of ListOfDeletions." alt="" coords="1627,379,1776,405"/>
-<area shape="rect" id="node27" href="$_list_of_submodels_8h.html" title="Definition of ListOfSubmodels, the SBase derived class of submodels package." alt="" coords="1885,453,2029,480"/>
-<area shape="rect" id="node28" href="$_comp_model_plugin_8h.html" title="Definition of CompModelPlugin, the plugin class of comp package for the Model element." alt="" coords="893,528,1045,555"/>
-<area shape="rect" id="node34" href="$_list_of_submodels_8cpp.html" title="Implementation of ListOfSubmodels." alt="" coords="1819,528,1978,555"/>
-<area shape="rect" id="node33" href="$_comp_flattening_converter_8h.html" title="Definition of a first flattening converter." alt="" coords="841,603,1042,629"/>
-<area shape="rect" id="node36" href="$_list_of_ports_8h.html" title="Definition of ListOfPorts, the SBase derived class of ports package." alt="" coords="611,453,717,480"/>
-<area shape="rect" id="node37" href="$_list_of_ports_8cpp.html" title="Implementation of ListOfPorts." alt="" coords="597,528,717,555"/>
-<area shape="rect" id="node40" href="$_replaced_by_8h.html" title="Definition of ReplacedBy, the Replacing&#45;derived class of the comp package." alt="" coords="1104,379,1213,405"/>
-<area shape="rect" id="node42" href="$_replaced_element_8h.html" title="Definition of ReplacedElement, the SBase derived class of replacedElements package." alt="" coords="925,304,1073,331"/>
-<area shape="rect" id="node41" href="$_comp_s_base_plugin_8h.html" title="Definition of CompSBasePlugin, the plugin class of comp package for the Model element." alt="" coords="1083,453,1235,480"/>
-<area shape="rect" id="node43" href="$_list_of_replaced_elements_8h.html" title="Definition of ListOfReplacedElements, the SBase derived class of replacedElements package." alt="" coords="886,379,1079,405"/>
-<area shape="rect" id="node44" href="$_list_of_replaced_elements_8cpp.html" title="Implementation of ListOfReplacedElements from the comp package." alt="" coords="800,453,1008,480"/>
+<area shape="rect" id="Node000001" title="Represents SBML errors and other diagnostics." alt="" coords="1609,5,1748,31"/>
+<area shape="rect" id="Node000002" href="$_comp_base_8cpp.html" title="Implementation of CompBase, the base class of extension entities plugged in SBase derived classes in ..." alt="" coords="359,592,478,617"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1596,24,944,41,603,59,480,69,407,81,356,93,311,104,294,112,281,124,272,140,269,164,269,459,273,483,282,504,296,524,314,541,354,570,392,590,389,594,351,575,310,546,292,527,278,507,268,484,264,460,264,163,267,139,277,121,291,108,310,99,355,88,406,76,479,64,603,53,944,36,1596,18"/>
+<area shape="rect" id="Node000003" href="$_comp_base_8h.html" title="Definition of CompBase, the base class of extension entities plugged in SBase derived classes in the ..." alt="" coords="1627,79,1731,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="1681,44,1681,79,1676,79,1676,44"/>
+<area shape="rect" id="Node000004" href="$_comp_extension_types_8h.html" title="Include all SBML types of Comp extension in a single header file." alt="" coords="2505,592,2679,617"/>
+<area shape="poly" id="edge92_Node000001_Node000004" title=" " alt="" coords="1762,18,2412,38,2785,54,2940,65,3058,76,3124,79,3191,74,3315,61,3367,63,3389,68,3408,77,3424,91,3436,109,3443,133,3445,163,3445,459,3444,508,3435,527,3418,546,3402,555,3377,562,3305,574,3101,592,2871,601,2679,605,2679,600,2870,596,3101,586,3305,569,3376,557,3400,550,3414,542,3431,525,3438,507,3440,459,3440,163,3438,134,3431,111,3420,94,3405,81,3387,73,3366,68,3315,66,3191,79,3124,84,3057,81,2939,70,2784,60,2412,43,1762,24"/>
+<area shape="rect" id="Node000005" href="$_comp_flattening_converter_8cpp.html" title="Implementation of a first flattening converter." alt="" coords="2381,665,2597,691"/>
+<area shape="poly" id="edge93_Node000001_Node000005" title=" " alt="" coords="1762,16,2174,18,2755,24,3046,32,3305,42,3505,57,3575,66,3622,76,3669,89,3709,101,3725,110,3738,123,3746,140,3749,163,3749,533,3748,581,3740,601,3721,620,3701,627,3661,633,3535,643,3169,657,2609,668,2598,669,2598,664,2609,663,3169,651,3534,637,3660,627,3700,621,3719,615,3735,598,3742,580,3744,533,3744,163,3741,142,3734,126,3722,115,3707,106,3667,94,3621,81,3574,71,3504,62,3304,48,3046,37,2755,30,2174,23,1762,22"/>
+<area shape="rect" id="Node000012" href="$_comp_s_b_m_l_document_plugin_8cpp.html" title="Implementation of CompSBMLDocumentPlugin, the plugin class of comp package for the SBase element." alt="" coords="921,592,1151,617"/>
+<area shape="poly" id="edge95_Node000001_Node000012" title=" " alt="" coords="1596,22,1271,27,1062,34,846,46,644,64,476,89,411,105,361,122,330,142,323,153,320,164,320,459,323,481,330,496,342,508,358,516,398,528,445,541,623,561,921,590,920,595,623,566,443,547,397,533,356,521,339,512,326,499,318,482,315,460,315,163,318,150,327,138,359,118,409,100,475,84,644,59,846,41,1061,29,1271,21,1596,17"/>
+<area shape="rect" id="Node000013" href="$_submodel_8cpp.html" title="Implementation of Submodel, the SBase&#45;derived class of the comp package." alt="" coords="1316,592,1431,617"/>
+<area shape="poly" id="edge107_Node000001_Node000013" title=" " alt="" coords="1595,24,1440,33,1350,43,1262,56,1183,75,1118,98,1093,112,1074,128,1063,145,1059,164,1059,239,1063,272,1074,311,1114,400,1164,484,1189,518,1211,542,1235,559,1262,573,1317,591,1315,596,1260,578,1232,564,1208,546,1184,521,1159,487,1109,402,1069,313,1058,273,1053,240,1053,163,1058,143,1070,124,1090,108,1115,93,1181,69,1261,51,1350,38,1439,28,1595,19"/>
+<area shape="rect" id="Node000018" href="$_model_definition_8cpp.html" title="Implementation of ModelDefinition, the SBase&#45;derived class of the comp package." alt="" coords="677,519,829,544"/>
+<area shape="poly" id="edge102_Node000001_Node000018" title=" " alt="" coords="1596,22,1476,26,1323,35,1155,53,987,81,945,87,903,89,825,90,794,96,770,108,755,129,749,164,749,386,755,518,750,519,744,386,744,163,750,127,767,104,793,91,825,85,902,83,944,82,986,76,1154,47,1323,30,1476,21,1596,17"/>
+<area shape="rect" id="Node000021" href="$_deletion_8cpp.html" title="Implementation of Deletion, the SBaseRef derived class of deletions package." alt="" coords="2288,445,2392,471"/>
+<area shape="poly" id="edge101_Node000001_Node000021" title=" " alt="" coords="1762,24,1949,44,2169,74,2270,93,2353,114,2410,137,2426,149,2432,163,2432,313,2430,334,2423,355,2403,393,2378,425,2355,447,2352,443,2374,421,2399,390,2419,353,2424,333,2427,313,2427,164,2422,153,2407,141,2352,119,2269,98,2168,79,1948,49,1762,29"/>
+<area shape="rect" id="Node000028" href="$_comp_model_plugin_8cpp.html" title="Implementation of CompModelPlugin, the plugin class of comp package for the SBase element." alt="" coords="3542,592,3709,617"/>
+<area shape="poly" id="edge94_Node000001_Node000028" title=" " alt="" coords="1762,17,2159,20,2717,29,2995,36,3243,46,3434,60,3502,67,3547,76,3602,87,3650,98,3670,106,3685,119,3695,138,3699,163,3699,460,3692,500,3675,539,3655,571,3638,594,3633,590,3651,568,3671,536,3687,499,3693,459,3693,164,3690,139,3681,123,3667,111,3648,103,3600,92,3546,81,3501,73,3434,65,3242,52,2995,42,2716,34,2159,25,1762,22"/>
+<area shape="rect" id="Node000029" href="$_replaced_by_8cpp.html" title="Implementation of ReplacedBy, the SBaseRef derived class of the comp package." alt="" coords="3087,592,3211,617"/>
+<area shape="poly" id="edge104_Node000001_Node000029" title=" " alt="" coords="1762,17,2074,22,2507,32,2943,49,3124,61,3262,76,3319,80,3377,77,3485,69,3530,72,3549,78,3565,87,3579,99,3589,116,3595,137,3597,163,3597,460,3594,475,3585,489,3553,514,3507,536,3450,554,3324,582,3212,599,3211,594,3323,577,3448,549,3505,531,3551,510,3581,486,3589,473,3592,459,3592,163,3590,138,3584,118,3575,102,3562,91,3547,83,3529,78,3485,75,3377,82,3319,85,3261,81,3124,67,2943,55,2507,37,2074,27,1762,23"/>
+<area shape="rect" id="Node000030" href="$_replaced_element_8cpp.html" title="Implementation of ReplacedElement, the SBaseRef derived class of replacedElements package." alt="" coords="3355,592,3517,617"/>
+<area shape="poly" id="edge105_Node000001_Node000030" title=" " alt="" coords="1762,18,2661,35,3153,53,3333,64,3439,76,3512,84,3579,89,3607,96,3629,109,3643,131,3648,163,3648,460,3644,487,3632,511,3613,532,3591,550,3539,577,3488,594,3486,589,3537,572,3588,546,3610,528,3627,508,3639,485,3643,459,3643,164,3638,133,3625,113,3605,101,3578,94,3512,89,3438,81,3333,69,3153,58,2661,41,1762,23"/>
+<area shape="rect" id="Node000031" href="$_replacing_8cpp.html" title="Implementation of Replacing, the SBaseRef derived class of Replacings package." alt="" coords="1477,592,1590,617"/>
+<area shape="poly" id="edge106_Node000001_Node000031" title=" " alt="" coords="1596,35,1479,63,1415,86,1353,115,1297,152,1252,196,1235,221,1222,248,1213,278,1211,310,1211,459,1212,506,1219,524,1235,542,1268,555,1331,569,1477,593,1476,598,1330,574,1267,560,1232,546,1215,527,1207,507,1205,459,1205,310,1208,277,1217,246,1230,218,1248,192,1293,148,1350,111,1413,81,1477,58,1595,29"/>
+<area shape="rect" id="Node000037" href="$_port_8cpp.html" title="Implementation of Port, the SBase&#45;derived class of the comp package." alt="" coords="1571,519,1645,544"/>
+<area shape="poly" id="edge103_Node000001_Node000037" title=" " alt="" coords="1654,41,1634,59,1617,80,1593,120,1588,138,1587,163,1587,386,1595,461,1607,518,1602,519,1589,462,1581,386,1581,163,1583,137,1589,117,1612,77,1630,55,1650,37"/>
+<area shape="rect" id="Node000041" href="$_comp_s_base_plugin_8cpp.html" title="Implementation of CompSBasePlugin, the plugin class of comp package for the SBase element." alt="" coords="3238,519,3405,544"/>
+<area shape="poly" id="edge100_Node000001_Node000041" title=" " alt="" coords="1762,19,2162,34,2706,63,2967,83,3186,105,3272,118,3337,131,3379,146,3390,154,3395,163,3395,386,3388,427,3371,465,3351,497,3334,520,3329,517,3347,494,3367,463,3383,426,3389,386,3389,164,3386,157,3376,151,3335,137,3271,123,3185,111,2967,88,2706,68,2162,40,1762,25"/>
+<area shape="rect" id="Node000045" href="$_comp_s_b_m_l_error_table_8h.html" title="Represents SBML errors and other diagnostics." alt="" coords="5,519,179,544"/>
+<area shape="poly" id="edge96_Node000001_Node000045" title=" " alt="" coords="1596,22,1282,25,861,33,654,40,471,51,330,64,281,72,249,81,213,95,184,110,164,131,159,145,157,163,157,386,151,426,137,464,103,520,99,517,132,462,146,425,152,386,152,163,154,144,160,128,180,106,210,91,247,76,280,67,330,59,471,45,653,35,861,28,1282,19,1596,17"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="1613,106,1418,143,1286,172,1139,210,982,256,822,310,663,374,512,448,460,476,442,493,425,520,419,538,417,558,419,591,414,592,411,558,414,537,420,518,438,490,457,472,509,443,661,369,820,305,981,251,1138,205,1285,167,1417,137,1612,100"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="1744,89,2083,91,2312,97,2550,108,2775,125,2875,137,2964,151,3038,168,3094,187,3131,210,3141,223,3144,236,3144,386,3141,433,3133,452,3118,472,3081,506,3046,523,2957,547,2885,565,2811,580,2679,598,2678,593,2810,575,2884,560,2955,541,3044,518,3078,502,3114,469,3129,449,3136,431,3139,386,3139,237,3136,225,3127,214,3092,192,3036,173,2963,156,2874,142,2774,131,2549,113,2311,102,2083,97,1744,95"/>
+<area shape="rect" id="Node000007" href="$_external_model_definition_8h.html" title="Definition of ExternalModelDefinition, the SBase derived class of the comp package." alt="" coords="1293,372,1483,397"/>
+<area shape="poly" id="edge7_Node000003_Node000007" title=" " alt="" coords="1659,116,1402,374,1398,370,1656,112"/>
+<area shape="rect" id="Node000015" href="$_model_definition_8h.html" title="Definition of ModelDefinition, the SBase derived class of the comp package." alt="" coords="931,372,1069,397"/>
+<area shape="poly" id="edge19_Node000003_Node000015" title=" " alt="" coords="1641,112,1028,374,1026,369,1638,107"/>
+<area shape="rect" id="Node000019" href="$_s_base_ref_8h.html" title="Definition of SBaseRef, the SBase derived class of the comp package." alt="" coords="1906,152,2001,177"/>
+<area shape="poly" id="edge28_Node000003_Node000019" title=" " alt="" coords="1737,105,1910,149,1908,154,1735,110"/>
+<area shape="rect" id="Node000024" href="$_submodel_8h.html" title="Definition of Submodel, the SBase derived class of the comp package." alt="" coords="2019,372,2117,397"/>
+<area shape="poly" id="edge91_Node000003_Node000024" title=" " alt="" coords="1706,110,2054,370,2051,374,1703,114"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="2566,627,2508,667,2505,663,2563,623"/>
+<area shape="rect" id="Node000006" href="$_comp_validator_8cpp.html" title=" " alt="" coords="2621,665,2765,691"/>
+<area shape="poly" id="edge6_Node000004_Node000006" title=" " alt="" coords="2621,623,2678,663,2675,667,2618,627"/>
+<area shape="poly" id="edge8_Node000007_Node000004" title=" " alt="" coords="1498,385,1586,390,1687,400,1795,417,1900,443,1925,455,1950,468,2026,486,2087,492,2148,498,2225,516,2251,529,2276,542,2334,559,2395,573,2506,591,2505,596,2394,578,2333,564,2274,546,2248,534,2223,521,2148,503,2086,497,2025,492,1948,473,1923,460,1898,448,1793,423,1687,406,1585,396,1497,390"/>
+<area shape="rect" id="Node000008" href="$_external_model_definition_8cpp.html" title="Implementation of ExternalModelDefinition, the SBase&#45;derived class of the comp package." alt="" coords="129,592,335,617"/>
+<area shape="poly" id="edge9_Node000007_Node000008" title=" " alt="" coords="1279,394,790,420,563,435,451,448,385,480,325,521,277,563,245,594,241,590,273,559,322,517,383,475,450,443,562,430,790,415,1279,389"/>
+<area shape="rect" id="Node000009" href="$_list_of_external_model_definitions_8h.html" title="Definition of ListOfExternalModelDefinitions, the SBase derived class of the Hierarchial Model Defint..." alt="" coords="1257,445,1493,471"/>
+<area shape="poly" id="edge10_Node000007_Node000009" title=" " alt="" coords="1386,412,1379,446,1374,445,1381,411"/>
+<area shape="poly" id="edge11_Node000009_Node000004" title=" " alt="" coords="1507,462,1815,481,1965,496,2073,516,2099,529,2124,542,2224,566,2327,583,2423,593,2505,598,2505,604,2423,598,2326,588,2223,571,2122,546,2096,534,2071,521,1964,502,1815,486,1506,467"/>
+<area shape="rect" id="Node000010" href="$_comp_s_b_m_l_document_plugin_8h.html" title="Definition of CompSBMLDocumentPlugin, the plugin class of comp package for the Model element." alt="" coords="905,519,1119,544"/>
+<area shape="poly" id="edge12_Node000009_Node000010" title=" " alt="" coords="1304,476,1071,521,1070,516,1303,471"/>
+<area shape="rect" id="Node000014" href="$_list_of_external_model_definitions_8cpp.html" title="Implementation of ListOfExternalModelDefinitions." alt="" coords="1245,519,1496,544"/>
+<area shape="poly" id="edge18_Node000009_Node000014" title=" " alt="" coords="1376,485,1374,519,1369,518,1371,484"/>
+<area shape="poly" id="edge14_Node000010_Node000004" title=" " alt="" coords="1133,536,1233,541,2505,597,2505,602,1233,547,1133,542"/>
+<area shape="poly" id="edge16_Node000010_Node000008" title=" " alt="" coords="891,546,347,595,336,596,335,590,346,589,891,540"/>
+<area shape="rect" id="Node000011" href="$_comp_extension_8cpp.html" title="Implementation of CompExtension, the core module of comp package." alt="" coords="1726,665,1877,691"/>
+<area shape="poly" id="edge13_Node000010_Node000011" title=" " alt="" coords="1058,546,1170,581,1305,615,1419,635,1534,650,1726,669,1725,674,1533,656,1418,640,1303,620,1168,586,1057,551"/>
+<area shape="poly" id="edge15_Node000010_Node000012" title=" " alt="" coords="1023,556,1035,591,1030,593,1018,558"/>
+<area shape="poly" id="edge17_Node000010_Node000013" title=" " alt="" coords="1084,544,1316,589,1315,595,1083,549"/>
+<area shape="poly" id="edge20_Node000015_Node000004" title=" " alt="" coords="1083,388,1452,411,1649,427,1792,443,1846,455,1899,468,1977,481,2038,487,2098,496,2174,516,2200,529,2225,542,2297,561,2372,576,2505,594,2505,599,2371,582,2296,567,2223,546,2197,534,2172,521,2097,501,2037,492,1976,486,1898,473,1845,460,1792,448,1648,432,1452,416,1082,393"/>
+<area shape="poly" id="edge21_Node000015_Node000010" title=" " alt="" coords="1017,408,1032,445,1034,465,1031,486,1020,519,1015,518,1026,485,1028,465,1027,446,1012,410"/>
+<area shape="rect" id="Node000016" href="$_list_of_model_definitions_8h.html" title="Definition of ListOfModelDefinitions, the SBase derived class of modelDefinitions package." alt="" coords="835,445,1018,471"/>
+<area shape="poly" id="edge22_Node000015_Node000016" title=" " alt="" coords="980,409,940,447,937,443,976,405"/>
+<area shape="poly" id="edge27_Node000015_Node000018" title=" " alt="" coords="927,403,875,421,824,448,804,464,787,484,762,520,758,517,782,481,800,461,821,443,872,416,926,398"/>
+<area shape="poly" id="edge23_Node000016_Node000004" title=" " alt="" coords="1032,461,1612,487,1890,503,2029,516,2051,529,2073,542,2187,571,2304,589,2414,598,2505,601,2505,607,2413,604,2304,594,2186,576,2071,546,2049,533,2027,521,1890,508,1612,493,1032,466"/>
+<area shape="poly" id="edge24_Node000016_Node000010" title=" " alt="" coords="952,477,1000,516,996,520,949,481"/>
+<area shape="rect" id="Node000017" href="$_list_of_model_definitions_8cpp.html" title="Implementation of ListOfModelDefinitions from the comp package." alt="" coords="456,519,653,544"/>
+<area shape="poly" id="edge25_Node000016_Node000017" title=" " alt="" coords="854,476,615,521,614,516,853,471"/>
+<area shape="poly" id="edge26_Node000016_Node000018" title=" " alt="" coords="887,478,783,521,781,516,885,473"/>
+<area shape="poly" id="edge29_Node000019_Node000004" title=" " alt="" coords="2015,166,2212,181,2339,195,2470,215,2595,241,2705,275,2752,296,2790,318,2820,343,2840,371,2856,409,2860,427,2859,446,2853,466,2840,489,2790,546,2766,560,2731,574,2650,595,2649,589,2730,569,2764,556,2786,542,2835,486,2848,464,2854,445,2854,427,2851,410,2835,373,2816,347,2787,323,2749,300,2704,280,2594,247,2469,220,2338,200,2212,186,2014,171"/>
+<area shape="rect" id="Node000020" href="$_deletion_8h.html" title="Definition of Deletion, the SBase derived class of deletions package." alt="" coords="2117,225,2206,251"/>
+<area shape="poly" id="edge30_Node000019_Node000020" title=" " alt="" coords="2001,179,2129,223,2127,228,1999,184"/>
+<area shape="rect" id="Node000032" href="$_s_base_ref_8cpp.html" title="Implementation of SBaseRef, the SBase&#45;derived class of the comp package." alt="" coords="786,592,897,617"/>
+<area shape="poly" id="edge90_Node000019_Node000032" title=" " alt="" coords="1900,184,1633,261,1457,316,1281,375,1155,423,1030,473,990,485,957,490,927,500,894,521,877,538,864,557,848,593,843,591,860,555,873,534,890,517,925,495,956,485,989,479,1028,468,1153,418,1279,369,1456,311,1631,256,1898,178"/>
+<area shape="rect" id="Node000034" href="$_port_8h.html" title="Definition of Port, the SBase derived class of the comp package." alt="" coords="1661,372,1721,397"/>
+<area shape="poly" id="edge59_Node000019_Node000034" title=" " alt="" coords="1931,188,1707,374,1703,369,1927,184"/>
+<area shape="rect" id="Node000038" href="$_replacing_8h.html" title="Definition of Replacing, the SBaseRef&#45;derived class of the comp package." alt="" coords="2233,225,2332,251"/>
+<area shape="poly" id="edge70_Node000019_Node000038" title=" " alt="" coords="2015,176,2234,223,2232,229,2014,182"/>
+<area shape="poly" id="edge31_Node000020_Node000004" title=" " alt="" coords="2216,252,2268,271,2321,296,2388,339,2435,379,2481,420,2543,468,2565,480,2585,488,2604,498,2620,517,2625,538,2621,559,2603,593,2599,591,2616,557,2619,538,2615,520,2600,502,2583,493,2563,485,2540,473,2477,424,2431,383,2385,343,2319,301,2266,276,2214,257"/>
+<area shape="poly" id="edge32_Node000020_Node000021" title=" " alt="" coords="2207,253,2246,272,2287,297,2326,330,2356,371,2361,391,2360,411,2349,446,2344,444,2355,410,2356,391,2351,373,2322,334,2284,301,2243,276,2205,258"/>
+<area shape="rect" id="Node000022" href="$_list_of_deletions_8h.html" title="Definition of ListOfDeletions, the SBase derived class of deletions package." alt="" coords="2090,299,2225,324"/>
+<area shape="poly" id="edge33_Node000020_Node000022" title=" " alt="" coords="2163,265,2161,299,2155,298,2157,264"/>
+<area shape="poly" id="edge34_Node000022_Node000004" title=" " alt="" coords="2160,337,2166,368,2172,383,2182,395,2208,416,2233,427,2258,432,2283,433,2339,432,2370,434,2405,443,2434,455,2462,468,2502,478,2536,482,2567,490,2582,501,2596,517,2604,536,2605,557,2599,592,2593,591,2600,557,2598,537,2591,520,2578,505,2565,495,2535,487,2501,483,2460,473,2432,460,2403,448,2369,440,2338,437,2283,439,2257,438,2232,433,2205,421,2178,399,2168,386,2161,370,2155,338"/>
+<area shape="rect" id="Node000023" href="$_list_of_deletions_8cpp.html" title="Implementation of ListOfDeletions." alt="" coords="2192,372,2341,397"/>
+<area shape="poly" id="edge35_Node000022_Node000023" title=" " alt="" coords="2188,329,2250,370,2247,374,2185,334"/>
+<area shape="poly" id="edge36_Node000022_Node000024" title=" " alt="" coords="2134,335,2084,374,2081,370,2131,330"/>
+<area shape="poly" id="edge37_Node000024_Node000004" title=" " alt="" coords="2115,400,2226,443,2252,456,2277,468,2320,478,2360,480,2430,475,2463,474,2497,478,2531,491,2567,517,2581,534,2589,554,2595,591,2589,592,2584,556,2576,537,2564,521,2528,496,2495,483,2463,479,2430,480,2360,486,2320,483,2275,473,2249,461,2224,448,2113,405"/>
+<area shape="poly" id="edge58_Node000024_Node000013" title=" " alt="" coords="2039,407,1906,488,1802,547,1652,569,1431,599,1430,593,1651,564,1800,541,1904,484,2036,403"/>
+<area shape="poly" id="edge38_Node000024_Node000021" title=" " alt="" coords="2125,398,2297,443,2295,448,2124,403"/>
+<area shape="rect" id="Node000025" href="$_list_of_submodels_8h.html" title="Definition of ListOfSubmodels, the SBase derived class of submodels package." alt="" coords="2069,445,2213,471"/>
+<area shape="poly" id="edge39_Node000024_Node000025" title=" " alt="" coords="2092,405,2131,443,2128,447,2088,409"/>
+<area shape="poly" id="edge40_Node000025_Node000004" title=" " alt="" coords="2194,472,2326,516,2384,542,2469,569,2546,589,2544,595,2467,574,2382,546,2324,521,2193,477"/>
+<area shape="poly" id="edge57_Node000025_Node000018" title=" " alt="" coords="2056,465,1562,485,892,521,830,526,829,521,892,516,1562,480,2056,460"/>
+<area shape="rect" id="Node000026" href="$_comp_model_plugin_8h.html" title="Definition of CompModelPlugin, the plugin class of comp package for the Model element." alt="" coords="1864,519,2016,544"/>
+<area shape="poly" id="edge41_Node000025_Node000026" title=" " alt="" coords="2097,478,1974,521,1972,516,2095,473"/>
+<area shape="rect" id="Node000033" href="$_list_of_submodels_8cpp.html" title="Implementation of ListOfSubmodels." alt="" coords="2395,519,2554,544"/>
+<area shape="poly" id="edge56_Node000025_Node000033" title=" " alt="" coords="2209,471,2421,516,2420,521,2208,476"/>
+<area shape="poly" id="edge42_Node000026_Node000002" title=" " alt="" coords="1850,543,1802,547,1406,568,1020,585,478,604,478,599,1019,580,1405,563,1801,541,1850,538"/>
+<area shape="poly" id="edge44_Node000026_Node000004" title=" " alt="" coords="2030,541,2035,541,2505,592,2505,597,2034,547,2030,546"/>
+<area shape="poly" id="edge43_Node000026_Node000011" title=" " alt="" coords="1890,552,1857,569,1829,594,1818,611,1811,631,1805,665,1799,664,1806,629,1813,609,1825,590,1854,565,1888,547"/>
+<area shape="poly" id="edge50_Node000026_Node000012" title=" " alt="" coords="1850,543,1802,547,1152,597,1151,592,1801,541,1850,537"/>
+<area shape="poly" id="edge55_Node000026_Node000013" title=" " alt="" coords="1850,547,1464,595,1431,599,1431,593,1464,589,1850,541"/>
+<area shape="rect" id="Node000027" href="$_comp_flattening_converter_8h.html" title="Definition of a first flattening converter." alt="" coords="1839,592,2041,617"/>
+<area shape="poly" id="edge45_Node000026_Node000027" title=" " alt="" coords="1934,558,1936,592,1930,592,1929,558"/>
+<area shape="poly" id="edge49_Node000026_Node000028" title=" " alt="" coords="2030,532,2778,555,3212,572,3530,589,3542,590,3541,596,3529,595,3211,577,2778,561,2030,538"/>
+<area shape="poly" id="edge51_Node000026_Node000029" title=" " alt="" coords="2030,535,3087,597,3087,602,2029,541"/>
+<area shape="poly" id="edge52_Node000026_Node000030" title=" " alt="" coords="2030,534,3223,589,3355,596,3354,602,3223,595,2030,539"/>
+<area shape="poly" id="edge53_Node000026_Node000031" title=" " alt="" coords="1862,549,1591,596,1590,591,1861,544"/>
+<area shape="poly" id="edge54_Node000026_Node000032" title=" " alt="" coords="1850,543,1801,547,1550,559,1354,564,1159,572,908,595,897,596,897,591,908,589,1158,567,1354,559,1550,554,1801,541,1850,538"/>
+<area shape="poly" id="edge47_Node000027_Node000005" title=" " alt="" coords="2042,616,2401,663,2400,668,2041,622"/>
+<area shape="poly" id="edge46_Node000027_Node000011" title=" " alt="" coords="1907,626,1825,667,1823,663,1904,621"/>
+<area shape="poly" id="edge48_Node000027_Node000026" title=" " alt="" coords="1946,579,1944,544,1950,544,1951,578"/>
+<area shape="poly" id="edge60_Node000034_Node000002" title=" " alt="" coords="1647,391,1204,419,823,448,763,453,710,453,617,450,575,453,534,464,491,486,446,521,434,537,426,556,421,592,416,591,421,555,429,534,442,517,488,481,532,459,574,448,617,445,710,447,763,447,822,443,1204,414,1647,386"/>
+<area shape="poly" id="edge61_Node000034_Node000004" title=" " alt="" coords="1735,393,1950,443,2058,468,2168,488,2216,498,2276,516,2301,529,2326,542,2426,570,2519,589,2518,595,2425,575,2324,546,2299,534,2274,521,2214,503,2167,493,2057,473,1949,448,1734,399"/>
+<area shape="poly" id="edge62_Node000034_Node000021" title=" " alt="" coords="1734,388,2288,448,2287,454,1734,393"/>
+<area shape="rect" id="Node000035" href="$_list_of_ports_8h.html" title="Definition of ListOfPorts, the SBase derived class of ports package." alt="" coords="1675,445,1781,471"/>
+<area shape="poly" id="edge63_Node000034_Node000035" title=" " alt="" coords="1705,408,1724,444,1720,446,1701,411"/>
+<area shape="poly" id="edge69_Node000034_Node000037" title=" " alt="" coords="1679,411,1617,520,1612,517,1675,408"/>
+<area shape="poly" id="edge64_Node000035_Node000004" title=" " alt="" coords="1795,462,1946,480,2035,496,2123,516,2156,529,2187,541,2271,561,2356,575,2505,594,2505,599,2355,581,2270,566,2186,547,2154,534,2122,521,2034,501,1946,486,1794,467"/>
+<area shape="poly" id="edge67_Node000035_Node000018" title=" " alt="" coords="1662,466,892,521,830,526,829,521,892,516,1662,461"/>
+<area shape="poly" id="edge65_Node000035_Node000026" title=" " alt="" coords="1776,472,1907,516,1905,521,1774,477"/>
+<area shape="rect" id="Node000036" href="$_list_of_ports_8cpp.html" title="Implementation of ListOfPorts." alt="" coords="1669,519,1789,544"/>
+<area shape="poly" id="edge66_Node000035_Node000036" title=" " alt="" coords="1731,484,1732,518,1726,519,1726,485"/>
+<area shape="poly" id="edge68_Node000035_Node000037" title=" " alt="" coords="1698,480,1629,521,1626,516,1695,475"/>
+<area shape="poly" id="edge89_Node000038_Node000031" title=" " alt="" coords="2220,254,1885,319,1726,353,1649,374,1623,398,1600,426,1582,457,1567,489,1547,550,1538,592,1533,591,1542,548,1562,487,1577,454,1596,423,1619,394,1647,370,1725,348,1884,314,2219,249"/>
+<area shape="rect" id="Node000039" href="$_replaced_by_8h.html" title="Definition of ReplacedBy, the Replacing&#45;derived class of the comp package." alt="" coords="2937,372,3047,397"/>
+<area shape="poly" id="edge71_Node000038_Node000039" title=" " alt="" coords="2346,241,2527,259,2637,275,2746,296,2870,333,2966,369,2964,374,2868,338,2745,301,2636,280,2526,264,2346,246"/>
+<area shape="rect" id="Node000042" href="$_replaced_element_8h.html" title="Definition of ReplacedElement, the SBase derived class of replacedElements package." alt="" coords="2586,299,2734,324"/>
+<area shape="poly" id="edge81_Node000038_Node000042" title=" " alt="" coords="2346,249,2599,296,2598,301,2345,254"/>
+<area shape="poly" id="edge72_Node000039_Node000004" title=" " alt="" coords="2974,409,2942,447,2922,476,2909,501,2893,524,2865,546,2821,569,2773,585,2725,596,2680,602,2679,597,2724,591,2771,580,2819,564,2863,542,2889,520,2904,498,2918,473,2938,444,2970,406"/>
+<area shape="poly" id="edge80_Node000039_Node000029" title=" " alt="" coords="3053,400,3088,417,3118,444,3139,482,3149,525,3153,563,3153,592,3147,592,3148,564,3144,525,3134,484,3114,447,3085,422,3051,404"/>
+<area shape="rect" id="Node000040" href="$_comp_s_base_plugin_8h.html" title="Definition of CompSBasePlugin, the plugin class of comp package for the Model element." alt="" coords="2952,445,3104,471"/>
+<area shape="poly" id="edge73_Node000039_Node000040" title=" " alt="" coords="3006,408,3025,444,3020,446,3002,411"/>
+<area shape="poly" id="edge75_Node000040_Node000004" title=" " alt="" coords="3008,482,2968,516,2916,546,2856,568,2794,584,2679,601,2678,596,2793,578,2854,563,2914,542,2964,511,3005,478"/>
+<area shape="poly" id="edge74_Node000040_Node000011" title=" " alt="" coords="3016,484,2991,516,2958,546,2889,583,2830,600,2691,620,2577,637,2460,651,2230,668,2027,677,1877,679,1877,674,2027,672,2230,663,2459,645,2576,632,2690,615,2829,595,2887,578,2954,542,2987,513,3012,481"/>
+<area shape="poly" id="edge76_Node000040_Node000026" title=" " alt="" coords="2939,468,2016,528,2016,522,2938,462"/>
+<area shape="poly" id="edge78_Node000040_Node000029" title=" " alt="" coords="3049,480,3142,590,3138,594,3044,483"/>
+<area shape="poly" id="edge79_Node000040_Node000030" title=" " alt="" coords="3065,474,3139,507,3226,541,3313,569,3390,589,3388,595,3311,574,3224,547,3137,512,3063,479"/>
+<area shape="poly" id="edge77_Node000040_Node000041" title=" " alt="" coords="3089,471,3274,516,3273,521,3088,476"/>
+<area shape="poly" id="edge82_Node000042_Node000004" title=" " alt="" coords="2633,334,2599,361,2567,396,2555,414,2549,433,2550,451,2558,469,2579,487,2606,496,2667,503,2693,506,2713,512,2721,524,2714,545,2700,562,2683,576,2644,594,2642,589,2680,572,2696,559,2710,543,2716,525,2710,516,2692,511,2666,509,2605,502,2576,491,2554,472,2545,453,2544,432,2551,412,2562,393,2595,357,2630,330"/>
+<area shape="poly" id="edge88_Node000042_Node000030" title=" " alt="" coords="2748,318,2895,336,2978,351,3059,369,3122,383,3179,391,3279,404,3323,416,3365,437,3406,469,3445,517,3452,536,3453,557,3444,592,3439,591,3448,557,3447,537,3440,520,3402,473,3362,441,3321,421,3278,409,3178,396,3121,388,3058,375,2977,356,2894,342,2747,323"/>
+<area shape="rect" id="Node000043" href="$_list_of_replaced_elements_8h.html" title="Definition of ListOfReplacedElements, the SBase derived class of replacedElements package." alt="" coords="2633,372,2826,397"/>
+<area shape="poly" id="edge83_Node000042_Node000043" title=" " alt="" coords="2683,332,2720,370,2716,374,2679,336"/>
+<area shape="poly" id="edge84_Node000043_Node000004" title=" " alt="" coords="2759,404,2777,422,2790,444,2793,458,2793,474,2784,507,2765,546,2744,563,2720,577,2670,594,2668,589,2717,572,2741,559,2761,542,2779,505,2787,473,2788,459,2786,446,2772,425,2755,408"/>
+<area shape="poly" id="edge87_Node000043_Node000030" title=" " alt="" coords="2841,390,2993,404,3164,428,3245,444,3318,465,3377,489,3418,517,3430,535,3437,555,3439,591,3434,592,3431,556,3425,537,3414,521,3374,493,3316,470,3244,450,3163,433,2992,409,2840,395"/>
+<area shape="poly" id="edge85_Node000043_Node000040" title=" " alt="" coords="2791,398,2980,443,2979,448,2790,403"/>
+<area shape="rect" id="Node000044" href="$_list_of_replaced_elements_8cpp.html" title="Implementation of ListOfReplacedElements from the comp package." alt="" coords="2568,445,2776,471"/>
+<area shape="poly" id="edge86_Node000043_Node000044" title=" " alt="" coords="2714,410,2683,447,2679,444,2709,406"/>
+<area shape="poly" id="edge98_Node000045_Node000008" title=" " alt="" coords="128,548,210,589,208,594,125,553"/>
+<area shape="poly" id="edge97_Node000045_Node000011" title=" " alt="" coords="94,557,100,589,107,603,117,615,142,624,191,632,350,645,569,655,825,663,1348,671,1726,674,1726,679,1348,676,825,668,569,660,349,650,190,637,140,629,115,620,103,606,95,590,89,558"/>
+<area shape="poly" id="edge99_Node000045_Node000032" title=" " alt="" coords="193,539,786,595,785,601,192,545"/>
 </map>

@@ -1,6 +1,9 @@
 <map id="SBMLFileResolver.h" name="SBMLFileResolver.h">
-<area shape="rect" id="node1" title="A file&#45;based resolver for SBML Documents." alt="" coords="253,5,403,32"/>
-<area shape="rect" id="node2" href="$_comp_flattening_converter_8cpp.html" title="Implementation of a first flattening converter." alt="" coords="5,80,221,107"/>
-<area shape="rect" id="node3" href="$_s_b_m_l_file_resolver_8cpp.html" title="Implementation of SBMLFileResolver, the file system based resolver for SBML Documents." alt="" coords="246,80,410,107"/>
-<area shape="rect" id="node4" href="$_s_b_m_l_resolver_registry_8cpp.html" title="Implementation of SBMLResolverRegistry, a registry of available resolvers." alt="" coords="435,80,629,107"/>
+<area shape="rect" id="Node000001" title="A file&#45;based resolver for SBML Documents." alt="" coords="253,5,403,31"/>
+<area shape="rect" id="Node000002" href="$_comp_flattening_converter_8cpp.html" title="Implementation of a first flattening converter." alt="" coords="5,79,221,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="281,37,149,81,147,76,280,32"/>
+<area shape="rect" id="Node000003" href="$_s_b_m_l_file_resolver_8cpp.html" title="Implementation of SBMLFileResolver, the file system based resolver for SBML Documents." alt="" coords="246,79,410,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="331,44,331,79,325,79,325,44"/>
+<area shape="rect" id="Node000004" href="$_s_b_m_l_resolver_registry_8cpp.html" title="Implementation of SBMLResolverRegistry, a registry of available resolvers." alt="" coords="435,79,629,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="374,33,500,76,498,81,373,38"/>
 </map>

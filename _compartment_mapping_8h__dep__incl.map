@@ -1,9 +1,16 @@
 <map id="CompartmentMapping.h" name="CompartmentMapping.h">
-<area shape="rect" id="node1" title="Definition of the CompartmentMapping class." alt="" coords="211,5,391,32"/>
-<area shape="rect" id="node2" href="$_spatial_extension_types_8h.html" title="Definition of SpatialExtensionTypes." alt="" coords="5,155,185,181"/>
-<area shape="rect" id="node4" href="$_spatial_compartment_plugin_8h.html" title="Definition of the SpatialCompartmentPlugin class." alt="" coords="196,80,405,107"/>
-<area shape="rect" id="node7" href="$_compartment_mapping_8cpp.html" title="Implementation of the CompartmentMapping class." alt="" coords="430,80,625,107"/>
-<area shape="rect" id="node3" href="$_spatial_validator_8cpp.html" title="Definition of SpatialValidator." alt="" coords="20,229,171,256"/>
-<area shape="rect" id="node5" href="$_spatial_compartment_plugin_8cpp.html" title="Implementation of the SpatialCompartmentPlugin class." alt="" coords="210,155,434,181"/>
-<area shape="rect" id="node6" href="$_spatial_extension_8cpp.html" title="Implementation of SpatialExtension." alt="" coords="459,155,617,181"/>
+<area shape="rect" id="Node000001" title="Definition of the CompartmentMapping class." alt="" coords="257,5,437,31"/>
+<area shape="rect" id="Node000002" href="$_compartment_mapping_8cpp.html" title="Implementation of the CompartmentMapping class." alt="" coords="23,79,217,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="298,37,157,81,156,76,296,32"/>
+<area shape="rect" id="Node000003" href="$_spatial_compartment_plugin_8h.html" title="Definition of the SpatialCompartmentPlugin class." alt="" coords="242,79,451,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="349,44,349,79,344,79,344,44"/>
+<area shape="rect" id="Node000006" href="$_spatial_extension_types_8h.html" title="Definition of SpatialExtensionTypes." alt="" coords="437,152,617,177"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="392,34,429,52,464,77,499,115,522,150,518,153,495,118,461,81,426,57,390,39"/>
+<area shape="rect" id="Node000004" href="$_spatial_compartment_plugin_8cpp.html" title="Implementation of the SpatialCompartmentPlugin class." alt="" coords="5,152,229,177"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="297,111,155,154,154,149,296,106"/>
+<area shape="rect" id="Node000005" href="$_spatial_extension_8cpp.html" title="Implementation of SpatialExtension." alt="" coords="254,152,413,177"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="345,118,338,152,333,151,339,117"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="389,106,498,149,496,154,387,111"/>
+<area shape="rect" id="Node000007" href="$_spatial_validator_8cpp.html" title="Definition of SpatialValidator." alt="" coords="451,225,602,251"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="529,191,529,225,524,225,524,191"/>
 </map>

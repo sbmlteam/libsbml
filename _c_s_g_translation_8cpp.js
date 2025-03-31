@@ -1,7 +1,7 @@
 var _c_s_g_translation_8cpp =
 [
-    [ "CSGTranslation_clone", "_c_s_g_translation_8cpp.html#a26a35b24eba5e91e033c552eaff0154b", null ],
-    [ "CSGTranslation_create", "_c_s_g_translation_8cpp.html#a5cfe1c729ef4a1a5d42fd8b234a8f2f2", null ],
+    [ "CSGTranslation_clone", "_c_s_g_translation_8cpp.html#a447979d3bd93de41c7bc05e9a08cb92f", null ],
+    [ "CSGTranslation_create", "_c_s_g_translation_8cpp.html#a23fef13e0e1cb55e5828c4e8a675b2c2", null ],
     [ "CSGTranslation_free", "_c_s_g_translation_8cpp.html#a8f04da71b2446f6c256c3074e344f231", null ],
     [ "CSGTranslation_getTranslateX", "_c_s_g_translation_8cpp.html#a3b959d8e4dd972e31ec4ae9e9bade009", null ],
     [ "CSGTranslation_getTranslateY", "_c_s_g_translation_8cpp.html#a7bf316269df46efdf4a014aa14afa5de", null ],

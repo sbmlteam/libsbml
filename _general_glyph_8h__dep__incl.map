@@ -1,12 +1,21 @@
 <map id="GeneralGlyph.h" name="GeneralGlyph.h">
-<area shape="rect" id="node1" title="Definition of GeneralGlyph for SBML Layout." alt="" coords="661,5,783,32"/>
-<area shape="rect" id="node2" href="$_layout_extension_types_8h.html" title="Include all SBML types of layout extension in a single header file." alt="" coords="381,80,559,107"/>
-<area shape="rect" id="node8" href="$_general_glyph_8cpp.html" title="Implementation of GeneralGlyph for SBML Layout." alt="" coords="583,80,722,107"/>
-<area shape="rect" id="node9" href="$_layout_8cpp.html" title="Implementation of Layout for SBML Layout." alt="" coords="746,80,839,107"/>
-<area shape="rect" id="node10" href="$_reference_glyph_8cpp.html" title="Implementation of ReferenceGlyph for SBML Layout." alt="" coords="864,80,1017,107"/>
-<area shape="rect" id="node3" href="$_graphical_object_8cpp.html" title="Implementation of GraphicalObject for SBML Layout." alt="" coords="5,155,159,181"/>
-<area shape="rect" id="node4" href="$_layout_validator_8cpp.html" title="Implementation of the LayoutValidator class." alt="" coords="183,155,333,181"/>
-<area shape="rect" id="node5" href="$_render_list_of_layouts_plugin_8cpp.html" title="Implementation of RenderListOfLayoutsPlugin, the plugin class of the fbc package for the Model elemen..." alt="" coords="358,155,582,181"/>
-<area shape="rect" id="node6" href="$_render_layout_converter_8cpp.html" title="Simple converter to convert Layout + Render from l2 to L3 and vice versa." alt="" coords="606,155,809,181"/>
-<area shape="rect" id="node7" href="$_render_utilities_8cpp.html" title="implementation of RenderUtilities, a class of utility functions for the render package" alt="" coords="833,155,979,181"/>
+<area shape="rect" id="Node000001" title="Definition of GeneralGlyph for SBML Layout." alt="" coords="318,5,441,31"/>
+<area shape="rect" id="Node000002" href="$_general_glyph_8cpp.html" title="Implementation of GeneralGlyph for SBML Layout." alt="" coords="90,79,229,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="332,37,196,81,194,76,330,32"/>
+<area shape="rect" id="Node000003" href="$_layout_8cpp.html" title="Implementation of Layout for SBML Layout." alt="" coords="253,79,346,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="358,42,314,80,311,76,355,38"/>
+<area shape="rect" id="Node000004" href="$_layout_extension_types_8h.html" title="Include all SBML types of layout extension in a single header file." alt="" coords="370,79,549,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="404,38,448,76,444,80,400,42"/>
+<area shape="rect" id="Node000010" href="$_reference_glyph_8cpp.html" title="Implementation of ReferenceGlyph for SBML Layout." alt="" coords="573,79,727,104"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="437,32,607,76,605,81,435,37"/>
+<area shape="rect" id="Node000005" href="$_graphical_object_8cpp.html" title="Implementation of GraphicalObject for SBML Layout." alt="" coords="5,152,159,177"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="386,109,144,155,143,149,385,104"/>
+<area shape="rect" id="Node000006" href="$_layout_validator_8cpp.html" title="Implementation of the LayoutValidator class." alt="" coords="183,152,333,177"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="415,111,292,154,290,149,413,106"/>
+<area shape="rect" id="Node000007" href="$_render_layout_converter_8cpp.html" title="Simple converter to convert Layout + Render from l2 to L3 and vice versa." alt="" coords="358,152,561,177"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="462,118,462,152,457,152,457,118"/>
+<area shape="rect" id="Node000008" href="$_render_list_of_layouts_plugin_8cpp.html" title="Implementation of RenderListOfLayoutsPlugin, the plugin class of the fbc package for the Model elemen..." alt="" coords="585,152,809,177"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="511,105,659,149,657,154,510,110"/>
+<area shape="rect" id="Node000009" href="$_render_utilities_8cpp.html" title="implementation of RenderUtilities, a class of utility functions for the render package" alt="" coords="833,152,979,177"/>
+<area shape="poly" id="edge8_Node000004_Node000009" title=" " alt="" coords="545,104,834,149,834,155,544,109"/>
 </map>

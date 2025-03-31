@@ -16,7 +16,7 @@ var _formula_tokenizer_8h =
       [ "TT_REAL_E", "_formula_tokenizer_8h.html#abf84b8f73da30c0f59581856a399081cada17a606ff9645299a7991290f79dcd0", null ],
       [ "TT_UNKNOWN", "_formula_tokenizer_8h.html#abf84b8f73da30c0f59581856a399081cae1337cb8929e2e7e6a602ab0dee5b59e", null ]
     ] ],
-    [ "FormulaTokenizer_createFromFormula", "_formula_tokenizer_8h.html#ac8767ed348c799de16625d780972e166", null ],
+    [ "FormulaTokenizer_createFromFormula", "_formula_tokenizer_8h.html#a0599ba62e80ecd3ab4e65bc71e3c0049", null ],
     [ "FormulaTokenizer_free", "_formula_tokenizer_8h.html#a760676bff432592304176c6e659e7135", null ],
-    [ "FormulaTokenizer_nextToken", "_formula_tokenizer_8h.html#a075fa4645d8b6bf2a8f90e7700eda870", null ]
+    [ "FormulaTokenizer_nextToken", "_formula_tokenizer_8h.html#aa5775244237e3c9e6907a7b642f1cb0c", null ]
 ];

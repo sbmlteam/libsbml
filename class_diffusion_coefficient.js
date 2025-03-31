@@ -140,7 +140,7 @@ var class_diffusion_coefficient =
     [ "setUserData", "class_diffusion_coefficient.html#ac3b1bbfe22bad0dbc577b61c529f37bb", null ],
     [ "setVariable", "class_diffusion_coefficient.html#ac087ee98fb62c84aa6973cd67a51f1c8", null ],
     [ "toSBML", "class_diffusion_coefficient.html#ae8317d5157b70e4f1bc68e33e5c84001", null ],
-    [ "toXMLNode", "class_diffusion_coefficient.html#a5c949d524aca47b84b18b57b76e6ee0a", null ],
+    [ "toXMLNode", "class_diffusion_coefficient.html#a616754bfc4592922a488f2159f96b3ce", null ],
     [ "unsetAnnotation", "class_diffusion_coefficient.html#a9121d6a4f7401fe957cc75647a1e95ed", null ],
     [ "unsetCoordinateReference1", "class_diffusion_coefficient.html#a43a280600ca91c267c591f23e5290c6d", null ],
     [ "unsetCoordinateReference2", "class_diffusion_coefficient.html#a5bb6aa7f4051dee6bfab14c8458f0c25", null ],

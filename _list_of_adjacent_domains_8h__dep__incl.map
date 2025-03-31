@@ -1,12 +1,22 @@
 <map id="ListOfAdjacentDomains.h" name="ListOfAdjacentDomains.h">
-<area shape="rect" id="node1" title="Definition of the ListOfAdjacentDomains class." alt="" coords="175,5,362,32"/>
-<area shape="rect" id="node2" href="$_adjacent_domains_8cpp.html" title="Implementation of the AdjacentDomains class." alt="" coords="32,80,196,107"/>
-<area shape="rect" id="node3" href="$_geometry_8h.html" title="Definition of the Geometry class." alt="" coords="220,80,317,107"/>
-<area shape="rect" id="node10" href="$_list_of_adjacent_domains_8cpp.html" title="Implementation of the ListOfAdjacentDomains class." alt="" coords="342,80,545,107"/>
-<area shape="rect" id="node4" href="$_spatial_extension_types_8h.html" title="Definition of SpatialExtensionTypes." alt="" coords="5,229,185,256"/>
-<area shape="rect" id="node6" href="$_spatial_model_plugin_8h.html" title="Definition of the SpatialModelPlugin class." alt="" coords="189,155,348,181"/>
-<area shape="rect" id="node9" href="$_geometry_8cpp.html" title="Implementation of the Geometry class." alt="" coords="373,155,485,181"/>
-<area shape="rect" id="node5" href="$_spatial_validator_8cpp.html" title="Definition of SpatialValidator." alt="" coords="20,304,171,331"/>
-<area shape="rect" id="node7" href="$_spatial_extension_8cpp.html" title="Implementation of SpatialExtension." alt="" coords="209,229,368,256"/>
-<area shape="rect" id="node8" href="$_spatial_model_plugin_8cpp.html" title="Implementation of the SpatialModelPlugin class." alt="" coords="392,229,567,256"/>
+<area shape="rect" id="Node000001" title="Definition of the ListOfAdjacentDomains class." alt="" coords="149,5,335,31"/>
+<area shape="rect" id="Node000002" href="$_adjacent_domains_8cpp.html" title="Implementation of the AdjacentDomains class." alt="" coords="5,79,169,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="206,39,114,81,112,76,204,34"/>
+<area shape="rect" id="Node000003" href="$_geometry_8h.html" title="Definition of the Geometry class." alt="" coords="193,79,291,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="245,44,245,79,239,79,239,44"/>
+<area shape="rect" id="Node000010" href="$_list_of_adjacent_domains_8cpp.html" title="Implementation of the ListOfAdjacentDomains class." alt="" coords="315,79,518,104"/>
+<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="284,33,389,76,387,81,282,38"/>
+<area shape="rect" id="Node000004" href="$_geometry_8cpp.html" title="Implementation of the Geometry class." alt="" coords="93,152,205,177"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="218,114,166,154,162,150,215,110"/>
+<area shape="rect" id="Node000005" href="$_spatial_extension_types_8h.html" title="Definition of SpatialExtensionTypes." alt="" coords="133,225,313,251"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="241,118,227,225,222,225,236,118"/>
+<area shape="rect" id="Node000007" href="$_spatial_model_plugin_8h.html" title="Definition of the SpatialModelPlugin class." alt="" coords="317,152,476,177"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="280,107,372,149,370,154,278,112"/>
+<area shape="rect" id="Node000006" href="$_spatial_validator_8cpp.html" title="Definition of SpatialValidator." alt="" coords="148,299,299,324"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="226,264,226,299,221,299,221,264"/>
+<area shape="poly" id="edge8_Node000007_Node000005" title=" " alt="" coords="357,185,253,228,251,223,355,180"/>
+<area shape="rect" id="Node000008" href="$_spatial_extension_8cpp.html" title="Implementation of SpatialExtension." alt="" coords="337,225,496,251"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="406,190,416,224,411,226,401,191"/>
+<area shape="rect" id="Node000009" href="$_spatial_model_plugin_8cpp.html" title="Implementation of the SpatialModelPlugin class." alt="" coords="520,225,695,251"/>
+<area shape="poly" id="edge9_Node000007_Node000009" title=" " alt="" coords="444,179,574,223,572,228,442,184"/>
 </map>

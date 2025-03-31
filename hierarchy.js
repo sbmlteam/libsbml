@@ -31,9 +31,13 @@ var hierarchy =
     [ "L3ParserSettings", "class_l3_parser_settings.html", null ],
     [ "LayoutPkgNamespaces", "class_layout_pkg_namespaces.html", null ],
     [ "List", "class_list.html", null ],
+    [ "Model", "class_model.html", [
+      [ "ModelDefinition", "class_model_definition.html", null ]
+    ] ],
     [ "ModelCreator", "class_model_creator.html", null ],
     [ "ModelHistory", "class_model_history.html", null ],
     [ "MultiPkgNamespaces", "class_multi_pkg_namespaces.html", null ],
+    [ "QualModelPlugin", "class_qual_model_plugin.html", null ],
     [ "QualPkgNamespaces", "class_qual_pkg_namespaces.html", null ],
     [ "RDFAnnotationParser", "class_r_d_f_annotation_parser.html", null ],
     [ "RelAbsVector", "class_rel_abs_vector.html", null ],
@@ -225,9 +229,6 @@ var hierarchy =
         [ "SubListOfSpeciesFeatures", "class_sub_list_of_species_features.html", null ]
       ] ],
       [ "Member", "class_member.html", null ],
-      [ "Model", "class_model.html", [
-        [ "ModelDefinition", "class_model_definition.html", null ]
-      ] ],
       [ "MultiSpeciesType", "class_multi_species_type.html", [
         [ "BindingSiteSpeciesType", "class_binding_site_species_type.html", null ]
       ] ],
@@ -325,7 +326,6 @@ var hierarchy =
         [ "MultiSpeciesReferencePlugin", "class_multi_species_reference_plugin.html", null ]
       ] ],
       [ "MultiSpeciesPlugin", "class_multi_species_plugin.html", null ],
-      [ "QualModelPlugin", "class_qual_model_plugin.html", null ],
       [ "RenderGraphicalObjectPlugin", "class_render_graphical_object_plugin.html", null ],
       [ "RenderLayoutPlugin", "class_render_layout_plugin.html", null ],
       [ "RenderListOfLayoutsPlugin", "class_render_list_of_layouts_plugin.html", null ],

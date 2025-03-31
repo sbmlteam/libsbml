@@ -1,4 +1,5 @@
 <map id="QualExtensionTypes.h" name="QualExtensionTypes.h">
-<area shape="rect" id="node1" title="Include all SBML types of qual extension in a single header file." alt="" coords="5,5,171,32"/>
-<area shape="rect" id="node2" href="$_qual_validator_8cpp.html" title="Base class for SBML Validators." alt="" coords="20,80,156,107"/>
+<area shape="rect" id="Node000001" title="Include all SBML types of qual extension in a single header file." alt="" coords="5,5,171,31"/>
+<area shape="rect" id="Node000002" href="$_qual_validator_8cpp.html" title="Base class for SBML Validators." alt="" coords="20,79,156,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="91,44,91,79,85,79,85,44"/>
 </map>

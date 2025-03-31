@@ -148,7 +148,7 @@ var class_c_s_g_translation =
     [ "setTranslateZ", "class_c_s_g_translation.html#a20cf38f31e626d4c71458cbe096711a4", null ],
     [ "setUserData", "class_c_s_g_translation.html#ac3b1bbfe22bad0dbc577b61c529f37bb", null ],
     [ "toSBML", "class_c_s_g_translation.html#ae8317d5157b70e4f1bc68e33e5c84001", null ],
-    [ "toXMLNode", "class_c_s_g_translation.html#a5c949d524aca47b84b18b57b76e6ee0a", null ],
+    [ "toXMLNode", "class_c_s_g_translation.html#a616754bfc4592922a488f2159f96b3ce", null ],
     [ "unsetAnnotation", "class_c_s_g_translation.html#a9121d6a4f7401fe957cc75647a1e95ed", null ],
     [ "unsetCreatedDate", "class_c_s_g_translation.html#ad3be0bf5891c2b6bf4340cce12b8630f", null ],
     [ "unsetCSGNode", "class_c_s_g_translation.html#abf49c4d16ec1bd15d9b5e4f25a5915dd", null ],

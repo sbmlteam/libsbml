@@ -1,62 +1,135 @@
 <map id="LayoutUtilities.h" name="LayoutUtilities.h">
-<area shape="rect" id="node1" title="Definition of LayoutUtilities for SBML Layout." alt="" coords="3075,5,3204,32"/>
-<area shape="rect" id="node2" href="$_bounding_box_8cpp.html" title="Implementation of BoundingBox for SBML Layout." alt="" coords="5,80,140,107"/>
-<area shape="rect" id="node3" href="$_compartment_glyph_8cpp.html" title="Implementation of CompartmentGlyph for SBML Layout." alt="" coords="164,80,341,107"/>
-<area shape="rect" id="node4" href="$_cubic_bezier_8cpp.html" title="Implementation of CubicBezier for SBML Layout." alt="" coords="366,80,491,107"/>
-<area shape="rect" id="node5" href="$_curve_8cpp.html" title="Implementation of Curve for SBML Layout." alt="" coords="516,80,603,107"/>
-<area shape="rect" id="node6" href="$_dimensions_8cpp.html" title="Implementation of Dimensions for SBML Layout." alt="" coords="627,80,753,107"/>
-<area shape="rect" id="node7" href="$_general_glyph_8cpp.html" title="Implementation of GeneralGlyph for SBML Layout." alt="" coords="778,80,917,107"/>
-<area shape="rect" id="node8" href="$_graphical_object_8cpp.html" title="Implementation of GraphicalObject for SBML Layout." alt="" coords="941,80,1095,107"/>
-<area shape="rect" id="node9" href="$_layout_8cpp.html" title="Implementation of Layout for SBML Layout." alt="" coords="1119,80,1213,107"/>
-<area shape="rect" id="node10" href="$_line_segment_8cpp.html" title="Implementation of LineSegment for SBML Layout." alt="" coords="1237,80,1372,107"/>
-<area shape="rect" id="node11" href="$_point_8cpp.html" title="Implementation of Point for SBML Layout." alt="" coords="1397,80,1479,107"/>
-<area shape="rect" id="node12" href="$_reaction_glyph_8cpp.html" title="Implementation of ReactionGlyph for SBML Layout." alt="" coords="1503,80,1647,107"/>
-<area shape="rect" id="node13" href="$_reference_glyph_8cpp.html" title="Implementation of ReferenceGlyph for SBML Layout." alt="" coords="1672,80,1825,107"/>
-<area shape="rect" id="node14" href="$_species_glyph_8cpp.html" title="Implementation of SpeciesGlyph for SBML Layout." alt="" coords="1849,80,1987,107"/>
-<area shape="rect" id="node15" href="$_species_reference_glyph_8cpp.html" title="Implementation of SpeciesReferenceGlyph for SBML Layout." alt="" coords="2011,80,2214,107"/>
-<area shape="rect" id="node16" href="$_text_glyph_8cpp.html" title="Implementation of TextGlyph for SBML Layout." alt="" coords="2238,80,2353,107"/>
-<area shape="rect" id="node17" href="$_layout_utilities_8cpp.html" title="Implementation of some methods used by many of the layout files." alt="" coords="2377,80,2521,107"/>
-<area shape="rect" id="node18" href="$_color_definition_8cpp.html" title="Implementation of the ColorDefinition class." alt="" coords="2545,80,2691,107"/>
-<area shape="rect" id="node19" href="$_ellipse_8cpp.html" title="Implementation of the Ellipse class." alt="" coords="2716,80,2808,107"/>
-<area shape="rect" id="node20" href="$_global_render_information_8cpp.html" title="class for the storage of global render information" alt="" coords="2833,80,3046,107"/>
-<area shape="rect" id="node21" href="$_gradient_base_8cpp.html" title="abstract base class for gradient objects" alt="" coords="3071,80,3208,107"/>
-<area shape="rect" id="node22" href="$_gradient_stop_8cpp.html" title="class representing a stop in a gradient definition" alt="" coords="3232,80,3367,107"/>
-<area shape="rect" id="node23" href="$_image_8cpp.html" title="Implementation of the Image class." alt="" coords="3391,80,3482,107"/>
-<area shape="rect" id="node24" href="$_linear_gradient_8cpp.html" title="Implementation of the LinearGradient class." alt="" coords="3507,80,3652,107"/>
-<area shape="rect" id="node25" href="$_line_ending_8cpp.html" title="class representing line endings,e.g." alt="" coords="3677,80,3797,107"/>
-<area shape="rect" id="node26" href="$_list_of_color_definitions_8cpp.html" title="Implementation of the ListOfColorDefinitions class." alt="" coords="3821,80,4012,107"/>
-<area shape="rect" id="node27" href="$_list_of_global_render_information_8cpp.html" title="Implementation of the ListOfGlobalRenderInformation class." alt="" coords="4037,80,4287,107"/>
-<area shape="rect" id="node28" href="$_list_of_global_styles_8cpp.html" title="Implementation of the ListOfGlobalStyles class." alt="" coords="4312,80,4481,107"/>
-<area shape="rect" id="node29" href="$_list_of_gradient_stops_8cpp.html" title="Implementation of the ListOfGradientStops class." alt="" coords="4506,80,4685,107"/>
-<area shape="rect" id="node30" href="$_list_of_line_endings_8cpp.html" title="Implementation of the ListOfLineEndings class." alt="" coords="4709,80,4874,107"/>
-<area shape="rect" id="node31" href="$_list_of_local_render_information_8cpp.html" title="Implementation of the ListOfLocalRenderInformation class." alt="" coords="4898,80,5141,107"/>
-<area shape="rect" id="node32" href="$_list_of_local_styles_8cpp.html" title="Implementation of the ListOfLocalStyles class." alt="" coords="5165,80,5327,107"/>
-<area shape="rect" id="node33" href="$_local_render_information_8cpp.html" title="Implementation of the LocalRenderInformation class." alt="" coords="5351,80,5557,107"/>
-<area shape="rect" id="node34" href="$_local_style_8cpp.html" title="class for representing a local style" alt="" coords="5581,80,5697,107"/>
-<area shape="rect" id="node35" href="$_radial_gradient_8cpp.html" title="Implementation of the RadialGradient class." alt="" coords="5722,80,5869,107"/>
-<area shape="rect" id="node36" href="$_rectangle_8cpp.html" title="Implementation of the Rectangle class." alt="" coords="5893,80,6007,107"/>
-<area shape="rect" id="node37" href="$_render_cubic_bezier_8h.html" title="Definition of the RenderCubicBezier class." alt="" coords="6032,80,6188,107"/>
-<area shape="rect" id="node57" href="$_render_point_8cpp.html" title="Implementation of the RenderPoint class." alt="" coords="6046,229,6174,256"/>
-<area shape="rect" id="node59" href="$_style_8cpp.html" title="Implementation of the Style class." alt="" coords="6418,80,6501,107"/>
-<area shape="rect" id="node60" href="$_text_8cpp.html" title="Implementation of the Text class." alt="" coords="6525,80,6601,107"/>
-<area shape="rect" id="node38" href="$_render_extension_types_8h.html" title="Definition of RenderExtensionTypes." alt="" coords="4971,304,5153,331"/>
-<area shape="rect" id="node45" href="$_list_of_curve_elements_8cpp.html" title="storage class for curve elements" alt="" coords="5530,229,5717,256"/>
-<area shape="rect" id="node46" href="$_list_of_curve_elements_8h.html" title="Definition of the ListOfCurveElements class." alt="" coords="5801,155,5971,181"/>
-<area shape="rect" id="node51" href="$_polygon_8cpp.html" title="Implementation of the Polygon class." alt="" coords="6301,304,6402,331"/>
-<area shape="rect" id="node56" href="$_render_curve_8cpp.html" title="Implementation of the RenderCurve class." alt="" coords="6426,304,6559,331"/>
-<area shape="rect" id="node58" href="$_render_cubic_bezier_8cpp.html" title="Implementation of the RenderCubicBezier class." alt="" coords="6173,155,6343,181"/>
-<area shape="rect" id="node39" href="$_render_layout_plugin_8cpp.html" title="Implementation of RenderLayoutPlugin, the plugin class of the fbc package for the Model element." alt="" coords="4741,453,4919,480"/>
-<area shape="rect" id="node40" href="$_render_layout_converter_8cpp.html" title="Simple converter to convert Layout + Render from l2 to L3 and vice versa." alt="" coords="4822,379,5025,405"/>
-<area shape="rect" id="node41" href="$_render_utilities_8cpp.html" title="implementation of RenderUtilities, a class of utility functions for the render package" alt="" coords="4989,453,5135,480"/>
-<area shape="rect" id="node42" href="$_render_utilities_8h.html" title="Definition of RenderUtilities, a class of utility functions for the render package." alt="" coords="5099,379,5230,405"/>
-<area shape="rect" id="node44" href="$_render_validator_8cpp.html" title="Definition of RenderValidator." alt="" coords="5254,379,5406,405"/>
-<area shape="rect" id="node43" href="$_render_list_of_layouts_plugin_8cpp.html" title="Implementation of RenderListOfLayoutsPlugin, the plugin class of the fbc package for the Model elemen..." alt="" coords="5159,453,5383,480"/>
-<area shape="rect" id="node47" href="$_polygon_8h.html" title="class representing a polygon" alt="" coords="5741,229,5828,256"/>
-<area shape="rect" id="node55" href="$_render_curve_8h.html" title="Definition of the RenderCurve class." alt="" coords="5852,229,5971,256"/>
-<area shape="rect" id="node48" href="$_graphical_primitive1_d_8cpp.html" title="abstract base class for graphical 1D objects" alt="" coords="5389,304,5577,331"/>
-<area shape="rect" id="node49" href="$_graphical_primitive2_d_8cpp.html" title="Implementation of the GraphicalPrimitive2D class." alt="" coords="5177,304,5365,331"/>
-<area shape="rect" id="node50" href="$_list_of_drawables_8cpp.html" title="Implementation of the ListOfDrawables class." alt="" coords="5601,304,5757,331"/>
-<area shape="rect" id="node52" href="$_render_group_8cpp.html" title="Implementation of the RenderGroup class." alt="" coords="5781,304,5916,331"/>
-<area shape="rect" id="node53" href="$_transformation_8cpp.html" title="class representing a 3D affine transformation" alt="" coords="5941,304,6087,331"/>
-<area shape="rect" id="node54" href="$_transformation2_d_8cpp.html" title="class representing a 2D affine transformation" alt="" coords="6111,304,6277,331"/>
+<area shape="rect" id="Node000001" title="Definition of LayoutUtilities for SBML Layout." alt="" coords="3113,5,3243,31"/>
+<area shape="rect" id="Node000002" href="$_bounding_box_8cpp.html" title="Implementation of BoundingBox for SBML Layout." alt="" coords="5,79,140,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="3100,22,2549,25,1695,34,807,52,434,65,153,81,141,82,140,77,152,76,434,60,807,47,1695,29,2549,20,3100,17"/>
+<area shape="rect" id="Node000003" href="$_color_definition_8cpp.html" title="Implementation of the ColorDefinition class." alt="" coords="165,79,311,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="3100,22,2576,27,1772,37,938,54,588,67,324,81,312,82,311,77,323,76,587,61,938,49,1772,31,2576,21,3100,17"/>
+<area shape="rect" id="Node000004" href="$_compartment_glyph_8cpp.html" title="Implementation of CompartmentGlyph for SBML Layout." alt="" coords="336,79,513,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="3100,23,1864,41,1094,58,770,69,526,81,514,82,513,77,526,76,770,64,1094,53,1864,35,3100,17"/>
+<area shape="rect" id="Node000005" href="$_cubic_bezier_8cpp.html" title="Implementation of CubicBezier for SBML Layout." alt="" coords="538,79,663,104"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="3099,23,2633,27,1932,37,1208,55,904,67,676,81,664,83,663,77,675,76,904,61,1208,49,1932,32,2633,21,3099,17"/>
+<area shape="rect" id="Node000006" href="$_curve_8cpp.html" title="Implementation of Curve for SBML Layout." alt="" coords="688,79,775,104"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="3099,22,2651,24,1982,32,1292,50,1004,63,786,81,775,83,774,78,786,76,1003,58,1292,44,1981,27,2651,19,3099,17"/>
+<area shape="rect" id="Node000007" href="$_dimensions_8cpp.html" title="Implementation of Dimensions for SBML Layout." alt="" coords="799,79,925,104"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="3099,23,2051,39,1409,56,1140,68,937,81,926,82,925,77,936,76,1140,63,1409,51,2051,34,3099,17"/>
+<area shape="rect" id="Node000008" href="$_ellipse_8cpp.html" title="Implementation of the Ellipse class." alt="" coords="949,79,1041,104"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="3099,22,2696,26,2104,36,1499,54,1245,66,1054,81,1042,83,1041,78,1054,76,1245,61,1498,48,2104,31,2696,21,3099,17"/>
+<area shape="rect" id="Node000009" href="$_general_glyph_8cpp.html" title="Implementation of GeneralGlyph for SBML Layout." alt="" coords="1066,79,1205,104"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="3099,21,2796,21,2332,28,1782,46,1496,61,1217,81,1205,82,1205,77,1216,76,1496,56,1781,40,2332,22,2796,16,3099,16"/>
+<area shape="rect" id="Node000010" href="$_global_render_information_8cpp.html" title="class for the storage of global render information" alt="" coords="1229,79,1442,104"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="3099,23,2423,38,1944,55,1454,81,1442,82,1442,77,1454,76,1944,50,2423,33,3099,18"/>
+<area shape="rect" id="Node000011" href="$_gradient_base_8cpp.html" title="abstract base class for gradient objects" alt="" coords="1467,79,1604,104"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="3100,22,2851,25,2485,33,2055,51,1833,64,1616,81,1604,82,1604,77,1615,76,1833,59,2054,45,2484,28,2851,19,3100,17"/>
+<area shape="rect" id="Node000012" href="$_gradient_stop_8cpp.html" title="class representing a stop in a gradient definition" alt="" coords="1628,79,1763,104"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="3100,23,2873,26,2546,35,2164,53,1774,81,1763,82,1763,77,1774,76,2163,47,2546,30,2873,21,3100,17"/>
+<area shape="rect" id="Node000013" href="$_graphical_object_8cpp.html" title="Implementation of GraphicalObject for SBML Layout." alt="" coords="1787,79,1940,104"/>
+<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="3099,24,2615,40,2287,57,1953,81,1941,83,1940,77,1952,76,2287,52,2615,35,3099,18"/>
+<area shape="rect" id="Node000014" href="$_image_8cpp.html" title="Implementation of the Image class." alt="" coords="1965,79,2055,104"/>
+<area shape="poly" id="edge13_Node000001_Node000014" title=" " alt="" coords="3100,22,2916,26,2660,34,2366,52,2068,81,2056,83,2055,78,2067,76,2365,47,2660,29,2916,20,3100,17"/>
+<area shape="rect" id="Node000015" href="$_layout_8cpp.html" title="Implementation of Layout for SBML Layout." alt="" coords="2079,79,2173,104"/>
+<area shape="poly" id="edge14_Node000001_Node000015" title=" " alt="" coords="3100,23,2933,28,2706,38,2447,55,2185,81,2174,83,2173,78,2184,76,2447,49,2706,32,2933,22,3100,18"/>
+<area shape="rect" id="Node000016" href="$_layout_utilities_8cpp.html" title="Implementation of some methods used by many of the layout files." alt="" coords="2197,79,2341,104"/>
+<area shape="poly" id="edge15_Node000001_Node000016" title=" " alt="" coords="3100,26,2774,46,2353,81,2341,83,2341,77,2352,76,2773,41,3099,21"/>
+<area shape="rect" id="Node000017" href="$_line_ending_8cpp.html" title="class representing line endings,e.g." alt="" coords="2365,79,2485,104"/>
+<area shape="poly" id="edge16_Node000001_Node000017" title=" " alt="" coords="3100,27,2832,47,2497,81,2485,83,2484,78,2496,76,2832,42,3099,22"/>
+<area shape="rect" id="Node000018" href="$_line_segment_8cpp.html" title="Implementation of LineSegment for SBML Layout." alt="" coords="2509,79,2644,104"/>
+<area shape="poly" id="edge17_Node000001_Node000018" title=" " alt="" coords="3100,30,2656,81,2644,83,2644,78,2655,76,3100,25"/>
+<area shape="rect" id="Node000019" href="$_linear_gradient_8cpp.html" title="Implementation of the LinearGradient class." alt="" coords="2668,79,2813,104"/>
+<area shape="poly" id="edge18_Node000001_Node000019" title=" " alt="" coords="3100,35,2812,81,2811,76,3099,29"/>
+<area shape="rect" id="Node000020" href="$_list_of_color_definitions_8cpp.html" title="Implementation of the ListOfColorDefinitions class." alt="" coords="2837,79,3028,104"/>
+<area shape="poly" id="edge19_Node000001_Node000020" title=" " alt="" coords="3126,37,2973,81,2972,76,3125,32"/>
+<area shape="rect" id="Node000021" href="$_list_of_global_render_information_8cpp.html" title="Implementation of the ListOfGlobalRenderInformation class." alt="" coords="3053,79,3303,104"/>
+<area shape="poly" id="edge20_Node000001_Node000021" title=" " alt="" coords="3181,44,3181,79,3175,79,3175,44"/>
+<area shape="rect" id="Node000022" href="$_list_of_global_styles_8cpp.html" title="Implementation of the ListOfGlobalStyles class." alt="" coords="3328,79,3497,104"/>
+<area shape="poly" id="edge21_Node000001_Node000022" title=" " alt="" coords="3229,32,3375,76,3374,81,3228,37"/>
+<area shape="rect" id="Node000023" href="$_list_of_gradient_stops_8cpp.html" title="Implementation of the ListOfGradientStops class." alt="" coords="3522,79,3701,104"/>
+<area shape="poly" id="edge22_Node000001_Node000023" title=" " alt="" coords="3257,30,3542,76,3541,81,3256,35"/>
+<area shape="rect" id="Node000024" href="$_list_of_line_endings_8cpp.html" title="Implementation of the ListOfLineEndings class." alt="" coords="3725,79,3890,104"/>
+<area shape="poly" id="edge23_Node000001_Node000024" title=" " alt="" coords="3257,25,3713,76,3725,77,3724,83,3712,81,3256,30"/>
+<area shape="rect" id="Node000025" href="$_list_of_local_render_information_8cpp.html" title="Implementation of the ListOfLocalRenderInformation class." alt="" coords="3914,79,4157,104"/>
+<area shape="poly" id="edge24_Node000001_Node000025" title=" " alt="" coords="3257,23,3902,76,3914,77,3914,82,3902,81,3256,28"/>
+<area shape="rect" id="Node000026" href="$_list_of_local_styles_8cpp.html" title="Implementation of the ListOfLocalStyles class." alt="" coords="4181,79,4343,104"/>
+<area shape="poly" id="edge25_Node000001_Node000026" title=" " alt="" coords="3257,20,3649,39,3907,55,4169,76,4181,77,4181,83,4168,81,3907,61,3648,44,3256,25"/>
+<area shape="rect" id="Node000027" href="$_local_render_information_8cpp.html" title="Implementation of the LocalRenderInformation class." alt="" coords="4367,79,4573,104"/>
+<area shape="poly" id="edge26_Node000001_Node000027" title=" " alt="" coords="3257,19,3722,39,4035,55,4354,76,4367,77,4367,82,4354,81,4035,61,3721,44,3257,25"/>
+<area shape="rect" id="Node000028" href="$_local_style_8cpp.html" title="class for representing a local style" alt="" coords="4597,79,4713,104"/>
+<area shape="poly" id="edge27_Node000001_Node000028" title=" " alt="" coords="3256,17,3483,19,3811,28,4194,45,4392,59,4585,76,4597,77,4597,83,4584,81,4391,64,4194,51,3811,33,3483,25,3256,22"/>
+<area shape="rect" id="Node000029" href="$_point_8cpp.html" title="Implementation of Point for SBML Layout." alt="" coords="4738,79,4821,104"/>
+<area shape="poly" id="edge28_Node000001_Node000029" title=" " alt="" coords="3257,18,3985,36,4412,53,4590,64,4725,76,4738,78,4737,83,4724,81,4590,69,4412,58,3985,41,3256,23"/>
+<area shape="rect" id="Node000030" href="$_radial_gradient_8cpp.html" title="Implementation of the RadialGradient class." alt="" coords="4845,79,4991,104"/>
+<area shape="poly" id="edge29_Node000001_Node000030" title=" " alt="" coords="3256,17,3518,19,3907,28,4365,45,4601,59,4833,76,4845,77,4844,82,4832,81,4601,64,4364,51,3907,33,3518,25,3256,22"/>
+<area shape="rect" id="Node000031" href="$_reaction_glyph_8cpp.html" title="Implementation of ReactionGlyph for SBML Layout." alt="" coords="5015,79,5159,104"/>
+<area shape="poly" id="edge30_Node000001_Node000031" title=" " alt="" coords="3256,16,3541,18,3972,25,4481,43,4745,57,5004,76,5015,77,5015,82,5003,81,4745,63,4481,48,3972,30,3541,23,3256,22"/>
+<area shape="rect" id="Node000032" href="$_rectangle_8cpp.html" title="Implementation of the Rectangle class." alt="" coords="5183,79,5298,104"/>
+<area shape="poly" id="edge31_Node000001_Node000032" title=" " alt="" coords="3257,18,4192,35,4757,52,4993,63,5172,76,5184,77,5183,83,5171,81,4993,68,4756,57,4191,40,3257,23"/>
+<area shape="rect" id="Node000033" href="$_reference_glyph_8cpp.html" title="Implementation of ReferenceGlyph for SBML Layout." alt="" coords="5323,79,5476,104"/>
+<area shape="poly" id="edge32_Node000001_Node000033" title=" " alt="" coords="3257,16,3583,16,4088,22,4691,40,5004,56,5310,76,5323,77,5322,82,5310,81,5003,61,4691,46,4088,28,3583,21,3257,21"/>
+<area shape="rect" id="Node000034" href="$_render_cubic_bezier_8h.html" title="Definition of the RenderCubicBezier class." alt="" coords="5500,79,5656,104"/>
+<area shape="poly" id="edge33_Node000001_Node000034" title=" " alt="" coords="3256,18,4336,36,5000,53,5279,64,5489,76,5500,77,5499,82,5488,81,5278,69,5000,58,4336,41,3256,23"/>
+<area shape="rect" id="Node000054" href="$_render_point_8cpp.html" title="Implementation of the RenderPoint class." alt="" coords="5637,225,5765,251"/>
+<area shape="poly" id="edge68_Node000001_Node000054" title=" " alt="" coords="3257,17,4600,35,5329,53,5568,64,5638,70,5670,76,5686,91,5697,110,5708,152,5709,194,5706,225,5700,225,5704,194,5703,153,5693,112,5682,95,5667,81,5637,75,5567,69,5329,58,4600,41,3257,23"/>
+<area shape="rect" id="Node000056" href="$_species_glyph_8cpp.html" title="Implementation of SpeciesGlyph for SBML Layout." alt="" coords="5732,79,5869,104"/>
+<area shape="poly" id="edge69_Node000001_Node000056" title=" " alt="" coords="3256,17,4439,34,5173,52,5480,63,5713,76,5732,78,5731,83,5712,81,5480,68,5172,57,4438,39,3256,23"/>
+<area shape="rect" id="Node000057" href="$_species_reference_glyph_8cpp.html" title="Implementation of SpeciesReferenceGlyph for SBML Layout." alt="" coords="5894,79,6097,104"/>
+<area shape="poly" id="edge70_Node000001_Node000057" title=" " alt="" coords="3256,16,3657,16,4302,22,5080,40,5485,55,5882,76,5894,77,5893,82,5882,81,5485,61,5080,45,4301,27,3657,21,3256,21"/>
+<area shape="rect" id="Node000058" href="$_style_8cpp.html" title="Implementation of the Style class." alt="" coords="6121,79,6203,104"/>
+<area shape="poly" id="edge71_Node000001_Node000058" title=" " alt="" coords="3257,16,3793,15,4619,21,5061,27,5478,38,5838,54,6109,76,6121,78,6120,83,6108,81,5837,60,5477,44,5061,33,4619,26,3793,21,3257,22"/>
+<area shape="rect" id="Node000059" href="$_text_8cpp.html" title="Implementation of the Text class." alt="" coords="6228,79,6304,104"/>
+<area shape="poly" id="edge72_Node000001_Node000059" title=" " alt="" coords="3257,17,4791,34,5689,52,6020,63,6216,76,6228,78,6228,83,6215,81,6020,69,5689,57,4791,40,3257,23"/>
+<area shape="rect" id="Node000060" href="$_text_glyph_8cpp.html" title="Implementation of TextGlyph for SBML Layout." alt="" coords="6329,79,6443,104"/>
+<area shape="poly" id="edge73_Node000001_Node000060" title=" " alt="" coords="3257,17,3826,18,4713,25,5187,32,5636,43,6025,57,6317,76,6329,77,6328,83,6316,81,6024,63,5636,48,5187,38,4713,31,3826,23,3257,22"/>
+<area shape="rect" id="Node000035" href="$_list_of_curve_elements_8cpp.html" title="storage class for curve elements" alt="" coords="5271,225,5458,251"/>
+<area shape="poly" id="edge34_Node000034_Node000035" title=" " alt="" coords="5526,111,5481,129,5438,154,5400,192,5374,227,5370,224,5396,188,5435,150,5479,124,5524,106"/>
+<area shape="rect" id="Node000036" href="$_list_of_curve_elements_8h.html" title="Definition of the ListOfCurveElements class." alt="" coords="5197,152,5367,177"/>
+<area shape="poly" id="edge35_Node000034_Node000036" title=" " alt="" coords="5518,110,5331,154,5329,149,5517,105"/>
+<area shape="rect" id="Node000041" href="$_polygon_8cpp.html" title="Implementation of the Polygon class." alt="" coords="5926,299,6027,324"/>
+<area shape="poly" id="edge63_Node000034_Node000041" title=" " alt="" coords="5534,112,5510,125,5490,140,5479,158,5479,166,5483,176,5523,228,5544,247,5566,261,5612,279,5663,286,5778,287,5843,288,5914,296,5926,298,5925,303,5914,301,5843,293,5778,292,5662,292,5611,284,5564,266,5541,251,5519,232,5478,179,5474,167,5474,156,5486,137,5507,120,5531,107"/>
+<area shape="rect" id="Node000042" href="$_render_extension_types_8h.html" title="Definition of RenderExtensionTypes." alt="" coords="4595,299,4777,324"/>
+<area shape="poly" id="edge66_Node000034_Node000042" title=" " alt="" coords="5487,107,5320,131,5185,155,5047,191,4913,233,4717,301,4716,296,4911,228,5045,186,5184,149,5319,126,5486,102"/>
+<area shape="rect" id="Node000053" href="$_render_curve_8cpp.html" title="Implementation of the RenderCurve class." alt="" coords="4438,299,4571,324"/>
+<area shape="poly" id="edge65_Node000034_Node000053" title=" " alt="" coords="5487,107,5281,126,5193,136,5081,155,4921,191,4766,232,4540,301,4539,296,4764,227,4920,185,5080,149,5192,131,5281,121,5486,102"/>
+<area shape="poly" id="edge67_Node000034_Node000054" title=" " alt="" coords="5622,108,5651,126,5677,150,5689,169,5696,190,5702,225,5697,226,5691,191,5684,171,5673,154,5648,130,5619,112"/>
+<area shape="rect" id="Node000055" href="$_render_cubic_bezier_8cpp.html" title="Implementation of the RenderCubicBezier class." alt="" coords="5493,152,5663,177"/>
+<area shape="poly" id="edge64_Node000034_Node000055" title=" " alt="" coords="5581,118,5581,152,5575,152,5575,118"/>
+<area shape="poly" id="edge36_Node000036_Node000035" title=" " alt="" coords="5307,184,5353,223,5349,227,5304,188"/>
+<area shape="rect" id="Node000037" href="$_polygon_8h.html" title="class representing a polygon" alt="" coords="5160,225,5247,251"/>
+<area shape="poly" id="edge37_Node000036_Node000037" title=" " alt="" coords="5261,189,5218,227,5214,223,5257,185"/>
+<area shape="rect" id="Node000052" href="$_render_curve_8h.html" title="Definition of the RenderCurve class." alt="" coords="4999,225,5117,251"/>
+<area shape="poly" id="edge54_Node000036_Node000052" title=" " alt="" coords="5234,184,5095,228,5093,223,5232,179"/>
+<area shape="poly" id="edge62_Node000036_Node000054" title=" " alt="" coords="5363,177,5637,223,5636,228,5362,182"/>
+<area shape="rect" id="Node000038" href="$_graphical_primitive1_d_8cpp.html" title="abstract base class for graphical 1D objects" alt="" coords="5501,299,5689,324"/>
+<area shape="poly" id="edge38_Node000037_Node000038" title=" " alt="" coords="5261,248,5528,296,5527,301,5260,253"/>
+<area shape="rect" id="Node000039" href="$_graphical_primitive2_d_8cpp.html" title="Implementation of the GraphicalPrimitive2D class." alt="" coords="5713,299,5901,324"/>
+<area shape="poly" id="edge39_Node000037_Node000039" title=" " alt="" coords="5261,248,5713,297,5713,302,5260,253"/>
+<area shape="rect" id="Node000040" href="$_list_of_drawables_8cpp.html" title="Implementation of the ListOfDrawables class." alt="" coords="4801,299,4957,324"/>
+<area shape="poly" id="edge40_Node000037_Node000040" title=" " alt="" coords="5147,254,4932,301,4931,296,5146,249"/>
+<area shape="poly" id="edge41_Node000037_Node000041" title=" " alt="" coords="5261,248,5445,267,5589,273,5733,279,5914,296,5926,298,5925,303,5914,301,5732,284,5589,278,5445,272,5261,253"/>
+<area shape="poly" id="edge42_Node000037_Node000042" title=" " alt="" coords="5147,251,5129,253,4775,301,4774,296,5128,248,5146,245"/>
+<area shape="rect" id="Node000049" href="$_render_group_8cpp.html" title="Implementation of the RenderGroup class." alt="" coords="4981,299,5116,324"/>
+<area shape="poly" id="edge51_Node000037_Node000049" title=" " alt="" coords="5167,259,5075,301,5073,296,5165,254"/>
+<area shape="rect" id="Node000050" href="$_transformation_8cpp.html" title="class representing a 3D affine transformation" alt="" coords="5141,299,5287,324"/>
+<area shape="poly" id="edge52_Node000037_Node000050" title=" " alt="" coords="5210,264,5215,298,5210,299,5204,265"/>
+<area shape="rect" id="Node000051" href="$_transformation2_d_8cpp.html" title="class representing a 2D affine transformation" alt="" coords="5311,299,5477,324"/>
+<area shape="poly" id="edge53_Node000037_Node000051" title=" " alt="" coords="5248,253,5364,296,5362,301,5246,258"/>
+<area shape="rect" id="Node000043" href="$_render_layout_converter_8cpp.html" title="Simple converter to convert Layout + Render from l2 to L3 and vice versa." alt="" coords="4343,372,4546,397"/>
+<area shape="poly" id="edge43_Node000042_Node000043" title=" " alt="" coords="4635,330,4484,374,4483,369,4633,325"/>
+<area shape="rect" id="Node000044" href="$_render_layout_plugin_8cpp.html" title="Implementation of RenderLayoutPlugin, the plugin class of the fbc package for the Model element." alt="" coords="4371,445,4550,471"/>
+<area shape="poly" id="edge44_Node000042_Node000044" title=" " alt="" coords="4659,334,4559,400,4481,448,4478,443,4557,395,4657,329"/>
+<area shape="rect" id="Node000045" href="$_render_utilities_8cpp.html" title="implementation of RenderUtilities, a class of utility functions for the render package" alt="" coords="4822,445,4969,471"/>
+<area shape="poly" id="edge45_Node000042_Node000045" title=" " alt="" coords="4716,330,4880,443,4877,447,4713,334"/>
+<area shape="rect" id="Node000046" href="$_render_utilities_8h.html" title="Definition of RenderUtilities, a class of utility functions for the render package." alt="" coords="4621,372,4751,397"/>
+<area shape="poly" id="edge46_Node000042_Node000046" title=" " alt="" coords="4689,338,4689,372,4683,372,4683,338"/>
+<area shape="rect" id="Node000048" href="$_render_validator_8cpp.html" title="Definition of RenderValidator." alt="" coords="4826,372,4978,397"/>
+<area shape="poly" id="edge50_Node000042_Node000048" title=" " alt="" coords="4735,326,4868,369,4866,374,4733,331"/>
+<area shape="poly" id="edge47_Node000046_Node000044" title=" " alt="" coords="4638,404,4498,448,4496,443,4636,399"/>
+<area shape="poly" id="edge49_Node000046_Node000045" title=" " alt="" coords="4734,399,4862,443,4861,448,4732,404"/>
+<area shape="rect" id="Node000047" href="$_render_list_of_layouts_plugin_8cpp.html" title="Implementation of RenderListOfLayoutsPlugin, the plugin class of the fbc package for the Model elemen..." alt="" coords="4574,445,4798,471"/>
+<area shape="poly" id="edge48_Node000046_Node000047" title=" " alt="" coords="4689,411,4689,445,4683,445,4683,411"/>
+<area shape="poly" id="edge55_Node000052_Node000038" title=" " alt="" coords="5131,246,5509,296,5509,301,5131,252"/>
+<area shape="poly" id="edge56_Node000052_Node000040" title=" " alt="" coords="5018,258,4910,301,4908,296,5016,253"/>
+<area shape="poly" id="edge58_Node000052_Node000042" title=" " alt="" coords="4986,256,4746,301,4745,296,4985,251"/>
+<area shape="poly" id="edge59_Node000052_Node000049" title=" " alt="" coords="5057,265,5053,299,5048,298,5052,264"/>
+<area shape="poly" id="edge60_Node000052_Node000050" title=" " alt="" coords="5097,254,5190,296,5187,301,5094,259"/>
+<area shape="poly" id="edge61_Node000052_Node000051" title=" " alt="" coords="5126,251,5340,296,5339,301,5125,256"/>
+<area shape="poly" id="edge57_Node000052_Node000053" title=" " alt="" coords="4985,251,4584,301,4572,303,4571,298,4583,296,4984,245"/>
 </map>

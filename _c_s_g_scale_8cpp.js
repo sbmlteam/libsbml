@@ -1,7 +1,7 @@
 var _c_s_g_scale_8cpp =
 [
-    [ "CSGScale_clone", "_c_s_g_scale_8cpp.html#a678c9200db6750a9d2ea950e81ea71ed", null ],
-    [ "CSGScale_create", "_c_s_g_scale_8cpp.html#ac777718eb4f7bcf0a0ffcbad5916f144", null ],
+    [ "CSGScale_clone", "_c_s_g_scale_8cpp.html#a9df3149c50aee9cb1eee0e409167e4a6", null ],
+    [ "CSGScale_create", "_c_s_g_scale_8cpp.html#a891aa494d39402228c4a46560006f746", null ],
     [ "CSGScale_free", "_c_s_g_scale_8cpp.html#a5728a205de919ecc471b827bd294473d", null ],
     [ "CSGScale_getScaleX", "_c_s_g_scale_8cpp.html#add1f1de771d96748521a61d17712b8d3", null ],
     [ "CSGScale_getScaleY", "_c_s_g_scale_8cpp.html#a0293373e765b68884d899c80181b9812", null ],

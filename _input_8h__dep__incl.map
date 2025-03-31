@@ -1,12 +1,23 @@
 <map id="Input.h" name="Input.h">
-<area shape="rect" id="node1" title="Implementation of the Input class." alt="" coords="133,5,200,32"/>
-<area shape="rect" id="node2" href="$_qual_extension_types_8h.html" title="Include all SBML types of qual extension in a single header file." alt="" coords="5,229,171,256"/>
-<area shape="rect" id="node4" href="$_input_8cpp.html" title="Implementation of the Input class." alt="" coords="125,80,208,107"/>
-<area shape="rect" id="node5" href="$_transition_8h.html" title="Implementation of the Transition class." alt="" coords="233,80,330,107"/>
-<area shape="rect" id="node3" href="$_qual_validator_8cpp.html" title="Base class for SBML Validators." alt="" coords="20,304,156,331"/>
-<area shape="rect" id="node6" href="$_qual_model_plugin_8h.html" title="Definition of QualModelPlugin, the plugin class of qual package for the Model element." alt="" coords="189,155,333,181"/>
-<area shape="rect" id="node9" href="$_function_term_8cpp.html" title="Implementation of the FunctionTerm class." alt="" coords="357,155,493,181"/>
-<area shape="rect" id="node10" href="$_transition_8cpp.html" title="Implementation of the Transition class." alt="" coords="517,155,629,181"/>
-<area shape="rect" id="node7" href="$_qual_extension_8cpp.html" title="Implementation of QualExtension, the core module of qual package." alt="" coords="195,229,338,256"/>
-<area shape="rect" id="node8" href="$_qual_model_plugin_8cpp.html" title="Implementation of QualModelPlugin, the plugin class of qual package for the Model element." alt="" coords="362,229,521,256"/>
+<area shape="rect" id="Node000001" title="Implementation of the Input class." alt="" coords="92,5,159,31"/>
+<area shape="rect" id="Node000002" href="$_input_8cpp.html" title="Implementation of the Input class." alt="" coords="5,79,88,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="104,42,61,80,58,76,101,38"/>
+<area shape="rect" id="Node000003" href="$_qual_extension_types_8h.html" title="Include all SBML types of qual extension in a single header file." alt="" coords="93,225,259,251"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="134,44,176,224,171,226,129,45"/>
+<area shape="rect" id="Node000005" href="$_transition_8h.html" title="Implementation of the Transition class." alt="" coords="233,79,330,104"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="164,34,257,76,255,81,162,39"/>
+<area shape="rect" id="Node000004" href="$_qual_validator_8cpp.html" title="Base class for SBML Validators." alt="" coords="108,299,244,324"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="179,264,179,299,173,299,173,264"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="249,113,224,131,204,153,187,192,180,226,174,225,181,190,199,151,221,127,246,109"/>
+<area shape="rect" id="Node000006" href="$_function_term_8cpp.html" title="Implementation of the FunctionTerm class." alt="" coords="213,152,349,177"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="284,118,284,152,279,152,279,118"/>
+<area shape="rect" id="Node000007" href="$_qual_model_plugin_8h.html" title="Definition of QualModelPlugin, the plugin class of qual package for the Model element." alt="" coords="373,152,517,177"/>
+<area shape="poly" id="edge7_Node000005_Node000007" title=" " alt="" coords="321,107,420,149,417,154,319,112"/>
+<area shape="rect" id="Node000010" href="$_transition_8cpp.html" title="Implementation of the Transition class." alt="" coords="541,152,653,177"/>
+<area shape="poly" id="edge11_Node000005_Node000010" title=" " alt="" coords="344,104,547,149,546,155,343,109"/>
+<area shape="poly" id="edge9_Node000007_Node000003" title=" " alt="" coords="390,183,220,228,219,223,388,178"/>
+<area shape="rect" id="Node000008" href="$_qual_extension_8cpp.html" title="Implementation of QualExtension, the core module of qual package." alt="" coords="329,225,471,251"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="433,191,410,227,405,224,428,188"/>
+<area shape="rect" id="Node000009" href="$_qual_model_plugin_8cpp.html" title="Implementation of QualModelPlugin, the plugin class of qual package for the Model element." alt="" coords="495,225,654,251"/>
+<area shape="poly" id="edge10_Node000007_Node000009" title=" " alt="" coords="480,182,555,223,552,227,477,186"/>
 </map>

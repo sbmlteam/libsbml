@@ -143,7 +143,7 @@ var class_render_point =
     [ "setZ", "class_render_point.html#ab32ab389b4ec465685066ed3ae8401a8", null ],
     [ "toSBML", "class_render_point.html#ae8317d5157b70e4f1bc68e33e5c84001", null ],
     [ "toXML", "class_render_point.html#a12a8af64e8358c3dc1fe7b576434861e", null ],
-    [ "toXMLNode", "class_render_point.html#a5c949d524aca47b84b18b57b76e6ee0a", null ],
+    [ "toXMLNode", "class_render_point.html#a616754bfc4592922a488f2159f96b3ce", null ],
     [ "unsetAnnotation", "class_render_point.html#a9121d6a4f7401fe957cc75647a1e95ed", null ],
     [ "unsetCreatedDate", "class_render_point.html#ad3be0bf5891c2b6bf4340cce12b8630f", null ],
     [ "unsetCVTerms", "class_render_point.html#a1e89a7890f2fb291f1ba4c38866d1dcc", null ],

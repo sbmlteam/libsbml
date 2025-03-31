@@ -1,6 +1,9 @@
 <map id="SBMLConstructorException" name="SBMLConstructorException">
-<area shape="rect" id="node1" title=" " alt="" coords="5,229,203,256"/>
-<area shape="rect" id="node2" title=" " alt="" coords="22,155,186,181"/>
-<area shape="rect" id="node3" title=" " alt="" coords="45,80,163,107"/>
-<area shape="rect" id="node4" title=" " alt="" coords="47,5,161,32"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,225,203,251"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="22,152,186,177"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="107,191,107,225,101,225,101,191"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="45,79,163,104"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="107,118,107,152,101,152,101,118"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="47,5,161,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="107,44,107,79,101,79,101,44"/>
 </map>

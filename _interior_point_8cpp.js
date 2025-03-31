@@ -1,7 +1,7 @@
 var _interior_point_8cpp =
 [
-    [ "InteriorPoint_clone", "_interior_point_8cpp.html#a2b641b50e8aa45588361b481e65cbcce", null ],
-    [ "InteriorPoint_create", "_interior_point_8cpp.html#a548a35a065784bc95d47eba057d6a856", null ],
+    [ "InteriorPoint_clone", "_interior_point_8cpp.html#a25abcced61644ca97ed82955ad60f6f3", null ],
+    [ "InteriorPoint_create", "_interior_point_8cpp.html#a563723974fe25692720edd64dddf51df", null ],
     [ "InteriorPoint_free", "_interior_point_8cpp.html#a401ae7da2626408a31a88fa7e9b6a8f6", null ],
     [ "InteriorPoint_getCoord1", "_interior_point_8cpp.html#ad74468d35c3bb1e0504c6a24843f4301", null ],
     [ "InteriorPoint_getCoord2", "_interior_point_8cpp.html#a57671c02463765cee70ccac9f73b2035", null ],

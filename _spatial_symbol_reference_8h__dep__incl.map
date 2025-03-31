@@ -1,9 +1,16 @@
 <map id="SpatialSymbolReference.h" name="SpatialSymbolReference.h">
-<area shape="rect" id="node1" title="Definition of the SpatialSymbolReference class." alt="" coords="175,5,370,32"/>
-<area shape="rect" id="node2" href="$_spatial_extension_types_8h.html" title="Definition of SpatialExtensionTypes." alt="" coords="5,155,185,181"/>
-<area shape="rect" id="node4" href="$_spatial_parameter_plugin_8h.html" title="Definition of the SpatialParameterPlugin class." alt="" coords="179,80,366,107"/>
-<area shape="rect" id="node7" href="$_spatial_symbol_reference_8cpp.html" title="Implementation of the SpatialSymbolReference class." alt="" coords="391,80,600,107"/>
-<area shape="rect" id="node3" href="$_spatial_validator_8cpp.html" title="Definition of SpatialValidator." alt="" coords="20,229,171,256"/>
-<area shape="rect" id="node5" href="$_spatial_extension_8cpp.html" title="Implementation of SpatialExtension." alt="" coords="209,155,368,181"/>
-<area shape="rect" id="node6" href="$_spatial_parameter_plugin_8cpp.html" title="Implementation of the SpatialParameterPlugin class." alt="" coords="392,155,593,181"/>
+<area shape="rect" id="Node000001" title="Definition of the SpatialSymbolReference class." alt="" coords="175,5,370,31"/>
+<area shape="rect" id="Node000002" href="$_spatial_extension_types_8h.html" title="Definition of SpatialExtensionTypes." alt="" coords="5,152,185,177"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="236,39,202,58,169,81,132,119,105,153,101,150,128,115,166,77,199,53,233,34"/>
+<area shape="rect" id="Node000004" href="$_spatial_parameter_plugin_8h.html" title="Definition of the SpatialParameterPlugin class." alt="" coords="179,79,366,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="275,44,275,79,270,79,270,44"/>
+<area shape="rect" id="Node000007" href="$_spatial_symbol_reference_8cpp.html" title="Implementation of the SpatialSymbolReference class." alt="" coords="391,79,600,104"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="322,32,460,76,458,81,320,37"/>
+<area shape="rect" id="Node000003" href="$_spatial_validator_8cpp.html" title="Definition of SpatialValidator." alt="" coords="20,225,171,251"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="98,191,98,225,93,225,93,191"/>
+<area shape="poly" id="edge5_Node000004_Node000002" title=" " alt="" coords="232,112,125,154,123,149,230,107"/>
+<area shape="rect" id="Node000005" href="$_spatial_extension_8cpp.html" title="Implementation of SpatialExtension." alt="" coords="209,152,368,177"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="281,117,289,151,283,152,276,118"/>
+<area shape="rect" id="Node000006" href="$_spatial_parameter_plugin_8cpp.html" title="Implementation of the SpatialParameterPlugin class." alt="" coords="392,152,593,177"/>
+<area shape="poly" id="edge6_Node000004_Node000006" title=" " alt="" coords="322,106,458,149,456,154,320,111"/>
 </map>

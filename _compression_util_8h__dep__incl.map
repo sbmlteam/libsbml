@@ -1,6 +1,9 @@
 <map id="CompressionUtil.h" name="CompressionUtil.h">
-<area shape="rect" id="node1" title="Functions useful for various compression algorithms." alt="" coords="188,5,331,32"/>
-<area shape="rect" id="node2" href="$_parametric_object_8cpp.html" title="Implementation of the ParametricObject class." alt="" coords="5,80,167,107"/>
-<area shape="rect" id="node3" href="$_sampled_field_8cpp.html" title="Implementation of the SampledField class." alt="" coords="191,80,328,107"/>
-<area shape="rect" id="node4" href="$_spatial_points_8cpp.html" title="Implementation of the SpatialPoints class." alt="" coords="352,80,487,107"/>
+<area shape="rect" id="Node000001" title="Functions useful for various compression algorithms." alt="" coords="188,5,331,31"/>
+<area shape="rect" id="Node000002" href="$_parametric_object_8cpp.html" title="Implementation of the ParametricObject class." alt="" coords="5,79,167,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="220,38,115,81,113,76,218,33"/>
+<area shape="rect" id="Node000003" href="$_sampled_field_8cpp.html" title="Implementation of the SampledField class." alt="" coords="191,79,328,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="262,44,262,79,257,79,257,44"/>
+<area shape="rect" id="Node000004" href="$_spatial_points_8cpp.html" title="Implementation of the SpatialPoints class." alt="" coords="352,79,487,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="298,34,394,76,392,81,296,39"/>
 </map>

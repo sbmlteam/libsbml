@@ -1,12 +1,12 @@
 var _assignment_rule_8cpp =
 [
-    [ "AssignmentRule_clone", "_assignment_rule_8cpp.html#a86406b3a9a20caf03f5fba03687dce92", null ],
-    [ "AssignmentRule_create", "_assignment_rule_8cpp.html#aaefe9da40b38928d83b237ae8a364e1b", null ],
-    [ "AssignmentRule_createWithNS", "_assignment_rule_8cpp.html#ab4f2c8518241363863149433f0bcfe1c", null ],
+    [ "AssignmentRule_clone", "_assignment_rule_8cpp.html#a38173cc600a084218b05db2f80d3d732", null ],
+    [ "AssignmentRule_create", "_assignment_rule_8cpp.html#ad8b17ddabd3452f1c97578597438af64", null ],
+    [ "AssignmentRule_createWithNS", "_assignment_rule_8cpp.html#abfee0e4a3078e029e7e89282d6ea8dd1", null ],
     [ "AssignmentRule_free", "_assignment_rule_8cpp.html#a5a0cba857828bd6a35c96854be02c282", null ],
-    [ "AssignmentRule_getFormula", "_assignment_rule_8cpp.html#a31a5054ff072323919e525db0db18c3f", null ],
-    [ "AssignmentRule_getMath", "_assignment_rule_8cpp.html#a43139e09ff6ed9116bae6c8a16f4944e", null ],
-    [ "AssignmentRule_getVariable", "_assignment_rule_8cpp.html#aa7e1bb1b5c46fbacb2499835e83519d7", null ],
+    [ "AssignmentRule_getFormula", "_assignment_rule_8cpp.html#a6df72a876c4fdf45b84102cafb652099", null ],
+    [ "AssignmentRule_getMath", "_assignment_rule_8cpp.html#aa808d01822f29e2e8f8a39d6bdbe5788", null ],
+    [ "AssignmentRule_getVariable", "_assignment_rule_8cpp.html#a8277abc3afc7dedae3fa8e1cc46dbaab", null ],
     [ "AssignmentRule_hasRequiredAttributes", "_assignment_rule_8cpp.html#afaa0e661f0832f9a1f52afc0c2d4a538", null ],
     [ "AssignmentRule_hasRequiredElements", "_assignment_rule_8cpp.html#a8dc432c7205b990a647a5ea67ab9ab27", null ],
     [ "AssignmentRule_isSetFormula", "_assignment_rule_8cpp.html#adb03047fd6d19c984c13c3e7f508395f", null ],

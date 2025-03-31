@@ -141,7 +141,7 @@ var class_coordinate_component =
     [ "setUnit", "class_coordinate_component.html#a90e71327e6283d976c7218108f2d7454", null ],
     [ "setUserData", "class_coordinate_component.html#ac3b1bbfe22bad0dbc577b61c529f37bb", null ],
     [ "toSBML", "class_coordinate_component.html#ae8317d5157b70e4f1bc68e33e5c84001", null ],
-    [ "toXMLNode", "class_coordinate_component.html#a5c949d524aca47b84b18b57b76e6ee0a", null ],
+    [ "toXMLNode", "class_coordinate_component.html#a616754bfc4592922a488f2159f96b3ce", null ],
     [ "unsetAnnotation", "class_coordinate_component.html#a9121d6a4f7401fe957cc75647a1e95ed", null ],
     [ "unsetBoundaryMax", "class_coordinate_component.html#a5879db2b67d55ac53ac327dcbafea5e0", null ],
     [ "unsetBoundaryMin", "class_coordinate_component.html#a51f96d3d6d5ff19f09cc4d76d3163da5", null ],

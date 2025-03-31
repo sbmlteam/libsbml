@@ -156,7 +156,7 @@ var class_c_s_g_set_operator =
     [ "setSBOTerm", "class_c_s_g_set_operator.html#a37287e48bd51353012b74e4d200bb446", null ],
     [ "setUserData", "class_c_s_g_set_operator.html#ac3b1bbfe22bad0dbc577b61c529f37bb", null ],
     [ "toSBML", "class_c_s_g_set_operator.html#ae8317d5157b70e4f1bc68e33e5c84001", null ],
-    [ "toXMLNode", "class_c_s_g_set_operator.html#a5c949d524aca47b84b18b57b76e6ee0a", null ],
+    [ "toXMLNode", "class_c_s_g_set_operator.html#a616754bfc4592922a488f2159f96b3ce", null ],
     [ "unsetAnnotation", "class_c_s_g_set_operator.html#a9121d6a4f7401fe957cc75647a1e95ed", null ],
     [ "unsetComplementA", "class_c_s_g_set_operator.html#a305ee55225076722e3afeef11dd92c41", null ],
     [ "unsetComplementB", "class_c_s_g_set_operator.html#a277ceb4c3a2618bd8130496b1a2a61a4", null ],

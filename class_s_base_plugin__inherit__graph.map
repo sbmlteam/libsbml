@@ -1,39 +1,73 @@
 <map id="SBasePlugin" name="SBasePlugin">
-<area shape="rect" id="node1" title=" " alt="" coords="5,528,108,555"/>
-<area shape="rect" id="node2" href="$class_comp_s_base_plugin.html" title=" " alt="" coords="197,5,337,32"/>
-<area shape="rect" id="node4" href="$class_distrib_s_base_plugin.html" title=" " alt="" coords="195,56,340,83"/>
-<area shape="rect" id="node5" href="$class_fbc_s_base_plugin.html" title=" " alt="" coords="205,107,330,133"/>
-<area shape="rect" id="node9" href="$class_groups_model_plugin.html" title=" " alt="" coords="193,157,341,184"/>
-<area shape="rect" id="node10" href="$class_layout_model_plugin.html" title=" " alt="" coords="194,208,341,235"/>
-<area shape="rect" id="node11" href="$class_layout_species_reference_plugin.html" title=" " alt="" coords="156,259,379,285"/>
-<area shape="rect" id="node12" href="$class_multi_compartment_plugin.html" title=" " alt="" coords="175,309,360,336"/>
-<area shape="rect" id="node13" href="$class_multi_list_of_reactions_plugin.html" title=" " alt="" coords="169,360,366,387"/>
-<area shape="rect" id="node14" href="$class_multi_model_plugin.html" title=" " alt="" coords="200,411,335,437"/>
-<area shape="rect" id="node15" href="$class_multi_simple_species_reference_plugin.html" title=" " alt="" coords="159,462,375,503"/>
-<area shape="rect" id="node17" href="$class_multi_species_plugin.html" title=" " alt="" coords="195,528,340,555"/>
-<area shape="rect" id="node18" href="$class_qual_model_plugin.html" title=" " alt="" coords="201,579,333,605"/>
-<area shape="rect" id="node19" href="$class_render_graphical_object_plugin.html" title=" " alt="" coords="161,629,373,656"/>
-<area shape="rect" id="node20" href="$class_render_layout_plugin.html" title=" " alt="" coords="191,680,343,707"/>
-<area shape="rect" id="node21" href="$class_render_list_of_layouts_plugin.html" title=" " alt="" coords="169,731,366,757"/>
-<area shape="rect" id="node22" href="$class_s_b_m_l_document_plugin.html" title=" " alt="" coords="185,781,350,808"/>
-<area shape="rect" id="node33" href="$class_spatial_compartment_plugin.html" title=" " alt="" coords="169,832,366,859"/>
-<area shape="rect" id="node34" href="$class_spatial_model_plugin.html" title=" " alt="" coords="194,883,341,909"/>
-<area shape="rect" id="node35" href="$class_spatial_parameter_plugin.html" title=" " alt="" coords="180,933,355,960"/>
-<area shape="rect" id="node36" href="$class_spatial_reaction_plugin.html" title=" " alt="" coords="185,984,349,1011"/>
-<area shape="rect" id="node37" href="$class_spatial_species_plugin.html" title=" " alt="" coords="189,1035,346,1061"/>
-<area shape="rect" id="node3" href="$class_comp_model_plugin.html" title=" " alt="" coords="480,5,620,32"/>
-<area shape="rect" id="node6" href="$class_fbc_model_plugin.html" title=" " alt="" coords="487,56,613,83"/>
-<area shape="rect" id="node7" href="$class_fbc_reaction_plugin.html" title=" " alt="" coords="479,107,621,133"/>
-<area shape="rect" id="node8" href="$class_fbc_species_plugin.html" title=" " alt="" coords="483,157,617,184"/>
-<area shape="rect" id="node16" href="$class_multi_species_reference_plugin.html" title=" " alt="" coords="445,469,655,496"/>
-<area shape="rect" id="node23" href="$class_comp_s_b_m_l_document_plugin.html" title=" " alt="" coords="449,553,651,580"/>
-<area shape="rect" id="node24" href="$class_distrib_s_b_m_l_document_plugin.html" title=" " alt="" coords="446,604,654,631"/>
-<area shape="rect" id="node25" href="$class_fbc_s_b_m_l_document_plugin.html" title=" " alt="" coords="456,655,644,681"/>
-<area shape="rect" id="node26" href="$class_groups_s_b_m_l_document_plugin.html" title=" " alt="" coords="445,705,655,732"/>
-<area shape="rect" id="node27" href="$class_layout_s_b_m_l_document_plugin.html" title=" " alt="" coords="445,756,655,783"/>
-<area shape="rect" id="node28" href="$class_multi_s_b_m_l_document_plugin.html" title=" " alt="" coords="451,807,649,833"/>
-<area shape="rect" id="node29" href="$class_qual_s_b_m_l_document_plugin.html" title=" " alt="" coords="453,857,647,884"/>
-<area shape="rect" id="node30" href="$class_render_s_b_m_l_document_plugin.html" title=" " alt="" coords="445,908,655,935"/>
-<area shape="rect" id="node31" href="$class_s_b_m_l_document_plugin_not_required.html" title=" " alt="" coords="427,959,673,985"/>
-<area shape="rect" id="node32" href="$class_spatial_s_b_m_l_document_plugin.html" title=" " alt="" coords="445,1009,655,1036"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,487,108,512"/>
+<area shape="rect" id="Node000002" href="$class_comp_s_base_plugin.html" title=" " alt="" coords="197,5,337,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="57,473,67,377,85,247,98,182,113,122,132,73,154,40,174,26,196,18,198,23,176,31,158,44,137,76,119,124,103,183,90,248,72,377,63,473"/>
+<area shape="rect" id="Node000004" href="$class_distrib_s_base_plugin.html" title=" " alt="" coords="195,55,340,80"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="58,473,69,386,88,271,116,162,134,119,154,89,173,76,194,68,195,73,175,81,158,93,139,121,122,163,94,273,74,387,63,473"/>
+<area shape="rect" id="Node000005" href="$class_fbc_s_base_plugin.html" title=" " alt="" coords="205,104,330,129"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="59,473,71,396,92,296,120,201,136,164,154,139,177,124,204,116,205,121,180,129,158,143,141,167,125,203,97,297,77,397,64,474"/>
+<area shape="rect" id="Node000009" href="$class_groups_model_plugin.html" title=" " alt="" coords="193,153,341,179"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="55,473,60,414,74,337,86,296,103,257,126,220,154,188,172,176,192,168,194,173,175,181,158,192,130,223,108,259,91,298,79,338,65,414,61,473"/>
+<area shape="rect" id="Node000010" href="$class_layout_model_plugin.html" title=" " alt="" coords="194,203,341,228"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="57,472,65,422,81,358,109,293,130,263,154,237,173,225,193,218,195,223,175,230,158,241,134,267,114,296,86,360,70,423,63,473"/>
+<area shape="rect" id="Node000011" href="$class_layout_species_reference_plugin.html" title=" " alt="" coords="156,252,379,277"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="60,473,70,431,88,381,115,330,133,307,154,287,173,275,176,280,158,291,137,310,120,333,93,383,75,433,65,474"/>
+<area shape="rect" id="Node000012" href="$class_multi_compartment_plugin.html" title=" " alt="" coords="175,301,360,327"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="64,473,77,441,96,404,122,367,154,336,176,324,178,329,158,340,126,370,100,406,81,443,69,475"/>
+<area shape="rect" id="Node000013" href="$class_multi_list_of_reactions_plugin.html" title=" " alt="" coords="169,351,366,376"/>
+<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="70,474,105,428,128,405,155,385,180,374,182,378,157,390,132,409,109,431,75,477"/>
+<area shape="rect" id="Node000014" href="$class_multi_model_plugin.html" title=" " alt="" coords="200,400,335,425"/>
+<area shape="poly" id="edge13_Node000001_Node000014" title=" " alt="" coords="84,476,117,455,155,436,199,422,201,427,157,440,120,459,87,481"/>
+<area shape="rect" id="Node000015" href="$class_multi_simple_species_reference_plugin.html" title=" " alt="" coords="159,450,375,490"/>
+<area shape="poly" id="edge14_Node000001_Node000015" title=" " alt="" coords="121,488,159,482,159,488,122,493"/>
+<area shape="rect" id="Node000017" href="$class_multi_species_plugin.html" title=" " alt="" coords="195,515,340,540"/>
+<area shape="poly" id="edge16_Node000001_Node000017" title=" " alt="" coords="123,505,195,515,194,520,122,511"/>
+<area shape="rect" id="Node000018" href="$class_render_graphical_object_plugin.html" title=" " alt="" coords="161,564,373,589"/>
+<area shape="poly" id="edge17_Node000001_Node000018" title=" " alt="" coords="91,517,157,549,198,561,197,566,155,554,89,522"/>
+<area shape="rect" id="Node000019" href="$class_render_layout_plugin.html" title=" " alt="" coords="191,613,343,639"/>
+<area shape="poly" id="edge18_Node000001_Node000019" title=" " alt="" coords="77,521,111,562,133,582,157,598,192,612,190,617,155,603,130,586,107,565,73,525"/>
+<area shape="rect" id="Node000020" href="$class_render_list_of_layouts_plugin.html" title=" " alt="" coords="169,663,366,688"/>
+<area shape="poly" id="edge19_Node000001_Node000020" title=" " alt="" coords="70,523,102,587,127,620,158,648,182,660,179,665,154,652,123,624,98,590,65,526"/>
+<area shape="rect" id="Node000021" href="$class_s_b_m_l_document_plugin.html" title=" " alt="" coords="185,712,350,737"/>
+<area shape="poly" id="edge20_Node000001_Node000021" title=" " alt="" coords="66,525,76,564,95,611,121,658,138,679,158,697,186,712,183,717,154,701,134,683,117,661,90,613,71,565,61,526"/>
+<area shape="rect" id="Node000032" href="$class_spatial_compartment_plugin.html" title=" " alt="" coords="169,761,366,787"/>
+<area shape="poly" id="edge31_Node000001_Node000032" title=" " alt="" coords="63,525,71,573,87,633,115,695,135,723,158,747,177,759,174,764,154,751,130,726,111,698,82,635,66,575,58,526"/>
+<area shape="rect" id="Node000033" href="$class_spatial_model_plugin.html" title=" " alt="" coords="194,811,341,836"/>
+<area shape="poly" id="edge32_Node000001_Node000033" title=" " alt="" coords="61,526,66,583,81,656,93,694,110,732,131,766,158,796,175,808,195,815,193,820,172,812,154,800,127,769,105,734,88,696,76,657,61,583,56,526"/>
+<area shape="rect" id="Node000034" href="$class_spatial_parameter_plugin.html" title=" " alt="" coords="180,860,355,885"/>
+<area shape="poly" id="edge33_Node000001_Node000034" title=" " alt="" coords="60,525,62,590,74,677,86,723,104,768,127,809,158,845,181,860,178,865,154,849,123,812,99,770,81,725,69,678,56,591,54,526"/>
+<area shape="rect" id="Node000035" href="$class_spatial_reaction_plugin.html" title=" " alt="" coords="185,909,349,935"/>
+<area shape="poly" id="edge34_Node000001_Node000035" title=" " alt="" coords="64,525,75,609,94,721,122,827,139,868,158,895,186,912,184,917,154,899,135,870,117,828,89,722,70,610,58,526"/>
+<area shape="rect" id="Node000036" href="$class_spatial_species_plugin.html" title=" " alt="" coords="189,959,346,984"/>
+<area shape="poly" id="edge35_Node000001_Node000036" title=" " alt="" coords="63,526,72,620,91,746,104,810,119,867,137,914,158,946,172,956,189,964,187,968,170,961,154,949,132,917,114,869,98,811,86,747,67,620,57,526"/>
+<area shape="rect" id="Node000003" href="$class_comp_model_plugin.html" title=" " alt="" coords="480,5,620,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="351,15,480,15,480,21,351,21"/>
+<area shape="rect" id="Node000006" href="$class_fbc_model_plugin.html" title=" " alt="" coords="487,55,613,80"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="343,101,486,76,487,81,344,106"/>
+<area shape="rect" id="Node000007" href="$class_fbc_reaction_plugin.html" title=" " alt="" coords="479,104,621,129"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="344,114,478,114,478,119,344,119"/>
+<area shape="rect" id="Node000008" href="$class_fbc_species_plugin.html" title=" " alt="" coords="483,153,617,179"/>
+<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="344,127,483,152,482,157,343,133"/>
+<area shape="rect" id="Node000016" href="$class_multi_species_reference_plugin.html" title=" " alt="" coords="445,457,655,483"/>
+<area shape="poly" id="edge15_Node000015_Node000016" title=" " alt="" coords="390,467,444,467,444,473,390,473"/>
+<area shape="rect" id="Node000022" href="$class_comp_s_b_m_l_document_plugin.html" title=" " alt="" coords="449,511,651,536"/>
+<area shape="poly" id="edge21_Node000021_Node000022" title=" " alt="" coords="361,708,377,697,391,680,398,661,400,623,402,584,409,564,425,545,447,531,450,536,428,549,414,567,407,585,405,623,403,662,396,682,380,701,364,713"/>
+<area shape="rect" id="Node000023" href="$class_distrib_s_b_m_l_document_plugin.html" title=" " alt="" coords="446,560,654,585"/>
+<area shape="poly" id="edge22_Node000021_Node000023" title=" " alt="" coords="361,707,377,697,388,686,395,673,400,647,405,620,413,607,425,595,444,583,447,588,428,599,417,610,410,622,405,648,400,675,393,689,380,701,364,712"/>
+<area shape="rect" id="Node000024" href="$class_fbc_s_b_m_l_document_plugin.html" title=" " alt="" coords="456,609,644,635"/>
+<area shape="poly" id="edge23_Node000021_Node000024" title=" " alt="" coords="362,705,377,697,392,685,400,671,409,657,425,644,455,631,457,636,428,648,413,660,405,674,396,688,380,702,364,709"/>
+<area shape="rect" id="Node000025" href="$class_groups_s_b_m_l_document_plugin.html" title=" " alt="" coords="445,659,655,684"/>
+<area shape="poly" id="edge24_Node000021_Node000025" title=" " alt="" coords="348,707,481,681,482,687,349,712"/>
+<area shape="rect" id="Node000026" href="$class_layout_s_b_m_l_document_plugin.html" title=" " alt="" coords="445,708,655,733"/>
+<area shape="poly" id="edge25_Node000021_Node000026" title=" " alt="" coords="363,721,445,719,445,725,364,726"/>
+<area shape="rect" id="Node000027" href="$class_multi_s_b_m_l_document_plugin.html" title=" " alt="" coords="451,757,649,783"/>
+<area shape="poly" id="edge26_Node000021_Node000027" title=" " alt="" coords="361,737,471,755,470,760,360,742"/>
+<area shape="rect" id="Node000028" href="$class_qual_s_b_m_l_document_plugin.html" title=" " alt="" coords="453,807,647,832"/>
+<area shape="poly" id="edge27_Node000021_Node000028" title=" " alt="" coords="364,739,380,746,395,758,405,770,414,781,428,792,460,804,458,809,425,796,410,785,401,773,392,762,377,751,362,744"/>
+<area shape="rect" id="Node000029" href="$class_render_s_b_m_l_document_plugin.html" title=" " alt="" coords="445,856,655,881"/>
+<area shape="poly" id="edge28_Node000021_Node000029" title=" " alt="" coords="364,737,380,747,392,758,399,771,405,795,411,820,417,831,428,841,450,854,447,858,425,845,413,834,406,822,400,797,394,773,388,761,377,751,362,741"/>
+<area shape="rect" id="Node000030" href="$class_s_b_m_l_document_plugin_not_required.html" title=" " alt="" coords="427,905,673,931"/>
+<area shape="poly" id="edge29_Node000021_Node000030" title=" " alt="" coords="364,735,380,747,395,765,403,783,405,821,408,857,414,874,428,891,447,903,444,907,425,895,410,877,402,858,400,821,398,784,391,767,377,751,361,740"/>
+<area shape="rect" id="Node000031" href="$class_spatial_s_b_m_l_document_plugin.html" title=" " alt="" coords="445,955,655,980"/>
+<area shape="poly" id="edge30_Node000021_Node000031" title=" " alt="" coords="364,735,381,747,399,771,407,796,408,821,405,847,403,871,404,895,411,919,429,941,446,954,443,958,425,945,406,921,398,896,397,871,400,846,402,821,401,797,394,774,377,751,361,739"/>
 </map>

@@ -1,9 +1,9 @@
 var _ordinal_mapping_8cpp =
 [
-    [ "OrdinalMapping_clone", "_ordinal_mapping_8cpp.html#abc58920c3f2608d81a8eb7cf5123fa8c", null ],
-    [ "OrdinalMapping_create", "_ordinal_mapping_8cpp.html#a8905216b881b5a3274fcfb68496f4b67", null ],
+    [ "OrdinalMapping_clone", "_ordinal_mapping_8cpp.html#a548c72739a8d7dd9c4518fc706336d3f", null ],
+    [ "OrdinalMapping_create", "_ordinal_mapping_8cpp.html#a42f813b95a876442cb6c23235a3b7a7c", null ],
     [ "OrdinalMapping_free", "_ordinal_mapping_8cpp.html#ac240b05c8239e841b57b2d75d7909e56", null ],
-    [ "OrdinalMapping_getGeometryDefinition", "_ordinal_mapping_8cpp.html#a98663d7b08d34fefaa8051d5d06fe070", null ],
+    [ "OrdinalMapping_getGeometryDefinition", "_ordinal_mapping_8cpp.html#a4d04e01f143f3e123ea56e9e1d46adf6", null ],
     [ "OrdinalMapping_getOrdinal", "_ordinal_mapping_8cpp.html#a60d77ec35230d3e25f53276fddf3be91", null ],
     [ "OrdinalMapping_hasRequiredAttributes", "_ordinal_mapping_8cpp.html#af6ee8da76ee116c5bd750314dd06e9bd", null ],
     [ "OrdinalMapping_isSetGeometryDefinition", "_ordinal_mapping_8cpp.html#ab20dc334802ead60789234b44697d136", null ],

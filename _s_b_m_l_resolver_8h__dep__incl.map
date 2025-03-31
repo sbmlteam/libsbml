@@ -1,10 +1,20 @@
 <map id="SBMLResolver.h" name="SBMLResolver.h">
-<area shape="rect" id="node1" title="Definition of SBMLResolver, the base class for resolving SBML documents." alt="" coords="549,5,676,32"/>
-<area shape="rect" id="node2" href="$_s_b_m_l_file_resolver_8h.html" title="A file&#45;based resolver for SBML Documents." alt="" coords="482,80,631,107"/>
-<area shape="rect" id="node5" href="$_s_b_m_l_resolver_registry_8cpp.html" title="Implementation of SBMLResolverRegistry, a registry of available resolvers." alt="" coords="501,155,695,181"/>
-<area shape="rect" id="node6" href="$_s_b_m_l_resolver_8cpp.html" title="Implementation of SBMLResolver, the base class of package extensions." alt="" coords="706,80,847,107"/>
-<area shape="rect" id="node7" href="$_s_b_m_l_resolver_registry_8h.html" title="Definition of SBMLResolverRegistry, a registry of available resolvers." alt="" coords="279,80,458,107"/>
-<area shape="rect" id="node3" href="$_comp_flattening_converter_8cpp.html" title="Implementation of a first flattening converter." alt="" coords="261,155,477,181"/>
-<area shape="rect" id="node4" href="$_s_b_m_l_file_resolver_8cpp.html" title="Implementation of SBMLFileResolver, the file system based resolver for SBML Documents." alt="" coords="720,155,884,181"/>
-<area shape="rect" id="node8" href="$_comp_s_b_m_l_document_plugin_8cpp.html" title="Implementation of CompSBMLDocumentPlugin, the plugin class of comp package for the SBase element." alt="" coords="5,155,236,181"/>
+<area shape="rect" id="Node000001" title="Definition of SBMLResolver, the base class for resolving SBML documents." alt="" coords="549,5,676,31"/>
+<area shape="rect" id="Node000002" href="$_s_b_m_l_file_resolver_8h.html" title="A file&#45;based resolver for SBML Documents." alt="" coords="482,79,631,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="597,43,568,80,564,77,593,40"/>
+<area shape="rect" id="Node000005" href="$_s_b_m_l_resolver_registry_8cpp.html" title="Implementation of SBMLResolverRegistry, a registry of available resolvers." alt="" coords="501,152,695,177"/>
+<area shape="poly" id="edge6_Node000001_Node000005" title=" " alt="" coords="632,41,646,71,648,88,646,105,631,132,613,153,609,150,627,129,641,103,643,88,641,72,627,43"/>
+<area shape="rect" id="Node000006" href="$_s_b_m_l_resolver_8cpp.html" title="Implementation of SBMLResolver, the base class of package extensions." alt="" coords="706,79,847,104"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="653,34,751,76,749,81,651,39"/>
+<area shape="rect" id="Node000007" href="$_s_b_m_l_resolver_registry_8h.html" title="Definition of SBMLResolverRegistry, a registry of available resolvers." alt="" coords="279,79,458,104"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="561,37,409,81,407,76,560,32"/>
+<area shape="rect" id="Node000003" href="$_comp_flattening_converter_8cpp.html" title="Implementation of a first flattening converter." alt="" coords="261,152,477,177"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="515,111,400,154,398,149,513,106"/>
+<area shape="rect" id="Node000004" href="$_s_b_m_l_file_resolver_8cpp.html" title="Implementation of SBMLFileResolver, the file system based resolver for SBML Documents." alt="" coords="720,152,884,177"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="610,105,763,149,762,154,608,110"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="573,115,594,151,589,153,568,117"/>
+<area shape="poly" id="edge8_Node000007_Node000003" title=" " alt="" coords="371,118,371,152,366,152,366,118"/>
+<area shape="poly" id="edge10_Node000007_Node000005" title=" " alt="" coords="420,106,562,149,560,154,418,111"/>
+<area shape="rect" id="Node000008" href="$_comp_s_b_m_l_document_plugin_8cpp.html" title="Implementation of CompSBMLDocumentPlugin, the plugin class of comp package for the SBase element." alt="" coords="5,152,236,177"/>
+<area shape="poly" id="edge9_Node000007_Node000008" title=" " alt="" coords="316,110,162,154,160,149,315,105"/>
 </map>

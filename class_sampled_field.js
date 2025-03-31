@@ -173,7 +173,7 @@ var class_sampled_field =
     [ "setSBOTerm", "class_sampled_field.html#a37287e48bd51353012b74e4d200bb446", null ],
     [ "setUserData", "class_sampled_field.html#ac3b1bbfe22bad0dbc577b61c529f37bb", null ],
     [ "toSBML", "class_sampled_field.html#ae8317d5157b70e4f1bc68e33e5c84001", null ],
-    [ "toXMLNode", "class_sampled_field.html#a5c949d524aca47b84b18b57b76e6ee0a", null ],
+    [ "toXMLNode", "class_sampled_field.html#a616754bfc4592922a488f2159f96b3ce", null ],
     [ "uncompress", "class_sampled_field.html#a82093ed8682a301b278afa81c0cdf358", null ],
     [ "unsetAnnotation", "class_sampled_field.html#a9121d6a4f7401fe957cc75647a1e95ed", null ],
     [ "unsetCompression", "class_sampled_field.html#a4b528bd5edced2887ae81230f055305b", null ],

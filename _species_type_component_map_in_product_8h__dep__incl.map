@@ -1,9 +1,16 @@
 <map id="SpeciesTypeComponentMapInProduct.h" name="SpeciesTypeComponentMapInProduct.h">
-<area shape="rect" id="node1" title=": Implementation of the SpeciesTypeComponentMapInProduct class" alt="" coords="153,5,370,47"/>
-<area shape="rect" id="node2" href="$_multi_extension_types_8h.html" title=": Implementation of the MultiExtensionTypes class" alt="" coords="5,184,173,211"/>
-<area shape="rect" id="node4" href="$_multi_species_reference_plugin_8h.html" title=": Implementation of the MultiSpeciesReferencePlugin class" alt="" coords="150,102,373,129"/>
-<area shape="rect" id="node7" href="$_species_type_component_map_in_product_8cpp.html" title=": Implementation of the SpeciesTypeComponentMapInProduct class" alt="" coords="397,95,614,136"/>
-<area shape="rect" id="node3" href="$_multi_validator_8cpp.html" title=": Implementation of the MultiValidator class" alt="" coords="20,259,159,285"/>
-<area shape="rect" id="node5" href="$_multi_extension_8cpp.html" title=": Implementation of the MultiExtension class" alt="" coords="197,184,344,211"/>
-<area shape="rect" id="node6" href="$_multi_species_reference_plugin_8cpp.html" title=": Implementation of the MultiSpeciesReferencePlugin class" alt="" coords="369,184,607,211"/>
+<area shape="rect" id="Node000001" title=": Implementation of the SpeciesTypeComponentMapInProduct class" alt="" coords="153,5,370,45"/>
+<area shape="rect" id="Node000002" href="$_multi_extension_types_8h.html" title=": Implementation of the MultiExtensionTypes class" alt="" coords="5,181,173,207"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="200,54,169,72,141,95,124,117,111,140,95,182,90,180,106,138,120,114,137,91,166,67,198,49"/>
+<area shape="rect" id="Node000004" href="$_multi_species_reference_plugin_8h.html" title=": Implementation of the MultiSpeciesReferencePlugin class" alt="" coords="150,101,373,126"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="264,59,264,100,259,100,259,59"/>
+<area shape="rect" id="Node000007" href="$_species_type_component_map_in_product_8cpp.html" title=": Implementation of the SpeciesTypeComponentMapInProduct class" alt="" coords="397,93,614,133"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="329,47,453,91,451,96,327,52"/>
+<area shape="rect" id="Node000003" href="$_multi_validator_8cpp.html" title=": Implementation of the MultiValidator class" alt="" coords="20,255,159,280"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="92,220,92,255,87,255,87,220"/>
+<area shape="poly" id="edge5_Node000004_Node000002" title=" " alt="" coords="225,134,115,184,113,179,223,129"/>
+<area shape="rect" id="Node000005" href="$_multi_extension_8cpp.html" title=": Implementation of the MultiExtension class" alt="" coords="197,181,344,207"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="267,139,272,181,267,181,262,140"/>
+<area shape="rect" id="Node000006" href="$_multi_species_reference_plugin_8cpp.html" title=": Implementation of the MultiSpeciesReferencePlugin class" alt="" coords="369,181,607,207"/>
+<area shape="poly" id="edge6_Node000004_Node000006" title=" " alt="" coords="308,128,456,179,454,184,306,133"/>
 </map>

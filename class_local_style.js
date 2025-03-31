@@ -156,7 +156,7 @@ var class_local_style =
     [ "setUserData", "class_local_style.html#ac3b1bbfe22bad0dbc577b61c529f37bb", null ],
     [ "toSBML", "class_local_style.html#ae8317d5157b70e4f1bc68e33e5c84001", null ],
     [ "toXML", "class_local_style.html#a5f3cdbca1ac678bb185e2c31aebf152d", null ],
-    [ "toXMLNode", "class_local_style.html#a5c949d524aca47b84b18b57b76e6ee0a", null ],
+    [ "toXMLNode", "class_local_style.html#a616754bfc4592922a488f2159f96b3ce", null ],
     [ "unsetAnnotation", "class_local_style.html#a9121d6a4f7401fe957cc75647a1e95ed", null ],
     [ "unsetCreatedDate", "class_local_style.html#ad3be0bf5891c2b6bf4340cce12b8630f", null ],
     [ "unsetCVTerms", "class_local_style.html#a1e89a7890f2fb291f1ba4c38866d1dcc", null ],

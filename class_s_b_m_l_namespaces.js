@@ -14,7 +14,7 @@ var class_s_b_m_l_namespaces =
     [ "getLevel", "class_s_b_m_l_namespaces.html#af15af1a3a61a20c5daae7251f90ae2cf", null ],
     [ "getNamespaces", "class_s_b_m_l_namespaces.html#a4c396de9a5ab7b9c8d5f62e74ed510e9", null ],
     [ "getNamespaces", "class_s_b_m_l_namespaces.html#a2cf5a89bab8994942cec432c55c05ce5", null ],
-    [ "getPackageName", "class_s_b_m_l_namespaces.html#aa2241dbfd254b8ed68923f505bc9db4e", null ],
+    [ "getPackageName", "class_s_b_m_l_namespaces.html#aee026e321e955bd08b69b0c17d436bac", null ],
     [ "getSBMLNamespaceURI", "class_s_b_m_l_namespaces.html#aee2cebbe9a1f5f6453b64918e649eda4", null ],
     [ "getSupportedNamespaces", "class_s_b_m_l_namespaces.html#ace0d7eba913a23b34e01f9d9c3430858", null ],
     [ "getURI", "class_s_b_m_l_namespaces.html#acb09751fbe725dd1e3d4eaaf48c5a2a3", null ],

@@ -145,7 +145,7 @@ var class_cubic_bezier =
     [ "straighten", "class_cubic_bezier.html#a1a70a64ca170fa3d784337856c1b331e", null ],
     [ "toSBML", "class_cubic_bezier.html#ae8317d5157b70e4f1bc68e33e5c84001", null ],
     [ "toXML", "class_cubic_bezier.html#a0821e71025bb072e058e5bceeb5c3911", null ],
-    [ "toXMLNode", "class_cubic_bezier.html#a5c949d524aca47b84b18b57b76e6ee0a", null ],
+    [ "toXMLNode", "class_cubic_bezier.html#a616754bfc4592922a488f2159f96b3ce", null ],
     [ "unsetAnnotation", "class_cubic_bezier.html#a9121d6a4f7401fe957cc75647a1e95ed", null ],
     [ "unsetCreatedDate", "class_cubic_bezier.html#ad3be0bf5891c2b6bf4340cce12b8630f", null ],
     [ "unsetCVTerms", "class_cubic_bezier.html#a1e89a7890f2fb291f1ba4c38866d1dcc", null ],

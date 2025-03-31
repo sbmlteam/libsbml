@@ -161,7 +161,7 @@ var class_species =
     [ "setUnits", "class_species.html#a04c4f43414e4e51b53a758ac5e5a9357", null ],
     [ "setUserData", "class_species.html#ac3b1bbfe22bad0dbc577b61c529f37bb", null ],
     [ "toSBML", "class_species.html#ae8317d5157b70e4f1bc68e33e5c84001", null ],
-    [ "toXMLNode", "class_species.html#a5c949d524aca47b84b18b57b76e6ee0a", null ],
+    [ "toXMLNode", "class_species.html#a616754bfc4592922a488f2159f96b3ce", null ],
     [ "unsetAnnotation", "class_species.html#a9121d6a4f7401fe957cc75647a1e95ed", null ],
     [ "unsetBoundaryCondition", "class_species.html#a620653e78ae0fcd9ed2e1cfa1e4052b1", null ],
     [ "unsetCharge", "class_species.html#a40a8853e4205542795067e04d2707bcf", null ],

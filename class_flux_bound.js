@@ -132,7 +132,7 @@ var class_flux_bound =
     [ "setUserData", "class_flux_bound.html#ac3b1bbfe22bad0dbc577b61c529f37bb", null ],
     [ "setValue", "class_flux_bound.html#a975b669f3cf0da6e28babd3dd59fb885", null ],
     [ "toSBML", "class_flux_bound.html#ae8317d5157b70e4f1bc68e33e5c84001", null ],
-    [ "toXMLNode", "class_flux_bound.html#a5c949d524aca47b84b18b57b76e6ee0a", null ],
+    [ "toXMLNode", "class_flux_bound.html#a616754bfc4592922a488f2159f96b3ce", null ],
     [ "unsetAnnotation", "class_flux_bound.html#a9121d6a4f7401fe957cc75647a1e95ed", null ],
     [ "unsetCreatedDate", "class_flux_bound.html#ad3be0bf5891c2b6bf4340cce12b8630f", null ],
     [ "unsetCVTerms", "class_flux_bound.html#a1e89a7890f2fb291f1ba4c38866d1dcc", null ],

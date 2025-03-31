@@ -1,12 +1,12 @@
 var _uncert_span_8cpp =
 [
-    [ "UncertSpan_clone", "_uncert_span_8cpp.html#ac7100a1d7614e698660bd3504b044611", null ],
-    [ "UncertSpan_create", "_uncert_span_8cpp.html#ab81b53e4a62005b7d8e9a21a65cbf023", null ],
+    [ "UncertSpan_clone", "_uncert_span_8cpp.html#a1fc5d18753f4b92b8b3396ae0cd02fef", null ],
+    [ "UncertSpan_create", "_uncert_span_8cpp.html#ab71f385657dc578380e4ba2a83250866", null ],
     [ "UncertSpan_free", "_uncert_span_8cpp.html#ae538688dac56d5f5bcae7ca88a8ba8fe", null ],
     [ "UncertSpan_getValueLower", "_uncert_span_8cpp.html#a596c6adb15dd89440b13a1ad7c2f68f8", null ],
     [ "UncertSpan_getValueUpper", "_uncert_span_8cpp.html#aa7ccdc7d7ae40453ba43c243ec94157d", null ],
-    [ "UncertSpan_getVarLower", "_uncert_span_8cpp.html#a3717c1d41f782331aa74b10de5c857d8", null ],
-    [ "UncertSpan_getVarUpper", "_uncert_span_8cpp.html#ad70d82bfbffbb4065e5b96d23debe331", null ],
+    [ "UncertSpan_getVarLower", "_uncert_span_8cpp.html#ab7fa74f9164cfcaaeef59c14c84de3eb", null ],
+    [ "UncertSpan_getVarUpper", "_uncert_span_8cpp.html#a23b8a67f3b5eeae17612be5a09a3e923", null ],
     [ "UncertSpan_hasRequiredAttributes", "_uncert_span_8cpp.html#a406f64a4ab772d32e96575ec4726f557", null ],
     [ "UncertSpan_isSetValueLower", "_uncert_span_8cpp.html#af2c893f825a40663695aeb05e634fd97", null ],
     [ "UncertSpan_isSetValueUpper", "_uncert_span_8cpp.html#a684821872ca5af34bec36bd374ed3d22", null ],

@@ -227,7 +227,7 @@ var class_default_values =
     [ "setVTextAnchor", "class_default_values.html#a69689f4cbc4e92c622386ae5a958466d", null ],
     [ "setVTextAnchor", "class_default_values.html#a348fd2d37e5000cbbf3d017b278e95da", null ],
     [ "toSBML", "class_default_values.html#ae8317d5157b70e4f1bc68e33e5c84001", null ],
-    [ "toXMLNode", "class_default_values.html#a5c949d524aca47b84b18b57b76e6ee0a", null ],
+    [ "toXMLNode", "class_default_values.html#a616754bfc4592922a488f2159f96b3ce", null ],
     [ "unsetAnnotation", "class_default_values.html#a9121d6a4f7401fe957cc75647a1e95ed", null ],
     [ "unsetBackgroundColor", "class_default_values.html#a9850b9b80d797ce7f4179190ea08ea2f", null ],
     [ "unsetCreatedDate", "class_default_values.html#ad3be0bf5891c2b6bf4340cce12b8630f", null ],

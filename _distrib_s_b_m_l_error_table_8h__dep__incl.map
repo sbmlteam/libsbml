@@ -1,4 +1,5 @@
 <map id="DistribSBMLErrorTable.h" name="DistribSBMLErrorTable.h">
-<area shape="rect" id="node1" title="Definition of the DistribSBMLErrorTable class." alt="" coords="5,5,184,32"/>
-<area shape="rect" id="node2" href="$_distrib_extension_8cpp.html" title="Implementation of DistribExtension." alt="" coords="17,80,173,107"/>
+<area shape="rect" id="Node000001" title="Definition of the DistribSBMLErrorTable class." alt="" coords="5,5,184,31"/>
+<area shape="rect" id="Node000002" href="$_distrib_extension_8cpp.html" title="Implementation of DistribExtension." alt="" coords="17,79,173,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="97,44,97,79,92,79,92,44"/>
 </map>

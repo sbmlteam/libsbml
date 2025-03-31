@@ -149,7 +149,7 @@ var class_parametric_geometry =
     [ "setSpatialPoints", "class_parametric_geometry.html#ac336d9a8cf3d64c398a0d9ef5c2fc26a", null ],
     [ "setUserData", "class_parametric_geometry.html#ac3b1bbfe22bad0dbc577b61c529f37bb", null ],
     [ "toSBML", "class_parametric_geometry.html#ae8317d5157b70e4f1bc68e33e5c84001", null ],
-    [ "toXMLNode", "class_parametric_geometry.html#a5c949d524aca47b84b18b57b76e6ee0a", null ],
+    [ "toXMLNode", "class_parametric_geometry.html#a616754bfc4592922a488f2159f96b3ce", null ],
     [ "unsetAnnotation", "class_parametric_geometry.html#a9121d6a4f7401fe957cc75647a1e95ed", null ],
     [ "unsetCreatedDate", "class_parametric_geometry.html#ad3be0bf5891c2b6bf4340cce12b8630f", null ],
     [ "unsetCVTerms", "class_parametric_geometry.html#a1e89a7890f2fb291f1ba4c38866d1dcc", null ],

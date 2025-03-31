@@ -169,7 +169,7 @@ var class_uncert_span =
     [ "setVarLower", "class_uncert_span.html#a6250154e28f1992bf9cfecf88683f975", null ],
     [ "setVarUpper", "class_uncert_span.html#adc3385d808ad64145bddb1ab84de0a71", null ],
     [ "toSBML", "class_uncert_span.html#ae8317d5157b70e4f1bc68e33e5c84001", null ],
-    [ "toXMLNode", "class_uncert_span.html#a5c949d524aca47b84b18b57b76e6ee0a", null ],
+    [ "toXMLNode", "class_uncert_span.html#a616754bfc4592922a488f2159f96b3ce", null ],
     [ "unsetAnnotation", "class_uncert_span.html#a9121d6a4f7401fe957cc75647a1e95ed", null ],
     [ "unsetCreatedDate", "class_uncert_span.html#ad3be0bf5891c2b6bf4340cce12b8630f", null ],
     [ "unsetCVTerms", "class_uncert_span.html#a1e89a7890f2fb291f1ba4c38866d1dcc", null ],

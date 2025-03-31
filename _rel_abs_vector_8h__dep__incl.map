@@ -1,77 +1,282 @@
 <map id="RelAbsVector.h" name="RelAbsVector.h">
-<area shape="rect" id="node1" title="Definition of the RelAbsVector class." alt="" coords="3709,5,3827,32"/>
-<area shape="rect" id="node2" href="$_render_extension_types_8h.html" title="Definition of RenderExtensionTypes." alt="" coords="2007,677,2188,704"/>
-<area shape="rect" id="node9" href="$_default_values_8h.html" title="Definition of the DefaultValues class." alt="" coords="523,379,648,405"/>
-<area shape="rect" id="node22" href="$_ellipse_8h.html" title="Definition of the Ellipse class." alt="" coords="4105,304,4183,331"/>
-<area shape="rect" id="node30" href="$_gradient_stop_8h.html" title="class for representing a stop in a gradient definition" alt="" coords="1459,80,1578,107"/>
-<area shape="rect" id="node33" href="$_linear_gradient_8h.html" title="Definition of the LinearGradient class." alt="" coords="963,304,1093,331"/>
-<area shape="rect" id="node39" href="$_radial_gradient_8h.html" title="Definition of the RadialGradient class." alt="" coords="1453,304,1584,331"/>
-<area shape="rect" id="node44" href="$_image_8h.html" title="Definition of the Image class." alt="" coords="4613,304,4688,331"/>
-<area shape="rect" id="node46" href="$_rectangle_8h.html" title="Definition of the Rectangle class." alt="" coords="3679,304,3777,331"/>
-<area shape="rect" id="node48" href="$_rel_abs_vector_8cpp.html" title="class for representing coordinates that can have a relative and an absolute part" alt="" coords="5183,80,5318,107"/>
-<area shape="rect" id="node49" href="$_render_cubic_bezier_8h.html" title="Definition of the RenderCubicBezier class." alt="" coords="5305,155,5461,181"/>
-<area shape="rect" id="node58" href="$_render_group_8h.html" title="Definition of the RenderGroup class." alt="" coords="3535,155,3654,181"/>
-<area shape="rect" id="node73" href="$_render_point_8h.html" title="Definition of the RenderPoint class." alt="" coords="4994,80,5107,107"/>
-<area shape="rect" id="node74" href="$_text_8h.html" title="Definition of the Text class." alt="" coords="3737,80,3799,107"/>
-<area shape="rect" id="node3" href="$_render_layout_plugin_8cpp.html" title="Implementation of RenderLayoutPlugin, the plugin class of the fbc package for the Model element." alt="" coords="1420,827,1599,853"/>
-<area shape="rect" id="node4" href="$_render_layout_converter_8cpp.html" title="Simple converter to convert Layout + Render from l2 to L3 and vice versa." alt="" coords="1927,752,2129,779"/>
-<area shape="rect" id="node5" href="$_render_utilities_8cpp.html" title="implementation of RenderUtilities, a class of utility functions for the render package" alt="" coords="1215,827,1361,853"/>
-<area shape="rect" id="node6" href="$_render_utilities_8h.html" title="Definition of RenderUtilities, a class of utility functions for the render package." alt="" coords="1291,752,1421,779"/>
-<area shape="rect" id="node8" href="$_render_validator_8cpp.html" title="Definition of RenderValidator." alt="" coords="1751,752,1903,779"/>
-<area shape="rect" id="node7" href="$_render_list_of_layouts_plugin_8cpp.html" title="Implementation of RenderListOfLayoutsPlugin, the plugin class of the fbc package for the Model elemen..." alt="" coords="253,827,477,853"/>
-<area shape="rect" id="node10" href="$_default_values_8cpp.html" title="Implementation of the DefaultValues class." alt="" coords="574,453,714,480"/>
-<area shape="rect" id="node11" href="$_list_of_global_render_information_8h.html" title="Definition of the ListOfGlobalRenderInformation class." alt="" coords="263,453,499,480"/>
-<area shape="rect" id="node18" href="$_list_of_local_render_information_8h.html" title="Definition of the ListOfLocalRenderInformation class." alt="" coords="1563,528,1791,555"/>
-<area shape="rect" id="node12" href="$_render_list_of_layouts_plugin_8h.html" title="Definition of RenderListOfLayoutsPlugin, the plugin class of fbc package for the Model element." alt="" coords="355,603,565,629"/>
-<area shape="rect" id="node14" href="$_global_render_information_8cpp.html" title="class for the storage of global render information" alt="" coords="67,603,280,629"/>
-<area shape="rect" id="node15" href="$_global_render_information_8h.html" title="Definition of the GlobalRenderInformation class." alt="" coords="418,528,617,555"/>
-<area shape="rect" id="node17" href="$_list_of_global_render_information_8cpp.html" title="Implementation of the ListOfGlobalRenderInformation class." alt="" coords="93,528,344,555"/>
-<area shape="rect" id="node13" href="$_render_extension_8cpp.html" title="Implementation of RenderExtension, the core module of the render package." alt="" coords="918,677,1077,704"/>
-<area shape="rect" id="node16" href="$_render_information_base_8cpp.html" title="Implementation of the RenderInformationBase class." alt="" coords="944,603,1147,629"/>
-<area shape="rect" id="node19" href="$_render_layout_plugin_8h.html" title="Definition of RenderLayoutPlugin, the plugin class of fbc package for the Model element." alt="" coords="1171,603,1335,629"/>
-<area shape="rect" id="node20" href="$_list_of_local_render_information_8cpp.html" title="Implementation of the ListOfLocalRenderInformation class." alt="" coords="1461,603,1704,629"/>
-<area shape="rect" id="node21" href="$_local_render_information_8cpp.html" title="Implementation of the LocalRenderInformation class." alt="" coords="1779,603,1984,629"/>
-<area shape="rect" id="node23" href="$_ellipse_8cpp.html" title="Implementation of the Ellipse class." alt="" coords="4309,379,4401,405"/>
-<area shape="rect" id="node24" href="$_graphical_primitive1_d_8cpp.html" title="abstract base class for graphical 1D objects" alt="" coords="3485,379,3673,405"/>
-<area shape="rect" id="node25" href="$_graphical_primitive2_d_8cpp.html" title="Implementation of the GraphicalPrimitive2D class." alt="" coords="3273,379,3461,405"/>
-<area shape="rect" id="node26" href="$_list_of_drawables_8cpp.html" title="Implementation of the ListOfDrawables class." alt="" coords="4077,379,4233,405"/>
-<area shape="rect" id="node27" href="$_render_group_8cpp.html" title="Implementation of the RenderGroup class." alt="" coords="4698,379,4833,405"/>
-<area shape="rect" id="node28" href="$_transformation_8cpp.html" title="class representing a 3D affine transformation" alt="" coords="4476,379,4623,405"/>
-<area shape="rect" id="node29" href="$_transformation2_d_8cpp.html" title="class representing a 2D affine transformation" alt="" coords="3887,379,4052,405"/>
-<area shape="rect" id="node31" href="$_gradient_base_8h.html" title="abstract base class for gradient definitions" alt="" coords="1457,229,1580,256"/>
-<area shape="rect" id="node41" href="$_gradient_stop_8cpp.html" title="class representing a stop in a gradient definition" alt="" coords="1045,229,1179,256"/>
-<area shape="rect" id="node42" href="$_list_of_gradient_stops_8h.html" title="Definition of the ListOfGradientStops class." alt="" coords="1263,155,1427,181"/>
-<area shape="rect" id="node32" href="$_gradient_base_8cpp.html" title="abstract base class for gradient objects" alt="" coords="995,379,1133,405"/>
-<area shape="rect" id="node36" href="$_render_information_base_8h.html" title="Definition of the RenderInformationBase class." alt="" coords="1617,379,1805,405"/>
-<area shape="rect" id="node38" href="$_list_of_gradient_definitions_8h.html" title="Definition of the ListOfGradientDefinitions class." alt="" coords="1198,304,1397,331"/>
-<area shape="rect" id="node34" href="$_linear_gradient_8cpp.html" title="Implementation of the LinearGradient class." alt="" coords="723,379,869,405"/>
-<area shape="rect" id="node35" href="$_list_of_gradient_definitions_8cpp.html" title="Implementation of the ListOfGradientDefinitions class." alt="" coords="1157,379,1371,405"/>
-<area shape="rect" id="node37" href="$_local_render_information_8h.html" title="Definition of the LocalRenderInformation class." alt="" coords="1615,453,1806,480"/>
-<area shape="rect" id="node40" href="$_radial_gradient_8cpp.html" title="Implementation of the RadialGradient class." alt="" coords="1445,379,1592,405"/>
-<area shape="rect" id="node43" href="$_list_of_gradient_stops_8cpp.html" title="Implementation of the ListOfGradientStops class." alt="" coords="1204,229,1383,256"/>
-<area shape="rect" id="node45" href="$_image_8cpp.html" title="Implementation of the Image class." alt="" coords="4908,379,4999,405"/>
-<area shape="rect" id="node47" href="$_rectangle_8cpp.html" title="Implementation of the Rectangle class." alt="" coords="3748,379,3863,405"/>
-<area shape="rect" id="node50" href="$_list_of_curve_elements_8cpp.html" title="storage class for curve elements" alt="" coords="5000,304,5187,331"/>
-<area shape="rect" id="node51" href="$_list_of_curve_elements_8h.html" title="Definition of the ListOfCurveElements class." alt="" coords="4965,229,5136,256"/>
-<area shape="rect" id="node53" href="$_polygon_8cpp.html" title="Implementation of the Polygon class." alt="" coords="5073,379,5175,405"/>
-<area shape="rect" id="node55" href="$_render_curve_8cpp.html" title="Implementation of the RenderCurve class." alt="" coords="5501,379,5635,405"/>
-<area shape="rect" id="node56" href="$_render_point_8cpp.html" title="Implementation of the RenderPoint class." alt="" coords="5211,304,5339,331"/>
-<area shape="rect" id="node57" href="$_render_cubic_bezier_8cpp.html" title="Implementation of the RenderCubicBezier class." alt="" coords="5413,229,5584,256"/>
-<area shape="rect" id="node52" href="$_polygon_8h.html" title="class representing a polygon" alt="" coords="4207,304,4294,331"/>
-<area shape="rect" id="node54" href="$_render_curve_8h.html" title="Definition of the RenderCurve class." alt="" coords="4471,304,4590,331"/>
-<area shape="rect" id="node59" href="$_line_ending_8h.html" title="class representing line endings, e.g." alt="" coords="3447,229,3553,256"/>
-<area shape="rect" id="node63" href="$_style_8h.html" title="Definition of the Style class." alt="" coords="2393,229,2460,256"/>
-<area shape="rect" id="node60" href="$_line_ending_8cpp.html" title="class representing line endings,e.g." alt="" coords="2888,379,3008,405"/>
-<area shape="rect" id="node61" href="$_list_of_line_endings_8h.html" title="Definition of the ListOfLineEndings class." alt="" coords="3351,304,3502,331"/>
-<area shape="rect" id="node62" href="$_list_of_line_endings_8cpp.html" title="Implementation of the ListOfLineEndings class." alt="" coords="3083,379,3248,405"/>
-<area shape="rect" id="node64" href="$_global_style_8h.html" title="Definition of the GlobalStyle class." alt="" coords="2207,304,2316,331"/>
-<area shape="rect" id="node68" href="$_style_8cpp.html" title="Implementation of the Style class." alt="" coords="2427,453,2509,480"/>
-<area shape="rect" id="node69" href="$_local_style_8h.html" title="Definition of the LocalStyle class." alt="" coords="2471,304,2572,331"/>
-<area shape="rect" id="node65" href="$_global_style_8cpp.html" title="Implementation of the GlobalStyle class." alt="" coords="2034,453,2158,480"/>
-<area shape="rect" id="node66" href="$_list_of_global_styles_8h.html" title="Definition of the ListOfGlobalStyles class." alt="" coords="2184,379,2339,405"/>
-<area shape="rect" id="node67" href="$_list_of_global_styles_8cpp.html" title="Implementation of the ListOfGlobalStyles class." alt="" coords="2182,453,2351,480"/>
-<area shape="rect" id="node70" href="$_list_of_local_styles_8h.html" title="Definition of the ListOfLocalStyles class." alt="" coords="2565,379,2712,405"/>
-<area shape="rect" id="node72" href="$_local_style_8cpp.html" title="class for representing a local style" alt="" coords="2821,453,2937,480"/>
-<area shape="rect" id="node71" href="$_list_of_local_styles_8cpp.html" title="Implementation of the ListOfLocalStyles class." alt="" coords="2635,453,2797,480"/>
-<area shape="rect" id="node75" href="$_text_8cpp.html" title="Implementation of the Text class." alt="" coords="3730,155,3806,181"/>
+<area shape="rect" id="Node000001" title="Definition of the RelAbsVector class." alt="" coords="3951,5,4070,31"/>
+<area shape="rect" id="Node000002" href="$_default_values_8h.html" title="Definition of the DefaultValues class." alt="" coords="707,372,832,397"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="3937,22,3306,22,2330,28,1828,35,1379,45,1028,61,905,70,823,81,720,98,677,106,637,116,601,130,568,152,537,184,508,227,501,242,499,255,505,280,524,302,554,322,590,338,630,352,707,370,706,376,628,357,588,343,551,326,521,306,500,283,493,255,496,240,503,224,533,180,565,148,599,126,636,111,676,101,719,93,822,76,904,65,1028,55,1379,40,1828,29,2330,22,3306,16,3937,16"/>
+<area shape="rect" id="Node000007" href="$_render_extension_types_8h.html" title="Definition of RenderExtensionTypes." alt="" coords="1931,665,2112,691"/>
+<area shape="poly" id="edge134_Node000001_Node000007" title=" " alt="" coords="3937,23,3335,37,2892,51,2413,71,1942,98,1524,132,1348,153,1202,175,1091,200,1051,214,1021,228,995,245,973,265,939,311,919,362,912,416,919,470,939,523,972,572,1018,615,1037,624,1067,633,1157,647,1276,657,1413,665,1699,673,1930,674,1930,680,1699,678,1412,670,1275,663,1156,652,1066,638,1035,629,1014,620,968,576,934,526,914,472,907,416,914,360,934,308,969,262,992,241,1019,223,1049,209,1090,195,1201,170,1348,147,1523,127,1942,92,2412,65,2891,45,3334,31,3937,18"/>
+<area shape="rect" id="Node000022" href="$_ellipse_8h.html" title="Definition of the Ellipse class." alt="" coords="4132,299,4209,324"/>
+<area shape="poly" id="edge39_Node000001_Node000022" title=" " alt="" coords="4026,41,4167,297,4162,300,4021,44"/>
+<area shape="rect" id="Node000030" href="$_gradient_stop_8h.html" title="class for representing a stop in a gradient definition" alt="" coords="834,79,953,104"/>
+<area shape="poly" id="edge48_Node000001_Node000030" title=" " alt="" coords="3937,22,3389,26,2531,35,1636,53,1260,65,976,81,953,84,953,78,976,76,1259,60,1636,47,2531,29,3389,20,3937,17"/>
+<area shape="rect" id="Node000033" href="$_linear_gradient_8h.html" title="Definition of the LinearGradient class." alt="" coords="1127,299,1257,324"/>
+<area shape="poly" id="edge95_Node000001_Node000033" title=" " alt="" coords="3938,28,3360,81,2096,213,1258,305,1257,300,2096,208,3360,76,3937,23"/>
+<area shape="rect" id="Node000039" href="$_radial_gradient_8h.html" title="Definition of the RadialGradient class." alt="" coords="1716,299,1847,324"/>
+<area shape="poly" id="edge96_Node000001_Node000039" title=" " alt="" coords="3938,32,1847,304,1847,299,3937,26"/>
+<area shape="rect" id="Node000044" href="$_image_8h.html" title="Definition of the Image class." alt="" coords="4895,299,4969,324"/>
+<area shape="poly" id="edge88_Node000001_Node000044" title=" " alt="" coords="4084,18,4212,26,4379,47,4470,64,4562,86,4653,114,4740,150,4799,184,4853,226,4924,297,4920,300,4849,230,4796,189,4737,154,4651,119,4560,91,4468,69,4378,52,4211,32,4083,23"/>
+<area shape="rect" id="Node000046" href="$_rectangle_8h.html" title="Definition of the Rectangle class." alt="" coords="3959,299,4057,324"/>
+<area shape="poly" id="edge97_Node000001_Node000046" title=" " alt="" coords="4013,44,4011,298,4005,298,4008,44"/>
+<area shape="rect" id="Node000048" href="$_rel_abs_vector_8cpp.html" title="class for representing coordinates that can have a relative and an absolute part" alt="" coords="5819,79,5954,104"/>
+<area shape="poly" id="edge106_Node000001_Node000048" title=" " alt="" coords="4084,16,4362,17,4787,24,5291,42,5552,56,5808,76,5819,77,5819,82,5808,81,5552,62,5291,47,4787,29,4362,22,4084,22"/>
+<area shape="rect" id="Node000049" href="$_render_cubic_bezier_8h.html" title="Definition of the RenderCubicBezier class." alt="" coords="5386,152,5542,177"/>
+<area shape="poly" id="edge107_Node000001_Node000049" title=" " alt="" coords="4084,16,4266,17,4522,25,4816,43,4967,57,5115,76,5204,92,5291,112,5427,149,5426,154,5290,117,5203,97,5114,81,4967,62,4816,48,4522,30,4266,22,4084,21"/>
+<area shape="rect" id="Node000058" href="$_render_group_8h.html" title="Definition of the RenderGroup class." alt="" coords="3803,152,3922,177"/>
+<area shape="poly" id="edge135_Node000001_Node000058" title=" " alt="" coords="3991,42,3876,154,3873,150,3987,39"/>
+<area shape="rect" id="Node000073" href="$_render_point_8h.html" title="Definition of the RenderPoint class." alt="" coords="5682,79,5795,104"/>
+<area shape="poly" id="edge188_Node000001_Node000073" title=" " alt="" coords="4084,20,5682,85,5682,90,4084,25"/>
+<area shape="rect" id="Node000074" href="$_text_8h.html" title="Definition of the Text class." alt="" coords="4257,79,4319,104"/>
+<area shape="poly" id="edge196_Node000001_Node000074" title=" " alt="" coords="4069,31,4258,80,4257,85,4068,37"/>
+<area shape="rect" id="Node000003" href="$_default_values_8cpp.html" title="Implementation of the DefaultValues class." alt="" coords="639,445,779,471"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="753,410,721,447,717,443,749,406"/>
+<area shape="rect" id="Node000004" href="$_list_of_global_render_information_8h.html" title="Definition of the ListOfGlobalRenderInformation class." alt="" coords="327,445,563,471"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="705,403,498,448,497,443,703,398"/>
+<area shape="poly" id="edge38_Node000002_Node000007" title=" " alt="" coords="782,409,806,455,843,513,892,570,920,595,952,615,1008,630,1106,642,1382,660,1687,669,1930,673,1930,679,1687,675,1381,665,1105,648,1007,635,950,620,917,599,888,574,838,516,801,458,777,411"/>
+<area shape="rect" id="Node000018" href="$_list_of_local_render_information_8h.html" title="Definition of the ListOfLocalRenderInformation class." alt="" coords="1450,519,1678,544"/>
+<area shape="poly" id="edge28_Node000002_Node000018" title=" " alt="" coords="846,397,1502,516,1501,521,845,402"/>
+<area shape="rect" id="Node000005" href="$_global_render_information_8cpp.html" title="class for the storage of global render information" alt="" coords="43,592,256,617"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="447,485,439,517,431,532,420,546,392,562,350,576,249,595,248,589,348,570,390,557,417,542,427,530,434,515,441,484"/>
+<area shape="rect" id="Node000006" href="$_global_render_information_8h.html" title="Definition of the GlobalRenderInformation class." alt="" coords="481,519,679,544"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="473,475,552,516,550,521,471,480"/>
+<area shape="poly" id="edge25_Node000004_Node000007" title=" " alt="" coords="532,471,611,489,692,516,738,542,771,569,803,594,850,615,915,626,1025,636,1332,653,1930,672,1930,677,1331,658,1025,642,914,631,849,620,801,598,767,573,735,546,690,521,609,494,531,476"/>
+<area shape="rect" id="Node000012" href="$_render_list_of_layouts_plugin_8cpp.html" title="Implementation of RenderListOfLayoutsPlugin, the plugin class of the fbc package for the Model elemen..." alt="" coords="207,812,431,837"/>
+<area shape="poly" id="edge26_Node000004_Node000012" title=" " alt="" coords="339,475,233,494,124,522,78,539,41,558,16,580,10,591,8,604,8,679,13,710,26,736,47,758,73,775,104,789,138,800,207,814,206,819,136,805,102,794,71,780,44,762,22,739,8,712,3,680,3,603,5,590,12,577,38,554,75,534,123,516,231,489,339,470"/>
+<area shape="rect" id="Node000015" href="$_render_list_of_layouts_plugin_8h.html" title="Definition of RenderListOfLayoutsPlugin, the plugin class of fbc package for the Model element." alt="" coords="331,592,541,617"/>
+<area shape="poly" id="edge27_Node000004_Node000015" title=" " alt="" coords="314,472,261,479,211,489,171,503,146,520,141,531,146,542,157,552,174,561,219,575,275,586,331,593,331,598,274,591,218,580,172,566,154,556,142,546,136,531,142,517,169,498,210,484,260,474,313,466"/>
+<area shape="rect" id="Node000017" href="$_list_of_global_render_information_8cpp.html" title="Implementation of the ListOfGlobalRenderInformation class." alt="" coords="156,519,407,544"/>
+<area shape="poly" id="edge24_Node000004_Node000017" title=" " alt="" coords="407,479,309,521,307,516,405,474"/>
+<area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="552,514,473,473,475,468,554,509"/>
+<area shape="poly" id="edge6_Node000006_Node000005" title=" " alt="" coords="498,549,219,595,218,589,497,544"/>
+<area shape="poly" id="edge8_Node000006_Node000007" title=" " alt="" coords="627,546,742,590,771,604,799,615,899,632,1032,645,1353,663,1680,671,1930,674,1930,679,1680,677,1353,668,1031,651,899,637,798,620,768,609,740,594,625,551"/>
+<area shape="poly" id="edge18_Node000006_Node000012" title=" " alt="" coords="468,547,378,565,342,578,321,594,305,620,296,650,293,681,294,713,304,770,317,811,312,812,299,772,289,713,288,681,291,649,300,618,317,590,340,573,376,560,467,542"/>
+<area shape="rect" id="Node000014" href="$_render_information_base_8cpp.html" title="Implementation of the RenderInformationBase class." alt="" coords="1057,592,1260,617"/>
+<area shape="poly" id="edge17_Node000006_Node000014" title=" " alt="" coords="687,543,1066,589,1065,595,686,548"/>
+<area shape="poly" id="edge19_Node000006_Node000015" title=" " alt="" coords="546,552,461,594,458,589,544,548"/>
+<area shape="rect" id="Node000008" href="$_render_layout_converter_8cpp.html" title="Simple converter to convert Layout + Render from l2 to L3 and vice versa." alt="" coords="2021,739,2224,764"/>
+<area shape="poly" id="edge9_Node000007_Node000008" title=" " alt="" coords="2050,696,2108,736,2105,741,2047,701"/>
+<area shape="rect" id="Node000009" href="$_render_layout_plugin_8cpp.html" title="Implementation of RenderLayoutPlugin, the plugin class of the fbc package for the Model element." alt="" coords="837,812,1016,837"/>
+<area shape="poly" id="edge10_Node000007_Node000009" title=" " alt="" coords="1922,695,1013,815,1012,809,1921,690"/>
+<area shape="rect" id="Node000010" href="$_render_utilities_8cpp.html" title="implementation of RenderUtilities, a class of utility functions for the render package" alt="" coords="623,812,769,837"/>
+<area shape="poly" id="edge11_Node000007_Node000010" title=" " alt="" coords="1917,681,1627,682,1261,689,1085,696,931,707,814,722,774,731,748,741,731,756,717,775,702,813,697,810,712,773,727,752,745,736,772,726,813,716,931,701,1085,691,1261,683,1627,676,1917,676"/>
+<area shape="rect" id="Node000011" href="$_render_utilities_8h.html" title="Definition of RenderUtilities, a class of utility functions for the render package." alt="" coords="759,739,889,764"/>
+<area shape="poly" id="edge12_Node000007_Node000011" title=" " alt="" coords="1917,688,890,749,889,743,1917,683"/>
+<area shape="rect" id="Node000013" href="$_render_validator_8cpp.html" title="Definition of RenderValidator." alt="" coords="1845,739,1997,764"/>
+<area shape="poly" id="edge16_Node000007_Node000013" title=" " alt="" coords="1996,701,1939,741,1936,736,1993,696"/>
+<area shape="poly" id="edge13_Node000011_Node000009" title=" " alt="" coords="853,770,911,810,908,814,850,774"/>
+<area shape="poly" id="edge15_Node000011_Node000010" title=" " alt="" coords="793,773,718,814,716,809,790,768"/>
+<area shape="poly" id="edge14_Node000011_Node000012" title=" " alt="" coords="745,766,400,815,400,809,745,761"/>
+<area shape="poly" id="edge21_Node000015_Node000007" title=" " alt="" coords="555,615,961,638,1355,655,1931,672,1930,677,1355,660,961,644,554,620"/>
+<area shape="poly" id="edge23_Node000015_Node000010" title=" " alt="" coords="441,631,448,660,463,689,508,732,561,767,614,792,659,809,657,814,612,797,558,771,505,737,459,692,443,662,436,632"/>
+<area shape="poly" id="edge22_Node000015_Node000012" title=" " alt="" coords="426,631,327,813,323,810,421,628"/>
+<area shape="rect" id="Node000016" href="$_render_extension_8cpp.html" title="Implementation of RenderExtension, the core module of the render package." alt="" coords="474,665,633,691"/>
+<area shape="poly" id="edge20_Node000015_Node000016" title=" " alt="" coords="468,622,536,663,533,667,465,627"/>
+<area shape="poly" id="edge31_Node000018_Node000007" title=" " alt="" coords="1567,557,1574,588,1581,603,1591,615,1615,630,1649,641,1737,658,1837,668,1930,673,1930,678,1837,674,1736,664,1647,646,1613,634,1588,619,1576,606,1569,590,1562,558"/>
+<area shape="poly" id="edge32_Node000018_Node000014" title=" " alt="" coords="1486,549,1224,595,1224,589,1485,544"/>
+<area shape="rect" id="Node000019" href="$_list_of_local_render_information_8cpp.html" title="Implementation of the ListOfLocalRenderInformation class." alt="" coords="1284,592,1527,617"/>
+<area shape="poly" id="edge29_Node000018_Node000019" title=" " alt="" coords="1527,552,1432,594,1430,589,1525,547"/>
+<area shape="rect" id="Node000020" href="$_local_render_information_8cpp.html" title="Implementation of the LocalRenderInformation class." alt="" coords="1601,592,1807,617"/>
+<area shape="poly" id="edge30_Node000018_Node000020" title=" " alt="" coords="1600,548,1682,589,1680,594,1597,553"/>
+<area shape="rect" id="Node000021" href="$_render_layout_plugin_8h.html" title="Definition of RenderLayoutPlugin, the plugin class of fbc package for the Model element." alt="" coords="565,592,729,617"/>
+<area shape="poly" id="edge33_Node000018_Node000021" title=" " alt="" coords="1436,545,729,600,729,594,1436,540"/>
+<area shape="poly" id="edge35_Node000021_Node000007" title=" " alt="" coords="743,614,748,615,1090,638,1427,654,1931,672,1930,677,1427,660,1090,643,748,620,743,620"/>
+<area shape="poly" id="edge36_Node000021_Node000009" title=" " alt="" coords="705,619,753,636,806,661,859,695,903,737,915,755,922,776,929,811,923,812,917,777,910,758,899,740,855,699,804,666,751,641,703,624"/>
+<area shape="poly" id="edge37_Node000021_Node000010" title=" " alt="" coords="655,630,696,811,691,812,650,631"/>
+<area shape="poly" id="edge34_Node000021_Node000016" title=" " alt="" coords="623,628,570,667,567,663,619,623"/>
+<area shape="poly" id="edge44_Node000022_Node000007" title=" " alt="" coords="4180,337,4190,392,4196,457,4196,533,4191,544,4176,554,4121,572,4037,587,3926,602,3644,626,3307,644,2952,658,2611,668,2112,678,2112,673,2611,663,2952,653,3307,639,3643,620,3926,596,4036,582,4120,566,4173,549,4187,541,4191,532,4191,457,4185,392,4174,338"/>
+<area shape="rect" id="Node000023" href="$_ellipse_8cpp.html" title="Implementation of the Ellipse class." alt="" coords="4231,372,4323,397"/>
+<area shape="poly" id="edge40_Node000022_Node000023" title=" " alt="" coords="4200,329,4261,370,4258,374,4198,334"/>
+<area shape="rect" id="Node000024" href="$_graphical_primitive1_d_8cpp.html" title="abstract base class for graphical 1D objects" alt="" coords="3618,372,3806,397"/>
+<area shape="poly" id="edge41_Node000022_Node000024" title=" " alt="" coords="4119,323,3786,375,3785,369,4118,318"/>
+<area shape="rect" id="Node000025" href="$_graphical_primitive2_d_8cpp.html" title="Implementation of the GraphicalPrimitive2D class." alt="" coords="3406,372,3594,397"/>
+<area shape="poly" id="edge42_Node000022_Node000025" title=" " alt="" coords="4119,321,4070,327,3607,375,3595,376,3594,371,3606,369,4069,321,4118,316"/>
+<area shape="rect" id="Node000026" href="$_list_of_drawables_8cpp.html" title="Implementation of the ListOfDrawables class." alt="" coords="4810,372,4966,397"/>
+<area shape="poly" id="edge43_Node000022_Node000026" title=" " alt="" coords="4224,315,4810,373,4809,378,4223,321"/>
+<area shape="rect" id="Node000027" href="$_render_group_8cpp.html" title="Implementation of the RenderGroup class." alt="" coords="4021,372,4155,397"/>
+<area shape="poly" id="edge45_Node000022_Node000027" title=" " alt="" coords="4149,335,4103,374,4100,370,4145,331"/>
+<area shape="rect" id="Node000028" href="$_transformation_8cpp.html" title="class representing a 3D affine transformation" alt="" coords="4348,372,4495,397"/>
+<area shape="poly" id="edge46_Node000022_Node000028" title=" " alt="" coords="4224,325,4382,369,4380,374,4222,330"/>
+<area shape="rect" id="Node000029" href="$_transformation2_d_8cpp.html" title="class representing a 2D affine transformation" alt="" coords="4569,372,4735,397"/>
+<area shape="poly" id="edge47_Node000022_Node000029" title=" " alt="" coords="4223,318,4575,369,4574,375,4223,323"/>
+<area shape="poly" id="edge87_Node000030_Node000007" title=" " alt="" coords="898,118,894,181,886,218,870,252,854,274,834,293,788,322,738,345,690,363,650,382,623,404,616,416,614,431,618,448,629,469,650,491,673,500,700,505,732,516,782,546,818,572,856,595,909,615,998,633,1116,647,1255,658,1405,665,1700,673,1930,674,1930,680,1700,678,1404,671,1255,663,1116,653,997,638,907,620,854,600,816,576,779,550,730,521,698,510,671,505,647,495,624,472,613,450,609,431,611,415,618,400,647,377,688,358,736,340,786,317,831,288,850,270,866,249,881,216,889,181,892,117"/>
+<area shape="rect" id="Node000031" href="$_gradient_base_8h.html" title="abstract base class for gradient definitions" alt="" coords="1032,225,1155,251"/>
+<area shape="poly" id="edge49_Node000030_Node000031" title=" " alt="" coords="922,110,1079,223,1076,227,919,115"/>
+<area shape="rect" id="Node000041" href="$_gradient_stop_8cpp.html" title="class representing a stop in a gradient definition" alt="" coords="518,225,653,251"/>
+<area shape="poly" id="edge82_Node000030_Node000041" title=" " alt="" coords="821,106,749,124,712,138,677,154,652,171,630,191,597,227,593,223,626,187,649,167,675,150,710,133,748,119,820,101"/>
+<area shape="rect" id="Node000042" href="$_list_of_gradient_stops_8h.html" title="Definition of the ListOfGradientStops class." alt="" coords="687,152,851,177"/>
+<area shape="poly" id="edge83_Node000030_Node000042" title=" " alt="" coords="863,113,791,154,788,149,860,108"/>
+<area shape="poly" id="edge50_Node000031_Node000002" title=" " alt="" coords="1056,259,796,374,794,370,1054,254"/>
+<area shape="poly" id="edge80_Node000031_Node000007" title=" " alt="" coords="1061,260,1032,280,1000,306,971,337,949,373,946,384,947,392,957,408,974,423,990,444,1002,470,1007,494,1010,539,1012,559,1017,579,1028,597,1047,615,1065,624,1094,633,1181,646,1296,657,1428,664,1705,672,1930,674,1930,680,1705,678,1428,670,1295,662,1180,652,1093,638,1063,629,1044,620,1024,600,1013,581,1007,560,1005,539,1002,495,997,472,986,447,970,427,953,411,942,394,941,383,944,371,967,334,997,302,1029,276,1058,256"/>
+<area shape="rect" id="Node000032" href="$_gradient_base_8cpp.html" title="abstract base class for gradient objects" alt="" coords="1230,372,1367,397"/>
+<area shape="poly" id="edge51_Node000031_Node000032" title=" " alt="" coords="1169,247,1222,264,1248,278,1271,297,1284,315,1293,335,1300,371,1295,372,1288,337,1280,317,1267,301,1245,283,1220,269,1167,252"/>
+<area shape="poly" id="edge52_Node000031_Node000033" title=" " alt="" coords="1122,256,1177,296,1174,301,1118,261"/>
+<area shape="rect" id="Node000036" href="$_render_information_base_8h.html" title="Definition of the RenderInformationBase class." alt="" coords="1630,372,1818,397"/>
+<area shape="poly" id="edge81_Node000031_Node000036" title=" " alt="" coords="1169,237,1253,241,1354,251,1464,268,1571,296,1612,312,1651,332,1709,369,1707,374,1648,337,1610,317,1570,301,1463,274,1354,256,1252,247,1168,243"/>
+<area shape="rect" id="Node000038" href="$_list_of_gradient_definitions_8h.html" title="Definition of the ListOfGradientDefinitions class." alt="" coords="1359,299,1558,324"/>
+<area shape="poly" id="edge69_Node000031_Node000038" title=" " alt="" coords="1166,251,1400,296,1399,301,1165,256"/>
+<area shape="poly" id="edge73_Node000031_Node000039" title=" " alt="" coords="1169,244,1684,296,1716,300,1716,305,1684,301,1168,249"/>
+<area shape="poly" id="edge56_Node000033_Node000007" title=" " alt="" coords="1195,337,1202,369,1210,383,1220,395,1243,409,1271,418,1341,429,1425,430,1516,426,1608,422,1694,420,1769,426,1800,433,1825,443,1853,461,1874,480,1901,520,1924,565,1940,590,1961,616,2010,663,2006,667,1957,619,1935,593,1920,568,1897,523,1870,483,1850,465,1823,448,1798,438,1768,431,1694,425,1608,427,1516,432,1425,435,1341,434,1269,423,1240,413,1217,399,1205,386,1197,371,1190,339"/>
+<area shape="poly" id="edge57_Node000033_Node000014" title=" " alt="" coords="1185,338,1176,373,1167,437,1163,500,1161,592,1156,592,1157,500,1162,436,1171,371,1180,336"/>
+<area shape="poly" id="edge53_Node000033_Node000032" title=" " alt="" coords="1222,329,1283,370,1280,374,1219,334"/>
+<area shape="rect" id="Node000034" href="$_linear_gradient_8cpp.html" title="Implementation of the LinearGradient class." alt="" coords="958,372,1103,397"/>
+<area shape="poly" id="edge54_Node000033_Node000034" title=" " alt="" coords="1155,332,1058,374,1056,369,1153,327"/>
+<area shape="rect" id="Node000035" href="$_list_of_gradient_definitions_8cpp.html" title="Implementation of the ListOfGradientDefinitions class." alt="" coords="1392,372,1605,397"/>
+<area shape="poly" id="edge55_Node000033_Node000035" title=" " alt="" coords="1255,324,1450,369,1448,374,1254,330"/>
+<area shape="poly" id="edge58_Node000033_Node000036" title=" " alt="" coords="1272,321,1639,369,1638,375,1271,326"/>
+<area shape="poly" id="edge59_Node000036_Node000006" title=" " alt="" coords="1621,402,670,521,670,516,1620,396"/>
+<area shape="poly" id="edge67_Node000036_Node000007" title=" " alt="" coords="1804,398,1850,416,1892,443,1913,464,1927,485,1944,524,1956,567,1980,616,2014,664,2010,667,1975,619,1951,569,1939,526,1923,487,1909,468,1889,447,1848,421,1802,403"/>
+<area shape="poly" id="edge68_Node000036_Node000014" title=" " alt="" coords="1617,401,1478,422,1417,434,1373,448,1309,482,1251,523,1172,594,1168,590,1248,519,1306,477,1371,443,1415,429,1477,417,1616,396"/>
+<area shape="rect" id="Node000037" href="$_local_render_information_8h.html" title="Definition of the LocalRenderInformation class." alt="" coords="1621,445,1811,471"/>
+<area shape="poly" id="edge60_Node000036_Node000037" title=" " alt="" coords="1724,411,1720,446,1715,445,1719,411"/>
+<area shape="poly" id="edge63_Node000037_Node000007" title=" " alt="" coords="1735,479,1794,545,1834,582,1877,615,1931,643,1983,663,1981,668,1929,648,1875,620,1831,586,1791,549,1731,483"/>
+<area shape="poly" id="edge64_Node000037_Node000014" title=" " alt="" coords="1632,476,1538,495,1440,521,1410,534,1381,546,1291,574,1210,595,1209,589,1289,569,1379,542,1408,529,1438,516,1537,489,1630,470"/>
+<area shape="poly" id="edge66_Node000037_Node000015" title=" " alt="" coords="1607,472,1111,521,521,595,520,589,1110,516,1607,466"/>
+<area shape="poly" id="edge61_Node000037_Node000018" title=" " alt="" coords="1681,479,1590,521,1588,516,1678,474"/>
+<area shape="poly" id="edge62_Node000037_Node000020" title=" " alt="" coords="1717,485,1708,592,1702,592,1711,484"/>
+<area shape="poly" id="edge65_Node000037_Node000021" title=" " alt="" coords="1619,475,729,595,729,590,1618,470"/>
+<area shape="poly" id="edge70_Node000038_Node000032" title=" " alt="" coords="1422,332,1326,374,1324,369,1420,327"/>
+<area shape="poly" id="edge71_Node000038_Node000035" title=" " alt="" coords="1474,335,1495,371,1490,373,1470,338"/>
+<area shape="poly" id="edge72_Node000038_Node000036" title=" " alt="" coords="1515,325,1682,369,1680,374,1514,330"/>
+<area shape="poly" id="edge77_Node000039_Node000007" title=" " alt="" coords="1861,317,1917,324,1975,335,2023,350,2041,359,2054,370,2059,381,2058,393,2049,418,2030,446,2020,510,2017,573,2023,665,2017,665,2012,573,2015,509,2026,444,2044,415,2053,392,2053,382,2050,374,2038,364,2021,355,1973,340,1917,329,1860,322"/>
+<area shape="poly" id="edge78_Node000039_Node000014" title=" " alt="" coords="1809,331,1823,346,1835,363,1839,381,1833,399,1809,423,1784,437,1759,443,1733,444,1676,441,1644,442,1610,448,1495,482,1381,521,1188,594,1186,590,1379,516,1493,477,1609,443,1644,436,1676,435,1733,438,1758,437,1782,432,1805,419,1828,396,1834,381,1830,365,1819,349,1805,335"/>
+<area shape="poly" id="edge74_Node000039_Node000032" title=" " alt="" coords="1703,327,1368,376,1367,371,1702,322"/>
+<area shape="poly" id="edge75_Node000039_Node000035" title=" " alt="" coords="1723,330,1545,374,1544,369,1722,325"/>
+<area shape="poly" id="edge79_Node000039_Node000036" title=" " alt="" coords="1766,336,1735,374,1731,370,1761,333"/>
+<area shape="rect" id="Node000040" href="$_radial_gradient_8cpp.html" title="Implementation of the RadialGradient class." alt="" coords="1893,372,2040,397"/>
+<area shape="poly" id="edge76_Node000039_Node000040" title=" " alt="" coords="1825,326,1937,369,1935,374,1823,331"/>
+<area shape="poly" id="edge84_Node000042_Node000031" title=" " alt="" coords="835,178,1041,223,1040,228,834,183"/>
+<area shape="poly" id="edge85_Node000042_Node000041" title=" " alt="" coords="728,185,616,228,614,223,726,180"/>
+<area shape="rect" id="Node000043" href="$_list_of_gradient_stops_8cpp.html" title="Implementation of the ListOfGradientStops class." alt="" coords="677,225,856,251"/>
+<area shape="poly" id="edge86_Node000042_Node000043" title=" " alt="" coords="771,191,770,225,764,225,766,191"/>
+<area shape="poly" id="edge91_Node000044_Node000007" title=" " alt="" coords="4954,333,4981,371,5001,412,5007,456,5007,533,4999,548,4978,561,4945,573,4901,584,4780,604,4623,621,4434,635,4221,647,3746,664,3247,674,2775,679,2112,680,2112,674,2775,674,3247,669,3745,659,4221,642,4434,630,4622,616,4780,599,4900,579,4944,568,4976,556,4995,544,5001,532,5001,457,4996,413,4976,373,4950,336"/>
+<area shape="poly" id="edge90_Node000044_Node000026" title=" " alt="" coords="4920,337,4897,373,4893,370,4915,334"/>
+<area shape="poly" id="edge92_Node000044_Node000027" title=" " alt="" coords="4881,320,4220,375,4156,380,4155,375,4220,369,4881,314"/>
+<area shape="poly" id="edge93_Node000044_Node000028" title=" " alt="" coords="4881,322,4495,376,4494,371,4880,317"/>
+<area shape="poly" id="edge94_Node000044_Node000029" title=" " alt="" coords="4882,328,4698,375,4696,369,4881,323"/>
+<area shape="rect" id="Node000045" href="$_image_8cpp.html" title="Implementation of the Image class." alt="" coords="5041,372,5132,397"/>
+<area shape="poly" id="edge89_Node000044_Node000045" title=" " alt="" coords="4970,327,5062,369,5060,374,4968,332"/>
+<area shape="poly" id="edge102_Node000046_Node000007" title=" " alt="" coords="3947,329,3906,347,3887,359,3871,374,3857,393,3849,411,3847,457,3847,533,3842,543,3830,551,3785,566,3716,580,3626,593,3394,616,3117,635,2539,663,2112,677,2112,672,2538,658,3116,630,3393,611,3625,588,3715,575,3784,561,3827,546,3838,539,3841,532,3841,457,3844,410,3852,391,3867,370,3884,355,3904,342,3945,324"/>
+<area shape="poly" id="edge98_Node000046_Node000024" title=" " alt="" coords="3948,330,3761,374,3759,369,3947,325"/>
+<area shape="poly" id="edge99_Node000046_Node000025" title=" " alt="" coords="3945,324,3582,375,3582,369,3945,319"/>
+<area shape="poly" id="edge100_Node000046_Node000026" title=" " alt="" coords="4071,317,4120,321,4433,346,4747,369,4810,374,4810,380,4746,375,4433,352,4120,327,4071,322"/>
+<area shape="poly" id="edge103_Node000046_Node000027" title=" " alt="" coords="4033,331,4077,370,4073,374,4029,335"/>
+<area shape="poly" id="edge104_Node000046_Node000028" title=" " alt="" coords="4071,321,4355,369,4354,375,4070,326"/>
+<area shape="poly" id="edge105_Node000046_Node000029" title=" " alt="" coords="4071,317,4569,372,4569,377,4071,322"/>
+<area shape="rect" id="Node000047" href="$_rectangle_8cpp.html" title="Implementation of the Rectangle class." alt="" coords="3881,372,3996,397"/>
+<area shape="poly" id="edge101_Node000046_Node000047" title=" " alt="" coords="3989,336,3952,374,3948,370,3985,332"/>
+<area shape="poly" id="edge132_Node000049_Node000007" title=" " alt="" coords="5373,172,5300,177,5225,188,5162,204,5139,215,5124,227,5120,237,5124,250,5135,282,5150,309,5182,351,5198,371,5211,394,5219,422,5223,457,5223,533,5222,560,5219,582,5209,602,5189,620,5149,628,5058,636,4752,648,4322,658,3818,666,2800,675,2112,679,2112,674,2800,670,3818,661,4321,653,4752,643,5058,630,5148,623,5187,615,5205,598,5214,581,5217,559,5217,533,5217,457,5214,423,5206,397,5193,374,5178,354,5145,312,5130,285,5119,251,5115,237,5119,224,5136,210,5160,199,5224,182,5299,172,5372,166"/>
+<area shape="rect" id="Node000050" href="$_list_of_curve_elements_8cpp.html" title="storage class for curve elements" alt="" coords="5379,299,5565,324"/>
+<area shape="poly" id="edge108_Node000049_Node000050" title=" " alt="" coords="5513,181,5541,198,5564,224,5568,237,5567,249,5552,270,5528,288,5503,301,5500,296,5526,283,5548,266,5562,247,5563,237,5559,227,5538,202,5510,185"/>
+<area shape="rect" id="Node000051" href="$_list_of_curve_elements_8h.html" title="Definition of the ListOfCurveElements class." alt="" coords="5379,225,5549,251"/>
+<area shape="poly" id="edge109_Node000049_Node000051" title=" " alt="" coords="5467,191,5467,225,5461,225,5461,191"/>
+<area shape="rect" id="Node000053" href="$_polygon_8cpp.html" title="Implementation of the Polygon class." alt="" coords="5291,372,5392,397"/>
+<area shape="poly" id="edge129_Node000049_Node000053" title=" " alt="" coords="5421,185,5392,203,5369,227,5351,265,5343,306,5341,344,5343,372,5337,372,5336,344,5338,305,5346,263,5364,224,5389,199,5418,181"/>
+<area shape="rect" id="Node000055" href="$_render_curve_8cpp.html" title="Implementation of the RenderCurve class." alt="" coords="5739,372,5872,397"/>
+<area shape="poly" id="edge131_Node000049_Node000055" title=" " alt="" coords="5513,180,5618,225,5676,257,5731,297,5770,336,5799,370,5795,374,5766,339,5728,301,5674,262,5615,229,5511,184"/>
+<area shape="rect" id="Node000056" href="$_render_point_8cpp.html" title="Implementation of the RenderPoint class." alt="" coords="5589,299,5717,324"/>
+<area shape="poly" id="edge133_Node000049_Node000056" title=" " alt="" coords="5508,180,5546,199,5583,223,5621,262,5648,297,5644,300,5617,265,5580,227,5543,204,5506,185"/>
+<area shape="rect" id="Node000057" href="$_render_cubic_bezier_8cpp.html" title="Implementation of the RenderCubicBezier class." alt="" coords="5133,225,5304,251"/>
+<area shape="poly" id="edge130_Node000049_Node000057" title=" " alt="" coords="5412,184,5259,228,5258,223,5411,179"/>
+<area shape="poly" id="edge110_Node000051_Node000050" title=" " alt="" coords="5469,264,5473,298,5468,299,5464,265"/>
+<area shape="rect" id="Node000052" href="$_polygon_8h.html" title="class representing a polygon" alt="" coords="4386,299,4473,324"/>
+<area shape="poly" id="edge111_Node000051_Node000052" title=" " alt="" coords="5365,250,5316,253,4473,310,4473,305,5316,248,5365,244"/>
+<area shape="rect" id="Node000054" href="$_render_curve_8h.html" title="Definition of the RenderCurve class." alt="" coords="4650,299,4769,324"/>
+<area shape="poly" id="edge120_Node000051_Node000054" title=" " alt="" coords="5365,251,4769,307,4768,302,5365,246"/>
+<area shape="poly" id="edge128_Node000051_Node000056" title=" " alt="" coords="5508,253,5623,296,5621,301,5506,258"/>
+<area shape="poly" id="edge116_Node000052_Node000007" title=" " alt="" coords="4464,329,4488,347,4509,370,4530,411,4535,457,4535,533,4528,546,4511,557,4447,577,4348,594,4217,610,3885,635,3491,653,3076,665,2680,673,2112,679,2112,674,2680,668,3076,660,3491,647,3885,629,4217,604,4347,589,4446,572,4509,552,4524,542,4529,532,4529,457,4525,412,4504,374,4484,351,4460,333"/>
+<area shape="poly" id="edge112_Node000052_Node000024" title=" " alt="" coords="4372,321,3807,377,3806,371,4372,316"/>
+<area shape="poly" id="edge113_Node000052_Node000025" title=" " alt="" coords="4372,319,4047,340,3607,375,3594,376,3594,370,3606,369,4047,335,4372,313"/>
+<area shape="poly" id="edge114_Node000052_Node000026" title=" " alt="" coords="4487,319,4815,369,4814,375,4486,324"/>
+<area shape="poly" id="edge117_Node000052_Node000027" title=" " alt="" coords="4373,327,4144,375,4143,369,4372,322"/>
+<area shape="poly" id="edge118_Node000052_Node000028" title=" " alt="" coords="4429,338,4425,372,4420,372,4424,337"/>
+<area shape="poly" id="edge119_Node000052_Node000029" title=" " alt="" coords="4479,326,4617,369,4615,374,4477,331"/>
+<area shape="poly" id="edge115_Node000052_Node000053" title=" " alt="" coords="4487,314,5291,377,5290,382,4486,320"/>
+<area shape="poly" id="edge124_Node000054_Node000007" title=" " alt="" coords="4728,334,4758,388,4770,421,4775,456,4775,533,4768,547,4748,559,4678,581,4568,599,4424,615,4056,641,3620,658,3163,670,2728,676,2112,679,2112,674,2728,671,3163,664,3620,653,4056,636,4423,610,4567,594,4677,575,4746,554,4764,543,4769,532,4769,457,4765,423,4754,390,4724,337"/>
+<area shape="poly" id="edge121_Node000054_Node000024" title=" " alt="" coords="4636,320,3870,375,3806,379,3806,374,3869,369,4636,315"/>
+<area shape="poly" id="edge122_Node000054_Node000026" title=" " alt="" coords="4751,326,4860,369,4858,374,4750,331"/>
+<area shape="poly" id="edge125_Node000054_Node000027" title=" " alt="" coords="4637,324,4156,378,4155,373,4636,318"/>
+<area shape="poly" id="edge126_Node000054_Node000028" title=" " alt="" coords="4651,330,4469,374,4467,369,4649,325"/>
+<area shape="poly" id="edge127_Node000054_Node000029" title=" " alt="" coords="4694,336,4663,374,4659,370,4689,333"/>
+<area shape="poly" id="edge123_Node000054_Node000055" title=" " alt="" coords="4782,315,4883,321,5738,376,5738,382,4882,327,4782,320"/>
+<area shape="poly" id="edge160_Node000058_Node000007" title=" " alt="" coords="3790,168,3653,174,3473,194,3375,210,3275,233,3176,263,3082,301,3030,328,3013,346,2997,373,2994,385,2997,396,3009,411,3025,419,3041,427,3054,444,3059,458,3054,472,3006,527,2956,563,2905,585,2851,596,2731,603,2663,608,2587,620,2459,642,2330,658,2112,675,2112,670,2329,653,2458,637,2586,615,2662,603,2731,598,2851,590,2904,580,2954,559,3002,523,3050,469,3054,458,3050,447,3037,431,3022,424,3006,415,2992,399,2988,385,2992,371,3009,343,3027,324,3080,296,3174,258,3273,228,3373,205,3472,188,3652,169,3789,163"/>
+<area shape="poly" id="edge136_Node000058_Node000024" title=" " alt="" coords="3849,191,3722,373,3718,370,3844,188"/>
+<area shape="poly" id="edge137_Node000058_Node000025" title=" " alt="" coords="3790,171,3716,180,3635,202,3596,219,3559,240,3527,267,3501,300,3494,318,3493,337,3499,371,3494,372,3487,337,3489,317,3496,297,3523,264,3556,236,3594,214,3634,197,3715,175,3789,165"/>
+<area shape="poly" id="edge159_Node000058_Node000026" title=" " alt="" coords="3936,166,4136,178,4396,202,4526,219,4647,240,4748,266,4788,280,4821,296,4843,313,4861,333,4885,370,4880,373,4857,336,4839,317,4819,301,4786,285,4746,271,4645,245,4526,224,4395,207,4136,183,3936,172"/>
+<area shape="poly" id="edge161_Node000058_Node000027" title=" " alt="" coords="3872,189,3899,255,3921,291,3948,322,3970,338,3993,351,4041,369,4039,374,3991,356,3967,343,3945,326,3917,294,3895,257,3867,191"/>
+<area shape="poly" id="edge186_Node000058_Node000028" title=" " alt="" coords="3920,178,4079,226,4175,259,4269,296,4345,335,4404,369,4402,374,4343,339,4267,301,4173,264,4077,231,3919,183"/>
+<area shape="poly" id="edge187_Node000058_Node000029" title=" " alt="" coords="3936,168,4054,180,4204,203,4370,241,4452,266,4532,296,4564,313,4595,333,4641,369,4637,373,4592,337,4562,318,4530,301,4451,271,4369,246,4203,208,4053,185,3936,173"/>
+<area shape="rect" id="Node000059" href="$_line_ending_8h.html" title="class representing line endings, e.g." alt="" coords="3666,225,3771,251"/>
+<area shape="poly" id="edge138_Node000058_Node000059" title=" " alt="" coords="3829,186,3743,228,3741,223,3826,181"/>
+<area shape="rect" id="Node000063" href="$_style_8h.html" title="Definition of the Style class." alt="" coords="2576,225,2643,251"/>
+<area shape="poly" id="edge162_Node000058_Node000063" title=" " alt="" coords="3790,173,2643,237,2643,232,3789,167"/>
+<area shape="poly" id="edge154_Node000059_Node000007" title=" " alt="" coords="3652,244,3496,253,3301,274,3206,291,3122,313,3055,341,3030,356,3011,374,3003,388,3005,396,3014,402,3029,407,3066,419,3084,429,3098,444,3122,491,3133,535,3132,556,3126,577,3115,598,3098,619,3083,626,3055,632,2964,643,2687,660,2368,672,2112,678,2112,672,2368,666,2686,655,2964,638,3054,627,3081,621,3094,615,3110,595,3121,575,3127,555,3128,535,3117,493,3094,447,3081,433,3064,424,3027,412,3011,407,3000,399,2998,387,3007,370,3026,352,3052,336,3120,308,3205,286,3300,269,3495,248,3652,239"/>
+<area shape="poly" id="edge139_Node000059_Node000024" title=" " alt="" coords="3720,265,3715,372,3710,372,3715,265"/>
+<area shape="poly" id="edge140_Node000059_Node000025" title=" " alt="" coords="3653,245,3618,251,3583,261,3549,277,3521,300,3510,317,3504,337,3502,372,3496,372,3499,336,3505,315,3517,297,3546,273,3581,256,3617,246,3652,240"/>
+<area shape="poly" id="edge142_Node000059_Node000026" title=" " alt="" coords="3785,238,4020,244,4330,256,4617,273,4721,284,4782,296,4813,312,4841,332,4880,370,4876,374,4837,336,4810,316,4780,301,4720,289,4617,278,4330,261,4020,250,3785,243"/>
+<area shape="poly" id="edge155_Node000059_Node000027" title=" " alt="" coords="3755,254,3823,287,3904,322,3980,348,4049,369,4047,375,3979,354,3902,326,3821,292,3752,259"/>
+<area shape="poly" id="edge157_Node000059_Node000028" title=" " alt="" coords="3785,238,3873,243,3983,253,4103,270,4222,296,4252,308,4280,322,4394,369,4392,374,4278,326,4249,312,4221,301,4102,275,3982,258,3873,248,3785,244"/>
+<area shape="poly" id="edge158_Node000059_Node000029" title=" " alt="" coords="3785,238,3944,244,4147,255,4344,272,4425,283,4486,296,4549,326,4632,370,4629,374,4547,331,4484,301,4424,288,4343,278,4146,261,3944,250,3785,244"/>
+<area shape="poly" id="edge156_Node000059_Node000036" title=" " alt="" coords="3652,242,3427,245,3093,254,2700,272,2298,301,2154,318,2011,338,1787,375,1786,369,2011,332,2153,312,2297,296,2699,266,3093,249,3427,240,3652,237"/>
+<area shape="rect" id="Node000060" href="$_line_ending_8cpp.html" title="class representing line endings,e.g." alt="" coords="3021,372,3141,397"/>
+<area shape="poly" id="edge141_Node000059_Node000060" title=" " alt="" coords="3655,256,3132,375,3131,369,3654,251"/>
+<area shape="rect" id="Node000061" href="$_list_of_line_endings_8h.html" title="Definition of the ListOfLineEndings class." alt="" coords="3530,299,3681,324"/>
+<area shape="poly" id="edge143_Node000059_Node000061" title=" " alt="" coords="3690,260,3625,301,3622,296,3687,256"/>
+<area shape="poly" id="edge149_Node000061_Node000007" title=" " alt="" coords="3517,323,3328,346,3248,360,3220,367,3206,374,3190,392,3183,410,3181,457,3181,533,3181,560,3177,582,3168,601,3148,620,3125,630,3089,640,2986,655,2850,666,2694,673,2369,680,2112,680,2112,675,2369,675,2693,668,2850,661,2986,650,3088,635,3123,625,3145,615,3163,598,3172,580,3176,559,3176,533,3176,457,3178,409,3185,389,3202,370,3219,362,3246,354,3327,340,3516,318"/>
+<area shape="poly" id="edge144_Node000061_Node000024" title=" " alt="" coords="3635,329,3696,370,3693,374,3632,334"/>
+<area shape="poly" id="edge145_Node000061_Node000025" title=" " alt="" coords="3578,334,3519,374,3516,370,3575,330"/>
+<area shape="poly" id="edge147_Node000061_Node000026" title=" " alt="" coords="3694,314,4146,335,4747,369,4810,374,4810,379,4746,375,4145,340,3694,319"/>
+<area shape="poly" id="edge150_Node000061_Node000027" title=" " alt="" coords="3695,323,4021,371,4020,376,3694,328"/>
+<area shape="poly" id="edge152_Node000061_Node000028" title=" " alt="" coords="3695,316,3981,337,4336,369,4348,371,4348,376,4336,375,3980,342,3694,321"/>
+<area shape="poly" id="edge153_Node000061_Node000029" title=" " alt="" coords="3695,316,4507,369,4569,374,4569,379,4506,375,3694,321"/>
+<area shape="poly" id="edge151_Node000061_Node000036" title=" " alt="" coords="3516,317,2838,336,2365,352,1881,375,1819,379,1818,373,1881,369,2365,347,2838,330,3516,312"/>
+<area shape="poly" id="edge146_Node000061_Node000060" title=" " alt="" coords="3517,327,3160,375,3142,377,3141,372,3160,369,3516,322"/>
+<area shape="rect" id="Node000062" href="$_list_of_line_endings_8cpp.html" title="Implementation of the ListOfLineEndings class." alt="" coords="3216,372,3381,397"/>
+<area shape="poly" id="edge148_Node000061_Node000062" title=" " alt="" coords="3543,330,3349,374,3348,369,3542,324"/>
+<area shape="poly" id="edge184_Node000063_Node000007" title=" " alt="" coords="2563,246,2441,263,2369,279,2298,301,2232,331,2174,374,2134,407,2104,447,2073,508,2050,572,2026,666,2021,665,2045,570,2068,506,2099,444,2130,403,2170,370,2230,327,2296,296,2367,274,2440,258,2562,241"/>
+<area shape="rect" id="Node000064" href="$_global_style_8h.html" title="Definition of the GlobalStyle class." alt="" coords="2555,299,2664,324"/>
+<area shape="poly" id="edge163_Node000063_Node000064" title=" " alt="" coords="2612,264,2612,299,2607,299,2607,264"/>
+<area shape="rect" id="Node000068" href="$_style_8cpp.html" title="Implementation of the Style class." alt="" coords="2957,445,3040,471"/>
+<area shape="poly" id="edge185_Node000063_Node000068" title=" " alt="" coords="2643,255,2979,443,2977,447,2640,260"/>
+<area shape="rect" id="Node000069" href="$_local_style_8h.html" title="Definition of the LocalStyle class." alt="" coords="2309,299,2411,324"/>
+<area shape="poly" id="edge173_Node000063_Node000069" title=" " alt="" coords="2563,255,2401,301,2399,296,2562,250"/>
+<area shape="poly" id="edge171_Node000064_Node000007" title=" " alt="" coords="2596,337,2523,433,2472,491,2416,546,2364,589,2304,620,2256,637,2207,651,2113,669,2112,664,2205,645,2254,632,2302,615,2361,585,2413,542,2468,487,2519,429,2591,334"/>
+<area shape="rect" id="Node000065" href="$_global_style_8cpp.html" title="Implementation of the GlobalStyle class." alt="" coords="2563,445,2687,471"/>
+<area shape="poly" id="edge164_Node000064_Node000065" title=" " alt="" coords="2594,336,2580,365,2578,381,2580,396,2595,423,2614,443,2610,447,2591,426,2575,398,2572,381,2575,364,2589,334"/>
+<area shape="rect" id="Node000066" href="$_list_of_global_styles_8h.html" title="Definition of the ListOfGlobalStyles class." alt="" coords="2589,372,2744,397"/>
+<area shape="poly" id="edge165_Node000064_Node000066" title=" " alt="" coords="2629,333,2659,370,2655,374,2625,336"/>
+<area shape="poly" id="edge172_Node000064_Node000068" title=" " alt="" coords="2664,325,2801,370,2974,443,2972,448,2799,374,2662,330"/>
+<area shape="poly" id="edge166_Node000066_Node000006" title=" " alt="" coords="2576,394,2476,400,2043,422,1610,448,1086,488,680,524,679,518,1085,483,1609,443,2042,417,2476,395,2575,389"/>
+<area shape="poly" id="edge169_Node000066_Node000007" title=" " alt="" coords="2688,407,2703,437,2706,455,2703,472,2674,526,2642,564,2601,592,2545,620,2510,632,2464,642,2349,659,2224,669,2113,676,2112,671,2224,664,2348,653,2463,637,2509,627,2543,615,2598,588,2638,560,2670,523,2697,470,2701,454,2698,439,2683,409"/>
+<area shape="poly" id="edge167_Node000066_Node000065" title=" " alt="" coords="2655,411,2634,447,2630,444,2651,408"/>
+<area shape="rect" id="Node000067" href="$_list_of_global_styles_8cpp.html" title="Implementation of the ListOfGlobalStyles class." alt="" coords="2763,445,2933,471"/>
+<area shape="poly" id="edge168_Node000066_Node000067" title=" " alt="" coords="2709,400,2819,443,2817,448,2707,405"/>
+<area shape="poly" id="edge170_Node000066_Node000068" title=" " alt="" coords="2734,398,2958,445,2956,450,2733,403"/>
+<area shape="poly" id="edge182_Node000069_Node000007" title=" " alt="" coords="2311,331,2267,349,2217,374,2168,407,2126,447,2110,469,2101,489,2092,528,2086,570,2068,619,2034,667,2029,664,2063,616,2080,568,2087,527,2096,487,2106,466,2122,444,2165,403,2214,370,2264,344,2309,326"/>
+<area shape="poly" id="edge180_Node000069_Node000037" title=" " alt="" coords="2311,331,2193,364,2053,400,1915,427,1793,448,1792,443,1914,422,2051,395,2192,359,2309,325"/>
+<area shape="poly" id="edge183_Node000069_Node000068" title=" " alt="" coords="2425,312,2494,318,2578,328,2669,345,2757,370,2780,382,2801,395,2884,424,2958,445,2956,450,2882,430,2799,400,2777,386,2755,374,2667,350,2578,333,2494,323,2424,318"/>
+<area shape="rect" id="Node000070" href="$_list_of_local_styles_8h.html" title="Definition of the ListOfLocalStyles class." alt="" coords="2317,372,2464,397"/>
+<area shape="poly" id="edge174_Node000069_Node000070" title=" " alt="" coords="2373,336,2388,371,2383,373,2368,338"/>
+<area shape="rect" id="Node000072" href="$_local_style_8cpp.html" title="class for representing a local style" alt="" coords="2135,445,2251,471"/>
+<area shape="poly" id="edge181_Node000069_Node000072" title=" " alt="" coords="2338,335,2208,447,2205,443,2334,331"/>
+<area shape="poly" id="edge178_Node000070_Node000007" title=" " alt="" coords="2421,404,2437,418,2450,435,2456,453,2452,472,2418,516,2377,553,2331,584,2282,609,2232,630,2183,647,2096,668,2095,663,2182,641,2230,625,2280,605,2328,579,2374,548,2414,512,2447,469,2451,453,2445,437,2433,422,2418,408"/>
+<area shape="poly" id="edge176_Node000070_Node000037" title=" " alt="" coords="2304,398,1812,449,1811,444,2304,392"/>
+<area shape="poly" id="edge179_Node000070_Node000068" title=" " alt="" coords="2478,390,2691,410,2946,443,2957,445,2956,450,2945,448,2691,415,2477,395"/>
+<area shape="rect" id="Node000071" href="$_list_of_local_styles_8cpp.html" title="Implementation of the ListOfLocalStyles class." alt="" coords="2275,445,2437,471"/>
+<area shape="poly" id="edge175_Node000070_Node000071" title=" " alt="" coords="2381,411,2364,446,2359,444,2377,409"/>
+<area shape="poly" id="edge177_Node000070_Node000072" title=" " alt="" coords="2347,404,2227,448,2225,443,2345,399"/>
+<area shape="poly" id="edge194_Node000073_Node000007" title=" " alt="" coords="5801,106,5848,124,5895,151,5914,168,5930,188,5940,211,5944,236,5944,533,5937,561,5919,584,5890,602,5852,615,5806,625,5755,630,5640,634,5517,631,5399,625,5295,620,5217,620,4922,635,4531,647,3599,664,2700,675,2112,679,2112,674,2700,669,3599,659,4531,641,4922,629,5217,615,5295,615,5399,620,5518,626,5640,629,5755,625,5806,619,5850,610,5887,597,5915,580,5933,559,5939,532,5939,237,5935,213,5925,191,5910,172,5891,155,5846,129,5799,111"/>
+<area shape="poly" id="edge192_Node000073_Node000049" title=" " alt="" coords="5682,110,5509,154,5508,149,5681,105"/>
+<area shape="poly" id="edge189_Node000073_Node000050" title=" " alt="" coords="5722,117,5663,181,5625,218,5583,253,5540,280,5499,301,5497,296,5537,276,5580,249,5621,214,5660,177,5718,113"/>
+<area shape="poly" id="edge190_Node000073_Node000051" title=" " alt="" coords="5706,113,5487,228,5484,223,5703,108"/>
+<area shape="poly" id="edge191_Node000073_Node000053" title=" " alt="" coords="5762,113,5775,130,5785,151,5797,205,5797,229,5793,251,5785,272,5772,292,5754,310,5731,326,5704,339,5667,349,5575,366,5476,377,5392,383,5392,378,5476,371,5574,360,5666,344,5702,334,5728,322,5750,306,5768,288,5780,270,5788,250,5792,228,5792,205,5780,153,5771,133,5758,116"/>
+<area shape="poly" id="edge193_Node000073_Node000055" title=" " alt="" coords="5803,107,5835,124,5861,151,5874,181,5877,213,5874,245,5865,277,5840,334,5816,373,5811,370,5835,332,5860,275,5868,244,5872,213,5868,182,5856,153,5832,128,5801,111"/>
+<area shape="poly" id="edge195_Node000073_Node000056" title=" " alt="" coords="5752,116,5763,145,5771,180,5771,217,5760,252,5747,269,5730,282,5694,301,5691,296,5727,278,5743,265,5755,249,5766,216,5765,180,5758,146,5747,117"/>
+<area shape="poly" id="edge197_Node000074_Node000002" title=" " alt="" coords="4244,96,3630,104,2615,126,2084,143,1608,166,1406,179,1236,194,1106,210,1021,228,946,260,878,301,821,342,784,374,780,370,818,338,875,297,944,255,1019,223,1105,205,1236,188,1405,174,1608,160,2084,138,2614,120,3630,99,4243,90"/>
+<area shape="poly" id="edge200_Node000074_Node000007" title=" " alt="" coords="4333,91,4420,94,4536,103,4667,121,4797,149,4911,184,4957,201,4999,222,5036,247,5073,279,5109,320,5146,371,5168,411,5172,457,5172,533,5169,566,5161,593,5148,614,5130,628,5109,638,5084,643,5025,644,4885,626,4809,618,4735,620,4488,639,4161,653,3783,664,3381,671,2622,678,2112,679,2112,674,2622,673,3381,666,3782,658,4161,648,4488,633,4735,615,4810,613,4885,620,5026,638,5083,638,5107,633,5128,624,5144,610,5156,591,5164,565,5167,533,5167,457,5162,413,5142,373,5104,323,5069,283,5033,251,4996,226,4955,206,4909,189,4795,155,4666,126,4535,108,4420,99,4333,96"/>
+<area shape="poly" id="edge198_Node000074_Node000024" title=" " alt="" coords="4255,112,3736,374,3734,369,4252,108"/>
+<area shape="poly" id="edge199_Node000074_Node000026" title=" " alt="" coords="4333,90,4411,93,4514,101,4627,119,4684,133,4739,149,4819,175,4882,197,4910,213,4936,233,4960,261,4984,298,4988,310,4987,323,4972,344,4947,361,4920,374,4918,369,4944,357,4968,340,4982,321,4983,311,4979,300,4956,264,4932,237,4907,217,4880,202,4817,180,4738,155,4683,138,4626,124,4513,107,4411,98,4333,95"/>
+<area shape="poly" id="edge201_Node000074_Node000027" title=" " alt="" coords="4269,116,4198,193,4158,245,4122,300,4104,339,4094,373,4089,371,4100,337,4118,297,4154,242,4194,190,4265,112"/>
+<area shape="poly" id="edge204_Node000074_Node000028" title=" " alt="" coords="4297,117,4327,210,4350,267,4377,323,4395,349,4413,370,4408,374,4390,352,4372,325,4345,269,4322,212,4292,118"/>
+<area shape="poly" id="edge205_Node000074_Node000029" title=" " alt="" coords="4319,109,4434,187,4505,240,4574,297,4614,336,4644,370,4640,374,4610,340,4570,301,4501,244,4430,191,4316,114"/>
+<area shape="poly" id="edge202_Node000074_Node000058" title=" " alt="" coords="4244,103,3922,156,3922,151,4243,97"/>
+<area shape="rect" id="Node000075" href="$_text_8cpp.html" title="Implementation of the Text class." alt="" coords="4650,152,4726,177"/>
+<area shape="poly" id="edge203_Node000074_Node000075" title=" " alt="" coords="4333,97,4631,149,4650,153,4649,158,4630,155,4332,103"/>
 </map>

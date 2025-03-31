@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['sbml_20specifications_20292',['SBML specifications',['../libsbml-sbml-specifications.html',1,'libsbml-api-guide']]],
-  ['step_20by_20step_20summary_20of_20the_20implementation_20of_20an_20extension_20293',['Step by step summary of the implementation of an extension',['../libsbml-howto-implement-extension.html',1,'libsbml-extending']]],
-  ['summary_20of_20the_20package_20extension_20mechanism_20294',['Summary of the package extension mechanism',['../libsbml-basics-of-extensions.html',1,'libsbml-extending']]]
+  ['math_0',['Working with math',['../libsbml-math.html',1,'libsbml-api-guide']]],
+  ['mechanism_1',['Summary of the package extension mechanism',['../libsbml-basics-of-extensions.html',1,'libsbml-extending']]],
+  ['model_2',['Tutorial: creating a complete model',['../libsbml-example.html',1,'libsbml-api-guide']]]
 ];

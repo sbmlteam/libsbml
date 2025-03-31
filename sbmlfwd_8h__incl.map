@@ -1,8 +1,15 @@
 <map id="sbmlfwd.h" name="sbmlfwd.h">
-<area shape="rect" id="node1" title="Forward declarations for all opaque C types." alt="" coords="53,5,143,32"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,333,172,375"/>
-<area shape="rect" id="node3" href="$libsbml-config_8h.html" title="Decides whether to #include Unix or Windows configuration variables." alt="" coords="101,80,268,121"/>
-<area shape="rect" id="node4" title=" " alt="" coords="127,169,293,211"/>
-<area shape="rect" id="node5" href="$libsbml-version_8h.html" title="Define libSBML version numbers for access from client software." alt="" coords="317,169,484,211"/>
-<area shape="rect" id="node6" href="$extern_8h.html" title="Definitions of LIBSBML_EXTERN and related things." alt="" coords="219,259,393,285"/>
+<area shape="rect" id="Node000001" title="Forward declarations for all opaque C types." alt="" coords="53,5,143,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,328,172,368"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="98,31,91,79,84,179,86,280,88,314,83,314,81,280,79,179,86,78,93,31"/>
+<area shape="rect" id="Node000003" href="$libsbml-config_8h.html" title="Decides whether to #include Unix or Windows configuration variables." alt="" coords="101,79,268,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="113,29,155,67,152,71,109,33"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="159,121,136,142,116,168,102,205,94,244,90,314,84,314,88,243,97,203,112,165,132,138,155,117"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="127,167,293,207"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="193,118,203,153,198,154,188,120"/>
+<area shape="rect" id="Node000005" href="$libsbml-version_8h.html" title="Define libSBML version numbers for access from client software." alt="" coords="317,167,484,207"/>
+<area shape="poly" id="edge5_Node000003_Node000005" title=" " alt="" coords="233,116,342,159,340,164,231,121"/>
+<area shape="rect" id="Node000006" href="$extern_8h.html" title="Definitions of LIBSBML_EXTERN and related things." alt="" coords="219,255,393,280"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="379,209,333,248,329,243,376,205"/>
+<area shape="poly" id="edge7_Node000006_Node000002" title=" " alt="" coords="275,283,154,326,153,321,273,277"/>
 </map>

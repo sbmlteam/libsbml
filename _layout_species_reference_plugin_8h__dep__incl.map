@@ -1,6 +1,9 @@
 <map id="LayoutSpeciesReferencePlugin.h" name="LayoutSpeciesReferencePlugin.h">
-<area shape="rect" id="node1" title="Definition of LayoutSpeciesReferencePlugin, the plugin class of layout package (Level2) for the Speci..." alt="" coords="195,5,429,32"/>
-<area shape="rect" id="node2" href="$_layout_extension_8cpp.html" title="Implementation of LayoutExtension, the core module of layout package." alt="" coords="5,80,163,107"/>
-<area shape="rect" id="node3" href="$_layout_species_reference_plugin_8cpp.html" title="Implementation of LayoutSpeciesReferencePlugin, the plugin object of layout package (Level2) for the ..." alt="" coords="187,80,437,107"/>
-<area shape="rect" id="node4" href="$_layout_annotation_8cpp.html" title="Layout annotation I/O." alt="" coords="461,80,625,107"/>
+<area shape="rect" id="Node000001" title="Definition of LayoutSpeciesReferencePlugin, the plugin class of layout package (Level2) for the Speci..." alt="" coords="155,5,390,31"/>
+<area shape="rect" id="Node000002" href="$_layout_annotation_8cpp.html" title="Layout annotation I/O." alt="" coords="5,79,169,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="231,38,119,81,117,76,229,33"/>
+<area shape="rect" id="Node000003" href="$_layout_extension_8cpp.html" title="Implementation of LayoutExtension, the core module of layout package." alt="" coords="194,79,351,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="275,44,275,79,270,79,270,44"/>
+<area shape="rect" id="Node000004" href="$_layout_species_reference_plugin_8cpp.html" title="Implementation of LayoutSpeciesReferencePlugin, the plugin object of layout package (Level2) for the ..." alt="" coords="376,79,625,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="323,32,465,76,463,81,322,37"/>
 </map>

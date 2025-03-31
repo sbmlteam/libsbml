@@ -1,11 +1,19 @@
 <map id="GraphicalObject" name="GraphicalObject">
-<area shape="rect" id="node1" title=" " alt="" coords="116,157,243,184"/>
-<area shape="rect" id="node3" href="$class_compartment_glyph.html" title=" " alt="" coords="303,5,454,32"/>
-<area shape="rect" id="node4" href="$class_general_glyph.html" title=" " alt="" coords="323,56,434,83"/>
-<area shape="rect" id="node5" href="$class_reaction_glyph.html" title=" " alt="" coords="320,107,437,133"/>
-<area shape="rect" id="node6" href="$class_reference_glyph.html" title=" " alt="" coords="315,157,442,184"/>
-<area shape="rect" id="node7" href="$class_species_glyph.html" title=" " alt="" coords="323,208,434,235"/>
-<area shape="rect" id="node8" href="$class_species_reference_glyph.html" title=" " alt="" coords="291,259,467,285"/>
-<area shape="rect" id="node9" href="$class_text_glyph.html" title=" " alt="" coords="335,309,422,336"/>
-<area shape="rect" id="node2" href="$class_s_base.html" title=" " alt="" coords="5,157,68,184"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="116,153,243,179"/>
+<area shape="rect" id="Node000003" href="$class_compartment_glyph.html" title=" " alt="" coords="303,5,454,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="194,140,233,89,259,62,289,40,313,28,316,33,292,44,263,66,237,93,198,143"/>
+<area shape="rect" id="Node000004" href="$class_general_glyph.html" title=" " alt="" coords="323,55,434,80"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="205,142,244,115,290,89,322,77,324,82,292,94,247,119,208,147"/>
+<area shape="rect" id="Node000005" href="$class_reaction_glyph.html" title=" " alt="" coords="320,104,437,129"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="244,147,326,127,327,132,245,153"/>
+<area shape="rect" id="Node000006" href="$class_reference_glyph.html" title=" " alt="" coords="315,153,442,179"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="257,163,315,163,315,169,257,169"/>
+<area shape="rect" id="Node000007" href="$class_species_glyph.html" title=" " alt="" coords="323,203,434,228"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="245,179,327,200,326,205,244,185"/>
+<area shape="rect" id="Node000008" href="$class_species_reference_glyph.html" title=" " alt="" coords="291,252,467,277"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="208,185,247,213,292,238,322,249,320,254,290,243,244,217,205,190"/>
+<area shape="rect" id="Node000009" href="$class_text_glyph.html" title=" " alt="" coords="335,301,422,327"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="198,189,237,239,263,266,292,288,313,298,336,305,334,310,311,303,289,292,259,270,233,243,194,192"/>
+<area shape="rect" id="Node000002" href="$class_s_base.html" title=" " alt="" coords="5,153,68,179"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="82,163,116,163,116,169,82,169"/>
 </map>

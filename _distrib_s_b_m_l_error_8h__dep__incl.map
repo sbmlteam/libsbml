@@ -1,13 +1,23 @@
 <map id="DistribSBMLError.h" name="DistribSBMLError.h">
-<area shape="rect" id="node1" title="Definition of the DistribSBMLError class." alt="" coords="837,5,980,32"/>
-<area shape="rect" id="node2" href="$_distrib_s_base_plugin_8cpp.html" title="Implementation of the DistribSBasePlugin class." alt="" coords="5,80,177,107"/>
-<area shape="rect" id="node3" href="$_distrib_s_b_m_l_document_plugin_8cpp.html" title="Implementation of the DistribSBMLDocumentPlugin class." alt="" coords="202,80,437,107"/>
-<area shape="rect" id="node4" href="$_distrib_base_8cpp.html" title="Implementation of the DistribBase class." alt="" coords="460,80,584,107"/>
-<area shape="rect" id="node5" href="$_list_of_uncertainties_8cpp.html" title="Implementation of the ListOfUncertainties class." alt="" coords="608,80,783,107"/>
-<area shape="rect" id="node6" href="$_list_of_uncert_parameters_8cpp.html" title="Implementation of the ListOfUncertParameters class." alt="" coords="807,80,1011,107"/>
-<area shape="rect" id="node7" href="$_uncertainty_8cpp.html" title="Implementation of the Uncertainty class." alt="" coords="1035,80,1158,107"/>
-<area shape="rect" id="node8" href="$_uncert_parameter_8cpp.html" title="Implementation of the UncertParameter class." alt="" coords="1183,80,1341,107"/>
-<area shape="rect" id="node9" href="$_uncert_span_8cpp.html" title="Implementation of the UncertSpan class." alt="" coords="1365,80,1489,107"/>
-<area shape="rect" id="node10" href="$_distrib_s_b_m_l_error_table_8h.html" title="Definition of the DistribSBMLErrorTable class." alt="" coords="1514,80,1693,107"/>
-<area shape="rect" id="node11" href="$_distrib_extension_8cpp.html" title="Implementation of DistribExtension." alt="" coords="1525,155,1681,181"/>
+<area shape="rect" id="Node000001" title="Definition of the DistribSBMLError class." alt="" coords="843,5,985,31"/>
+<area shape="rect" id="Node000002" href="$_distrib_base_8cpp.html" title="Implementation of the DistribBase class." alt="" coords="5,79,129,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="829,26,525,46,334,62,142,81,130,83,129,78,142,76,334,57,525,41,829,21"/>
+<area shape="rect" id="Node000003" href="$_distrib_s_b_m_l_document_plugin_8cpp.html" title="Implementation of the DistribSBMLDocumentPlugin class." alt="" coords="154,79,389,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="829,31,375,81,374,76,828,26"/>
+<area shape="rect" id="Node000004" href="$_distrib_s_b_m_l_error_table_8h.html" title="Definition of the DistribSBMLErrorTable class." alt="" coords="413,79,591,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="835,36,569,81,568,76,834,30"/>
+<area shape="rect" id="Node000006" href="$_distrib_s_base_plugin_8cpp.html" title="Implementation of the DistribSBasePlugin class." alt="" coords="616,79,788,104"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="868,37,737,81,735,76,866,32"/>
+<area shape="rect" id="Node000007" href="$_list_of_uncert_parameters_8cpp.html" title="Implementation of the ListOfUncertParameters class." alt="" coords="812,79,1016,104"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="917,44,917,79,911,79,911,44"/>
+<area shape="rect" id="Node000008" href="$_list_of_uncertainties_8cpp.html" title="Implementation of the ListOfUncertainties class." alt="" coords="1040,79,1215,104"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="962,32,1094,76,1092,81,960,37"/>
+<area shape="rect" id="Node000009" href="$_uncert_parameter_8cpp.html" title="Implementation of the UncertParameter class." alt="" coords="1239,79,1397,104"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="993,30,1253,76,1252,81,992,36"/>
+<area shape="rect" id="Node000010" href="$_uncert_span_8cpp.html" title="Implementation of the UncertSpan class." alt="" coords="1421,79,1545,104"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="999,26,1410,76,1421,78,1421,83,1410,81,999,31"/>
+<area shape="rect" id="Node000011" href="$_uncertainty_8cpp.html" title="Implementation of the Uncertainty class." alt="" coords="1570,79,1693,104"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="999,23,1250,44,1558,76,1570,78,1569,83,1558,81,1250,49,999,28"/>
+<area shape="rect" id="Node000005" href="$_distrib_extension_8cpp.html" title="Implementation of DistribExtension." alt="" coords="424,152,580,177"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="505,118,505,152,499,152,499,118"/>
 </map>

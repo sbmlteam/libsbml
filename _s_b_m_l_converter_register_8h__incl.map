@@ -1,5 +1,7 @@
 <map id="SBMLConverterRegister.h" name="SBMLConverterRegister.h">
-<area shape="rect" id="node1" title="Definition of SBMLConverterRegister, a template to register converters." alt="" coords="5,5,192,32"/>
-<area shape="rect" id="node2" href="$extern_8h.html" title="Definitions of LIBSBML_EXTERN and related things." alt="" coords="12,80,185,107"/>
-<area shape="rect" id="node3" title=" " alt="" coords="15,155,182,196"/>
+<area shape="rect" id="Node000001" title="Definition of SBMLConverterRegister, a template to register converters." alt="" coords="5,5,192,31"/>
+<area shape="rect" id="Node000002" href="$extern_8h.html" title="Definitions of LIBSBML_EXTERN and related things." alt="" coords="12,79,185,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="101,31,101,65,96,65,96,31"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="15,152,182,192"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="101,104,101,138,96,138,96,104"/>
 </map>

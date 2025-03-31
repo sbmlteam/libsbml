@@ -128,7 +128,7 @@ var class_species_type_instance =
     [ "setSpeciesType", "class_species_type_instance.html#ae6c80e8daad8283abebb9996057d0d6c", null ],
     [ "setUserData", "class_species_type_instance.html#ac3b1bbfe22bad0dbc577b61c529f37bb", null ],
     [ "toSBML", "class_species_type_instance.html#ae8317d5157b70e4f1bc68e33e5c84001", null ],
-    [ "toXMLNode", "class_species_type_instance.html#a5c949d524aca47b84b18b57b76e6ee0a", null ],
+    [ "toXMLNode", "class_species_type_instance.html#a616754bfc4592922a488f2159f96b3ce", null ],
     [ "unsetAnnotation", "class_species_type_instance.html#a9121d6a4f7401fe957cc75647a1e95ed", null ],
     [ "unsetCompartmentReference", "class_species_type_instance.html#a0ec1254bbabef9c6b7e87c11642530db", null ],
     [ "unsetCreatedDate", "class_species_type_instance.html#ad3be0bf5891c2b6bf4340cce12b8630f", null ],

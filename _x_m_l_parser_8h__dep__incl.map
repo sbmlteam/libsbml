@@ -1,5 +1,7 @@
 <map id="XMLParser.h" name="XMLParser.h">
-<area shape="rect" id="node1" title=" " alt="" coords="103,5,204,32"/>
-<area shape="rect" id="node2" href="$_s_b_m_l_error_log_8cpp.html" title="Stores errors (and messages) encountered while processing SBML." alt="" coords="5,80,144,107"/>
-<area shape="rect" id="node3" href="$_x_m_l_error_log_8cpp.html" title="Stores errors (and messages) encountered while processing XML." alt="" coords="168,80,299,107"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="103,5,204,31"/>
+<area shape="rect" id="Node000002" href="$_s_b_m_l_error_log_8cpp.html" title="Stores errors (and messages) encountered while processing SBML." alt="" coords="5,79,144,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="132,42,89,80,86,76,129,38"/>
+<area shape="rect" id="Node000003" href="$_x_m_l_error_log_8cpp.html" title="Stores errors (and messages) encountered while processing XML." alt="" coords="168,79,299,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="178,38,222,76,218,80,174,42"/>
 </map>

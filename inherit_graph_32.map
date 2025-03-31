@@ -1,3 +1,41 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$class_s_b_m_l_converter_register.html" title=" " alt="" coords="5,5,196,47"/>
+<area shape="rect" id="Node000000" href="$class_s_b_m_l_converter.html" title=" " alt="" coords="5,449,128,475"/>
+<area shape="rect" id="Node000001" href="$class_cobra_to_fbc_converter.html" title=" " alt="" coords="215,5,377,31"/>
+<area shape="poly" id="edge275_Node000000_Node000001" title=" " alt="" coords="68,436,81,347,103,228,134,114,153,70,174,40,193,27,214,19,216,24,195,32,178,44,157,73,139,116,108,229,86,348,74,436"/>
+<area shape="rect" id="Node000002" href="$class_comp_flattening_converter.html" title=" " alt="" coords="201,55,391,80"/>
+<area shape="poly" id="edge276_Node000000_Node000002" title=" " alt="" coords="64,436,67,366,81,273,94,223,114,174,140,129,174,89,199,74,202,78,178,93,144,132,118,176,99,224,86,274,72,367,70,436"/>
+<area shape="rect" id="Node000003" href="$class_fbc_to_cobra_converter.html" title=" " alt="" coords="215,104,377,129"/>
+<area shape="poly" id="edge277_Node000000_Node000003" title=" " alt="" coords="66,435,71,374,87,294,101,251,120,210,144,172,174,139,193,126,214,118,216,123,196,131,178,143,148,175,124,212,106,253,92,295,77,375,71,436"/>
+<area shape="rect" id="Node000004" href="$class_fbc_v1_to_v2_converter.html" title=" " alt="" coords="217,153,375,179"/>
+<area shape="poly" id="edge278_Node000000_Node000004" title=" " alt="" coords="68,435,76,383,94,316,108,281,126,246,148,215,174,188,194,176,216,168,218,173,196,180,178,192,152,218,130,249,113,283,99,317,81,384,73,436"/>
+<area shape="rect" id="Node000005" href="$class_fbc_v2_to_v1_converter.html" title=" " alt="" coords="217,203,375,228"/>
+<area shape="poly" id="edge279_Node000000_Node000005" title=" " alt="" coords="70,435,82,391,102,337,132,283,151,258,174,237,194,225,216,218,218,223,196,230,178,241,155,262,136,286,106,340,87,393,75,436"/>
+<area shape="rect" id="Node000006" href="$class_render_layout_converter.html" title=" " alt="" coords="208,252,384,277"/>
+<area shape="poly" id="edge280_Node000000_Node000006" title=" " alt="" coords="74,435,88,401,110,360,138,320,175,286,207,271,209,276,177,291,142,324,114,363,93,403,79,437"/>
+<area shape="rect" id="Node000007" href="$class_s_b_m_l_function_definition_converter.html" title=" " alt="" coords="176,301,416,327"/>
+<area shape="poly" id="edge281_Node000000_Node000007" title=" " alt="" coords="80,436,118,384,144,358,175,336,200,324,202,329,177,340,148,362,122,388,84,439"/>
+<area shape="rect" id="Node000008" href="$class_s_b_m_l_id_converter.html" title=" " alt="" coords="229,351,363,376"/>
+<area shape="poly" id="edge282_Node000000_Node000008" title=" " alt="" coords="91,438,129,410,175,385,228,369,229,374,177,390,132,415,94,443"/>
+<area shape="rect" id="Node000009" href="$class_s_b_m_l_infer_units_converter.html" title=" " alt="" coords="203,400,389,425"/>
+<area shape="poly" id="edge283_Node000000_Node000009" title=" " alt="" coords="133,444,175,434,229,423,230,428,177,439,134,449"/>
+<area shape="rect" id="Node000010" href="$class_s_b_m_l_initial_assignment_converter.html" title=" " alt="" coords="178,449,414,475"/>
+<area shape="poly" id="edge284_Node000000_Node000010" title=" " alt="" coords="142,459,178,459,178,465,142,465"/>
+<area shape="rect" id="Node000011" href="$class_s_b_m_l_level1_version1_converter.html" title=" " alt="" coords="185,499,407,524"/>
+<area shape="poly" id="edge285_Node000000_Node000011" title=" " alt="" coords="138,475,177,483,235,496,234,501,175,489,137,480"/>
+<area shape="rect" id="Node000012" href="$class_s_b_m_l_level_version_converter.html" title=" " alt="" coords="193,548,399,573"/>
+<area shape="poly" id="edge286_Node000000_Node000012" title=" " alt="" coords="95,481,132,508,177,533,215,545,213,550,175,538,129,513,92,485"/>
+<area shape="rect" id="Node000013" href="$class_s_b_m_l_local_parameter_converter.html" title=" " alt="" coords="185,597,407,623"/>
+<area shape="poly" id="edge287_Node000000_Node000013" title=" " alt="" coords="85,485,123,535,148,561,177,582,206,595,204,600,175,587,145,565,119,539,80,488"/>
+<area shape="rect" id="Node000014" href="$class_s_b_m_l_rate_of_converter.html" title=" " alt="" coords="213,647,379,672"/>
+<area shape="poly" id="edge288_Node000000_Node000014" title=" " alt="" coords="79,487,93,520,114,560,142,599,177,632,214,648,211,653,175,636,138,603,110,563,88,523,74,489"/>
+<area shape="rect" id="Node000015" href="$class_s_b_m_l_rate_rule_converter.html" title=" " alt="" coords="205,696,387,721"/>
+<area shape="poly" id="edge289_Node000000_Node000015" title=" " alt="" coords="76,488,87,531,107,583,137,637,156,661,178,681,206,697,204,701,174,686,152,664,132,640,102,586,82,532,70,489"/>
+<area shape="rect" id="Node000016" href="$class_s_b_m_l_reaction_converter.html" title=" " alt="" coords="207,745,385,771"/>
+<area shape="poly" id="edge290_Node000000_Node000016" title=" " alt="" coords="73,488,82,540,100,606,113,641,131,674,152,704,178,731,208,747,205,752,174,735,148,708,126,677,109,643,95,608,76,541,68,489"/>
+<area shape="rect" id="Node000017" href="$class_s_b_m_l_rule_converter.html" title=" " alt="" coords="221,795,371,820"/>
+<area shape="poly" id="edge291_Node000000_Node000017" title=" " alt="" coords="71,488,77,549,93,628,106,670,125,710,148,748,178,780,198,793,221,801,219,806,195,798,174,784,144,751,120,713,101,672,88,629,72,549,66,489"/>
+<area shape="rect" id="Node000018" href="$class_s_b_m_l_strip_package_converter.html" title=" " alt="" coords="193,844,399,869"/>
+<area shape="poly" id="edge292_Node000000_Node000018" title=" " alt="" coords="70,488,73,557,86,650,100,699,119,747,145,791,178,829,196,842,193,846,174,833,140,794,114,749,95,701,81,651,67,558,65,489"/>
+<area shape="rect" id="Node000019" href="$class_s_b_m_l_units_converter.html" title=" " alt="" coords="218,893,374,919"/>
+<area shape="poly" id="edge293_Node000000_Node000019" title=" " alt="" coords="74,488,87,577,108,694,139,807,158,850,178,879,197,892,219,900,217,905,194,896,174,883,153,853,134,809,103,696,81,578,69,489"/>
 </map>

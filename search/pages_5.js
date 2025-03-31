@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['help_20and_20feedback_20284',['Help and feedback',['../libsbml-help.html',1,'index']]],
-  ['how_20to_20extend_20libsbml_20to_20support_20sbml_20packages_20285',['How to extend libSBML to support SBML packages',['../libsbml-extending.html',1,'libsbml-other']]]
+  ['features_20at_20a_20glance_0',['LibSBML features at a glance',['../libsbml-features.html',1,'libsbml-api-guide']]],
+  ['feedback_1',['Help and feedback',['../libsbml-help.html',1,'index']]],
+  ['for_20libsbml_2',['Documentation conventions for libSBML',['../libsbml-coding.html',1,'libsbml-other']]],
+  ['from_20software_3',['Accessing libSBML from software',['../libsbml-accessing.html',1,'libsbml-installation-guide']]]
 ];

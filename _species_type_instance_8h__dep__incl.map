@@ -1,13 +1,28 @@
 <map id="SpeciesTypeInstance.h" name="SpeciesTypeInstance.h">
-<area shape="rect" id="node1" title=": Implementation of the SpeciesTypeInstance class" alt="" coords="126,5,295,32"/>
-<area shape="rect" id="node2" href="$_multi_extension_types_8h.html" title=": Implementation of the MultiExtensionTypes class" alt="" coords="5,304,173,331"/>
-<area shape="rect" id="node4" href="$_multi_species_type_8h.html" title=": Implementation of the MultiSpeciesType class" alt="" coords="137,80,284,107"/>
-<area shape="rect" id="node11" href="$_species_type_instance_8cpp.html" title=": Implementation of the SpeciesTypeInstance class" alt="" coords="308,80,492,107"/>
-<area shape="rect" id="node3" href="$_multi_validator_8cpp.html" title=": Implementation of the MultiValidator class" alt="" coords="20,379,159,405"/>
-<area shape="rect" id="node5" href="$_multi_model_plugin_8h.html" title=": Implementation of the MultiModelPlugin class" alt="" coords="188,229,335,256"/>
-<area shape="rect" id="node8" href="$_binding_site_species_type_8h.html" title=": Implementation of the BindingSiteSpeciesType class" alt="" coords="249,155,437,181"/>
-<area shape="rect" id="node10" href="$_multi_species_type_8cpp.html" title=": Implementation of the MultiSpeciesType class" alt="" coords="585,229,748,256"/>
-<area shape="rect" id="node6" href="$_multi_extension_8cpp.html" title=": Implementation of the MultiExtension class" alt="" coords="197,304,344,331"/>
-<area shape="rect" id="node7" href="$_multi_model_plugin_8cpp.html" title=": Implementation of the MultiModelPlugin class" alt="" coords="368,304,531,331"/>
-<area shape="rect" id="node9" href="$_binding_site_species_type_8cpp.html" title=": Implementation of the BindingSiteSpeciesType class" alt="" coords="359,229,561,256"/>
+<area shape="rect" id="Node000001" title=": Implementation of the SpeciesTypeInstance class" alt="" coords="126,5,295,31"/>
+<area shape="rect" id="Node000002" href="$_multi_extension_types_8h.html" title=": Implementation of the MultiExtensionTypes class" alt="" coords="5,299,173,324"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="173,39,148,57,128,80,113,109,102,139,91,203,89,259,91,298,85,298,83,259,86,202,97,138,108,107,123,77,145,53,170,35"/>
+<area shape="rect" id="Node000004" href="$_multi_species_type_8h.html" title=": Implementation of the MultiSpeciesType class" alt="" coords="137,79,284,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="213,44,213,79,208,79,208,44"/>
+<area shape="rect" id="Node000011" href="$_species_type_instance_8cpp.html" title=": Implementation of the SpeciesTypeInstance class" alt="" coords="308,79,492,104"/>
+<area shape="poly" id="edge15_Node000001_Node000011" title=" " alt="" coords="255,33,370,76,368,81,253,38"/>
+<area shape="rect" id="Node000003" href="$_multi_validator_8cpp.html" title=": Implementation of the MultiValidator class" alt="" coords="20,372,159,397"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="92,338,92,372,87,372,87,338"/>
+<area shape="poly" id="edge12_Node000004_Node000002" title=" " alt="" coords="200,118,98,300,94,297,195,115"/>
+<area shape="rect" id="Node000005" href="$_binding_site_species_type_8h.html" title=": Implementation of the BindingSiteSpeciesType class" alt="" coords="249,152,437,177"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="245,108,322,149,320,154,242,113"/>
+<area shape="rect" id="Node000007" href="$_multi_model_plugin_8h.html" title=": Implementation of the MultiModelPlugin class" alt="" coords="188,225,335,251"/>
+<area shape="poly" id="edge13_Node000004_Node000007" title=" " alt="" coords="220,117,239,176,258,224,253,226,233,178,215,118"/>
+<area shape="rect" id="Node000010" href="$_multi_species_type_8cpp.html" title=": Implementation of the MultiSpeciesType class" alt="" coords="585,225,748,251"/>
+<area shape="poly" id="edge14_Node000004_Node000010" title=" " alt="" coords="278,104,361,124,450,149,557,188,641,223,639,228,555,193,449,155,360,129,277,110"/>
+<area shape="poly" id="edge6_Node000005_Node000002" title=" " alt="" coords="282,184,229,202,177,228,132,265,100,300,96,297,128,261,175,223,227,197,280,179"/>
+<area shape="rect" id="Node000006" href="$_binding_site_species_type_8cpp.html" title=": Implementation of the BindingSiteSpeciesType class" alt="" coords="359,225,561,251"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="375,182,442,223,439,227,372,187"/>
+<area shape="poly" id="edge7_Node000005_Node000007" title=" " alt="" coords="321,188,276,227,273,223,318,184"/>
+<area shape="poly" id="edge11_Node000005_Node000010" title=" " alt="" coords="409,178,615,223,614,228,407,183"/>
+<area shape="poly" id="edge9_Node000007_Node000002" title=" " alt="" coords="222,258,118,301,116,296,220,253"/>
+<area shape="rect" id="Node000008" href="$_multi_extension_8cpp.html" title=": Implementation of the MultiExtension class" alt="" coords="197,299,344,324"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="267,264,272,298,267,299,262,265"/>
+<area shape="rect" id="Node000009" href="$_multi_model_plugin_8cpp.html" title=": Implementation of the MultiModelPlugin class" alt="" coords="368,299,531,324"/>
+<area shape="poly" id="edge10_Node000007_Node000009" title=" " alt="" coords="305,253,420,296,418,301,303,258"/>
 </map>

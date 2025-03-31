@@ -30,5 +30,5 @@ var operation_return_values_8h =
       [ "LIBSBML_CONV_CONVERSION_NOT_AVAILABLE", "operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da51f3c3d7805af80bd68a5cebf33d10f2", null ],
       [ "LIBSBML_CONV_PKG_CONSIDERED_UNKNOWN", "operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da021111d81902e6e49812c0887ba1bf0e", null ]
     ] ],
-    [ "OperationReturnValue_toString", "operation_return_values_8h.html#a34003fd59da1db9c45f9c625e043f8ce", null ]
+    [ "OperationReturnValue_toString", "operation_return_values_8h.html#aadad1f534604bfbcc2bfc4f4e2b71101", null ]
 ];

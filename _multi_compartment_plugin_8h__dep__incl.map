@@ -1,7 +1,11 @@
 <map id="MultiCompartmentPlugin.h" name="MultiCompartmentPlugin.h">
-<area shape="rect" id="node1" title=": Implementation of the MultiCompartmentPlugin class" alt="" coords="205,5,403,32"/>
-<area shape="rect" id="node2" href="$_multi_extension_types_8h.html" title=": Implementation of the MultiExtensionTypes class" alt="" coords="5,80,173,107"/>
-<area shape="rect" id="node4" href="$_multi_compartment_plugin_8cpp.html" title=": Implementation of the MultiCompartmentPlugin class" alt="" coords="198,80,410,107"/>
-<area shape="rect" id="node5" href="$_multi_extension_8cpp.html" title=": Implementation of the MultiExtension class" alt="" coords="435,80,581,107"/>
-<area shape="rect" id="node3" href="$_multi_validator_8cpp.html" title=": Implementation of the MultiValidator class" alt="" coords="20,155,159,181"/>
+<area shape="rect" id="Node000001" title=": Implementation of the MultiCompartmentPlugin class" alt="" coords="217,5,414,31"/>
+<area shape="rect" id="Node000002" href="$_multi_compartment_plugin_8cpp.html" title=": Implementation of the MultiCompartmentPlugin class" alt="" coords="5,79,217,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="271,38,145,81,143,76,269,33"/>
+<area shape="rect" id="Node000003" href="$_multi_extension_8cpp.html" title=": Implementation of the MultiExtension class" alt="" coords="242,79,389,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="318,44,318,79,313,79,313,44"/>
+<area shape="rect" id="Node000004" href="$_multi_extension_types_8h.html" title=": Implementation of the MultiExtensionTypes class" alt="" coords="413,79,581,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="358,33,468,76,466,81,356,38"/>
+<area shape="rect" id="Node000005" href="$_multi_validator_8cpp.html" title=": Implementation of the MultiValidator class" alt="" coords="427,152,566,177"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="499,118,499,152,494,152,494,118"/>
 </map>

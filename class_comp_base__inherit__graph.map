@@ -1,12 +1,21 @@
 <map id="CompBase" name="CompBase">
-<area shape="rect" id="node1" title=" " alt="" coords="205,80,297,107"/>
-<area shape="rect" id="node3" href="$class_external_model_definition.html" title=" " alt="" coords="5,155,184,181"/>
-<area shape="rect" id="node4" href="$class_s_base_ref.html" title=" " alt="" coords="209,155,293,181"/>
-<area shape="rect" id="node10" href="$class_submodel.html" title=" " alt="" coords="317,155,403,181"/>
-<area shape="rect" id="node2" href="$class_s_base.html" title=" " alt="" coords="219,5,282,32"/>
-<area shape="rect" id="node5" href="$class_deletion.html" title=" " alt="" coords="125,229,203,256"/>
-<area shape="rect" id="node6" href="$class_port.html" title=" " alt="" coords="227,229,275,256"/>
-<area shape="rect" id="node7" href="$class_replacing.html" title=" " alt="" coords="299,229,386,256"/>
-<area shape="rect" id="node8" href="$class_replaced_by.html" title=" " alt="" coords="223,304,321,331"/>
-<area shape="rect" id="node9" href="$class_replaced_element.html" title=" " alt="" coords="345,304,481,331"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="205,79,297,104"/>
+<area shape="rect" id="Node000003" href="$class_external_model_definition.html" title=" " alt="" coords="5,152,184,177"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="214,112,121,154,119,149,212,107"/>
+<area shape="rect" id="Node000004" href="$class_s_base_ref.html" title=" " alt="" coords="209,152,293,177"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="253,118,253,152,248,152,248,118"/>
+<area shape="rect" id="Node000010" href="$class_submodel.html" title=" " alt="" coords="317,152,403,177"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="281,109,344,150,341,154,278,114"/>
+<area shape="rect" id="Node000002" href="$class_s_base.html" title=" " alt="" coords="219,5,282,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="253,44,253,79,248,79,248,44"/>
+<area shape="rect" id="Node000005" href="$class_deletion.html" title=" " alt="" coords="125,225,203,251"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="228,188,180,227,176,223,225,184"/>
+<area shape="rect" id="Node000006" href="$class_port.html" title=" " alt="" coords="227,225,275,251"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="253,191,253,225,248,225,248,191"/>
+<area shape="rect" id="Node000007" href="$class_replacing.html" title=" " alt="" coords="299,225,386,251"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="278,183,329,223,326,227,274,188"/>
+<area shape="rect" id="Node000008" href="$class_replaced_by.html" title=" " alt="" coords="223,299,321,324"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="323,263,285,300,282,297,319,259"/>
+<area shape="rect" id="Node000009" href="$class_replaced_element.html" title=" " alt="" coords="345,299,481,324"/>
+<area shape="poly" id="edge8_Node000007_Node000009" title=" " alt="" coords="366,259,404,297,400,300,362,263"/>
 </map>

@@ -148,7 +148,7 @@ var class_c_s_g_scale =
     [ "setScaleZ", "class_c_s_g_scale.html#a768e907df25f302e575721fd19156509", null ],
     [ "setUserData", "class_c_s_g_scale.html#ac3b1bbfe22bad0dbc577b61c529f37bb", null ],
     [ "toSBML", "class_c_s_g_scale.html#ae8317d5157b70e4f1bc68e33e5c84001", null ],
-    [ "toXMLNode", "class_c_s_g_scale.html#a5c949d524aca47b84b18b57b76e6ee0a", null ],
+    [ "toXMLNode", "class_c_s_g_scale.html#a616754bfc4592922a488f2159f96b3ce", null ],
     [ "unsetAnnotation", "class_c_s_g_scale.html#a9121d6a4f7401fe957cc75647a1e95ed", null ],
     [ "unsetCreatedDate", "class_c_s_g_scale.html#ad3be0bf5891c2b6bf4340cce12b8630f", null ],
     [ "unsetCSGNode", "class_c_s_g_scale.html#abf49c4d16ec1bd15d9b5e4f25a5915dd", null ],

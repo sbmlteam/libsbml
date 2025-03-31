@@ -136,7 +136,7 @@ var class_flux_objective =
     [ "setVariableType", "class_flux_objective.html#a5bbba1786018c7684cef9eff8afe97f8", null ],
     [ "setVariableType", "class_flux_objective.html#a0c1f1b8e8ecd1f325ad57ca9d791610c", null ],
     [ "toSBML", "class_flux_objective.html#ae8317d5157b70e4f1bc68e33e5c84001", null ],
-    [ "toXMLNode", "class_flux_objective.html#a5c949d524aca47b84b18b57b76e6ee0a", null ],
+    [ "toXMLNode", "class_flux_objective.html#a616754bfc4592922a488f2159f96b3ce", null ],
     [ "unsetAnnotation", "class_flux_objective.html#a9121d6a4f7401fe957cc75647a1e95ed", null ],
     [ "unsetCoefficient", "class_flux_objective.html#ae67f26f74d93bc018ee3fcf41aa420c5", null ],
     [ "unsetCreatedDate", "class_flux_objective.html#ad3be0bf5891c2b6bf4340cce12b8630f", null ],

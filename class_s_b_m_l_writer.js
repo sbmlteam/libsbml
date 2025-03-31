@@ -9,5 +9,5 @@ var class_s_b_m_l_writer =
     [ "writeSBML", "class_s_b_m_l_writer.html#a02d1998aee7656d7b9c3ac69d62bb66f", null ],
     [ "writeSBML", "class_s_b_m_l_writer.html#afbd37201ad52b3b1665b162297ea3052", null ],
     [ "writeSBMLToFile", "class_s_b_m_l_writer.html#a7c0ef141939d0c1928fe95ac4d3d193a", null ],
-    [ "writeSBMLToString", "class_s_b_m_l_writer.html#a9d79b93e0f69117ba909b772aee6a9bc", null ]
+    [ "writeSBMLToString", "class_s_b_m_l_writer.html#ab45791b813693b0ee71e8e71c5b9e3f0", null ]
 ];

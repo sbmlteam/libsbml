@@ -1,5 +1,8 @@
 var searchData=
 [
-  ['libsbml_20features_20at_20a_20glance_20288',['LibSBML features at a glance',['../libsbml-features.html',1,'libsbml-api-guide']]],
-  ['libsbml_20license_20289',['LibSBML license',['../libsbml-license.html',1,'index']]]
+  ['implementation_20of_20an_20extension_0',['Step by step summary of the implementation of an extension',['../libsbml-howto-implement-extension.html',1,'libsbml-extending']]],
+  ['installation_1',['Installation',['../libsbml-installation-guide.html',1,'index']]],
+  ['installing_20libsbml_2',['Building and installing libSBML',['../libsbml-installation.html',1,'libsbml-installation-guide']]],
+  ['issues_3',['Asking questions, reporting issues',['../libsbml-communications.html',1,'libsbml-help']]],
+  ['issues_20and_20pitfalls_4',['Known issues and pitfalls',['../libsbml-issues.html',1,'libsbml-installation-guide']]]
 ];

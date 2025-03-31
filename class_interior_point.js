@@ -131,7 +131,7 @@ var class_interior_point =
     [ "setSBOTerm", "class_interior_point.html#a37287e48bd51353012b74e4d200bb446", null ],
     [ "setUserData", "class_interior_point.html#ac3b1bbfe22bad0dbc577b61c529f37bb", null ],
     [ "toSBML", "class_interior_point.html#ae8317d5157b70e4f1bc68e33e5c84001", null ],
-    [ "toXMLNode", "class_interior_point.html#a5c949d524aca47b84b18b57b76e6ee0a", null ],
+    [ "toXMLNode", "class_interior_point.html#a616754bfc4592922a488f2159f96b3ce", null ],
     [ "unsetAnnotation", "class_interior_point.html#a9121d6a4f7401fe957cc75647a1e95ed", null ],
     [ "unsetCoord1", "class_interior_point.html#ac31b6e0d83f62451fc977c9638edb23c", null ],
     [ "unsetCoord2", "class_interior_point.html#ac11149b3de37c5a3258566fd212d7639", null ],

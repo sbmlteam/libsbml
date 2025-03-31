@@ -1,24 +1,54 @@
 <map id="KeyValuePair.h" name="KeyValuePair.h">
-<area shape="rect" id="node1" title="Definition of the KeyValuePair class." alt="" coords="712,5,829,32"/>
-<area shape="rect" id="node2" href="$_fbc_extension_types_8h.html" title="Includes all SBML types of the fbc package extension in a single header file." alt="" coords="439,304,598,331"/>
-<area shape="rect" id="node8" href="$_fbc_s_base_plugin_8h.html" title="Definition of the FbcSBasePlugin class." alt="" coords="627,155,765,181"/>
-<area shape="rect" id="node20" href="$_key_value_pair_8cpp.html" title="Implementation of the KeyValuePair class." alt="" coords="993,155,1125,181"/>
-<area shape="rect" id="node21" href="$_list_of_key_value_pairs_8h.html" title="Definition of the ListOfKeyValuePairs class." alt="" coords="781,80,944,107"/>
-<area shape="rect" id="node3" href="$_cobra_to_fbc_converter_8cpp.html" title="Implementation of a cobra 2 fbc converter." alt="" coords="5,379,192,405"/>
-<area shape="rect" id="node4" href="$_fbc_to_cobra_converter_8cpp.html" title="Implementation of a fbc 2 cobra converter." alt="" coords="216,379,403,405"/>
-<area shape="rect" id="node5" href="$_fbc_v1_to_v2_converter_8cpp.html" title="Implementation of a fbc v1 to fbc v2 converter." alt="" coords="427,379,610,405"/>
-<area shape="rect" id="node6" href="$_fbc_v2_to_v1_converter_8cpp.html" title="Implementation of a fbc v2 to fbc v1 converter." alt="" coords="634,379,817,405"/>
-<area shape="rect" id="node7" href="$_fbc_validator_8cpp.html" title="Base class for SBML Validators." alt="" coords="841,379,970,405"/>
-<area shape="rect" id="node9" href="$_fbc_extension_8cpp.html" title="Implementation of FbcExtension, the core module of fbc package." alt="" coords="809,304,945,331"/>
-<area shape="rect" id="node10" href="$_fbc_model_plugin_8h.html" title="Definition of FbcModelPlugin, the plugin class of fbc package for the Model element." alt="" coords="1018,229,1155,256"/>
-<area shape="rect" id="node15" href="$_fbc_reaction_plugin_8h.html" title="Implementation of the FbcReactionPlugin class." alt="" coords="441,229,596,256"/>
-<area shape="rect" id="node17" href="$_fbc_s_base_plugin_8cpp.html" title="Implementation of the FbcSBasePlugin class." alt="" coords="620,229,772,256"/>
-<area shape="rect" id="node18" href="$_fbc_species_plugin_8h.html" title="Definition of FbcSpeciesPlugin, the plugin class of the fbc package for the Species element." alt="" coords="796,229,943,256"/>
-<area shape="rect" id="node11" href="$_fbc_model_plugin_8cpp.html" title="Implementation of FbcModelPlugin, the plugin class of the fbc package for the Model element." alt="" coords="969,304,1121,331"/>
-<area shape="rect" id="node12" href="$_fbc_association_8cpp.html" title="Implementation of the FbcAssociation class." alt="" coords="1145,304,1292,331"/>
-<area shape="rect" id="node13" href="$_gene_product_association_8cpp.html" title="Implementation of the GeneProductAssociation class." alt="" coords="1317,304,1523,331"/>
-<area shape="rect" id="node14" href="$_gene_product_ref_8cpp.html" title="Implementation of the GeneProductRef class." alt="" coords="1547,304,1701,331"/>
-<area shape="rect" id="node16" href="$_fbc_reaction_plugin_8cpp.html" title="Implementation of the FbcReactionPlugin class." alt="" coords="246,304,415,331"/>
-<area shape="rect" id="node19" href="$_fbc_species_plugin_8cpp.html" title="Implementation of FbcSpeciesPlugin, the plugin class of the fbc package for the Species element." alt="" coords="623,304,785,331"/>
-<area shape="rect" id="node22" href="$_list_of_key_value_pairs_8cpp.html" title="Implementation of the ListOfKeyValuePairs class." alt="" coords="789,155,968,181"/>
+<area shape="rect" id="Node000001" title="Definition of the KeyValuePair class." alt="" coords="712,5,829,31"/>
+<area shape="rect" id="Node000002" href="$_fbc_extension_types_8h.html" title="Includes all SBML types of the fbc package extension in a single header file." alt="" coords="439,299,598,324"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="711,37,639,62,558,100,518,126,481,155,448,188,421,227,417,238,418,248,433,267,458,284,486,296,484,301,455,288,429,271,413,250,412,237,416,224,444,185,477,151,515,121,556,96,637,57,709,32"/>
+<area shape="rect" id="Node000008" href="$_fbc_s_base_plugin_8h.html" title="Definition of the FbcSBasePlugin class." alt="" coords="627,152,765,177"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="761,44,704,153,700,151,756,42"/>
+<area shape="rect" id="Node000020" href="$_key_value_pair_8cpp.html" title="Implementation of the KeyValuePair class." alt="" coords="993,152,1125,177"/>
+<area shape="poly" id="edge26_Node000001_Node000020" title=" " alt="" coords="838,31,897,50,957,76,1011,114,1050,150,1046,154,1008,118,955,81,895,55,836,37"/>
+<area shape="rect" id="Node000021" href="$_list_of_key_value_pairs_8h.html" title="Definition of the ListOfKeyValuePairs class." alt="" coords="781,79,944,104"/>
+<area shape="poly" id="edge27_Node000001_Node000021" title=" " alt="" coords="798,37,849,76,846,81,794,41"/>
+<area shape="rect" id="Node000003" href="$_cobra_to_fbc_converter_8cpp.html" title="Implementation of a cobra 2 fbc converter." alt="" coords="5,372,192,397"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="438,329,167,375,166,369,437,324"/>
+<area shape="rect" id="Node000004" href="$_fbc_to_cobra_converter_8cpp.html" title="Implementation of a fbc 2 cobra converter." alt="" coords="216,372,403,397"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="473,331,344,374,342,369,471,326"/>
+<area shape="rect" id="Node000005" href="$_fbc_v1_to_v2_converter_8cpp.html" title="Implementation of a fbc v1 to fbc v2 converter." alt="" coords="427,372,610,397"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="521,338,521,372,516,372,516,338"/>
+<area shape="rect" id="Node000006" href="$_fbc_v2_to_v1_converter_8cpp.html" title="Implementation of a fbc v2 to fbc v1 converter." alt="" coords="634,372,817,397"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="566,326,693,369,691,374,564,331"/>
+<area shape="rect" id="Node000007" href="$_fbc_validator_8cpp.html" title="Base class for SBML Validators." alt="" coords="841,372,970,397"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="595,324,843,369,842,375,594,329"/>
+<area shape="poly" id="edge9_Node000008_Node000002" title=" " alt="" coords="614,176,504,194,459,209,442,217,431,227,426,237,427,246,440,265,464,282,491,296,489,301,461,287,436,269,422,248,421,236,427,224,439,213,457,204,503,189,613,171"/>
+<area shape="rect" id="Node000009" href="$_fbc_extension_8cpp.html" title="Implementation of FbcExtension, the core module of fbc package." alt="" coords="809,299,945,324"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="779,177,890,199,933,212,957,223,963,235,962,247,949,268,927,287,903,301,900,296,924,282,945,265,957,245,957,236,953,227,931,217,889,205,778,182"/>
+<area shape="rect" id="Node000010" href="$_fbc_model_plugin_8h.html" title="Definition of FbcModelPlugin, the plugin class of fbc package for the Model element." alt="" coords="1018,225,1155,251"/>
+<area shape="poly" id="edge10_Node000008_Node000010" title=" " alt="" coords="772,177,1024,223,1023,228,772,182"/>
+<area shape="rect" id="Node000015" href="$_fbc_reaction_plugin_8h.html" title="Implementation of the FbcReactionPlugin class." alt="" coords="441,225,596,251"/>
+<area shape="poly" id="edge17_Node000008_Node000015" title=" " alt="" coords="656,185,549,228,547,223,654,180"/>
+<area shape="rect" id="Node000017" href="$_fbc_s_base_plugin_8cpp.html" title="Implementation of the FbcSBasePlugin class." alt="" coords="620,225,772,251"/>
+<area shape="poly" id="edge21_Node000008_Node000017" title=" " alt="" coords="699,191,699,225,693,225,693,191"/>
+<area shape="rect" id="Node000018" href="$_fbc_species_plugin_8h.html" title="Definition of FbcSpeciesPlugin, the plugin class of the fbc package for the Species element." alt="" coords="796,225,943,251"/>
+<area shape="poly" id="edge22_Node000008_Node000018" title=" " alt="" coords="737,180,842,223,840,228,735,185"/>
+<area shape="poly" id="edge13_Node000010_Node000002" title=" " alt="" coords="1004,252,599,303,598,297,1004,247"/>
+<area shape="poly" id="edge12_Node000010_Node000009" title=" " alt="" coords="1041,258,912,301,910,296,1039,253"/>
+<area shape="rect" id="Node000011" href="$_fbc_association_8cpp.html" title="Implementation of the FbcAssociation class." alt="" coords="969,299,1116,324"/>
+<area shape="poly" id="edge11_Node000010_Node000011" title=" " alt="" coords="1074,264,1052,300,1048,297,1070,261"/>
+<area shape="rect" id="Node000012" href="$_fbc_model_plugin_8cpp.html" title="Implementation of FbcModelPlugin, the plugin class of the fbc package for the Model element." alt="" coords="1140,299,1292,324"/>
+<area shape="poly" id="edge14_Node000010_Node000012" title=" " alt="" coords="1121,255,1196,296,1194,301,1118,260"/>
+<area shape="rect" id="Node000013" href="$_gene_product_association_8cpp.html" title="Implementation of the GeneProductAssociation class." alt="" coords="1317,299,1523,324"/>
+<area shape="poly" id="edge15_Node000010_Node000013" title=" " alt="" coords="1154,251,1367,296,1365,301,1153,256"/>
+<area shape="rect" id="Node000014" href="$_gene_product_ref_8cpp.html" title="Implementation of the GeneProductRef class." alt="" coords="1547,299,1701,324"/>
+<area shape="poly" id="edge16_Node000010_Node000014" title=" " alt="" coords="1170,248,1548,297,1547,303,1169,253"/>
+<area shape="poly" id="edge19_Node000015_Node000002" title=" " alt="" coords="521,264,521,299,516,299,516,264"/>
+<area shape="poly" id="edge18_Node000015_Node000009" title=" " alt="" coords="590,251,820,296,819,301,589,256"/>
+<area shape="rect" id="Node000016" href="$_fbc_reaction_plugin_8cpp.html" title="Implementation of the FbcReactionPlugin class." alt="" coords="246,299,415,324"/>
+<area shape="poly" id="edge20_Node000015_Node000016" title=" " alt="" coords="477,258,362,301,360,296,475,253"/>
+<area shape="poly" id="edge24_Node000018_Node000002" title=" " alt="" coords="800,256,576,301,575,296,799,251"/>
+<area shape="poly" id="edge23_Node000018_Node000009" title=" " alt="" coords="875,264,879,298,873,299,870,265"/>
+<area shape="rect" id="Node000019" href="$_fbc_species_plugin_8cpp.html" title="Implementation of FbcSpeciesPlugin, the plugin class of the fbc package for the Species element." alt="" coords="623,299,785,324"/>
+<area shape="poly" id="edge25_Node000018_Node000019" title=" " alt="" coords="831,258,732,301,730,296,829,254"/>
+<area shape="poly" id="edge28_Node000021_Node000008" title=" " alt="" coords="824,112,724,154,722,149,822,107"/>
+<area shape="poly" id="edge29_Node000021_Node000020" title=" " alt="" coords="908,106,1028,149,1026,154,906,111"/>
+<area shape="rect" id="Node000022" href="$_list_of_key_value_pairs_8cpp.html" title="Implementation of the ListOfKeyValuePairs class." alt="" coords="789,152,968,177"/>
+<area shape="poly" id="edge30_Node000021_Node000022" title=" " alt="" coords="871,117,879,151,873,152,866,118"/>
 </map>

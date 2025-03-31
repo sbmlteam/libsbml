@@ -35,13 +35,13 @@ var class_comp_s_b_m_l_document_plugin =
     [ "getParentSBMLObject", "class_comp_s_b_m_l_document_plugin.html#afcf597ffa54ffed41a57a1feee7a9241", null ],
     [ "getParentSBMLObject", "class_comp_s_b_m_l_document_plugin.html#af120d8b7c3b33a519434ad8c9381ea0e", null ],
     [ "getPrefix", "class_comp_s_b_m_l_document_plugin.html#aa2ba27dc0f8acc30b6a99496a26e1c0a", null ],
-    [ "getRequired", "class_comp_s_b_m_l_document_plugin.html#a0e44a382e88144b3ed18e5de7e98722b", null ],
+    [ "getRequired", "class_comp_s_b_m_l_document_plugin.html#a61544696c48e2d1d4da1b66f0613c664", null ],
     [ "getResolvedURI", "class_comp_s_b_m_l_document_plugin.html#a5a090e366346e7e860c7e7cf49d4f196", null ],
     [ "getSBMLDocument", "class_comp_s_b_m_l_document_plugin.html#a59581825576a6216ab07beceb709da81", null ],
     [ "getSBMLDocument", "class_comp_s_b_m_l_document_plugin.html#a9d5a422cf6973d70984cec3ec4597d1c", null ],
     [ "getURI", "class_comp_s_b_m_l_document_plugin.html#ae278c9a451f870b4b0472dece4cfd075", null ],
     [ "getVersion", "class_comp_s_b_m_l_document_plugin.html#aa13caba66cf24826f0b9a40d83db06c9", null ],
-    [ "isSetRequired", "class_comp_s_b_m_l_document_plugin.html#a3ab5ecd57ffe0211af14433e91271efa", null ],
+    [ "isSetRequired", "class_comp_s_b_m_l_document_plugin.html#ac50143dfb2064c70ddbc02cdd5d28998", null ],
     [ "isValidTypeForList", "class_comp_s_b_m_l_document_plugin.html#a22b634dc54d29892de8024a405af77be", null ],
     [ "operator=", "class_comp_s_b_m_l_document_plugin.html#a9550255454022e42104411cf52ffa0b0", null ],
     [ "removeExternalModelDefinition", "class_comp_s_b_m_l_document_plugin.html#a511ec804aa7be6f833185429ee3546e3", null ],
@@ -53,6 +53,6 @@ var class_comp_s_b_m_l_document_plugin =
     [ "renameUnitSIdRefs", "class_comp_s_b_m_l_document_plugin.html#a20f21bc972f3ee724924adf058e0e9a3", null ],
     [ "setElementNamespace", "class_comp_s_b_m_l_document_plugin.html#a70257de82da9ea894348f1d601395e83", null ],
     [ "setRequired", "class_comp_s_b_m_l_document_plugin.html#a203982f5001cd3ae8d29fe0b5b1e3472", null ],
-    [ "unsetRequired", "class_comp_s_b_m_l_document_plugin.html#a1f046ca04e055de9844c9acbce4c6543", null ],
+    [ "unsetRequired", "class_comp_s_b_m_l_document_plugin.html#a2655a84f1c27bf1976e92b0fc2a86331", null ],
     [ "ExternalModelDefinition", "class_comp_s_b_m_l_document_plugin.html#ac99cd0427597f52a78301d2035bc7333", null ]
 ];

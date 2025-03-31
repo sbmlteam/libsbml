@@ -140,7 +140,7 @@ var class_species_reference =
     [ "setStoichiometryMath", "class_species_reference.html#a6b303134daea6ba8fea5166567895986", null ],
     [ "setUserData", "class_species_reference.html#ac3b1bbfe22bad0dbc577b61c529f37bb", null ],
     [ "toSBML", "class_species_reference.html#ae8317d5157b70e4f1bc68e33e5c84001", null ],
-    [ "toXMLNode", "class_species_reference.html#a5c949d524aca47b84b18b57b76e6ee0a", null ],
+    [ "toXMLNode", "class_species_reference.html#a616754bfc4592922a488f2159f96b3ce", null ],
     [ "unsetAnnotation", "class_species_reference.html#a9121d6a4f7401fe957cc75647a1e95ed", null ],
     [ "unsetConstant", "class_species_reference.html#a3f45be7fd0cb7772b7325de39c0aac7c", null ],
     [ "unsetCreatedDate", "class_species_reference.html#ad3be0bf5891c2b6bf4340cce12b8630f", null ],

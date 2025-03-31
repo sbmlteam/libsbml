@@ -1,65 +1,146 @@
 <map id="SBMLDocumentPlugin.h" name="SBMLDocumentPlugin.h">
-<area shape="rect" id="node1" title="Definition of SBMLDocumentPlugin, the derived class of SBasePlugin." alt="" coords="2519,5,2697,32"/>
-<area shape="rect" id="node2" href="$_s_b_m_l_document_plugin_8cpp.html" title="Implementation of SBMLDocumentPlugin, the derived class of SBasePlugin." alt="" coords="5,80,197,107"/>
-<area shape="rect" id="node3" href="$_s_b_m_l_document_plugin_not_required_8h.html" title="Definition of SBMLDocumentPluginNotRequired, the plugin class of layout package for the SBMLDocument ..." alt="" coords="221,80,480,107"/>
-<area shape="rect" id="node5" href="$_s_b_m_l_document_8cpp.html" title="Implementation of the top&#45;level container for an SBML Model and associated data." alt="" coords="504,80,656,107"/>
-<area shape="rect" id="node6" href="$_comp_extension_8cpp.html" title="Implementation of CompExtension, the core module of comp package." alt="" coords="647,155,798,181"/>
-<area shape="rect" id="node7" href="$_comp_s_b_m_l_document_plugin_8h.html" title="Definition of CompSBMLDocumentPlugin, the plugin class of comp package for the Model element." alt="" coords="1150,80,1365,107"/>
-<area shape="rect" id="node9" href="$_comp_flattening_converter_8cpp.html" title="Implementation of a first flattening converter." alt="" coords="549,229,765,256"/>
-<area shape="rect" id="node14" href="$_fbc_extension_8cpp.html" title="Implementation of FbcExtension, the core module of fbc package." alt="" coords="1747,155,1883,181"/>
-<area shape="rect" id="node15" href="$_fbc_s_b_m_l_document_plugin_8h.html" title="Implementation of the FbcSBMLDocumentPlugin class." alt="" coords="2036,80,2236,107"/>
-<area shape="rect" id="node17" href="$_cobra_to_fbc_converter_8cpp.html" title="Implementation of a cobra 2 fbc converter." alt="" coords="1520,229,1707,256"/>
-<area shape="rect" id="node18" href="$_fbc_to_cobra_converter_8cpp.html" title="Implementation of a fbc 2 cobra converter." alt="" coords="1731,229,1917,256"/>
-<area shape="rect" id="node19" href="$_fbc_v1_to_v2_converter_8cpp.html" title="Implementation of a fbc v1 to fbc v2 converter." alt="" coords="2095,229,2278,256"/>
-<area shape="rect" id="node20" href="$_fbc_v2_to_v1_converter_8cpp.html" title="Implementation of a fbc v2 to fbc v1 converter." alt="" coords="2302,229,2485,256"/>
-<area shape="rect" id="node23" href="$_groups_extension_8cpp.html" title="Implementation of GroupsExtension." alt="" coords="2431,155,2590,181"/>
-<area shape="rect" id="node24" href="$_groups_s_b_m_l_document_plugin_8h.html" title="Definition of the GroupsSBMLDocumentPlugin class." alt="" coords="2571,80,2794,107"/>
-<area shape="rect" id="node28" href="$_layout_extension_8cpp.html" title="Implementation of LayoutExtension, the core module of layout package." alt="" coords="3084,155,3241,181"/>
-<area shape="rect" id="node29" href="$_layout_s_b_m_l_document_plugin_8h.html" title="Implementation of the LayoutSBMLDocumentPlugin class." alt="" coords="3223,80,3444,107"/>
-<area shape="rect" id="node34" href="$_render_layout_converter_8cpp.html" title="Simple converter to convert Layout + Render from l2 to L3 and vice versa." alt="" coords="3505,229,3708,256"/>
-<area shape="rect" id="node37" href="$_render_s_b_m_l_document_plugin_8h.html" title="Definition of the RenderSBMLDocumentPlugin class." alt="" coords="3866,80,4089,107"/>
-<area shape="rect" id="node44" href="$_spatial_extension_8cpp.html" title="Implementation of SpatialExtension." alt="" coords="4430,155,4589,181"/>
-<area shape="rect" id="node45" href="$_spatial_s_b_m_l_document_plugin_8h.html" title="Definition of the SpatialSBMLDocumentPlugin class." alt="" coords="4569,80,4791,107"/>
-<area shape="rect" id="node49" href="$_distrib_extension_8cpp.html" title="Implementation of DistribExtension." alt="" coords="5079,155,5235,181"/>
-<area shape="rect" id="node50" href="$_distrib_s_b_m_l_document_plugin_8h.html" title="Definition of the DistribSBMLDocumentPlugin class." alt="" coords="5218,80,5438,107"/>
-<area shape="rect" id="node54" href="$_multi_extension_8cpp.html" title=": Implementation of the MultiExtension class" alt="" coords="5721,155,5868,181"/>
-<area shape="rect" id="node55" href="$_multi_s_b_m_l_document_plugin_8h.html" title=": Implementation of the MultiSBMLDocumentPlugin class" alt="" coords="5852,80,6063,107"/>
-<area shape="rect" id="node59" href="$_qual_extension_8cpp.html" title="Implementation of QualExtension, the core module of qual package." alt="" coords="6334,155,6477,181"/>
-<area shape="rect" id="node60" href="$_qual_s_b_m_l_document_plugin_8h.html" title="Implementation of the QualSBMLDocumentPlugin class." alt="" coords="6391,80,6598,107"/>
-<area shape="rect" id="node4" href="$_s_b_m_l_document_plugin_not_required_8cpp.html" title="Implementation of SBMLDocumentPluginNotRequired, the plugin class of layout package for the Model ele..." alt="" coords="214,155,487,181"/>
-<area shape="rect" id="node8" href="$_comp_extension_types_8h.html" title="Include all SBML types of Comp extension in a single header file." alt="" coords="823,155,996,181"/>
-<area shape="rect" id="node11" href="$_comp_s_b_m_l_document_plugin_8cpp.html" title="Implementation of CompSBMLDocumentPlugin, the plugin class of comp package for the SBase element." alt="" coords="1021,155,1251,181"/>
-<area shape="rect" id="node12" href="$_external_model_definition_8cpp.html" title="Implementation of ExternalModelDefinition, the SBase&#45;derived class of the comp package." alt="" coords="1275,155,1482,181"/>
-<area shape="rect" id="node13" href="$_submodel_8cpp.html" title="Implementation of Submodel, the SBase&#45;derived class of the comp package." alt="" coords="1507,155,1621,181"/>
-<area shape="rect" id="node10" href="$_comp_validator_8cpp.html" title=" " alt="" coords="837,229,981,256"/>
-<area shape="rect" id="node16" href="$_fbc_extension_types_8h.html" title="Includes all SBML types of the fbc package extension in a single header file." alt="" coords="1907,155,2066,181"/>
-<area shape="rect" id="node22" href="$_fbc_s_b_m_l_document_plugin_8cpp.html" title="Implementation of the FbcSBMLDocumentPlugin class." alt="" coords="2090,155,2305,181"/>
-<area shape="rect" id="node21" href="$_fbc_validator_8cpp.html" title="Base class for SBML Validators." alt="" coords="1942,229,2071,256"/>
-<area shape="rect" id="node25" href="$_groups_extension_types_8h.html" title="Definition of GroupsExtensionTypes." alt="" coords="2615,155,2796,181"/>
-<area shape="rect" id="node27" href="$_groups_s_b_m_l_document_plugin_8cpp.html" title="Implementation of the GroupsSBMLDocumentPlugin class." alt="" coords="2821,155,3059,181"/>
-<area shape="rect" id="node26" href="$_groups_validator_8cpp.html" title="Definition of GroupsValidator." alt="" coords="2629,229,2781,256"/>
-<area shape="rect" id="node30" href="$_layout_extension_types_8h.html" title="Include all SBML types of layout extension in a single header file." alt="" coords="3265,155,3444,181"/>
-<area shape="rect" id="node36" href="$_layout_s_b_m_l_document_plugin_8cpp.html" title="Implementation of the LayoutSBMLDocumentPlugin class." alt="" coords="3469,155,3705,181"/>
-<area shape="rect" id="node31" href="$_graphical_object_8cpp.html" title="Implementation of GraphicalObject for SBML Layout." alt="" coords="3050,229,3203,256"/>
-<area shape="rect" id="node32" href="$_layout_validator_8cpp.html" title="Implementation of the LayoutValidator class." alt="" coords="3279,229,3430,256"/>
-<area shape="rect" id="node33" href="$_render_list_of_layouts_plugin_8cpp.html" title="Implementation of RenderListOfLayoutsPlugin, the plugin class of the fbc package for the Model elemen..." alt="" coords="3375,304,3599,331"/>
-<area shape="rect" id="node35" href="$_render_utilities_8cpp.html" title="implementation of RenderUtilities, a class of utility functions for the render package" alt="" coords="3867,304,4013,331"/>
-<area shape="rect" id="node38" href="$_render_extension_types_8h.html" title="Definition of RenderExtensionTypes." alt="" coords="3779,155,3960,181"/>
-<area shape="rect" id="node42" href="$_render_extension_8cpp.html" title="Implementation of RenderExtension, the core module of the render package." alt="" coords="3985,155,4143,181"/>
-<area shape="rect" id="node43" href="$_render_s_b_m_l_document_plugin_8cpp.html" title="Implementation of the RenderSBMLDocumentPlugin class." alt="" coords="4167,155,4406,181"/>
-<area shape="rect" id="node39" href="$_render_layout_plugin_8cpp.html" title="Implementation of RenderLayoutPlugin, the plugin class of the fbc package for the Model element." alt="" coords="4037,304,4216,331"/>
-<area shape="rect" id="node40" href="$_render_utilities_8h.html" title="Definition of RenderUtilities, a class of utility functions for the render package." alt="" coords="3908,229,4039,256"/>
-<area shape="rect" id="node41" href="$_render_validator_8cpp.html" title="Definition of RenderValidator." alt="" coords="3732,229,3884,256"/>
-<area shape="rect" id="node46" href="$_spatial_extension_types_8h.html" title="Definition of SpatialExtensionTypes." alt="" coords="4613,155,4793,181"/>
-<area shape="rect" id="node48" href="$_spatial_s_b_m_l_document_plugin_8cpp.html" title="Implementation of the SpatialSBMLDocumentPlugin class." alt="" coords="4817,155,5055,181"/>
-<area shape="rect" id="node47" href="$_spatial_validator_8cpp.html" title="Definition of SpatialValidator." alt="" coords="4627,229,4778,256"/>
-<area shape="rect" id="node51" href="$_distrib_extension_types_8h.html" title="Definition of DistribExtensionTypes." alt="" coords="5260,155,5439,181"/>
-<area shape="rect" id="node53" href="$_distrib_s_b_m_l_document_plugin_8cpp.html" title="Implementation of the DistribSBMLDocumentPlugin class." alt="" coords="5463,155,5697,181"/>
-<area shape="rect" id="node52" href="$_distrib_validator_8cpp.html" title="Definition of DistribValidator." alt="" coords="5275,229,5424,256"/>
-<area shape="rect" id="node56" href="$_multi_extension_types_8h.html" title=": Implementation of the MultiExtensionTypes class" alt="" coords="5892,155,6060,181"/>
-<area shape="rect" id="node58" href="$_multi_s_b_m_l_document_plugin_8cpp.html" title=": Implementation of the MultiSBMLDocumentPlugin class" alt="" coords="6085,155,6310,181"/>
-<area shape="rect" id="node57" href="$_multi_validator_8cpp.html" title=": Implementation of the MultiValidator class" alt="" coords="5907,229,6045,256"/>
-<area shape="rect" id="node61" href="$_qual_extension_types_8h.html" title="Include all SBML types of qual extension in a single header file." alt="" coords="6501,155,6667,181"/>
-<area shape="rect" id="node63" href="$_qual_s_b_m_l_document_plugin_8cpp.html" title="Implementation of QualSBMLDocumentPlugin, the plugin class of qual package for the SBase element." alt="" coords="6691,155,6914,181"/>
-<area shape="rect" id="node62" href="$_qual_validator_8cpp.html" title="Base class for SBML Validators." alt="" coords="6516,229,6652,256"/>
+<area shape="rect" id="Node000001" title="Definition of SBMLDocumentPlugin, the derived class of SBasePlugin." alt="" coords="3294,5,3471,31"/>
+<area shape="rect" id="Node000002" href="$_cobra_to_fbc_converter_8cpp.html" title="Implementation of a cobra 2 fbc converter." alt="" coords="5,225,192,251"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="3280,23,1718,41,862,59,571,69,478,75,429,81,380,95,333,113,242,154,167,196,117,228,114,223,165,191,240,149,331,108,379,90,427,76,478,70,570,64,862,53,1718,36,3280,18"/>
+<area shape="rect" id="Node000003" href="$_comp_extension_8cpp.html" title="Implementation of CompExtension, the core module of comp package." alt="" coords="1125,152,1275,177"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="3280,23,2928,29,2447,39,1966,57,1767,68,1615,81,1510,97,1407,117,1244,154,1243,149,1406,112,1509,92,1614,76,1766,63,1966,51,2447,34,2928,23,3280,18"/>
+<area shape="rect" id="Node000004" href="$_comp_flattening_converter_8cpp.html" title="Implementation of a first flattening converter." alt="" coords="1035,225,1251,251"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="3280,23,2901,27,2376,37,1848,55,1628,67,1462,81,1405,85,1354,83,1265,79,1225,82,1188,94,1151,116,1114,153,1108,170,1112,189,1134,224,1130,227,1107,191,1103,170,1110,151,1148,112,1186,89,1224,77,1265,74,1354,78,1405,80,1461,76,1628,61,1848,49,2375,32,2901,22,3280,17"/>
+<area shape="rect" id="Node000005" href="$_comp_s_b_m_l_document_plugin_8h.html" title="Definition of CompSBMLDocumentPlugin, the plugin class of comp package for the Model element." alt="" coords="1627,79,1842,104"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="3280,26,1843,88,1842,83,3280,21"/>
+<area shape="rect" id="Node000011" href="$_distrib_extension_8cpp.html" title="Implementation of DistribExtension." alt="" coords="2123,152,2279,177"/>
+<area shape="poly" id="edge12_Node000001_Node000011" title=" " alt="" coords="3280,25,2837,43,2603,59,2507,70,2434,81,2374,97,2316,117,2226,154,2224,149,2314,112,2373,92,2433,76,2506,64,2603,54,2837,37,3280,19"/>
+<area shape="rect" id="Node000012" href="$_distrib_s_b_m_l_document_plugin_8h.html" title="Definition of the DistribSBMLDocumentPlugin class." alt="" coords="2446,79,2666,104"/>
+<area shape="poly" id="edge13_Node000001_Node000012" title=" " alt="" coords="3281,31,2666,83,2666,78,3280,25"/>
+<area shape="rect" id="Node000016" href="$_fbc_extension_8cpp.html" title="Implementation of FbcExtension, the core module of fbc package." alt="" coords="913,152,1049,177"/>
+<area shape="poly" id="edge18_Node000001_Node000016" title=" " alt="" coords="3280,23,2766,27,2050,37,1396,54,1175,66,1105,73,1069,81,1044,96,1022,116,991,154,987,150,1018,112,1041,92,1067,76,1105,68,1175,61,1396,49,2050,31,2766,21,3280,17"/>
+<area shape="rect" id="Node000017" href="$_fbc_s_b_m_l_document_plugin_8h.html" title="Implementation of the FbcSBMLDocumentPlugin class." alt="" coords="727,79,927,104"/>
+<area shape="poly" id="edge19_Node000001_Node000017" title=" " alt="" coords="3280,23,2344,38,1676,55,991,81,927,85,927,80,991,76,1676,50,2343,32,3280,18"/>
+<area shape="rect" id="Node000019" href="$_fbc_to_cobra_converter_8cpp.html" title="Implementation of a fbc 2 cobra converter." alt="" coords="216,225,403,251"/>
+<area shape="poly" id="edge28_Node000001_Node000019" title=" " alt="" coords="3280,22,2649,24,1739,31,1288,39,898,49,613,63,523,72,476,81,448,95,423,112,377,154,342,195,319,227,315,223,337,192,373,150,419,108,446,90,474,76,522,66,612,58,898,44,1288,33,1739,26,2649,18,3280,17"/>
+<area shape="rect" id="Node000020" href="$_fbc_v1_to_v2_converter_8cpp.html" title="Implementation of a fbc v1 to fbc v2 converter." alt="" coords="427,225,610,251"/>
+<area shape="poly" id="edge29_Node000001_Node000020" title=" " alt="" coords="3280,23,2714,27,1900,38,1125,55,840,67,672,81,596,87,533,90,505,96,479,107,454,125,429,153,424,164,425,173,438,192,463,209,490,223,488,228,460,214,434,196,420,175,419,163,424,151,450,121,477,102,504,91,532,85,596,82,672,76,840,62,1124,50,1900,32,2714,22,3280,17"/>
+<area shape="rect" id="Node000021" href="$_fbc_v2_to_v1_converter_8cpp.html" title="Implementation of a fbc v2 to fbc v1 converter." alt="" coords="787,225,970,251"/>
+<area shape="poly" id="edge30_Node000001_Node000021" title=" " alt="" coords="3280,22,2695,22,1862,29,1452,36,1097,46,839,61,758,71,716,81,685,100,662,123,656,136,653,148,656,162,663,176,684,191,717,203,800,223,799,228,715,209,681,195,659,179,651,164,648,148,651,134,658,120,682,96,714,76,757,65,838,56,1097,41,1452,30,1862,23,2695,17,3280,16"/>
+<area shape="rect" id="Node000024" href="$_groups_extension_8cpp.html" title="Implementation of GroupsExtension." alt="" coords="2766,152,2925,177"/>
+<area shape="poly" id="edge31_Node000001_Node000024" title=" " alt="" coords="3281,32,3160,51,3095,64,3032,81,2938,118,2867,154,2865,149,2936,113,3030,76,3094,59,3159,45,3280,27"/>
+<area shape="rect" id="Node000025" href="$_groups_s_b_m_l_document_plugin_8h.html" title="Definition of the GroupsSBMLDocumentPlugin class." alt="" coords="3043,79,3266,104"/>
+<area shape="poly" id="edge32_Node000001_Node000025" title=" " alt="" coords="3334,37,3192,81,3191,76,3332,32"/>
+<area shape="rect" id="Node000029" href="$_layout_extension_8cpp.html" title="Implementation of LayoutExtension, the core module of layout package." alt="" coords="3419,152,3576,177"/>
+<area shape="poly" id="edge37_Node000001_Node000029" title=" " alt="" coords="3403,40,3490,150,3486,153,3398,43"/>
+<area shape="rect" id="Node000030" href="$_layout_s_b_m_l_document_plugin_8h.html" title="Implementation of the LayoutSBMLDocumentPlugin class." alt="" coords="3557,79,3779,104"/>
+<area shape="poly" id="edge38_Node000001_Node000030" title=" " alt="" coords="3442,31,3622,76,3621,81,3441,37"/>
+<area shape="rect" id="Node000034" href="$_render_layout_converter_8cpp.html" title="Simple converter to convert Layout + Render from l2 to L3 and vice versa." alt="" coords="3901,225,4104,251"/>
+<area shape="poly" id="edge59_Node000001_Node000034" title=" " alt="" coords="3485,21,3636,33,3807,56,3888,72,3959,93,4015,119,4037,134,4053,150,4058,161,4059,172,4051,193,4036,212,4020,227,4016,223,4032,208,4046,190,4053,171,4053,162,4048,154,4033,138,4013,124,3957,98,3886,78,3806,61,3635,38,3485,26"/>
+<area shape="rect" id="Node000038" href="$_multi_extension_8cpp.html" title=": Implementation of the MultiExtension class" alt="" coords="4765,152,4912,177"/>
+<area shape="poly" id="edge47_Node000001_Node000038" title=" " alt="" coords="3485,17,3665,21,3901,31,4166,48,4434,76,4536,92,4637,112,4795,149,4794,154,4636,117,4535,97,4433,81,4166,53,3900,36,3664,26,3485,23"/>
+<area shape="rect" id="Node000039" href="$_multi_s_b_m_l_document_plugin_8h.html" title=": Implementation of the MultiSBMLDocumentPlugin class" alt="" coords="4741,79,4952,104"/>
+<area shape="poly" id="edge48_Node000001_Node000039" title=" " alt="" coords="3485,22,4741,82,4741,88,3485,27"/>
+<area shape="rect" id="Node000043" href="$_qual_extension_8cpp.html" title="Implementation of QualExtension, the core module of qual package." alt="" coords="5378,152,5521,177"/>
+<area shape="poly" id="edge53_Node000001_Node000043" title=" " alt="" coords="3485,16,3745,16,4111,23,4534,42,4751,57,4964,76,5087,92,5208,112,5398,149,5397,155,5207,117,5086,97,4964,81,4751,62,4534,47,4111,29,3745,22,3485,21"/>
+<area shape="rect" id="Node000044" href="$_qual_s_b_m_l_document_plugin_8h.html" title="Implementation of the QualSBMLDocumentPlugin class." alt="" coords="5235,79,5442,104"/>
+<area shape="poly" id="edge54_Node000001_Node000044" title=" " alt="" coords="3485,20,5080,76,5235,83,5235,88,5080,81,3485,25"/>
+<area shape="rect" id="Node000048" href="$_render_s_b_m_l_document_plugin_8h.html" title="Definition of the RenderSBMLDocumentPlugin class." alt="" coords="4199,79,4422,104"/>
+<area shape="poly" id="edge60_Node000001_Node000048" title=" " alt="" coords="3485,24,4199,79,4199,84,3485,30"/>
+<area shape="rect" id="Node000055" href="$_s_b_m_l_document_8cpp.html" title="Implementation of the top&#45;level container for an SBML Model and associated data." alt="" coords="5467,79,5619,104"/>
+<area shape="poly" id="edge72_Node000001_Node000055" title=" " alt="" coords="3485,16,3814,17,4300,24,4870,42,5165,57,5454,76,5466,77,5466,82,5453,81,5165,62,4870,47,4300,29,3814,22,3485,21"/>
+<area shape="rect" id="Node000056" href="$_s_b_m_l_document_plugin_8cpp.html" title="Implementation of SBMLDocumentPlugin, the derived class of SBasePlugin." alt="" coords="5643,79,5835,104"/>
+<area shape="poly" id="edge73_Node000001_Node000056" title=" " alt="" coords="3485,17,3839,18,4368,26,4992,44,5314,58,5631,76,5642,77,5642,82,5630,81,5314,63,4992,49,4368,31,3839,24,3485,22"/>
+<area shape="rect" id="Node000057" href="$_s_b_m_l_document_plugin_not_required_8h.html" title="Definition of SBMLDocumentPluginNotRequired, the plugin class of layout package for the SBMLDocument ..." alt="" coords="5927,79,6185,104"/>
+<area shape="poly" id="edge74_Node000001_Node000057" title=" " alt="" coords="3485,18,4449,35,5139,53,5847,76,5927,80,5926,85,5847,81,5139,58,4449,41,3485,23"/>
+<area shape="rect" id="Node000059" href="$_spatial_extension_8cpp.html" title="Implementation of SpatialExtension." alt="" coords="6279,152,6438,177"/>
+<area shape="poly" id="edge76_Node000001_Node000059" title=" " alt="" coords="3485,18,4975,35,5786,53,6063,64,6150,70,6198,76,6241,91,6282,111,6344,149,6341,154,6280,116,6239,96,6197,81,6150,75,6062,69,5786,58,4975,41,3485,23"/>
+<area shape="rect" id="Node000060" href="$_spatial_s_b_m_l_document_plugin_8h.html" title="Definition of the SpatialSBMLDocumentPlugin class." alt="" coords="6310,79,6533,104"/>
+<area shape="poly" id="edge77_Node000001_Node000060" title=" " alt="" coords="3485,17,3925,19,4611,27,5431,44,5857,58,6275,76,6310,78,6310,83,6275,81,5857,63,5431,50,4611,32,3925,24,3485,22"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="1635,108,1276,156,1275,151,1635,103"/>
+<area shape="rect" id="Node000006" href="$_comp_extension_types_8h.html" title="Include all SBML types of Comp extension in a single header file." alt="" coords="1300,152,1473,177"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="1666,109,1444,155,1442,149,1665,104"/>
+<area shape="rect" id="Node000008" href="$_comp_s_b_m_l_document_plugin_8cpp.html" title="Implementation of CompSBMLDocumentPlugin, the plugin class of comp package for the SBase element." alt="" coords="1498,152,1729,177"/>
+<area shape="poly" id="edge9_Node000005_Node000008" title=" " alt="" coords="1704,113,1635,154,1632,149,1702,109"/>
+<area shape="rect" id="Node000009" href="$_external_model_definition_8cpp.html" title="Implementation of ExternalModelDefinition, the SBase&#45;derived class of the comp package." alt="" coords="1753,152,1959,177"/>
+<area shape="poly" id="edge10_Node000005_Node000009" title=" " alt="" coords="1768,109,1837,149,1835,154,1765,113"/>
+<area shape="rect" id="Node000010" href="$_submodel_8cpp.html" title="Implementation of Submodel, the SBase&#45;derived class of the comp package." alt="" coords="1984,152,2099,177"/>
+<area shape="poly" id="edge11_Node000005_Node000010" title=" " alt="" coords="1798,104,1992,149,1991,154,1797,110"/>
+<area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="1335,184,1183,228,1181,223,1334,179"/>
+<area shape="rect" id="Node000007" href="$_comp_validator_8cpp.html" title=" " alt="" coords="1315,225,1459,251"/>
+<area shape="poly" id="edge8_Node000006_Node000007" title=" " alt="" coords="1389,191,1389,225,1384,225,1384,191"/>
+<area shape="poly" id="edge14_Node000012_Node000011" title=" " alt="" coords="2486,109,2259,155,2258,149,2485,104"/>
+<area shape="rect" id="Node000013" href="$_distrib_extension_types_8h.html" title="Definition of DistribExtensionTypes." alt="" coords="2304,152,2483,177"/>
+<area shape="poly" id="edge15_Node000012_Node000013" title=" " alt="" coords="2518,112,2421,154,2419,149,2516,107"/>
+<area shape="rect" id="Node000015" href="$_distrib_s_b_m_l_document_plugin_8cpp.html" title="Implementation of the DistribSBMLDocumentPlugin class." alt="" coords="2507,152,2741,177"/>
+<area shape="poly" id="edge17_Node000012_Node000015" title=" " alt="" coords="2578,112,2615,150,2611,154,2575,116"/>
+<area shape="rect" id="Node000014" href="$_distrib_validator_8cpp.html" title="Definition of DistribValidator." alt="" coords="2319,225,2468,251"/>
+<area shape="poly" id="edge16_Node000013_Node000014" title=" " alt="" coords="2396,191,2396,225,2391,225,2391,191"/>
+<area shape="poly" id="edge20_Node000017_Node000016" title=" " alt="" coords="865,107,957,149,955,154,863,112"/>
+<area shape="rect" id="Node000018" href="$_fbc_extension_types_8h.html" title="Includes all SBML types of the fbc package extension in a single header file." alt="" coords="439,152,598,177"/>
+<area shape="poly" id="edge21_Node000017_Node000018" title=" " alt="" coords="764,110,569,154,568,149,763,104"/>
+<area shape="rect" id="Node000023" href="$_fbc_s_b_m_l_document_plugin_8cpp.html" title="Implementation of the FbcSBMLDocumentPlugin class." alt="" coords="674,152,889,177"/>
+<area shape="poly" id="edge27_Node000017_Node000023" title=" " alt="" coords="814,117,791,153,786,150,810,114"/>
+<area shape="poly" id="edge22_Node000018_Node000002" title=" " alt="" coords="438,182,167,228,166,223,437,177"/>
+<area shape="poly" id="edge23_Node000018_Node000019" title=" " alt="" coords="473,184,344,228,342,223,471,179"/>
+<area shape="poly" id="edge24_Node000018_Node000020" title=" " alt="" coords="521,191,521,225,516,225,516,191"/>
+<area shape="poly" id="edge25_Node000018_Node000021" title=" " alt="" coords="590,177,821,223,820,228,589,183"/>
+<area shape="rect" id="Node000022" href="$_fbc_validator_8cpp.html" title="Base class for SBML Validators." alt="" coords="634,225,763,251"/>
+<area shape="poly" id="edge26_Node000018_Node000022" title=" " alt="" coords="561,180,670,223,668,228,559,185"/>
+<area shape="poly" id="edge33_Node000025_Node000024" title=" " alt="" coords="3093,110,2896,154,2895,149,3091,104"/>
+<area shape="rect" id="Node000026" href="$_groups_extension_types_8h.html" title="Definition of GroupsExtensionTypes." alt="" coords="2949,152,3131,177"/>
+<area shape="poly" id="edge34_Node000025_Node000026" title=" " alt="" coords="3126,113,3060,154,3057,150,3123,109"/>
+<area shape="rect" id="Node000028" href="$_groups_s_b_m_l_document_plugin_8cpp.html" title="Implementation of the GroupsSBMLDocumentPlugin class." alt="" coords="3155,152,3394,177"/>
+<area shape="poly" id="edge36_Node000025_Node000028" title=" " alt="" coords="3187,109,3256,149,3254,154,3185,113"/>
+<area shape="rect" id="Node000027" href="$_groups_validator_8cpp.html" title="Definition of GroupsValidator." alt="" coords="2964,225,3116,251"/>
+<area shape="poly" id="edge35_Node000026_Node000027" title=" " alt="" coords="3043,191,3043,225,3037,225,3037,191"/>
+<area shape="poly" id="edge39_Node000030_Node000029" title=" " alt="" coords="3629,112,3526,154,3524,149,3627,107"/>
+<area shape="rect" id="Node000031" href="$_layout_extension_types_8h.html" title="Include all SBML types of layout extension in a single header file." alt="" coords="3600,152,3779,177"/>
+<area shape="poly" id="edge40_Node000030_Node000031" title=" " alt="" coords="3678,117,3688,151,3683,153,3673,118"/>
+<area shape="rect" id="Node000037" href="$_layout_s_b_m_l_document_plugin_8cpp.html" title="Implementation of the LayoutSBMLDocumentPlugin class." alt="" coords="3803,152,4039,177"/>
+<area shape="poly" id="edge46_Node000030_Node000037" title=" " alt="" coords="3723,105,3881,149,3880,154,3721,110"/>
+<area shape="rect" id="Node000032" href="$_graphical_object_8cpp.html" title="Implementation of GraphicalObject for SBML Layout." alt="" coords="3723,225,3877,251"/>
+<area shape="poly" id="edge41_Node000031_Node000032" title=" " alt="" coords="3720,183,3783,223,3780,227,3717,187"/>
+<area shape="rect" id="Node000033" href="$_layout_validator_8cpp.html" title="Implementation of the LayoutValidator class." alt="" coords="3446,225,3597,251"/>
+<area shape="poly" id="edge42_Node000031_Node000033" title=" " alt="" coords="3651,185,3550,228,3548,223,3649,180"/>
+<area shape="poly" id="edge43_Node000031_Node000034" title=" " alt="" coords="3753,178,3953,223,3951,228,3752,183"/>
+<area shape="rect" id="Node000035" href="$_render_list_of_layouts_plugin_8cpp.html" title="Implementation of RenderListOfLayoutsPlugin, the plugin class of the fbc package for the Model elemen..." alt="" coords="3769,299,3993,324"/>
+<area shape="poly" id="edge44_Node000031_Node000035" title=" " alt="" coords="3676,190,3664,221,3663,236,3669,249,3689,264,3722,277,3804,296,3803,301,3720,282,3686,268,3665,252,3658,237,3658,219,3671,188"/>
+<area shape="rect" id="Node000036" href="$_render_utilities_8cpp.html" title="implementation of RenderUtilities, a class of utility functions for the render package" alt="" coords="4263,299,4409,324"/>
+<area shape="poly" id="edge45_Node000031_Node000036" title=" " alt="" coords="3691,191,3696,222,3702,237,3712,249,3741,260,3793,271,3944,288,4116,299,4262,305,4262,310,4116,304,3943,293,3792,276,3739,266,3709,253,3698,239,3691,223,3686,192"/>
+<area shape="poly" id="edge49_Node000039_Node000038" title=" " alt="" coords="4846,118,4843,152,4837,152,4841,117"/>
+<area shape="rect" id="Node000040" href="$_multi_extension_types_8h.html" title=": Implementation of the MultiExtensionTypes class" alt="" coords="4936,152,5104,177"/>
+<area shape="poly" id="edge50_Node000039_Node000040" title=" " alt="" coords="4888,107,4993,149,4991,154,4886,112"/>
+<area shape="rect" id="Node000042" href="$_multi_s_b_m_l_document_plugin_8cpp.html" title=": Implementation of the MultiSBMLDocumentPlugin class" alt="" coords="5129,152,5354,177"/>
+<area shape="poly" id="edge52_Node000039_Node000042" title=" " alt="" coords="4924,104,5178,149,5177,155,4923,109"/>
+<area shape="rect" id="Node000041" href="$_multi_validator_8cpp.html" title=": Implementation of the MultiValidator class" alt="" coords="4951,225,5089,251"/>
+<area shape="poly" id="edge51_Node000040_Node000041" title=" " alt="" coords="5023,191,5023,225,5017,225,5017,191"/>
+<area shape="poly" id="edge55_Node000044_Node000043" title=" " alt="" coords="5369,109,5433,150,5430,154,5367,114"/>
+<area shape="rect" id="Node000045" href="$_qual_extension_types_8h.html" title="Include all SBML types of qual extension in a single header file." alt="" coords="5545,152,5711,177"/>
+<area shape="poly" id="edge56_Node000044_Node000045" title=" " alt="" coords="5399,105,5582,149,5581,154,5398,110"/>
+<area shape="rect" id="Node000047" href="$_qual_s_b_m_l_document_plugin_8cpp.html" title="Implementation of QualSBMLDocumentPlugin, the plugin class of qual package for the SBase element." alt="" coords="5735,152,5958,177"/>
+<area shape="poly" id="edge58_Node000044_Node000047" title=" " alt="" coords="5434,103,5765,149,5764,155,5434,109"/>
+<area shape="rect" id="Node000046" href="$_qual_validator_8cpp.html" title="Base class for SBML Validators." alt="" coords="5560,225,5696,251"/>
+<area shape="poly" id="edge57_Node000045_Node000046" title=" " alt="" coords="5631,191,5631,225,5625,225,5625,191"/>
+<area shape="rect" id="Node000049" href="$_render_extension_8cpp.html" title="Implementation of RenderExtension, the core module of the render package." alt="" coords="4319,152,4478,177"/>
+<area shape="poly" id="edge61_Node000048_Node000049" title=" " alt="" coords="4337,110,4386,150,4383,154,4334,115"/>
+<area shape="rect" id="Node000050" href="$_render_extension_types_8h.html" title="Definition of RenderExtensionTypes." alt="" coords="4113,152,4295,177"/>
+<area shape="poly" id="edge62_Node000048_Node000050" title=" " alt="" coords="4284,114,4223,154,4220,150,4281,109"/>
+<area shape="rect" id="Node000054" href="$_render_s_b_m_l_document_plugin_8cpp.html" title="Implementation of the RenderSBMLDocumentPlugin class." alt="" coords="4502,152,4741,177"/>
+<area shape="poly" id="edge71_Node000048_Node000054" title=" " alt="" coords="4374,104,4572,149,4570,154,4373,110"/>
+<area shape="poly" id="edge63_Node000050_Node000034" title=" " alt="" coords="4159,184,4036,228,4035,223,4158,179"/>
+<area shape="poly" id="edge65_Node000050_Node000036" title=" " alt="" coords="4309,176,4393,195,4427,208,4449,224,4455,237,4454,249,4448,261,4437,271,4408,288,4375,301,4373,296,4405,283,4434,267,4444,257,4449,248,4450,238,4445,227,4424,212,4392,200,4308,181"/>
+<area shape="rect" id="Node000051" href="$_render_layout_plugin_8cpp.html" title="Implementation of RenderLayoutPlugin, the plugin class of the fbc package for the Model element." alt="" coords="4433,299,4612,324"/>
+<area shape="poly" id="edge64_Node000050_Node000051" title=" " alt="" coords="4301,177,4399,197,4441,209,4471,223,4489,240,4504,261,4521,298,4516,300,4499,263,4485,244,4468,228,4440,214,4398,202,4300,182"/>
+<area shape="rect" id="Node000052" href="$_render_utilities_8h.html" title="Definition of RenderUtilities, a class of utility functions for the render package." alt="" coords="4304,225,4435,251"/>
+<area shape="poly" id="edge66_Node000050_Node000052" title=" " alt="" coords="4244,180,4343,223,4341,228,4242,185"/>
+<area shape="rect" id="Node000053" href="$_render_validator_8cpp.html" title="Definition of RenderValidator." alt="" coords="4128,225,4280,251"/>
+<area shape="poly" id="edge70_Node000050_Node000053" title=" " alt="" coords="4207,191,4207,225,4201,225,4201,191"/>
+<area shape="poly" id="edge68_Node000052_Node000035" title=" " alt="" coords="4291,254,3961,301,3960,296,4290,248"/>
+<area shape="poly" id="edge69_Node000052_Node000036" title=" " alt="" coords="4360,264,4344,300,4339,297,4356,262"/>
+<area shape="poly" id="edge67_Node000052_Node000051" title=" " alt="" coords="4407,254,4499,296,4496,301,4405,259"/>
+<area shape="rect" id="Node000058" href="$_s_b_m_l_document_plugin_not_required_8cpp.html" title="Implementation of SBMLDocumentPluginNotRequired, the plugin class of layout package for the Model ele..." alt="" coords="5982,152,6255,177"/>
+<area shape="poly" id="edge75_Node000057_Node000058" title=" " alt="" coords="6077,113,6111,150,6107,154,6073,116"/>
+<area shape="poly" id="edge78_Node000060_Node000059" title=" " alt="" coords="6404,116,6371,154,6367,150,6400,113"/>
+<area shape="rect" id="Node000061" href="$_spatial_extension_types_8h.html" title="Definition of SpatialExtensionTypes." alt="" coords="6462,152,6642,177"/>
+<area shape="poly" id="edge79_Node000060_Node000061" title=" " alt="" coords="6456,108,6532,149,6529,154,6453,113"/>
+<area shape="rect" id="Node000063" href="$_spatial_s_b_m_l_document_plugin_8cpp.html" title="Implementation of the SpatialSBMLDocumentPlugin class." alt="" coords="6667,152,6904,177"/>
+<area shape="poly" id="edge81_Node000060_Node000063" title=" " alt="" coords="6494,104,6727,149,6726,155,6492,109"/>
+<area shape="rect" id="Node000062" href="$_spatial_validator_8cpp.html" title="Definition of SpatialValidator." alt="" coords="6477,225,6627,251"/>
+<area shape="poly" id="edge80_Node000061_Node000062" title=" " alt="" coords="6555,191,6555,225,6549,225,6549,191"/>
 </map>

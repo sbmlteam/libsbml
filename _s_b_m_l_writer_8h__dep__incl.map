@@ -1,71 +1,213 @@
 <map id="SBMLWriter.h" name="SBMLWriter.h">
-<area shape="rect" id="node1" title="Writes an SBML Document to file or in&#45;memory string." alt="" coords="4640,5,4748,32"/>
-<area shape="rect" id="node2" href="$_s_b_m_l_infer_units_converter_8cpp.html" title="Implementation of SBMLInferUnitsConverter." alt="" coords="33,304,245,331"/>
-<area shape="rect" id="node3" href="$_s_b_m_l_level1_version1_converter_8cpp.html" title="Implementation of SBMLLevel1Version1Converter." alt="" coords="269,304,516,331"/>
-<area shape="rect" id="node4" href="$_s_b_m_l_level_version_converter_8cpp.html" title="Implementation of SBMLLevelVersionConverter, the base class of package extensions." alt="" coords="540,304,771,331"/>
-<area shape="rect" id="node5" href="$_s_b_m_l_internal_validator_8cpp.html" title="Implementation of SBMLInternalValidator, the validator for all internal validation performed by libSB..." alt="" coords="5694,304,5886,331"/>
-<area shape="rect" id="node6" href="$_s_b_m_l_document_8cpp.html" title="Implementation of the top&#45;level container for an SBML Model and associated data." alt="" coords="5518,304,5670,331"/>
-<area shape="rect" id="node7" href="$_s_b_m_l_types_8h.html" title="Include all SBML types in a single header file." alt="" coords="4201,80,4307,107"/>
-<area shape="rect" id="node26" href="$_comp_flattening_converter_8cpp.html" title="Implementation of a first flattening converter." alt="" coords="5679,453,5895,480"/>
-<area shape="rect" id="node28" href="$_cobra_to_fbc_converter_8cpp.html" title="Implementation of a cobra 2 fbc converter." alt="" coords="5307,304,5494,331"/>
-<area shape="rect" id="node29" href="$_fbc_to_cobra_converter_8cpp.html" title="Implementation of a fbc 2 cobra converter." alt="" coords="4521,304,4707,331"/>
-<area shape="rect" id="node30" href="$_fbc_v1_to_v2_converter_8cpp.html" title="Implementation of a fbc v1 to fbc v2 converter." alt="" coords="4732,304,4915,331"/>
-<area shape="rect" id="node31" href="$_fbc_v2_to_v1_converter_8cpp.html" title="Implementation of a fbc v2 to fbc v1 converter." alt="" coords="5100,304,5283,331"/>
-<area shape="rect" id="node33" href="$_render_layout_converter_8cpp.html" title="Simple converter to convert Layout + Render from l2 to L3 and vice versa." alt="" coords="4243,304,4446,331"/>
-<area shape="rect" id="node69" href="$_s_b_m_l_writer_8cpp.html" title="Writes an SBML Document to file or in&#45;memory string." alt="" coords="6479,80,6602,107"/>
-<area shape="rect" id="node8" href="$_expression_analyser_8cpp.html" title="Implementation of ExpressionAnalyser." alt="" coords="3590,379,3766,405"/>
-<area shape="rect" id="node9" href="$_s_b_m_l_converter_8h.html" title="Definition of SBMLConverter, the base class for SBML conversion." alt="" coords="2738,155,2871,181"/>
-<area shape="rect" id="node53" href="$_comp_validator_8cpp.html" title=" " alt="" coords="2357,453,2501,480"/>
-<area shape="rect" id="node66" href="$_s_b_m_l_validator_8h.html" title="Definition of SBMLValidator, the base class for user callable SBML validators." alt="" coords="5371,155,5497,181"/>
-<area shape="rect" id="node10" href="$_s_b_m_l_converter_8cpp.html" title="Implementation of SBMLConverter, the base class of package extensions." alt="" coords="3251,229,3399,256"/>
-<area shape="rect" id="node11" href="$_s_b_m_l_converter_registry_8cpp.html" title="Implementation of SBMLConverterRegistry, a registry of available converters." alt="" coords="977,379,1179,405"/>
-<area shape="rect" id="node12" href="$_s_b_m_l_converter_registry_8h.html" title="Definition of SBMLConverterRegistry, a registry of available converters." alt="" coords="3423,229,3610,256"/>
-<area shape="rect" id="node13" href="$_s_b_m_l_converter_types_8h.html" title="Definition of SBMLConverterTypes." alt="" coords="795,304,966,331"/>
-<area shape="rect" id="node32" href="$_render_extension_8cpp.html" title="Implementation of RenderExtension, the core module of the render package." alt="" coords="4060,304,4219,331"/>
-<area shape="rect" id="node35" href="$_s_b_m_l_function_definition_converter_8h.html" title="Definition of SBMLFunctionDefinitionConverter, a converter replacing function definitions." alt="" coords="1858,229,2109,256"/>
-<area shape="rect" id="node37" href="$_s_b_m_l_id_converter_8h.html" title="Definition of SBMLIdConverter, a converter renaming SIds." alt="" coords="2133,229,2279,256"/>
-<area shape="rect" id="node38" href="$_s_b_m_l_infer_units_converter_8h.html" title="Definition of SBMLInferUnitsConverter, infers units for parameters." alt="" coords="255,229,453,256"/>
-<area shape="rect" id="node39" href="$_s_b_m_l_initial_assignment_converter_8h.html" title="Definition of SBMLInitialAssignmentConverter, a converter inlining function definitions." alt="" coords="2303,229,2549,256"/>
-<area shape="rect" id="node40" href="$_s_b_m_l_level1_version1_converter_8h.html" title="Definition of SBMLLevel1Version1Converter." alt="" coords="477,229,709,256"/>
-<area shape="rect" id="node41" href="$_s_b_m_l_level_version_converter_8h.html" title="Definition of SBMLLevelVersionConverter, the base class for SBML conversion." alt="" coords="733,229,949,256"/>
-<area shape="rect" id="node42" href="$_s_b_m_l_local_parameter_converter_8h.html" title="Definition of SBMLLocalParameterConverter, a converter replacing local parameters with global ones." alt="" coords="2573,229,2807,256"/>
-<area shape="rect" id="node43" href="$_s_b_m_l_rate_of_converter_8h.html" title="Definition of SBMLRateOfConverter, a converter changing reactions into rate rules." alt="" coords="2831,229,3010,256"/>
-<area shape="rect" id="node44" href="$_s_b_m_l_rate_rule_converter_8h.html" title="Definition of SBMLRateRuleConverter, a converter from raterule to reaction." alt="" coords="3034,229,3226,256"/>
-<area shape="rect" id="node46" href="$_s_b_m_l_reaction_converter_8h.html" title="Definition of SBMLReactionConverter, a converter changing reactions into rate rules." alt="" coords="1024,229,1215,256"/>
-<area shape="rect" id="node47" href="$_s_b_m_l_rule_converter_8h.html" title="Definition of SBMLRuleConverter, a converter sorting rules." alt="" coords="1239,229,1402,256"/>
-<area shape="rect" id="node48" href="$_s_b_m_l_strip_package_converter_8h.html" title="Definition of SBMLStripPackageConverter, the base class for SBML conversion." alt="" coords="1426,229,1642,256"/>
-<area shape="rect" id="node49" href="$_s_b_m_l_units_converter_8h.html" title="Definition of SBMLUnitsConverter, for converting units to SI." alt="" coords="1667,229,1833,256"/>
-<area shape="rect" id="node50" href="$_comp_flattening_converter_8h.html" title="Definition of a first flattening converter." alt="" coords="5936,229,6137,256"/>
-<area shape="rect" id="node61" href="$_cobra_to_fbc_converter_8h.html" title="Definition of a cobra 2 fbc converter." alt="" coords="5116,229,5288,256"/>
-<area shape="rect" id="node62" href="$_fbc_to_cobra_converter_8h.html" title="Definition of a fbc 2 cobra converter." alt="" coords="4433,229,4605,256"/>
-<area shape="rect" id="node63" href="$_fbc_v1_to_v2_converter_8h.html" title="Definition of a fbc v1 to fbc v2 converter." alt="" coords="4731,229,4899,256"/>
-<area shape="rect" id="node64" href="$_fbc_v2_to_v1_converter_8h.html" title="Definition of a fbc v2 to fbc v1 converter." alt="" coords="4923,229,5091,256"/>
-<area shape="rect" id="node65" href="$_render_layout_converter_8h.html" title="Simple converter to convert Layout + Render from l2 to L3 and vice versa." alt="" coords="4046,229,4233,256"/>
-<area shape="rect" id="node14" href="$_s_b_m_l_function_definition_converter_8cpp.html" title="Implementation of SBMLFunctionDefinitionConverter, a converter replacing function definitions." alt="" coords="2083,304,2350,331"/>
-<area shape="rect" id="node15" href="$_s_b_m_l_id_converter_8cpp.html" title="Implementation of SBMLIdConverter, a converter renaming SIds." alt="" coords="2425,304,2585,331"/>
-<area shape="rect" id="node16" href="$_s_b_m_l_initial_assignment_converter_8cpp.html" title="Implementation of SBMLInitialAssignmentConverter, a converter inlining initial assignments." alt="" coords="2609,304,2872,331"/>
-<area shape="rect" id="node17" href="$_s_b_m_l_local_parameter_converter_8cpp.html" title="Implementation of SBMLLocalParameterConverter, a converter replacing local parameters with global one..." alt="" coords="2896,304,3145,331"/>
-<area shape="rect" id="node18" href="$_s_b_m_l_rate_of_converter_8cpp.html" title="Implementation of SBMLRateOfConverter, a converter changing &#39;rateOf&#39; into functionDefinition." alt="" coords="3169,304,3363,331"/>
-<area shape="rect" id="node19" href="$_s_b_m_l_rate_rule_converter_8cpp.html" title="Implementation of SBMLRateRuleConverter, a converter from raterule to reaction." alt="" coords="3348,379,3555,405"/>
-<area shape="rect" id="node20" href="$_s_b_m_l_reaction_converter_8cpp.html" title="Implementation of SBMLReactionConverter, a converter changing reactions into rate rules." alt="" coords="1190,304,1395,331"/>
-<area shape="rect" id="node21" href="$_s_b_m_l_rule_converter_8cpp.html" title="Implementation of SBMLRuleConverter, a converter sorting rules." alt="" coords="1420,304,1597,331"/>
-<area shape="rect" id="node22" href="$_s_b_m_l_strip_package_converter_8cpp.html" title="Implementation of SBMLStripPackageConverter, the base class of package extensions." alt="" coords="1621,304,1852,331"/>
-<area shape="rect" id="node23" href="$_s_b_m_l_units_converter_8cpp.html" title="Implementation of SBMLUnitsConverter, for converting units to SI." alt="" coords="1876,304,2059,331"/>
-<area shape="rect" id="node24" href="$_comp_extension_8cpp.html" title="Implementation of CompExtension, the core module of comp package." alt="" coords="4923,379,5073,405"/>
-<area shape="rect" id="node25" href="$_comp_s_b_m_l_document_plugin_8cpp.html" title="Implementation of CompSBMLDocumentPlugin, the plugin class of comp package for the SBase element." alt="" coords="3791,379,4021,405"/>
-<area shape="rect" id="node27" href="$_fbc_extension_8cpp.html" title="Implementation of FbcExtension, the core module of fbc package." alt="" coords="4939,304,5075,331"/>
-<area shape="rect" id="node34" href="$_distrib_extension_8cpp.html" title="Implementation of DistribExtension." alt="" coords="3727,304,3883,331"/>
-<area shape="rect" id="node36" href="$_register_converters_8cpp.html" title="Registers all available converters." alt="" coords="991,304,1165,331"/>
-<area shape="rect" id="node45" href="$_expression_analyser_8h.html" title="Definition of ExpressionAnalyser, a class for analysing expressions." alt="" coords="3489,304,3651,331"/>
-<area shape="rect" id="node51" href="$_comp_model_plugin_8h.html" title="Definition of CompModelPlugin, the plugin class of comp package for the Model element." alt="" coords="5961,304,6113,331"/>
-<area shape="rect" id="node52" href="$_comp_extension_types_8h.html" title="Include all SBML types of Comp extension in a single header file." alt="" coords="5098,379,5271,405"/>
-<area shape="rect" id="node54" href="$_comp_model_plugin_8cpp.html" title="Implementation of CompModelPlugin, the plugin class of comp package for the SBase element." alt="" coords="6187,379,6353,405"/>
-<area shape="rect" id="node55" href="$_comp_base_8cpp.html" title="Implementation of CompBase, the base class of extension entities plugged in SBase derived classes in ..." alt="" coords="5296,379,5415,405"/>
-<area shape="rect" id="node56" href="$_replaced_by_8cpp.html" title="Implementation of ReplacedBy, the SBaseRef derived class of the comp package." alt="" coords="5439,379,5563,405"/>
-<area shape="rect" id="node57" href="$_replaced_element_8cpp.html" title="Implementation of ReplacedElement, the SBaseRef derived class of replacedElements package." alt="" coords="5587,379,5750,405"/>
-<area shape="rect" id="node58" href="$_replacing_8cpp.html" title="Implementation of Replacing, the SBaseRef derived class of Replacings package." alt="" coords="5775,379,5888,405"/>
-<area shape="rect" id="node59" href="$_s_base_ref_8cpp.html" title="Implementation of SBaseRef, the SBase&#45;derived class of the comp package." alt="" coords="5912,379,6023,405"/>
-<area shape="rect" id="node60" href="$_submodel_8cpp.html" title="Implementation of Submodel, the SBase&#45;derived class of the comp package." alt="" coords="6047,379,6162,405"/>
-<area shape="rect" id="node67" href="$_s_b_m_l_internal_validator_8h.html" title="Definition of SBMLInternalValidator, the validator for all internal validation performed by libSBML." alt="" coords="5631,229,5808,256"/>
-<area shape="rect" id="node68" href="$_s_b_m_l_validator_8cpp.html" title="Implementation of SBMLValidator, the base class for user callable SBML validators." alt="" coords="5363,229,5505,256"/>
+<area shape="rect" id="Node000001" title="Writes an SBML Document to file or in&#45;memory string." alt="" coords="1570,5,1678,31"/>
+<area shape="rect" id="Node000002" href="$_cobra_to_fbc_converter_8cpp.html" title="Implementation of a cobra 2 fbc converter." alt="" coords="773,299,960,324"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1557,22,1448,29,1310,49,1237,65,1163,88,1092,117,1025,154,978,191,935,232,877,300,873,297,931,229,974,187,1023,150,1090,113,1161,83,1235,60,1309,43,1447,23,1556,17"/>
+<area shape="rect" id="Node000003" href="$_comp_flattening_converter_8cpp.html" title="Implementation of a first flattening converter." alt="" coords="5693,445,5909,471"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="1692,17,2683,23,3456,30,4293,43,5102,61,5793,86,6065,101,6274,119,6408,139,6444,150,6454,156,6457,163,6457,313,6455,342,6445,364,6429,382,6405,400,6367,417,6315,431,6184,449,6040,457,5910,460,5910,455,6039,452,6183,443,6314,425,6365,412,6403,395,6426,378,6441,361,6449,340,6452,313,6452,164,6450,159,6442,154,6407,144,6274,124,6065,107,5793,91,5102,66,4293,48,3456,36,2683,28,1692,22"/>
+<area shape="rect" id="Node000004" href="$_fbc_to_cobra_converter_8cpp.html" title="Implementation of a fbc 2 cobra converter." alt="" coords="984,299,1171,324"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="1557,33,1409,61,1230,104,1142,130,1065,160,1004,192,981,209,965,227,960,238,961,248,966,258,976,267,1005,284,1038,296,1036,301,1003,288,973,271,962,261,955,250,954,237,960,224,978,205,1001,188,1063,155,1141,125,1228,98,1408,55,1556,28"/>
+<area shape="rect" id="Node000005" href="$_fbc_v1_to_v2_converter_8cpp.html" title="Implementation of a fbc v1 to fbc v2 converter." alt="" coords="1355,299,1538,324"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="1624,45,1618,87,1604,142,1583,199,1550,252,1516,282,1479,301,1477,296,1513,277,1546,249,1578,197,1599,140,1612,86,1619,44"/>
+<area shape="rect" id="Node000006" href="$_fbc_v2_to_v1_converter_8cpp.html" title="Implementation of a fbc v2 to fbc v1 converter." alt="" coords="1562,299,1745,324"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="1629,44,1655,298,1650,299,1624,44"/>
+<area shape="rect" id="Node000007" href="$_render_layout_converter_8cpp.html" title="Simple converter to convert Layout + Render from l2 to L3 and vice versa." alt="" coords="5740,299,5943,324"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="1692,16,2121,16,2837,21,3711,39,4167,55,4615,76,5021,98,5198,116,5424,149,5581,172,5648,190,5729,223,5760,240,5788,260,5831,296,5827,300,5785,264,5757,245,5727,228,5646,195,5580,178,5424,155,5198,121,5021,103,4615,81,4167,60,3711,45,2837,27,2121,21,1692,22"/>
+<area shape="rect" id="Node000008" href="$_s_b_m_l_document_8cpp.html" title="Implementation of the top&#45;level container for an SBML Model and associated data." alt="" coords="309,299,461,324"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="1556,26,1359,44,1238,60,1118,81,978,114,871,146,629,228,417,301,416,296,627,223,869,140,977,109,1117,76,1237,55,1358,39,1556,21"/>
+<area shape="rect" id="Node000009" href="$_s_b_m_l_infer_units_converter_8cpp.html" title="Implementation of SBMLInferUnitsConverter." alt="" coords="4795,299,5007,324"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="1692,18,2446,34,3019,50,3639,72,4241,100,4763,134,4975,154,5142,175,5259,198,5295,210,5317,224,5323,238,5316,253,5279,264,5201,277,5004,301,5004,296,5200,271,5278,259,5313,249,5318,238,5313,227,5293,215,5257,203,5141,180,4974,159,4763,139,4241,105,3638,77,3019,56,2446,40,1691,23"/>
+<area shape="rect" id="Node000010" href="$_s_b_m_l_internal_validator_8cpp.html" title="Implementation of SBMLInternalValidator, the validator for all internal validation performed by libSB..." alt="" coords="93,299,285,324"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="1556,22,1269,24,875,31,680,39,508,49,375,63,329,72,300,81,252,108,219,137,195,175,173,226,170,245,172,264,185,297,180,299,167,266,165,245,168,225,190,172,215,134,249,104,298,76,328,66,375,58,507,44,679,33,875,26,1269,18,1556,17"/>
+<area shape="rect" id="Node000011" href="$_s_b_m_l_level1_version1_converter_8cpp.html" title="Implementation of SBMLLevel1Version1Converter." alt="" coords="5031,299,5278,324"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="1692,17,2300,23,3278,42,3804,58,4303,81,4735,111,4912,129,5058,149,5103,154,5143,155,5215,156,5247,160,5278,172,5308,192,5338,224,5346,239,5346,253,5338,265,5326,275,5289,290,5245,301,5244,296,5288,285,5323,270,5334,261,5341,251,5341,240,5334,227,5305,196,5276,176,5246,166,5215,161,5143,161,5102,160,5057,155,4911,135,4734,117,4303,87,3804,64,3277,47,2300,28,1692,22"/>
+<area shape="rect" id="Node000012" href="$_s_b_m_l_level_version_converter_8cpp.html" title="Implementation of SBMLLevelVersionConverter, the base class of package extensions." alt="" coords="5485,299,5715,324"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="1692,16,2098,16,2767,22,3581,40,4006,55,4423,76,4638,90,4806,105,5187,149,5265,153,5335,149,5460,133,5517,133,5572,145,5599,156,5625,173,5652,195,5679,224,5685,235,5686,246,5673,268,5650,286,5625,301,5623,296,5647,282,5669,264,5680,245,5680,236,5675,227,5649,199,5622,177,5596,161,5570,150,5516,138,5460,139,5336,154,5265,159,5186,155,4805,110,4638,95,4423,81,4006,60,3581,45,2766,27,2098,21,1692,22"/>
+<area shape="rect" id="Node000013" href="$_s_b_m_l_types_8h.html" title="Include all SBML types in a single header file." alt="" coords="311,79,417,104"/>
+<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="1557,26,564,81,418,90,417,84,564,76,1556,20"/>
+<area shape="rect" id="Node000069" href="$_s_b_m_l_writer_8cpp.html" title="Writes an SBML Document to file or in&#45;memory string." alt="" coords="6492,79,6615,104"/>
+<area shape="poly" id="edge142_Node000001_Node000069" title=" " alt="" coords="1692,17,4103,33,5594,51,6148,63,6474,76,6492,78,6492,83,6473,81,6148,68,5594,56,4103,38,1692,22"/>
+<area shape="rect" id="Node000014" href="$_comp_validator_8cpp.html" title=" " alt="" coords="3072,445,3216,471"/>
+<area shape="poly" id="edge13_Node000013_Node000014" title=" " alt="" coords="297,108,208,129,113,158,71,176,38,195,16,216,10,226,8,237,8,313,10,342,17,366,28,383,43,396,62,405,83,410,135,412,262,398,331,392,399,395,653,415,991,431,1382,442,1795,449,2570,454,3071,454,3071,460,2570,460,1795,454,1381,447,990,436,653,421,399,400,331,398,263,403,136,417,83,415,60,410,40,401,24,387,13,368,5,343,3,313,3,236,5,224,11,212,35,191,69,171,111,153,207,124,296,103"/>
+<area shape="rect" id="Node000015" href="$_expression_analyser_8cpp.html" title="Implementation of ExpressionAnalyser." alt="" coords="411,372,587,397"/>
+<area shape="poly" id="edge14_Node000013_Node000015" title=" " alt="" coords="315,111,225,146,176,169,130,196,94,225,71,256,66,272,66,289,72,305,83,322,104,338,136,351,221,369,319,378,411,381,410,386,319,383,220,374,134,356,102,343,79,326,67,308,61,289,61,271,66,254,90,221,127,191,173,164,222,141,313,106"/>
+<area shape="rect" id="Node000016" href="$_s_b_m_l_converter_8h.html" title="Definition of SBMLConverter, the base class for SBML conversion." alt="" coords="3476,152,3609,177"/>
+<area shape="poly" id="edge15_Node000013_Node000016" title=" " alt="" coords="431,91,3476,159,3476,165,431,97"/>
+<area shape="rect" id="Node000066" href="$_s_b_m_l_validator_8h.html" title="Definition of SBMLValidator, the base class for user callable SBML validators." alt="" coords="301,152,427,177"/>
+<area shape="poly" id="edge137_Node000013_Node000066" title=" " alt="" coords="367,118,367,152,361,152,361,118"/>
+<area shape="poly" id="edge46_Node000016_Node000007" title=" " alt="" coords="3623,163,4070,166,4712,174,5035,181,5323,192,5546,205,5625,213,5678,223,5722,238,5764,258,5827,296,5824,301,5761,263,5720,243,5677,228,5625,219,5546,211,5323,197,5035,187,4711,179,4070,171,3623,169"/>
+<area shape="rect" id="Node000017" href="$_cobra_to_fbc_converter_8h.html" title="Definition of a cobra 2 fbc converter." alt="" coords="975,225,1147,251"/>
+<area shape="poly" id="edge16_Node000016_Node000017" title=" " alt="" coords="3462,168,3102,168,2536,173,1857,192,1504,207,1159,228,1148,229,1148,224,1158,223,1504,202,1857,186,2535,168,3102,162,3462,163"/>
+<area shape="rect" id="Node000019" href="$_comp_flattening_converter_8h.html" title="Definition of a first flattening converter." alt="" coords="5993,225,6194,251"/>
+<area shape="poly" id="edge19_Node000016_Node000019" title=" " alt="" coords="3623,165,4497,186,5787,223,5993,230,5992,235,5787,228,4497,192,3623,170"/>
+<area shape="rect" id="Node000031" href="$_fbc_to_cobra_converter_8h.html" title="Definition of a fbc 2 cobra converter." alt="" coords="1171,225,1343,251"/>
+<area shape="poly" id="edge36_Node000016_Node000031" title=" " alt="" coords="3462,168,3128,169,2610,176,1991,194,1671,209,1356,228,1344,229,1343,224,1356,223,1670,203,1991,189,2610,171,3128,164,3462,163"/>
+<area shape="rect" id="Node000032" href="$_fbc_v1_to_v2_converter_8h.html" title="Definition of a fbc v1 to fbc v2 converter." alt="" coords="1368,225,1536,251"/>
+<area shape="poly" id="edge39_Node000016_Node000032" title=" " alt="" coords="3463,170,2722,190,2192,207,1649,228,1537,234,1536,229,1649,223,2192,201,2721,184,3462,165"/>
+<area shape="rect" id="Node000033" href="$_fbc_v2_to_v1_converter_8h.html" title="Definition of a fbc v2 to fbc v1 converter." alt="" coords="1661,225,1829,251"/>
+<area shape="poly" id="edge42_Node000016_Node000033" title=" " alt="" coords="3462,169,3195,173,2797,183,2328,200,1848,228,1830,229,1830,224,1848,223,2328,195,2796,177,3195,168,3462,164"/>
+<area shape="rect" id="Node000034" href="$_render_extension_8cpp.html" title="Implementation of RenderExtension, the core module of the render package." alt="" coords="5302,299,5461,324"/>
+<area shape="poly" id="edge45_Node000016_Node000034" title=" " alt="" coords="3623,164,4018,169,4566,180,5065,198,5234,209,5287,216,5316,223,5338,239,5356,259,5379,297,5374,300,5352,262,5334,243,5314,228,5286,221,5234,215,5065,203,4566,186,4018,175,3623,169"/>
+<area shape="rect" id="Node000035" href="$_render_layout_converter_8h.html" title="Simple converter to convert Layout + Render from l2 to L3 and vice versa." alt="" coords="5479,225,5665,251"/>
+<area shape="poly" id="edge47_Node000016_Node000035" title=" " alt="" coords="3623,165,4354,182,4875,200,5409,223,5478,227,5478,232,5409,228,4875,205,4354,188,3623,170"/>
+<area shape="rect" id="Node000036" href="$_s_b_m_l_converter_8cpp.html" title="Implementation of SBMLConverter, the base class of package extensions." alt="" coords="4386,225,4534,251"/>
+<area shape="poly" id="edge50_Node000016_Node000036" title=" " alt="" coords="3623,167,3952,188,4375,223,4386,224,4385,229,4374,228,3951,193,3623,173"/>
+<area shape="rect" id="Node000037" href="$_s_b_m_l_converter_registry_8cpp.html" title="Implementation of SBMLConverterRegistry, a registry of available converters." alt="" coords="1783,372,1985,397"/>
+<area shape="poly" id="edge51_Node000016_Node000037" title=" " alt="" coords="3462,170,3185,175,2807,185,2429,202,2272,214,2154,228,2074,235,2008,237,1979,243,1951,254,1924,272,1895,300,1886,317,1882,337,1884,372,1879,372,1877,336,1881,315,1891,297,1920,268,1949,249,1978,238,2008,232,2073,229,2153,223,2272,209,2429,197,2807,180,3185,169,3462,164"/>
+<area shape="rect" id="Node000038" href="$_s_b_m_l_converter_registry_8h.html" title="Definition of SBMLConverterRegistry, a registry of available converters." alt="" coords="2165,225,2352,251"/>
+<area shape="poly" id="edge52_Node000016_Node000038" title=" " alt="" coords="3462,171,2996,190,2683,206,2364,228,2352,229,2352,224,2364,223,2682,201,2996,184,3462,166"/>
+<area shape="rect" id="Node000040" href="$_s_b_m_l_converter_types_8h.html" title="Definition of SBMLConverterTypes." alt="" coords="4600,299,4771,324"/>
+<area shape="poly" id="edge80_Node000016_Node000040" title=" " alt="" coords="3623,164,3962,166,4418,174,4639,182,4827,192,4963,206,5004,214,5026,223,5032,238,5026,253,4994,263,4928,276,4766,301,4765,296,4928,270,4993,258,5022,249,5027,238,5022,227,5003,219,4962,211,4827,197,4639,187,4418,180,3962,171,3623,169"/>
+<area shape="rect" id="Node000051" href="$_s_b_m_l_function_definition_converter_8h.html" title="Definition of SBMLFunctionDefinitionConverter, a converter replacing function definitions." alt="" coords="2376,225,2627,251"/>
+<area shape="poly" id="edge81_Node000016_Node000051" title=" " alt="" coords="3462,174,2640,228,2627,229,2627,224,2640,223,3462,168"/>
+<area shape="rect" id="Node000053" href="$_s_b_m_l_id_converter_8h.html" title="Definition of SBMLIdConverter, a converter renaming SIds." alt="" coords="2651,225,2797,251"/>
+<area shape="poly" id="edge86_Node000016_Node000053" title=" " alt="" coords="3463,174,3174,195,2810,228,2797,229,2797,224,2809,223,3174,189,3462,168"/>
+<area shape="rect" id="Node000054" href="$_s_b_m_l_infer_units_converter_8h.html" title="Definition of SBMLInferUnitsConverter, infers units for parameters." alt="" coords="4559,225,4756,251"/>
+<area shape="poly" id="edge90_Node000016_Node000054" title=" " alt="" coords="3624,167,4021,187,4547,223,4559,224,4558,229,4546,228,4020,193,3623,172"/>
+<area shape="rect" id="Node000055" href="$_s_b_m_l_initial_assignment_converter_8h.html" title="Definition of SBMLInitialAssignmentConverter, a converter inlining function definitions." alt="" coords="2821,225,3067,251"/>
+<area shape="poly" id="edge94_Node000016_Node000055" title=" " alt="" coords="3462,178,3040,228,3040,223,3462,173"/>
+<area shape="rect" id="Node000056" href="$_s_b_m_l_level1_version1_converter_8h.html" title="Definition of SBMLLevel1Version1Converter." alt="" coords="4780,225,5012,251"/>
+<area shape="poly" id="edge98_Node000016_Node000056" title=" " alt="" coords="3623,166,4107,186,4435,202,4768,223,4780,224,4780,229,4768,228,4435,208,4107,191,3623,171"/>
+<area shape="rect" id="Node000057" href="$_s_b_m_l_level_version_converter_8h.html" title="Definition of SBMLLevelVersionConverter, the base class for SBML conversion." alt="" coords="5087,225,5303,251"/>
+<area shape="poly" id="edge102_Node000016_Node000057" title=" " alt="" coords="3623,165,4224,182,4641,199,5068,223,5087,224,5086,229,5068,228,4641,205,4224,188,3623,170"/>
+<area shape="rect" id="Node000058" href="$_s_b_m_l_local_parameter_converter_8h.html" title="Definition of SBMLLocalParameterConverter, a converter replacing local parameters with global ones." alt="" coords="3091,225,3325,251"/>
+<area shape="poly" id="edge106_Node000016_Node000058" title=" " alt="" coords="3476,183,3263,228,3262,223,3475,178"/>
+<area shape="rect" id="Node000059" href="$_s_b_m_l_rate_of_converter_8h.html" title="Definition of SBMLRateOfConverter, a converter changing reactions into rate rules." alt="" coords="3349,225,3528,251"/>
+<area shape="poly" id="edge110_Node000016_Node000059" title=" " alt="" coords="3516,187,3457,227,3454,223,3513,183"/>
+<area shape="rect" id="Node000060" href="$_s_b_m_l_rate_rule_converter_8h.html" title="Definition of SBMLRateRuleConverter, a converter from raterule to reaction." alt="" coords="640,225,832,251"/>
+<area shape="poly" id="edge114_Node000016_Node000060" title=" " alt="" coords="3462,170,2463,187,1724,204,963,228,833,234,832,229,963,223,1724,199,2463,182,3462,164"/>
+<area shape="rect" id="Node000062" href="$_s_b_m_l_reaction_converter_8h.html" title="Definition of SBMLReactionConverter, a converter changing reactions into rate rules." alt="" coords="3553,225,3743,251"/>
+<area shape="poly" id="edge121_Node000016_Node000062" title=" " alt="" coords="3573,183,3632,223,3629,227,3570,187"/>
+<area shape="rect" id="Node000063" href="$_s_b_m_l_rule_converter_8h.html" title="Definition of SBMLRuleConverter, a converter sorting rules." alt="" coords="3768,225,3931,251"/>
+<area shape="poly" id="edge125_Node000016_Node000063" title=" " alt="" coords="3606,178,3800,223,3799,228,3605,183"/>
+<area shape="rect" id="Node000064" href="$_s_b_m_l_strip_package_converter_8h.html" title="Definition of SBMLStripPackageConverter, the base class for SBML conversion." alt="" coords="3955,225,4171,251"/>
+<area shape="poly" id="edge129_Node000016_Node000064" title=" " alt="" coords="3624,174,3980,223,3979,228,3623,180"/>
+<area shape="rect" id="Node000065" href="$_s_b_m_l_units_converter_8h.html" title="Definition of SBMLUnitsConverter, for converting units to SI." alt="" coords="4195,225,4362,251"/>
+<area shape="poly" id="edge133_Node000016_Node000065" title=" " alt="" coords="3623,170,4183,223,4195,224,4195,229,4182,228,3623,175"/>
+<area shape="poly" id="edge17_Node000017_Node000002" title=" " alt="" coords="1018,258,899,301,898,296,1017,253"/>
+<area shape="rect" id="Node000018" href="$_fbc_extension_8cpp.html" title="Implementation of FbcExtension, the core module of fbc package." alt="" coords="1195,299,1331,324"/>
+<area shape="poly" id="edge18_Node000017_Node000018" title=" " alt="" coords="1108,253,1231,296,1229,301,1106,258"/>
+<area shape="poly" id="edge21_Node000019_Node000003" title=" " alt="" coords="6175,251,6261,272,6305,286,6343,303,6374,322,6393,345,6397,358,6396,371,6391,385,6380,399,6357,412,6315,422,6192,438,6046,449,5910,456,5910,451,6045,444,6192,433,6314,417,6355,407,6377,395,6386,382,6391,370,6391,358,6388,348,6370,327,6341,308,6303,291,6260,277,6174,256"/>
+<area shape="rect" id="Node000020" href="$_comp_extension_8cpp.html" title="Implementation of CompExtension, the core module of comp package." alt="" coords="4937,372,5087,397"/>
+<area shape="poly" id="edge20_Node000019_Node000020" title=" " alt="" coords="6067,261,6008,299,5956,327,5874,344,5771,356,5654,362,5530,365,5288,368,5100,375,5088,376,5088,371,5100,369,5288,362,5530,360,5654,357,5771,350,5873,339,5954,321,6005,295,6064,256"/>
+<area shape="rect" id="Node000021" href="$_comp_model_plugin_8h.html" title="Definition of CompModelPlugin, the plugin class of comp package for the Model element." alt="" coords="6017,299,6169,324"/>
+<area shape="poly" id="edge22_Node000019_Node000021" title=" " alt="" coords="6087,264,6089,298,6084,299,6082,265"/>
+<area shape="poly" id="edge28_Node000021_Node000019" title=" " alt="" coords="6099,285,6098,251,6103,251,6105,285"/>
+<area shape="poly" id="edge24_Node000021_Node000020" title=" " alt="" coords="6003,326,5999,327,5746,344,5549,350,5353,357,5100,375,5088,376,5088,371,5100,369,5352,351,5549,345,5746,338,5998,321,6003,321"/>
+<area shape="rect" id="Node000022" href="$_comp_base_8cpp.html" title="Implementation of CompBase, the base class of extension entities plugged in SBase derived classes in ..." alt="" coords="5449,372,5567,397"/>
+<area shape="poly" id="edge23_Node000021_Node000022" title=" " alt="" coords="6003,326,5999,327,5789,349,5580,375,5568,376,5567,371,5580,369,5789,344,5998,321,6003,321"/>
+<area shape="rect" id="Node000023" href="$_comp_extension_types_8h.html" title="Include all SBML types of Comp extension in a single header file." alt="" coords="5112,372,5285,397"/>
+<area shape="poly" id="edge25_Node000021_Node000023" title=" " alt="" coords="6003,326,5999,327,5802,342,5648,351,5495,359,5298,375,5286,376,5286,370,5297,369,5494,354,5648,346,5801,337,5998,321,6003,321"/>
+<area shape="rect" id="Node000024" href="$_comp_model_plugin_8cpp.html" title="Implementation of CompModelPlugin, the plugin class of comp package for the SBase element." alt="" coords="5591,372,5758,397"/>
+<area shape="poly" id="edge29_Node000021_Node000024" title=" " alt="" coords="6013,329,5743,375,5742,369,6012,324"/>
+<area shape="rect" id="Node000025" href="$_comp_s_b_m_l_document_plugin_8cpp.html" title="Implementation of CompSBMLDocumentPlugin, the plugin class of comp package for the SBase element." alt="" coords="3485,372,3715,397"/>
+<area shape="poly" id="edge30_Node000021_Node000025" title=" " alt="" coords="6004,323,5955,327,5291,355,4642,372,4089,382,3716,385,3716,380,4089,376,4641,367,5291,350,5955,321,6003,318"/>
+<area shape="rect" id="Node000026" href="$_replaced_by_8cpp.html" title="Implementation of ReplacedBy, the SBaseRef derived class of the comp package." alt="" coords="5782,372,5906,397"/>
+<area shape="poly" id="edge31_Node000021_Node000026" title=" " alt="" coords="6041,330,5885,374,5884,369,6039,325"/>
+<area shape="rect" id="Node000027" href="$_replaced_element_8cpp.html" title="Implementation of ReplacedElement, the SBaseRef derived class of replacedElements package." alt="" coords="5931,372,6093,397"/>
+<area shape="poly" id="edge32_Node000021_Node000027" title=" " alt="" coords="6072,335,6027,374,6024,370,6068,331"/>
+<area shape="rect" id="Node000028" href="$_replacing_8cpp.html" title="Implementation of Replacing, the SBaseRef derived class of Replacings package." alt="" coords="6118,372,6231,397"/>
+<area shape="poly" id="edge33_Node000021_Node000028" title=" " alt="" coords="6118,331,6163,370,6160,374,6115,335"/>
+<area shape="rect" id="Node000029" href="$_s_base_ref_8cpp.html" title="Implementation of SBaseRef, the SBase&#45;derived class of the comp package." alt="" coords="6255,372,6366,397"/>
+<area shape="poly" id="edge34_Node000021_Node000029" title=" " alt="" coords="6142,326,6276,369,6275,374,6140,331"/>
+<area shape="rect" id="Node000030" href="$_submodel_8cpp.html" title="Implementation of Submodel, the SBase&#45;derived class of the comp package." alt="" coords="5309,372,5424,397"/>
+<area shape="poly" id="edge35_Node000021_Node000030" title=" " alt="" coords="6003,326,5999,327,5841,341,5718,349,5595,358,5438,375,5424,376,5424,371,5437,369,5595,353,5718,343,5841,335,5998,321,6003,321"/>
+<area shape="poly" id="edge26_Node000023_Node000003" title=" " alt="" coords="5299,395,5705,443,5704,448,5299,400"/>
+<area shape="poly" id="edge27_Node000023_Node000014" title=" " alt="" coords="5098,400,4814,418,4526,432,3974,449,3513,457,3216,459,3216,454,3513,452,3974,444,4526,426,4814,413,5098,395"/>
+<area shape="poly" id="edge38_Node000031_Node000004" title=" " alt="" coords="1217,258,1108,301,1106,296,1215,253"/>
+<area shape="poly" id="edge37_Node000031_Node000018" title=" " alt="" coords="1262,264,1264,298,1259,299,1257,265"/>
+<area shape="poly" id="edge41_Node000032_Node000005" title=" " alt="" coords="1453,265,1450,299,1445,298,1447,264"/>
+<area shape="poly" id="edge40_Node000032_Node000018" title=" " alt="" coords="1410,258,1295,301,1293,296,1408,253"/>
+<area shape="poly" id="edge44_Node000033_Node000006" title=" " alt="" coords="1722,261,1670,301,1667,296,1718,257"/>
+<area shape="poly" id="edge43_Node000033_Node000018" title=" " alt="" coords="1655,255,1331,303,1331,297,1654,250"/>
+<area shape="poly" id="edge49_Node000035_Node000007" title=" " alt="" coords="5629,252,5798,296,5797,301,5628,257"/>
+<area shape="poly" id="edge48_Node000035_Node000034" title=" " alt="" coords="5529,258,5413,301,5412,296,5528,253"/>
+<area shape="poly" id="edge53_Node000038_Node000002" title=" " alt="" coords="2152,245,1643,263,1310,279,972,301,960,302,960,297,972,296,1310,274,1643,257,2152,239"/>
+<area shape="poly" id="edge55_Node000038_Node000003" title=" " alt="" coords="2242,262,2225,294,2224,309,2230,322,2272,356,2326,382,2390,402,2464,416,2546,425,2633,430,2818,429,3008,420,3188,407,3348,396,3473,395,4134,418,4779,435,5693,453,5693,458,4779,441,4134,424,3473,400,3348,402,3189,412,3008,425,2818,435,2633,435,2545,431,2463,422,2389,407,2324,387,2269,360,2226,326,2218,310,2220,292,2237,260"/>
+<area shape="poly" id="edge59_Node000038_Node000004" title=" " alt="" coords="2152,246,1727,266,1456,282,1183,301,1171,302,1171,297,1182,296,1456,276,1727,260,2151,241"/>
+<area shape="poly" id="edge60_Node000038_Node000005" title=" " alt="" coords="2152,250,1550,301,1539,302,1538,297,1549,296,2151,245"/>
+<area shape="poly" id="edge61_Node000038_Node000006" title=" " alt="" coords="2152,255,1745,302,1745,297,2151,249"/>
+<area shape="poly" id="edge63_Node000038_Node000007" title=" " alt="" coords="2366,248,2878,272,3312,282,3693,280,4049,274,4404,267,4785,265,5218,273,5728,296,5740,297,5739,302,5728,301,5217,279,4785,271,4404,273,4049,279,3693,286,3312,287,2878,278,2366,253"/>
+<area shape="poly" id="edge66_Node000038_Node000008" title=" " alt="" coords="2151,245,1335,270,867,286,524,301,462,306,461,300,524,296,867,281,1334,264,2151,240"/>
+<area shape="poly" id="edge69_Node000038_Node000009" title=" " alt="" coords="2366,248,2734,267,3046,275,3320,277,3576,274,3831,272,4105,272,4416,279,4783,296,4795,297,4795,302,4783,301,4416,284,4105,277,3831,277,3576,280,3320,282,3046,281,2734,272,2366,253"/>
+<area shape="poly" id="edge71_Node000038_Node000011" title=" " alt="" coords="2366,248,2770,269,3113,278,3414,280,3694,277,3975,274,4276,273,4617,280,5020,296,5031,297,5031,302,5020,301,4617,285,4275,279,3975,279,3694,282,3414,285,3113,283,2770,274,2366,253"/>
+<area shape="poly" id="edge72_Node000038_Node000012" title=" " alt="" coords="2366,248,2839,271,3240,281,3593,281,3921,276,4249,271,4602,270,5002,277,5473,296,5485,297,5484,302,5473,301,5001,282,4601,275,4249,277,3921,282,3593,286,3240,286,2839,277,2366,253"/>
+<area shape="poly" id="edge58_Node000038_Node000018" title=" " alt="" coords="2151,246,1792,265,1568,281,1343,301,1331,303,1330,297,1342,296,1568,276,1792,260,2151,241"/>
+<area shape="poly" id="edge54_Node000038_Node000020" title=" " alt="" coords="2247,264,2237,295,2238,310,2244,322,2272,326,2347,331,2612,340,3433,358,4937,380,4936,385,3433,363,2612,345,2347,336,2272,331,2241,326,2232,311,2232,294,2242,262"/>
+<area shape="poly" id="edge56_Node000038_Node000025" title=" " alt="" coords="2151,242,2067,248,1992,261,1966,272,1951,285,1948,301,1962,322,1983,331,2026,340,2169,354,2369,364,2605,372,3100,379,3484,381,3484,386,3100,385,2605,377,2369,370,2169,359,2025,345,1981,336,1958,326,1943,303,1946,283,1963,268,1991,256,2066,243,2151,237"/>
+<area shape="poly" id="edge62_Node000038_Node000034" title=" " alt="" coords="2366,248,2811,269,3189,276,3521,274,3830,268,4139,262,4471,261,4847,271,5291,296,5302,297,5302,302,5290,301,4847,276,4471,267,4139,267,3830,273,3521,279,3189,282,2811,274,2366,253"/>
+<area shape="poly" id="edge64_Node000038_Node000037" title=" " alt="" coords="2152,249,2083,256,2015,267,1956,282,1918,301,1904,317,1895,336,1887,373,1882,371,1890,335,1900,314,1914,297,1955,277,2014,262,2083,251,2151,244"/>
+<area shape="rect" id="Node000039" href="$_distrib_extension_8cpp.html" title="Implementation of DistribExtension." alt="" coords="1973,299,2129,324"/>
+<area shape="poly" id="edge57_Node000038_Node000039" title=" " alt="" coords="2213,258,2085,301,2083,296,2211,253"/>
+<area shape="poly" id="edge65_Node000038_Node000040" title=" " alt="" coords="2366,248,2704,265,2991,273,3244,273,3479,270,3714,268,3965,269,4251,277,4588,296,4600,297,4600,302,4588,301,4251,282,3965,274,3714,273,3479,276,3244,278,2991,278,2704,271,2366,253"/>
+<area shape="rect" id="Node000041" href="$_s_b_m_l_function_definition_converter_8cpp.html" title="Implementation of SBMLFunctionDefinitionConverter, a converter replacing function definitions." alt="" coords="2255,299,2521,324"/>
+<area shape="poly" id="edge67_Node000038_Node000041" title=" " alt="" coords="2293,255,2368,296,2366,301,2290,260"/>
+<area shape="rect" id="Node000042" href="$_s_b_m_l_id_converter_8cpp.html" title="Implementation of SBMLIdConverter, a converter renaming SIds." alt="" coords="2545,299,2705,324"/>
+<area shape="poly" id="edge68_Node000038_Node000042" title=" " alt="" coords="2331,251,2566,296,2565,301,2330,256"/>
+<area shape="rect" id="Node000043" href="$_s_b_m_l_initial_assignment_converter_8cpp.html" title="Implementation of SBMLInitialAssignmentConverter, a converter inlining initial assignments." alt="" coords="2730,299,2993,324"/>
+<area shape="poly" id="edge70_Node000038_Node000043" title=" " alt="" coords="2366,249,2765,296,2764,301,2365,255"/>
+<area shape="rect" id="Node000044" href="$_s_b_m_l_local_parameter_converter_8cpp.html" title="Implementation of SBMLLocalParameterConverter, a converter replacing local parameters with global one..." alt="" coords="3017,299,3266,324"/>
+<area shape="poly" id="edge73_Node000038_Node000044" title=" " alt="" coords="2366,248,2687,273,3006,296,3017,297,3016,302,3005,301,2687,279,2365,253"/>
+<area shape="rect" id="Node000045" href="$_s_b_m_l_rate_of_converter_8cpp.html" title="Implementation of SBMLRateOfConverter, a converter changing &#39;rateOf&#39; into functionDefinition." alt="" coords="3290,299,3483,324"/>
+<area shape="poly" id="edge74_Node000038_Node000045" title=" " alt="" coords="2366,248,2623,265,2824,272,3024,280,3279,296,3290,297,3289,302,3278,301,3024,285,2824,278,2623,270,2365,253"/>
+<area shape="rect" id="Node000046" href="$_s_b_m_l_rate_rule_converter_8cpp.html" title="Implementation of SBMLRateRuleConverter, a converter from raterule to reaction." alt="" coords="633,372,839,397"/>
+<area shape="poly" id="edge75_Node000038_Node000046" title=" " alt="" coords="2173,255,1894,301,1825,315,1756,327,1498,352,1242,369,840,384,839,379,1242,364,1498,347,1756,321,1824,310,1893,296,2172,250"/>
+<area shape="rect" id="Node000047" href="$_s_b_m_l_reaction_converter_8cpp.html" title="Implementation of SBMLReactionConverter, a converter changing reactions into rate rules." alt="" coords="3508,299,3713,324"/>
+<area shape="poly" id="edge76_Node000038_Node000047" title=" " alt="" coords="2366,248,2684,266,2933,273,3180,279,3496,296,3508,297,3507,302,3496,301,3180,284,2933,278,2684,272,2366,253"/>
+<area shape="rect" id="Node000048" href="$_s_b_m_l_rule_converter_8cpp.html" title="Implementation of SBMLRuleConverter, a converter sorting rules." alt="" coords="3738,299,3915,324"/>
+<area shape="poly" id="edge77_Node000038_Node000048" title=" " alt="" coords="2366,248,2573,260,2749,267,3047,271,3345,276,3520,283,3726,296,3738,297,3738,302,3725,301,3519,288,3345,281,3047,277,2749,273,2573,266,2366,253"/>
+<area shape="rect" id="Node000049" href="$_s_b_m_l_strip_package_converter_8cpp.html" title="Implementation of SBMLStripPackageConverter, the base class of package extensions." alt="" coords="3939,299,4170,324"/>
+<area shape="poly" id="edge78_Node000038_Node000049" title=" " alt="" coords="2366,248,2604,262,2806,270,3149,274,3491,278,3691,284,3928,296,3939,297,3939,302,3928,301,3691,289,3490,283,3149,280,2806,275,2604,267,2365,253"/>
+<area shape="rect" id="Node000050" href="$_s_b_m_l_units_converter_8cpp.html" title="Implementation of SBMLUnitsConverter, for converting units to SI." alt="" coords="4194,299,4377,324"/>
+<area shape="poly" id="edge79_Node000038_Node000050" title=" " alt="" coords="2366,248,2643,263,2878,270,3276,271,3674,273,3908,280,4183,296,4194,297,4193,302,4182,301,3907,286,3674,278,3276,277,2877,276,2643,268,2366,253"/>
+<area shape="poly" id="edge84_Node000051_Node000040" title=" " alt="" coords="2640,248,2938,261,3189,266,3617,266,3823,266,4043,269,4293,278,4588,296,4600,297,4600,302,4588,301,4293,284,4043,275,3823,272,3617,272,3189,271,2937,266,2640,253"/>
+<area shape="poly" id="edge85_Node000051_Node000041" title=" " alt="" coords="2473,260,2408,301,2405,296,2470,256"/>
+<area shape="rect" id="Node000052" href="$_register_converters_8cpp.html" title="Registers all available converters." alt="" coords="4401,299,4575,324"/>
+<area shape="poly" id="edge82_Node000051_Node000052" title=" " alt="" coords="2641,248,2908,260,3134,265,3518,267,3900,271,4125,280,4390,296,4401,297,4400,302,4389,301,4125,285,3900,277,3518,272,3134,271,2907,265,2640,253"/>
+<area shape="poly" id="edge83_Node000052_Node000037" title=" " alt="" coords="4387,327,4155,339,3855,349,3148,367,1985,385,1985,380,3148,361,3855,344,4155,333,4387,321"/>
+<area shape="poly" id="edge88_Node000053_Node000040" title=" " alt="" coords="2811,248,3081,266,3311,274,3513,276,3701,274,4090,274,4319,280,4588,296,4600,297,4600,302,4588,301,4319,286,4090,279,3701,280,3513,281,3311,279,3081,271,2810,253"/>
+<area shape="poly" id="edge89_Node000053_Node000042" title=" " alt="" coords="2699,261,2643,301,2640,296,2696,256"/>
+<area shape="poly" id="edge87_Node000053_Node000052" title=" " alt="" coords="2811,248,3051,264,3255,272,3602,274,3948,275,4150,282,4390,296,4401,297,4400,302,4389,301,4150,287,3947,280,3602,279,3255,277,3051,269,2810,253"/>
+<area shape="poly" id="edge93_Node000054_Node000009" title=" " alt="" coords="4710,252,4863,296,4861,301,4709,257"/>
+<area shape="poly" id="edge92_Node000054_Node000040" title=" " alt="" coords="4669,263,4683,298,4678,300,4665,265"/>
+<area shape="poly" id="edge91_Node000054_Node000052" title=" " alt="" coords="4619,258,4517,301,4515,296,4616,254"/>
+<area shape="poly" id="edge96_Node000055_Node000040" title=" " alt="" coords="3081,248,3311,259,3506,265,3836,268,4166,273,4360,281,4588,296,4600,297,4600,302,4588,301,4360,287,4166,278,3836,273,3506,270,3311,264,3081,253"/>
+<area shape="poly" id="edge97_Node000055_Node000043" title=" " alt="" coords="2922,262,2877,300,2873,296,2919,258"/>
+<area shape="poly" id="edge95_Node000055_Node000052" title=" " alt="" coords="3081,248,3450,264,3737,269,4023,275,4390,296,4401,297,4400,302,4389,301,4023,280,3737,274,3450,269,3081,253"/>
+<area shape="poly" id="edge101_Node000056_Node000011" title=" " alt="" coords="4951,252,5113,296,5112,301,4950,257"/>
+<area shape="poly" id="edge100_Node000056_Node000040" title=" " alt="" coords="4850,257,4720,301,4719,296,4849,252"/>
+<area shape="poly" id="edge99_Node000056_Node000052" title=" " alt="" coords="4818,256,4554,301,4553,296,4817,250"/>
+<area shape="poly" id="edge105_Node000057_Node000012" title=" " alt="" coords="5274,250,5535,296,5534,301,5273,256"/>
+<area shape="poly" id="edge104_Node000057_Node000040" title=" " alt="" coords="5099,255,4768,301,4767,296,5099,250"/>
+<area shape="poly" id="edge103_Node000057_Node000052" title=" " alt="" coords="5073,253,4588,301,4576,303,4576,297,4588,296,5072,248"/>
+<area shape="poly" id="edge108_Node000058_Node000040" title=" " alt="" coords="3339,248,3691,264,3966,269,4239,275,4588,296,4600,297,4600,302,4588,301,4239,281,3966,274,3691,269,3339,253"/>
+<area shape="poly" id="edge109_Node000058_Node000044" title=" " alt="" coords="3189,263,3154,300,3150,297,3186,259"/>
+<area shape="poly" id="edge107_Node000058_Node000052" title=" " alt="" coords="3339,248,3635,263,3866,270,4096,277,4390,296,4401,297,4400,302,4389,301,4096,283,3866,275,3635,269,3339,253"/>
+<area shape="poly" id="edge112_Node000059_Node000040" title=" " alt="" coords="3542,248,3837,265,4067,271,4296,278,4588,296,4600,297,4600,302,4588,301,4296,283,4067,277,3837,271,3542,253"/>
+<area shape="poly" id="edge113_Node000059_Node000045" title=" " alt="" coords="3424,263,3397,300,3393,297,3420,260"/>
+<area shape="poly" id="edge111_Node000059_Node000052" title=" " alt="" coords="3542,248,3782,264,3968,272,4153,279,4390,296,4401,297,4400,302,4389,301,4153,285,3968,277,3781,269,3542,253"/>
+<area shape="poly" id="edge115_Node000060_Node000015" title=" " alt="" coords="627,251,573,269,548,283,526,300,514,317,507,336,501,372,496,371,502,335,509,315,522,297,545,278,571,264,626,246"/>
+<area shape="poly" id="edge120_Node000060_Node000046" title=" " alt="" coords="739,265,739,372,733,372,733,265"/>
+<area shape="poly" id="edge119_Node000060_Node000052" title=" " alt="" coords="846,243,963,248,1485,260,1927,262,2677,254,3039,251,3427,254,3868,268,4390,296,4401,297,4400,302,4389,301,3868,273,3427,259,3039,256,2677,259,1927,268,1485,265,963,253,846,248"/>
+<area shape="rect" id="Node000061" href="$_expression_analyser_8h.html" title="Definition of ExpressionAnalyser, a class for analysing expressions." alt="" coords="537,299,698,324"/>
+<area shape="poly" id="edge116_Node000060_Node000061" title=" " alt="" coords="706,260,638,301,635,296,704,255"/>
+<area shape="poly" id="edge117_Node000061_Node000015" title=" " alt="" coords="588,333,519,374,517,369,585,329"/>
+<area shape="poly" id="edge118_Node000061_Node000046" title=" " alt="" coords="650,329,718,369,715,374,647,333"/>
+<area shape="poly" id="edge123_Node000062_Node000040" title=" " alt="" coords="3757,248,3992,264,4175,271,4357,279,4588,296,4600,297,4600,302,4588,301,4356,285,4174,277,3992,269,3757,253"/>
+<area shape="poly" id="edge124_Node000062_Node000047" title=" " alt="" coords="3638,264,3619,300,3614,297,3633,262"/>
+<area shape="poly" id="edge122_Node000062_Node000052" title=" " alt="" coords="3757,248,4076,272,4390,296,4401,297,4400,302,4389,301,4075,277,3757,253"/>
+<area shape="poly" id="edge127_Node000063_Node000040" title=" " alt="" coords="3944,248,4126,263,4268,272,4409,281,4588,296,4600,297,4600,303,4588,301,4409,286,4268,278,4126,269,3944,253"/>
+<area shape="poly" id="edge128_Node000063_Node000048" title=" " alt="" coords="3844,265,3833,299,3828,298,3839,263"/>
+<area shape="poly" id="edge126_Node000063_Node000052" title=" " alt="" coords="3944,248,4390,296,4401,297,4400,303,4389,301,3944,253"/>
+<area shape="poly" id="edge131_Node000064_Node000040" title=" " alt="" coords="4178,250,4588,296,4600,297,4600,303,4588,301,4177,255"/>
+<area shape="poly" id="edge132_Node000064_Node000049" title=" " alt="" coords="4062,265,4059,299,4053,298,4057,264"/>
+<area shape="poly" id="edge130_Node000064_Node000052" title=" " alt="" coords="4145,250,4420,296,4419,301,4144,256"/>
+<area shape="poly" id="edge135_Node000065_Node000040" title=" " alt="" coords="4358,250,4620,296,4619,301,4357,256"/>
+<area shape="poly" id="edge136_Node000065_Node000050" title=" " alt="" coords="4284,264,4287,298,4282,299,4278,265"/>
+<area shape="poly" id="edge134_Node000065_Node000052" title=" " alt="" coords="4326,253,4455,296,4453,301,4325,258"/>
+<area shape="rect" id="Node000067" href="$_s_b_m_l_internal_validator_8h.html" title="Definition of SBMLInternalValidator, the validator for all internal validation performed by libSBML." alt="" coords="183,225,361,251"/>
+<area shape="poly" id="edge138_Node000066_Node000067" title=" " alt="" coords="340,188,289,227,285,223,337,183"/>
+<area shape="rect" id="Node000068" href="$_s_b_m_l_validator_8cpp.html" title="Implementation of SBMLValidator, the base class for user callable SBML validators." alt="" coords="385,225,527,251"/>
+<area shape="poly" id="edge141_Node000066_Node000068" title=" " alt="" coords="391,183,443,223,439,227,388,188"/>
+<area shape="poly" id="edge139_Node000067_Node000008" title=" " alt="" coords="304,256,368,296,365,301,301,260"/>
+<area shape="poly" id="edge140_Node000067_Node000010" title=" " alt="" coords="250,262,205,300,201,296,247,258"/>
 </map>

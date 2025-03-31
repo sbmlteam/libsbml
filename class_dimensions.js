@@ -135,7 +135,7 @@ var class_dimensions =
     [ "setWidth", "class_dimensions.html#a1d81f4e9c1fae74b98756a822dca2ba7", null ],
     [ "toSBML", "class_dimensions.html#ae8317d5157b70e4f1bc68e33e5c84001", null ],
     [ "toXML", "class_dimensions.html#a442193a54e1f74e1cd492c8e1f147519", null ],
-    [ "toXMLNode", "class_dimensions.html#a5c949d524aca47b84b18b57b76e6ee0a", null ],
+    [ "toXMLNode", "class_dimensions.html#a616754bfc4592922a488f2159f96b3ce", null ],
     [ "unsetAnnotation", "class_dimensions.html#a9121d6a4f7401fe957cc75647a1e95ed", null ],
     [ "unsetCreatedDate", "class_dimensions.html#ad3be0bf5891c2b6bf4340cce12b8630f", null ],
     [ "unsetCVTerms", "class_dimensions.html#a1e89a7890f2fb291f1ba4c38866d1dcc", null ],

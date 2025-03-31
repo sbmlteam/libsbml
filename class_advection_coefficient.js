@@ -130,7 +130,7 @@ var class_advection_coefficient =
     [ "setUserData", "class_advection_coefficient.html#ac3b1bbfe22bad0dbc577b61c529f37bb", null ],
     [ "setVariable", "class_advection_coefficient.html#a7247574f042fc2211eb60f8bee4d7c42", null ],
     [ "toSBML", "class_advection_coefficient.html#ae8317d5157b70e4f1bc68e33e5c84001", null ],
-    [ "toXMLNode", "class_advection_coefficient.html#a5c949d524aca47b84b18b57b76e6ee0a", null ],
+    [ "toXMLNode", "class_advection_coefficient.html#a616754bfc4592922a488f2159f96b3ce", null ],
     [ "unsetAnnotation", "class_advection_coefficient.html#a9121d6a4f7401fe957cc75647a1e95ed", null ],
     [ "unsetCoordinate", "class_advection_coefficient.html#a431e224e4400a71eddeb73656d3d1bf7", null ],
     [ "unsetCreatedDate", "class_advection_coefficient.html#ad3be0bf5891c2b6bf4340cce12b8630f", null ],
