@@ -173,6 +173,9 @@ START_TEST(test_SBMLDocumentPlugin_read)
     fail_unless(sbml.find("layout_L2:") != std::string::npos);
   }
 
+  SBMLDocument* roundtrip = readSBMLFromString(sbml.c_str());
+  fail_unless(roundtrip->getNumErrors(LIBSBML_SEV_ERROR) == 0);
+
 }
 END_TEST
 
