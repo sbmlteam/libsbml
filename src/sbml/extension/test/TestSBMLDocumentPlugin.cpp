@@ -58,12 +58,14 @@
 
 #include "TestPackage.h"
 
-extern char *TestDataDirectory;
-
 using namespace std;
 LIBSBML_CPP_NAMESPACE_USE
 
 BEGIN_C_DECLS
+
+#include <sbml/util/util.h>
+
+extern char *TestDataDirectory;
 
 START_TEST (test_SBMLDocumentPlugin_create)
 {
