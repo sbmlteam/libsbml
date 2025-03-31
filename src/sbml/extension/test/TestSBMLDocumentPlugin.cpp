@@ -58,6 +58,7 @@
 
 #include "TestPackage.h"
 
+extern char *TestDataDirectory;
 
 using namespace std;
 LIBSBML_CPP_NAMESPACE_USE
@@ -143,6 +144,35 @@ START_TEST (test_SBMLDocumentPlugin_c_api)
 }
 END_TEST
 
+START_TEST(test_SBMLDocumentPlugin_read)
+{
+  auto& instance = SBMLExtensionRegistry::getInstance();
+  bool layout_enabled = instance.getExtension("layout") != NULL;
+
+  std::string filename(TestDataDirectory);
+  filename += "issue417.xml";
+  auto* doc = readSBML(filename.c_str());
+  fail_unless(doc != NULL);
+  fail_unless(doc->getModel() != NULL);
+  int numErrors = doc->getNumErrors(LIBSBML_SEV_ERROR);
+  fail_unless(numErrors == 0);
+
+  std::string sbml = writeSBMLToString(doc);
+  delete doc;
+
+  if (layout_enabled) {
+    // layout is enabled, so we should not have the l2 required attribute 
+	// on the document
+    fail_unless(sbml.find("layout_L2:") == std::string::npos);
+  }
+  else {
+    // layout is not enabled, so we should have the l2 required attribute 
+	// on the document
+    fail_unless(sbml.find("layout_L2:") != std::string::npos);
+  }
+
+}
+END_TEST
 
 Suite *
 create_suite_SBMLDocumentPlugin (void)
@@ -152,6 +182,7 @@ create_suite_SBMLDocumentPlugin (void)
 	
   tcase_add_test( tcase, test_SBMLDocumentPlugin_create );
   tcase_add_test( tcase, test_SBMLDocumentPlugin_c_api );
+  tcase_add_test( tcase, test_SBMLDocumentPlugin_read );
   
   suite_add_tcase(suite, tcase);
 

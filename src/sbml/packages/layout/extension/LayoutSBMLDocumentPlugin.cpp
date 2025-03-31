@@ -115,6 +115,10 @@ LayoutSBMLDocumentPlugin::readAttributes (const XMLAttributes& attributes,
 {
   // for now don't read the required flag for L2 models 
   if (getSBMLDocument() != NULL && getSBMLDocument()->getLevel() < 3) return;
+
+  // skip reading the required flag for L2 layout on l3 models where we would remove it before writing
+  if (mURI == LayoutExtension::getXmlnsL2() && getSBMLDocument() != NULL && getSBMLDocument()->getLevel() > 2) 
+    return;
   
   unsigned int numErrs = getErrorLog()->getNumErrors();
   XMLTriple tripleRequired("required", mURI, getPrefix());
