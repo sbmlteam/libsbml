@@ -6544,9 +6544,10 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    "A <reaction> object must have the required attributes 'id', 'reversible' "
-    "and 'fast', and may have the optional attributes 'metaid', 'sboTerm', 'name' "
-    "and 'compartment'. No other attributes from the SBML Level 3 Core "
+    "A <reaction> object must have the required attributes 'id' and 'reversible', "
+    "and may have the optional attributes 'metaid', 'sboTerm', 'name' "
+    "and 'compartment'. For SBML Level 3 Version 1 documents only, 'fast' is additionally "
+    "required.  No other attributes from the SBML Level 3 Core "
     "namespace are permitted on a Reaction object.",
     {"",
      "",
