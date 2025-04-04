@@ -196,7 +196,7 @@ configure_file (
 # mark header files for installation
 #
 
-foreach(dir annotation common compress conversion extension math units util validator xml  )
+foreach(dir annotation common compress conversion extension html2md maddy math units util validator xml  )
 
     file(GLOB header_files "${CMAKE_CURRENT_SOURCE_DIR}/sbml/${dir}/*.h")
     install(FILES ${header_files} DESTINATION include/sbml/${dir})
@@ -284,7 +284,7 @@ macro(ADD_FUNCTION directory)
 
 endmacro(ADD_FUNCTION)
 
-foreach (directory annotation common conversion extension sbml math
+foreach (directory annotation common conversion extension sbml html2md maddy math
                    units util validator validator/constraints)
 
 	ADD_FUNCTION(${directory})

@@ -40,6 +40,7 @@
  * ---------------------------------------------------------------------- -->*/
 
 #include <sstream>
+#include <memory>
 
 #include <sbml/xml/XMLError.h>
 #include <sbml/xml/XMLErrorLog.h>
@@ -68,6 +69,9 @@
 #include <sbml/extension/SBMLExtensionRegistry.h>
 #include <sbml/extension/SBMLExtensionException.h>
 #include <sbml/util/CallbackRegistry.h>
+
+#include <sbml/maddy/parser.h>
+#include <sbml/html2md/html2md.h>
 
 /** @cond doxygenIgnored */
 using namespace std;
@@ -778,6 +782,17 @@ std::string
 SBase::getNotesString() const
 {
   return XMLNode::convertXMLNodeToString(mNotes);
+}
+
+
+std::string
+SBase::getNotesMarkdown() const
+{
+    string ret = html2md::Convert(getNotesString());
+    while (ret.size() && ret[ret.size() - 1] == '\n') {
+        ret.pop_back();
+    }
+    return ret;
 }
 
 
@@ -1911,6 +1926,25 @@ SBase::setNotes(const std::string& notes, bool addXHTMLMarkup)
     }
   }
   return success;
+}
+
+int SBase::setNotesFromMarkdown(const std::string& markdown)
+{
+    std::stringstream markdownInput(markdown);
+
+    // If we want to use the maddy config:
+    //std::shared_ptr<maddy::ParserConfig> config = std::make_shared<maddy::ParserConfig>();
+    //config->enabledParsers &= ~maddy::types::EMPHASIZED_PARSER; // disable emphasized parser
+    //config->enabledParsers |= maddy::types::HTML_PARSER; // do not wrap HTML in paragraph
+    //std::shared_ptr<maddy::Parser> parser = std::make_shared<maddy::Parser>(config);
+
+    maddy::Parser parser;
+    std::string htmlOutput = parser.Parse(markdownInput);
+    if (setNotes(htmlOutput, true) == LIBSBML_OPERATION_SUCCESS) {
+        return LIBSBML_OPERATION_SUCCESS;
+    }
+    htmlOutput = "<body  xmlns=\"http://www.w3.org/1999/xhtml\" >\n" + htmlOutput + "\n</body>";
+    return setNotes(htmlOutput, true);
 }
 
 
@@ -7575,6 +7609,12 @@ SBase_getNotesString (SBase_t *sb)
 }
 
 
+char* SBase_getNotesMarkdown(SBase_t* sb)
+{
+    return (sb != NULL && sb->isSetNotes()) ?
+        safe_strdup(sb->getNotesMarkdown().c_str()) : NULL;
+}
+
 LIBSBML_EXTERN
 XMLNode_t *
 SBase_getAnnotation (SBase_t *sb)
@@ -7714,6 +7754,17 @@ SBase_setNotes (SBase_t *sb, const XMLNode_t *notes)
     return sb->setNotes(notes);
   else
     return LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+SBase_setNotesFromMarkdown(SBase_t* sb, const char* markdown)
+{
+    if (sb != NULL)
+        return sb->setNotesFromMarkdown(markdown);
+    else
+        return LIBSBML_INVALID_OBJECT;
 }
 
 
