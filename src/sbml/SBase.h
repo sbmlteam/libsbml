@@ -4556,7 +4556,9 @@ SBase_setNotes (SBase_t *sb, const XMLNode_t *notes);
  *
  * @memberof SBase_t
  */
-int SBase_setNotesFromMarkdown(SBase_t* sb, const char* markdown);
+LIBSBML_EXTERN
+int 
+SBase_setNotesFromMarkdown(SBase_t* sb, const char* markdown);
 
 
 /**
