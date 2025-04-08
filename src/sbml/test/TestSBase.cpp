@@ -631,6 +631,25 @@ START_TEST(test_SBase_setNotesFromMarkdown2)
 END_TEST
 
 
+START_TEST(test_SBase_setNotesFromMarkdown3)
+{
+    Model_t* c = new(std::nothrow) Model(3, 1);
+    const char* notes = "Please refer to[CC0  Public Domain Dedication](http://creativecommons.org/publicdomain/zero/1.0/ \"Access to: CC0 1.0 Universal (CC0 1.0), Public Domain Dedication\") for more information.";
+    const char* taggednotes = "<notes>\n  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n    <p>Please refer to<a href=\"http://creativecommons.org/publicdomain/zero/1.0/\" title=\"Access to: CC0 1.0 Universal (CC0 1.0), Public Domain Dedication\">CC0  Public Domain Dedication</a> for more information. </p>\n  </body>\n</notes>";
+
+    SBase_setNotesFromMarkdown(c, notes);
+
+    fail_unless(SBase_isSetNotes(c) == 1);
+    char* str = SBase_getNotesString(c);
+    fail_unless(!strcmp(str, taggednotes));
+    safe_free(str);
+    char* t1 = SBase_getNotesMarkdown(c);
+    fail_unless(!strcmp(t1, notes));
+    safe_free(t1);
+}
+END_TEST
+
+
 START_TEST(test_SBase_setAnnotationString)
 {
   const char * annotation = "This is a test note";
@@ -2653,6 +2672,7 @@ create_suite_SBase (void)
   tcase_add_test(tcase, test_SBase_setNotesString_l3_addMarkup);
   tcase_add_test(tcase, test_SBase_setNotesFromMarkdown);
   tcase_add_test(tcase, test_SBase_setNotesFromMarkdown2);
+  tcase_add_test(tcase, test_SBase_setNotesFromMarkdown3);
   tcase_add_test(tcase, test_SBase_setAnnotationString);
   tcase_add_test(tcase, test_SBase_unsetAnnotationWithCVTerms );
   tcase_add_test(tcase, test_SBase_unsetAnnotationWithModelHistory );
