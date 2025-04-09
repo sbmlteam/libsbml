@@ -425,7 +425,7 @@ var searchData=
   ['util_5fepsilon_422',['util_epsilon',['../util_8h.html#acf6df96e8670dfc4434258f8d8ecad35',1,'util.h']]],
   ['util_5ffree_423',['util_free',['../util_8cpp.html#a4d0079bd8534eef5b1cf57d032490f56',1,'util_free(void *element):&#160;util.cpp'],['../util_8h.html#a4d0079bd8534eef5b1cf57d032490f56',1,'util_free(void *element):&#160;util.cpp']]],
   ['util_5ffreearray_424',['util_freearray',['../util_8cpp.html#a905ae2aebc0923ecba8688bda13d2985',1,'util_freeArray(void **objects, int length):&#160;util.cpp'],['../util_8h.html#a905ae2aebc0923ecba8688bda13d2985',1,'util_freeArray(void **objects, int length):&#160;util.cpp']]],
-  ['util_5fhtml_5fto_5fmarkdown_425',['util_html_to_markdown',['../util_8cpp.html#ad2eae35ba0fa5afbd10491f731ad7c7d',1,'util.cpp']]],
+  ['util_5fhtml_5fto_5fmarkdown_425',['util_html_to_markdown',['../util_8cpp.html#aa522aa8b84f0e0b929461d09b77b8346',1,'util.cpp']]],
   ['util_5fisequal_426',['util_isEqual',['../util_8h.html#acb2abfa1604fc06810e198f55cf1e431',1,'util.h']]],
   ['util_5fisfinite_427',['util_isFinite',['../util_8h.html#a979bfbd2f97968215657ea323b3fffd0',1,'util.h']]],
   ['util_5fisinf_428',['util_isinf',['../util_8h.html#ad1557e9a2b8a6366a63dccfbb3e8fd93',1,'util_isInf(double d):&#160;util.cpp'],['../util_8cpp.html#ad1557e9a2b8a6366a63dccfbb3e8fd93',1,'util_isInf(double d):&#160;util.cpp']]],

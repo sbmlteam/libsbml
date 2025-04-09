@@ -4,7 +4,7 @@ var util_8cpp =
     [ "replaceAllSubStrings", "util_8cpp.html#ae16250db348cbeba9960cd3c89961f3e", null ],
     [ "util_free", "util_8cpp.html#a4d0079bd8534eef5b1cf57d032490f56", null ],
     [ "util_freeArray", "util_8cpp.html#a905ae2aebc0923ecba8688bda13d2985", null ],
-    [ "util_html_to_markdown", "util_8cpp.html#ad2eae35ba0fa5afbd10491f731ad7c7d", null ],
+    [ "util_html_to_markdown", "util_8cpp.html#aa522aa8b84f0e0b929461d09b77b8346", null ],
     [ "util_isInf", "util_8cpp.html#ad1557e9a2b8a6366a63dccfbb3e8fd93", null ],
     [ "util_isNegZero", "util_8cpp.html#abdcdb098a9c06ff0b3750f2a02750012", null ],
     [ "util_markdown_to_html", "util_8cpp.html#a7ae63cedbaf9e64c7c00c4be49bfe2c4", null ],
