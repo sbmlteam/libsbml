@@ -72,6 +72,8 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 /**
  * Utility function that converts the input string from markdown to HTML.
  *
+ * The HTML is translated by 'html2md', https://github.com/tim-gromeyer/html2md/
+ * 
  * @param markdown, the string to be modified.
  *
  * @return the HTML version of the string.
@@ -81,6 +83,8 @@ std::string util_markdown_to_html(const std::string& markdown);
 /**
  * Utility function that converts the input string from HTML to markdown.
  *
+ * Markdown parser is 'maddy' (https://github.com/progsource/maddy).
+ * 
  * @param html, the string to be converted.
  *
  * @return the markdown version of the string.
@@ -368,6 +372,34 @@ double util_epsilon();
  */
 LIBSBML_EXTERN
 int util_isEqual(double a, double b);
+
+/**
+ * Utility function that converts the input string from HTML to markdown.
+ * 
+ * The string is owned by the caller and should be freed
+ * (with free()) when no longer needed.  The HTML is translated
+ * by 'html2md', https://github.com/tim-gromeyer/html2md/
+ *
+ * @param html, the string to be converted.
+ *
+ * @return the markdown version of the string.
+ */
+LIBSBML_EXTERN
+char* util_html_to_markdown_c(const char* html);
+
+/**
+ * Utility function that converts the input string from HTML to markdown.
+ *
+ * The string is owned by the caller and should be freed
+ * (with free()) when no longer needed.  The HTML is translated
+ * by 'maddy', https://github.com/progsource/maddy
+ *
+ * @param markdown, the string to be converted.
+ *
+ * @return the html version of the string.
+ */
+LIBSBML_EXTERN
+char* util_markdown_to_html_c(const char* markdown);
 
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END

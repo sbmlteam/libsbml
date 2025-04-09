@@ -104,6 +104,27 @@ int util_isEqual(double a, double b)
   return (fabs(a-b) < sqrt(util_epsilon())) ? 1 : 0;
 }
 
+LIBSBML_EXTERN
+char* util_html_to_markdown_c(const char* html)
+{
+    if (html == NULL) {
+        return NULL;
+    }
+    std::string ret = util_html_to_markdown(html);
+    return safe_strdup(ret.c_str());
+}
+
+
+LIBSBML_EXTERN
+char* util_markdown_to_html_c(const char* markdown)
+{
+    if (markdown == NULL) {
+        return NULL;
+    }
+    std::string ret = util_markdown_to_html(markdown);
+    return safe_strdup(ret.c_str());
+}
+
 
 int
 c_locale_snprintf (char *str, size_t size, const char *format, ...)
