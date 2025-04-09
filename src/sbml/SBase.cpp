@@ -40,7 +40,6 @@
  * ---------------------------------------------------------------------- -->*/
 
 #include <sstream>
-#include <memory>
 
 #include <sbml/xml/XMLError.h>
 #include <sbml/xml/XMLErrorLog.h>
@@ -69,7 +68,6 @@
 #include <sbml/extension/SBMLExtensionRegistry.h>
 #include <sbml/extension/SBMLExtensionException.h>
 #include <sbml/util/CallbackRegistry.h>
-
 
 /** @cond doxygenIgnored */
 using namespace std;
