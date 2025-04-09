@@ -160,7 +160,7 @@ jobs:
       - name: Build
         working-directory: ${{runner.workspace}}/build
         shell: bash
-        run: cmake --build . --config $BUILD_TYPE
+        run: cmake --build VERBOSE=1 . --config $BUILD_TYPE
 
       ### run tests ###
       - name: Test
