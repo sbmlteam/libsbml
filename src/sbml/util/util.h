@@ -68,6 +68,25 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  std::string& replaceAllSubStrings(std::string& str, 
               const std::string& from, const std::string& to);
 
+
+/**
+ * Utility function that converts the input string from markdown to HTML.
+ *
+ * @param markdown, the string to be modified.
+ *
+ * @return the HTML version of the string.
+ */
+std::string util_markdown_to_html(const std::string& markdown);
+
+/**
+ * Utility function that converts the input string from HTML to markdown.
+ *
+ * @param html, the string to be converted.
+ *
+ * @return the markdown version of the string.
+ */
+std::string util_html_to_markdown(std::string& html);
+
 LIBSBML_CPP_NAMESPACE_END
 
 

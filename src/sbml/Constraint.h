@@ -994,6 +994,9 @@ Constraint_getMessage (const Constraint_t *c);
 /**
  * Get the message string, if any, associated with this Constraint_t
  *
+ * The string is owned by the caller and should be freed
+ * (with free()) when no longer needed.
+ *
  * @param c the Constraint_t structure.
  * 
  * @return the message for this Constraint_t, as a string (char*).
@@ -1009,8 +1012,12 @@ Constraint_getMessageString (const Constraint_t *c);
 
 
 /**
- * Get the message string, if any, associated with this Constraint_t, in markdown form
+ * Get the message string, if any, associated with this Constraint_t, in markdown form.
  *
+ * The string is owned by the caller and should be freed
+ * (with free()) when no longer needed.  The HTML is translated
+ * by 'html2md', https://github.com/tim-gromeyer/html2md/
+ * 
  * @param c the Constraint_t structure.
  *
  * @return the message for this Constraint_t, as a markdown-formatted string (char*).
@@ -1109,6 +1116,8 @@ Constraint_setMessageString(Constraint_t* c, const char* message);
 
 /**
  * Sets the message of this Constraint_t from a markdown-formatted string.
+ *
+ * Markdown parser is 'maddy' (https://github.com/progsource/maddy).
  *
  * @param c the Constraint_t structure.
  *

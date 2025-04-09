@@ -70,8 +70,6 @@
 #include <sbml/extension/SBMLExtensionException.h>
 #include <sbml/util/CallbackRegistry.h>
 
-#include <sbml/maddy/parser.h>
-#include <sbml/html2md/html2md.h>
 
 /** @cond doxygenIgnored */
 using namespace std;
@@ -788,7 +786,7 @@ SBase::getNotesString() const
 std::string
 SBase::getNotesMarkdown() const
 {
-    string ret = html2md::Convert(getNotesString());
+    string ret = util_html_to_markdown(getNotesString());
     while (ret.size() && ret[ret.size() - 1] == '\n') {
         ret.pop_back();
     }
@@ -1930,20 +1928,11 @@ SBase::setNotes(const std::string& notes, bool addXHTMLMarkup)
 
 int SBase::setNotesFromMarkdown(const std::string& markdown)
 {
-    std::stringstream markdownInput(markdown);
-
-    // If we want to use the maddy config:
-    //std::shared_ptr<maddy::ParserConfig> config = std::make_shared<maddy::ParserConfig>();
-    //config->enabledParsers &= ~maddy::types::EMPHASIZED_PARSER; // disable emphasized parser
-    //config->enabledParsers |= maddy::types::HTML_PARSER; // do not wrap HTML in paragraph
-    //std::shared_ptr<maddy::Parser> parser = std::make_shared<maddy::Parser>(config);
-
-    maddy::Parser parser;
-    std::string htmlOutput = parser.Parse(markdownInput);
+    std::string htmlOutput = util_markdown_to_html(markdown);
     if (setNotes(htmlOutput, true) == LIBSBML_OPERATION_SUCCESS) {
         return LIBSBML_OPERATION_SUCCESS;
     }
-    htmlOutput = "<body  xmlns=\"http://www.w3.org/1999/xhtml\" >\n" + htmlOutput + "\n</body>";
+    htmlOutput = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n" + htmlOutput + "\n</body>";
     return setNotes(htmlOutput, true);
 }
 

@@ -62,6 +62,8 @@
 #include <sbml/util/List.h>
 #include <sbml/util/util.h>
 
+#include <sbml/maddy/parser.h>
+#include <sbml/html2md/html2md.h>
 
 #include <math.h>
 
@@ -526,6 +528,25 @@ std::string& replaceAllSubStrings(
   }
   return str;
 }
+
+std::string util_markdown_to_html(const std::string& markdown)
+{
+    // If we want to use the maddy config:
+    //std::shared_ptr<maddy::ParserConfig> config = std::make_shared<maddy::ParserConfig>();
+    //config->enabledParsers &= ~maddy::types::EMPHASIZED_PARSER; // disable emphasized parser
+    //config->enabledParsers |= maddy::types::HTML_PARSER; // do not wrap HTML in paragraph
+    //std::shared_ptr<maddy::Parser> parser = std::make_shared<maddy::Parser>(config);
+
+    std::stringstream markdownInput(markdown);
+    static maddy::Parser parser;
+    return parser.Parse(markdownInput);
+}
+
+std::string util_html_to_markdown(std::string& html)
+{
+    return html2md::Convert(html);
+}
+
 
 #endif // __cplusplus
 

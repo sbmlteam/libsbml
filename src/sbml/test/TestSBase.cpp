@@ -634,8 +634,8 @@ END_TEST
 START_TEST(test_SBase_setNotesFromMarkdown3)
 {
     Model_t* c = new(std::nothrow) Model(3, 1);
-    const char* notes = "Please refer to[CC0  Public Domain Dedication](http://creativecommons.org/publicdomain/zero/1.0/ \"Access to: CC0 1.0 Universal (CC0 1.0), Public Domain Dedication\") for more information.";
-    const char* taggednotes = "<notes>\n  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n    <p>Please refer to<a href=\"http://creativecommons.org/publicdomain/zero/1.0/\" title=\"Access to: CC0 1.0 Universal (CC0 1.0), Public Domain Dedication\">CC0  Public Domain Dedication</a> for more information. </p>\n  </body>\n</notes>";
+    const char* notes = "Please refer to [CC0  Public Domain Dedication](http://creativecommons.org/publicdomain/zero/1.0/ \"Access to: CC0 1.0 Universal (CC0 1.0), Public Domain Dedication\") for more information.";
+    const char* taggednotes = "<notes>\n  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n    <p>Please refer to <a href=\"http://creativecommons.org/publicdomain/zero/1.0/\" title=\"Access to: CC0 1.0 Universal (CC0 1.0), Public Domain Dedication\">CC0  Public Domain Dedication</a> for more information. </p>\n  </body>\n</notes>";
 
     SBase_setNotesFromMarkdown(c, notes);
 
