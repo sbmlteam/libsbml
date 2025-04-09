@@ -354,6 +354,7 @@ START_TEST(test_util_html_to_markdown)
 
     char* new_md = util_html_to_markdown_c(html);
     fail_unless(!strcmp(new_md, markdown));
+    safe_free(new_md);
 }
 END_TEST
 
@@ -365,6 +366,7 @@ START_TEST(test_util_markdown_to_html)
 
     char* new_html = util_markdown_to_html_c(markdown);
     fail_unless(!strcmp(new_html, html));
+    safe_free(new_html);
 }
 END_TEST
 
