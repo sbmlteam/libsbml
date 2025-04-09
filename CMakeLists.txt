@@ -31,7 +31,7 @@
 #
 ###############################################################################
 
-cmake_minimum_required(VERSION 2.8.12...3.19)
+cmake_minimum_required(VERSION 3.1...3.19)
 project(libsbml)
 
 set(LIBSBML_ROOT_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}" CACHE PATH
