@@ -118,7 +118,7 @@ jobs:
           -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
           -DCMAKE_C_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
           -DCMAKE_CXX_COMPILER_LAUNCHER=${COMPILER_LAUNCHER} \
-          -DCMAKE_CXX_STANDARD=11 \
+          -DCMAKE_CXX_STANDARD=98 \
           -DWITH_CHECK=True \
           -DWITH_CPP_NAMESPACE=${{matrix.with_namespace}} \
           -DLIBSBML_USE_STRICT_INCLUDES=${{matrix.strict}} \
@@ -235,7 +235,7 @@ jobs:
         strict: ["True"]
         with_examples: ["True"]
         package_option: ["-DWITH_ALL_PACKAGES=ON", "-DWITH_STABLE_PACKAGES=ON"]
-        cpp_standard: [11]
+        cpp_standard: [98]
         language_bindings:
           ["-DWITH_JAVA=True -DWITH_PYTHON=True"]
         container: ["quay.io/pypa/manylinux_2_28_x86_64"]
