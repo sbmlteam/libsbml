@@ -127,6 +127,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a905ae2aebc0923ecba8688bda13d2985" id="r_a905ae2aebc0923ecba8688bda13d2985"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="util_8h.html#a905ae2aebc0923ecba8688bda13d2985">util_freeArray</a> (void **objects, int length)</td></tr>
 <tr class="memdesc:a905ae2aebc0923ecba8688bda13d2985"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function for freeing memory allocated by libSBML functions.  <br /></td></tr>
 <tr class="separator:a905ae2aebc0923ecba8688bda13d2985"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4a69770b3a6eae4b070a8a9d48ac67f" id="r_ad4a69770b3a6eae4b070a8a9d48ac67f"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="util_8h.html#ad4a69770b3a6eae4b070a8a9d48ac67f">util_html_to_markdown_c</a> (const char *html)</td></tr>
+<tr class="memdesc:ad4a69770b3a6eae4b070a8a9d48ac67f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility function that converts the input string from HTML to markdown.  <br /></td></tr>
+<tr class="separator:ad4a69770b3a6eae4b070a8a9d48ac67f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acb2abfa1604fc06810e198f55cf1e431" id="r_acb2abfa1604fc06810e198f55cf1e431"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="util_8h.html#acb2abfa1604fc06810e198f55cf1e431">util_isEqual</a> (double a, double b)</td></tr>
 <tr class="separator:acb2abfa1604fc06810e198f55cf1e431"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a979bfbd2f97968215657ea323b3fffd0" id="r_a979bfbd2f97968215657ea323b3fffd0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="util_8h.html#a979bfbd2f97968215657ea323b3fffd0">util_isFinite</a> (double d)</td></tr>
@@ -139,6 +142,9 @@ Functions</h2></td></tr>
 <tr class="memitem:abdcdb098a9c06ff0b3750f2a02750012" id="r_abdcdb098a9c06ff0b3750f2a02750012"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="util_8h.html#abdcdb098a9c06ff0b3750f2a02750012">util_isNegZero</a> (double d)</td></tr>
 <tr class="memdesc:abdcdb098a9c06ff0b3750f2a02750012"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function for testing whether a given value represents negative zero.  <br /></td></tr>
 <tr class="separator:abdcdb098a9c06ff0b3750f2a02750012"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75915743a80351e628979c0eea6b93f4" id="r_a75915743a80351e628979c0eea6b93f4"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="util_8h.html#a75915743a80351e628979c0eea6b93f4">util_markdown_to_html_c</a> (const char *markdown)</td></tr>
+<tr class="memdesc:a75915743a80351e628979c0eea6b93f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility function that converts the input string from HTML to markdown.  <br /></td></tr>
+<tr class="separator:a75915743a80351e628979c0eea6b93f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af26763812f56ddd83264710e46b21f81" id="r_af26763812f56ddd83264710e46b21f81"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="util_8h.html#af26763812f56ddd83264710e46b21f81">util_NaN</a> (void)</td></tr>
 <tr class="memdesc:af26763812f56ddd83264710e46b21f81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a representation of <code>NaN</code>.  <br /></td></tr>
 <tr class="separator:af26763812f56ddd83264710e46b21f81"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -243,6 +249,34 @@ Functions</h2></td></tr>
 <div class="line">free(supported);</div>
 <div class="ttc" id="asbmlfwd_8h_html_a9d371851bb341b7efc8935a3d0c2b4df"><div class="ttname"><a href="sbmlfwd_8h.html#a9d371851bb341b7efc8935a3d0c2b4df">SBMLNamespaces_t</a></div><div class="ttdeci">class SBMLNamespaces SBMLNamespaces_t</div><div class="ttdef"><b>Definition</b> sbmlfwd.h:377</div></div>
 </div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>This function is only necessary when using a version of libSBML compiled and linked against a static MSVC runtime library. </dd></dl>
+
+</div>
+</div>
+<a id="ad4a69770b3a6eae4b070a8a9d48ac67f" name="ad4a69770b3a6eae4b070a8a9d48ac67f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4a69770b3a6eae4b070a8a9d48ac67f">&#9670;&#160;</a></span>util_html_to_markdown_c()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char * util_html_to_markdown_c </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>html</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Utility function that converts the input string from HTML to markdown. </p>
+<p>The string is owned by the caller and should be freed (with free()) when no longer needed. The HTML is translated by 'html2md', <a href="https://github.com/tim-gromeyer/html2md/">https://github.com/tim-gromeyer/html2md/</a></p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">html,the</td><td>string to be converted.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the markdown version of the string. </dd></dl>
 
 </div>
 </div>
@@ -364,6 +398,34 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>1</code> (true) if <code>d</code> is an IEEE-754 negative zero, <code>0</code> (false) otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="a75915743a80351e628979c0eea6b93f4" name="a75915743a80351e628979c0eea6b93f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a75915743a80351e628979c0eea6b93f4">&#9670;&#160;</a></span>util_markdown_to_html_c()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char * util_markdown_to_html_c </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>markdown</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Utility function that converts the input string from HTML to markdown. </p>
+<p>The string is owned by the caller and should be freed (with free()) when no longer needed. The HTML is translated by 'maddy', <a href="https://github.com/progsource/maddy">https://github.com/progsource/maddy</a></p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">markdown,the</td><td>string to be converted.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the html version of the string. </dd></dl>
 
 </div>
 </div>
