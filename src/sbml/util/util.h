@@ -85,7 +85,7 @@ std::string util_markdown_to_html(const std::string& markdown);
  *
  * @return the markdown version of the string.
  */
-std::string util_html_to_markdown(std::string& html);
+std::string util_html_to_markdown(const std::string& html);
 
 LIBSBML_CPP_NAMESPACE_END
 

@@ -542,7 +542,7 @@ std::string util_markdown_to_html(const std::string& markdown)
     return parser.Parse(markdownInput);
 }
 
-std::string util_html_to_markdown(std::string& html)
+std::string util_html_to_markdown(const std::string& html)
 {
     return html2md::Convert(html);
 }
