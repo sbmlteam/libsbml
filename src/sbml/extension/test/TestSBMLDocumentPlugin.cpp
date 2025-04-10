@@ -153,7 +153,7 @@ START_TEST(test_SBMLDocumentPlugin_read)
 
   std::string filename(TestDataDirectory);
   filename += "issue417.xml";
-  auto* doc = readSBML(filename.c_str());
+  SBMLDocument* doc = readSBML(filename.c_str());
   fail_unless(doc != NULL);
   fail_unless(doc->getModel() != NULL);
   int numErrors = doc->getNumErrors(LIBSBML_SEV_ERROR);
@@ -175,10 +175,7 @@ START_TEST(test_SBMLDocumentPlugin_read)
 
   SBMLDocument* roundtrip = readSBMLFromString(sbml.c_str());
   fail_unless(roundtrip->getNumErrors(LIBSBML_SEV_ERROR) == 0);
-
   std::string sbml2 = writeSBMLToString(roundtrip);
-
-
   delete roundtrip;
 
 }
