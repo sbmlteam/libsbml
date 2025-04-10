@@ -176,6 +176,11 @@ START_TEST(test_SBMLDocumentPlugin_read)
   SBMLDocument* roundtrip = readSBMLFromString(sbml.c_str());
   fail_unless(roundtrip->getNumErrors(LIBSBML_SEV_ERROR) == 0);
 
+	std::string sbml2 = writeSBMLToString(roundtrip);
+
+
+  delete roundtrip;
+
 }
 END_TEST
 
