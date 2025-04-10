@@ -148,7 +148,7 @@ END_TEST
 
 START_TEST(test_SBMLDocumentPlugin_read)
 {
-  auto& instance = SBMLExtensionRegistry::getInstance();
+  SBMLExtensionRegistry& instance = SBMLExtensionRegistry::getInstance();
   bool layout_enabled = instance.getExtension("layout") != NULL;
 
   std::string filename(TestDataDirectory);
@@ -164,12 +164,12 @@ START_TEST(test_SBMLDocumentPlugin_read)
 
   if (layout_enabled) {
     // layout is enabled, so we should not have the l2 required attribute 
-  // on the document
+    // on the document
     fail_unless(sbml.find("layout_L2:") == std::string::npos);
   }
   else {
     // layout is not enabled, so we should have the l2 required attribute 
-  // on the document
+    // on the document
     fail_unless(sbml.find("layout_L2:") != std::string::npos);
   }
 
