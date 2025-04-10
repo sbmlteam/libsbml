@@ -62,6 +62,8 @@
 #include <sbml/util/List.h>
 #include <sbml/util/util.h>
 
+#include <sbml/maddy/parser.h>
+#include <sbml/html2md/html2md.h>
 
 #include <math.h>
 
@@ -100,6 +102,27 @@ LIBSBML_EXTERN
 int util_isEqual(double a, double b)
 {
   return (fabs(a-b) < sqrt(util_epsilon())) ? 1 : 0;
+}
+
+LIBSBML_EXTERN
+char* util_html_to_markdown_c(const char* html)
+{
+    if (html == NULL) {
+        return NULL;
+    }
+    std::string ret = util_html_to_markdown(html);
+    return safe_strdup(ret.c_str());
+}
+
+
+LIBSBML_EXTERN
+char* util_markdown_to_html_c(const char* markdown)
+{
+    if (markdown == NULL) {
+        return NULL;
+    }
+    std::string ret = util_markdown_to_html(markdown);
+    return safe_strdup(ret.c_str());
 }
 
 
@@ -526,6 +549,25 @@ std::string& replaceAllSubStrings(
   }
   return str;
 }
+
+std::string util_markdown_to_html(const std::string& markdown)
+{
+    // If we want to use the maddy config:
+    //std::shared_ptr<maddy::ParserConfig> config = std::make_shared<maddy::ParserConfig>();
+    //config->enabledParsers &= ~maddy::types::EMPHASIZED_PARSER; // disable emphasized parser
+    //config->enabledParsers |= maddy::types::HTML_PARSER; // do not wrap HTML in paragraph
+    //std::shared_ptr<maddy::Parser> parser = std::make_shared<maddy::Parser>(config);
+
+    std::stringstream markdownInput(markdown);
+    static maddy::Parser parser;
+    return parser.Parse(markdownInput);
+}
+
+std::string util_html_to_markdown(const std::string& html)
+{
+    return html2md::Convert(html);
+}
+
 
 #endif // __cplusplus
 

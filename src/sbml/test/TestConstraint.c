@@ -199,6 +199,83 @@ START_TEST (test_Constraint_setMessage)
 END_TEST
 
 
+START_TEST(test_Constraint_setMessageFromMarkdown)
+{
+    const char* message = "This is a test message";
+    const char* taggedMessage = "<message>\n  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n    <p>This is a test message </p>\n  </body>\n</message>";
+
+    Constraint_setMessageFromMarkdown(C, message);
+
+    fail_unless(Constraint_isSetMessage(C) == 1);
+
+    char* str = Constraint_getMessageString(C);
+    if (strcmp(str, taggedMessage))
+    {
+        fail("Constraint_setMessageFromMarkdown(...) did not make a copy of node.");
+    }
+    safe_free(str);
+    char* t1 = Constraint_getMessageMarkdown(C);
+    fail_unless(!strcmp(t1, message));
+    safe_free(t1);
+
+    //const XMLNode_t* t2 = XMLNode_getChild(t1, 0);
+    //fail_unless(!strcmp(XMLNode_getCharacters(t2), "This is a test message"));
+
+
+    /* Reflexive case (pathological)  */
+    str = Constraint_getMessageString(C);
+    Constraint_setMessageString(C, str);
+    safe_free(str);
+    t1 = Constraint_getMessageMarkdown(C);
+    fail_unless(!strcmp(t1, message));
+    safe_free(t1);
+
+    Constraint_setMessageFromMarkdown(C, (char*)"");
+    fail_unless(Constraint_isSetMessage(C) == 0);
+
+    if (Constraint_getMessageString(C) != NULL)
+    {
+        fail("Constraint_getMessageString(C, "") did not clear string.");
+    }
+
+    Constraint_setMessageFromMarkdown(C, message);
+
+    fail_unless(Constraint_isSetMessage(C) == 1);
+
+    str = Constraint_getMessageString(C);
+    if (strcmp(str, taggedMessage))
+    {
+        fail("Constraint_setMessageString(...) did not make a copy of node.");
+    }
+    safe_free(str);
+
+    t1 = Constraint_getMessageMarkdown(C);
+    fail_unless(!strcmp(t1, message));
+    safe_free(t1);
+    Constraint_unsetMessage(C);
+}
+END_TEST
+
+
+START_TEST(test_Constraint_setMessageFromMarkdown2)
+{
+    const char* Message = "# Header\n\nHere is a list:\n\n- First\n- Second";
+    const char* taggedMessage = "<message>\n  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n    <h1>Header</h1>\n    <p>Here is a list: </p>\n    <ul>\n      <li>First</li>\n      <li>Second</li>\n    </ul>\n  </body>\n</message>";
+
+    Constraint_setMessageFromMarkdown(C, Message);
+
+    fail_unless(Constraint_isSetMessage(C) == 1);
+    char* str = Constraint_getMessageString(C);
+    fail_unless(!strcmp(str, taggedMessage));
+    safe_free(str);
+    char* t1 = Constraint_getMessageMarkdown(C);
+    fail_unless(!strcmp(t1, Message));
+    safe_free(t1);
+    Constraint_unsetMessage(C);
+}
+END_TEST
+
+
 START_TEST (test_Constraint_createWithNS )
 {
   XMLNamespaces_t *xmlns = XMLNamespaces_create();
@@ -239,11 +316,14 @@ create_suite_Constraint (void)
                              ConstraintTest_setup,
                              ConstraintTest_teardown );
 
-  tcase_add_test( tcase, test_Constraint_create      );
+  tcase_add_test( tcase, test_Constraint_create   );
   //tcase_add_test( tcase, test_Constraint_createWithMath      );
-  tcase_add_test( tcase, test_Constraint_free_NULL   );
-  tcase_add_test( tcase, test_Constraint_setMath     );
-  tcase_add_test( tcase, test_Constraint_setMessage  );
+  tcase_add_test( tcase, test_Constraint_free_NULL);
+  tcase_add_test( tcase, test_Constraint_setMath  );
+  tcase_add_test(tcase, test_Constraint_setMessage);
+  tcase_add_test(tcase, test_Constraint_setMessageFromMarkdown);
+  tcase_add_test(tcase, test_Constraint_setMessageFromMarkdown2);
+  
   tcase_add_test( tcase, test_Constraint_createWithNS         );
 
   suite_add_tcase(suite, tcase);

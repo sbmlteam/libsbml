@@ -504,9 +504,11 @@ public:
    * tree structure composed of XMLNode objects.
    *
    * @see getNotesString()
+   * @see getNotesMarkdown()
    * @see isSetNotes()
    * @see setNotes(const XMLNode* notes)
    * @see setNotes(const std::string& notes, bool addXHTMLMarkup)
+   * @see setNotesFromMarkdown(const std::string& markdown)
    * @see appendNotes(const XMLNode* notes)
    * @see appendNotes(const std::string& notes)
    * @see unsetNotes()
@@ -532,9 +534,11 @@ public:
    * tree structure composed of XMLNode objects.
    *
    * @see getNotesString()
+   * @see getNotesMarkdown()
    * @see isSetNotes()
    * @see setNotes(const XMLNode* notes)
    * @see setNotes(const std::string& notes, bool addXHTMLMarkup)
+   * @see setNotesFromMarkdown(const std::string& markdown)
    * @see appendNotes(const XMLNode* notes)
    * @see appendNotes(const std::string& notes)
    * @see unsetNotes()
@@ -558,9 +562,11 @@ public:
    * string.
    *
    * @see getNotes()
+   * @see getNotesMarkdown()
    * @see isSetNotes()
    * @see setNotes(const XMLNode* notes)
    * @see setNotes(const std::string& notes, bool addXHTMLMarkup)
+   * @see setNotesFromMarkdown(const std::string& markdown)
    * @see appendNotes(const XMLNode* notes)
    * @see appendNotes(const std::string& notes)
    * @see unsetNotes()
@@ -584,6 +590,34 @@ public:
    * string.
    *
    * @see getNotes()
+   * @see getNotesMarkdown()
+   * @see isSetNotes()
+   * @see setNotes(const XMLNode* notes)
+   * @see setNotes(const std::string& notes, bool addXHTMLMarkup)
+   * @see setNotesFromMarkdown(const std::string& markdown)
+   * @see appendNotes(const XMLNode* notes)
+   * @see appendNotes(const std::string& notes)
+   * @see unsetNotes()
+   * @see SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode@endif)
+   */
+  std::string getNotesString () const;
+
+  /**
+   * Returns the markdown version of the "notes" subelement of this object.
+   * The HTML is translated by 'html2md', https://github.com/tim-gromeyer/html2md/
+   *
+   * @copydetails doc_what_are_notes
+   *
+   * For an alternative method of accessing the notes, see getNotes(),
+   * which returns the content as an XMLNode tree structure.  Depending on
+   * an application's needs, one or the other method may be more
+   * convenient.
+   *
+   * @return the string (char*) representing the markdown version of the notes 
+   * from this structure.
+   *
+   * @see getNotes()
+   * @see getNotesString()
    * @see isSetNotes()
    * @see setNotes(const XMLNode* notes)
    * @see setNotes(const std::string& notes, bool addXHTMLMarkup)
@@ -592,7 +626,7 @@ public:
    * @see unsetNotes()
    * @see SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode@endif)
    */
-  std::string getNotesString () const;
+  std::string getNotesMarkdown() const;
 
 
   /**
@@ -1129,8 +1163,10 @@ public:
    * 
    * @see getNotes()
    * @see getNotesString()
+   * @see getNotesMarkdown()
    * @see setNotes(const XMLNode* notes)
    * @see setNotes(const std::string& notes, bool addXHTMLMarkup)
+   * @see setNotesFromMarkdown(const std::string& markdown)
    * @see appendNotes(const XMLNode* notes)
    * @see appendNotes(const std::string& notes)
    * @see unsetNotes()
@@ -1565,8 +1601,10 @@ public:
    * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
    *
    * @see getNotesString()
+   * @see getNotesMarkdown()
    * @see isSetNotes()
    * @see setNotes(const std::string& notes, bool addXHTMLMarkup)
+   * @see setNotesFromMarkdown(const std::string& markdown)
    * @see appendNotes(const XMLNode* notes)
    * @see appendNotes(const std::string& notes)
    * @see unsetNotes()
@@ -1656,14 +1694,39 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    *
    * @see getNotesString()
+   * @see getNotesMarkdown()
    * @see isSetNotes()
    * @see setNotes(const XMLNode* notes)
+   * @see setNotesFromMarkdown(const std::string& markdown)
    * @see appendNotes(const XMLNode* notes)
    * @see appendNotes(const std::string& notes)
    * @see unsetNotes()
    * @see SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode@endif)
    */
   int setNotes(const std::string& notes, bool addXHTMLMarkup = false);
+
+
+  /**
+   * Sets the value of the "notes" subelement of this SBML object using a 
+   * markdown-formatted string.
+   *
+   * The content of @p notes is translated to HTML, and any existing 
+   * content of this object's "notes" subelement is deleted.
+   *
+   * The optional SBML element named "notes", present on every major SBML
+   * component type, is intended as a place for storing optional
+   * information intended to be seen by humans.  An example use of the
+   * "notes" element would be to contain formatted user comments about the
+   * model element in which the "notes" element is enclosed.  Every object
+   * derived directly or indirectly from type SBase can have a separate
+   * value for "notes", allowing users considerable freedom when adding
+   * comments to their models.
+   *
+   * The markdown input is translated using the 'maddy' library.  A
+   * description of how the text is translated to HTML can be found at
+   * https://github.com/progsource/maddy/blob/master/docs/definitions.md
+   */
+int setNotesFromMarkdown(const std::string& markdown);
 
 
   /**
@@ -1700,9 +1763,11 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    *
    * @see getNotesString()
+   * @see getNotesMarkdown()
    * @see isSetNotes()
    * @see setNotes(const XMLNode* notes)
    * @see setNotes(const std::string& notes, bool addXHTMLMarkup)
+   * @see setNotesFromMarkdown(const std::string& markdown)
    * @see appendNotes(const std::string& notes)
    * @see unsetNotes()
    * @see SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode@endif)
@@ -1744,9 +1809,11 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
    *
    * @see getNotesString()
+   * @see getNotesMarkdown()
    * @see isSetNotes()
    * @see setNotes(const XMLNode* notes)
    * @see setNotes(const std::string& notes, bool addXHTMLMarkup)
+   * @see setNotesFromMarkdown(const std::string& markdown)
    * @see appendNotes(const XMLNode* notes)
    * @see unsetNotes()
    * @see SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode@endif)
@@ -1979,9 +2046,11 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
    *
    * @see getNotesString()
+   * @see getNotesMarkdown()
    * @see isSetNotes()
    * @see setNotes(const XMLNode* notes)
    * @see setNotes(const std::string& notes, bool addXHTMLMarkup)
+   * @see setNotesFromMarkdown(const std::string& markdown)
    * @see appendNotes(const XMLNode* notes)
    * @see appendNotes(const std::string& notes)
    * @see SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode@endif)
@@ -4171,6 +4240,23 @@ SBase_getNotesString (SBase_t *sb);
 
 
 /**
+ * Returns the markdown version of the notes string from given SBML structure.
+ * The string is owned by the caller and should be freed
+ * (with free()) when no longer needed.  The HTML is translated
+ * by 'html2md', https://github.com/tim-gromeyer/html2md/
+ *
+ * @param sb the given SBML structure.
+ *
+ * @return the string (char*) representing the markdown version of the notes from this structure.
+ *
+ * @memberof SBase_t
+ */
+LIBSBML_EXTERN
+char*
+SBase_getNotesMarkdown(SBase_t* sb);
+
+
+/**
  * Returns the annotation from given SBML structure.
  *
  * @param sb the given SBML structure.
@@ -4455,6 +4541,24 @@ SBase_setNamespaces (SBase_t *sb, XMLNamespaces_t *xmlns);
 LIBSBML_EXTERN
 int
 SBase_setNotes (SBase_t *sb, const XMLNode_t *notes);
+
+/**
+ * Sets the notes for the given SBML structure from markdown input.
+ *
+ * Markdown parser is 'maddy' (https://github.com/progsource/maddy).
+ * 
+ * @param sb the given SBML structure.
+ * @param markdown the markdown version of the notes.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof SBase_t
+ */
+LIBSBML_EXTERN
+int 
+SBase_setNotesFromMarkdown(SBase_t* sb, const char* markdown);
 
 
 /**
