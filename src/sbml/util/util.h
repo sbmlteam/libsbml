@@ -78,6 +78,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  *
  * @return the HTML version of the string.
  */
+LIBSBML_EXTERN
 std::string util_markdown_to_html(const std::string& markdown);
 
 /**
@@ -89,6 +90,7 @@ std::string util_markdown_to_html(const std::string& markdown);
  *
  * @return the markdown version of the string.
  */
+LIBSBML_EXTERN
 std::string util_html_to_markdown(const std::string& html);
 
 LIBSBML_CPP_NAMESPACE_END
