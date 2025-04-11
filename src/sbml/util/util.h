@@ -179,7 +179,7 @@ strcmp_insensitive (const char *s1, const char *s2);
 
 
 /**
- * Peforms a binary search on the string table strings to find string s.
+ * Performs a binary search on the string table strings to find string s.
  *
  * All strings from strings[lo] to strings[hi] are searched.  The string
  * comparison function used is strcmp_insensitive().  Since the search is
