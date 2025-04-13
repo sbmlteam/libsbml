@@ -783,6 +783,7 @@ as a comment in the output stream.
 %include <sbml/util/IdList.h>
 %include <sbml/util/IdentifierTransformer.h>
 %include <sbml/util/ElementFilter.h>
+%include <sbml/util/util.h>
 
 %include <sbml/SBMLReader.h>
 %include sbml/SBMLWriter.h

@@ -141,6 +141,7 @@
 #include <sbml/extension/SBMLExtensionRegistry.h>
 
 #include <sbml/util/CallbackRegistry.h>
+#include <sbml/util/util.h>
 
 #include "ListWrapper.h"
 
