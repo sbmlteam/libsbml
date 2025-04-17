@@ -51,6 +51,11 @@ using namespace std;
 LIBSBML_CPP_NAMESPACE_USE
 BEGIN_C_DECLS
 
+static Model* m;
+static SBMLDocument* d;
+static ConversionProperties props;
+static SBMLRateRuleConverter* converter;
+
 static bool
 equals(const char* expected, const char* actual)
 {
@@ -71,7 +76,24 @@ formulas_equal(const char* expected, ASTNode* actual)
 
 extern char *TestDataDirectory;
 
+void
+RateRuleConverter_setup(void)
+{
+	props.addOption("inferReactions", true);
 
+	converter = new SBMLRateRuleConverter();
+	converter->setProperties(&props);
+
+	d = new SBMLDocument();
+	converter->setDocument(d);
+}
+
+void
+RateRuleConverter_teardown(void)
+{
+	delete converter;
+	delete d;
+}
 
 // helper function to set up a parameter with 0 value
 static Parameter* setupZeroParameter(Model* model, const char* name, bool is_constant)
@@ -84,7 +106,60 @@ static Parameter* setupZeroParameter(Model* model, const char* name, bool is_con
 }
 
 
-extern char *TestDataDirectory;
+
+START_TEST(test_check_derivative_sign)
+{
+    const ASTNode* deriv = NULL;
+	bool derivativeSign = false;
+	bool signDetermined = converter->checkDerivativeSign(deriv, derivativeSign);
+	fail_unless(signDetermined == false);
+    fail_unless(derivativeSign == false);
+	delete deriv;
+
+	ASTNode* node = SBML_parseL3Formula("3");
+	deriv = node->derivative("S1");
+	derivativeSign = false;
+	signDetermined = converter->checkDerivativeSign(deriv, derivativeSign);
+	fail_unless(signDetermined == true);
+	fail_unless(derivativeSign == false);
+	delete node;
+	delete deriv;
+    
+	node = SBML_parseL3Formula("3*S1");
+    deriv = node->derivative("S1");
+    derivativeSign = false;
+    signDetermined = converter->checkDerivativeSign(deriv, derivativeSign);
+    fail_unless(signDetermined == true);
+    fail_unless(derivativeSign == true);
+    delete node;
+	delete deriv;
+
+	node = SBML_parseL3Formula("-5*S1");
+	deriv = node->derivative("S1");
+	derivativeSign = false;
+	signDetermined = converter->checkDerivativeSign(deriv, derivativeSign);
+	fail_unless(signDetermined == true);
+	fail_unless(derivativeSign == false);
+	delete node;
+	delete deriv;
+	
+	node = SBML_parseL3Formula("-k1*S1");
+	deriv = node->derivative("S1");
+	signDetermined = converter->checkDerivativeSign(deriv, derivativeSign);
+	fail_unless(signDetermined == true);
+	fail_unless(derivativeSign == false);
+	delete node;
+	delete deriv;
+	
+	node = SBML_parseL3Formula("k1*S1 + k2*S2");
+	deriv = node->derivative("S1");
+	signDetermined = converter->checkDerivativeSign(deriv, derivativeSign);
+	fail_unless(signDetermined == true);
+	fail_unless(derivativeSign == true);
+	delete node;
+	delete deriv;
+}
+END_TEST
 
 START_TEST(test_conversion_raterule_converter_invalid)
 {
@@ -438,6 +513,16 @@ START_TEST(test_conversion_raterule_converter_my_example)
 	const char* kl = SBML_formulaToL3String(r->getKineticLaw()->getMath());
 	fail_unless(strcmp(kl, "k*s"));
 	safe_free((char*)kl);
+
+	Reaction* r1 = doc->getModel()->getReaction(1);
+	fail_unless(r1->getNumReactants() == 1);
+	fail_unless(r1->getNumProducts() == 1);
+	fail_unless(r1->getNumModifiers() == 0);
+	fail_unless(r1->isSetKineticLaw());
+
+	const char* kl1 = SBML_formulaToL3String(r1->getKineticLaw()->getMath());
+	fail_unless(strcmp(kl1, "k1*r"));
+	safe_free((char*)kl1);
 }
 END_TEST
 
@@ -1133,12 +1218,16 @@ create_suite_TestSBMLRateRuleConverter (void)
 	bool testing = true;
 Suite *suite = suite_create("SBMLRateRuleConverter");
   TCase *tcase = tcase_create("SBMLRateRuleConverter");
+  tcase_add_checked_fixture(tcase, RateRuleConverter_setup,
+	  RateRuleConverter_teardown);
+
   if (testing)
   {
-	  tcase_add_test(tcase, test_conversion_raterule_converter_my_example);
+	  tcase_add_test(tcase, test_model_valid_53);
   }
   else
   {
+	  tcase_add_test(tcase, test_check_derivative_sign);
 	  tcase_add_test(tcase, test_conversion_raterule_converter_invalid); 
 	  tcase_add_test(tcase, test_conversion_raterule_converter); 
 	  tcase_add_test(tcase, test_conversion_raterule_converter_non_standard_stoichiometry); 

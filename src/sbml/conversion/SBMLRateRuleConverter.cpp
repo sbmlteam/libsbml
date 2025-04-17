@@ -1,4 +1,3 @@
-
 /**
  * @file    SBMLRateRuleConverter.cpp
  * @brief   Implementation of SBMLRateRuleConverter, a converter from raterule to reaction
@@ -276,7 +275,6 @@ SBMLRateRuleConverter::convert()
   reconstructModel();
 
   return LIBSBML_OPERATION_SUCCESS;
-  
 }
 
 /** @cond doxygenIgnored */
@@ -673,9 +671,9 @@ SBMLRateRuleConverter::determineDerivativeSign(std::string variable, ASTNode* te
       {
           ASTNode* deriv = term->derivative(variable);
           if (deriv != NULL) deriv->decompose();
-          //cout << "derive: " << SBML_formulaToL3String(term) << " var: " << variable << " = " << SBML_formulaToL3String(deriv) << endl;
+          cout << "derive: " << SBML_formulaToL3String(term) << " var: " << variable << " = " << SBML_formulaToL3String(deriv) << endl;
           signDetermined = checkDerivativeSign(deriv, derivativeSign);
-          //cout << "sign determined: " << derivativeSign << endl;
+          cout << "sign determined: " << derivativeSign << endl;
           delete deriv;
       }
     if (!signDetermined)
@@ -715,7 +713,7 @@ SBMLRateRuleConverter::checkDerivativeSign(const ASTNode* node, bool& derivative
     }
     else
     {
-        derivativeSign = false;
+      derivativeSign = false;
     }
     signDetermined = true;
   }
@@ -945,21 +943,19 @@ SBMLRateRuleConverter::getMathNotSupportedFlag() const
 void
 SBMLRateRuleConverter::populateReactionCoefficients()
 {
+
   // Fages algo 3.6 Step 4a
   createInitialValues();
-  print_rn_coefficients(mReactants);
-  print_rn_coefficients(mProducts);
-  print_rn_coefficients(mModifiers);
-  unsigned int i = 0;
+  unsigned int term_index = 0;
   for (setCoeffIt it = mCoefficients.begin(); it != mCoefficients.end(); ++it)
   {
     // Fages algo 3.6 Step 4b
-    analyseCoefficient(it->second, i);
+    analyseCoefficient(it->second, term_index);
     // Fages algo 3.6 Step 4c
-    analysePosDerivative(it->second, i);
+    analysePosDerivative(it->second.size(), term_index);
     // Fages algo 3.6 Step 4d
-    analyseNegDerivative(it->second, i);
-    i++;
+    analyseNegDerivative(it->second.size(), term_index);
+    term_index++;
   }
   print_rn_coefficients(mReactants);
   print_rn_coefficients(mProducts);
@@ -968,39 +964,43 @@ SBMLRateRuleConverter::populateReactionCoefficients()
 }
 
 void
-SBMLRateRuleConverter::analyseCoefficient(std::vector<double> coeffs, unsigned int index)
+SBMLRateRuleConverter::analyseCoefficient(std::vector<double> coeffs, unsigned int term_index)
 {
     // 4(b)
     //for each variable x where term occurs with integer coefficient c in dx/dt in O,
     //   i. if c<0 then reactant(x) equals -c
     //  ii. if c>0 then product(x) equals c
                 
-    // index is the array of terms and coeffs is the vector of doubles indicating
+    // coeffs is the vector of doubles indicating
     // the coefficient of that term in each ode
-  for (unsigned int i = 0; i < coeffs.size(); ++i)
+  for (unsigned int variable_index = 0; variable_index < coeffs.size(); ++variable_index)
   {
-    double coeff = coeffs.at(i);
+    double coeff = coeffs.at(variable_index);
     if (coeff < 0)
     {
-      mReactants[index][i] = (-1 * coeff);
+      mReactants[term_index][variable_index] = (-1 * coeff);
     }
     else if (coeff > 0)
     {
-      mProducts[index][i] = coeff;
+      mProducts[term_index][variable_index] = coeff;
     }
   }
 }
 
 
 void
-SBMLRateRuleConverter::analysePosDerivative(std::vector<double> coeffs, unsigned int index)
+SBMLRateRuleConverter::analysePosDerivative(unsigned int number_variables, unsigned int term_index)
 {
-  for (unsigned int i = 0; i < coeffs.size(); ++i)
+    // 4(c)
+    //for each variable x where reactant(x) = 0 AND partial dTERM/dx > 0,
+    //   i. reactant(x) = 1
+    //  ii. product(x) = product(x) + 1
+  for (unsigned int i = 0; i < number_variables; ++i)
   {
-    if (util_isEqual(mReactants[index][i], 0.0) && mPosDerivative[index][i])
+    if (util_isEqual(mReactants[term_index][i], 0.0) && mPosDerivative[term_index][i])
     {
-      mReactants[index][i] = 1.0;
-      mProducts[index][i] += 1;
+      mReactants[term_index][i] = 1.0;
+      mProducts[term_index][i] += 1;
     }
   }
 
@@ -1008,13 +1008,16 @@ SBMLRateRuleConverter::analysePosDerivative(std::vector<double> coeffs, unsigned
 
 
 void
-SBMLRateRuleConverter::analyseNegDerivative(std::vector<double> coeffs, unsigned int index)
+SBMLRateRuleConverter::analyseNegDerivative(unsigned int number_variables, unsigned int term_index)
 {
-  for (unsigned int i = 0; i < coeffs.size(); ++i)
+    // 4(d)
+    //for each variable x where partial dTERM/dx < 0,
+    //   i. modifier(x) = 1
+  for (unsigned int i = 0; i < number_variables; ++i)
   {
-    if (mNegDerivative[index][i])
+    if (mNegDerivative[term_index][i])
     {
-      mModifiers[index][i] = 1.0;
+      mModifiers[term_index][i] = 1.0;
     }
   }
 

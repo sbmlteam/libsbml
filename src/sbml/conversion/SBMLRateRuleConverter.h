@@ -209,6 +209,9 @@ public:
 
   void populateODEinfo();
 
+
+  bool checkDerivativeSign(const ASTNode* node, bool& derivativeSign);
+
 private:
   /** @cond doxygenLibsbmlInternal */
 
@@ -242,13 +245,13 @@ private:
 
   std::vector<bool> populateDerivativeVector(unsigned int termN);
 
-  bool checkDerivativeSign(const ASTNode* node, bool& derivativeSign);
+//  bool checkDerivativeSign(const ASTNode* node, bool& derivativeSign);
 
   // functions for Reaction Coefficients
   void createInitialValues();
-  void analyseCoefficient(std::vector<double> coeffs, unsigned int index);
-  void analysePosDerivative(std::vector<double> coeffs, unsigned int index);
-  void analyseNegDerivative(std::vector<double> coeffs, unsigned int index);
+  void analyseCoefficient(std::vector<double> coeffs, unsigned int term_index);
+  void analysePosDerivative(unsigned int number_variables, unsigned int term_index);
+  void analyseNegDerivative(unsigned int number_variables, unsigned int term_index);
 
   // functions to reconstruct model
   void reconstructModel();
