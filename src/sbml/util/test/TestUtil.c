@@ -347,6 +347,30 @@ START_TEST (test_util_operationReturn)
 END_TEST
 
 
+START_TEST(test_util_html_to_markdown)
+{
+    const char* html = "<h1>Header</h1>\n    <p>Here is a list: </p>\n    <ul>\n      <li>First</li>\n      <li>Second</li>\n    </ul>";
+    const char* markdown = "# Header\n\nHere is a list:\n\n- First\n- Second\n\n";
+
+    char* new_md = util_html_to_markdown_c(html);
+    fail_unless(!strcmp(new_md, markdown));
+    safe_free(new_md);
+}
+END_TEST
+
+
+START_TEST(test_util_markdown_to_html)
+{
+    const char* markdown = "# Header\n\nHere is a list:\n\n- First\n- Second\n\n";
+    const char* html = "<h1>Header</h1><p>Here is a list: </p><ul><li>First</li><li>Second</li></ul>";
+
+    char* new_html = util_markdown_to_html_c(markdown);
+    fail_unless(!strcmp(new_html, html));
+    safe_free(new_html);
+}
+END_TEST
+
+
 Suite *
 create_suite_util (void) 
 { 
@@ -368,6 +392,8 @@ create_suite_util (void)
   tcase_add_test( tcase, test_util_isInf              );
   tcase_add_test( tcase, test_util_accessWithNULL     );
   tcase_add_test( tcase, test_util_operationReturn    );
+  tcase_add_test( tcase, test_util_html_to_markdown   );
+  tcase_add_test( tcase, test_util_markdown_to_html   );
 
   suite_add_tcase(suite, tcase);
 

@@ -250,6 +250,14 @@ public:
    */
   virtual std::string getMessageString () const;
 
+  /**
+   * Get the message string, if any, associated with this Constraint, in markdown form
+   *
+   * @return the message for this Constraint, as a markdown string,
+   * as translated by html2md (https://github.com/tim-gromeyer/html2md/)
+   */
+  std::string getMessageMarkdown() const;
+
 
   /**
    * Get the mathematical expression of this Constraint
@@ -310,6 +318,21 @@ public:
    */
   virtual int setMessage (const std::string& message, bool addXHTMLMarkup = false);
 
+  /**
+   * Sets the message of this Constraint from markdown input.
+   * 
+   * The markdown input is translated using the 'maddy' library.  A
+   * description of how the text is translated to HTML can be found at
+   * https://github.com/progsource/maddy/blob/master/docs/definitions.md
+   *
+   * @param markdown a markdown-formatted string that is to be used as the content of the
+   * "message" subelement of this object.
+   *
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+   */
+  int setMessageFromMarkdown(const std::string& markdown);
 
   /**
    * Sets the mathematical expression of this Constraint to a copy of the
@@ -971,6 +994,9 @@ Constraint_getMessage (const Constraint_t *c);
 /**
  * Get the message string, if any, associated with this Constraint_t
  *
+ * The string is owned by the caller and should be freed
+ * (with free()) when no longer needed.
+ *
  * @param c the Constraint_t structure.
  * 
  * @return the message for this Constraint_t, as a string (char*).
@@ -983,6 +1009,27 @@ Constraint_getMessage (const Constraint_t *c);
 LIBSBML_EXTERN
 char*
 Constraint_getMessageString (const Constraint_t *c);
+
+
+/**
+ * Get the message string, if any, associated with this Constraint_t, in markdown form.
+ *
+ * The string is owned by the caller and should be freed
+ * (with free()) when no longer needed.  The HTML is translated
+ * by 'html2md', https://github.com/tim-gromeyer/html2md/
+ * 
+ * @param c the Constraint_t structure.
+ *
+ * @return the message for this Constraint_t, as a markdown-formatted string (char*).
+ * @c NULL is returned if the message is not set.
+ *
+ * @note returned char* should be freed with safe_free() by the caller.
+ *
+ * @memberof Constraint_t
+ */
+LIBSBML_EXTERN
+char*
+Constraint_getMessageMarkdown(const Constraint_t* c);
 
 
 /**
@@ -1047,6 +1094,44 @@ Constraint_isSetMath (const Constraint_t *c);
 LIBSBML_EXTERN
 int
 Constraint_setMessage (Constraint_t *c, const XMLNode_t* xhtml);
+
+
+/**
+ * Sets the message of this Constraint_t.
+ *
+ * @param c the Constraint_t structure.
+ *
+ * @param message a string containing XHTML content.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof Constraint_t
+ */
+LIBSBML_EXTERN
+int
+Constraint_setMessageString(Constraint_t* c, const char* message);
+
+
+/**
+ * Sets the message of this Constraint_t from a markdown-formatted string.
+ *
+ * Markdown parser is 'maddy' (https://github.com/progsource/maddy).
+ *
+ * @param c the Constraint_t structure.
+ *
+ * @param markdown a string containing the message in markdown format.
+ *
+ * @copydetails doc_returns_success_code
+ * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+ * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+ *
+ * @memberof Constraint_t
+ */
+LIBSBML_EXTERN
+int
+Constraint_setMessageFromMarkdown(Constraint_t* c, const char* markdown);
 
 
 /**

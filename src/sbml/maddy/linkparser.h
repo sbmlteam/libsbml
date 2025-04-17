@@ -1,0 +1,57 @@
+/*
+ * This project is licensed under the MIT license. For more information see the
+ * LICENSE file.
+ */
+#pragma once
+
+// -----------------------------------------------------------------------------
+
+#include <regex>
+#include <string>
+
+#include "maddy/lineparser.h"
+
+// -----------------------------------------------------------------------------
+
+namespace maddy {
+
+// -----------------------------------------------------------------------------
+
+/**
+ * LinkParser
+ *
+ * Has to be used after the `ImageParser`.
+ *
+ * @class
+ */
+class LinkParser : public LineParser
+{
+public:
+  /**
+   * Parse
+   *
+   * From Markdown: `[text](http://example.com)`
+   *
+   * To HTML: `<a href="http://example.com">text</a>`
+   *
+   * @method
+   * @param {std::string&} line The line to interpret
+   * @return {void}
+   */
+  void Parse(std::string& line) override
+  {
+      //Match [name](http:://link "title text")
+      static std::regex re(R"(\[([^\]]*)\]\(([^\)\" ]*) \"([^\"]*)\"\))");
+      static std::string replacement = "<a href=\"$2\" title=\"$3\">$1</a>";
+      line = std::regex_replace(line, re, replacement);
+
+      //Match [name](http:://link)
+      static std::regex re2(R"(\[([^\]]*)\]\(([^)]*)\))");
+      static std::string replacement2 = "<a href=\"$2\">$1</a>";
+      line = std::regex_replace(line, re2, replacement2);
+  }
+}; // class LinkParser
+
+// -----------------------------------------------------------------------------
+
+} // namespace maddy

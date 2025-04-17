@@ -196,7 +196,7 @@ configure_file (
 # mark header files for installation
 #
 
-foreach(dir annotation common compress conversion extension math units util validator xml  )
+foreach(dir annotation common compress conversion extension html2md maddy math units util validator xml  )
 
     file(GLOB header_files "${CMAKE_CURRENT_SOURCE_DIR}/sbml/${dir}/*.h")
     install(FILES ${header_files} DESTINATION include/sbml/${dir})
@@ -284,7 +284,7 @@ macro(ADD_FUNCTION directory)
 
 endmacro(ADD_FUNCTION)
 
-foreach (directory annotation common conversion extension sbml math
+foreach (directory annotation common conversion extension sbml html2md maddy math
                    units util validator validator/constraints)
 
 	ADD_FUNCTION(${directory})
@@ -463,6 +463,9 @@ if (NOT LIBSBML_SKIP_SHARED_LIBRARY)
 
 add_library (${LIBSBML_LIBRARY} SHARED ${LIBSBML_SOURCES} )
 
+# When we included the 'maddy' library, we needed features added in c++11.
+target_compile_features(${LIBSBML_LIBRARY} PUBLIC cxx_std_11)
+
 if (LIBSBML_SHARED_VERSION)
   SET_TARGET_PROPERTIES(${LIBSBML_LIBRARY} PROPERTIES
                         SOVERSION ${LIBSBML_VERSION_MAJOR}
@@ -511,6 +514,9 @@ endif()
 
 if (NOT LIBSBML_SKIP_STATIC_LIBRARY)
 add_library (${LIBSBML_LIBRARY}-static STATIC ${LIBSBML_SOURCES} )
+
+# When we included the 'maddy' library, we needed features added in c++11.
+target_compile_features(${LIBSBML_LIBRARY}-static PUBLIC cxx_std_11)
 
 if (WIN32 AND NOT CYGWIN)
     # don't decorate static library 

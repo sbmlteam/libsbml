@@ -552,7 +552,105 @@ START_TEST (test_SBase_setNotesString_l3_addMarkup)
 END_TEST
 
 
-START_TEST (test_SBase_setAnnotationString)
+START_TEST(test_SBase_setNotesFromMarkdown)
+{
+    Model_t* c = new(std::nothrow) Model(1, 2);
+    const char* notes = "This is a test note";
+    const char* taggednotes = "<notes>\n  <p>This is a test note </p>\n</notes>";
+
+    SBase_setNotesFromMarkdown(c, notes);
+
+    fail_unless(SBase_isSetNotes(c) == 1);
+
+    char* str = SBase_getNotesString(c);
+    if (strcmp(str, taggednotes))
+    {
+        fail("SBase_setNotesFromMarkdown(...) did not make a copy of node.");
+    }
+    safe_free(str);
+    char* t1 = SBase_getNotesMarkdown(c);
+    fail_unless(!strcmp(t1, notes));
+    safe_free(t1);
+
+    //const XMLNode_t* t2 = XMLNode_getChild(t1, 0);
+    //fail_unless(!strcmp(XMLNode_getCharacters(t2), "This is a test note"));
+
+
+    /* Reflexive case (pathological)  */
+    str = SBase_getNotesString(c);
+    SBase_setNotesString(c, str);
+    safe_free(str);
+    t1 = SBase_getNotesMarkdown(c);
+    fail_unless(!strcmp(t1, notes));
+    safe_free(t1);
+
+    SBase_setNotesFromMarkdown(c, (char*)"");
+    fail_unless(SBase_isSetNotes(c) == 0);
+
+    if (SBase_getNotesString(c) != NULL)
+    {
+        fail("SBase_getNotesString(c, "") did not clear string.");
+    }
+
+    SBase_setNotesFromMarkdown(c, notes);
+
+    fail_unless(SBase_isSetNotes(c) == 1);
+
+    str = SBase_getNotesString(c);
+    if (strcmp(str, taggednotes))
+    {
+        fail("SBase_setNotesString(...) did not make a copy of node.");
+    }
+    safe_free(str);
+
+    t1 = SBase_getNotesMarkdown(c);
+    fail_unless(!strcmp(t1, notes));
+    safe_free(t1);
+
+    Model_free(c);
+}
+END_TEST
+
+
+START_TEST(test_SBase_setNotesFromMarkdown2)
+{
+    Model_t* c = new(std::nothrow) Model(3, 1);
+    const char* notes = "# Header\n\nHere is a list:\n\n- First\n- Second";
+    const char* taggednotes = "<notes>\n  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n    <h1>Header</h1>\n    <p>Here is a list: </p>\n    <ul>\n      <li>First</li>\n      <li>Second</li>\n    </ul>\n  </body>\n</notes>";
+
+    SBase_setNotesFromMarkdown(c, notes);
+
+    fail_unless(SBase_isSetNotes(c) == 1);
+    char* str = SBase_getNotesString(c);
+    fail_unless(!strcmp(str, taggednotes));
+    safe_free(str);
+    char* t1 = SBase_getNotesMarkdown(c);
+    fail_unless(!strcmp(t1, notes));
+    safe_free(t1);
+}
+END_TEST
+
+
+START_TEST(test_SBase_setNotesFromMarkdown3)
+{
+    Model_t* c = new(std::nothrow) Model(3, 1);
+    const char* notes = "Please refer to [CC0  Public Domain Dedication](http://creativecommons.org/publicdomain/zero/1.0/ \"Access to: CC0 1.0 Universal (CC0 1.0), Public Domain Dedication\") for more information.";
+    const char* taggednotes = "<notes>\n  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n    <p>Please refer to <a href=\"http://creativecommons.org/publicdomain/zero/1.0/\" title=\"Access to: CC0 1.0 Universal (CC0 1.0), Public Domain Dedication\">CC0  Public Domain Dedication</a> for more information. </p>\n  </body>\n</notes>";
+
+    SBase_setNotesFromMarkdown(c, notes);
+
+    fail_unless(SBase_isSetNotes(c) == 1);
+    char* str = SBase_getNotesString(c);
+    fail_unless(!strcmp(str, taggednotes));
+    safe_free(str);
+    char* t1 = SBase_getNotesMarkdown(c);
+    fail_unless(!strcmp(t1, notes));
+    safe_free(t1);
+}
+END_TEST
+
+
+START_TEST(test_SBase_setAnnotationString)
 {
   const char * annotation = "This is a test note";
   const char * taggedannotation = "<annotation>This is a test note</annotation>";
@@ -2572,6 +2670,9 @@ create_suite_SBase (void)
   tcase_add_test(tcase, test_SBase_setNotesString);
   tcase_add_test(tcase, test_SBase_setNotesString_l3);
   tcase_add_test(tcase, test_SBase_setNotesString_l3_addMarkup);
+  tcase_add_test(tcase, test_SBase_setNotesFromMarkdown);
+  tcase_add_test(tcase, test_SBase_setNotesFromMarkdown2);
+  tcase_add_test(tcase, test_SBase_setNotesFromMarkdown3);
   tcase_add_test(tcase, test_SBase_setAnnotationString);
   tcase_add_test(tcase, test_SBase_unsetAnnotationWithCVTerms );
   tcase_add_test(tcase, test_SBase_unsetAnnotationWithModelHistory );

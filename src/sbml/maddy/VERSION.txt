@@ -1,0 +1,3 @@
+From https://github.com/progsource/maddy
+
+Version 1.4.0, https://github.com/progsource/maddy/releases/download/1.4.0/maddy-src.zip

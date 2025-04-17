@@ -35,7 +35,7 @@ jobs:
         package_option: ["-DWITH_ALL_PACKAGES=ON"]
         language_bindings:
           [ "-DWITH_JAVA=True -DWITH_CSHARP=True"]
-        cpp_standard: [98, 20]
+        cpp_standard: [98, 26]
     runs-on: ${{ matrix.platform }}
 
     steps:
@@ -165,7 +165,7 @@ jobs:
       - name: Build
         working-directory: ${{runner.workspace}}/build
         shell: bash
-        run: cmake --build . --config $BUILD_TYPE
+        run: cmake --build . --config $BUILD_TYPE --verbose
 
       ### run tests ###
       - name: Test
@@ -195,7 +195,7 @@ jobs:
         strict: ["True"]
         with_examples: ["True"]
         package_option: ["-DWITH_STABLE_PACKAGES=ON"]
-        cpp_standard: [98, 20]
+        cpp_standard: [98, 26]
         language_bindings:
           ["-DWITH_JAVA=True -DWITH_PYTHON=True"]
         container: ["quay.io/pypa/manylinux_2_28_x86_64"]

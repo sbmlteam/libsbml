@@ -2049,7 +2049,7 @@ ListOfLayouts::writeXMLNS (XMLOutputStream& stream) const
     {
       xmlns.add(LayoutExtension::getXmlnsL3V1V1(),prefix);
     }
-    if (thisxmlns && thisxmlns->hasURI(LayoutExtension::getXmlnsL2()))
+    else if (thisxmlns && thisxmlns->hasURI(LayoutExtension::getXmlnsL2()))
     {
       xmlns.add(LayoutExtension::getXmlnsL2(),prefix);
     }

@@ -56,6 +56,7 @@
 
 #include <sbml/util/util.h>
 
+
 /** @cond doxygenIgnored */
 using namespace std;
 /** @endcond */
@@ -193,6 +194,20 @@ Constraint::getMessageString () const
   {
     return "";
   }
+}
+
+
+/*
+ * @return the message for this Constraint.
+ */
+std::string
+Constraint::getMessageMarkdown() const
+{
+    string ret = util_html_to_markdown(getMessageString());
+    while (ret.size() && ret[ret.size() - 1] == '\n') {
+        ret.pop_back();
+    }
+    return ret;
 }
 
 
@@ -357,6 +372,16 @@ Constraint::setMessage (const std::string& message,
   return success;
 }
 
+int
+Constraint::setMessageFromMarkdown(const std::string& markdown)
+{
+    std::string htmlOutput = util_markdown_to_html(markdown);
+    if (setMessage(htmlOutput, true) == LIBSBML_OPERATION_SUCCESS) {
+        return LIBSBML_OPERATION_SUCCESS;
+    }
+    htmlOutput = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n" + htmlOutput + "\n</body>";
+    return setMessage(htmlOutput, true);
+}
 
 /*
  * Sets the math of this Constraint to a copy of the given
@@ -1186,6 +1211,15 @@ Constraint_getMessageString (const Constraint_t *c)
 
 
 LIBSBML_EXTERN
+char*
+Constraint_getMessageMarkdown(const Constraint_t* c)
+{
+    return (c != NULL && c->isSetMessage()) ?
+        safe_strdup(c->getMessageMarkdown().c_str()) : NULL;
+}
+
+
+LIBSBML_EXTERN
 const ASTNode_t *
 Constraint_getMath (const Constraint_t *c)
 {
@@ -1221,6 +1255,36 @@ Constraint_setMessage (Constraint_t *c, const XMLNode_t *xhtml)
   {
     return LIBSBML_INVALID_OBJECT;
   }
+}
+
+
+LIBSBML_EXTERN
+int
+Constraint_setMessageString(Constraint_t* c, const char* message)
+{
+    if (c != NULL)
+    {
+        return c->setMessage(message);
+    }
+    else
+    {
+        return LIBSBML_INVALID_OBJECT;
+    }
+}
+
+
+LIBSBML_EXTERN
+int
+Constraint_setMessageFromMarkdown(Constraint_t* c, const char* markdown)
+{
+    if (c != NULL)
+    {
+        return c->setMessageFromMarkdown(markdown);
+    }
+    else
+    {
+        return LIBSBML_INVALID_OBJECT;
+    }
 }
 
 
