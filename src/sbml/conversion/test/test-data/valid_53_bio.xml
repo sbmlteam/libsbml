@@ -173,7 +173,7 @@
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
-              <times>
+              <times/>
               <ci> newVar3 </ci>
               <ci> SimData_1 </ci>
               <apply>
