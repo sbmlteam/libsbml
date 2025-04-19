@@ -39,10 +39,10 @@
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
-              <divide/>
+              <times/>
+              <ci> SimData_1 </ci>
               <apply>
-                <times/>
-                <ci> SimData_1 </ci>
+                <divide/>
                 <ci> k_2 </ci>
                 <apply>
                   <plus/>
@@ -64,17 +64,17 @@
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
-              <divide/>
+              <times/>
+              <ci> newVar1 </ci>
+              <ci> k_1 </ci>
               <apply>
-                <times/>
-                <ci> newVar1 </ci>
+                <divide/>
                 <ci> I </ci>
-                <ci> k_1 </ci>
-              </apply>
-              <apply>
-                <plus/>
-                <ci> newVar1 </ci>
-                <ci> k_7 </ci>
+                <apply>
+                  <plus/>
+                  <ci> newVar1 </ci>
+                  <ci> k_7 </ci>
+                </apply>
               </apply>
             </apply>
           </math>
@@ -117,17 +117,17 @@
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
-              <divide/>
+              <times/>
+              <ci> newVar2 </ci>
+              <ci> SimData_1 </ci>
               <apply>
-                <times/>
-                <ci> newVar2 </ci>
-                <ci> SimData_1 </ci>
+                <divide/>
                 <ci> k_3 </ci>
-              </apply>
-              <apply>
-                <plus/>
-                <ci> newVar2 </ci>
-                <ci> k_9 </ci>
+                <apply>
+                  <plus/>
+                  <ci> newVar2 </ci>
+                  <ci> k_9 </ci>
+                </apply>
               </apply>
             </apply>
           </math>
@@ -145,18 +145,18 @@
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
-              <divide/>
+              <times/>
+              <ci> SimData_2 </ci>
+              <ci> SimData_3 </ci>  
               <apply>
-                <times/>
-                <ci> SimData_2 </ci>
-                <ci> SimData_3 </ci>  
+                <divide/>
                 <ci> k_6 </ci>
-                </apply>
                 <apply>
                   <plus/>
                   <ci> SimData_3 </ci>
                   <ci> k_12 </ci>
                 </apply>
+              </apply>
             </apply>
           </math>
         </kineticLaw>
@@ -173,17 +173,17 @@
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
-              <divide/>
+              <times>
+              <ci> newVar3 </ci>
+              <ci> SimData_1 </ci>
               <apply>
-                <times>
-                <ci> newVar3 </ci>
-                <ci> SimData_1 </ci>
+                <divide/>
                 <ci> k_5 </ci>
-              </apply>
-              <apply>
-                <plus/>
-                <ci> k_11 </ci>
-                <ci> newVar3 </ci>
+                <apply>
+                  <plus/>
+                  <ci> k_11 </ci>
+                  <ci> newVar3 </ci>
+                </apply>
               </apply>
             </apply>
           </math>
