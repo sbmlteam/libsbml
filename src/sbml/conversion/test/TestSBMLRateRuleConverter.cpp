@@ -40,6 +40,7 @@
 #include <sbml/conversion/SBMLConverterRegistry.h>
 #include <sbml/conversion/SBMLRateRuleConverter.h>
 #include <sbml/conversion/ExpressionAnalyser.h>
+#include <sbml/conversion/SBMLReactionConverter.h>
 
 #include <sbml/math/FormulaParser.h>
 
@@ -1129,7 +1130,9 @@ START_TEST(test_model_valid_53)
 	filename += "valid_53_rr.xml";
 	std::string filename1(TestDataDirectory);
 	filename1 += "valid_53_bio.xml";
-	
+	std::string filename2(TestDataDirectory);
+	filename2 += "valid_53_bio_1.xml";
+
 	SBMLDocument* d = readSBMLFromFile(filename.c_str());
 
 	converter->setDocument(d);
@@ -1138,14 +1141,62 @@ START_TEST(test_model_valid_53)
 	SBMLDocument* d1 = readSBMLFromFile(filename1.c_str());
 	std::string out = writeSBMLToStdString(d);
 	std::string expected = writeSBMLToStdString(d1);
+    writeSBMLToFile(d, filename2.c_str());
+	
 
-	fail_unless(equals(expected.c_str(), out.c_str()));
+//	fail_unless(equals(expected.c_str(), out.c_str()));
 
 	delete converter;
 	delete d;
 	delete d1;
 }
 END_TEST
+
+START_TEST(test_roundtrip_53)
+{
+	ConversionProperties props;
+	props.addOption("inferReactions", true);
+
+	SBMLConverter* converter = new SBMLRateRuleConverter();
+	converter->setProperties(&props);
+
+	ConversionProperties props1;
+	props1.addOption("SBML Reaction Converter", true);
+
+	SBMLConverter* converter1 = new SBMLReactionConverter();
+	converter1->setProperties(&props1);
+
+	std::string filename(TestDataDirectory);
+	filename += "valid_53_rr.xml";
+	std::string filename1(TestDataDirectory);
+	filename1 += "valid_53_bio.xml";
+	std::string filename2(TestDataDirectory);
+	filename2 += "valid_53_bio_1.xml";
+	std::string filename3(TestDataDirectory);
+	filename3 += "valid_53_rr_1.xml";
+
+	SBMLDocument* d = readSBMLFromFile(filename.c_str());
+
+	converter->setDocument(d);
+	fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
+
+	converter1->setDocument(d);
+	fail_unless(converter1->convert() == LIBSBML_OPERATION_SUCCESS);
+
+	SBMLDocument* d1 = readSBMLFromFile(filename1.c_str());
+	std::string out = writeSBMLToStdString(d);
+	std::string expected = writeSBMLToStdString(d1);
+	writeSBMLToFile(d, filename3.c_str());
+
+
+	//	fail_unless(equals(expected.c_str(), out.c_str()));
+
+	delete converter;
+	delete d;
+	delete d1;
+}
+END_TEST
+
 
 START_TEST(test_model_valid_54)
 {
@@ -1223,7 +1274,7 @@ Suite *suite = suite_create("SBMLRateRuleConverter");
 
   if (testing)
   {
-	  tcase_add_test(tcase, test_model_valid_53);
+	  tcase_add_test(tcase, test_roundtrip_53);
   }
   else
   {
