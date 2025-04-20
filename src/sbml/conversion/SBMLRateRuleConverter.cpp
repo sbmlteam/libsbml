@@ -1060,7 +1060,7 @@ SBMLRateRuleConverter::dealWithSpecies()
       Parameter *p = mDocument->getModel()->removeParameter(variable);
       Species *newSpecies = mDocument->getModel()->createSpecies();
       newSpecies->setId(variable);
-      newSpecies->setInitialAmount(p->getValue());
+      newSpecies->setInitialConcentration(p->getValue());
       newSpecies->setHasOnlySubstanceUnits(true);
       newSpecies->setBoundaryCondition(false);
       newSpecies->setConstant(false);
@@ -1133,10 +1133,10 @@ SBMLRateRuleConverter::createReactions()
     if (r->isSetKineticLaw())
     { 
       List* names = r->getKineticLaw()->getMath()->getListOfNodes((ASTNodePredicate)ASTNode_isName);
-      ListIterator it = names->begin();
-      while (it != names->end())
+      ListIterator it_names = names->begin();
+      while (it_names != names->end())
       {
-        ASTNode* node = (ASTNode*)*it;
+        ASTNode* node = (ASTNode*)*it_names;
         std::string n = node->getName();
         if (mDocument->getModel()->getSpecies(n) != NULL && r->getReactant(n) == NULL && 
           r->getProduct(n) == NULL && r->getModifier(n) == NULL)
@@ -1144,7 +1144,7 @@ SBMLRateRuleConverter::createReactions()
           ModifierSpeciesReference *sr = r->createModifier();
           sr->setSpecies(n);
         }
-        it++;
+        it_names++;
       }
     }
 
