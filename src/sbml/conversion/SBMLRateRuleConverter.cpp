@@ -967,7 +967,7 @@ void
 SBMLRateRuleConverter::analyseCoefficient(std::vector<double> coeffs, unsigned int term_index)
 {
     // 4(b)
-    //for each variable x where term occurs with integer coefficient c in dx/dt in O,
+    //for each variable x where term occurs with integer coefficient c in dx/dt in ODEs*,
     //   i. if c<0 then reactant(x) equals -c
     //  ii. if c>0 then product(x) equals c
                 
