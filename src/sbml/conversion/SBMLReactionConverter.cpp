@@ -337,7 +337,8 @@ SBMLReactionConverter::createRateRuleMathForSpecies(const std::string &spId,
   ASTNode* conc_per_time = NULL;
 
   if (util_isEqual(comp->getSpatialDimensionsAsDouble(), 0.0) ||
-    species->getHasOnlySubstanceUnits() == true)
+    species->getHasOnlySubstanceUnits() == true ||
+      util_isEqual(comp->getSize(), 1.0)) // don't need to divide by one
   {
     conc_per_time = rn->getKineticLaw()->getMath()->deepCopy();
   }
@@ -350,9 +351,20 @@ SBMLReactionConverter::createRateRuleMathForSpecies(const std::string &spId,
     conc_per_time->addChild(compMath);
   }
 
-  math = new ASTNode(AST_TIMES);
-  math->addChild(stoich);
-  math->addChild(conc_per_time);
+  // now we need to multiply the stoichiometry by the rate
+  // but we do not need to if the stoichiometry is one
+  if (stoich->getType() == AST_REAL && stoich->getValue() == 1.0)
+  {
+      delete stoich;
+      stoich = NULL;
+      return conc_per_time;
+  }
+  else
+  {
+      math = new ASTNode(AST_TIMES);
+      math->addChild(stoich);
+      math->addChild(conc_per_time);
+  }
 
 
   return math;

@@ -10,7 +10,7 @@
     <listOfRules>
       <rateRule variable="y_1">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <cn type="integer"> 1 </cn>
+          <cn> 1 </cn>
         </math>
       </rateRule>
     </listOfRules>
