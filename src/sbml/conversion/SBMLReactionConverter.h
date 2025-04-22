@@ -68,6 +68,7 @@
 #include <sbml/conversion/SBMLConverter.h>
 #include <sbml/conversion/SBMLConverterRegister.h>
 #include <sbml/util/IdList.h>
+#include <sbml/conversion/ExpressionAnalyser.h>
 
 
 #ifdef __cplusplus
@@ -216,18 +217,26 @@ public:
 
 
 private:
+    friend class ExpressionAnalyser;
 
   ASTNode * createRateRuleMathForSpecies(const std::string& spId,
                                          Reaction * rn, bool isReactant);
 
 
-  ASTNode* determineStoichiometryNode(SpeciesReference * sr,
-                                      bool isReactant);
+  ASTNode* determineStoichiometryNode(bool isReactant, Reaction* rn,
+                                      const std::string& spId);
 
   int createRateRule(const std::string& spId, ASTNode * math);
 
+  bool useCompartmentSize(Species* species, Compartment* compartment);
 
-  bool replaceReactions();
+  bool isValidSpecies(const std::string& spId, Species* species, Compartment* compartment);
+
+  ASTNode* replaceMathWithAssignedVariables(ASTNode* original);
+
+  IdList getNumAssignmentRules(unsigned int &numAssignmentRules);
+
+      bool replaceReactions();
 
 
   bool isDocumentValid();

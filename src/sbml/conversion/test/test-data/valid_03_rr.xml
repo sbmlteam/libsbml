@@ -14,11 +14,6 @@
       <parameter id="t" name="t" value="0" constant="false"/>
     </listOfParameters>
     <listOfRules>
-      <rateRule variable="y_1">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <ci> b </ci>
-        </math>
-      </rateRule>
       <assignmentRule variable="b">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <apply>
@@ -33,6 +28,11 @@
           <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
         </math>
       </assignmentRule>
+      <rateRule variable="y_1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> b </ci>
+        </math>
+      </rateRule>
     </listOfRules>
   </model>
 </sbml>
