@@ -640,14 +640,14 @@ endif(WITH_CHECK)
 # documentation to be installed in PREFIX/${MISC_PREFIX}.
 #
 
-set( MISC_PREFIX )
+
 if(UNIX OR CYGWIN)
     set(PATH_SEP "/")
     set(FILE_SEP ":")
-    set( MISC_PREFIX "${CMAKE_INSTALL_DATADIR}/libsbml/" )
+    set(MISC_PREFIX "${CMAKE_INSTALL_DATADIR}/libsbml/" CACHE PATH "bindings, examples and documentation path")
     set(LIBSBML_LIBRARY sbml)
 else()
-    set( MISC_PREFIX ".\\" )
+    set(MISC_PREFIX ".\\" CACHE PATH "bindings, examples and documentation path")
     set(PATH_SEP "\\")
     set(FILE_SEP ";")
     if(MINGW)
