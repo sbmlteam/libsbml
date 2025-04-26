@@ -3573,49 +3573,73 @@ LIBSBML_EXTERN
 bool 
 ASTNode::exactlyEqual(const ASTNode& rhs)
 {
-  bool equal = true;
-  ASTNodeType_t type = getType();
-  if (type != rhs.getType())
-  {
-    return false;
-  }
+    bool equal = true;
+    ASTNodeType_t type = getType();
+    if (type != rhs.getType())
+    {
+        /* the only time that types might not match
+        * but we will allow the nodes be considered equal
+        * as if they are both numbers.
+        */
+        if (isNumber() && rhs.isNumber())
+        {
+            if (type == AST_INTEGER)
+            {
+                if (getValue() != rhs.getValue())
+                {
+                    return false;
+                }
+            }
+            else if (type == AST_RATIONAL || type == AST_REAL || type == AST_REAL_E)
+            {
+                if (!util_isEqual(getReal(), rhs.getReal()))
+                {
+                    return false;
+                }
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
 
-  if (type == AST_NAME)
-  {
-    const char* n1 = getName();
-    const char* n2 = rhs.getName();
-    if (n1 == NULL || n2 == NULL)
+    if (type == AST_NAME)
     {
-      return false;
+        const char* n1 = getName();
+        const char* n2 = rhs.getName();
+        if (n1 == NULL || n2 == NULL)
+        {
+            return false;
+        }
+        else if (strcmp(n1, n2) != 0)
+        {
+            return false;
+        }
     }
-    else if (strcmp(n1, n2) != 0)
+    else if (type == AST_INTEGER)
     {
-      return false;
+        if (getInteger() != rhs.getInteger())
+        {
+            return false;
+        }
     }
-  }
-  else if (type == AST_INTEGER)
-  {
-    if (getInteger() != rhs.getInteger())
+    else if (type == AST_RATIONAL || type == AST_REAL || type == AST_REAL_E)
     {
-      return false;
+        if (!util_isEqual(getValue(), rhs.getValue()))
+        {
+            return false;
+        }
     }
-  }
-  else if (type == AST_RATIONAL || type == AST_REAL || type == AST_REAL_E)
-  {
-    if (!util_isEqual(getReal(), rhs.getReal()))
-    {
-      return false;
-    }
-  }
 
-  unsigned int n = 0;
-  while (equal && n < getNumChildren())
-  {
-    equal = getChild(n)->exactlyEqual(*(rhs.getChild(n)));
-    n++;
-  }
+    unsigned int n = 0;
+    while (equal && n < getNumChildren())
+    {
+        equal = getChild(n)->exactlyEqual(*(rhs.getChild(n)));
+        n++;
+    }
 
-  return equal;
+    return equal;
 }
 
 /* change all numbers to real*/
