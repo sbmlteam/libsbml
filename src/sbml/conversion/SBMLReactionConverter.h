@@ -234,7 +234,7 @@ private:
 
   ASTNode* replaceMathWithAssignedVariables(ASTNode* original);
 
-  IdList getNumAssignmentRules(unsigned int &numAssignmentRules);
+  IdList getListAssignmentRuleVariables(unsigned int &numAssignmentRules);
 
       bool replaceReactions();
 

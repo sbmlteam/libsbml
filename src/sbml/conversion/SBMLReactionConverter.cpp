@@ -508,7 +508,7 @@ SBMLReactionConverter::replaceMathWithAssignedVariables(ASTNode* original)
     // in a model with an assignment rule k3 = 2 * k1 * A
     // so the math could become k3 + k2 * B
     unsigned int numAssignmentRules = 0;
-    IdList assignmentRulesVariables = getNumAssignmentRules(numAssignmentRules);
+    IdList assignmentRulesVariables = getListAssignmentRuleVariables(numAssignmentRules);
     if (numAssignmentRules == 0)
     {
         return original;
@@ -536,7 +536,7 @@ SBMLReactionConverter::replaceMathWithAssignedVariables(ASTNode* original)
 
 
 IdList
-SBMLReactionConverter::getNumAssignmentRules(unsigned int &numAssignmentRules)
+SBMLReactionConverter::getListAssignmentRuleVariables(unsigned int &numAssignmentRules)
 {
     IdList assignmentRuleVariables;
     unsigned int numRules = mOriginalModel->getNumRules();

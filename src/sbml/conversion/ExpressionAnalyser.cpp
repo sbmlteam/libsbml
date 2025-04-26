@@ -695,33 +695,41 @@ ExpressionAnalyser::detectHiddenSpecies(bool testing)
 void
 ExpressionAnalyser::replaceExpressionInNodeWithNode(ASTNode* node, ASTNode* replaced, ASTNode* replacement)
 {
-  if (node == NULL)
-  {
-    return;
-  }
-  // we might be replcing the whole node
-  if (node == replaced)
-  {
-    replaced = node->deepCopy();
-    (*node) = *replacement;
-  }
-  else
-  {
-    std::pair<ASTNode*, int>currentParentAndIndex = make_pair((ASTNode*)NULL, (int)(NAN));
-    ASTNode* currentParent;
-    int index;
-    do
+    cout << "node " << SBML_formulaToL3String(node) << endl;
+    cout << "replaced " << SBML_formulaToL3String(replaced) << endl;
+    cout << "replacement " << SBML_formulaToL3String(replacement) << endl;
+    if (node == NULL)
     {
-      currentParentAndIndex = getParentNode(replaced, node);
-      currentParent = currentParentAndIndex.first;
-      index = currentParentAndIndex.second;
-      if (currentParent != NULL)
-      {
-        currentParent->replaceChild(index, replacement->deepCopy(), false);
-        // intentionally, don't delete replacement as it's now owned by currentParent!
-      }
-    } while (currentParent != NULL);
-  }
+    return;
+    }
+    // we might be replcing the whole node
+    if (node->exactlyEqual(*replaced))
+    {
+        // delete the node and replace it with the replacement
+        // this is a bit of a hack but it works
+        // we need to make sure that we are not deleting the replacement as it is now owned by the parent node
+        // so we need to deep copy it first
+        ASTNode* replacementCopy = replacement->deepCopy();
+        delete node;
+        node = replacementCopy;
+    }
+    else
+    {
+        std::pair<ASTNode*, int>currentParentAndIndex = make_pair((ASTNode*)NULL, (int)(NAN));
+        ASTNode* currentParent;
+        int index;
+        do
+        {
+            currentParentAndIndex = getParentNode(replaced, node);
+            currentParent = currentParentAndIndex.first;
+            index = currentParentAndIndex.second;
+            if (currentParent != NULL)
+            {
+            currentParent->replaceChild(index, replacement->deepCopy(), false);
+            // intentionally, don't delete replacement as it's now owned by currentParent!
+            }
+        } while (currentParent != NULL);
+    }
 }
 
 std::string
@@ -1069,8 +1077,9 @@ bool ExpressionAnalyser::isNumericalConstantOrConstantParameter(ASTNode* node, b
 
 std::pair<ASTNode*, int> ExpressionAnalyser::getParentNode(const ASTNode* child, const ASTNode* root)
 {
-  //cout << "root " << SBML_formulaToL3String(root) << endl;
-  //cout << "child " << SBML_formulaToL3String(child) << endl;
+  cout << "root " << SBML_formulaToL3String(root) << endl;
+  cout << "child " << SBML_formulaToL3String(child) << endl;
+
   for (unsigned int i = 0; i < root->getNumChildren(); i++)
     {
         if (root->getChild(i)->exactlyEqual(*(child)))

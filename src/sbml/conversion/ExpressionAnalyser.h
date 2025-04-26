@@ -395,6 +395,7 @@ public:
 
     void replaceExpressionInNodeWithNode(ASTNode* node, ASTNode* replaced, ASTNode* replacement);
 
+    friend class SBMLReactionConverter;
     // member variables populated during analysis
     pairODEs mODEs;
 
