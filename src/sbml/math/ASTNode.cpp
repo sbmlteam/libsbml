@@ -3592,7 +3592,7 @@ ASTNode::exactlyEqual(const ASTNode& rhs)
             }
             else if (type == AST_RATIONAL || type == AST_REAL || type == AST_REAL_E)
             {
-                if (!util_isEqual(getReal(), rhs.getReal()))
+                if (!util_isEqual(getValue(), rhs.getValue()))
                 {
                     return false;
                 }
