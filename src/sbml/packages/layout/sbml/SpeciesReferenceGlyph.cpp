@@ -127,17 +127,10 @@ SpeciesReferenceGlyph::SpeciesReferenceGlyph(LayoutPkgNamespaces* layoutns)
 {
   connectToChild();
   //
-  // (NOTE) Developers don't have to invoke setElementNamespace function as follows (commentted line)
-  //        in this constuctor because the function is properly invoked in the constructor of the
-  //        base class (LineSegment).
+  // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
+  //        in this constuctor because the functions are properly invoked in the constructor of the
+  //        base class (GraphicalObject).
   //
-
-  // setElementNamespace(layoutns->getURI());
-
-  //
-  // load package extensions bound with this object (if any) 
-  //
-  loadPlugins(layoutns);
 }
 
 /*
@@ -162,19 +155,11 @@ SpeciesReferenceGlyph::SpeciesReferenceGlyph
    ,mCurveExplicitlySet (false)
 {
   connectToChild();
-
   //
-  // (NOTE) Developers don't have to invoke setElementNamespace function as follows (commentted line)
-  //        in this constuctor because the function is properly invoked in the constructor of the
-  //        base class (LineSegment).
+  // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
+  //        in this constuctor because the functions are properly invoked in the constructor of the
+  //        base class (GraphicalObject).
   //
-
-  // setElementNamespace(layoutns->getURI());
-
-  //
-  // load package extensions bound with this object (if any) 
-  //
-  loadPlugins(layoutns);
 }
 
 /*

@@ -101,19 +101,11 @@ CubicBezier::CubicBezier(LayoutPkgNamespaces* layoutns)
   this->mBasePoint2.setElementName("basePoint2");
 
   connectToChild();
-
   //
-  // (NOTE) Developers don't have to invoke setElementNamespace function as follows (commentted line)
-  //        in this constuctor because the function is properly invoked in the constructor of the
-  //        base class (LineSegment).
+  // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
+  //        in this constuctor because the functions are properly invoked in the constructor of the
+  //        base class (GraphicalObject).
   //
-
-  // setElementNamespace(layoutns->getURI());
-
-  //
-  // load package extensions bound with this object (if any) 
-  //
-  loadPlugins(layoutns);
 }
 
 
@@ -133,19 +125,11 @@ CubicBezier::CubicBezier (LayoutPkgNamespaces* layoutns, double x1, double y1, d
   this->mBasePoint2.setElementName("basePoint2");
 
   connectToChild();
-
   //
-  // (NOTE) Developers don't have to invoke setElementNamespace function as follows (commentted line)
-  //        in this constuctor because the function is properly invoked in the constructor of the
-  //        base class (LineSegment).
+  // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
+  //        in this constuctor because the functions are properly invoked in the constructor of the
+  //        base class (GraphicalObject).
   //
-
-  // setElementNamespace(layoutns->getURI());
-
-  //
-  // load package extensions bound with this object (if any) 
-  //
-  loadPlugins(layoutns);
 }
 
 
@@ -166,19 +150,11 @@ CubicBezier::CubicBezier (LayoutPkgNamespaces* layoutns, double x1, double y1, d
   this->mBasePoint2.setElementName("basePoint2");
 
   connectToChild();
-
   //
-  // (NOTE) Developers don't have to invoke setElementNamespace function as follows (commentted line)
-  //        in this constuctor because the function is properly invoked in the constructor of the
-  //        base class (LineSegment).
+  // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
+  //        in this constuctor because the functions are properly invoked in the constructor of the
+  //        base class (GraphicalObject).
   //
-
-  // setElementNamespace(layoutns->getURI());
-
-  //
-  // load package extensions bound with this object (if any) 
-  //
-  loadPlugins(layoutns);
 }
 
 /*
@@ -245,19 +221,11 @@ CubicBezier::CubicBezier (LayoutPkgNamespaces* layoutns, const Point* start, con
   this->mBasePoint2.setElementName("basePoint2");
 
   connectToChild();
-
   //
-  // (NOTE) Developers don't have to invoke setElementNamespace function as follows (commentted line)
-  //        in this constuctor because the function is properly invoked in the constructor of the
-  //        base class (LineSegment).
+  // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
+  //        in this constuctor because the functions are properly invoked in the constructor of the
+  //        base class (GraphicalObject).
   //
-
-  // setElementNamespace(layoutns->getURI());
-
-  //
-  // load package extensions bound with this object (if any) 
-  //
-  loadPlugins(layoutns);
 }
 
 
@@ -285,20 +253,12 @@ CubicBezier::CubicBezier (LayoutPkgNamespaces* layoutns, const Point* start, con
         this->mEndPoint=Point(layoutns);
     }
 
-  connectToChild();
-
-  //
-  // (NOTE) Developers don't have to invoke setElementNamespace function as follows (commentted line)
-  //        in this constuctor because the function is properly invoked in the constructor of the
-  //        base class (LineSegment).
-  //
-
-  // setElementNamespace(layoutns->getURI());
-
-  //
-  // load package extensions bound with this object (if any) 
-  //
-  loadPlugins(layoutns);
+    connectToChild();
+    //
+    // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
+    //        in this constuctor because the functions are properly invoked in the constructor of the
+    //        base class (GraphicalObject).
+    //
 }
 
 /*

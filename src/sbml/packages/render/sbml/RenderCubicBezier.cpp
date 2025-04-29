@@ -104,14 +104,12 @@ RenderCubicBezier::RenderCubicBezier (RenderPkgNamespaces* renderns):
   , mBasePoint2_Y(RelAbsVector(0.0, 0.0))
   , mBasePoint2_Z(RelAbsVector(0.0, 0.0))
 {
-        // set the element namespace of this object
-  setElementNamespace(renderns->getURI());
-
-  // connect child elements to this element.
   connectToChild();
-
-  // load package extensions bound with this object (if any) 
-  loadPlugins(renderns);
+  //
+  // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
+  //        in this constuctor because the functions are properly invoked in the constructor of the
+  //        base class (RenderPoint).
+  //
 }
 
 
@@ -128,7 +126,8 @@ RenderCubicBezier::RenderCubicBezier (RenderPkgNamespaces* renderns):
  * @param bp1_y y coordinate of the end point.
  * @param bp1_z z coordinate of the end point.
  */
-RenderCubicBezier::RenderCubicBezier (RenderPkgNamespaces* renderns, const RelAbsVector& bp1_x,const RelAbsVector& bp1_y,const RelAbsVector& bp1_z,const RelAbsVector& bp2_x,const RelAbsVector& bp2_y,const RelAbsVector& bp2_z,const RelAbsVector& end_x,const RelAbsVector& end_y,const RelAbsVector& end_z):RenderPoint(renderns, end_x,end_y,end_z),
+RenderCubicBezier::RenderCubicBezier (RenderPkgNamespaces* renderns, const RelAbsVector& bp1_x,const RelAbsVector& bp1_y,const RelAbsVector& bp1_z,const RelAbsVector& bp2_x,const RelAbsVector& bp2_y,const RelAbsVector& bp2_z,const RelAbsVector& end_x,const RelAbsVector& end_y,const RelAbsVector& end_z)
+    :RenderPoint(renderns, end_x,end_y,end_z),
     mBasePoint1_X(bp1_x),
     mBasePoint1_Y(bp1_y),
     mBasePoint1_Z(bp1_z),
@@ -136,14 +135,12 @@ RenderCubicBezier::RenderCubicBezier (RenderPkgNamespaces* renderns, const RelAb
     mBasePoint2_Y(bp2_y),
     mBasePoint2_Z(bp2_z)
 {
-      // set the element namespace of this object
-  setElementNamespace(renderns->getURI());
-
-  // connect child elements to this element.
   connectToChild();
-
-  // load package extensions bound with this object (if any) 
-  loadPlugins(renderns);
+  //
+  // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
+  //        in this constuctor because the functions are properly invoked in the constructor of the
+  //        base class (RenderPoint).
+  //
 }
 
 

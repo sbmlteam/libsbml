@@ -100,9 +100,12 @@ RadialGradient::RadialGradient(RenderPkgNamespaces *renderns)
     ,mFY(RelAbsVector(0.0,50.0))
     ,mFZ(RelAbsVector(0.0,50.0))
 {
-  setElementNamespace(renderns->getURI());
   connectToChild();
-  loadPlugins(renderns);
+  //
+  // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
+  //        in this constuctor because the functions are properly invoked in the constructor of the
+  //        base class (GradientBase).
+  //
 }
 
 
@@ -158,14 +161,12 @@ RadialGradient::RadialGradient(RenderPkgNamespaces* renderns, const std::string&
 #ifdef DEPRECATION_WARNINGS
     std::cerr << "Warning. RadialGradient::RadialGradient(const std::string& id) is deprecated." << std::endl;
 #endif // DEPRECATION_WARNINGS
-        // set the element namespace of this object
-  setElementNamespace(renderns->getURI());
-
-  // connect child elements to this element.
-  connectToChild();
-
-  // load package extensions bound with this object (if any) 
-  loadPlugins(renderns);
+    connectToChild();
+    //
+    // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
+    //        in this constuctor because the functions are properly invoked in the constructor of the
+    //        base class (GradientBase).
+    //
 }
 /** @endcond */
 /*

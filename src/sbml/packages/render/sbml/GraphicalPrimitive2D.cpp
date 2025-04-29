@@ -96,8 +96,12 @@ GraphicalPrimitive2D::GraphicalPrimitive2D(RenderPkgNamespaces *renderns)
   , mFill ("")
   , mFillRule (FILL_RULE_UNSET)
 {
-  setElementNamespace(renderns->getURI());
-  loadPlugins(renderns);
+    connectToChild();
+    //
+    // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
+    //        in this constuctor because the functions are properly invoked in the constructor of the
+    //        base class (Transformation).
+    //
 }
 
 
@@ -142,21 +146,19 @@ GraphicalPrimitive2D::GraphicalPrimitive2D(const XMLNode& node, unsigned int l2v
  * an SBMLNamespaces object.
  */
 GraphicalPrimitive2D::GraphicalPrimitive2D(RenderPkgNamespaces* renderns, const std::string& id)
-    :GraphicalPrimitive1D(renderns, id)
+  : GraphicalPrimitive1D(renderns, id)
   , mFill("")
-  ,mFillRule(GraphicalPrimitive2D::UNSET)
+  , mFillRule(GraphicalPrimitive2D::UNSET)
 {
 #ifdef DEPRECATION_WARNINGS
     std::cerr << "Warning. GraphicalPrimitive2D::GraphicalPrimitive2D(const std::string& id) is deprecated." << std::endl;
 #endif // DEPRECATION_WARNINGS
-        // set the element namespace of this object
-  setElementNamespace(renderns->getURI());
-
-  // connect child elements to this element.
-  connectToChild();
-
-  // load package extensions bound with this object (if any) 
-  loadPlugins(renderns);
+    connectToChild();
+    //
+    // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
+    //        in this constuctor because the functions are properly invoked in the constructor of the
+    //        base class (Transformation).
+    //
 }
 /** @endcond */
 #endif // OMIT_DEPRECATED

@@ -88,9 +88,12 @@ GlobalRenderInformation::GlobalRenderInformation(RenderPkgNamespaces *renderns)
   : RenderInformationBase(renderns)
   , mGlobalStyles (renderns)
 {
-  setElementNamespace(renderns->getURI());
   connectToChild();
-  loadPlugins(renderns);
+  //
+  // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
+  //        in this constuctor because the functions are properly invoked in the constructor of the
+  //        base class (RenderInformationBase).
+  //
 }
 
 
@@ -113,14 +116,12 @@ GlobalRenderInformation::GlobalRenderInformation(RenderPkgNamespaces* renderns, 
 #ifdef DEPRECATION_WARNINGS
     std::cerr << "Warning. GlobalRenderInformation::GlobalRenderInformation(const std::string& id) is deprecated." << std::endl;
 #endif // DEPRECATION_WARNINGS
-        // set the element namespace of this object
-  setElementNamespace(renderns->getURI());
-
-  // connect child elements to this element.
-  connectToChild();
-
-  // load package extensions bound with this object (if any) 
-  loadPlugins(renderns);
+    connectToChild();
+    //
+    // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
+    //        in this constuctor because the functions are properly invoked in the constructor of the
+    //        base class (RenderInformationBase).
+    //
 }
 /** @endcond */
 #endif // OMIT_DEPRECATED

@@ -80,6 +80,7 @@ DistribBase::DistribBase(DistribPkgNamespaces *distribns)
   , mElementName("distribBase")
 {
   setElementNamespace(distribns->getURI());
+  connectToChild();
   loadPlugins(distribns);
 }
 

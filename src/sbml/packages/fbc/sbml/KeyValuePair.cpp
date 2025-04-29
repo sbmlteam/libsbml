@@ -76,8 +76,12 @@ KeyValuePair::KeyValuePair(FbcPkgNamespaces *fbcns)
   , mValue ("")
   , mUri ("")
 {
-  setElementNamespace(fbcns->getURI());
-  loadPlugins(fbcns);
+  connectToChild();
+  //
+  // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
+  //        in this constuctor because the functions are properly invoked in the constructor of the
+  //        base class (Transformation).
+  //
 }
 
 

@@ -95,9 +95,12 @@ UncertParameter::UncertParameter(DistribPkgNamespaces *distribns)
   , mUncertParameters (new ListOfUncertParameters (distribns))
   , mMath (NULL)
 {
-  setElementNamespace(distribns->getURI());
   connectToChild();
-  loadPlugins(distribns);
+  //
+  // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
+  //        in this constuctor because the functions are properly invoked in the constructor of the
+  //        base class (Transformation).
+  //
 }
 
 

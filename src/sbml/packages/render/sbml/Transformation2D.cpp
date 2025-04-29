@@ -105,14 +105,12 @@ Transformation2D::Transformation2D(RenderPkgNamespaces *renderns)
   , mElementName("transformation2D")
 {
     this->updateMatrix2D();
-        // set the element namespace of this object
-  setElementNamespace(renderns->getURI());
-
-  // connect child elements to this element.
-  connectToChild();
-
-  // load package extensions bound with this object (if any) 
-  loadPlugins(renderns);
+    connectToChild();
+    //
+    // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
+    //        in this constuctor because the functions are properly invoked in the constructor of the
+    //        base class (Transformation).
+    //
 }
 
 /*
@@ -190,20 +188,19 @@ Transformation2D::~Transformation2D()
 /*
  * Constructor with id and values for the matrix.
  */
-Transformation2D::Transformation2D(RenderPkgNamespaces* renderns, const double matrix[6]):Transformation(renderns)
+Transformation2D::Transformation2D(RenderPkgNamespaces* renderns, const double matrix[6])
+    :Transformation(renderns)
 {
 #ifdef DEPRECATION_WARNINGS
     std::cerr << "Warning. Transformation2D::Transformation2D(const double matrix[6]) is deprecated." << std::endl;
 #endif // DEPRECATION_WARNINGS
     this->setMatrix2D(matrix);
-        // set the element namespace of this object
-  setElementNamespace(renderns->getURI());
-
-  // connect child elements to this element.
-  connectToChild();
-
-  // load package extensions bound with this object (if any) 
-  loadPlugins(renderns);
+    connectToChild();
+    //
+    // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
+    //        in this constuctor because the functions are properly invoked in the constructor of the
+    //        base class (Transformation).
+    //
 }
 /** @endcond */
 #endif // OMIT_DEPRECATED

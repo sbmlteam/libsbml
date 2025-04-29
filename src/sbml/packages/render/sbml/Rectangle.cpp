@@ -103,9 +103,12 @@ Rectangle::Rectangle (RenderPkgNamespaces* renderns)
   , mRatio(util_NaN())
   , mIsSetRatio(false)
 {
-  setElementNamespace(renderns->getURI());
-  connectToChild();
-  loadPlugins(renderns);
+    connectToChild();
+    //
+    // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
+    //        in this constuctor because the functions are properly invoked in the constructor of the
+    //        base class (Transformation).
+    //
 }
 
 
@@ -171,14 +174,12 @@ Rectangle::Rectangle(RenderPkgNamespaces* renderns, const std::string& id)
 #ifdef DEPRECATION_WARNINGS
     std::cerr << "Warning. Rectangle::Rectangle(const std::string& id) is deprecated." << std::endl;
 #endif // DEPRECATION_WARNINGS
-        // set the element namespace of this object
-  setElementNamespace(renderns->getURI());
-
-  // connect child elements to this element.
-  connectToChild();
-
-  // load package extensions bound with this object (if any) 
-  loadPlugins(renderns);
+    connectToChild();
+    //
+    // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
+    //        in this constuctor because the functions are properly invoked in the constructor of the
+    //        base class (Transformation).
+    //
 }
 /** @endcond */
 #endif // OMIT_DEPRECATED
@@ -220,14 +221,12 @@ Rectangle::Rectangle(RenderPkgNamespaces* renderns, const std::string& id,const 
 #ifdef DEPRECATION_WARNINGS
     std::cerr << "Warning. Rectangle::Rectangle(const std::string& id,const RelAbsVector& x,const RelAbsVector& y,const RelAbsVector& z,const RelAbsVector& w,const RelAbsVector& h) is deprecated." << std::endl;
 #endif // DEPRECATION_WARNINGS
-        // set the element namespace of this object
-  setElementNamespace(renderns->getURI());
-
-  // connect child elements to this element.
-  connectToChild();
-
-  // load package extensions bound with this object (if any) 
-  loadPlugins(renderns);
+    connectToChild();
+    //
+    // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
+    //        in this constuctor because the functions are properly invoked in the constructor of the
+    //        base class (Transformation).
+    //
 }
 /** @endcond */
 #endif // OMIT_DEPRECATED
@@ -267,14 +266,12 @@ Rectangle::Rectangle(RenderPkgNamespaces* renderns, const std::string& id,const 
 #ifdef DEPRECATION_WARNINGS
     std::cerr << "Warning. Rectangle::Rectangle(const std::string& id,const RelAbsVector& x,const RelAbsVector& y,const RelAbsVector& w,const RelAbsVector& h) is deprecated." << std::endl;
 #endif // DEPRECATION_WARNINGS
-        // set the element namespace of this object
-  setElementNamespace(renderns->getURI());
-
-  // connect child elements to this element.
-  connectToChild();
-
-  // load package extensions bound with this object (if any) 
-  loadPlugins(renderns);
+    connectToChild();
+    //
+    // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
+    //        in this constuctor because the functions are properly invoked in the constructor of the
+    //        base class (Transformation).
+    //
 }
 /** @endcond */
 #endif // OMIT_DEPRECATED

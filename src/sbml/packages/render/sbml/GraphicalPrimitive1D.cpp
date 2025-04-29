@@ -95,18 +95,16 @@ GraphicalPrimitive1D::GraphicalPrimitive1D(unsigned int level,
  */
 GraphicalPrimitive1D::GraphicalPrimitive1D(RenderPkgNamespaces *renderns)
   : Transformation2D(renderns)
-  , mStroke ("")
-    ,mStrokeWidth(std::numeric_limits<double>::quiet_NaN())
-  , mIsSetStrokeWidth (false)
+  , mStroke("")
+  , mStrokeWidth(std::numeric_limits<double>::quiet_NaN())
+  , mIsSetStrokeWidth(false)
 {
-      // set the element namespace of this object
-  setElementNamespace(renderns->getURI());
-
-  // connect child elements to this element.
-  connectToChild();
-
-  // load package extensions bound with this object (if any) 
-  loadPlugins(renderns);
+    connectToChild();
+    //
+    // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
+    //        in this constuctor because the functions are properly invoked in the constructor of the
+    //        base class (Transformation).
+    //
 }
 
 
@@ -176,14 +174,12 @@ GraphicalPrimitive1D::GraphicalPrimitive1D(RenderPkgNamespaces* renderns, const 
 #endif // DEPRECATION_WARNINGS
   setId(id);
 
-        // set the element namespace of this object
-  setElementNamespace(renderns->getURI());
-
-  // connect child elements to this element.
   connectToChild();
-
-  // load package extensions bound with this object (if any) 
-  loadPlugins(renderns);
+  //
+  // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
+  //        in this constuctor because the functions are properly invoked in the constructor of the
+  //        base class (Transformation).
+  //
 }
 /** @endcond */
 #endif // OMIT_DEPRECATED

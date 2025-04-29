@@ -107,9 +107,12 @@ Ellipse::Ellipse(RenderPkgNamespaces *renderns)
   , mRatio (util_NaN())
   , mIsSetRatio (false)
 {
-  setElementNamespace(renderns->getURI());
   connectToChild();
-  loadPlugins(renderns);
+  //
+  // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
+  //        in this constuctor because the functions are properly invoked in the constructor of the
+  //        base class (Transformation).
+  //
 }
 
 
@@ -169,14 +172,12 @@ Ellipse::Ellipse(const XMLNode& node, unsigned int l2version)
     std::cerr << "Warning. Ellipse::Ellipse(const std::string& id) is deprecated." << std::endl;
 #endif // DEPRECATION_WARNINGS
     setRadii(0.0,0.0);
-        // set the element namespace of this object
-  setElementNamespace(renderns->getURI());
-
-  // connect child elements to this element.
-  connectToChild();
-
-  // load package extensions bound with this object (if any) 
-  loadPlugins(renderns);
+    connectToChild();
+    //
+    // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
+    //        in this constuctor because the functions are properly invoked in the constructor of the
+    //        base class (Transformation).
+    //
 }
 /** @endcond */
 #endif // OMIT_DEPRECATED
@@ -209,14 +210,12 @@ Ellipse::Ellipse(RenderPkgNamespaces* renderns, const RelAbsVector& cx,const Rel
     std::cerr << "Warning. Ellipse::Ellipse(const RelAbsVector& cx,const RelAbsVector& cy,const RelAbsVector& r) is deprecated." << std::endl;
 #endif // DEPRECATION_WARNINGS
     setRadii(r,r);
-        // set the element namespace of this object
-  setElementNamespace(renderns->getURI());
-
-  // connect child elements to this element.
-  connectToChild();
-
-  // load package extensions bound with this object (if any) 
-  loadPlugins(renderns);
+    connectToChild();
+    //
+    // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
+    //        in this constuctor because the functions are properly invoked in the constructor of the
+    //        base class (Transformation).
+    //
 }
 /** @endcond */
 #endif // OMIT_DEPRECATED
@@ -242,14 +241,12 @@ Ellipse::Ellipse(RenderPkgNamespaces* renderns, const RelAbsVector& cx,const Rel
     std::cerr << "Warning. Ellipse::Ellipse(const RelAbsVector& cx,const RelAbsVector& cy,const RelAbsVector& rx,const RelAbsVector& ry) is deprecated." << std::endl;
 #endif // DEPRECATION_WARNINGS
     setRadii(rx,ry);
-        // set the element namespace of this object
-  setElementNamespace(renderns->getURI());
-
-  // connect child elements to this element.
-  connectToChild();
-
-  // load package extensions bound with this object (if any) 
-  loadPlugins(renderns);
+    connectToChild();
+    //
+    // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
+    //        in this constuctor because the functions are properly invoked in the constructor of the
+    //        base class (Transformation).
+    //
 }
 /** @endcond */
 #endif // OMIT_DEPRECATED
@@ -283,14 +280,12 @@ Ellipse::Ellipse(RenderPkgNamespaces* renderns, const RelAbsVector& cx,const Rel
     std::cerr << "Warning. Ellipse::Ellipse(const RelAbsVector& cx,const RelAbsVector& cy,const RelAbsVector& cz,const RelAbsVector& rx,const RelAbsVector& ry) is deprecated." << std::endl;
 #endif // DEPRECATION_WARNINGS
     setRadii(rx,ry);
-        // set the element namespace of this object
-  setElementNamespace(renderns->getURI());
-
-  // connect child elements to this element.
-  connectToChild();
-
-  // load package extensions bound with this object (if any) 
-  loadPlugins(renderns);
+    connectToChild();
+    //
+    // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
+    //        in this constuctor because the functions are properly invoked in the constructor of the
+    //        base class (Transformation).
+    //
 }
 /** @endcond */
 #endif // OMIT_DEPRECATED
@@ -323,14 +318,12 @@ Ellipse::Ellipse(RenderPkgNamespaces* renderns, const std::string& id,const RelA
     std::cerr << "Warning. Ellipse::Ellipse(const std::string& id,const RelAbsVector& cx,const RelAbsVector& cy,const RelAbsVector& r) is deprecated." << std::endl;
 #endif // DEPRECATION_WARNINGS
     setRadii(r,r);
-        // set the element namespace of this object
-  setElementNamespace(renderns->getURI());
-
-  // connect child elements to this element.
-  connectToChild();
-
-  // load package extensions bound with this object (if any) 
-  loadPlugins(renderns);
+    connectToChild();
+    //
+    // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
+    //        in this constuctor because the functions are properly invoked in the constructor of the
+    //        base class (Transformation).
+    //
 }
 /** @endcond */
 #endif // OMIT_DEPRECATED
@@ -365,14 +358,12 @@ Ellipse::Ellipse(RenderPkgNamespaces* renderns, const std::string& id,const RelA
     std::cerr << "Warning. Ellipse::Ellipse(const std::string& id,const RelAbsVector& cx,const RelAbsVector& cy,const RelAbsVector& rx,const RelAbsVector& ry) is deprecated." << std::endl;
 #endif // DEPRECATION_WARNINGS
     setRadii(rx,ry);
-        // set the element namespace of this object
-  setElementNamespace(renderns->getURI());
-
-  // connect child elements to this element.
-  connectToChild();
-
-  // load package extensions bound with this object (if any) 
-  loadPlugins(renderns);
+    connectToChild();
+    //
+    // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
+    //        in this constuctor because the functions are properly invoked in the constructor of the
+    //        base class (Transformation).
+    //
 }
 /** @endcond */
 #endif // OMIT_DEPRECATED
@@ -407,14 +398,12 @@ Ellipse::Ellipse(RenderPkgNamespaces* renderns, const std::string& id,const RelA
     std::cerr << "Warning. Ellipse::Ellipse(const std::string& id,const RelAbsVector& cx,const RelAbsVector& cy,const RelAbsVector& cz,const RelAbsVector& rx,const RelAbsVector& ry) is deprecated." << std::endl;
 #endif // DEPRECATION_WARNINGS
     setRadii(rx,ry);
-        // set the element namespace of this object
-  setElementNamespace(renderns->getURI());
-
-  // connect child elements to this element.
-  connectToChild();
-
-  // load package extensions bound with this object (if any) 
-  loadPlugins(renderns);
+    connectToChild();
+    //
+    // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
+    //        in this constuctor because the functions are properly invoked in the constructor of the
+    //        base class (Transformation).
+    //
 }
 /** @endcond */
 #endif // OMIT_DEPRECATED
