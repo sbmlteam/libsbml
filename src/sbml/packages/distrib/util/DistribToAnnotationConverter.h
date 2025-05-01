@@ -133,6 +133,8 @@ public:
 
   bool getWriteMeans();
 
+  bool getUseUncertML();
+
 
   /** @cond doxygenLibsbmlInternal */
   /**
@@ -178,8 +180,9 @@ private:
   std::string getUnusedIDFor(ASTNodeType_t type, Model * model);
 
   bool replaceDistribWithFunctionCalls(ASTNode * astn, Model* model);
-  std::string getWikipediaURLFor(ASTNodeType_t type);
-  bool addFunctionDefinitionWith(Model * model, const std::string& id, ASTNodeType_t type, unsigned int nargs);
+  static std::string getWikipediaURLFor(ASTNodeType_t type);
+  static std::string getUncertMLURLFor(ASTNodeType_t type);
+  bool addFunctionDefinitionWith(Model * model, const std::string& id, ASTNodeType_t type, unsigned int nargs, bool useUncertML=false);
 
   //Member variables
   std::map<ASTNodeType_t, std::string> mCreatedFunctions;
