@@ -1144,6 +1144,11 @@ KeyValuePair::toXML() const
   XMLToken token = XMLToken(triple, att, xmlns);
   XMLNode node(token);
 
+  if(mNotes) node.addChild(*this->mNotes);
+  const_cast <KeyValuePair *> (this)->syncAnnotation();
+  if(mAnnotation) node.addChild(*this->mAnnotation);  
+
+
   return node;
 }
 
