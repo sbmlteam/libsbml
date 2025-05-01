@@ -50,6 +50,7 @@
 
 #include <algorithm>
 #include <string>
+#include "DistribToAnnotationConverter.h"
 
 using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -103,6 +104,7 @@ DistribToAnnotationConverter::getDefaultProperties() const
   static ConversionProperties prop;
   prop.addOption("convert distrib to annotations", true, "convert distrib to annotations");
   prop.addOption("writeMeans", false, "Created functions return means of distributions instead of NaN");
+  prop.addOption("useUncertMLNamespaces", false, "Use the UncertML namespace for the annotation instead of Wikipedia ones");
   return prop;
 }
 
@@ -141,7 +143,19 @@ DistribToAnnotationConverter::getWriteMeans()
     return getProperties()->getBoolValue("writeMeans");
   }
 }
-/** @cond doxygenLibsbmlInternal */
+
+bool DistribToAnnotationConverter::getUseUncertML()
+{
+  if (getProperties() == NULL)
+  {
+    return false;
+  }
+  else
+  {
+    return getProperties()->getBoolValue("useUncertMLNamespaces");
+  }
+}
+
 int 
 DistribToAnnotationConverter::performConversion()
 {
@@ -222,7 +236,7 @@ DistribToAnnotationConverter::replaceDistribWithFunctionCalls(ASTNode* astn, Mod
     astn->setType(AST_FUNCTION);
     astn->setName(newid.c_str());
     astn->setDefinitionURL("");
-    if (addFunctionDefinitionWith(model, newid, type, astn->getNumChildren())) {
+    if (addFunctionDefinitionWith(model, newid, type, astn->getNumChildren(), getUseUncertML())) {
       return true;
     }
     break;
@@ -237,6 +251,48 @@ DistribToAnnotationConverter::replaceDistribWithFunctionCalls(ASTNode* astn, Mod
   return false;
 }
 
+string DistribToAnnotationConverter::getUncertMLURLFor(ASTNodeType_t type)
+{
+  switch (type) {
+  case AST_DISTRIB_FUNCTION_NORMAL:
+    return "http://www.uncertml.org/distributions/normal";
+    break;
+  case AST_DISTRIB_FUNCTION_UNIFORM:
+    return "http://www.uncertml.org/distributions/uniform";
+  case AST_DISTRIB_FUNCTION_BERNOULLI:
+    return "http://www.uncertml.org/distributions/bernoulli";
+    break;
+  case AST_DISTRIB_FUNCTION_BINOMIAL:
+    return "http://www.uncertml.org/distributions/binomial";
+    break;
+  case AST_DISTRIB_FUNCTION_CAUCHY:
+    return "http://www.uncertml.org/distributions/cauchy";
+    break;
+  case AST_DISTRIB_FUNCTION_CHISQUARE:
+    return "http://www.uncertml.org/distributions/chisquare";
+    break;
+  case AST_DISTRIB_FUNCTION_EXPONENTIAL:
+    return "http://www.uncertml.org/distributions/exponential";
+    break;
+  case AST_DISTRIB_FUNCTION_GAMMA:
+    return "http://www.uncertml.org/distributions/gamma";
+    break;
+  case AST_DISTRIB_FUNCTION_LAPLACE:
+    return "http://www.uncertml.org/distributions/laplace";
+    break;
+  case AST_DISTRIB_FUNCTION_LOGNORMAL:
+    return "http://www.uncertml.org/distributions/log-normal";
+    break;
+  case AST_DISTRIB_FUNCTION_POISSON:
+    return "http://www.uncertml.org/distributions/poisson";
+    break;
+  case AST_DISTRIB_FUNCTION_RAYLEIGH:
+    return "http://www.uncertml.org/distributions/weibull";
+    break;
+  default:
+    return "";
+  }
+}
 string DistribToAnnotationConverter::getWikipediaURLFor(ASTNodeType_t type)
 {
   switch (type) {
@@ -275,12 +331,13 @@ string DistribToAnnotationConverter::getWikipediaURLFor(ASTNodeType_t type)
   case AST_DISTRIB_FUNCTION_RAYLEIGH:
     return "http://en.wikipedia.org/wiki/Rayleigh_distribution";
     break;
+  default:
+    return "";
   }
-  return "";
 }
 
 bool
-DistribToAnnotationConverter::addFunctionDefinitionWith(Model* model, const string& id, ASTNodeType_t type, unsigned int nargs)
+DistribToAnnotationConverter::addFunctionDefinitionWith(Model* model, const string& id, ASTNodeType_t type, unsigned int nargs, bool useUncertML)
 {
   DistribASTPlugin dastp;
   vector<unsigned int> nallowed = dastp.getNumAllowedChildren(type);
@@ -356,8 +413,13 @@ DistribToAnnotationConverter::addFunctionDefinitionWith(Model* model, const stri
   string lstr = "lambda(" + args + ", " + ret + ")";
   ASTNode* lambda = SBML_parseL3Formula(lstr.c_str());
   fd->setMath(lambda);
-  string wikipedia = getWikipediaURLFor(type);
-  string annot = "<annotation> <distribution xmlns=\"http://sbml.org/annotations/distribution\" definition=\"" + getWikipediaURLFor(type) + "\" /> </annotation> ";
+  std::string annot;
+  if (useUncertML) {
+    annot = "<annotation> <distribution xmlns=\"http://sbml.org/annotations/distribution\" definition=\"" + getUncertMLURLFor(type) + "\" /> </annotation> ";
+  }
+  else {
+    annot = "<annotation> <distribution xmlns=\"http://sbml.org/annotations/distribution\" definition=\"" + getWikipediaURLFor(type) + "\" /> </annotation> ";
+  }
   fd->setAnnotation(annot);
   mCreatedFunctions.insert(make_pair(type, id));
   return false;

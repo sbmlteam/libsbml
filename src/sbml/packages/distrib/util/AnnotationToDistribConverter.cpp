@@ -199,59 +199,51 @@ AnnotationToDistribConverter::convertModel(Model* model)
       continue;
     }
     string value = attrs.getValue(defindex);
-    if (value == "http://en.wikipedia.org/wiki/Normal_distribution")
+    if (value == "http://en.wikipedia.org/wiki/Normal_distribution" || value == "http://en.wikipedia.org/wiki/Truncated_normal_distribution" || value == "http://www.uncertml.org/distributions/normal")
     {
       replacements[funcdef->getId()] = AST_DISTRIB_FUNCTION_NORMAL;
     }
-    else if (value == "http://en.wikipedia.org/wiki/Truncated_normal_distribution")
-    {
-      replacements[funcdef->getId()] = AST_DISTRIB_FUNCTION_NORMAL;
-    }
-    else if (value == "http://en.wikipedia.org/wiki/Uniform_distribution")
+    else if (value == "http://en.wikipedia.org/wiki/Uniform_distribution" || value == "http://en.wikipedia.org/wiki/Uniform_distribution_(continuous)" || value == "http://www.uncertml.org/distributions/uniform")
     {
       replacements[funcdef->getId()] = AST_DISTRIB_FUNCTION_UNIFORM;
     }
-    else if (value == "http://en.wikipedia.org/wiki/Uniform_distribution_(continuous)")
-    {
-      replacements[funcdef->getId()] = AST_DISTRIB_FUNCTION_UNIFORM;
-    }
-    else if (value == "http://en.wikipedia.org/wiki/Exponential_distribution")
+    else if (value == "http://en.wikipedia.org/wiki/Exponential_distribution" || value == "http://www.uncertml.org/distributions/exponential")
     {
       replacements[funcdef->getId()] = AST_DISTRIB_FUNCTION_EXPONENTIAL;
     }
-    else if (value == "http://en.wikipedia.org/wiki/Gamma_distribution")
+    else if (value == "http://en.wikipedia.org/wiki/Gamma_distribution" || value == "http://www.uncertml.org/distributions/gamma")
     {
       replacements[funcdef->getId()] = AST_DISTRIB_FUNCTION_GAMMA;
     }
-    else if (value == "http://en.wikipedia.org/wiki/Poisson_distribution")
+    else if (value == "http://en.wikipedia.org/wiki/Poisson_distribution" || value == "http://www.uncertml.org/distributions/poisson")
     {
       replacements[funcdef->getId()] = AST_DISTRIB_FUNCTION_POISSON;
     }
-    else if (value == "http://en.wikipedia.org/wiki/Log-normal_distribution")
+    else if (value == "http://en.wikipedia.org/wiki/Log-normal_distribution" || value == "http://www.uncertml.org/distributions/log-normal")
     {
       replacements[funcdef->getId()] = AST_DISTRIB_FUNCTION_LOGNORMAL;
     }
-    else if (value == "http://en.wikipedia.org/wiki/Chi-squared_distribution")
+    else if (value == "http://en.wikipedia.org/wiki/Chi-squared_distribution" || value == "http://www.uncertml.org/distributions/chisquare")
     {
       replacements[funcdef->getId()] = AST_DISTRIB_FUNCTION_CHISQUARE;
     }
-    else if (value == "http://en.wikipedia.org/wiki/Laplace_distribution")
+    else if (value == "http://en.wikipedia.org/wiki/Laplace_distribution" || value == "http://www.uncertml.org/distributions/laplace")
     {
       replacements[funcdef->getId()] = AST_DISTRIB_FUNCTION_LAPLACE;
     }
-    else if (value == "http://en.wikipedia.org/wiki/Cauchy_distribution")
+    else if (value == "http://en.wikipedia.org/wiki/Cauchy_distribution" || value == "http://www.uncertml.org/distributions/cauchy")
     {
       replacements[funcdef->getId()] = AST_DISTRIB_FUNCTION_CAUCHY;
     }
-    else if (value == "http://en.wikipedia.org/wiki/Rayleigh_distribution")
+    else if (value == "http://en.wikipedia.org/wiki/Rayleigh_distribution" || value == "http://www.uncertml.org/distributions/weibull")
     {
       replacements[funcdef->getId()] = AST_DISTRIB_FUNCTION_RAYLEIGH;
     }
-    else if (value == "http://en.wikipedia.org/wiki/Binomial_distribution")
+    else if (value == "http://en.wikipedia.org/wiki/Binomial_distribution" || value == "http://www.uncertml.org/distributions/binomial")
     {
       replacements[funcdef->getId()] = AST_DISTRIB_FUNCTION_BINOMIAL;
     }
-    else if (value == "http://en.wikipedia.org/wiki/Bernoulli_distribution")
+    else if (value == "http://en.wikipedia.org/wiki/Bernoulli_distribution" || value == "http://www.uncertml.org/distributions/bernoulli")
     {
       replacements[funcdef->getId()] = AST_DISTRIB_FUNCTION_BERNOULLI;
     }
