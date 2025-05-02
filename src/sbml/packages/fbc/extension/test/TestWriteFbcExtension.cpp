@@ -478,7 +478,7 @@ START_TEST(test_FbcExtension_create_and_write_L3V1V3)
   //kvp4->setValue("doc-value");
   string s1 = writeSBMLToStdString(document);
 
-  cout << s1 << endl;
+  //cout << s1 << endl;
   fail_unless(s1.find("MyResourceThatWillBeWrittenAndRead") != string::npos);
   fail_unless(s1.find("metaid=\"metaid_kvp\"") != string::npos);
 
