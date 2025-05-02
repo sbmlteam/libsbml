@@ -1141,6 +1141,16 @@ KeyValuePair::toXML() const
     att.add("uri", mUri);
   }
 
+  if (isSetMetaId() == true)
+  {
+    att.add("metaid", mMetaId);
+  }
+
+  if (isSetSBOTerm() == true)
+  {
+    att.add("sboTerm", getSBOTermID());
+  }
+
   XMLToken token = XMLToken(triple, att, xmlns);
   XMLNode node(token);
 
