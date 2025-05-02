@@ -565,7 +565,16 @@ std::string util_markdown_to_html(const std::string& markdown)
 
 std::string util_html_to_markdown(const std::string& html)
 {
-    return html2md::Convert(html);
+    std::regex pattern("[Hh][Rr][Ee][Ff] *= *");
+    std::string copy = std::regex_replace(html, pattern, "href=");
+    
+    pattern = "< *([a-zA-Z]*) */ *>";
+    copy = std::regex_replace(copy, pattern, "<$1></$1>");
+
+    pattern = "< */ *([a-zA-Z]*) *>";
+    copy = std::regex_replace(copy, pattern, "</$1>");
+
+    return html2md::Convert(copy);
 }
 
 
