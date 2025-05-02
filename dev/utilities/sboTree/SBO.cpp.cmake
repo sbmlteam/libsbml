@@ -7,6 +7,11 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
+ * Copyright (C) 2020 jointly by the following organizations:
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. University of Heidelberg, Heidelberg, Germany
+ *     3. University College London, London, UK
+ *
  * Copyright (C) 2019 jointly by the following organizations:
  *     1. California Institute of Technology, Pasadena, CA, USA
  *     2. University of Heidelberg, Heidelberg, Germany
@@ -51,13 +56,13 @@
 using namespace std;
 /** @endcond */
 
-LIBSBML_CPP_NAMESPACE_BEGIN
-
 #ifdef __cplusplus
+
+LIBSBML_CPP_NAMESPACE_BEGIN
 
 /** @cond doxygenLibsbmlInternal */
 /*
- * @return true if sboTerm is in the correct format (a zero-padded, seven
+ * @return @c true if sboTerm is in the correct format (a zero-padded, seven
  * digit string preceded by SBO:), false otherwise.
  */
 bool
@@ -84,7 +89,7 @@ SBO::checkTerm (const std::string& sboTerm)
 
 /** @cond doxygenLibsbmlInternal */
 /*
- * @return true if sboTerm is in the range [0 -- 9999999], false
+ * @return @c true if sboTerm is in the range [0 -- 9999999], false
  * otherwise.
  */
 bool
@@ -98,7 +103,7 @@ SBO::checkTerm (int sboTerm)
 /*
  * Reads (and checks) sboTerm from the given XMLAttributes set.
  *
- * @return the sboTerm as an integer or -1 if the sboTerm was not in the
+ * @return the sboTerm as an integer or @c -1 if the sboTerm was not in the
  * correct format or not found.
  */
 int
@@ -127,7 +132,7 @@ SBO::readTerm (const XMLAttributes& attributes, SBMLErrorLog* log,
  * Writes sboTerm as an XMLAttribute to the given XMLOutputStream.
  */
 void
-SBO::writeTerm (XMLOutputStream& stream, int sboTerm, const std::string& prefix)
+SBO::writeTerm (XMLOutputStream& stream, int sboTerm, const std::string prefix)
 {
   stream.writeAttribute( "sboTerm", prefix, intToString(sboTerm) );
 }
@@ -430,7 +435,7 @@ SBO::isParticipant  (unsigned int sboTerm)
 /*
  * Function for checking the SBO term is from correct part of SBO.
  *
- * @return true if the term is-a Interaction, false otherwise
+ * @return @c true if the term is-a Interaction, false otherwise
  */
 bool
 SBO::isInteraction  (unsigned int sboTerm)
@@ -441,7 +446,7 @@ SBO::isInteraction  (unsigned int sboTerm)
 /*
  * Function for checking the SBO term is from correct part of SBO.
  *
- * @return true if the term is-a Entity, false otherwise
+ * @return @c true if the term is-a Entity, false otherwise
  */
 bool
 SBO::isEntity  (unsigned int sboTerm)
@@ -452,7 +457,7 @@ SBO::isEntity  (unsigned int sboTerm)
 /*
  * Function for checking the SBO term is from correct part of SBO.
  *
- * @return true if the term is-a FunctionalEntity, false otherwise
+ * @return @c true if the term is-a FunctionalEntity, false otherwise
  */
 bool
 SBO::isFunctionalEntity  (unsigned int sboTerm)
@@ -468,7 +473,7 @@ SBO::isFunctionalEntity  (unsigned int sboTerm)
 /*
  * Function for checking the SBO term is from correct part of SBO.
  *
- * @return true if the term is-a MaterialEntity, false otherwise
+ * @return @c true if the term is-a MaterialEntity, false otherwise
  */
 bool
 SBO::isMaterialEntity  (unsigned int sboTerm)
@@ -484,7 +489,7 @@ SBO::isMaterialEntity  (unsigned int sboTerm)
 /*
  * Function for checking the SBO term is from correct part of SBO.
  *
- * @return true if the term is-a ConservationLaw, false otherwise
+ * @return @c true if the term is-a ConservationLaw, false otherwise
  */
 bool
 SBO::isConservationLaw  (unsigned int sboTerm)
@@ -500,7 +505,7 @@ SBO::isConservationLaw  (unsigned int sboTerm)
 /*
  * Function for checking the SBO term is from correct part of SBO.
  *
- * @return true if the term is-a SteadyStateExpression, false otherwise
+ * @return @c true if the term is-a SteadyStateExpression, false otherwise
  */
 bool
 SBO::isSteadyStateExpression  (unsigned int sboTerm)
@@ -516,7 +521,7 @@ SBO::isSteadyStateExpression  (unsigned int sboTerm)
 /*
  * Function for checking the SBO term is from correct part of SBO.
  *
- * @return true if the term is-a FunctionalCompartment, false otherwise
+ * @return @c true if the term is-a FunctionalCompartment, false otherwise
  */
 bool
 SBO::isFunctionalCompartment  (unsigned int sboTerm)
@@ -532,7 +537,7 @@ SBO::isFunctionalCompartment  (unsigned int sboTerm)
 /*
  * Function for checking the SBO term is from correct part of SBO.
  *
- * @return true if the term is-a ContinuousFramework, false otherwise
+ * @return @c true if the term is-a ContinuousFramework, false otherwise
  */
 bool
 SBO::isContinuousFramework  (unsigned int sboTerm)
@@ -548,7 +553,7 @@ SBO::isContinuousFramework  (unsigned int sboTerm)
 /*
  * Function for checking the SBO term is from correct part of SBO.
  *
- * @return true if the term is-a DiscreteFramework, false otherwise
+ * @return @c true if the term is-a DiscreteFramework, false otherwise
  */
 bool
 SBO::isDiscreteFramework  (unsigned int sboTerm)
@@ -564,7 +569,7 @@ SBO::isDiscreteFramework  (unsigned int sboTerm)
 /*
  * Function for checking the SBO term is from correct part of SBO.
  *
- * @return true if the term is-a LogicalFramework, false otherwise
+ * @return @c true if the term is-a LogicalFramework, false otherwise
  */
 bool
 SBO::isLogicalFramework  (unsigned int sboTerm)
@@ -581,7 +586,7 @@ SBO::isLogicalFramework  (unsigned int sboTerm)
 /*
  * Function for checking the SBO term is from correct part of SBO.
  *
- * @return true if the term is-a MetadataRepresentation, false otherwise
+ * @return @c true if the term is-a MetadataRepresentation, false otherwise
  */
 bool
 SBO::isMetadataRepresentation  (unsigned int sboTerm)
@@ -598,7 +603,7 @@ SBO::isMetadataRepresentation  (unsigned int sboTerm)
 /*
  * Function for checking the SBO term is from correct part of SBO.
  *
- * @return true if the term is-a OccurringEntityRepresentation, false otherwise
+ * @return @c true if the term is-a OccurringEntityRepresentation, false otherwise
  */
 bool
 SBO::isOccurringEntityRepresentation  (unsigned int sboTerm)
@@ -615,7 +620,7 @@ SBO::isOccurringEntityRepresentation  (unsigned int sboTerm)
 /*
  * Function for checking the SBO term is from correct part of SBO.
  *
- * @return true if the term is-a PhysicalEntityRepresentation, false otherwise
+ * @return @c true if the term is-a PhysicalEntityRepresentation, false otherwise
  */
 bool
 SBO::isPhysicalEntityRepresentation  (unsigned int sboTerm)
@@ -632,7 +637,7 @@ SBO::isPhysicalEntityRepresentation  (unsigned int sboTerm)
 /*
  * Function for checking the SBO term is from correct part of SBO.
  *
- * @return true if the term is-a SystemsDescriptionParameter, false otherwise
+ * @return @c true if the term is-a SystemsDescriptionParameter, false otherwise
  */
 bool
 SBO::isSystemsDescriptionParameter  (unsigned int sboTerm)
@@ -660,7 +665,7 @@ SBO::isQuantitativeSystemsDescriptionParameter  (unsigned int sboTerm)
 /*
  * Function for checking the SBO term is Obselete
  *
- * @return true if the term is-a Obselete, false otherwise
+ * @return @c true if the term is-a Obselete, false otherwise
  */
 bool
 SBO::isObselete  (unsigned int sboTerm)
@@ -710,8 +715,8 @@ ${NEW_TERMS}
 }
 /** @endcond */
 
-#endif /* __cplusplus */  
 /** @cond doxygenIgnored */
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END
+#endif /* __cplusplus */  
