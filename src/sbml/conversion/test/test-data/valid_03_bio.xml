@@ -17,7 +17,7 @@
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <apply>
             <times/>
-            <cn type="integer"> 2 </cn>
+            <cn> 2 </cn>
             <ci> t </ci>
           </apply>
         </math>

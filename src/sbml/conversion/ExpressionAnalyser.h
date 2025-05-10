@@ -393,7 +393,7 @@ public:
 */
     void addParametersAndRateRules(SubstitutionValues_t* exp = NULL);
 
-    void replaceExpressionInNodeWithNode(ASTNode* node, ASTNode* replaced, ASTNode* replacement);
+    bool replaceExpressionInNodeWithNode(ASTNode* node, ASTNode* replaced, ASTNode* replacement);
 
     friend class SBMLReactionConverter;
     // member variables populated during analysis

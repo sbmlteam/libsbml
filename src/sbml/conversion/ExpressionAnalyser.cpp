@@ -692,16 +692,18 @@ ExpressionAnalyser::detectHiddenSpecies(bool testing)
 * param replaced ASTNode * node to be replaced if found in parent node
 * param replacement
 */
-void
+bool
 ExpressionAnalyser::replaceExpressionInNodeWithNode(ASTNode* node, ASTNode* replaced, ASTNode* replacement)
 {
+    bool replacementMade = false;
+    if (node == NULL || replaced == NULL || replacement == NULL)
+    {
+        return replacementMade;
+    }
+
     cout << "node " << SBML_formulaToL3String(node) << endl;
     cout << "replaced " << SBML_formulaToL3String(replaced) << endl;
     cout << "replacement " << SBML_formulaToL3String(replacement) << endl;
-    if (node == NULL)
-    {
-    return;
-    }
     // we might be replcing the whole node
     if (node->exactlyEqual(*replaced))
     {
@@ -709,9 +711,8 @@ ExpressionAnalyser::replaceExpressionInNodeWithNode(ASTNode* node, ASTNode* repl
         // this is a bit of a hack but it works
         // we need to make sure that we are not deleting the replacement as it is now owned by the parent node
         // so we need to deep copy it first
-        ASTNode* replacementCopy = replacement->deepCopy();
-        delete node;
-        node = replacementCopy;
+        *node = *replacement;
+        replacementMade = true;
     }
     else
     {
@@ -725,11 +726,13 @@ ExpressionAnalyser::replaceExpressionInNodeWithNode(ASTNode* node, ASTNode* repl
             index = currentParentAndIndex.second;
             if (currentParent != NULL)
             {
-            currentParent->replaceChild(index, replacement->deepCopy(), false);
+                currentParent->replaceChild(index, replacement->deepCopy(), false);
+                replacementMade = true;
             // intentionally, don't delete replacement as it's now owned by currentParent!
             }
         } while (currentParent != NULL);
     }
+    return replacementMade;
 }
 
 std::string
