@@ -558,14 +558,38 @@ std::string util_markdown_to_html(const std::string& markdown)
     //config->enabledParsers |= maddy::types::HTML_PARSER; // do not wrap HTML in paragraph
     //std::shared_ptr<maddy::Parser> parser = std::make_shared<maddy::Parser>(config);
 
-    std::stringstream markdownInput(markdown);
+    //Note:  tried to figure out difference between genuine HTML-ish of &, < and > vs. 
+    // ones that needed to be encoded, but failed. Everything will officially
+    // translate if we encode them all indiscriminately, so hey!  Here we go.
+    std::regex pattern("&");
+    std::string copy = std::regex_replace(markdown, pattern, "&amp;");
+
+    pattern = "&amp;amp;";
+    copy = std::regex_replace(copy, pattern, "&amp;");
+
+    pattern = "<";
+    copy = std::regex_replace(copy, pattern, "&lt;");
+
+    pattern = ">";
+    copy = std::regex_replace(copy, pattern, "&gt;");
+
+    std::stringstream markdownInput(copy);
     static maddy::Parser parser;
     return parser.Parse(markdownInput);
 }
 
 std::string util_html_to_markdown(const std::string& html)
 {
-    return html2md::Convert(html);
+    std::regex pattern("[Hh][Rr][Ee][Ff] *= *");
+    std::string copy = std::regex_replace(html, pattern, "href=");
+    
+    pattern = "< *([a-zA-Z]*) */ *>";
+    copy = std::regex_replace(copy, pattern, "<$1></$1>");
+
+    pattern = "< */ *([a-zA-Z]*) *>";
+    copy = std::regex_replace(copy, pattern, "</$1>");
+
+    return html2md::Convert(copy);
 }
 
 

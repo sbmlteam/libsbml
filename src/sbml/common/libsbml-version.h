@@ -51,7 +51,7 @@
  *
  * A version string of the form "1.2.3".
  */
-#define LIBSBML_DOTTED_VERSION	"5.20.4"
+#define LIBSBML_DOTTED_VERSION	"5.20.5"
 
 
 /**
