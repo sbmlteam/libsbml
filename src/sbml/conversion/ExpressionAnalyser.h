@@ -180,7 +180,7 @@ private:
   */
   void addParametersAndRateRules(List* hiddenSpecies);
 
-  void replaceExpressionInNodeWithNode(ASTNode* node, ASTNode* replaced, ASTNode* replacement);
+  bool replaceExpressionInNodeWithNode(ASTNode* node, ASTNode* replaced, ASTNode* replacement);
 
   void replaceExpressionInNodeWithVar(ASTNode* node, ASTNode* replaced, std::string var);
 
@@ -237,6 +237,7 @@ private:
   Model* mModel;
 
   std::vector <SubstitutionValues_t*> mExpressions;
+    friend class SBMLReactionConverter;
 
   // variables to ensure unique new parameter name
 
