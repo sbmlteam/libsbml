@@ -1,4 +1,3 @@
-
 /**
  * @file    ExpressionAnalyser.cpp
  * @brief   Implementation of ExpressionAnalyser
@@ -53,23 +52,33 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 
 ExpressionAnalyser::ExpressionAnalyser()
+    : mModel (NULL), 
+      mODEs (),
+    mNewVarName("newVar"),
+    mNewVarCount(1)
 {
 }
+
 
 
 ExpressionAnalyser::ExpressionAnalyser(Model * m, pairODEs odes)
+    : mModel(m),
+    mODEs(odes),
+    mNewVarName("newVar"),
+    mNewVarCount(1)
 {
-  mModel = m;
-  mODEs = odes;
   SBMLTransforms::mapComponentValues(mModel);
   mModel->populateAllElementIdList();
-  mNewVarName = "newVar";
-  mNewVarCount = 1;
 }
 
 ExpressionAnalyser::ExpressionAnalyser(const ExpressionAnalyser& orig) :
-  mModel( orig.mModel)
+  mModel( orig.mModel),
+    mODEs(orig.mODEs),
+    mNewVarName(orig.mNewVarName),
+    mNewVarCount(orig.mNewVarCount)
 {
+    SBMLTransforms::mapComponentValues(mModel);
+    mModel->populateAllElementIdList();
 }
 
 /*
@@ -81,7 +90,13 @@ ExpressionAnalyser::operator=(const ExpressionAnalyser& rhs)
   if (&rhs != this)
   {
     mModel = rhs.mModel;
+    mODEs = rhs.mODEs;
+    mNewVarName = rhs.mNewVarName;
+    mNewVarCount = rhs.mNewVarCount;
   }
+  SBMLTransforms::mapComponentValues(mModel);
+  mModel->populateAllElementIdList();
+
 
   return *this;
 }
@@ -97,17 +112,14 @@ ExpressionAnalyser::clone() const
  */
 ExpressionAnalyser::~ExpressionAnalyser ()
 {
-  for (std::vector<std::pair<std::string, ASTNode*> >::iterator it = mODEs.begin(); it != mODEs.end(); ++it)
-  {
-    if (it->second != NULL)
-    {
-      delete it->second;
-      it->second = NULL;
-    }
-  }
-  mODEs.clear();
+  // note the odes are owned by the converter
   SBMLTransforms::clearComponentValues(mModel);
+  if (mExpressions.size() > 0)
+  {
+    mExpressions.clear();
+  }
 }
+
 
 /*
 * Set ode pairs
@@ -441,40 +453,101 @@ ExpressionAnalyser::detectHiddenSpecies(List * hiddenSpecies)
 * param replaced ASTNode * node to be replaced if found in parent node
 * param replacement
 */
-void
+bool
 ExpressionAnalyser::replaceExpressionInNodeWithNode(ASTNode* node, ASTNode* replaced, ASTNode* replacement)
 {
-  if (node == NULL)
-  {
-    return;
-  }
-  //cout << "node: " << SBML_formulaToL3String(node) << endl;
-  //cout << "with: " << SBML_formulaToL3String(replaced) << endl;
-  //cout << "by: " << SBML_formulaToL3String(replacement) << endl;
-  // we might be replcing the whole node
-  if (node == replaced)
-  {
-    replaced = node->deepCopy();
-    (*node) = *replacement;
-  }
-  else
-  {
-    std::pair<ASTNode*, int>currentParentAndIndex = make_pair((ASTNode*)NULL, (int)(NAN));
-    ASTNode* currentParent;
-    int index;
-    do
+    bool replacementMade = false;
+    if (node == NULL || replaced == NULL || replacement == NULL)
     {
-      currentParentAndIndex = getParentNode(replaced, node);
-      currentParent = currentParentAndIndex.first;
-      index = currentParentAndIndex.second;
-      if (currentParent != NULL)
-      {
-        currentParent->replaceChild(index, replacement->deepCopy(), false);
-        // intentionally, don't delete replacement as it's now owned by currentParent!
-      }
-    } while (currentParent != NULL);
-  }
+        return replacementMade;
+    }
+
+    //cout << "node " << SBML_formulaToL3String(node) << endl;
+    //cout << "replaced " << SBML_formulaToL3String(replaced) << endl;
+    //cout << "replacement " << SBML_formulaToL3String(replacement) << endl;
+    // we might be replcing the whole node
+    if (node->exactlyEqual(*replaced))
+    {
+        // delete the node and replace it with the replacement
+        // this is a bit of a hack but it works
+        // we need to make sure that we are not deleting the replacement as it is now owned by the parent node
+        // so we need to deep copy it first
+        *node = *replacement;
+        replacementMade = true;
+    }
+    else
+    {
+        std::pair<ASTNode*, int>currentParentAndIndex = make_pair((ASTNode*)NULL, (int)(NAN));
+        ASTNode* currentParent;
+        int index;
+        do
+        {
+            currentParentAndIndex = getParentNode(replaced, node);
+            currentParent = currentParentAndIndex.first;
+            index = currentParentAndIndex.second;
+            if (currentParent != NULL)
+            {
+                currentParent->replaceChild(index, replacement->deepCopy(), false);
+                replacementMade = true;
+            // intentionally, don't delete replacement as it's now owned by currentParent!
+            }
+        } while (currentParent != NULL);
+    }
+    return replacementMade;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 void
 ExpressionAnalyser::replaceExpressionInNodeWithVar(ASTNode* node, ASTNode* replaced, std::string var)
