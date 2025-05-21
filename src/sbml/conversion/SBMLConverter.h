@@ -294,6 +294,7 @@ public:
    */
   const std::string& getName() const;
 
+  bool mathContainsId(const ASTNode* ast, const std::string& id) const;
 
 protected:
   /** @cond doxygenLibsbmlInternal */
