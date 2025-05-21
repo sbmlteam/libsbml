@@ -268,13 +268,13 @@ END_TEST
 START_TEST(test_reactionconversion_010)
 {
     std::string filename(TestDataDirectory);
-    filename += "valid_010_rr.xml";
+    filename += "invalid_010_bio.xml";
     std::string filename1(TestDataDirectory);
-    filename1 += "valid_010_bio.xml";
+    filename1 += "invalid_010_bio.xml";
     SBMLDocument* d_rule = readSBMLFromFile(filename.c_str());
     SBMLDocument* d_rn = readSBMLFromFile(filename1.c_str());
     rn_rule_converter->setDocument(d_rn);
-    fail_unless(rn_rule_converter->convert() == LIBSBML_OPERATION_SUCCESS);
+    fail_unless(rn_rule_converter->convert() == LIBSBML_CONV_INVALID_SRC_DOCUMENT);
     std::string out = writeSBMLToStdString(d_rn);
     std::string expected = writeSBMLToStdString(d_rule);
     fail_unless(equals(expected.c_str(), out.c_str()));
@@ -313,7 +313,7 @@ create_suite_TestSBMLReactionConverter(void)
 
 	if (testing)
 	{
-		tcase_add_test(tcase, test_reactionconversion_06);
+		tcase_add_test(tcase, test_reactionconversion_09);
 	}
 	else
 	{
@@ -323,6 +323,11 @@ create_suite_TestSBMLReactionConverter(void)
         tcase_add_test(tcase, test_reactionconversion_04);
         tcase_add_test(tcase, test_reactionconversion_05);
         tcase_add_test(tcase, test_reactionconversion_06);
+        tcase_add_test(tcase, test_reactionconversion_07);
+        tcase_add_test(tcase, test_reactionconversion_08);
+        tcase_add_test(tcase, test_reactionconversion_09);
+        tcase_add_test(tcase, test_reactionconversion_010);
+        tcase_add_test(tcase, test_reactionconversion_011);
     }
 	suite_add_tcase(suite, tcase);
 
