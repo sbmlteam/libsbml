@@ -50,6 +50,7 @@
 #include <sbml/AssignmentRule.h>
 #include <sbml/RateRule.h>
 #include <sbml/conversion/ExpressionAnalyser.h>
+#include <sbml/conversion/ConversionProperties.h>
 
 #ifdef __cplusplus
 
@@ -255,7 +256,7 @@ SBMLReactionConverter::convert()
       ASTNode * math = createRateRuleMathForSpecies(speciesId, rn, true);
       if (math != NULL)
       {
-        mRateRulesMap.push_back(make_pair(speciesId, math));
+          mRateRulesMap.push_back(make_pair(speciesId, math));
       }
       else
       {
@@ -297,26 +298,22 @@ SBMLReactionConverter::createRateRuleMathForSpecies(const std::string &spId,
   ASTNode * math = NULL;
   Species* species = mOriginalModel->getSpecies(spId);
   Compartment* compartment = mOriginalModel->getCompartment(species->getCompartment());
-  bool isValid = isValidSpecies(spId, species, compartment);
-  if (isValid == false)
-  {
-      return NULL;
-  }
+
   // need to work out stoichiometry, return null if there is none
   ASTNode* stoich = determineStoichiometryNode(isReactant, rn, spId);
   if (stoich == NULL) return NULL;
   
-  
+  ASTNode* kineticLawMath = rn->getKineticLaw()->getMath()->deepCopy();
   ASTNode* conc_per_time = NULL;
-  bool useCompSize = useCompartmentSize(species, compartment);
+  bool useCompSize = useCompartmentSize(species, compartment, kineticLawMath);
   if (useCompSize == false)
   {
-    conc_per_time = rn->getKineticLaw()->getMath()->deepCopy();
+    conc_per_time = kineticLawMath;
   }
   else
   {
     conc_per_time = new ASTNode(AST_DIVIDE);
-    conc_per_time->addChild(rn->getKineticLaw()->getMath()->deepCopy());
+    conc_per_time->addChild(kineticLawMath);
     ASTNode * compMath = new ASTNode(AST_NAME);
     compMath->setName(compartment->getId().c_str());
     conc_per_time->addChild(compMath);
@@ -452,7 +449,7 @@ SBMLReactionConverter::createRateRule(const std::string &spId, ASTNode *math)
 }
 
 bool 
-SBMLReactionConverter::useCompartmentSize(Species* species, Compartment* compartment)
+SBMLReactionConverter::useCompartmentSize(Species* species, Compartment* compartment, ASTNode* kineticLaw)
 {
     bool useCompartmentSize = true;
     if (species->getHasOnlySubstanceUnits() == true)
@@ -464,12 +461,28 @@ SBMLReactionConverter::useCompartmentSize(Species* species, Compartment* compart
         useCompartmentSize = false;
     }
     else if (util_isEqual(compartment->getSize(), 1.0) &&   
-                          compartment->getConstant() == true)
+             compartment->getConstant() == true &&
+             notUsedInKineticLaw(compartment->getId(), kineticLaw))
     {
         useCompartmentSize = false;
     }
     
     return useCompartmentSize;
+}
+
+bool SBMLReactionConverter::notUsedInKineticLaw(const std::string& compartment, ASTNode* kineticLaw)
+{
+    if (kineticLaw == NULL)
+    {
+        return false;
+    }
+    
+    if (mathContainsId(kineticLaw, compartment))
+    {
+        return false;
+    }
+
+    return true;
 }
 
 bool 

@@ -228,7 +228,9 @@ private:
 
   int createRateRule(const std::string& spId, ASTNode * math);
 
-  bool useCompartmentSize(Species* species, Compartment* compartment);
+  bool useCompartmentSize(Species* species, Compartment* compartment, ASTNode* kineticLaw);
+
+  bool notUsedInKineticLaw(const std::string& compartment, ASTNode* kineticLaw);
 
   bool isValidSpecies(const std::string& spId, Species* species, Compartment* compartment);
 
