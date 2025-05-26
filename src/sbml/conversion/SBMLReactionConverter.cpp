@@ -212,12 +212,25 @@ SBMLReactionConverter::convert()
   ConversionProperties props;
   props.addOption("promoteLocalParameters", true,
                  "Promotes all Local Parameters to Global ones");
-  
+
   // convert
   int parameterReplaced = mDocument->convert(props);
   if (parameterReplaced != LIBSBML_OPERATION_SUCCESS)
   {
-    return parameterReplaced;
+      return parameterReplaced;
+  }
+   
+  // replace any initial assignments with their values
+  // this is needed to ensure that the any stoichiometry assigned this way is replaced by value
+  ConversionProperties props_ia;
+  props_ia.addOption("expandInitialAssignments", true,
+      "Expand initial assignments in the model");
+
+  // convert
+  int initialAssignmentReplaced = mDocument->convert(props_ia);
+  if (initialAssignmentReplaced != LIBSBML_OPERATION_SUCCESS)
+  {
+    return initialAssignmentReplaced;
   }
 
   Model * model = mDocument->getModel();
