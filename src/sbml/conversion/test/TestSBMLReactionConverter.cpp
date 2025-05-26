@@ -322,13 +322,13 @@ END_TEST
 Suite*
 create_suite_TestSBMLReactionConverter(void)
 {
-	bool testing = true;
+	bool testing_individual = false;
 	Suite* suite = suite_create("SBMLReactionConverter");
 	TCase* tcase = tcase_create("SBMLReactionConverter");
 	tcase_add_checked_fixture(tcase, Reaction_setup,
 		Reaction_teardown);
 
-	if (testing)
+	if (testing_individual)
 	{
 		tcase_add_test(tcase, test_reactionconversion_012);
 	}
