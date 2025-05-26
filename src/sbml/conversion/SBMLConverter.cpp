@@ -48,6 +48,9 @@
 #include <algorithm>
 #include <string>
 
+#include <sbml/math/ASTNode.h>
+#include <sbml/util/IdList.h>
+
 using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 
