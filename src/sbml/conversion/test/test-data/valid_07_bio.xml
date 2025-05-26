@@ -10,7 +10,7 @@
     <listOfParameters>
       <parameter id="a" name="a" value="0.5" constant="true"/>
       <parameter id="b" name="b" constant="false"/>
-      <parameter id="t" name="t" value="0" constant="false"/>    
+      <parameter id="t" name="t" value="0" constant="false"/>
     </listOfParameters>
     <listOfRules>
       <assignmentRule variable="b">
@@ -27,10 +27,22 @@
           <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
         </math>
       </assignmentRule>
-      <rateRule variable="y_1">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <ci> b </ci>
-        </math>
-      </rateRule>
-    </listOfRules>  </model>
+    </listOfRules>
+    <listOfReactions>
+      <reaction id="J1" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="y_1" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <cn> 2 </cn>
+              <ci> t </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
 </sbml>

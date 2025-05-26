@@ -30,7 +30,14 @@
       </assignmentRule>
       <rateRule variable="y_1">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <ci> b </ci>
+          <apply>
+            <times/>
+            <apply>
+              <minus/>
+              <cn> 1 </cn>
+            </apply>
+            <ci> b </ci>
+          </apply>
         </math>
       </rateRule>
     </listOfRules>
