@@ -48,6 +48,9 @@
 #include <algorithm>
 #include <string>
 
+#include <sbml/math/ASTNode.h>
+#include <sbml/util/IdList.h>
+
 using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -175,6 +178,26 @@ const std::string&
 SBMLConverter::getName() const
 {
   return mName;
+}
+
+bool SBMLConverter::mathContainsId(const ASTNode* ast, const std::string& id) const
+{
+    bool present = false;
+    List* variables = ast->getListOfNodes(ASTNode_isName);
+    IdList vars;
+    for (unsigned int i = 0; i < variables->getSize(); i++)
+    {
+        ASTNode* node = static_cast<ASTNode*>(variables->get(i));
+        string   name = node->getName() ? node->getName() : "";
+        vars.append(name);
+    }
+    if (vars.contains(id))
+    {
+        present = true;
+    }
+    delete variables;
+
+    return present;
 }
 
 int

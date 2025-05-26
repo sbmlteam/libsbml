@@ -205,6 +205,7 @@ public:
     * ie if we find k+v-x-y and k-x-y then replace k-x-y with newVar and replace k+v-x-y with newVar+v
     */
     void identifyHiddenSpeciesWithinExpressions();
+  bool replaceExpressionInNodeWithNode(ASTNode* node, ASTNode* replaced, ASTNode* replacement);
 
     private:
     /** @cond doxygenLibsbmlInternal */
@@ -360,6 +361,8 @@ public:
     */
     bool isTypeKplusVminusXminusY(unsigned int numChildren, ASTNode* rightChild,
         ASTNode* leftChild, ASTNodeType_t type, SubstitutionValues_t* value);
+  std::vector <SubstitutionValues_t*> mExpressions;
+    friend class SBMLReactionConverter;
 
 
     /*

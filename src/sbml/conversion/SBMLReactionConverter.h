@@ -217,6 +217,7 @@ public:
 
 
 private:
+    
     friend class ExpressionAnalyser;
 
   ASTNode * createRateRuleMathForSpecies(const std::string& spId,
@@ -226,11 +227,17 @@ private:
   ASTNode* determineStoichiometryNode(bool isReactant, Reaction* rn,
                                       const std::string& spId);
 
-  int createRateRule(const std::string& spId, ASTNode * math);
+  int createNewRateRule(const std::string& spId, ASTNode * math);
 
-  bool useCompartmentSize(Species* species, Compartment* compartment);
+  bool useCompartmentSize(Species* species, Compartment* compartment, ASTNode* kineticLaw);
 
-  bool isValidSpecies(const std::string& spId, Species* species, Compartment* compartment);
+  bool notUsedInKineticLaw(const std::string& compartment, ASTNode* kineticLaw);
+
+  ASTNode* replaceMathWithAssignedVariables(ASTNode* original);
+
+  IdList getListAssignmentRuleVariables(unsigned int &numAssignmentRules);
+
+  bool replaceReactions();
 
   ASTNode* replaceMathWithAssignedVariables(ASTNode* original);
 
