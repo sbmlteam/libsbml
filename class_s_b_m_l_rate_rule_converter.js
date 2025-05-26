@@ -25,6 +25,7 @@ var class_s_b_m_l_rate_rule_converter =
     [ "getReactants", "class_s_b_m_l_rate_rule_converter.html#a6d5f93a2f5e2f54318931954de2ae9e4", null ],
     [ "getTargetNamespaces", "class_s_b_m_l_rate_rule_converter.html#ac724a6e9d284aa26ed1dc7aff0cec6e3", null ],
     [ "matchesProperties", "class_s_b_m_l_rate_rule_converter.html#ae4d68ccd9d62b1de9410f70c5a0cc460", null ],
+    [ "mathContainsId", "class_s_b_m_l_rate_rule_converter.html#a519527f1abea77d8bdfdf417a26a7646", null ],
     [ "operator=", "class_s_b_m_l_rate_rule_converter.html#aad05f57499eae4691b53fa44cf01088f", null ],
     [ "setDocument", "class_s_b_m_l_rate_rule_converter.html#a4b1034ee31f5dd3049d4a7784a80a959", null ],
     [ "setDocument", "class_s_b_m_l_rate_rule_converter.html#a2486e5fc0df13b1d4c39533570257b40", null ],

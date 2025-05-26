@@ -14,6 +14,7 @@ var class_s_b_m_l_strip_package_converter =
     [ "getTargetNamespaces", "class_s_b_m_l_strip_package_converter.html#ac724a6e9d284aa26ed1dc7aff0cec6e3", null ],
     [ "isStripAllUnrecognizedPackages", "class_s_b_m_l_strip_package_converter.html#a59807179504845341d609565c219020f", null ],
     [ "matchesProperties", "class_s_b_m_l_strip_package_converter.html#a47eea10088e6ab0e6cab55543f7145a5", null ],
+    [ "mathContainsId", "class_s_b_m_l_strip_package_converter.html#a519527f1abea77d8bdfdf417a26a7646", null ],
     [ "operator=", "class_s_b_m_l_strip_package_converter.html#a23571ec3a1fee36e3b112fe047ed46fe", null ],
     [ "setDocument", "class_s_b_m_l_strip_package_converter.html#a4b1034ee31f5dd3049d4a7784a80a959", null ],
     [ "setDocument", "class_s_b_m_l_strip_package_converter.html#a2486e5fc0df13b1d4c39533570257b40", null ],

@@ -208,6 +208,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a7a72b53c6d73ae3a024c10d3e5762a4a" id="r_a7a72b53c6d73ae3a024c10d3e5762a4a"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_converter.html#a7a72b53c6d73ae3a024c10d3e5762a4a">matchesProperties</a> (const <a class="el" href="class_conversion_properties.html">ConversionProperties</a> &amp;props) const</td></tr>
 <tr class="memdesc:a7a72b53c6d73ae3a024c10d3e5762a4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns <code>true</code> if this converter matches the given properties.  <br /></td></tr>
 <tr class="separator:a7a72b53c6d73ae3a024c10d3e5762a4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a519527f1abea77d8bdfdf417a26a7646" id="r_a519527f1abea77d8bdfdf417a26a7646"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_converter.html#a519527f1abea77d8bdfdf417a26a7646">mathContainsId</a> (const <a class="el" href="class_a_s_t_node.html">ASTNode</a> *ast, const std::string &amp;id) const</td></tr>
+<tr class="separator:a519527f1abea77d8bdfdf417a26a7646"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad4e51c1da99aeef494671afcc3a9f2c5" id="r_ad4e51c1da99aeef494671afcc3a9f2c5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_s_b_m_l_converter.html">SBMLConverter</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_converter.html#ad4e51c1da99aeef494671afcc3a9f2c5">operator=</a> (const <a class="el" href="class_s_b_m_l_converter.html">SBMLConverter</a> &amp;rhs)</td></tr>
 <tr class="memdesc:ad4e51c1da99aeef494671afcc3a9f2c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assignment operator for <a class="el" href="class_s_b_m_l_converter.html">SBMLConverter</a>.  <br /></td></tr>
 <tr class="separator:ad4e51c1da99aeef494671afcc3a9f2c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -603,6 +605,34 @@ Public Member Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if the properties <code>props</code> would match the necessary properties for this type of converter, <code>false</code> otherwise. </dd></dl>
 
 <p>Reimplemented in <a class="el" href="class_s_b_m_l_function_definition_converter.html#ad5e06585a895ad25cda3dc15065cfaa6">SBMLFunctionDefinitionConverter</a>, <a class="el" href="class_s_b_m_l_id_converter.html#a49f53b86a496af7d73fda41323e29d37">SBMLIdConverter</a>, <a class="el" href="class_s_b_m_l_infer_units_converter.html#a392f0c8ceb76192ee391250b96b70574">SBMLInferUnitsConverter</a>, <a class="el" href="class_s_b_m_l_initial_assignment_converter.html#a64df4c5cba22ac1214492b17a8aa7448">SBMLInitialAssignmentConverter</a>, <a class="el" href="class_s_b_m_l_level1_version1_converter.html#afaa25b2ad6f2732411bd08cc0196916b">SBMLLevel1Version1Converter</a>, <a class="el" href="class_s_b_m_l_level_version_converter.html#ab08a941a2878497f531fc17dde00fa16">SBMLLevelVersionConverter</a>, <a class="el" href="class_s_b_m_l_local_parameter_converter.html#acd7e4d11ac26b289f2785c2c70918966">SBMLLocalParameterConverter</a>, <a class="el" href="class_s_b_m_l_rate_of_converter.html#a1bc115a77d4a31b010d4545157a9bbc0">SBMLRateOfConverter</a>, <a class="el" href="class_s_b_m_l_rate_rule_converter.html#ae4d68ccd9d62b1de9410f70c5a0cc460">SBMLRateRuleConverter</a>, <a class="el" href="class_s_b_m_l_reaction_converter.html#ac4aa2fec494cc60537dd74fa7f465a95">SBMLReactionConverter</a>, <a class="el" href="class_s_b_m_l_rule_converter.html#af32ce1251d96267ca88c6731c31646bb">SBMLRuleConverter</a>, <a class="el" href="class_s_b_m_l_strip_package_converter.html#a47eea10088e6ab0e6cab55543f7145a5">SBMLStripPackageConverter</a>, <a class="el" href="class_s_b_m_l_units_converter.html#aa3133186ae0cb159f3039b07ca0bbce2">SBMLUnitsConverter</a>, <a class="el" href="class_comp_flattening_converter.html#a73a9becb1659bedabc3a6ce70cfb8de7">CompFlatteningConverter</a>, <a class="el" href="class_cobra_to_fbc_converter.html#ae9fb3803bfaf9520029a74909f633a84">CobraToFbcConverter</a>, <a class="el" href="class_fbc_to_cobra_converter.html#ab4ab8030e62e4189c9dd955c8c64d8ee">FbcToCobraConverter</a>, <a class="el" href="class_fbc_v1_to_v2_converter.html#ad73cfcd257bcff3eff7c245df57eacbb">FbcV1ToV2Converter</a>, <a class="el" href="class_fbc_v2_to_v1_converter.html#a4e92308298a8d67c6b4cedb639fed0dd">FbcV2ToV1Converter</a>, and <a class="el" href="class_render_layout_converter.html#ad7cddc0fd1fcc6b05fb9ace189b60002">RenderLayoutConverter</a>.</p>
+
+</div>
+</div>
+<a id="a519527f1abea77d8bdfdf417a26a7646" name="a519527f1abea77d8bdfdf417a26a7646"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a519527f1abea77d8bdfdf417a26a7646">&#9670;&#160;</a></span>mathContainsId()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SBMLConverter::mathContainsId </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_a_s_t_node.html">ASTNode</a> *&#160;</td>
+          <td class="paramname"><em>ast</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>id</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>

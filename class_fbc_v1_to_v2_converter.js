@@ -13,6 +13,7 @@ var class_fbc_v1_to_v2_converter =
     [ "getStrict", "class_fbc_v1_to_v2_converter.html#a70fe9e9e0bd47b01b5a0ea13f06fbe6f", null ],
     [ "getTargetNamespaces", "class_fbc_v1_to_v2_converter.html#ac724a6e9d284aa26ed1dc7aff0cec6e3", null ],
     [ "matchesProperties", "class_fbc_v1_to_v2_converter.html#ad73cfcd257bcff3eff7c245df57eacbb", null ],
+    [ "mathContainsId", "class_fbc_v1_to_v2_converter.html#a519527f1abea77d8bdfdf417a26a7646", null ],
     [ "setDocument", "class_fbc_v1_to_v2_converter.html#a4b1034ee31f5dd3049d4a7784a80a959", null ],
     [ "setDocument", "class_fbc_v1_to_v2_converter.html#a2486e5fc0df13b1d4c39533570257b40", null ],
     [ "setProperties", "class_fbc_v1_to_v2_converter.html#a2f6cb3b5409a2fa26a45c2f0ea01acdc", null ]

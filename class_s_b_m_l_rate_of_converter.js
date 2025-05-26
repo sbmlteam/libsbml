@@ -13,6 +13,7 @@ var class_s_b_m_l_rate_of_converter =
     [ "getTargetNamespaces", "class_s_b_m_l_rate_of_converter.html#ac724a6e9d284aa26ed1dc7aff0cec6e3", null ],
     [ "getToFunctionDefinition", "class_s_b_m_l_rate_of_converter.html#a3689ad574cca760a1c10c285d56b8f6a", null ],
     [ "matchesProperties", "class_s_b_m_l_rate_of_converter.html#a1bc115a77d4a31b010d4545157a9bbc0", null ],
+    [ "mathContainsId", "class_s_b_m_l_rate_of_converter.html#a519527f1abea77d8bdfdf417a26a7646", null ],
     [ "operator=", "class_s_b_m_l_rate_of_converter.html#a00ec8b3e0bc4fd162cf048b1ebd83254", null ],
     [ "setDocument", "class_s_b_m_l_rate_of_converter.html#a37bdbc74f1187d52f78233f9af1cc2db", null ],
     [ "setDocument", "class_s_b_m_l_rate_of_converter.html#a8e1e81659dc8a3be02d64e95f7ed17b2", null ],

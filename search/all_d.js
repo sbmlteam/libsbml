@@ -82,7 +82,7 @@ var searchData=
   ['determine_20the_20necessary_20value_20of_20the_20required_20attribute_79',['2.2 Determine the necessary value of the &quot;required&quot; attribute',['../classdoc__extension__sbmldocumentplugin.html#sdp-required',1,'']]],
   ['determinenumberchildren_80',['determineNumberChildren',['../class_x_m_l_input_stream.html#a2fe529e82113dba4fae8324e665024b5',1,'XMLInputStream']]],
   ['determinenumspecificchildren_81',['determineNumSpecificChildren',['../class_x_m_l_input_stream.html#a00d3674aa4052621c511a3dd0ce64c7f',1,'XMLInputStream']]],
-  ['determinestoichiometrynode_82',['determineStoichiometryNode',['../class_s_b_m_l_reaction_converter.html#a03e732d1140c6096e4e08b2feec4b87a',1,'SBMLReactionConverter']]],
+  ['determinestoichiometrynode_82',['determineStoichiometryNode',['../class_s_b_m_l_reaction_converter.html#af5edb2523187fa187a0357c048b258a8',1,'SBMLReactionConverter']]],
   ['differences_83',['differences',['../class_kinetic_law.html#version-diffs',1,'SBML Level/Version differences'],['../class_event_assignment.html#eventassignment-version-diffs',1,'SBML Level/Version differences'],['../class_event.html#event-version-diffs',1,'SBML Level/Version differences'],['../class_trigger.html#trigger-version-diffs',1,'Version differences']]],
   ['differences_20with_20mathml_84',['The text-string formula syntax, and differences with MathML',['../libsbml-math.html#math-diffs',1,'']]],
   ['different_20file_20types_85',['3. Guidelines for different file types',['../libsbml-coding.html#coding-docs',1,'']]],

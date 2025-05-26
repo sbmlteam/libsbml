@@ -12,6 +12,7 @@ var class_s_b_m_l_id_converter =
     [ "getProperties", "class_s_b_m_l_id_converter.html#ad48a1188a9890433e0420de5dc5d6ac3", null ],
     [ "getTargetNamespaces", "class_s_b_m_l_id_converter.html#ac724a6e9d284aa26ed1dc7aff0cec6e3", null ],
     [ "matchesProperties", "class_s_b_m_l_id_converter.html#a49f53b86a496af7d73fda41323e29d37", null ],
+    [ "mathContainsId", "class_s_b_m_l_id_converter.html#a519527f1abea77d8bdfdf417a26a7646", null ],
     [ "operator=", "class_s_b_m_l_id_converter.html#aa28be019c4ff1ab125b1d92defd36dbf", null ],
     [ "setDocument", "class_s_b_m_l_id_converter.html#a4b1034ee31f5dd3049d4a7784a80a959", null ],
     [ "setDocument", "class_s_b_m_l_id_converter.html#a2486e5fc0df13b1d4c39533570257b40", null ],

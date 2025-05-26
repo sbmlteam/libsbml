@@ -16,6 +16,7 @@ var class_s_b_m_l_level_version_converter =
     [ "getTargetVersion", "class_s_b_m_l_level_version_converter.html#a46907847afacee3be65aa8e77ab9d6f2", null ],
     [ "getValidityFlag", "class_s_b_m_l_level_version_converter.html#aa784d0f5ec05957bb0c4104144bceec4", null ],
     [ "matchesProperties", "class_s_b_m_l_level_version_converter.html#ab08a941a2878497f531fc17dde00fa16", null ],
+    [ "mathContainsId", "class_s_b_m_l_level_version_converter.html#a519527f1abea77d8bdfdf417a26a7646", null ],
     [ "operator=", "class_s_b_m_l_level_version_converter.html#ab26d7018682cd525ad3fcdbf7f1e84f7", null ],
     [ "setDocument", "class_s_b_m_l_level_version_converter.html#a4b1034ee31f5dd3049d4a7784a80a959", null ],
     [ "setDocument", "class_s_b_m_l_level_version_converter.html#a2486e5fc0df13b1d4c39533570257b40", null ],
