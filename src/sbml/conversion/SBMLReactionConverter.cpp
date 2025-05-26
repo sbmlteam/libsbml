@@ -377,13 +377,21 @@ SBMLReactionConverter::determineStoichiometryNode(bool isReactant, Reaction* rn,
       std::string id = sr->getId();
       if (mOriginalModel->getInitialAssignment(id) != NULL)
       {
+          // should have been dealt with by removing initial assignments
         tempNode = mOriginalModel->getInitialAssignment(id)->isSetMath() ?
           mOriginalModel->getInitialAssignment(id)->getMath()->deepCopy() : NULL;
       }
       else if (mOriginalModel->getAssignmentRule(id) != NULL)
       {
-        tempNode = mOriginalModel->getAssignmentRule(id)->isSetMath() ?
-          mOriginalModel->getAssignmentRule(id)->getMath()->deepCopy() : NULL;
+          // if set by assignment then we are assuming that its a variable stoichiometry
+          // create a math node that represents the variable used
+          tempNode = new ASTNode(AST_NAME);
+          tempNode->setName(id.c_str());
+
+          // but also need a parameter for this variable
+          Parameter* p = mDocument->getModel()->createParameter();
+          p->setId(id);
+          p->setConstant(false);
       }
     }
     else if (sr->isSetStoichiometryMath() == true)
@@ -417,7 +425,7 @@ SBMLReactionConverter::determineStoichiometryNode(bool isReactant, Reaction* rn,
 }
 
 int
-SBMLReactionConverter::createRateRule(const std::string &spId, ASTNode *math)
+SBMLReactionConverter::createNewRateRule(const std::string &spId, ASTNode *math)
 {
   int success = LIBSBML_OPERATION_SUCCESS;
   // if the species is a boundaryConsition we dont create a raterule
@@ -498,32 +506,6 @@ bool SBMLReactionConverter::notUsedInKineticLaw(const std::string& compartment, 
     return true;
 }
 
-bool 
-SBMLReactionConverter::isValidSpecies(const std::string& spId, Species* species, Compartment* compartment)
-{
-    bool valid = true;
-
-    species = mOriginalModel->getSpecies(spId);
-
-    if (species == NULL)
-    {
-        valid = false;
-    }
-
-    if (valid)
-    {
-        compartment = mOriginalModel->getCompartment(species->getCompartment());
-
-        if (compartment == NULL)
-        {
-            valid = false;
-        }
-    }
-
-    return valid;
-}
-
-
 ASTNode* 
 SBMLReactionConverter::replaceMathWithAssignedVariables(ASTNode* original)
 {
@@ -588,7 +570,7 @@ SBMLReactionConverter::replaceReactions()
   for (it = mRateRulesMap.begin(); 
     success == LIBSBML_OPERATION_SUCCESS && it != mRateRulesMap.end(); ++it)
   {
-    success = createRateRule((*it).first, (*it).second);
+    success = createNewRateRule((*it).first, (*it).second);
   }
 
   // deallocate memory
