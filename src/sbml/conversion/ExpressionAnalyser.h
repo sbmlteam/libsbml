@@ -396,15 +396,16 @@ public:
 */
     void addParametersAndRateRules(SubstitutionValues_t* exp = NULL);
 
-    bool replaceExpressionInNodeWithNode(ASTNode* node, ASTNode* replaced, ASTNode* replacement);
+//    bool replaceExpressionInNodeWithNode(ASTNode* node, ASTNode* replaced, ASTNode* replacement);
 
     friend class SBMLReactionConverter;
     // member variables populated during analysis
     pairODEs mODEs;
+    
 
     Model* mModel;
 
-    std::vector <SubstitutionValues_t*> mExpressions;
+ //   std::vector <SubstitutionValues_t*> mExpressions;
    
     // list of hidden species that are identified during the analysis
     List* mHiddenSpecies;
