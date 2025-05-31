@@ -424,9 +424,9 @@ void SBMLRateRuleConverter::populateTerms()
     for (unsigned int n = 0; n < mTerms.size(); n++)
     {
         ASTNode* node = mTerms.at(n);
-        cout << "Term " << n << ": " << SBML_formulaToL3String(node) << endl;
+        //cout << "Term " << n << ": " << SBML_formulaToL3String(node) << endl;
     }
-    print_vectors(mCoefficients);
+    //print_vectors(mCoefficients);
 }
 
 void SBMLRateRuleConverter::createAnalysisVectors()
@@ -479,9 +479,9 @@ void SBMLRateRuleConverter::createAnalysisVectors()
 
 
 
-    print_vectors(mCoefficients);
+    /*print_vectors(mCoefficients);
     print_vectors_bool(mPosDerivative);
-    print_vectors_bool(mNegDerivative);
+    print_vectors_bool(mNegDerivative);*/
 
 }
 
@@ -671,9 +671,9 @@ SBMLRateRuleConverter::determineDerivativeSign(std::string variable, ASTNode* te
       {
           ASTNode* deriv = term->derivative(variable);
           if (deriv != NULL) deriv->decompose();
-          cout << "derive: " << SBML_formulaToL3String(term) << " var: " << variable << " = " << SBML_formulaToL3String(deriv) << endl;
+          //cout << "derive: " << SBML_formulaToL3String(term) << " var: " << variable << " = " << SBML_formulaToL3String(deriv) << endl;
           signDetermined = checkDerivativeSign(deriv, derivativeSign);
-          cout << "sign determined: " << derivativeSign << endl;
+          //cout << "sign determined: " << derivativeSign << endl;
           delete deriv;
       }
     if (!signDetermined)
@@ -899,7 +899,7 @@ SBMLRateRuleConverter::populateInitialODEinfo()
 
     for (unsigned int odeIndex = 0; odeIndex < mODEs.size(); odeIndex++)
     {
-        cout << mODEs[odeIndex].first << ": " << SBML_formulaToL3String(mODEs[odeIndex].second) << endl;
+        //cout << mODEs[odeIndex].first << ": " << SBML_formulaToL3String(mODEs[odeIndex].second) << endl;
     }
 }
 
@@ -922,11 +922,11 @@ SBMLRateRuleConverter::populateODEinfo()
       Parameter* hidden = (Parameter*) (*ea->getHiddenSpecies()).get(hs);
       addODEPair(hidden->getId(), model);
   }
-  cout << "After\n";
+  /*cout << "After\n";
   for (unsigned int odeIndex = 0; odeIndex < mODEs.size(); odeIndex++)
   {
     cout << mODEs[odeIndex].first << ": " << SBML_formulaToL3String(mODEs[odeIndex].second) << endl;
-  }
+  }*/
 
   populateTerms();
 
@@ -957,9 +957,9 @@ SBMLRateRuleConverter::populateReactionCoefficients()
     analyseNegDerivative(it->second.size(), term_index);
     term_index++;
   }
-  print_rn_coefficients(mReactants);
+  /*print_rn_coefficients(mReactants);
   print_rn_coefficients(mProducts);
-  print_rn_coefficients(mModifiers);
+  print_rn_coefficients(mModifiers);*/
 
 }
 

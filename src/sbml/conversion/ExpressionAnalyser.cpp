@@ -710,9 +710,9 @@ ExpressionAnalyser::replaceExpressionInNodeWithNode(ASTNode* node, ASTNode* repl
         return replacementMade;
     }
 
-    cout << "node " << SBML_formulaToL3String(node) << endl;
+    /*cout << "node " << SBML_formulaToL3String(node) << endl;
     cout << "replaced " << SBML_formulaToL3String(replaced) << endl;
-    cout << "replacement " << SBML_formulaToL3String(replacement) << endl;
+    cout << "replacement " << SBML_formulaToL3String(replacement) << endl;*/
     // we might be replcing the whole node
     if (node->exactlyEqual(*replaced))
     {
@@ -1089,8 +1089,8 @@ bool ExpressionAnalyser::isNumericalConstantOrConstantParameter(ASTNode* node, b
 
 std::pair<ASTNode*, int> ExpressionAnalyser::getParentNode(const ASTNode* child, const ASTNode* root)
 {
-  cout << "root " << SBML_formulaToL3String(root) << endl;
-  cout << "child " << SBML_formulaToL3String(child) << endl;
+  //cout << "root " << SBML_formulaToL3String(root) << endl;
+  //cout << "child " << SBML_formulaToL3String(child) << endl;
 
   for (unsigned int i = 0; i < root->getNumChildren(); i++)
     {
