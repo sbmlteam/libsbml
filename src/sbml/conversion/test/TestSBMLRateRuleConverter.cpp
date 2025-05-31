@@ -53,7 +53,6 @@ LIBSBML_CPP_NAMESPACE_USE
 BEGIN_C_DECLS
 
 static Model* m;
-static SBMLDocument* d;
 static ConversionProperties props;
 static SBMLRateRuleConverter* converter;
 
@@ -84,16 +83,12 @@ RateRuleConverter_setup(void)
 
 	converter = new SBMLRateRuleConverter();
 	converter->setProperties(&props);
-
-	d = new SBMLDocument();
-	converter->setDocument(d);
 }
 
 void
 RateRuleConverter_teardown(void)
 {
 	delete converter;
-	delete d;
 }
 
 // helper function to set up a parameter with 0 value
@@ -164,12 +159,6 @@ END_TEST
 
 START_TEST(test_conversion_raterule_converter_invalid)
 {
-  ConversionProperties props;
-  props.addOption("inferReactions", true);
-
-  SBMLConverter* converter = new SBMLRateRuleConverter();
-  converter->setProperties(&props);
-
   // test NULL document
   SBMLDocument* doc = NULL;
   converter->setDocument(doc);
@@ -211,7 +200,6 @@ START_TEST(test_conversion_raterule_converter_invalid)
 
   fail_unless(converter->convert() == LIBSBML_CONV_INVALID_SRC_DOCUMENT);
 
-  delete converter;
   delete doc;
 }
 END_TEST
@@ -219,12 +207,6 @@ END_TEST
 
 START_TEST(test_conversion_raterule_converter)
 {
-  ConversionProperties props;
-  props.addOption("inferReactions", true);
-
-  SBMLConverter* converter = new SBMLRateRuleConverter();
-  converter->setProperties(&props);
-
   SBMLDocument* doc = new SBMLDocument(3, 2);
   Model* model = doc->createModel();
   model->setId("m");
@@ -294,7 +276,6 @@ START_TEST(test_conversion_raterule_converter)
   fail_unless(strcmp(kl, "k*s"));
   safe_free((char *)kl);
 
-  delete converter;
   delete doc;
 }
 END_TEST
@@ -302,12 +283,6 @@ END_TEST
 
 START_TEST(test_crash_converter)
 {
-  ConversionProperties props;
-  props.addOption("inferReactions", true);
-
-  SBMLConverter* converter = new SBMLRateRuleConverter();
-  converter->setProperties(&props);
-
   SBMLDocument* doc = new SBMLDocument(3, 2);
   Model* model = doc->createModel();
   model->setId("m");
@@ -342,7 +317,6 @@ START_TEST(test_crash_converter)
   converter->setDocument(doc);
   fail_unless(converter->convert() == LIBSBML_OPERATION_FAILED);
 
-  delete converter;
   delete doc;
 }
 END_TEST
@@ -356,12 +330,6 @@ START_TEST(test_conversion_raterule_converter_non_standard_stoichiometry)
 	// Unlike typical converters of Mass action reactions that would give x -> y with f=2*k*x,
 	// this converter give (the equivalent) 2*x -> 2*y with f=k*x
 	
-	ConversionProperties props;
-	props.addOption("inferReactions", true);
-
-	SBMLConverter* converter = new SBMLRateRuleConverter();
-	converter->setProperties(&props);
-
 	SBMLDocument* doc = new SBMLDocument(3, 2);
 	Model* model = doc->createModel();
 	model->setId("m");
@@ -426,22 +394,13 @@ START_TEST(test_conversion_raterule_converter_non_standard_stoichiometry)
 	const char* kl = SBML_formulaToL3String(r->getKineticLaw()->getMath());
 	fail_unless(strcmp(kl, "k*s"));
 	safe_free((char*)kl);
+
+    delete doc;
 }
 END_TEST
 
 START_TEST(test_conversion_raterule_converter_my_example)
 {
-	// 
-	// 
-	// 
-	// 
-
-	ConversionProperties props;
-	props.addOption("inferReactions", true);
-
-	SBMLConverter* converter = new SBMLRateRuleConverter();
-	converter->setProperties(&props);
-
 	SBMLDocument* doc = new SBMLDocument(3, 2);
 	Model* model = doc->createModel();
 	model->setId("m");
@@ -524,6 +483,8 @@ START_TEST(test_conversion_raterule_converter_my_example)
 	const char* kl1 = SBML_formulaToL3String(r1->getKineticLaw()->getMath());
 	fail_unless(strcmp(kl1, "k1*r"));
 	safe_free((char*)kl1);
+
+    delete doc;
 }
 END_TEST
 
@@ -535,12 +496,6 @@ START_TEST(test_conversion_raterule_converter_hidden_variable)
 	// The additional ODE dMPFi/dt = -k1*MPFi*Cdc25 + k2*MPF*Wee1 should be created by 3.1.
 	// @alessandrofelder has visually checked that the expected (incorrect) result is 
 	// obtained in the absence of an implementation of 3.1.
-	ConversionProperties props;
-	props.addOption("inferReactions", true);
-
-	SBMLConverter* converter = new SBMLRateRuleConverter();
-	converter->setProperties(&props);
-
 	SBMLDocument* doc = new SBMLDocument(3, 2);
 	Model* model = doc->createModel();
 	model->setId("m");
@@ -689,17 +644,13 @@ START_TEST(test_conversion_raterule_converter_hidden_variable)
 	kl = SBML_formulaToL3String(r1->getKineticLaw()->getMath());
 	fail_unless(strcmp(kl, "k3/(k4+Clock)"));
 	safe_free((char*)kl);
+
+    delete doc;
 }
 END_TEST
 
 START_TEST(test_model)
 {
-  ConversionProperties props;
-  props.addOption("inferReactions", true);
-
-  SBMLConverter* converter = new SBMLRateRuleConverter();
-  converter->setProperties(&props);
-
   std::string filename(TestDataDirectory);
   filename += "mraterules.xml";
   std::string filename1(TestDataDirectory);
@@ -716,7 +667,6 @@ START_TEST(test_model)
 
   fail_unless(equals(expected.c_str(), out.c_str()));
 
-  delete converter;
   delete d;
   delete d1;
 }
@@ -725,12 +675,6 @@ END_TEST
 
 START_TEST(test_model1)
 {
-  ConversionProperties props;
-  props.addOption("inferReactions", true);
-
-  SBMLConverter* converter = new SBMLRateRuleConverter();
-  converter->setProperties(&props);
-
   std::string filename(TestDataDirectory);
   filename += "mraterules1.xml";
   std::string filename1(TestDataDirectory);
@@ -747,7 +691,6 @@ START_TEST(test_model1)
 
   fail_unless(equals(expected.c_str(), out.c_str()));
 
-  delete converter;
   delete d;
   delete d1;
 }
@@ -755,12 +698,6 @@ END_TEST
 
 START_TEST(test_model2)
 {
-  ConversionProperties props;
-  props.addOption("inferReactions", true);
-
-  SBMLConverter* converter = new SBMLRateRuleConverter();
-  converter->setProperties(&props);
-
   std::string filename(TestDataDirectory);
   filename += "mraterules2.xml";
   std::string filename1(TestDataDirectory);
@@ -776,7 +713,6 @@ START_TEST(test_model2)
 
   fail_unless(equals(expected.c_str(), out.c_str()));
 
-  delete converter;
   delete d;
   delete d1;
 }
@@ -785,12 +721,6 @@ END_TEST
 
 START_TEST(test_model3)
 {
-  ConversionProperties props;
-  props.addOption("inferReactions", true);
-
-  SBMLConverter* converter = new SBMLRateRuleConverter();
-  converter->setProperties(&props);
-
   std::string filename(TestDataDirectory);
   filename += "mraterules3.xml";
   std::string filename1(TestDataDirectory);
@@ -805,7 +735,6 @@ START_TEST(test_model3)
 
   fail_unless(equals(expected.c_str(), out.c_str()));
 
-  delete converter;
   delete d;
   delete d1;
 }
@@ -814,12 +743,6 @@ END_TEST
 
 START_TEST(test_model4)
 {
-  ConversionProperties props;
-  props.addOption("inferReactions", true);
-
-  SBMLConverter* converter = new SBMLRateRuleConverter();
-  converter->setProperties(&props);
-
   std::string filename(TestDataDirectory);
   filename += "mraterules4.xml";
   std::string filename1(TestDataDirectory);
@@ -835,7 +758,6 @@ START_TEST(test_model4)
 
   fail_unless(equals(expected.c_str(), out.c_str()));
 
-  delete converter;
   delete d;
   delete d1;
 }
@@ -844,12 +766,6 @@ END_TEST
 
 START_TEST(test_model5)
 {
-  ConversionProperties props;
-  props.addOption("inferReactions", true);
-
-  SBMLConverter* converter = new SBMLRateRuleConverter();
-  converter->setProperties(&props);
-
   std::string filename(TestDataDirectory);
   filename += "mraterules5.xml";
   std::string filename1(TestDataDirectory);
@@ -865,7 +781,6 @@ START_TEST(test_model5)
 
   fail_unless(equals(expected.c_str(), out.c_str()));
 
-  delete converter;
   delete d;
   delete d1;
 }
@@ -874,12 +789,6 @@ END_TEST
 
 START_TEST(test_model6)
 {
-  ConversionProperties props;
-  props.addOption("inferReactions", true);
-
-  SBMLConverter* converter = new SBMLRateRuleConverter();
-  converter->setProperties(&props);
-
   std::string filename(TestDataDirectory);
   filename += "mraterules6.xml";
   std::string filename1(TestDataDirectory);
@@ -895,7 +804,6 @@ START_TEST(test_model6)
 
   fail_unless(equals(expected.c_str(), out.c_str()));
 
-  delete converter;
   delete d;
   delete d1;
 }
@@ -903,12 +811,6 @@ END_TEST
 
 START_TEST(test_model_valid_01)
 {
-	ConversionProperties props;
-	props.addOption("inferReactions", true);
-
-	SBMLConverter* converter = new SBMLRateRuleConverter();
-	converter->setProperties(&props);
-
 	std::string filename(TestDataDirectory);
 	filename += "valid_01_rr.xml";
 	std::string filename1(TestDataDirectory);
@@ -925,7 +827,6 @@ START_TEST(test_model_valid_01)
 
 	fail_unless(equals(expected.c_str(), out.c_str()));
 
-	delete converter;
 	delete d;
 	delete d1;
 }
@@ -934,12 +835,6 @@ END_TEST
 
 START_TEST(test_model_valid_02)
 {
-	ConversionProperties props;
-	props.addOption("inferReactions", true);
-
-	SBMLConverter* converter = new SBMLRateRuleConverter();
-	converter->setProperties(&props);
-
 	std::string filename(TestDataDirectory);
 	filename += "valid_02_rr.xml";
 	std::string filename1(TestDataDirectory);
@@ -956,7 +851,6 @@ START_TEST(test_model_valid_02)
 
 	fail_unless(equals(expected.c_str(), out.c_str()));
 
-	delete converter;
 	delete d;
 	delete d1;
 }
@@ -965,12 +859,6 @@ END_TEST
 
 START_TEST(test_model_valid_03)
 {
-	ConversionProperties props;
-	props.addOption("inferReactions", true);
-
-	SBMLConverter* converter = new SBMLRateRuleConverter();
-	converter->setProperties(&props);
-
 	std::string filename(TestDataDirectory);
 	filename += "valid_03_rr.xml";
 	std::string filename1(TestDataDirectory);
@@ -987,7 +875,6 @@ START_TEST(test_model_valid_03)
 
 	fail_unless(equals(expected.c_str(), out.c_str()));
 
-	delete converter;
 	delete d;
 	delete d1;
 }
@@ -996,12 +883,6 @@ END_TEST
 
 START_TEST(test_model_valid_04)
 {
-	ConversionProperties props;
-	props.addOption("inferReactions", true);
-
-	SBMLConverter* converter = new SBMLRateRuleConverter();
-	converter->setProperties(&props);
-
 	std::string filename(TestDataDirectory);
 	filename += "valid_04_rr.xml";
 	std::string filename1(TestDataDirectory);
@@ -1018,7 +899,6 @@ START_TEST(test_model_valid_04)
 
 	fail_unless(equals(expected.c_str(), out.c_str()));
 
-	delete converter;
 	delete d;
 	delete d1;
 }
@@ -1027,12 +907,6 @@ END_TEST
 
 START_TEST(test_model_valid_05)
 {
-	ConversionProperties props;
-	props.addOption("inferReactions", true);
-
-	SBMLConverter* converter = new SBMLRateRuleConverter();
-	converter->setProperties(&props);
-
 	std::string filename(TestDataDirectory);
 	filename += "valid_05_rr.xml";
 	std::string filename1(TestDataDirectory);
@@ -1049,7 +923,6 @@ START_TEST(test_model_valid_05)
 
 	fail_unless(equals(expected.c_str(), out.c_str()));
 
-	delete converter;
 	delete d;
 	delete d1;
 }
@@ -1058,12 +931,6 @@ END_TEST
 
 START_TEST(test_model_valid_51)
 {
-	ConversionProperties props;
-	props.addOption("inferReactions", true);
-
-	SBMLConverter* converter = new SBMLRateRuleConverter();
-	converter->setProperties(&props);
-
 	std::string filename(TestDataDirectory);
 	filename += "valid_51_rr.xml";
 	std::string filename1(TestDataDirectory);
@@ -1080,7 +947,6 @@ START_TEST(test_model_valid_51)
 
 	fail_unless(equals(expected.c_str(), out.c_str()));
 
-	delete converter;
 	delete d;
 	delete d1;
 }
@@ -1090,12 +956,6 @@ END_TEST
 
 START_TEST(test_model_valid_52)
 {
-	ConversionProperties props;
-	props.addOption("inferReactions", true);
-
-	SBMLConverter* converter = new SBMLRateRuleConverter();
-	converter->setProperties(&props);
-
 	std::string filename(TestDataDirectory);
 	filename += "valid_52_rr.xml";
 	std::string filename1(TestDataDirectory);
@@ -1112,7 +972,6 @@ START_TEST(test_model_valid_52)
 
 	fail_unless(equals(expected.c_str(), out.c_str()));
 
-	delete converter;
 	delete d;
 	delete d1;
 }
@@ -1120,13 +979,7 @@ END_TEST
 
 START_TEST(test_model_valid_53)
 {
-	ConversionProperties props;
-	props.addOption("inferReactions", true);
-
-	SBMLConverter* converter = new SBMLRateRuleConverter();
-	converter->setProperties(&props);
-
-	std::string filename(TestDataDirectory);
+    std::string filename(TestDataDirectory);
 	filename += "valid_53_rr.xml";
 	std::string filename1(TestDataDirectory);
 	filename1 += "valid_53_bio.xml";
@@ -1146,7 +999,6 @@ START_TEST(test_model_valid_53)
 
 //	fail_unless(equals(expected.c_str(), out.c_str()));
 
-	delete converter;
 	delete d;
 	delete d1;
 }
@@ -1154,12 +1006,6 @@ END_TEST
 
 START_TEST(test_roundtrip_53)
 {
-	ConversionProperties props;
-	props.addOption("inferReactions", true);
-
-	SBMLConverter* converter = new SBMLRateRuleConverter();
-	converter->setProperties(&props);
-
 	ConversionProperties props1;
 	props1.addOption("SBML Reaction Converter", true);
 
@@ -1190,8 +1036,7 @@ START_TEST(test_roundtrip_53)
 
 
 	//	fail_unless(equals(expected.c_str(), out.c_str()));
-
-	delete converter;
+    delete converter1;
 	delete d;
 	delete d1;
 }
@@ -1200,12 +1045,6 @@ END_TEST
 
 START_TEST(test_model_valid_54)
 {
-	ConversionProperties props;
-	props.addOption("inferReactions", true);
-
-	SBMLConverter* converter = new SBMLRateRuleConverter();
-	converter->setProperties(&props);
-
 	std::string filename(TestDataDirectory);
 	filename += "valid_54_rr.xml";
 	std::string filename1(TestDataDirectory);
@@ -1222,7 +1061,6 @@ START_TEST(test_model_valid_54)
 
 	fail_unless(equals(expected.c_str(), out.c_str()));
 
-	delete converter;
 	delete d;
 	delete d1;
 }
@@ -1231,12 +1069,6 @@ END_TEST
 
 START_TEST(test_model_valid_55)
 {
-	ConversionProperties props;
-	props.addOption("inferReactions", true);
-
-	SBMLConverter* converter = new SBMLRateRuleConverter();
-	converter->setProperties(&props);
-
 	std::string filename(TestDataDirectory);
 	filename += "valid_55_rr.xml";
 	std::string filename1(TestDataDirectory);
@@ -1253,7 +1085,6 @@ START_TEST(test_model_valid_55)
 
 	fail_unless(equals(expected.c_str(), out.c_str()));
 
-	delete converter;
 	delete d;
 	delete d1;
 }
