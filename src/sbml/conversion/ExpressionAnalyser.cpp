@@ -141,7 +141,16 @@ ExpressionAnalyser::~ExpressionAnalyser ()
   mHiddenNodes = NULL;
   if (mExpressions.size() > 0)
   {
-    mExpressions.clear();
+      for (unsigned int i = 0; i < mExpressions.size(); i++)
+      {
+          SubstitutionValues_t* value = mExpressions.at(i);
+          delete value->dxdt_expression;
+          delete value->dydt_expression;
+          delete value->v_expression;
+          delete value->w_expression;
+          delete value;
+      }
+      mExpressions.clear();
   }
 }
 
