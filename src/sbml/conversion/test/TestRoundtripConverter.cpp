@@ -96,24 +96,31 @@ Roundtrip_teardown(void)
     delete rule_rn_converter;
     delete rn_rule_converter;
 }
+
+
 START_TEST(test_roundtrip_01)
 {
-	std::string filename(TestDataDirectory);
-	filename += "valid_01_rr.xml";
-	std::string filename1(TestDataDirectory);
-	filename1 += "valid_01_bio.xml";
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_01_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_01_bio.xml";
 
-	SBMLDocument* d_rule = readSBMLFromFile(filename.c_str());
-	SBMLDocument* d_rn = readSBMLFromFile(filename1.c_str());
+	SBMLDocument* d_rule = readSBMLFromFile(raterule_file.c_str());
+	SBMLDocument* d_rn = readSBMLFromFile(reaction_file.c_str());
     
-	SBMLDocument* d = readSBMLFromFile(filename.c_str());
+	SBMLDocument* d = readSBMLFromFile(raterule_file.c_str());
 	rule_rn_converter->setDocument(d);
 	fail_unless(rule_rn_converter->convert() == LIBSBML_OPERATION_SUCCESS);
 
 	std::string out = writeSBMLToStdString(d);
 	std::string expected = writeSBMLToStdString(d_rn);
 
-	fail_unless(equals(expected.c_str(), out.c_str()));
+	bool strings_equal = equals(expected.c_str(), out.c_str());
+	if (!strings_equal)
+	{
+		cout << "rule_reaction_rule: rule->reaction failed" << endl;
+	}
+	fail_unless(strings_equal == true);
 
     rn_rule_converter->setDocument(d);
     fail_unless(rn_rule_converter->convert() == LIBSBML_OPERATION_SUCCESS);
@@ -121,7 +128,12 @@ START_TEST(test_roundtrip_01)
     std::string out1 = writeSBMLToStdString(d);
     std::string expected1 = writeSBMLToStdString(d_rule);
 
-    fail_unless(equals(expected1.c_str(), out1.c_str()));
+	strings_equal = equals(expected.c_str(), out.c_str());
+	if (!strings_equal)
+	{
+		cout << "rule_reaction_rule: reaction->rule failed" << endl;
+	}
+	fail_unless(strings_equal == true);
 
 	delete d;
 	delete d_rn;
@@ -129,11 +141,398 @@ START_TEST(test_roundtrip_01)
 }
 END_TEST
 
+START_TEST(test_roundtrip_01_reverse)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_01_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_01_bio.xml";
+
+	SBMLDocument* d_rule = readSBMLFromFile(raterule_file.c_str());
+	SBMLDocument* d_rn = readSBMLFromFile(reaction_file.c_str());
+
+	SBMLDocument* d = readSBMLFromFile(reaction_file.c_str());
+	rn_rule_converter->setDocument(d);
+	fail_unless(rn_rule_converter->convert() == LIBSBML_OPERATION_SUCCESS);	
+
+	std::string out = writeSBMLToStdString(d);
+	std::string expected = writeSBMLToStdString(d_rule);
+
+	bool strings_equal = equals(expected.c_str(), out.c_str());
+	if (!strings_equal)
+	{
+		cout << "reaction_rule_reaction: reaction->rule failed" << endl;
+	}
+	fail_unless(strings_equal == true);
+
+	rule_rn_converter->setDocument(d);
+	fail_unless(rule_rn_converter->convert() == LIBSBML_OPERATION_SUCCESS);
+	
+	std::string out1 = writeSBMLToStdString(d);
+	std::string expected1 = writeSBMLToStdString(d_rn);
+
+	strings_equal = equals(expected.c_str(), out.c_str());
+	if (!strings_equal)
+	{
+		cout << "reaction_rule_reaction: rule->reaction failed" << endl;
+	}
+	fail_unless(strings_equal == true);
+
+	delete d;
+	delete d_rn;
+	delete d_rule;
+}
+END_TEST
+
+START_TEST(test_roundtrip_02)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_02_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_02_bio.xml";
+
+	SBMLDocument* d_rule = readSBMLFromFile(raterule_file.c_str());
+	SBMLDocument* d_rn = readSBMLFromFile(reaction_file.c_str());
+
+	SBMLDocument* d = readSBMLFromFile(raterule_file.c_str());
+	rule_rn_converter->setDocument(d);
+	fail_unless(rule_rn_converter->convert() == LIBSBML_OPERATION_SUCCESS);
+
+	std::string out = writeSBMLToStdString(d);
+	std::string expected = writeSBMLToStdString(d_rn);
+
+	bool strings_equal = equals(expected.c_str(), out.c_str());
+	if (!strings_equal)
+	{
+		cout << "rule_reaction_rule: rule->reaction failed" << endl;
+	}
+	fail_unless(strings_equal == true);
+
+	rn_rule_converter->setDocument(d);
+	fail_unless(rn_rule_converter->convert() == LIBSBML_OPERATION_SUCCESS);
+
+	std::string out1 = writeSBMLToStdString(d);
+	std::string expected1 = writeSBMLToStdString(d_rule);
+
+	strings_equal = equals(expected.c_str(), out.c_str());
+	if (!strings_equal)
+	{
+		cout << "rule_reaction_rule: reaction->rule failed" << endl;
+	}
+	fail_unless(strings_equal == true);
+
+	delete d;
+	delete d_rn;
+	delete d_rule;
+}
+END_TEST
+
+START_TEST(test_roundtrip_02_reverse)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_02_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_02_bio.xml";
+
+	SBMLDocument* d_rule = readSBMLFromFile(raterule_file.c_str());
+	SBMLDocument* d_rn = readSBMLFromFile(reaction_file.c_str());
+
+	SBMLDocument* d = readSBMLFromFile(reaction_file.c_str());
+	rn_rule_converter->setDocument(d);
+	fail_unless(rn_rule_converter->convert() == LIBSBML_OPERATION_SUCCESS);
+
+	std::string out = writeSBMLToStdString(d);
+	std::string expected = writeSBMLToStdString(d_rule);
+
+	bool strings_equal = equals(expected.c_str(), out.c_str());
+	if (!strings_equal)
+	{
+		cout << "reaction_rule_reaction: reaction->rule failed" << endl;
+	}
+	fail_unless(strings_equal == true);
+
+	rule_rn_converter->setDocument(d);
+	fail_unless(rule_rn_converter->convert() == LIBSBML_OPERATION_SUCCESS);
+
+	std::string out1 = writeSBMLToStdString(d);
+	std::string expected1 = writeSBMLToStdString(d_rn);
+
+	strings_equal = equals(expected.c_str(), out.c_str());
+	if (!strings_equal)
+	{
+		cout << "reaction_rule_reaction: rule->reaction failed" << endl;
+	}
+	fail_unless(strings_equal == true);
+
+	delete d;
+	delete d_rn;
+	delete d_rule;
+}
+END_TEST
+
+
+START_TEST(test_roundtrip_03)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_03_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_03_bio.xml";
+
+	SBMLDocument* d_rule = readSBMLFromFile(raterule_file.c_str());
+	SBMLDocument* d_rn = readSBMLFromFile(reaction_file.c_str());
+
+	SBMLDocument* d = readSBMLFromFile(raterule_file.c_str());
+	rule_rn_converter->setDocument(d);
+	fail_unless(rule_rn_converter->convert() == LIBSBML_OPERATION_SUCCESS);
+
+	std::string out = writeSBMLToStdString(d);
+	std::string expected = writeSBMLToStdString(d_rn);
+
+    bool strings_equal = equals(expected.c_str(), out.c_str());
+	if (!strings_equal)
+	{
+        cout << "rule_reaction_rule: rule->reaction failed" << endl;
+	}
+	fail_unless(strings_equal == true);
+
+	rn_rule_converter->setDocument(d);
+	fail_unless(rn_rule_converter->convert() == LIBSBML_OPERATION_SUCCESS);
+
+	std::string out1 = writeSBMLToStdString(d);
+	std::string expected1 = writeSBMLToStdString(d_rule);
+
+	strings_equal = equals(expected.c_str(), out.c_str());
+	if (!strings_equal)
+	{
+		cout << "rule_reaction_rule: reaction->rule failed" << endl;
+	}
+	fail_unless(strings_equal == true);
+
+	delete d;
+	delete d_rn;
+	delete d_rule;
+}
+END_TEST
+
+START_TEST(test_roundtrip_03_reverse)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_03_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_03_bio.xml";
+
+	SBMLDocument* d_rule = readSBMLFromFile(raterule_file.c_str());
+	SBMLDocument* d_rn = readSBMLFromFile(reaction_file.c_str());
+
+	SBMLDocument* d = readSBMLFromFile(reaction_file.c_str());
+	rn_rule_converter->setDocument(d);
+	fail_unless(rn_rule_converter->convert() == LIBSBML_OPERATION_SUCCESS);
+
+	std::string out = writeSBMLToStdString(d);
+	std::string expected = writeSBMLToStdString(d_rule);
+
+	bool strings_equal = equals(expected.c_str(), out.c_str());
+	if (!strings_equal)
+	{
+		cout << "reaction_rule_reaction: reaction->rule failed" << endl;
+	}
+	fail_unless(strings_equal == true);
+
+	rule_rn_converter->setDocument(d);
+	fail_unless(rule_rn_converter->convert() == LIBSBML_OPERATION_SUCCESS);
+
+	std::string out1 = writeSBMLToStdString(d);
+	std::string expected1 = writeSBMLToStdString(d_rn);
+
+	strings_equal = equals(expected.c_str(), out.c_str());
+	if (!strings_equal)
+	{
+		cout << "reaction_rule_reaction: rule->reaction failed" << endl;
+	}
+	fail_unless(strings_equal == true);
+
+	delete d;
+	delete d_rn;
+	delete d_rule;
+}
+END_TEST
+
+START_TEST(test_roundtrip_04)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_04_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_04_bio.xml";
+
+	SBMLDocument* d_rule = readSBMLFromFile(raterule_file.c_str());
+	SBMLDocument* d_rn = readSBMLFromFile(reaction_file.c_str());
+
+	SBMLDocument* d = readSBMLFromFile(raterule_file.c_str());
+	rule_rn_converter->setDocument(d);
+	fail_unless(rule_rn_converter->convert() == LIBSBML_OPERATION_SUCCESS);
+
+	std::string out = writeSBMLToStdString(d);
+	std::string expected = writeSBMLToStdString(d_rn);
+
+	bool strings_equal = equals(expected.c_str(), out.c_str());
+	if (!strings_equal)
+	{
+		cout << "rule_reaction_rule: rule->reaction failed" << endl;
+	}
+	fail_unless(strings_equal == true);
+
+	rn_rule_converter->setDocument(d);
+	fail_unless(rn_rule_converter->convert() == LIBSBML_OPERATION_SUCCESS);
+
+	std::string out1 = writeSBMLToStdString(d);
+	std::string expected1 = writeSBMLToStdString(d_rule);
+
+	strings_equal = equals(expected.c_str(), out.c_str());
+	if (!strings_equal)
+	{
+		cout << "rule_reaction_rule: reaction->rule failed" << endl;
+	}
+	fail_unless(strings_equal == true);
+
+	delete d;
+	delete d_rn;
+	delete d_rule;
+}
+END_TEST
+
+START_TEST(test_roundtrip_04_reverse)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_04_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_04_bio.xml";
+
+	SBMLDocument* d_rule = readSBMLFromFile(raterule_file.c_str());
+	SBMLDocument* d_rn = readSBMLFromFile(reaction_file.c_str());
+
+	SBMLDocument* d = readSBMLFromFile(reaction_file.c_str());
+	rn_rule_converter->setDocument(d);
+	fail_unless(rn_rule_converter->convert() == LIBSBML_OPERATION_SUCCESS);
+
+	std::string out = writeSBMLToStdString(d);
+	std::string expected = writeSBMLToStdString(d_rule);
+
+	bool strings_equal = equals(expected.c_str(), out.c_str());
+	if (!strings_equal)
+	{
+		cout << "reaction_rule_reaction: reaction->rule failed" << endl;
+	}
+	fail_unless(strings_equal == true);
+
+	rule_rn_converter->setDocument(d);
+	fail_unless(rule_rn_converter->convert() == LIBSBML_OPERATION_SUCCESS);
+
+	std::string out1 = writeSBMLToStdString(d);
+	std::string expected1 = writeSBMLToStdString(d_rn);
+
+	strings_equal = equals(expected.c_str(), out.c_str());
+	if (!strings_equal)
+	{
+		cout << "reaction_rule_reaction: rule->reaction failed" << endl;
+	}
+	fail_unless(strings_equal == true);
+
+	delete d;
+	delete d_rn;
+	delete d_rule;
+}
+END_TEST  
+
+START_TEST(test_roundtrip_05)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_05_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_05_bio.xml";
+
+	SBMLDocument* d_rule = readSBMLFromFile(raterule_file.c_str());
+	SBMLDocument* d_rn = readSBMLFromFile(reaction_file.c_str());
+
+	SBMLDocument* d = readSBMLFromFile(raterule_file.c_str()); // rules
+	rule_rn_converter->setDocument(d);
+	fail_unless(rule_rn_converter->convert() == LIBSBML_OPERATION_SUCCESS);
+
+	std::string out = writeSBMLToStdString(d);
+	std::string expected = writeSBMLToStdString(d_rn);
+
+	bool strings_equal = equals(expected.c_str(), out.c_str());
+	if (!strings_equal)
+	{
+		cout << "rule_reaction_rule: rule->reaction failed" << endl;
+	}
+	fail_unless(strings_equal == true);
+
+	rn_rule_converter->setDocument(d);
+	fail_unless(rn_rule_converter->convert() == LIBSBML_OPERATION_SUCCESS);
+
+	std::string out1 = writeSBMLToStdString(d);
+	std::string expected1 = writeSBMLToStdString(d_rule);
+
+	strings_equal = equals(expected.c_str(), out.c_str());
+	if (!strings_equal)
+	{
+		cout << "rule_reaction_rule: reaction->rule failed" << endl;
+	}
+	fail_unless(strings_equal == true);
+
+	delete d;
+	delete d_rn;
+	delete d_rule;
+}
+END_TEST
+
+START_TEST(test_roundtrip_05_reverse)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_05_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_05_bio.xml";
+
+	SBMLDocument* d_rule = readSBMLFromFile(raterule_file.c_str());
+	SBMLDocument* d_rn = readSBMLFromFile(reaction_file.c_str());
+
+	SBMLDocument* d = readSBMLFromFile(reaction_file.c_str());
+	rn_rule_converter->setDocument(d);
+	fail_unless(rn_rule_converter->convert() == LIBSBML_OPERATION_SUCCESS);
+
+	std::string out = writeSBMLToStdString(d);
+	std::string expected = writeSBMLToStdString(d_rule);
+
+	bool strings_equal = equals(expected.c_str(), out.c_str());
+	if (!strings_equal)
+	{
+		cout << "reaction_rule_reaction: reaction->rule failed" << endl;
+	}
+	fail_unless(strings_equal == true);
+
+	rule_rn_converter->setDocument(d);
+	fail_unless(rule_rn_converter->convert() == LIBSBML_OPERATION_SUCCESS);
+
+	std::string out1 = writeSBMLToStdString(d);
+	std::string expected1 = writeSBMLToStdString(d_rn);
+
+	strings_equal = equals(expected.c_str(), out.c_str());
+	if (!strings_equal)
+	{
+		cout << "reaction_rule_reaction: rule->reaction failed" << endl;
+	}
+	fail_unless(strings_equal == true);
+
+	delete d;
+	delete d_rn;
+	delete d_rule;
+}
+END_TEST
 
 Suite*
 create_suite_TestSBMLRoundtripConverter(void)
 {
-	bool testing = true;
+	bool testing = false;
 	Suite* suite = suite_create("SBMLRoundtripConverter");
 	TCase* tcase = tcase_create("SBMLRoundtripConverter");
 	tcase_add_checked_fixture(tcase, Roundtrip_setup,
@@ -141,11 +540,20 @@ create_suite_TestSBMLRoundtripConverter(void)
 
 	if (testing)
 	{
-		tcase_add_test(tcase, test_roundtrip_01);
+		tcase_add_test(tcase, test_roundtrip_05_reverse);
 	}
 	else
 	{
 		tcase_add_test(tcase, test_roundtrip_01);
+		tcase_add_test(tcase, test_roundtrip_01_reverse);
+		tcase_add_test(tcase, test_roundtrip_02);
+		tcase_add_test(tcase, test_roundtrip_02_reverse);
+		tcase_add_test(tcase, test_roundtrip_03); // problem with stoichiometry
+		tcase_add_test(tcase, test_roundtrip_03_reverse);
+		tcase_add_test(tcase, test_roundtrip_04);
+		tcase_add_test(tcase, test_roundtrip_04_reverse);
+		tcase_add_test(tcase, test_roundtrip_05);
+		tcase_add_test(tcase, test_roundtrip_05_reverse);
 	}
 	suite_add_tcase(suite, tcase);
 
