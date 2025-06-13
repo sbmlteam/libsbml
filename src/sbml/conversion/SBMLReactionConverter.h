@@ -237,6 +237,12 @@ private:
 
   IdList getListAssignmentRuleVariables(unsigned int &numAssignmentRules);
 
+  bool replaceReactions();
+
+  ASTNode* replaceMathWithAssignedVariables(ASTNode* original);
+
+  IdList getListAssignmentRuleVariables(unsigned int &numAssignmentRules);
+
   bool replaceReactions();      
 
   bool isDocumentValid();
