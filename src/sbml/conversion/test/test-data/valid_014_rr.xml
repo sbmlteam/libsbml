@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4">
+  <model metaid="COPASI0" id="New_Model" name="New Model">
+    <listOfCompartments>
+      <compartment metaid="COPASI1" id="compartment" name="compartment" spatialDimensions="3" size="1" constant="true"/>
+    </listOfCompartments>
+    <listOfParameters>
+      <parameter id="k" value="1.1"/>
+      <parameter id="b" value="1.0" constant="false"/>
+      <parameter id="a" value="1.1" constant="false"/>
+      <parameter id="c" value="0.9" constant="false"/>
+      <parameter id="d" value="1.0" constant="false"/>
+      <parameter id="e" value="1.1"/>
+    </listOfParameters>
+    <listOfRules>
+      <rateRule variable="a">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <minus/>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <ci> k </ci>
+                <ci> d </ci>
+              </apply>
+              <ci> a </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <ci> k </ci>
+                <ci> d </ci>
+              </apply>
+              <ci> b </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="b">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <minus/>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <ci> k </ci>
+                <ci> d </ci>
+              </apply>
+              <ci> b </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <ci> k </ci>
+                <ci> d </ci>
+              </apply>
+              <ci> c </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="c">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <minus/>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <ci> k </ci>
+                <ci> d </ci>
+              </apply>
+              <ci> c </ci>
+            </apply>
+            <apply>
+              <times/>
+              <apply>
+                <minus/>
+                <ci> k </ci>
+                <ci> d </ci>
+              </apply>
+              <ci> a </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="d">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <cn> .2 </cn>
+        </math>
+      </rateRule>
+
+    </listOfRules>
+  </model>
+</sbml>

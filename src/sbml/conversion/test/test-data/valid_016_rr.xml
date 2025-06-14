@@ -16,21 +16,26 @@
         <listOfRules>
             <rateRule variable="c">
                 <math xmlns="http://www.w3.org/1998/Math/MathML">
-                     <apply>
-                    <minus/>
                     <apply>
                         <minus/>
                         <apply>
                             <plus/>
-                            <ci> k </ci>
-                            <ci> v </ci>
+                            <apply>
+                                <minus/>
+                                <ci> k </ci>
+                                <ci> a </ci>
+                            </apply>
+                            <apply>
+                                <times/>
+                                <ci> v </ci>
+                                <ci> a </ci>
+                                <ci> b </ci>
+                            </apply>
                         </apply>
-                        <ci> a </ci>
-                    </apply>
-                    <ci> b </ci>
+                        <ci> b </ci>
                     </apply>
                 </math>
             </rateRule>
-        </listOfRules>
+         </listOfRules>
     </model>
 </sbml>
