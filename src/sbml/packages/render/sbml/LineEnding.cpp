@@ -73,7 +73,7 @@ LineEnding::LineEnding(unsigned int level,
                        unsigned int pkgVersion)
   : GraphicalPrimitive2D(level, version, pkgVersion)
     ,mEnableRotationalMapping(true)
-  , mIsSetEnableRotationalMapping (true)
+  , mIsSetEnableRotationalMapping (false)
   , mGroup (NULL)
   , mBoundingBox (NULL)
 {
@@ -90,7 +90,7 @@ LineEnding::LineEnding(unsigned int level,
 LineEnding::LineEnding(RenderPkgNamespaces *renderns)
   : GraphicalPrimitive2D(renderns)
     ,mEnableRotationalMapping(true)
-  , mIsSetEnableRotationalMapping (true)
+  , mIsSetEnableRotationalMapping (false)
   , mGroup (NULL)
   , mBoundingBox (NULL)
 {
