@@ -1526,9 +1526,7 @@ LineEnding::writeAttributes(XMLOutputStream& stream) const
   //  stream.writeAttribute("id", getPrefix(), mId);
   //}
 
-  //render - FIX_ME
-  // not writing out defaults so need to write default Value
-  if (isSetEnableRotationalMapping() == true && getEnableRotationalMapping() == false)
+  if (isSetEnableRotationalMapping())
   {
     stream.writeAttribute("enableRotationalMapping", getPrefix(),
       mEnableRotationalMapping);

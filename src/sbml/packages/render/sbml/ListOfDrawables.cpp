@@ -522,60 +522,62 @@ ListOfDrawables::createObject(XMLInputStream& stream)
   //  appendAndOwn(object);
   //}
 
-    if (name == "g")
-    {
-       object = new RenderGroup(renderns);
-    }
+  if (name == "g")
+  {
+      object = new RenderGroup(renderns);
+      appendAndOwn(object);
+  }
 
-    if(name=="curve")
-    {
-       // only newstyle cures will be supported for L3 
-       object = new RenderCurve(renderns);
-    }
+  else if(name=="curve")
+  {
+      // only newstyle cures will be supported for L3 
+      object = new RenderCurve(renderns);
+      appendAndOwn(object);
+  }
 
-  if (name == "image")
+  else if (name == "image")
   {
     object = new Image(renderns);
     appendAndOwn(object);
   }
 
-  if (name == "ellipse")
+  else if (name == "ellipse")
   {
     object = new Ellipse(renderns);
     appendAndOwn(object);
   }
 
-  if (name == "rectangle")
+  else if (name == "rectangle")
   {
     object = new Rectangle(renderns);
     appendAndOwn(object);
   }
 
-  if (name == "polygon")
+  else if (name == "polygon")
   {
     object = new Polygon(renderns);
     appendAndOwn(object);
   }
 
-  if (name == "renderGroup")
+  else if (name == "renderGroup")
   {
     object = new RenderGroup(renderns);
     appendAndOwn(object);
   }
 
-  if (name == "lineEnding")
+  else if (name == "lineEnding")
   {
     object = new LineEnding(renderns);
     appendAndOwn(object);
   }
 
-  if (name == "text")
+  else if (name == "text")
   {
     object = new Text(renderns);
     appendAndOwn(object);
   }
 
-  if (name == "renderCurve")
+  else if (name == "renderCurve")
   {
     object = new RenderCurve(renderns);
     appendAndOwn(object);
