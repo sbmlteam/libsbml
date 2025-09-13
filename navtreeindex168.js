@@ -1,5 +1,9 @@
 var NAVTREEINDEX168 =
 {
+"class_spatial_points.html#a027dbf22b8bf74bbb0ce5cd4453851c7":[3,0,330,58],
+"class_spatial_points.html#a02a6692a180f9281c071b77f908dce0e":[3,0,330,45],
+"class_spatial_points.html#a031d1da6a39bae8afd5201677fb32c02":[3,0,330,73],
+"class_spatial_points.html#a050779a94ecdb2d73d7edfef73bc1e55":[3,0,330,150],
 "class_spatial_points.html#a0616510224615f0966094e7f1530cc55":[3,0,330,121],
 "class_spatial_points.html#a07ec2702ebbdf35aef0a0626b0ffd52f":[3,0,330,67],
 "class_spatial_points.html#a07fe8dd8b43718fbb3d0df8481c72058":[3,0,330,174],
@@ -245,9 +249,5 @@ var NAVTREEINDEX168 =
 "class_spatial_species_plugin.html#a527852f0c079766396c217358c0cc2b0":[3,0,333,8],
 "class_spatial_species_plugin.html#a59581825576a6216ab07beceb709da81":[3,0,333,15],
 "class_spatial_species_plugin.html#a5f80963d1f7110a07092e33b44a470ed":[3,0,333,5],
-"class_spatial_species_plugin.html#a6712bfb4148805bac5d5914137be77d4":[3,0,333,6],
-"class_spatial_species_plugin.html#a6e736b802f4fa6455e3f54941dfd49ac":[3,0,333,19],
-"class_spatial_species_plugin.html#a70257de82da9ea894348f1d601395e83":[3,0,333,26],
-"class_spatial_species_plugin.html#a740816e11ab698ae1f77cf6f9278639f":[3,0,333,20],
-"class_spatial_species_plugin.html#a75f7b44692ca306279aa1ae452fcb8c3":[3,0,333,24]
+"class_spatial_species_plugin.html#a6712bfb4148805bac5d5914137be77d4":[3,0,333,6]
 };

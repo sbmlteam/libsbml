@@ -1,5 +1,7 @@
 var NAVTREEINDEX25 =
 {
+"class_adjacent_domains.html#a936f753a9032913c569dafa3642d8252":[3,0,0,100],
+"class_adjacent_domains.html#a944bad557986b43d8328d5727d1aa890":[3,0,0,64],
 "class_adjacent_domains.html#a94808b7104d6724cd775fa41b71a4e52":[3,0,0,0],
 "class_adjacent_domains.html#a94ead78ebf80118b1027af5438f22516":[3,0,0,98],
 "class_adjacent_domains.html#a973c76cb7a7370cb221911591a73460a":[3,0,0,56],
@@ -247,7 +249,5 @@ var NAVTREEINDEX25 =
 "class_algebraic_rule.html#a2f1f06cc28e977e87f59b48bc1426a2d":[3,0,2,98],
 "class_algebraic_rule.html#a30ac3f72984fb7e41ae5dc88f2a0504d":[3,0,2,93],
 "class_algebraic_rule.html#a317ea060a5c3f97576188a22e670e683":[3,0,2,160],
-"class_algebraic_rule.html#a31fea5f04d8d0a59aef58fa6fc8236b7":[3,0,2,72],
-"class_algebraic_rule.html#a33897f0c6bf974b8a2418589360ae916":[3,0,2,34],
-"class_algebraic_rule.html#a33da5a2b0b03cbe6af69730869e35212":[3,0,2,7]
+"class_algebraic_rule.html#a31fea5f04d8d0a59aef58fa6fc8236b7":[3,0,2,72]
 };

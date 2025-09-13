@@ -18,5 +18,7 @@ var _gene_product_association_8cpp =
     [ "GeneProductAssociation_setId", "_gene_product_association_8cpp.html#a2ee721ca9e26706f2e02ac7d1904d695", null ],
     [ "GeneProductAssociation_setName", "_gene_product_association_8cpp.html#a102906ed192cf6e132d377210c21bdfd", null ],
     [ "GeneProductAssociation_unsetId", "_gene_product_association_8cpp.html#a5616e54831e0c5decefb86489dd60e8e", null ],
-    [ "GeneProductAssociation_unsetName", "_gene_product_association_8cpp.html#a08c9f0cd43218098a11248d00203543a", null ]
+    [ "GeneProductAssociation_unsetName", "_gene_product_association_8cpp.html#a08c9f0cd43218098a11248d00203543a", null ],
+    [ "getFbcAssociationAsASTNode", "_gene_product_association_8cpp.html#ae3fe2a89540dc9ce66f2935e8c62d64d", null ],
+    [ "getFbcAssociationFor", "_gene_product_association_8cpp.html#a480616a4cd98bef5b33ce1ed2e54d156", null ]
 ];

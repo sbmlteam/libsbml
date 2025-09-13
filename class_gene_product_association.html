@@ -152,6 +152,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a13927d471623948bebed6506254e649f" id="r_a13927d471623948bebed6506254e649f"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_fbc_and.html">FbcAnd</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_gene_product_association.html#a13927d471623948bebed6506254e649f">createAnd</a> ()</td></tr>
 <tr class="memdesc:a13927d471623948bebed6506254e649f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new "association" and sets it for this <a class="el" href="class_gene_product_association.html">GeneProductAssociation</a>.  <br /></td></tr>
 <tr class="separator:a13927d471623948bebed6506254e649f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a239ab4c84296ae7cbfddb1b61bbfd6d4" id="r_a239ab4c84296ae7cbfddb1b61bbfd6d4"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_gene_product_association.html#a239ab4c84296ae7cbfddb1b61bbfd6d4">createChildAssociationFromASTNode</a> (const <a class="el" href="class_a_s_t_node.html">ASTNode</a> *astn)</td></tr>
+<tr class="memdesc:a239ab4c84296ae7cbfddb1b61bbfd6d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a set of child GeneProductRefs from an <a class="el" href="class_a_s_t_node.html">ASTNode</a>.  <br /></td></tr>
+<tr class="separator:a239ab4c84296ae7cbfddb1b61bbfd6d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a23ce54f85d313a9e100884f23c1643f2" id="r_a23ce54f85d313a9e100884f23c1643f2"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_gene_product_ref.html">GeneProductRef</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_gene_product_association.html#a23ce54f85d313a9e100884f23c1643f2">createGeneProductRef</a> ()</td></tr>
 <tr class="memdesc:a23ce54f85d313a9e100884f23c1643f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new "association" and sets it for this <a class="el" href="class_gene_product_association.html">GeneProductAssociation</a>.  <br /></td></tr>
 <tr class="separator:a23ce54f85d313a9e100884f23c1643f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -206,6 +209,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a148aada0b06a4688136b8d5978854e96" id="r_a148aada0b06a4688136b8d5978854e96"><td class="memItemLeft" align="right" valign="top">virtual const <a class="el" href="class_fbc_association.html">FbcAssociation</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_gene_product_association.html#a148aada0b06a4688136b8d5978854e96">getAssociation</a> () const</td></tr>
 <tr class="memdesc:a148aada0b06a4688136b8d5978854e96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the "association" element of this <a class="el" href="class_gene_product_association.html">GeneProductAssociation</a>.  <br /></td></tr>
 <tr class="separator:a148aada0b06a4688136b8d5978854e96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a882e7642747a55352c6bc86d96f8454f" id="r_a882e7642747a55352c6bc86d96f8454f"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_a_s_t_node.html">ASTNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_gene_product_association.html#a882e7642747a55352c6bc86d96f8454f">getAssociationAsASTNode</a> () const</td></tr>
+<tr class="memdesc:a882e7642747a55352c6bc86d96f8454f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the "association" element of this <a class="el" href="class_gene_product_association.html">GeneProductAssociation</a> as an <a class="el" href="class_a_s_t_node.html">ASTNode</a>.  <br /></td></tr>
+<tr class="separator:a882e7642747a55352c6bc86d96f8454f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a21766ad77868a914ec0780653d0e924f" id="r_a21766ad77868a914ec0780653d0e924f"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_base.html#a21766ad77868a914ec0780653d0e924f">getColumn</a> () const</td></tr>
 <tr class="memdesc:a21766ad77868a914ec0780653d0e924f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the column number where this object first appears in the XML representation of the SBML document.  <br /></td></tr>
 <tr class="separator:a21766ad77868a914ec0780653d0e924f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1115,6 +1121,35 @@ date" portion of this <a class="el" href="class_model_history.html">ModelHistory
 
 </div>
 </div>
+<a id="a239ab4c84296ae7cbfddb1b61bbfd6d4" name="a239ab4c84296ae7cbfddb1b61bbfd6d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a239ab4c84296ae7cbfddb1b61bbfd6d4">&#9670;&#160;</a></span>createChildAssociationFromASTNode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int GeneProductAssociation::createChildAssociationFromASTNode </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_a_s_t_node.html">ASTNode</a> *&#160;</td>
+          <td class="paramname"><em>astn</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates a set of child GeneProductRefs from an <a class="el" href="class_a_s_t_node.html">ASTNode</a>. </p>
+<p>Will fail if the <a class="el" href="class_gene_product_association.html">GeneProductAssociation</a> is not empty, or if the <a class="el" href="class_a_s_t_node.html">ASTNode</a> has anything other than 'and', 'or', and 'name' elements. </p>
+
+</div>
+</div>
 <a id="a23ce54f85d313a9e100884f23c1643f2" name="a23ce54f85d313a9e100884f23c1643f2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a23ce54f85d313a9e100884f23c1643f2">&#9670;&#160;</a></span>createGeneProductRef()</h2>
 
@@ -1768,6 +1803,34 @@ date" portion of this <a class="el" href="class_model_history.html">ModelHistory
 
 <p>Returns the "association" element of this <a class="el" href="class_gene_product_association.html">GeneProductAssociation</a>. </p>
 <dl class="section return"><dt>Returns</dt><dd>the "association" element of this <a class="el" href="class_gene_product_association.html">GeneProductAssociation</a>. </dd></dl>
+
+</div>
+</div>
+<a id="a882e7642747a55352c6bc86d96f8454f" name="a882e7642747a55352c6bc86d96f8454f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a882e7642747a55352c6bc86d96f8454f">&#9670;&#160;</a></span>getAssociationAsASTNode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_a_s_t_node.html">ASTNode</a> * GeneProductAssociation::getAssociationAsASTNode </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the "association" element of this <a class="el" href="class_gene_product_association.html">GeneProductAssociation</a> as an <a class="el" href="class_a_s_t_node.html">ASTNode</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>the "association" element of this <a class="el" href="class_gene_product_association.html">GeneProductAssociation</a> as an <a class="el" href="class_a_s_t_node.html">ASTNode</a>. </dd></dl>
 
 </div>
 </div>
