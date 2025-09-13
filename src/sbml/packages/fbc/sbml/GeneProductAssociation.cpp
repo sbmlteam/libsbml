@@ -207,6 +207,43 @@ GeneProductAssociation::getAssociation()
   return mAssociation;
 }
 
+ASTNode* getFbcAssociationAsASTNode(const FbcAssociation* association)
+{
+  ASTNode* astn = NULL;
+  const ListOfFbcAssociations* fbcas = NULL;
+  if (association->isGeneProductRef()) {
+    astn = new ASTNode(AST_NAME);
+    astn->setName(static_cast<const GeneProductRef*>(association)->getGeneProduct().c_str());
+    return astn;
+  }
+  if (association->isFbcAnd()) {
+    astn = new ASTNode(AST_LOGICAL_AND);
+    fbcas = static_cast<const FbcAnd*>(association)->getListOfAssociations();
+  }
+  else if (association->isFbcOr()) {
+    astn = new ASTNode(AST_LOGICAL_OR);
+    fbcas = static_cast<const FbcOr*>(association)->getListOfAssociations();
+  }
+  else {
+    assert(false);
+    return NULL;
+  }
+  for (unsigned int a = 0; a < fbcas->getNumFbcAssociations(); a++) {
+    ASTNode* child = getFbcAssociationAsASTNode(fbcas->get(a));
+    if (child == NULL) {
+      delete astn;
+      return NULL;
+    }
+    astn->addChild(child);
+  }
+  return astn;
+}
+
+ASTNode* GeneProductAssociation::getAssociationAsASTNode() const
+{
+  return getFbcAssociationAsASTNode(mAssociation);
+}
+
 
 /*
  * Creates a new "association" element of this GeneProductAssociation and returns it.
@@ -250,6 +287,73 @@ GeneProductAssociation::createGeneProductRef()
   delete fbcns;
   connectToChild();
   return static_cast<GeneProductRef*>(mAssociation);
+}
+
+FbcAssociation* getFbcAssociationFor(const ASTNode* astn, FbcPkgNamespaces* fbcns)
+{
+  if (astn == NULL) {
+    return NULL;
+  }
+  ASTNodeType_t type = astn->getType();
+  GeneProductRef* gpr = NULL;
+  FbcAnd* fbcand = NULL;
+  FbcOr* fbcor = NULL;
+  switch (type) {
+  case AST_NAME:
+    gpr = new GeneProductRef(fbcns);
+    if (gpr->setGeneProduct(astn->getName()) != LIBSBML_OPERATION_SUCCESS) {
+      delete gpr;
+      return NULL;
+    }
+    return gpr;
+  case AST_LOGICAL_AND:
+    fbcand = new FbcAnd(fbcns);
+    for (unsigned int c = 0; c < astn->getNumChildren(); c++) {
+      FbcAssociation* child_fbca = getFbcAssociationFor(astn->getChild(c), fbcns);
+      if (child_fbca == NULL) {
+        delete fbcand;
+        return NULL;
+      }
+      if (fbcand->addAssociation(child_fbca) != LIBSBML_OPERATION_SUCCESS) {
+        delete fbcand;
+        return NULL;
+      }
+    }
+    return fbcand;
+  case AST_LOGICAL_OR:
+    fbcor = new FbcOr(fbcns);
+    for (unsigned int c = 0; c < astn->getNumChildren(); c++) {
+      FbcAssociation* child_fbca = getFbcAssociationFor(astn->getChild(c), fbcns);
+      if (child_fbca == NULL) {
+        delete fbcor;
+        return NULL;
+      }
+      if (fbcor->addAssociation(child_fbca) != LIBSBML_OPERATION_SUCCESS) {
+        delete fbcor;
+        return NULL;
+      }
+    }
+    return fbcor;
+  default:
+    return NULL;
+  }
+  assert(false); //all paths through switch should return something.
+  return NULL;
+}
+
+int GeneProductAssociation::createChildAssociationFromASTNode(const ASTNode* astn)
+{
+  if (isSetAssociation()) {
+    return LIBSBML_OPERATION_FAILED;
+  }
+  FBC_CREATE_NS_WITH_VERSION(fbcns, getSBMLNamespaces(), getPackageVersion());
+  mAssociation = getFbcAssociationFor(astn, fbcns);
+  delete fbcns;
+  if (mAssociation == NULL) {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  connectToChild();
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 

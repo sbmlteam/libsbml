@@ -228,6 +228,14 @@ public:
 
 
   /**
+   * Returns the "association" element of this GeneProductAssociation as an ASTNode.
+   *
+   * @return the "association" element of this GeneProductAssociation as an ASTNode.
+   */
+  virtual ASTNode* getAssociationAsASTNode() const;
+
+
+  /**
    * Creates a new "association" and sets it for this GeneProductAssociation.
    *
    * @return the FbcAnd created.
@@ -245,6 +253,13 @@ public:
    * Creates a new "association" and sets it for this GeneProductAssociation.
    */
   virtual GeneProductRef* createGeneProductRef();
+
+  /**
+   * Creates a set of child GeneProductRefs from an ASTNode.
+   *
+   * Will fail if the GeneProductAssociation is not empty, or if the ASTNode has anything other than 'and', 'or', and 'name' elements.
+   */
+  virtual int createChildAssociationFromASTNode(const ASTNode* astn);
 
 
   /**
