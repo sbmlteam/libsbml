@@ -21,6 +21,8 @@
 #include <sbml/SBMLTypeCodes.h>
 #include <sbml/SBMLReader.h>
 #include <sbml/SBMLWriter.h>
+#include <sbml/math/L3FormulaFormatter.h>
+#include <sbml/math/L3Parser.h>
 #include <string>
 
 /** @cond doxygenIgnored */
