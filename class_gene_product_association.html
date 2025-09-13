@@ -1146,7 +1146,17 @@ date" portion of this <a class="el" href="class_model_history.html">ModelHistory
 </div><div class="memdoc">
 
 <p>Creates a set of child GeneProductRefs from an <a class="el" href="class_a_s_t_node.html">ASTNode</a>. </p>
-<p>Will fail if the <a class="el" href="class_gene_product_association.html">GeneProductAssociation</a> is not empty, or if the <a class="el" href="class_a_s_t_node.html">ASTNode</a> has anything other than 'and', 'or', and 'name' elements. </p>
+<p>Will fail if the <a class="el" href="class_gene_product_association.html">GeneProductAssociation</a> is not empty (LIBSBML_OPERATION_FAILED), or if the <a class="el" href="class_a_s_t_node.html">ASTNode</a> has anything other than 'and', 'or', and 'name' elements (LIBSBML_INVALID_OBJECT).</p>
+<dl class="section return"><dt>Returns</dt><dd>integer value indicating success/failure of the function.  The value is drawn from the enumeration <a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886d" title="LibSBML diagnostic return codes.">OperationReturnValues_t</a>.  The possible values returned by this function are:   <ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a>   </li>
+</ul>
+<ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886dac83e0b4b9acff7bc357e9ebb263236da">LIBSBML_OPERATION_FAILED</a>   </li>
+</ul>
+<ul>
+<li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886da9fb84324c51e63460901490374a4ea82">LIBSBML_INVALID_OBJECT</a>    </li>
+</ul>
+</dd></dl>
 
 </div>
 </div>
@@ -1830,6 +1840,7 @@ date" portion of this <a class="el" href="class_model_history.html">ModelHistory
 </div><div class="memdoc">
 
 <p>Returns the "association" element of this <a class="el" href="class_gene_product_association.html">GeneProductAssociation</a> as an <a class="el" href="class_a_s_t_node.html">ASTNode</a>. </p>
+<p>The nodes will be some combination of AST_LOGICAL_AND, AST_LOGICAL_OR, and AST_NAME elements, with the name elements being the value of the 'geneProduct' attribute (i.e. the 'id', not the 'label', of the gene product).</p>
 <dl class="section return"><dt>Returns</dt><dd>the "association" element of this <a class="el" href="class_gene_product_association.html">GeneProductAssociation</a> as an <a class="el" href="class_a_s_t_node.html">ASTNode</a>. </dd></dl>
 
 </div>
