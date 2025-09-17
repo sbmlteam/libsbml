@@ -1,5 +1,8 @@
 var NAVTREEINDEX156 =
 {
+"class_render_list_of_layouts_plugin.html#afcf597ffa54ffed41a57a1feee7a9241":[3,0,268,16],
+"class_render_pkg_namespaces.html":[3,0,269],
+"class_render_point.html":[3,0,270],
 "class_render_point.html#a0012f3bfea59f5bed50b7f37af24983a":[3,0,270,81],
 "class_render_point.html#a0143961ca5188d00203c99eef1de854e":[3,0,270,17],
 "class_render_point.html#a027dbf22b8bf74bbb0ce5cd4453851c7":[3,0,270,44],
@@ -246,8 +249,5 @@ var NAVTREEINDEX156 =
 "class_replaced_by.html#a2bcd32c8ab7537433f7f7851818c60ed":[3,0,273,71],
 "class_replaced_by.html#a2da81b22af670c12375835a6f992c5db":[3,0,273,90],
 "class_replaced_by.html#a2e322246cd669131af4bd325a99ac0fd":[3,0,273,27],
-"class_replaced_by.html#a2f0edc025514ba75d15e6c6b5a831b66":[3,0,273,22],
-"class_replaced_by.html#a30ac3f72984fb7e41ae5dc88f2a0504d":[3,0,273,95],
-"class_replaced_by.html#a313caa1d084982ffd1837af17861331a":[3,0,273,179],
-"class_replaced_by.html#a317ea060a5c3f97576188a22e670e683":[3,0,273,177]
+"class_replaced_by.html#a2f0edc025514ba75d15e6c6b5a831b66":[3,0,273,22]
 };

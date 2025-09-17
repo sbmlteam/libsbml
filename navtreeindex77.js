@@ -1,5 +1,8 @@
 var NAVTREEINDEX77 =
 {
+"class_kinetic_law.html#a936f753a9032913c569dafa3642d8252":[3,0,115,127],
+"class_kinetic_law.html#a944bad557986b43d8328d5727d1aa890":[3,0,115,86],
+"class_kinetic_law.html#a94ead78ebf80118b1027af5438f22516":[3,0,115,125],
 "class_kinetic_law.html#a973c76cb7a7370cb221911591a73460a":[3,0,115,73],
 "class_kinetic_law.html#a97cf2be851656cf521ac03f50ecf5eb3":[3,0,115,16],
 "class_kinetic_law.html#a98c955421c92c28351610ea811ecb4fe":[3,0,115,169],
@@ -246,8 +249,5 @@ var NAVTREEINDEX77 =
 "class_layout.html#ab693ee8882551566b56c63b4b564264f":[3,0,117,132],
 "class_layout.html#ab77e748f0e6100920cf6046401a719f0":[3,0,117,75],
 "class_layout.html#ab9b81fdb8570c061842115f59d12ef99":[3,0,117,60],
-"class_layout.html#abbd9e46d49ea191134832353b7b91c6d":[3,0,117,153],
-"class_layout.html#abc9e6fc0fc591e261edce9c7cb6bce05":[3,0,117,12],
-"class_layout.html#abd78c4290e103245ce49b92b5e229375":[3,0,117,209],
-"class_layout.html#abfffa1a221664f1e29ca783415ee3c5d":[3,0,117,138]
+"class_layout.html#abbd9e46d49ea191134832353b7b91c6d":[3,0,117,153]
 };

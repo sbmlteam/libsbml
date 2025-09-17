@@ -42,6 +42,7 @@ var class_gene_product_association =
     [ "getElementBySId", "class_gene_product_association.html#a354719e2a1e31a2c7abfed5f3c0e2d40", null ],
     [ "getElementBySId", "class_gene_product_association.html#a77068f549f7aa55f56a072cda2960183", null ],
     [ "getElementName", "class_gene_product_association.html#a241aa42603fa53abb8e76d37262c6633", null ],
+    [ "getFbcAssociationFor", "class_gene_product_association.html#a97a89787c00b76d28922a1e293bb4257", null ],
     [ "getId", "class_gene_product_association.html#a080fd61d7b3bfb7a075cc2ce14b08ef6", null ],
     [ "getIdAttribute", "class_gene_product_association.html#ad5ffefa4d9901ca0d55f2343c08bb057", null ],
     [ "getLevel", "class_gene_product_association.html#af0a70ab6f715e912c6431072c4339f2c", null ],

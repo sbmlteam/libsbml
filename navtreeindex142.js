@@ -1,5 +1,8 @@
 var NAVTREEINDEX142 =
 {
+"class_parametric_geometry.html#ab65f2358ae580d6ed278789698f80209":[3,0,239,54],
+"class_parametric_geometry.html#ab78078e1f7b69ca415658569ad7bb444":[3,0,239,157],
+"class_parametric_geometry.html#ab8039dc5f1d3dbcec6d00898fce55b69":[3,0,239,66],
 "class_parametric_geometry.html#abb3ed80045ab1b94bb5a07b2e4a008f7":[3,0,239,70],
 "class_parametric_geometry.html#abbd9e46d49ea191134832353b7b91c6d":[3,0,239,116],
 "class_parametric_geometry.html#abc0730fe35d113b940cd3f98e886d2ea":[3,0,239,112],
@@ -246,8 +249,5 @@ var NAVTREEINDEX142 =
 "class_point.html#a1bfd93ef72d0f624964fcfd7a8d5cdfb":[3,0,241,144],
 "class_point.html#a1e89a7890f2fb291f1ba4c38866d1dcc":[3,0,241,142],
 "class_point.html#a21580da1d75f4782effcc57b45ed37c8":[3,0,241,111],
-"class_point.html#a21766ad77868a914ec0780653d0e924f":[3,0,241,24],
-"class_point.html#a253b8d724dd9cb8d4cdfcf3f5176dfd2":[3,0,241,25],
-"class_point.html#a269ee4b549ed8c0fd3f44157500575c7":[3,0,241,29],
-"class_point.html#a2880c1c6a2df519371637a9234ed68a4":[3,0,241,41]
+"class_point.html#a21766ad77868a914ec0780653d0e924f":[3,0,241,24]
 };

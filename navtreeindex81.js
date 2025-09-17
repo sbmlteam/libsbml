@@ -1,5 +1,8 @@
 var NAVTREEINDEX81 =
 {
+"class_linear_gradient.html#ae89a4757c093b8f9c491338bcb278921":[3,0,124,18],
+"class_linear_gradient.html#aeceea92f32e67e88da7897a81fc711cb":[3,0,124,138],
+"class_linear_gradient.html#aed88437d6578a060cb14b585a572919f":[3,0,124,107],
 "class_linear_gradient.html#aed8f42e0f220bd85af8d01b51d87aeff":[3,0,124,90],
 "class_linear_gradient.html#aee8d8b8cb1ae5980d228174073fc5abc":[3,0,124,72],
 "class_linear_gradient.html#aef0ea49f9a3ad67d72edb2c1cf92ad82":[3,0,124,165],
@@ -246,8 +249,5 @@ var NAVTREEINDEX81 =
 "class_list_of_adjacent_domains.html#a70becec9ecd5ecf42973a8e0d4609487":[3,0,129,76],
 "class_list_of_adjacent_domains.html#a75b1541bd854ad7edfe0aff79ab3231f":[3,0,129,126],
 "class_list_of_adjacent_domains.html#a77068f549f7aa55f56a072cda2960183":[3,0,129,47],
-"class_list_of_adjacent_domains.html#a776e0b06ec3f0dd2bfdafeec6c9d7cc2":[3,0,129,56],
-"class_list_of_adjacent_domains.html#a78e5ac577ff9cf83d6fc413f5053d705":[3,0,129,102],
-"class_list_of_adjacent_domains.html#a7a260cec1705d70d0fea2259b5665b92":[3,0,129,106],
-"class_list_of_adjacent_domains.html#a7a6dc5a02be520ea43c7cf71c5062c71":[3,0,129,135]
+"class_list_of_adjacent_domains.html#a776e0b06ec3f0dd2bfdafeec6c9d7cc2":[3,0,129,56]
 };
