@@ -207,41 +207,9 @@ GeneProductAssociation::getAssociation()
   return mAssociation;
 }
 
-ASTNode* getFbcAssociationAsASTNode(const FbcAssociation* association)
-{
-  ASTNode* astn = NULL;
-  const ListOfFbcAssociations* fbcas = NULL;
-  if (association->isGeneProductRef()) {
-    astn = new ASTNode(AST_NAME);
-    astn->setName(static_cast<const GeneProductRef*>(association)->getGeneProduct().c_str());
-    return astn;
-  }
-  if (association->isFbcAnd()) {
-    astn = new ASTNode(AST_LOGICAL_AND);
-    fbcas = static_cast<const FbcAnd*>(association)->getListOfAssociations();
-  }
-  else if (association->isFbcOr()) {
-    astn = new ASTNode(AST_LOGICAL_OR);
-    fbcas = static_cast<const FbcOr*>(association)->getListOfAssociations();
-  }
-  else {
-    assert(false);
-    return NULL;
-  }
-  for (unsigned int a = 0; a < fbcas->getNumFbcAssociations(); a++) {
-    ASTNode* child = getFbcAssociationAsASTNode(fbcas->get(a));
-    if (child == NULL) {
-      delete astn;
-      return NULL;
-    }
-    astn->addChild(child);
-  }
-  return astn;
-}
-
 ASTNode* GeneProductAssociation::getAssociationAsASTNode() const
 {
-  return getFbcAssociationAsASTNode(mAssociation);
+  return mAssociation->getFbcAssociationAsASTNode();
 }
 
 
@@ -289,7 +257,7 @@ GeneProductAssociation::createGeneProductRef()
   return static_cast<GeneProductRef*>(mAssociation);
 }
 
-FbcAssociation* getFbcAssociationFor(const ASTNode* astn, FbcPkgNamespaces* fbcns)
+FbcAssociation* GeneProductAssociation::getFbcAssociationFor(const ASTNode* astn, FbcPkgNamespaces* fbcns)
 {
   if (astn == NULL) {
     return NULL;

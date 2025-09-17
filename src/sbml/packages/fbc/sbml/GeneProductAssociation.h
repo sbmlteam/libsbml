@@ -872,6 +872,8 @@ protected:
 
   /** @endcond */
 
+private:
+  FbcAssociation* getFbcAssociationFor(const ASTNode* astn, FbcPkgNamespaces* fbcns);
 
 
 };
