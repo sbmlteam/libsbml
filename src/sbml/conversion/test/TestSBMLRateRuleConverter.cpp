@@ -52,9 +52,9 @@ using namespace std;
 LIBSBML_CPP_NAMESPACE_USE
 BEGIN_C_DECLS
 
-static Model* m;
-static ConversionProperties props;
-static SBMLRateRuleConverter* converter;
+static ConversionProperties rule_rn_props;
+static SBMLRateRuleConverter* rule_rn_converter;
+static Model* model;
 
 static bool
 equals(const char* expected, const char* actual)
@@ -79,16 +79,16 @@ extern char *TestDataDirectory;
 void
 RateRuleConverter_setup(void)
 {
-	props.addOption("inferReactions", true);
+	rule_rn_props.addOption("inferReactions", true);
 
-	converter = new SBMLRateRuleConverter();
-	converter->setProperties(&props);
+	rule_rn_converter = new SBMLRateRuleConverter();
+	rule_rn_converter->setProperties(&rule_rn_props);
 }
 
 void
 RateRuleConverter_teardown(void)
 {
-	delete converter;
+	delete rule_rn_converter;
 }
 
 // helper function to set up a parameter with 0 value
@@ -101,13 +101,36 @@ static Parameter* setupZeroParameter(Model* model, const char* name, bool is_con
 	return parameter;
 }
 
+bool test_rule_to_reaction(const std::string& raterule_file, 
+									const std::string& reaction_file)
 
+{
+	SBMLDocument* d_rule = readSBMLFromFile(raterule_file.c_str());
+	SBMLDocument* d_rn = readSBMLFromFile(reaction_file.c_str());
+	SBMLDocument* d = readSBMLFromFile(raterule_file.c_str());
+	rule_rn_converter->setDocument(d);
+	if (rule_rn_converter->convert() != LIBSBML_OPERATION_SUCCESS)
+		return false;
+	std::string out = writeSBMLToStdString(d);
+	std::string expected = writeSBMLToStdString(d_rn);
+	bool strings_equal = equals(expected.c_str(), out.c_str());
+	if (!strings_equal)
+	{
+		cout << "rule_reaction: rule->reaction failed" << endl;
+		return false;
+	}
+
+	delete d;
+	delete d_rn;
+	delete d_rule;
+    return true;
+}
 
 START_TEST(test_check_derivative_sign)
 {
     const ASTNode* deriv = NULL;
 	bool derivativeSign = false;
-	bool signDetermined = converter->checkDerivativeSign(deriv, derivativeSign);
+	bool signDetermined = rule_rn_converter->checkDerivativeSign(deriv, derivativeSign);
 	fail_unless(signDetermined == false);
     fail_unless(derivativeSign == false);
 	delete deriv;
@@ -115,7 +138,7 @@ START_TEST(test_check_derivative_sign)
 	ASTNode* node = SBML_parseL3Formula("3");
 	deriv = node->derivative("S1");
 	derivativeSign = false;
-	signDetermined = converter->checkDerivativeSign(deriv, derivativeSign);
+	signDetermined = rule_rn_converter->checkDerivativeSign(deriv, derivativeSign);
 	fail_unless(signDetermined == true);
 	fail_unless(derivativeSign == false);
 	delete node;
@@ -124,7 +147,7 @@ START_TEST(test_check_derivative_sign)
 	node = SBML_parseL3Formula("3*S1");
     deriv = node->derivative("S1");
     derivativeSign = false;
-    signDetermined = converter->checkDerivativeSign(deriv, derivativeSign);
+    signDetermined = rule_rn_converter->checkDerivativeSign(deriv, derivativeSign);
     fail_unless(signDetermined == true);
     fail_unless(derivativeSign == true);
     delete node;
@@ -133,7 +156,7 @@ START_TEST(test_check_derivative_sign)
 	node = SBML_parseL3Formula("-5*S1");
 	deriv = node->derivative("S1");
 	derivativeSign = false;
-	signDetermined = converter->checkDerivativeSign(deriv, derivativeSign);
+	signDetermined = rule_rn_converter->checkDerivativeSign(deriv, derivativeSign);
 	fail_unless(signDetermined == true);
 	fail_unless(derivativeSign == false);
 	delete node;
@@ -141,7 +164,7 @@ START_TEST(test_check_derivative_sign)
 	
 	node = SBML_parseL3Formula("-k1*S1");
 	deriv = node->derivative("S1");
-	signDetermined = converter->checkDerivativeSign(deriv, derivativeSign);
+	signDetermined = rule_rn_converter->checkDerivativeSign(deriv, derivativeSign);
 	fail_unless(signDetermined == true);
 	fail_unless(derivativeSign == false);
 	delete node;
@@ -149,7 +172,7 @@ START_TEST(test_check_derivative_sign)
 	
 	node = SBML_parseL3Formula("k1*S1 + k2*S2");
 	deriv = node->derivative("S1");
-	signDetermined = converter->checkDerivativeSign(deriv, derivativeSign);
+	signDetermined = rule_rn_converter->checkDerivativeSign(deriv, derivativeSign);
 	fail_unless(signDetermined == true);
 	fail_unless(derivativeSign == true);
 	delete node;
@@ -161,23 +184,23 @@ START_TEST(test_conversion_raterule_converter_invalid)
 {
   // test NULL document
   SBMLDocument* doc = NULL;
-  converter->setDocument(doc);
+  rule_rn_converter->setDocument(doc);
 
-  fail_unless(converter->convert() == LIBSBML_INVALID_OBJECT);
+  fail_unless(rule_rn_converter->convert() == LIBSBML_INVALID_OBJECT);
 
   // test NULL model
   doc = new SBMLDocument(3, 2);
-  converter->setDocument(doc);
+  rule_rn_converter->setDocument(doc);
 
-  fail_unless(converter->convert() == LIBSBML_INVALID_OBJECT);
+  fail_unless(rule_rn_converter->convert() == LIBSBML_INVALID_OBJECT);
 
   // create model no rules
   Model* model = doc->createModel();
   model->setId("m");
 
-  converter->setDocument(doc);
+  rule_rn_converter->setDocument(doc);
 
-  fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(rule_rn_converter->convert() == LIBSBML_OPERATION_SUCCESS);
 
   Parameter* parameter1 = model->createParameter();
   parameter1->setId("s");
@@ -196,9 +219,9 @@ START_TEST(test_conversion_raterule_converter_invalid)
   rr2->setVariable("p");
 
   // invalid document
-  converter->setDocument(doc);
+  rule_rn_converter->setDocument(doc);
 
-  fail_unless(converter->convert() == LIBSBML_CONV_INVALID_SRC_DOCUMENT);
+  fail_unless(rule_rn_converter->convert() == LIBSBML_CONV_INVALID_SRC_DOCUMENT);
 
   delete doc;
 }
@@ -248,8 +271,8 @@ START_TEST(test_conversion_raterule_converter)
   // s = -k*s
   // p = k*s
 
-  converter->setDocument(doc);
-  fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
+  rule_rn_converter->setDocument(doc);
+  fail_unless(rule_rn_converter->convert() == LIBSBML_OPERATION_SUCCESS);
 
   fail_unless(doc->getModel()->getNumCompartments() == 1);
   fail_unless(doc->getModel()->getNumSpecies() == 2);
@@ -314,8 +337,8 @@ START_TEST(test_crash_converter)
   rr1->setMath(math);
   delete math;
 
-  converter->setDocument(doc);
-  fail_unless(converter->convert() == LIBSBML_OPERATION_FAILED);
+  rule_rn_converter->setDocument(doc);
+  fail_unless(rule_rn_converter->convert() == LIBSBML_OPERATION_FAILED);
 
   delete doc;
 }
@@ -328,7 +351,7 @@ START_TEST(test_conversion_raterule_converter_non_standard_stoichiometry)
 	// example 3.13 in Fages et al, TCS, 2015
 	// Simple example of dx/dt = -2*k*x = - dy/dt
 	// Unlike typical converters of Mass action reactions that would give x -> y with f=2*k*x,
-	// this converter give (the equivalent) 2*x -> 2*y with f=k*x
+	// this rule_rn_converter give (the equivalent) 2*x -> 2*y with f=k*x
 	
 	SBMLDocument* doc = new SBMLDocument(3, 2);
 	Model* model = doc->createModel();
@@ -368,8 +391,8 @@ START_TEST(test_conversion_raterule_converter_non_standard_stoichiometry)
 	fail_unless(doc->getModel()->getNumRules() == 2);
 	fail_unless(doc->getModel()->getNumReactions() == 0);
 
-	converter->setDocument(doc);
-	fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
+	rule_rn_converter->setDocument(doc);
+	fail_unless(rule_rn_converter->convert() == LIBSBML_OPERATION_SUCCESS);
 
 	fail_unless(doc->getModel()->getNumCompartments() == 1);
 	fail_unless(doc->getModel()->getNumSpecies() == 2);
@@ -455,8 +478,8 @@ START_TEST(test_conversion_raterule_converter_my_example)
 	fail_unless(doc->getModel()->getNumRules() == 3);
 	fail_unless(doc->getModel()->getNumReactions() == 0);
 
-	converter->setDocument(doc);
-	fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
+	rule_rn_converter->setDocument(doc);
+	fail_unless(rule_rn_converter->convert() == LIBSBML_OPERATION_SUCCESS);
 
 	fail_unless(doc->getModel()->getNumCompartments() == 1);
 	fail_unless(doc->getModel()->getNumSpecies() == 3);
@@ -543,8 +566,8 @@ START_TEST(test_conversion_raterule_converter_hidden_variable)
 	fail_unless(doc->getModel()->getNumRules() == 4);
 	fail_unless(doc->getModel()->getNumReactions() == 0);
 
-	converter->setDocument(doc);
-	fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
+	rule_rn_converter->setDocument(doc);
+	fail_unless(rule_rn_converter->convert() == LIBSBML_OPERATION_SUCCESS);
 
 	fail_unless(doc->getModel()->getNumCompartments() == 1);
 	fail_unless(doc->getModel()->getNumSpecies() == 5); // should be first failure while 3.1. is missing.
@@ -649,418 +672,296 @@ START_TEST(test_conversion_raterule_converter_hidden_variable)
 }
 END_TEST
 
-START_TEST(test_model)
+START_TEST(test_rule_reaction_01)
 {
-  std::string filename(TestDataDirectory);
-  filename += "mraterules.xml";
-  std::string filename1(TestDataDirectory);
-  filename1 += "mreact.xml";
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_01_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_01_bio.xml";
 
-  SBMLDocument* d = readSBMLFromFile(filename.c_str());
+	bool result = test_rule_to_reaction(raterule_file, reaction_file);
 
-  converter->setDocument(d);
-  fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
-
-  SBMLDocument* d1 = readSBMLFromFile(filename1.c_str());
-  std::string out = writeSBMLToStdString(d);
-  std::string expected = writeSBMLToStdString(d1);
-
-  fail_unless(equals(expected.c_str(), out.c_str()));
-
-  delete d;
-  delete d1;
+	fail_unless(result == true);
 }
 END_TEST
 
-
-START_TEST(test_model1)
+START_TEST(test_rule_reaction_02)
 {
-  std::string filename(TestDataDirectory);
-  filename += "mraterules1.xml";
-  std::string filename1(TestDataDirectory);
-  filename1 += "mreact1.xml";
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_02_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_02_bio.xml";
 
-  SBMLDocument* d = readSBMLFromFile(filename.c_str());
+	bool result = test_rule_to_reaction(raterule_file, reaction_file);
 
-  converter->setDocument(d);
-  fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
-
-  SBMLDocument* d1 = readSBMLFromFile(filename1.c_str());
-  std::string out = writeSBMLToStdString(d);
-  std::string expected = writeSBMLToStdString(d1);
-
-  fail_unless(equals(expected.c_str(), out.c_str()));
-
-  delete d;
-  delete d1;
+	fail_unless(result == true);
 }
 END_TEST
 
-START_TEST(test_model2)
+START_TEST(test_rule_reaction_03)
 {
-  std::string filename(TestDataDirectory);
-  filename += "mraterules2.xml";
-  std::string filename1(TestDataDirectory);
-  filename1 += "mreact2.xml";
-  SBMLDocument* d = readSBMLFromFile(filename.c_str());
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_03_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_03_bio.xml";
 
-  converter->setDocument(d);
-  fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
+	bool result = test_rule_to_reaction(raterule_file, reaction_file);
 
-  SBMLDocument* d1 = readSBMLFromFile(filename1.c_str());
-  std::string out = writeSBMLToStdString(d);
-  std::string expected = writeSBMLToStdString(d1);
-
-  fail_unless(equals(expected.c_str(), out.c_str()));
-
-  delete d;
-  delete d1;
+	fail_unless(result == true);
 }
 END_TEST
 
-
-START_TEST(test_model3)
+START_TEST(test_rule_reaction_04)
 {
-  std::string filename(TestDataDirectory);
-  filename += "mraterules3.xml";
-  std::string filename1(TestDataDirectory);
-  filename1 += "mreact3.xml";
-  SBMLDocument* d = readSBMLFromFile(filename.c_str());
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_04_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_04_bio.xml";
 
-  converter->setDocument(d);
-  fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
-  SBMLDocument* d1 = readSBMLFromFile(filename1.c_str());
-  std::string out = writeSBMLToStdString(d);
-  std::string expected = writeSBMLToStdString(d1);
+	bool result = test_rule_to_reaction(raterule_file, reaction_file);
 
-  fail_unless(equals(expected.c_str(), out.c_str()));
-
-  delete d;
-  delete d1;
+	fail_unless(result == true);
 }
 END_TEST
 
-
-START_TEST(test_model4)
+START_TEST(test_rule_reaction_05)
 {
-  std::string filename(TestDataDirectory);
-  filename += "mraterules4.xml";
-  std::string filename1(TestDataDirectory);
-  filename1 += "mreact4.xml";
-  SBMLDocument* d = readSBMLFromFile(filename.c_str());
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_05_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_05_bio.xml";
 
-  converter->setDocument(d);
-  fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
+	bool result = test_rule_to_reaction(raterule_file, reaction_file);
 
-  SBMLDocument* d1 = readSBMLFromFile(filename1.c_str());
-  std::string out = writeSBMLToStdString(d);
-  std::string expected = writeSBMLToStdString(d1);
-
-  fail_unless(equals(expected.c_str(), out.c_str()));
-
-  delete d;
-  delete d1;
+	fail_unless(result == true);
 }
 END_TEST
 
-
-START_TEST(test_model5)
+START_TEST(test_rule_reaction_06)
 {
-  std::string filename(TestDataDirectory);
-  filename += "mraterules5.xml";
-  std::string filename1(TestDataDirectory);
-  filename1 += "mreact5.xml";
-  SBMLDocument* d = readSBMLFromFile(filename.c_str());
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_06_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_06_bio.xml";
 
-  converter->setDocument(d);
-  fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
+	bool result = test_rule_to_reaction(raterule_file, reaction_file);
 
-  SBMLDocument* d1 = readSBMLFromFile(filename1.c_str());
-  std::string out = writeSBMLToStdString(d);
-  std::string expected = writeSBMLToStdString(d1);
-
-  fail_unless(equals(expected.c_str(), out.c_str()));
-
-  delete d;
-  delete d1;
+	fail_unless(result == true);
 }
 END_TEST
 
-
-START_TEST(test_model6)
+START_TEST(test_rule_reaction_07)
 {
-  std::string filename(TestDataDirectory);
-  filename += "mraterules6.xml";
-  std::string filename1(TestDataDirectory);
-  filename1 += "mreact6.xml";
-  SBMLDocument* d = readSBMLFromFile(filename.c_str());
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_07_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_07_bio.xml";
 
-  converter->setDocument(d);
-  fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
+	bool result = test_rule_to_reaction(raterule_file, reaction_file);
 
-  SBMLDocument* d1 = readSBMLFromFile(filename1.c_str());
-  std::string out = writeSBMLToStdString(d);
-  std::string expected = writeSBMLToStdString(d1);
-
-  fail_unless(equals(expected.c_str(), out.c_str()));
-
-  delete d;
-  delete d1;
+	fail_unless(result == true);
 }
 END_TEST
 
-START_TEST(test_model_valid_01)
+START_TEST(test_rule_reaction_08)
 {
-	std::string filename(TestDataDirectory);
-	filename += "valid_01_rr.xml";
-	std::string filename1(TestDataDirectory);
-	filename1 += "valid_01_bio.xml";
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_08_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_08_bio.xml";
 
-	SBMLDocument* d = readSBMLFromFile(filename.c_str());
+	bool result = test_rule_to_reaction(raterule_file, reaction_file);
 
-	converter->setDocument(d);
-	fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
-
-	SBMLDocument* d1 = readSBMLFromFile(filename1.c_str());
-	std::string out = writeSBMLToStdString(d);
-	std::string expected = writeSBMLToStdString(d1);
-
-	fail_unless(equals(expected.c_str(), out.c_str()));
-
-	delete d;
-	delete d1;
+	fail_unless(result == true);
 }
 END_TEST
 
-
-START_TEST(test_model_valid_02)
+START_TEST(test_rule_reaction_09)
 {
-	std::string filename(TestDataDirectory);
-	filename += "valid_02_rr.xml";
-	std::string filename1(TestDataDirectory);
-	filename1 += "valid_02_bio.xml";
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_09_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_09_bio.xml";
 
-	SBMLDocument* d = readSBMLFromFile(filename.c_str());
+	bool result = test_rule_to_reaction(raterule_file, reaction_file);
 
-	converter->setDocument(d);
-	fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
-
-	SBMLDocument* d1 = readSBMLFromFile(filename1.c_str());
-	std::string out = writeSBMLToStdString(d);
-	std::string expected = writeSBMLToStdString(d1);
-
-	fail_unless(equals(expected.c_str(), out.c_str()));
-
-	delete d;
-	delete d1;
+	fail_unless(result == true);
 }
 END_TEST
 
-
-START_TEST(test_model_valid_03)
+START_TEST(test_rule_reaction_010)
 {
-	std::string filename(TestDataDirectory);
-	filename += "valid_03_rr.xml";
-	std::string filename1(TestDataDirectory);
-	filename1 += "valid_03_bio.xml";
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "invalid_010_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "invalid_010_bio.xml";
 
-	SBMLDocument* d = readSBMLFromFile(filename.c_str());
+	bool result = test_rule_to_reaction(raterule_file, reaction_file);
 
-	converter->setDocument(d);
-	fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
-
-	SBMLDocument* d1 = readSBMLFromFile(filename1.c_str());
-	std::string out = writeSBMLToStdString(d);
-	std::string expected = writeSBMLToStdString(d1);
-
-	fail_unless(equals(expected.c_str(), out.c_str()));
-
-	delete d;
-	delete d1;
+	fail_unless(result == false);
 }
 END_TEST
 
-
-START_TEST(test_model_valid_04)
+START_TEST(test_rule_reaction_011)
 {
-	std::string filename(TestDataDirectory);
-	filename += "valid_04_rr.xml";
-	std::string filename1(TestDataDirectory);
-	filename1 += "valid_04_bio.xml";
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_011_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_011_bio.xml";
 
-	SBMLDocument* d = readSBMLFromFile(filename.c_str());
+	bool result = test_rule_to_reaction(raterule_file, reaction_file);
 
-	converter->setDocument(d);
-	fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
-
-	SBMLDocument* d1 = readSBMLFromFile(filename1.c_str());
-	std::string out = writeSBMLToStdString(d);
-	std::string expected = writeSBMLToStdString(d1);
-
-	fail_unless(equals(expected.c_str(), out.c_str()));
-
-	delete d;
-	delete d1;
+	fail_unless(result == true);
 }
 END_TEST
 
-
-START_TEST(test_model_valid_05)
+START_TEST(test_rule_reaction_012)
 {
-	std::string filename(TestDataDirectory);
-	filename += "valid_05_rr.xml";
-	std::string filename1(TestDataDirectory);
-	filename1 += "valid_05_bio.xml";
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_012_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_012_bio.xml";
 
-	SBMLDocument* d = readSBMLFromFile(filename.c_str());
+	bool result = test_rule_to_reaction(raterule_file, reaction_file);
 
-	converter->setDocument(d);
-	fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
-
-	SBMLDocument* d1 = readSBMLFromFile(filename1.c_str());
-	std::string out = writeSBMLToStdString(d);
-	std::string expected = writeSBMLToStdString(d1);
-
-	fail_unless(equals(expected.c_str(), out.c_str()));
-
-	delete d;
-	delete d1;
+	fail_unless(result == true);
 }
 END_TEST
 
-
-START_TEST(test_model_valid_51)
+START_TEST(test_rule_reaction_013)
 {
-	std::string filename(TestDataDirectory);
-	filename += "valid_51_rr.xml";
-	std::string filename1(TestDataDirectory);
-	filename1 += "valid_51_bio.xml";
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_013_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_013_bio.xml";
 
-	SBMLDocument* d = readSBMLFromFile(filename.c_str());
+	bool result = test_rule_to_reaction(raterule_file, reaction_file);
 
-	converter->setDocument(d);
-	fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
-
-	SBMLDocument* d1 = readSBMLFromFile(filename1.c_str());
-	std::string out = writeSBMLToStdString(d);
-	std::string expected = writeSBMLToStdString(d1);
-
-	fail_unless(equals(expected.c_str(), out.c_str()));
-
-	delete d;
-	delete d1;
+	fail_unless(result == true);
 }
 END_TEST
 
-
-
-START_TEST(test_model_valid_52)
+START_TEST(test_rule_reaction_014)
 {
-	std::string filename(TestDataDirectory);
-	filename += "valid_52_rr.xml";
-	std::string filename1(TestDataDirectory);
-	filename1 += "valid_52_bio.xml";
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_014_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_014_bio.xml";
 
-	SBMLDocument* d = readSBMLFromFile(filename.c_str());
+	bool result = test_rule_to_reaction(raterule_file, reaction_file);
 
-	converter->setDocument(d);
-	fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
-
-	SBMLDocument* d1 = readSBMLFromFile(filename1.c_str());
-	std::string out = writeSBMLToStdString(d);
-	std::string expected = writeSBMLToStdString(d1);
-
-	fail_unless(equals(expected.c_str(), out.c_str()));
-
-	delete d;
-	delete d1;
+	fail_unless(result == true);
 }
 END_TEST
 
-START_TEST(test_model_valid_53)
+START_TEST(test_rule_reaction_015)
 {
-    std::string filename(TestDataDirectory);
-	filename += "valid_53_rr.xml";
-	std::string filename1(TestDataDirectory);
-	filename1 += "valid_53_bio.xml";
-	std::string filename2(TestDataDirectory);
-	filename2 += "valid_53_bio_1.xml";
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_015_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_015_bio.xml";
 
-	SBMLDocument* d = readSBMLFromFile(filename.c_str());
+	bool result = test_rule_to_reaction(raterule_file, reaction_file);
 
-	converter->setDocument(d);
-	fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
-
-	SBMLDocument* d1 = readSBMLFromFile(filename1.c_str());
-	std::string out = writeSBMLToStdString(d);
-	std::string expected = writeSBMLToStdString(d1);
-    writeSBMLToFile(d, filename2.c_str());
-	
-
-//	fail_unless(equals(expected.c_str(), out.c_str()));
-
-	delete d;
-	delete d1;
+	fail_unless(result == true);
 }
 END_TEST
 
-
-
-START_TEST(test_model_valid_54)
+START_TEST(test_rule_reaction_016)
 {
-	std::string filename(TestDataDirectory);
-	filename += "valid_54_rr.xml";
-	std::string filename1(TestDataDirectory);
-	filename1 += "valid_54_bio.xml";
-	
-	SBMLDocument* d = readSBMLFromFile(filename.c_str());
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_016_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_016_bio.xml";
 
-	converter->setDocument(d);
-	fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
+	bool result = test_rule_to_reaction(raterule_file, reaction_file);
 
-	SBMLDocument* d1 = readSBMLFromFile(filename1.c_str());
-	std::string out = writeSBMLToStdString(d);
-	std::string expected = writeSBMLToStdString(d1);
-
-	fail_unless(equals(expected.c_str(), out.c_str()));
-
-	delete d;
-	delete d1;
+	fail_unless(result == true);
 }
 END_TEST
 
-
-START_TEST(test_model_valid_55)
+START_TEST(test_rule_reaction_017)
 {
-	std::string filename(TestDataDirectory);
-	filename += "valid_55_rr.xml";
-	std::string filename1(TestDataDirectory);
-	filename1 += "valid_55_bio.xml";
-	
-	SBMLDocument* d = readSBMLFromFile(filename.c_str());
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_017_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_017_bio.xml";
 
-	converter->setDocument(d);
-	fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
+	bool result = test_rule_to_reaction(raterule_file, reaction_file);
 
-	SBMLDocument* d1 = readSBMLFromFile(filename1.c_str());
-	std::string out = writeSBMLToStdString(d);
-	std::string expected = writeSBMLToStdString(d1);
-
-	fail_unless(equals(expected.c_str(), out.c_str()));
-
-	delete d;
-	delete d1;
+	fail_unless(result == true);
 }
 END_TEST
 
+START_TEST(test_rule_reaction_051)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_051_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_051_bio.xml";
 
+	bool result = test_rule_to_reaction(raterule_file, reaction_file);
 
+	fail_unless(result == true);
+}
+END_TEST
 
+START_TEST(test_rule_reaction_052)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_052_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_052_bio.xml";
+
+	bool result = test_rule_to_reaction(raterule_file, reaction_file);
+
+	fail_unless(result == true);
+}
+END_TEST
+
+START_TEST(test_rule_reaction_053)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_053_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_053_bio.xml";
+
+	bool result = test_rule_to_reaction(raterule_file, reaction_file);
+
+	fail_unless(result == true);
+}
+END_TEST
+
+START_TEST(test_rule_reaction_054)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_054_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_054_bio.xml";
+
+	bool result = test_rule_to_reaction(raterule_file, reaction_file);
+
+	fail_unless(result == true);
+}
+END_TEST
+
+START_TEST(test_rule_reaction_055)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_055_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_055_bio.xml";
+
+	bool result = test_rule_to_reaction(raterule_file, reaction_file);
+
+	fail_unless(result == true);
+}
+END_TEST
 
 Suite *
 create_suite_TestSBMLRateRuleConverter (void)
 { 
-	bool testing = true;
+	bool testing = false;
 Suite *suite = suite_create("SBMLRateRuleConverter");
   TCase *tcase = tcase_create("SBMLRateRuleConverter");
   tcase_add_checked_fixture(tcase, RateRuleConverter_setup,
@@ -1068,7 +969,7 @@ Suite *suite = suite_create("SBMLRateRuleConverter");
 
   if (testing)
   {
-	  tcase_add_test(tcase, test_model_valid_03);
+	  tcase_add_test(tcase, test_rule_reaction_03);
   }
   else
   {
@@ -1078,22 +979,28 @@ Suite *suite = suite_create("SBMLRateRuleConverter");
 	  tcase_add_test(tcase, test_conversion_raterule_converter_non_standard_stoichiometry); 
 	  tcase_add_test(tcase, test_crash_converter); 
 	  tcase_add_test(tcase, test_conversion_raterule_converter_hidden_variable);
-	  //tcase_add_test(tcase, test_model); 
-	  //tcase_add_test(tcase, test_model1); // ??? not sure these are accurate
-	  //tcase_add_test(tcase, test_model2); 
-	  //tcase_add_test(tcase, test_model3);
-	  //tcase_add_test(tcase, test_model4); 
-	  //tcase_add_test(tcase, test_model5); // not working again
-	  //tcase_add_test(tcase, test_model6); // not working
-	  tcase_add_test(tcase, test_model_valid_01); // fixed
-	  tcase_add_test(tcase, test_model_valid_02);	
-	  tcase_add_test(tcase, test_model_valid_04);	
-	  tcase_add_test(tcase, test_model_valid_05);	// have changed the output model but I think it was only valid if compartment volume is one
+	  tcase_add_test(tcase, test_rule_reaction_01);
+	  tcase_add_test(tcase, test_rule_reaction_02);
+	  tcase_add_test(tcase, test_rule_reaction_03);
+	  tcase_add_test(tcase, test_rule_reaction_04);
+	  tcase_add_test(tcase, test_rule_reaction_05);
+	  tcase_add_test(tcase, test_rule_reaction_06);
+	  tcase_add_test(tcase, test_rule_reaction_07);
+	  tcase_add_test(tcase, test_rule_reaction_08);
+	  tcase_add_test(tcase, test_rule_reaction_09);
+	  tcase_add_test(tcase, test_rule_reaction_010);
+	  tcase_add_test(tcase, test_rule_reaction_011);
+	  tcase_add_test(tcase, test_rule_reaction_012);
+	  tcase_add_test(tcase, test_rule_reaction_013);
+	  tcase_add_test(tcase, test_rule_reaction_014);
+	  tcase_add_test(tcase, test_rule_reaction_015);
+	  tcase_add_test(tcase, test_rule_reaction_016);
+	  tcase_add_test(tcase, test_rule_reaction_017);
 	  tcase_add_test(tcase, test_model_valid_51);	
 	  tcase_add_test(tcase, test_model_valid_52);	 
-	  tcase_add_test(tcase, test_model_valid_53); //	
-	  tcase_add_test(tcase, test_model_valid_54); //	
-	  tcase_add_test(tcase, test_model_valid_55); //	 
+	  tcase_add_test(tcase, test_model_valid_53); 	
+	  tcase_add_test(tcase, test_model_valid_54); 	
+	  tcase_add_test(tcase, test_model_valid_55); 	 
   }
   suite_add_tcase(suite, tcase);
 
