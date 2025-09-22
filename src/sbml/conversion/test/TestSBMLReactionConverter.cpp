@@ -334,6 +334,72 @@ START_TEST(test_reaction_rule_017)
 }
 END_TEST
 
+START_TEST(test_reaction_rule_051)
+{
+    std::string raterule_file(TestDataDirectory);
+    raterule_file += "valid_051_rr.xml";
+    std::string reaction_file(TestDataDirectory);
+    reaction_file += "valid_051_bio.xml";
+
+    bool result = test_reaction_to_rule(raterule_file, reaction_file);
+
+    fail_unless(result == true);
+}
+END_TEST
+
+START_TEST(test_reaction_rule_052)
+{
+    std::string raterule_file(TestDataDirectory);
+    raterule_file += "valid_052_rr.xml";
+    std::string reaction_file(TestDataDirectory);
+    reaction_file += "valid_052_bio.xml";
+
+    bool result = test_reaction_to_rule(raterule_file, reaction_file);
+
+    fail_unless(result == true);
+}
+END_TEST
+
+START_TEST(test_reaction_rule_053)
+{
+    std::string raterule_file(TestDataDirectory);
+    raterule_file += "valid_053_rr.xml";
+    std::string reaction_file(TestDataDirectory);
+    reaction_file += "valid_053_bio.xml";
+
+    bool result = test_reaction_to_rule(raterule_file, reaction_file);
+
+    fail_unless(result == true);
+}
+END_TEST
+
+START_TEST(test_reaction_rule_054)
+{
+    std::string raterule_file(TestDataDirectory);
+    raterule_file += "valid_054_rr.xml";
+    std::string reaction_file(TestDataDirectory);
+    reaction_file += "valid_054_bio.xml";
+
+    bool result = test_reaction_to_rule(raterule_file, reaction_file);
+
+    fail_unless(result == true);
+}
+END_TEST
+
+START_TEST(test_reaction_rule_055)
+{
+    std::string raterule_file(TestDataDirectory);
+    raterule_file += "valid_055_rr.xml";
+    std::string reaction_file(TestDataDirectory);
+    reaction_file += "valid_055_bio.xml";
+
+    bool result = test_reaction_to_rule(raterule_file, reaction_file);
+
+    fail_unless(result == true);
+}
+END_TEST
+
+
 
 Suite*
 create_suite_TestSBMLReactionConverter(void)
@@ -355,11 +421,16 @@ create_suite_TestSBMLReactionConverter(void)
     tcase_add_test(tcase, test_reaction_rule_010);
     tcase_add_test(tcase, test_reaction_rule_011);
     tcase_add_test(tcase, test_reaction_rule_012);
-    //tcase_add_test(tcase, test_reaction_rule_013); //extra variable in reactions
-    //tcase_add_test(tcase, test_reaction_rule_014);
-    ////tcase_add_test(tcase, test_reaction_rule_015);
-    //tcase_add_test(tcase, test_reaction_rule_016);
-    //tcase_add_test(tcase, test_reaction_rule_017);
+    tcase_add_test(tcase, test_reaction_rule_013); 
+    tcase_add_test(tcase, test_reaction_rule_014);
+    tcase_add_test(tcase, test_reaction_rule_015);
+    tcase_add_test(tcase, test_reaction_rule_016);
+    tcase_add_test(tcase, test_reaction_rule_017);
+    tcase_add_test(tcase, test_reaction_rule_051);
+    tcase_add_test(tcase, test_reaction_rule_052);
+    tcase_add_test(tcase, test_reaction_rule_053);
+    tcase_add_test(tcase, test_reaction_rule_054);
+    tcase_add_test(tcase, test_reaction_rule_055);
 
 	suite_add_tcase(suite, tcase);
 
