@@ -489,6 +489,265 @@ START_TEST(test_roundtrip_012_reverse)
 }
 END_TEST
 
+START_TEST(test_roundtrip_013)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_013_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_013_bio.xml";
+
+	bool result = test_rule_to_reaction_to_rule(raterule_file, reaction_file);
+
+	fail_unless(result == true);
+}
+END_TEST
+
+START_TEST(test_roundtrip_013_reverse)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_013_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_013_bio.xml";
+
+	bool result = test_reaction_to_rule_to_reaction(raterule_file, reaction_file);
+
+	fail_unless(result == true);
+}
+END_TEST
+
+START_TEST(test_roundtrip_014)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_014_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_014_bio.xml";
+
+	bool result = test_rule_to_reaction_to_rule(raterule_file, reaction_file);
+
+	fail_unless(result == true);
+}
+END_TEST
+
+START_TEST(test_roundtrip_014_reverse)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_014_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_014_bio.xml";
+
+	bool result = test_reaction_to_rule_to_reaction(raterule_file, reaction_file);
+
+	fail_unless(result == true);
+}
+END_TEST
+
+START_TEST(test_roundtrip_015)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_015_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_015_bio.xml";
+
+	bool result = test_rule_to_reaction_to_rule(raterule_file, reaction_file);
+
+	fail_unless(result == true);
+}
+END_TEST
+
+START_TEST(test_roundtrip_015_reverse)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_015_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_015_bio.xml";
+
+	bool result = test_reaction_to_rule_to_reaction(raterule_file, reaction_file);
+
+	fail_unless(result == true);
+}
+END_TEST
+
+START_TEST(test_roundtrip_016)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_016_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_016_bio.xml";
+
+	bool result = test_rule_to_reaction_to_rule(raterule_file, reaction_file);
+
+	fail_unless(result == true);
+}
+END_TEST
+
+START_TEST(test_roundtrip_016_reverse)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_016_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_016_bio.xml";
+
+	bool result = test_reaction_to_rule_to_reaction(raterule_file, reaction_file);
+
+	fail_unless(result == true);
+}
+END_TEST
+
+START_TEST(test_roundtrip_017)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_017_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_017_bio.xml";
+
+	bool result = test_rule_to_reaction_to_rule(raterule_file, reaction_file);
+
+	fail_unless(result == true);
+}
+END_TEST
+
+START_TEST(test_roundtrip_017_reverse)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_017_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_017_bio.xml";
+
+	bool result = test_reaction_to_rule_to_reaction(raterule_file, reaction_file);
+
+	fail_unless(result == true);
+}
+END_TEST
+
+START_TEST(test_roundtrip_051)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_051_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_051_bio.xml";
+
+	bool result = test_rule_to_reaction_to_rule(raterule_file, reaction_file);
+
+	fail_unless(result == true);
+}
+END_TEST
+
+START_TEST(test_roundtrip_051_reverse)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_051_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_051_bio.xml";
+
+	bool result = test_reaction_to_rule_to_reaction(raterule_file, reaction_file);
+
+	fail_unless(result == true);
+}
+END_TEST
+
+START_TEST(test_roundtrip_052)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_052_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_052_bio.xml";
+
+	bool result = test_rule_to_reaction_to_rule(raterule_file, reaction_file);
+
+	fail_unless(result == true);
+}
+END_TEST
+
+START_TEST(test_roundtrip_052_reverse)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_052_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_052_bio.xml";
+
+	bool result = test_reaction_to_rule_to_reaction(raterule_file, reaction_file);
+
+	fail_unless(result == true);
+}
+END_TEST
+
+START_TEST(test_roundtrip_053)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_053_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_053_bio.xml";
+
+	bool result = test_rule_to_reaction_to_rule(raterule_file, reaction_file);
+
+	fail_unless(result == true);
+}
+END_TEST
+
+START_TEST(test_roundtrip_053_reverse)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_053_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_053_bio.xml";
+
+	bool result = test_reaction_to_rule_to_reaction(raterule_file, reaction_file);
+
+	fail_unless(result == true);
+}
+END_TEST
+
+START_TEST(test_roundtrip_054)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_054_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_054_bio.xml";
+
+	bool result = test_rule_to_reaction_to_rule(raterule_file, reaction_file);
+
+	fail_unless(result == true);
+}
+END_TEST
+
+START_TEST(test_roundtrip_054_reverse)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_054_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_054_bio.xml";
+
+	bool result = test_reaction_to_rule_to_reaction(raterule_file, reaction_file);
+
+	fail_unless(result == true);
+}
+END_TEST
+
+START_TEST(test_roundtrip_055)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_055_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_055_bio.xml";
+
+	bool result = test_rule_to_reaction_to_rule(raterule_file, reaction_file);
+
+	fail_unless(result == true);
+}
+END_TEST
+
+START_TEST(test_roundtrip_055_reverse)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_055_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_055_bio.xml";
+
+	bool result = test_reaction_to_rule_to_reaction(raterule_file, reaction_file);
+
+	fail_unless(result == true);
+}
+END_TEST
 
 Suite*
 create_suite_TestSBMLRoundtripConverter(void)
@@ -527,8 +786,30 @@ create_suite_TestSBMLRoundtripConverter(void)
 		tcase_add_test(tcase, test_roundtrip_010_reverse); // crashes
 		tcase_add_test(tcase, test_roundtrip_011);// rule to reaction a problem with reactants and products
 		tcase_add_test(tcase, test_roundtrip_011_reverse);
-		tcase_add_test(tcase, test_roundtrip_012);// rule to reaction creates more reactions
+		tcase_add_test(tcase, test_roundtrip_012);
 		tcase_add_test(tcase, test_roundtrip_012_reverse);
+
+		tcase_add_test(tcase, test_roundtrip_013);
+		tcase_add_test(tcase, test_roundtrip_013_reverse);
+		tcase_add_test(tcase, test_roundtrip_014);
+		tcase_add_test(tcase, test_roundtrip_014_reverse);
+		tcase_add_test(tcase, test_roundtrip_015);
+		tcase_add_test(tcase, test_roundtrip_015_reverse);
+		tcase_add_test(tcase, test_roundtrip_016);
+		tcase_add_test(tcase, test_roundtrip_016_reverse);
+		tcase_add_test(tcase, test_roundtrip_017);
+		tcase_add_test(tcase, test_roundtrip_017_reverse);
+		tcase_add_test(tcase, test_roundtrip_051);
+		tcase_add_test(tcase, test_roundtrip_051_reverse);
+		tcase_add_test(tcase, test_roundtrip_052);
+		tcase_add_test(tcase, test_roundtrip_052_reverse);
+		tcase_add_test(tcase, test_roundtrip_053);
+		tcase_add_test(tcase, test_roundtrip_053_reverse);
+		tcase_add_test(tcase, test_roundtrip_054);
+		tcase_add_test(tcase, test_roundtrip_054_reverse);
+		tcase_add_test(tcase, test_roundtrip_055);
+		tcase_add_test(tcase, test_roundtrip_055_reverse);
+		
 	}
 	suite_add_tcase(suite, tcase);
 
