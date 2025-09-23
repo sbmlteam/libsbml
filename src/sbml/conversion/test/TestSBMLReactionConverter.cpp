@@ -112,7 +112,10 @@ bool test_reaction_to_rule(const std::string& raterule_file,
 	bool strings_equal = equals(expected.c_str(), out.c_str());
 	if (!strings_equal)
 	{
-		cout << "reaction_rule: reaction->rule failed" << endl;
+        std::string TEST_file(TestDataDirectory);
+        TEST_file += "test_reaction_to_rule_out.xml";
+        cout << "reaction_rule: reaction->rule failed" << endl;
+        writeSBMLToFile(d, TEST_file.c_str());
         delete d_rn;
         delete d_rule;
         delete d;
@@ -284,9 +287,9 @@ END_TEST
 START_TEST(test_reaction_rule_013)
 {
     std::string raterule_file(TestDataDirectory);
-    raterule_file += "valid_013_rr.xml";
+    raterule_file += "valid_013_rr_original.xml";
     std::string reaction_file(TestDataDirectory);
-    reaction_file += "valid_013_bio.xml";
+    reaction_file += "valid_013_bio_original.xml";
 
     bool result = test_reaction_to_rule(raterule_file, reaction_file);
 
@@ -416,7 +419,7 @@ END_TEST
 Suite*
 create_suite_TestSBMLReactionConverter(void)
 {
-    bool testing = true;
+    bool testing = false;
 	Suite* suite = suite_create("SBMLReactionConverter");
 	TCase* tcase = tcase_create("SBMLReactionConverter");
 	tcase_add_checked_fixture(tcase, Reaction_setup,
@@ -440,7 +443,7 @@ create_suite_TestSBMLReactionConverter(void)
      tcase_add_test(tcase, test_reaction_rule_010);
      tcase_add_test(tcase, test_reaction_rule_011);
     tcase_add_test(tcase, test_reaction_rule_012);
-    //tcase_add_test(tcase, test_reaction_rule_013); // 13 - 17 fails
+    tcase_add_test(tcase, test_reaction_rule_013); // 13 - 17 fails
     //tcase_add_test(tcase, test_reaction_rule_014);
     //tcase_add_test(tcase, test_reaction_rule_015);
     //tcase_add_test(tcase, test_reaction_rule_016);

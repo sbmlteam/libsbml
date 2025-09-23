@@ -126,6 +126,9 @@ bool test_rule_to_reaction(const std::string& raterule_file,
 	bool strings_equal = equals(expected.c_str(), out.c_str());
 	if (!strings_equal)
 	{
+		std::string TEST_file(TestDataDirectory);
+		TEST_file += "test_TEMP_out.xml";
+		writeSBMLToFile(d, TEST_file.c_str());
 		cout << "rule_reaction: rule->reaction failed" << endl;
 		delete d;
 		delete d_rn;
@@ -844,9 +847,9 @@ END_TEST
 START_TEST(test_rule_reaction_013)
 {
 	std::string raterule_file(TestDataDirectory);
-	raterule_file += "valid_013_rr.xml";
+	raterule_file += "valid_013_rr_original.xml";
 	std::string reaction_file(TestDataDirectory);
-	reaction_file += "valid_013_bio.xml";
+	reaction_file += "valid_013_bio_from_rr_original.xml";
 
 	bool result = test_rule_to_reaction(raterule_file, reaction_file);
 
@@ -982,7 +985,7 @@ Suite *suite = suite_create("SBMLRateRuleConverter");
 
   if (testing)
   {
-	  tcase_add_test(tcase, test_rule_reaction_010);
+	  tcase_add_test(tcase, test_rule_reaction_013);
   }
   else
   {
