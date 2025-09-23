@@ -128,6 +128,8 @@ SBMLReactionConverter::getDefaultProperties() const
   {
     prop.addOption("replaceReactions", true,
                    "Replace reactions with rateRules");
+    prop.addOption("rateRuleVariablesShouldBeParameters", false,
+                    "make any species into parameters");
     init = true;
     return prop;
   }
@@ -142,6 +144,20 @@ SBMLReactionConverter::matchesProperties(const ConversionProperties &props) cons
   return true;
 }
 
+bool
+SBMLReactionConverter::getRateRuleVariablesShouldBeParameters() const
+{
+    bool value = false;
+    if (getProperties() == NULL || getProperties()->hasOption("rateRuleVariablesShouldBeParameters") == false)
+    {
+        return value;
+    }
+    else
+    {
+        value = getProperties()->getBoolValue("rateRuleVariablesShouldBeParameters");
+    }
+    return value;
+}
 
 int 
 SBMLReactionConverter::setDocument(const SBMLDocument* doc)
@@ -290,6 +306,27 @@ SBMLReactionConverter::convert()
     success = replaceReactions();
   }
 
+  if (getRateRuleVariablesShouldBeParameters() == true)
+  {
+      // make any species that are now variables into parameters
+      for (RuleMap::iterator it = mRateRulesMap.begin(); it != mRateRulesMap.end(); ++it)
+      {
+          const std::string& id = (*it).first;
+          Species* s = model->getSpecies(id);
+          if (s != NULL)
+          {
+              // convert to parameter
+              Parameter* p = model->createParameter();
+              p->setId(s->getId());
+              p->setValue(s->getInitialAmount());
+              p->setUnits(s->getUnits());
+              p->setConstant(false);
+              // remove the species
+              model->removeSpecies(s->getId());
+          }
+      }
+  }
+
   if (success) 
   {
     return LIBSBML_OPERATION_SUCCESS;
@@ -301,6 +338,25 @@ SBMLReactionConverter::convert()
     *model1 = *(mOriginalModel->clone());
     return LIBSBML_OPERATION_FAILED;
   }
+}
+
+bool
+SBMLReactionConverter::createParametersForRateRuleVariables()
+{
+    bool created = false;
+    Model* model = mDocument->getModel();
+    for (RuleMap::iterator it = mRateRulesMap.begin(); it != mRateRulesMap.end(); ++it)
+    {
+        const std::string& id = (*it).first;
+        if (model->getParameter(id) == NULL)
+        {
+            Parameter* p = model->createParameter();
+            p->setId(id);
+            p->setConstant(false);
+            created = true;
+        }
+    }
+    return created;
 }
 
 

@@ -9,7 +9,6 @@
       <species id="a" compartment="compartment" initialAmount="1.1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
       <species id="c" compartment="compartment" initialAmount="0.9" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
       <species id="d" compartment="compartment" initialAmount="1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
-      <species id="newVar1" compartment="compartment" initialAmount="0.1" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
     </listOfSpecies>
     <listOfParameters>
       <parameter id="k" value="1.1"/>
@@ -18,64 +17,76 @@
     <listOfReactions>
       <reaction id="J1" reversible="false" fast="false">
         <listOfReactants>
-          <speciesReference species="b" stoichiometry="1"/>
           <speciesReference species="a" stoichiometry="1"/>
-          <speciesReference species="newVar1" stoichiometry="1"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="b" stoichiometry="2"/>
-          <speciesReference species="newVar1" stoichiometry="1"/>
+          <speciesReference species="b" stoichiometry="1"/>
         </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="d"/>
+        </listOfModifiers>
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <times/>
+              <apply>
+                <minus/>
+                <ci> k </ci>
+                <ci> d </ci>
+              </apply>
               <ci> b </ci>
-              <ci> newVar1 </ci>
             </apply>
           </math>
         </kineticLaw>
       </reaction>
       <reaction id="J2" reversible="false" fast="false">
         <listOfReactants>
-          <speciesReference species="b" stoichiometry="1"/>
           <speciesReference species="c" stoichiometry="1"/>
-          <speciesReference species="newVar1" stoichiometry="1"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="c" stoichiometry="2"/>
-          <speciesReference species="newVar1" stoichiometry="1"/>
+          <speciesReference species="a" stoichiometry="1"/>
         </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="d"/>
+        </listOfModifiers>
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <times/>
-              <ci> c </ci>
-              <ci> newVar1 </ci>
+              <apply>
+                <minus/>
+                <ci> k </ci>
+                <ci> d </ci>
+              </apply>
+              <ci> a </ci>
             </apply>
           </math>
         </kineticLaw>
-      </reaction>
+      </reaction>      
       <reaction id="J3" reversible="false" fast="false">
         <listOfReactants>
-          <speciesReference species="a" stoichiometry="1"/>
-          <speciesReference species="c" stoichiometry="1"/>
-          <speciesReference species="newVar1" stoichiometry="1"/>
+          <speciesReference species="b" stoichiometry="1"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="a" stoichiometry="2"/>
-          <speciesReference species="newVar1" stoichiometry="1"/>
+          <speciesReference species="c" stoichiometry="1"/>
         </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="d"/>
+        </listOfModifiers>
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <times/>
-              <ci> a </ci>
-              <ci> newVar1 </ci>
+              <apply>
+                <minus/>
+                <ci> k </ci>
+                <ci> d </ci>
+              </apply>
+              <ci> c </ci>
             </apply>
           </math>
         </kineticLaw>
-      </reaction>
+      </reaction>            
       <reaction id="J4" reversible="false" fast="false">
         <listOfProducts>
           <speciesReference species="d" stoichiometry="1"/>
@@ -86,16 +97,6 @@
           </math>
         </kineticLaw>
       </reaction>
-      <reaction id="J5" reversible="false" fast="false">
-        <listOfProducts>
-          <speciesReference species="newVar1" stoichiometry="1"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <cn> -0.2 </cn>
-          </math>
-        </kineticLaw>
-      </reaction>
-    </listOfReactions>
+     </listOfReactions>
   </model>
 </sbml>
