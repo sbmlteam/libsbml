@@ -16,15 +16,13 @@
     </listOfParameters>
     <listOfReactions>
       <reaction id="J1" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="Y_2" stoichiometry="1" constant="true"/>
-          <speciesReference species="Y_3" stoichiometry="1" constant="true"/>
-        </listOfReactants>
         <listOfProducts>
           <speciesReference species="Y_1" stoichiometry="1" constant="true"/>
-          <speciesReference species="Y_2" stoichiometry="1" constant="true"/>
-          <speciesReference species="Y_3" stoichiometry="1" constant="true"/>
         </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="Y_2"/>
+          <modifierSpeciesReference species="Y_3"/>
+        </listOfModifiers>
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
@@ -38,14 +36,12 @@
       </reaction>
       <reaction id="J2" reversible="false" fast="false">
         <listOfReactants>
-          <speciesReference species="Y_1" stoichiometry="1" constant="true"/>
           <speciesReference species="Y_2" stoichiometry="1" constant="true"/>
-          <speciesReference species="Y_3" stoichiometry="1" constant="true"/>
         </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="Y_1" stoichiometry="1" constant="true"/>
-          <speciesReference species="Y_3" stoichiometry="1" constant="true"/>
-        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="Y_1"/>
+          <modifierSpeciesReference species="Y_3"/>
+        </listOfModifiers>
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
@@ -58,15 +54,13 @@
         </kineticLaw>
       </reaction>
       <reaction id="J3" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="Y_1" stoichiometry="1" constant="true"/>
-          <speciesReference species="Y_2" stoichiometry="1" constant="true"/>
-        </listOfReactants>
         <listOfProducts>
-          <speciesReference species="Y_1" stoichiometry="1" constant="true"/>
-          <speciesReference species="Y_2" stoichiometry="1" constant="true"/>
           <speciesReference species="Y_3" stoichiometry="1" constant="true"/>
         </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="Y_1"/>
+          <modifierSpeciesReference species="Y_2"/>
+        </listOfModifiers>
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>

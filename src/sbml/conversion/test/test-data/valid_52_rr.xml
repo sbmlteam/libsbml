@@ -28,14 +28,14 @@
       <rateRule variable="SimData_1">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <apply>
-            <minus/>
+            <plus/>
             <apply>
               <divide/>
               <apply>
                 <times/>
-                <ci> k_1 </ci>
-                <ci> I </ci>
                 <ci> SimData_1 </ci>
+                <ci> I </ci>
+                <ci> k_1 </ci>
               </apply>
               <apply>
                 <plus/>
@@ -44,16 +44,23 @@
               </apply>
             </apply>
             <apply>
-              <divide/>
+              <times/>
               <apply>
-                <times/>
-                <ci> k_2 </ci>
-                <ci> SimData_1 </ci>
+                <minus/>
+                <cn> 1 </cn>
               </apply>
               <apply>
-                <plus/>
-                <ci> SimData_1 </ci>
-                <ci> k_8 </ci>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> SimData_1 </ci>
+                  <ci> k_2 </ci>
+                </apply>
+                <apply>
+                  <plus/>
+                  <ci> SimData_1 </ci>
+                  <ci> k_8 </ci>
+                </apply>
               </apply>
             </apply>
           </apply>
@@ -62,14 +69,14 @@
       <rateRule variable="SimData_2">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <apply>
-            <minus/>
+            <plus/>
             <apply>
               <divide/>
               <apply>
                 <times/>
-                <ci> k_3 </ci>
-                <ci> SimData_1 </ci>
                 <ci> SimData_2 </ci>
+                <ci> SimData_1 </ci>
+                <ci> k_3 </ci>
               </apply>
               <apply>
                 <plus/>
@@ -78,16 +85,23 @@
               </apply>
             </apply>
             <apply>
-              <divide/>
+              <times/>
               <apply>
-                <times/>
-                <ci> k_4 </ci>
-                <ci> SimData_2 </ci>
+                <minus/>
+                <cn> 1 </cn>
               </apply>
               <apply>
-                <plus/>
-                <ci> SimData_2 </ci>
-                <ci> k_10 </ci>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> SimData_2 </ci>
+                  <ci> k_4 </ci>
+                </apply>
+                <apply>
+                  <plus/>
+                  <ci> SimData_2 </ci>
+                  <ci> k_10 </ci>
+                </apply>
               </apply>
             </apply>
           </apply>
@@ -96,14 +110,14 @@
       <rateRule variable="SimData_3">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <apply>
-            <minus/>
+            <plus/>
             <apply>
               <divide/>
               <apply>
                 <times/>
-                <ci> k_5 </ci>
-                <ci> SimData_1 </ci>
                 <ci> SimData_3 </ci>
+                <ci> SimData_1 </ci>
+                <ci> k_5 </ci>
               </apply>
               <apply>
                 <plus/>
@@ -112,17 +126,24 @@
               </apply>
             </apply>
             <apply>
-              <divide/>
+              <times/>
               <apply>
-                <times/>
-                <ci> k_6 </ci>
-                <ci> SimData_2 </ci>
-                <ci> SimData_3 </ci>
+                <minus/>
+                <cn> 1 </cn>
               </apply>
               <apply>
-                <plus/>
-                <ci> SimData_3 </ci>
-                <ci> k_12 </ci>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> SimData_3 </ci>
+                  <ci> SimData_2 </ci>
+                  <ci> k_6 </ci>
+                </apply>
+                <apply>
+                  <plus/>
+                  <ci> SimData_3 </ci>
+                  <ci> k_12 </ci>
+                </apply>
               </apply>
             </apply>
           </apply>

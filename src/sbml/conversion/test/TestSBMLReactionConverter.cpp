@@ -92,12 +92,26 @@ Reaction_teardown(void)
 }
 
 bool test_reaction_to_rule(const std::string& raterule_file,
-									const std::string& reaction_file)
+						   const std::string& reaction_file,
+                           bool parametersOnly = false)
 
 {
 	SBMLDocument* d_rule = readSBMLFromFile(raterule_file.c_str());
 	SBMLDocument* d_rn = readSBMLFromFile(reaction_file.c_str());	
 	SBMLDocument* d = readSBMLFromFile(reaction_file.c_str());
+
+    if (parametersOnly)
+    {
+        rn_rule_props.addOption("rateRuleVariablesShouldBeParameters", true);
+        rn_rule_converter->setProperties(&rn_rule_props);
+    }
+    else if (rn_rule_props.getOption("rateRuleVariablesShouldBeParameters"))
+    {
+        // it was set to true for a previous test - set it back to false
+        rn_rule_props.addOption("rateRuleVariablesShouldBeParameters", false);
+        rn_rule_converter->setProperties(&rn_rule_props);
+    }
+
 	rn_rule_converter->setDocument(d);
     if (rn_rule_converter->convert() != LIBSBML_OPERATION_SUCCESS)
     {
@@ -304,7 +318,7 @@ START_TEST(test_reaction_rule_014)
     std::string reaction_file(TestDataDirectory);
     reaction_file += "valid_014_bio.xml";
 
-    bool result = test_reaction_to_rule(raterule_file, reaction_file);
+    bool result = test_reaction_to_rule(raterule_file, reaction_file, true);
 
     fail_unless(result == true);
 }
@@ -352,9 +366,9 @@ END_TEST
 START_TEST(test_reaction_rule_051)
 {
     std::string raterule_file(TestDataDirectory);
-    raterule_file += "valid_051_rr.xml";
+    raterule_file += "valid_51_rr.xml";
     std::string reaction_file(TestDataDirectory);
-    reaction_file += "valid_051_bio.xml";
+    reaction_file += "valid_51_bio.xml";
 
     bool result = test_reaction_to_rule(raterule_file, reaction_file);
 
@@ -365,9 +379,9 @@ END_TEST
 START_TEST(test_reaction_rule_052)
 {
     std::string raterule_file(TestDataDirectory);
-    raterule_file += "valid_052_rr.xml";
+    raterule_file += "valid_52_rr.xml";
     std::string reaction_file(TestDataDirectory);
-    reaction_file += "valid_052_bio.xml";
+    reaction_file += "valid_52_bio.xml";
 
     bool result = test_reaction_to_rule(raterule_file, reaction_file);
 
@@ -378,9 +392,9 @@ END_TEST
 START_TEST(test_reaction_rule_053)
 {
     std::string raterule_file(TestDataDirectory);
-    raterule_file += "valid_053_rr.xml";
+    raterule_file += "valid_53_rr.xml";
     std::string reaction_file(TestDataDirectory);
-    reaction_file += "valid_053_bio.xml";
+    reaction_file += "valid_53_bio.xml";
 
     bool result = test_reaction_to_rule(raterule_file, reaction_file);
 
@@ -391,9 +405,9 @@ END_TEST
 START_TEST(test_reaction_rule_054)
 {
     std::string raterule_file(TestDataDirectory);
-    raterule_file += "valid_054_rr.xml";
+    raterule_file += "valid_54_rr.xml";
     std::string reaction_file(TestDataDirectory);
-    reaction_file += "valid_054_bio.xml";
+    reaction_file += "valid_54_bio.xml";
 
     bool result = test_reaction_to_rule(raterule_file, reaction_file);
 
@@ -404,9 +418,9 @@ END_TEST
 START_TEST(test_reaction_rule_055)
 {
     std::string raterule_file(TestDataDirectory);
-    raterule_file += "valid_055_rr.xml";
+    raterule_file += "valid_55_rr.xml";
     std::string reaction_file(TestDataDirectory);
-    reaction_file += "valid_055_bio.xml";
+    reaction_file += "valid_55_bio.xml";
 
     bool result = test_reaction_to_rule(raterule_file, reaction_file);
 
@@ -419,7 +433,7 @@ END_TEST
 Suite*
 create_suite_TestSBMLReactionConverter(void)
 {
-    bool testing = false;
+    bool testing = true;
 	Suite* suite = suite_create("SBMLReactionConverter");
 	TCase* tcase = tcase_create("SBMLReactionConverter");
 	tcase_add_checked_fixture(tcase, Reaction_setup,
@@ -427,7 +441,7 @@ create_suite_TestSBMLReactionConverter(void)
 
     if (testing)
     {
-        tcase_add_test(tcase, test_reaction_rule_013);
+        tcase_add_test(tcase, test_reaction_rule_052);
     }
     else
     {
@@ -442,14 +456,14 @@ create_suite_TestSBMLReactionConverter(void)
      tcase_add_test(tcase, test_reaction_rule_09);
      tcase_add_test(tcase, test_reaction_rule_010);
      tcase_add_test(tcase, test_reaction_rule_011);
-    tcase_add_test(tcase, test_reaction_rule_012);
-    tcase_add_test(tcase, test_reaction_rule_013); // 13 - 17 fails
-    //tcase_add_test(tcase, test_reaction_rule_014);
+     tcase_add_test(tcase, test_reaction_rule_012);
+     tcase_add_test(tcase, test_reaction_rule_013); // 13 - 17 fails
+     tcase_add_test(tcase, test_reaction_rule_014);
     //tcase_add_test(tcase, test_reaction_rule_015);
     //tcase_add_test(tcase, test_reaction_rule_016);
     //tcase_add_test(tcase, test_reaction_rule_017);
-    //tcase_add_test(tcase, test_reaction_rule_051); // crashes
-    //tcase_add_test(tcase, test_reaction_rule_052); // crashes
+     tcase_add_test(tcase, test_reaction_rule_051);           
+     tcase_add_test(tcase, test_reaction_rule_052); // crashes
     //tcase_add_test(tcase, test_reaction_rule_053); // crashes   
     //tcase_add_test(tcase, test_reaction_rule_054); // crashes
     //tcase_add_test(tcase, test_reaction_rule_055); // crashes    

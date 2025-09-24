@@ -31,8 +31,9 @@
             <times/>
             <apply>
               <minus/>
-              <ci> Y_1 </ci>
+              <cn> 1 </cn>
             </apply>
+            <ci> Y_1 </ci>
             <ci> Y_3 </ci>
             <ci> k2 </ci>
           </apply>

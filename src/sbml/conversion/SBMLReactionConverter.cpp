@@ -306,25 +306,9 @@ SBMLReactionConverter::convert()
     success = replaceReactions();
   }
 
-  if (getRateRuleVariablesShouldBeParameters() == true)
+  if (success && getRateRuleVariablesShouldBeParameters() == true)
   {
-      // make any species that are now variables into parameters
-      for (RuleMap::iterator it = mRateRulesMap.begin(); it != mRateRulesMap.end(); ++it)
-      {
-          const std::string& id = (*it).first;
-          Species* s = model->getSpecies(id);
-          if (s != NULL)
-          {
-              // convert to parameter
-              Parameter* p = model->createParameter();
-              p->setId(s->getId());
-              p->setValue(s->getInitialAmount());
-              p->setUnits(s->getUnits());
-              p->setConstant(false);
-              // remove the species
-              model->removeSpecies(s->getId());
-          }
-      }
+      success = createParametersForRateRuleVariables();
   }
 
   if (success) 
@@ -345,17 +329,33 @@ SBMLReactionConverter::createParametersForRateRuleVariables()
 {
     bool created = false;
     Model* model = mDocument->getModel();
+    unsigned int numParams = model->getNumParameters();
+    unsigned int numSpecies = model->getNumSpecies();
+    unsigned int numTotal = numParams + numSpecies;
+    // make any species that are now variables into parameters
     for (RuleMap::iterator it = mRateRulesMap.begin(); it != mRateRulesMap.end(); ++it)
     {
         const std::string& id = (*it).first;
-        if (model->getParameter(id) == NULL)
+        Species* s = model->getSpecies(id);
+        if (s != NULL)
         {
+            // convert to parameter
             Parameter* p = model->createParameter();
-            p->setId(id);
+            p->setId(s->getId());
+            p->setValue(s->getInitialAmount());
+            p->setUnits(s->getUnits());
             p->setConstant(false);
-            created = true;
+            // remove the species
+            model->removeSpecies(s->getId());
         }
     }
+    // check we have succeeded
+    if (model->getNumParameters() >= numParams && model->getNumSpecies() <= numSpecies &&
+        (model->getNumParameters() + model->getNumSpecies()) == numTotal)
+    {
+        created = true;
+    }
+
     return created;
 }
 
