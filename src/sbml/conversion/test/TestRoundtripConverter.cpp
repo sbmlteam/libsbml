@@ -808,7 +808,7 @@ END_TEST
 Suite*
 create_suite_TestSBMLRoundtripConverter(void)
 {
-	bool testing = true;
+	bool testing = false;
 	Suite* suite = suite_create("SBMLRoundtripConverter");
 	TCase* tcase = tcase_create("SBMLRoundtripConverter");
 	tcase_add_checked_fixture(tcase, Roundtrip_setup,

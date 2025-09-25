@@ -977,7 +977,7 @@ END_TEST
 Suite *
 create_suite_TestSBMLRateRuleConverter (void)
 { 
-	bool testing = true;
+	bool testing = false;
 Suite *suite = suite_create("SBMLRateRuleConverter");
   TCase *tcase = tcase_create("SBMLRateRuleConverter");
   tcase_add_checked_fixture(tcase, RateRuleConverter_setup,

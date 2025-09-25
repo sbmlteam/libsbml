@@ -433,7 +433,7 @@ END_TEST
 Suite*
 create_suite_TestSBMLReactionConverter(void)
 {
-    bool testing = true;
+    bool testing = false;
 	Suite* suite = suite_create("SBMLReactionConverter");
 	TCase* tcase = tcase_create("SBMLReactionConverter");
 	tcase_add_checked_fixture(tcase, Reaction_setup,

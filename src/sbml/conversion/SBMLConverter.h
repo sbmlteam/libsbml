@@ -299,8 +299,14 @@ public:
 protected:
   /** @cond doxygenLibsbmlInternal */
   SBMLDocument *   mDocument;
+  Model* mOriginalModel;
+
   ConversionProperties *mProps;
   std::string mName;
+
+  ASTNode* replaceMathWithAssignedVariables(ASTNode* original);
+
+  IdList getListAssignmentRuleVariables(unsigned int& numAssignmentRules);
 
   friend class SBMLDocument;
   /** @endcond */

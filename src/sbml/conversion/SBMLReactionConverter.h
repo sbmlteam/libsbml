@@ -244,9 +244,9 @@ private:
 
   bool notUsedInKineticLaw(const std::string& compartment, ASTNode* kineticLaw);
 
-  ASTNode* replaceMathWithAssignedVariables(ASTNode* original);
+  //ASTNode* replaceMathWithAssignedVariables(ASTNode* original);
 
-  IdList getListAssignmentRuleVariables(unsigned int &numAssignmentRules);
+  //IdList getListAssignmentRuleVariables(unsigned int &numAssignmentRules);
 
   bool replaceReactions();
 
@@ -258,7 +258,7 @@ private:
 
   RuleMap mRateRulesMap;
 
-  Model * mOriginalModel;
+  //Model * mOriginalModel;
 };
 
 LIBSBML_CPP_NAMESPACE_END

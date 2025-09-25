@@ -249,8 +249,6 @@ private:
 
   std::vector<ASTNode*> mRateOfMath;
 
-  Model * mOriginalModel;
-
   /** @endcond */
 
 };

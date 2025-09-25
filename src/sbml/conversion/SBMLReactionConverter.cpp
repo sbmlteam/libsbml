@@ -69,7 +69,6 @@ void SBMLReactionConverter::init()
 
 SBMLReactionConverter::SBMLReactionConverter() 
   : SBMLConverter("SBML Reaction Converter")
-  , mOriginalModel (NULL)
 {
   mReactionsToRemove.clear();
   mRateRulesMap.clear();
@@ -80,7 +79,6 @@ SBMLReactionConverter::SBMLReactionConverter(const SBMLReactionConverter& orig)
   : SBMLConverter(orig)
   , mReactionsToRemove (orig.mReactionsToRemove)
   , mRateRulesMap      (orig.mRateRulesMap)
-  , mOriginalModel     (orig.mOriginalModel)
 {
 }
 
@@ -102,8 +100,6 @@ SBMLReactionConverter::operator=(const SBMLReactionConverter& rhs)
  */
 SBMLReactionConverter::~SBMLReactionConverter ()
 {
-  if (mOriginalModel != NULL)
-    delete mOriginalModel;
 }
 
 
@@ -562,58 +558,58 @@ bool SBMLReactionConverter::notUsedInKineticLaw(const std::string& compartment, 
     return true;
 }
 
-ASTNode* 
-SBMLReactionConverter::replaceMathWithAssignedVariables(ASTNode* original)
-{
-    // there may be bits of the math that are actually assigned with an assignment rule
-    // and therefore should be replaced
-    // e.g. math equals 2 * k1 * A + k2 * B
-    // in a model with an assignment rule k3 = 2 * k1 * A
-    // so the math could become k3 + k2 * B
-    unsigned int numAssignmentRules = 0;
-    IdList assignmentRulesVariables = getListAssignmentRuleVariables(numAssignmentRules);
-    if (numAssignmentRules == 0)
-    {
-        return original;
-    }
-    ExpressionAnalyser analyser;
-    ASTNode* newMath = original->deepCopy();
-    for (unsigned int i = 0; i < numAssignmentRules; i++)
-    {
-        AssignmentRule* ar = mOriginalModel->getAssignmentRule(assignmentRulesVariables.at(i));
-        if (ar != NULL && ar->isSetMath() == true)
-        {
-            ASTNode* arMath = ar->getMath()->deepCopy();
-            ASTNode* variable = new ASTNode(AST_NAME);
-            variable->setName(ar->getVariable().c_str());
-            //cout << "assignment rule " << i << ": " << SBML_formulaToL3String(arMath) << " variable " 
-            //    << SBML_formulaToL3String(variable) << " original " << SBML_formulaToL3String(newMath) << endl;
-
-            analyser.replaceExpressionInNodeWithNode(newMath, arMath, variable);
-            //cout << "afterwards assignment rule " << i << ": " << SBML_formulaToL3String(arMath) << " variable "
-            //    << SBML_formulaToL3String(variable) << " original " << SBML_formulaToL3String(newMath) << endl;
-        }
-    }
-    return newMath;
-}
-
-
-IdList
-SBMLReactionConverter::getListAssignmentRuleVariables(unsigned int &numAssignmentRules)
-{
-    IdList assignmentRuleVariables;
-    unsigned int numRules = mOriginalModel->getNumRules();
-    for (unsigned int i = 0; i < numRules; i++)
-    {
-        Rule* r = mOriginalModel->getRule(i);
-        if (r != NULL && r->isAssignment())
-        {
-            numAssignmentRules++;
-            assignmentRuleVariables.append(r->getVariable());
-        }
-    }
-    return assignmentRuleVariables;
-}
+//ASTNode* 
+//SBMLReactionConverter::replaceMathWithAssignedVariables(ASTNode* original)
+//{
+//    // there may be bits of the math that are actually assigned with an assignment rule
+//    // and therefore should be replaced
+//    // e.g. math equals 2 * k1 * A + k2 * B
+//    // in a model with an assignment rule k3 = 2 * k1 * A
+//    // so the math could become k3 + k2 * B
+//    unsigned int numAssignmentRules = 0;
+//    IdList assignmentRulesVariables = getListAssignmentRuleVariables(numAssignmentRules);
+//    if (numAssignmentRules == 0)
+//    {
+//        return original;
+//    }
+//    ExpressionAnalyser analyser;
+//    ASTNode* newMath = original->deepCopy();
+//    for (unsigned int i = 0; i < numAssignmentRules; i++)
+//    {
+//        AssignmentRule* ar = mOriginalModel->getAssignmentRule(assignmentRulesVariables.at(i));
+//        if (ar != NULL && ar->isSetMath() == true)
+//        {
+//            ASTNode* arMath = ar->getMath()->deepCopy();
+//            ASTNode* variable = new ASTNode(AST_NAME);
+//            variable->setName(ar->getVariable().c_str());
+//            //cout << "assignment rule " << i << ": " << SBML_formulaToL3String(arMath) << " variable " 
+//            //    << SBML_formulaToL3String(variable) << " original " << SBML_formulaToL3String(newMath) << endl;
+//
+//            analyser.replaceExpressionInNodeWithNode(newMath, arMath, variable);
+//            //cout << "afterwards assignment rule " << i << ": " << SBML_formulaToL3String(arMath) << " variable "
+//            //    << SBML_formulaToL3String(variable) << " original " << SBML_formulaToL3String(newMath) << endl;
+//        }
+//    }
+//    return newMath;
+//}
+//
+//
+//IdList
+//SBMLReactionConverter::getListAssignmentRuleVariables(unsigned int &numAssignmentRules)
+//{
+//    IdList assignmentRuleVariables;
+//    unsigned int numRules = mOriginalModel->getNumRules();
+//    for (unsigned int i = 0; i < numRules; i++)
+//    {
+//        Rule* r = mOriginalModel->getRule(i);
+//        if (r != NULL && r->isAssignment())
+//        {
+//            numAssignmentRules++;
+//            assignmentRuleVariables.append(r->getVariable());
+//        }
+//    }
+//    return assignmentRuleVariables;
+//}
 
 bool
 SBMLReactionConverter::replaceReactions()

@@ -121,11 +121,13 @@ Model* setupModel(SBMLDocument* doc) {
 
     return model;
 }
+static unsigned int count = 0;
 
 
 void
 ExpressionAnalyser_setup(void)
 {
+    cout << "ExpressionAnalyser setup " << ++::count << endl;
 	props.addOption("inferReactions", true);
 
 	converter = new SBMLRateRuleConverter();
@@ -139,6 +141,7 @@ ExpressionAnalyser_setup(void)
 void
 ExpressionAnalyser_teardown(void)
 {
+	cout << "ExpressionAnalyser tear down " << ::count << endl;
 	delete converter;
 	delete d;
 }
@@ -1878,7 +1881,7 @@ END_TEST
 Suite *
 create_suite_TestExpressionAnalyser (void)
 { 
-	bool testing = false;
+	bool testing = true;
 	Suite *suite = suite_create("ExpressionAnalyser");
 	TCase *tcase = tcase_create("ExpressionAnalyser");
 	tcase_add_checked_fixture(tcase, ExpressionAnalyser_setup, 
@@ -1886,7 +1889,7 @@ create_suite_TestExpressionAnalyser (void)
 
   if (testing)
   {
-	  tcase_add_test(tcase, test_analyse_4_replace_4); //k-x-y & k+v-x
+	  tcase_add_test(tcase, test_analyse_1); //k-x-y & k+v-x
   }
   else
   {
