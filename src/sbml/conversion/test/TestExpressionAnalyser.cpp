@@ -127,7 +127,6 @@ static unsigned int count = 0;
 void
 ExpressionAnalyser_setup(void)
 {
-    cout << "ExpressionAnalyser setup " << ++::count << endl;
 	props.addOption("inferReactions", true);
 
 	converter = new SBMLRateRuleConverter();
@@ -141,7 +140,6 @@ ExpressionAnalyser_setup(void)
 void
 ExpressionAnalyser_teardown(void)
 {
-	cout << "ExpressionAnalyser tear down " << ::count << endl;
 	delete converter;
 	delete d;
 }
@@ -543,24 +541,15 @@ END_TEST
 
 START_TEST(test_order_expressions_2)
 {
-	ConversionProperties props;
-	props.addOption("inferReactions", true);
+	RateRule* rr = d->getModel()->createRateRule();
+	rr->setVariable("a");
+	rr->setMath(SBML_parseFormula("k + v - x - y"));
 
-	SBMLRateRuleConverter* converter = new SBMLRateRuleConverter();
-	converter->setProperties(&props);
-
-	std::string filename(TestDataDirectory);
-	filename += "mraterules5.xml";
-
-
-	SBMLDocument* d = readSBMLFromFile(filename.c_str());
-	Model* model = d->getModel();
-	fail_unless(model != NULL);
-	fail_unless(model->getNumParameters() == 2);
-
-	converter->setDocument(d);
+	RateRule* rrr = d->getModel()->createRateRule();
+	rrr->setVariable("b");
+	rrr->setMath(SBML_parseFormula("k-x-y"));
 	converter->populateInitialODEinfo();
-	ExpressionAnalyser* analyser = new ExpressionAnalyser(model, converter->getOdePairs());
+	ExpressionAnalyser* analyser = new ExpressionAnalyser(m, converter->getOdePairs());
 
 	fail_unless(analyser->getNumExpressions() == 0);
 
@@ -1881,7 +1870,7 @@ END_TEST
 Suite *
 create_suite_TestExpressionAnalyser (void)
 { 
-	bool testing = true;
+	bool testing = false;
 	Suite *suite = suite_create("ExpressionAnalyser");
 	TCase *tcase = tcase_create("ExpressionAnalyser");
 	tcase_add_checked_fixture(tcase, ExpressionAnalyser_setup, 
@@ -1889,7 +1878,7 @@ create_suite_TestExpressionAnalyser (void)
 
   if (testing)
   {
-	  tcase_add_test(tcase, test_analyse_1); //k-x-y & k+v-x
+	  tcase_add_test(tcase, test_order_expressions_2); //k-x-y & k+v-x
   }
   else
   {

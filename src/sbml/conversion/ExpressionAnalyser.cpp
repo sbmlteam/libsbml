@@ -66,6 +66,19 @@ struct compareExpressions
     }
 };
 
+pairODEs ExpressionAnalyser::deepCopyODEs(pairODEs odes)
+{
+    pairODEs newOdes;
+    for (odeIt it = odes.begin(); it != odes.end(); ++it)
+    {
+        newOdes.push_back(std::make_pair(it->first, it->second->deepCopy()));
+    }
+
+    return newOdes;
+}
+
+
+
 ExpressionAnalyser::ExpressionAnalyser()
     : mModel (NULL), 
       mODEs (),
@@ -80,7 +93,6 @@ ExpressionAnalyser::ExpressionAnalyser()
 
 ExpressionAnalyser::ExpressionAnalyser(Model * m, pairODEs odes)
     : mModel(m),
-    mODEs(odes),
     mNewVarName("newVar"),
     mNewVarCount(1),
     mHiddenSpecies(NULL),
@@ -88,6 +100,7 @@ ExpressionAnalyser::ExpressionAnalyser(Model * m, pairODEs odes)
 {
   SBMLTransforms::mapComponentValues(mModel);
   mModel->populateAllElementIdList();
+  mODEs = deepCopyODEs(odes);
 }
 
 ExpressionAnalyser::ExpressionAnalyser(const ExpressionAnalyser& orig) :
@@ -891,7 +904,7 @@ bool ExpressionAnalyser::isTypeKminusXminusY(unsigned int numChildren, ASTNode* 
     {
         value->type = TYPE_K_MINUS_X_MINUS_Y;
         value->y_value = rightChild->getName();
-        value->dydt_expression = getODEFor(rightChild->getName());
+        value->dydt_expression = (getODEFor(rightChild->getName()))->deepCopy();
         return true;
     }
     return false;
@@ -922,7 +935,7 @@ bool ExpressionAnalyser::isTypeKminusX(unsigned int numChildren, ASTNode* rightC
           value->k_value = leftChild->getName();
       }
       value->x_value = rightChild->getName();
-      value->dxdt_expression = getODEFor(rightChild->getName());
+      value->dxdt_expression = (getODEFor(rightChild->getName()))->deepCopy();
       value->type = TYPE_K_MINUS_X;
       return true;
     }
@@ -946,7 +959,7 @@ bool ExpressionAnalyser::isTypeKplusVminusX(unsigned int numChildren, ASTNode* r
     {
         value->type = TYPE_K_PLUS_V_MINUS_X;
         value->x_value = rightChild->getName();
-        value->dxdt_expression = getODEFor(rightChild->getName());
+        value->dxdt_expression = (getODEFor(rightChild->getName()))->deepCopy();
         return true;
     }
     return false;
@@ -974,7 +987,7 @@ bool ExpressionAnalyser::isTypeKplusV(unsigned int numChildren, ASTNode* rightCh
       {
           value->k_value = leftChild->getName();
       }
-      value->v_expression = rightChild;
+      value->v_expression = rightChild->deepCopy();
       return true;
     }
     return false;
@@ -996,7 +1009,7 @@ bool ExpressionAnalyser::isTypeKplusVminusXminusY(unsigned int numChildren, ASTN
     {
         value->type = TYPE_K_PLUS_V_MINUS_X_MINUS_Y;
         value->y_value = rightChild->getName();
-        value->dydt_expression = getODEFor(rightChild->getName());
+        value->dydt_expression = (getODEFor(rightChild->getName()))->deepCopy();
         return true;
     }
     return false;
@@ -1018,7 +1031,7 @@ bool ExpressionAnalyser::isTypeKminusXplusWminusY(unsigned int numChildren, ASTN
         isVariableSpeciesOrParameter(rightChild))
     {
         value->y_value = rightChild->getName();
-        value->dydt_expression = getODEFor(rightChild->getName());
+        value->dydt_expression = (getODEFor(rightChild->getName()))->deepCopy();
         return true;
     }
     return false;
@@ -1039,7 +1052,7 @@ bool ExpressionAnalyser::isTypeWplusKminusX(unsigned int numChildren, ASTNode* r
         rightChild->getLeftChild(), rightChild->getType(), value))
     {
         value->type = TYPE_K_MINUS_X_PLUS_W_MINUS_Y;
-        value->w_expression = leftChild;
+        value->w_expression = leftChild->deepCopy();
         return true;
     }
     return false;

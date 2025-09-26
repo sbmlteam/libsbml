@@ -209,7 +209,8 @@ public:
 
     private:
     /** @cond doxygenLibsbmlInternal */
-    
+        pairODEs deepCopyODEs(pairODEs odes);
+
     /**
     * Function to match two substitution values matching the k parameter
     */
