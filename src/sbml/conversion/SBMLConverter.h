@@ -308,6 +308,8 @@ protected:
 
   IdList getListAssignmentRuleVariables(unsigned int& numAssignmentRules);
 
+  ASTNode* replaceAssignedVariablesWithMath(ASTNode* original);
+
   friend class SBMLDocument;
   /** @endcond */
 

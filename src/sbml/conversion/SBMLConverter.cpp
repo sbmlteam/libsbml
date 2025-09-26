@@ -269,6 +269,7 @@ SBMLConverter::replaceMathWithAssignedVariables(ASTNode* original)
     {
         return original;
     }
+
     ExpressionAnalyser analyser;
     ASTNode* newMath = original->deepCopy();
     for (unsigned int i = 0; i < numAssignmentRules; i++)
@@ -306,6 +307,40 @@ SBMLConverter::getListAssignmentRuleVariables(unsigned int& numAssignmentRules)
         }
     }
     return assignmentRuleVariables;
+}
+ASTNode* SBMLConverter::replaceAssignedVariablesWithMath(ASTNode* original)
+{
+    // there may be bits of the math that are use a variable assigned with an assignment rule
+    // and therefore should be replaced with the math
+    // e.g. math equals k3 + k2 * B
+    // in a model with an assignment rule k3 = 2 * k1 * A
+    // so the math could become 2 * k1 * A + k2 * B
+    unsigned int numAssignmentRules = 0;
+    IdList assignmentRulesVariables = getListAssignmentRuleVariables(numAssignmentRules);
+    if (numAssignmentRules == 0)
+    {
+        return original;
+    }
+
+    ExpressionAnalyser analyser;
+    ASTNode* newMath = original->deepCopy();
+    for (unsigned int i = 0; i < numAssignmentRules; i++)
+    {
+        AssignmentRule* ar = mOriginalModel->getAssignmentRule(assignmentRulesVariables.at(i));
+        if (ar != NULL && ar->isSetMath() == true)
+        {
+            ASTNode* arMath = ar->getMath()->deepCopy();
+            ASTNode* variable = new ASTNode(AST_NAME);
+            variable->setName(ar->getVariable().c_str());
+            cout << "assignment rule " << i << ": " << SBML_formulaToL3String(arMath) << " variable " 
+                << SBML_formulaToL3String(variable) << " original " << SBML_formulaToL3String(newMath) << endl;
+
+            analyser.replaceExpressionInNodeWithNode(newMath, variable, arMath);
+            cout << "afterwards assignment rule " << i << ": " << SBML_formulaToL3String(arMath) << " variable "
+                << SBML_formulaToL3String(variable) << " original " << SBML_formulaToL3String(newMath) << endl;
+        }
+    }
+    return newMath;
 }
 /** @cond doxygenIgnored */
 /** @endcond */

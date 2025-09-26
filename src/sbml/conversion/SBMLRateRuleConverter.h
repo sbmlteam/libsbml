@@ -159,6 +159,9 @@ public:
    */
   virtual bool matchesProperties(const ConversionProperties &props) const;
 
+  virtual int setDocument(const SBMLDocument* doc);
+  virtual int setDocument(SBMLDocument* doc);
+
 
   /**
    * Perform the conversion.
@@ -222,6 +225,8 @@ private:
 
   void populateReactionCoefficients();
 
+  bool useStoichiometryFromMath();
+
 
   // functions for populateODEinfo()
 
@@ -258,6 +263,7 @@ private:
   void dealWithSpecies();
   void createReactions();
   void removeRules();
+  void dealWithStoichiometry();
 
 
   // member variables populated during analysis

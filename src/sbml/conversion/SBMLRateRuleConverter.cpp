@@ -234,7 +234,10 @@ SBMLRateRuleConverter::getDefaultProperties() const
   else
   {
     prop.addOption("inferReactions", true,
-                 "Infer reactions from rateRules in the model");
+                 "Infer reactions from rateRules in the model");    
+    prop.addOption("useStoichiometryFromMath", false,
+                     "If a number appears in the math use it as the stoichiometry");
+
     init = true;
     return prop;
   }
@@ -246,6 +249,49 @@ SBMLRateRuleConverter::matchesProperties(const ConversionProperties &props) cons
   if (!props.hasOption("inferReactions"))
     return false;
   return true;
+}
+
+int
+SBMLRateRuleConverter::setDocument(const SBMLDocument* doc)
+{
+    if (SBMLConverter::setDocument(doc) == LIBSBML_OPERATION_SUCCESS)
+    {
+        if (mDocument != NULL)
+        {
+            mOriginalModel = mDocument->getModel()->clone();
+            return LIBSBML_OPERATION_SUCCESS;
+        }
+        else
+        {
+            return LIBSBML_OPERATION_SUCCESS;
+        }
+    }
+    else
+    {
+        return LIBSBML_OPERATION_FAILED;
+    }
+}
+
+
+int
+SBMLRateRuleConverter::setDocument(SBMLDocument* doc)
+{
+    if (SBMLConverter::setDocument(doc) == LIBSBML_OPERATION_SUCCESS)
+    {
+        if (mDocument != NULL)
+        {
+            mOriginalModel = mDocument->getModel()->clone();
+            return LIBSBML_OPERATION_SUCCESS;
+        }
+        else
+        {
+            return LIBSBML_OPERATION_SUCCESS;
+        }
+    }
+    else
+    {
+        return LIBSBML_OPERATION_FAILED;
+    }
 }
 
 
@@ -388,7 +434,8 @@ SBMLRateRuleConverter::addODEPair(std::string id, Model* model)
     ASTNode * math;
     if (rr->isSetMath())
     {
-      math = rr->getMath()->deepCopy();
+      math = replaceAssignedVariablesWithMath(rr->getMath()->deepCopy());
+
       // TO DO return boolean to check this worked
     }
     else
@@ -424,7 +471,7 @@ void SBMLRateRuleConverter::populateTerms()
     for (unsigned int n = 0; n < mTerms.size(); n++)
     {
         ASTNode* node = mTerms.at(n);
-        //cout << "Term " << n << ": " << SBML_formulaToL3String(node) << endl;
+        cout << "Term " << n << ": " << SBML_formulaToL3String(node) << endl;
     }
     //print_vectors(mCoefficients);
 }
@@ -525,6 +572,13 @@ SBMLRateRuleConverter::determineCoefficient(ASTNode* ode, unsigned int termN, do
     {
       coeff = ode_node->getChild(0)->getValue();
       ode_node->removeChild(0, true);
+      // we don't want to be loved with the times node if it has only one child
+      if (ode_node->getNumChildren() == 1)
+      {
+          ASTNode* child = ode_node->getChild(0)->deepCopy();
+          delete ode_node;
+          ode_node = child;
+      }
     }
     else
     {
@@ -899,7 +953,7 @@ SBMLRateRuleConverter::populateInitialODEinfo()
 
     for (unsigned int odeIndex = 0; odeIndex < mODEs.size(); odeIndex++)
     {
-        //cout << mODEs[odeIndex].first << ": " << SBML_formulaToL3String(mODEs[odeIndex].second) << endl;
+        cout << mODEs[odeIndex].first << ": " << SBML_formulaToL3String(mODEs[odeIndex].second) << endl;
     }
 }
 
@@ -961,6 +1015,20 @@ SBMLRateRuleConverter::populateReactionCoefficients()
   print_rn_coefficients(mProducts);
   print_rn_coefficients(mModifiers);*/
 
+}
+
+bool SBMLRateRuleConverter::useStoichiometryFromMath()
+{
+    bool value = false;
+    if (getProperties() == NULL || getProperties()->hasOption("useStoichiometryFromMath") == false)
+    {
+        return value;
+    }
+    else
+    {
+        value = getProperties()->getBoolValue("useStoichiometryFromMath");
+    }
+    return value;
 }
 
 void
@@ -1080,6 +1148,13 @@ SBMLRateRuleConverter::dealWithSpecies()
     }
   }
 }
+
+void
+SBMLRateRuleConverter::dealWithStoichiometry()
+{
+    // TO DO
+}
+
 void
 SBMLRateRuleConverter::createReactions()
 {
