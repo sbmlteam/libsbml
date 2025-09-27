@@ -62,6 +62,7 @@
 
 #include <sbml/SBMLNamespaces.h>
 #include <sbml/conversion/ConversionProperties.h>
+#include <sbml/util/IdList.h>
 
 #ifndef LIBSBML_USE_STRICT_INCLUDES
 #include <sbml/SBMLTypes.h>
