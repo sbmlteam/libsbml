@@ -51,6 +51,9 @@
 #include <sbml/math/ASTNode.h>
 #include <sbml/util/IdList.h>
 #include <sbml/conversion/ExpressionAnalyser.h>
+#include <sbml/Model.h>
+#include <sbml/AssignmentRule.h>
+#include <sbml/Rule.h>
 
 using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
