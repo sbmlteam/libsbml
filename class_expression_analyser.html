@@ -178,11 +178,21 @@ Available SBML converters in libSBML</h2>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:ac19e82ebf1b013ec4d616cf528dd0caa" id="r_ac19e82ebf1b013ec4d616cf528dd0caa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_expression_analyser.html#ac19e82ebf1b013ec4d616cf528dd0caa">analyse</a> ()</td></tr>
+<tr class="memdesc:ac19e82ebf1b013ec4d616cf528dd0caa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to work through all the ODE expressions and invoke analyseNode where appropriate.  <br /></td></tr>
+<tr class="separator:ac19e82ebf1b013ec4d616cf528dd0caa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad855f3e829bcada29cfb7d8184df65d" id="r_aad855f3e829bcada29cfb7d8184df65d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_expression_analyser.html#aad855f3e829bcada29cfb7d8184df65d">analyseNode</a> (<a class="el" href="class_a_s_t_node.html">ASTNode</a> *node, <a class="el" href="struct_substitution_values__t.html">SubstitutionValues_t</a> *value)</td></tr>
+<tr class="memdesc:aad855f3e829bcada29cfb7d8184df65d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to work through all the mathematical expressions and create substitution values.  <br /></td></tr>
+<tr class="separator:aad855f3e829bcada29cfb7d8184df65d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a09959a1b4f3ce9323376df1bd78ca2b0" id="r_a09959a1b4f3ce9323376df1bd78ca2b0"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_expression_analyser.html">ExpressionAnalyser</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_expression_analyser.html#a09959a1b4f3ce9323376df1bd78ca2b0">clone</a> () const</td></tr>
 <tr class="memdesc:a09959a1b4f3ce9323376df1bd78ca2b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and returns a deep copy of this <a class="el" href="class_expression_analyser.html">ExpressionAnalyser</a> object.  <br /></td></tr>
 <tr class="separator:a09959a1b4f3ce9323376df1bd78ca2b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a508314b31cfe3bc882289021cfc3c9e4" id="r_a508314b31cfe3bc882289021cfc3c9e4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_expression_analyser.html#a508314b31cfe3bc882289021cfc3c9e4">detectHiddenSpecies</a> (<a class="el" href="class_list.html">List</a> *hiddenSpecies)</td></tr>
-<tr class="separator:a508314b31cfe3bc882289021cfc3c9e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36bfb813006a2c78984fa48c447b1805" id="r_a36bfb813006a2c78984fa48c447b1805"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_substitution_values__t.html">SubstitutionValues_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_expression_analyser.html#a36bfb813006a2c78984fa48c447b1805">createBlankSubstitutionValues</a> ()</td></tr>
+<tr class="memdesc:a36bfb813006a2c78984fa48c447b1805"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to create a blank substitution value.  <br /></td></tr>
+<tr class="separator:a36bfb813006a2c78984fa48c447b1805"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51fce5e805f32df19599cc42877b46dd" id="r_a51fce5e805f32df19599cc42877b46dd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_expression_analyser.html#a51fce5e805f32df19599cc42877b46dd">detectHiddenSpecies</a> (bool testing=false)</td></tr>
+<tr class="memdesc:a51fce5e805f32df19599cc42877b46dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to work through all the expressions and detect hidden species.  <br /></td></tr>
+<tr class="separator:a51fce5e805f32df19599cc42877b46dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1e1148b0d8d1edd01f903793349d80a6" id="r_a1e1148b0d8d1edd01f903793349d80a6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_expression_analyser.html#a1e1148b0d8d1edd01f903793349d80a6">ExpressionAnalyser</a> ()</td></tr>
 <tr class="memdesc:a1e1148b0d8d1edd01f903793349d80a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_expression_analyser.html">ExpressionAnalyser</a> object.  <br /></td></tr>
 <tr class="separator:a1e1148b0d8d1edd01f903793349d80a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -192,13 +202,33 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af8baf214ddcbe899fb51df85ae867b66" id="r_af8baf214ddcbe899fb51df85ae867b66"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_expression_analyser.html#af8baf214ddcbe899fb51df85ae867b66">ExpressionAnalyser</a> (<a class="el" href="class_model.html">Model</a> *m, <a class="el" href="_s_b_m_l_rate_rule_converter_8h.html#a4fa079c46472905d6e67d8aa9632183f">pairODEs</a> ode)</td></tr>
 <tr class="memdesc:af8baf214ddcbe899fb51df85ae867b66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_expression_analyser.html">ExpressionAnalyser</a> object with <a class="el" href="class_model.html">Model</a> and ODEs.  <br /></td></tr>
 <tr class="separator:af8baf214ddcbe899fb51df85ae867b66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade1c576992108b2d0117fac116323c0b" id="r_ade1c576992108b2d0117fac116323c0b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_substitution_values__t.html">SubstitutionValues_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_expression_analyser.html#ade1c576992108b2d0117fac116323c0b">getExpression</a> (unsigned int index)</td></tr>
+<tr class="memdesc:ade1c576992108b2d0117fac116323c0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the expression at the given index Only used in testing.  <br /></td></tr>
+<tr class="separator:ade1c576992108b2d0117fac116323c0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46250601e756134e761ade4875ff6306" id="r_a46250601e756134e761ade4875ff6306"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_list.html">List</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_expression_analyser.html#a46250601e756134e761ade4875ff6306">getHiddenSpecies</a> ()</td></tr>
+<tr class="memdesc:a46250601e756134e761ade4875ff6306"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the list of hidden species.  <br /></td></tr>
+<tr class="separator:a46250601e756134e761ade4875ff6306"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5dc724dc84c8a7a50aab52fd652c1fbe" id="r_a5dc724dc84c8a7a50aab52fd652c1fbe"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_parameter.html">Parameter</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_expression_analyser.html#a5dc724dc84c8a7a50aab52fd652c1fbe">getHiddenSpecies</a> (unsigned int index)</td></tr>
+<tr class="separator:a5dc724dc84c8a7a50aab52fd652c1fbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2ed31b6d82293c4ec2ea21be9584c7b" id="r_af2ed31b6d82293c4ec2ea21be9584c7b"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_expression_analyser.html#af2ed31b6d82293c4ec2ea21be9584c7b">getNumExpressions</a> ()</td></tr>
+<tr class="memdesc:af2ed31b6d82293c4ec2ea21be9584c7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of expressions Only used in testing.  <br /></td></tr>
+<tr class="separator:af2ed31b6d82293c4ec2ea21be9584c7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0b84ee594b7e79500ea06bc7523214d" id="r_ab0b84ee594b7e79500ea06bc7523214d"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_expression_analyser.html#ab0b84ee594b7e79500ea06bc7523214d">getNumHiddenNodes</a> ()</td></tr>
+<tr class="separator:ab0b84ee594b7e79500ea06bc7523214d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb67aacfa02246b1496eede516646b1e" id="r_afb67aacfa02246b1496eede516646b1e"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_expression_analyser.html#afb67aacfa02246b1496eede516646b1e">getNumHiddenSpecies</a> ()</td></tr>
+<tr class="memdesc:afb67aacfa02246b1496eede516646b1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of hidden species.  <br /></td></tr>
+<tr class="separator:afb67aacfa02246b1496eede516646b1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b8aec8c454812f7062ae659cc62bb21" id="r_a3b8aec8c454812f7062ae659cc62bb21"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_expression_analyser.html#a3b8aec8c454812f7062ae659cc62bb21">identifyHiddenSpeciesWithinExpressions</a> ()</td></tr>
+<tr class="memdesc:a3b8aec8c454812f7062ae659cc62bb21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to identify hidden species within expressions and substitute with the correct mathematical expression ie if we find k+v-x-y and k-x-y then replace k-x-y with newVar and replace k+v-x-y with newVar+v.  <br /></td></tr>
+<tr class="separator:a3b8aec8c454812f7062ae659cc62bb21"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a228ea734a51f42167c6ee120dd3f7cf0" id="r_a228ea734a51f42167c6ee120dd3f7cf0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_expression_analyser.html">ExpressionAnalyser</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_expression_analyser.html#a228ea734a51f42167c6ee120dd3f7cf0">operator=</a> (const <a class="el" href="class_expression_analyser.html">ExpressionAnalyser</a> &amp;rhs)</td></tr>
 <tr class="memdesc:a228ea734a51f42167c6ee120dd3f7cf0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assignment operator for <a class="el" href="class_s_b_m_l_infer_units_converter.html">SBMLInferUnitsConverter</a>.  <br /></td></tr>
 <tr class="separator:a228ea734a51f42167c6ee120dd3f7cf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3a38e0e3d98d760de62621e17ddaa87b" id="r_a3a38e0e3d98d760de62621e17ddaa87b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_expression_analyser.html#a3a38e0e3d98d760de62621e17ddaa87b">setModel</a> (<a class="el" href="class_model.html">Model</a> *m)</td></tr>
-<tr class="separator:a3a38e0e3d98d760de62621e17ddaa87b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5b6872c01ee155efbe0ff85637debb3a" id="r_a5b6872c01ee155efbe0ff85637debb3a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_expression_analyser.html#a5b6872c01ee155efbe0ff85637debb3a">setODEPairs</a> (std::vector&lt; std::pair&lt; std::string, <a class="el" href="class_a_s_t_node.html">ASTNode</a> * &gt; &gt; odes)</td></tr>
-<tr class="separator:a5b6872c01ee155efbe0ff85637debb3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d62999687afb51906a758da5090470b" id="r_a5d62999687afb51906a758da5090470b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_expression_analyser.html#a5d62999687afb51906a758da5090470b">orderExpressions</a> ()</td></tr>
+<tr class="memdesc:a5d62999687afb51906a758da5090470b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to order the expressions by type.  <br /></td></tr>
+<tr class="separator:a5d62999687afb51906a758da5090470b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1df903a84e0fbc4cdb38125081359ea" id="r_ad1df903a84e0fbc4cdb38125081359ea"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_expression_analyser.html#ad1df903a84e0fbc4cdb38125081359ea">replaceExpressionInNodeWithNode</a> (<a class="el" href="class_a_s_t_node.html">ASTNode</a> *node, <a class="el" href="class_a_s_t_node.html">ASTNode</a> *replaced, <a class="el" href="class_a_s_t_node.html">ASTNode</a> *replacement)</td></tr>
+<tr class="separator:ad1df903a84e0fbc4cdb38125081359ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afe465ba80b31dbc5c5fa370497eae323" id="r_afe465ba80b31dbc5c5fa370497eae323"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_expression_analyser.html#afe465ba80b31dbc5c5fa370497eae323">~ExpressionAnalyser</a> ()</td></tr>
 <tr class="memdesc:afe465ba80b31dbc5c5fa370497eae323"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy this <a class="el" href="class_expression_analyser.html">ExpressionAnalyser</a> object.  <br /></td></tr>
 <tr class="separator:afe465ba80b31dbc5c5fa370497eae323"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -307,6 +337,55 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="ac19e82ebf1b013ec4d616cf528dd0caa" name="ac19e82ebf1b013ec4d616cf528dd0caa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac19e82ebf1b013ec4d616cf528dd0caa">&#9670;&#160;</a></span>analyse()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ExpressionAnalyser::analyse </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function to work through all the ODE expressions and invoke analyseNode where appropriate. </p>
+
+</div>
+</div>
+<a id="aad855f3e829bcada29cfb7d8184df65d" name="aad855f3e829bcada29cfb7d8184df65d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad855f3e829bcada29cfb7d8184df65d">&#9670;&#160;</a></span>analyseNode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ExpressionAnalyser::analyseNode </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_a_s_t_node.html">ASTNode</a> *&#160;</td>
+          <td class="paramname"><em>node</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_substitution_values__t.html">SubstitutionValues_t</a> *&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function to work through all the mathematical expressions and create substitution values. </p>
+
+</div>
+</div>
 <a id="a09959a1b4f3ce9323376df1bd78ca2b0" name="a09959a1b4f3ce9323376df1bd78ca2b0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a09959a1b4f3ce9323376df1bd78ca2b0">&#9670;&#160;</a></span>clone()</h2>
 
@@ -335,8 +414,27 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a508314b31cfe3bc882289021cfc3c9e4" name="a508314b31cfe3bc882289021cfc3c9e4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a508314b31cfe3bc882289021cfc3c9e4">&#9670;&#160;</a></span>detectHiddenSpecies()</h2>
+<a id="a36bfb813006a2c78984fa48c447b1805" name="a36bfb813006a2c78984fa48c447b1805"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36bfb813006a2c78984fa48c447b1805">&#9670;&#160;</a></span>createBlankSubstitutionValues()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_substitution_values__t.html">SubstitutionValues_t</a> * ExpressionAnalyser::createBlankSubstitutionValues </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function to create a blank substitution value. </p>
+
+</div>
+</div>
+<a id="a51fce5e805f32df19599cc42877b46dd" name="a51fce5e805f32df19599cc42877b46dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51fce5e805f32df19599cc42877b46dd">&#9670;&#160;</a></span>detectHiddenSpecies()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -344,12 +442,145 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void ExpressionAnalyser::detectHiddenSpecies </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_list.html">List</a> *&#160;</td>
-          <td class="paramname"><em>hiddenSpecies</em></td><td>)</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>testing</em> = <code>false</code></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Function to work through all the expressions and detect hidden species. </p>
+
+</div>
+</div>
+<a id="ade1c576992108b2d0117fac116323c0b" name="ade1c576992108b2d0117fac116323c0b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade1c576992108b2d0117fac116323c0b">&#9670;&#160;</a></span>getExpression()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_substitution_values__t.html">SubstitutionValues_t</a> * ExpressionAnalyser::getExpression </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>index</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the expression at the given index Only used in testing. </p>
+
+</div>
+</div>
+<a id="a46250601e756134e761ade4875ff6306" name="a46250601e756134e761ade4875ff6306"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46250601e756134e761ade4875ff6306">&#9670;&#160;</a></span>getHiddenSpecies() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_list.html">List</a> * ExpressionAnalyser::getHiddenSpecies </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the list of hidden species. </p>
+
+</div>
+</div>
+<a id="a5dc724dc84c8a7a50aab52fd652c1fbe" name="a5dc724dc84c8a7a50aab52fd652c1fbe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5dc724dc84c8a7a50aab52fd652c1fbe">&#9670;&#160;</a></span>getHiddenSpecies() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_parameter.html">Parameter</a> * ExpressionAnalyser::getHiddenSpecies </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>index</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af2ed31b6d82293c4ec2ea21be9584c7b" name="af2ed31b6d82293c4ec2ea21be9584c7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af2ed31b6d82293c4ec2ea21be9584c7b">&#9670;&#160;</a></span>getNumExpressions()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int ExpressionAnalyser::getNumExpressions </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the number of expressions Only used in testing. </p>
+
+</div>
+</div>
+<a id="ab0b84ee594b7e79500ea06bc7523214d" name="ab0b84ee594b7e79500ea06bc7523214d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0b84ee594b7e79500ea06bc7523214d">&#9670;&#160;</a></span>getNumHiddenNodes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int ExpressionAnalyser::getNumHiddenNodes </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afb67aacfa02246b1496eede516646b1e" name="afb67aacfa02246b1496eede516646b1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb67aacfa02246b1496eede516646b1e">&#9670;&#160;</a></span>getNumHiddenSpecies()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int ExpressionAnalyser::getNumHiddenSpecies </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the number of hidden species. </p>
+
+</div>
+</div>
+<a id="a3b8aec8c454812f7062ae659cc62bb21" name="a3b8aec8c454812f7062ae659cc62bb21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b8aec8c454812f7062ae659cc62bb21">&#9670;&#160;</a></span>identifyHiddenSpeciesWithinExpressions()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ExpressionAnalyser::identifyHiddenSpeciesWithinExpressions </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function to identify hidden species within expressions and substitute with the correct mathematical expression ie if we find k+v-x-y and k-x-y then replace k-x-y with newVar and replace k+v-x-y with newVar+v. </p>
 
 </div>
 </div>
@@ -379,36 +610,53 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a3a38e0e3d98d760de62621e17ddaa87b" name="a3a38e0e3d98d760de62621e17ddaa87b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3a38e0e3d98d760de62621e17ddaa87b">&#9670;&#160;</a></span>setModel()</h2>
+<a id="a5d62999687afb51906a758da5090470b" name="a5d62999687afb51906a758da5090470b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d62999687afb51906a758da5090470b">&#9670;&#160;</a></span>orderExpressions()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int ExpressionAnalyser::setModel </td>
+          <td class="memname">void ExpressionAnalyser::orderExpressions </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_model.html">Model</a> *&#160;</td>
-          <td class="paramname"><em>m</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
+<p>Function to order the expressions by type. </p>
+
 </div>
 </div>
-<a id="a5b6872c01ee155efbe0ff85637debb3a" name="a5b6872c01ee155efbe0ff85637debb3a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5b6872c01ee155efbe0ff85637debb3a">&#9670;&#160;</a></span>setODEPairs()</h2>
+<a id="ad1df903a84e0fbc4cdb38125081359ea" name="ad1df903a84e0fbc4cdb38125081359ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1df903a84e0fbc4cdb38125081359ea">&#9670;&#160;</a></span>replaceExpressionInNodeWithNode()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int ExpressionAnalyser::setODEPairs </td>
+          <td class="memname">bool ExpressionAnalyser::replaceExpressionInNodeWithNode </td>
           <td>(</td>
-          <td class="paramtype">std::vector&lt; std::pair&lt; std::string, <a class="el" href="class_a_s_t_node.html">ASTNode</a> * &gt; &gt;&#160;</td>
-          <td class="paramname"><em>odes</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="class_a_s_t_node.html">ASTNode</a> *&#160;</td>
+          <td class="paramname"><em>node</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="class_a_s_t_node.html">ASTNode</a> *&#160;</td>
+          <td class="paramname"><em>replaced</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_a_s_t_node.html">ASTNode</a> *&#160;</td>
+          <td class="paramname"><em>replacement</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">

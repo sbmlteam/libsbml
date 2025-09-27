@@ -43,7 +43,6 @@ var class_fbc_and =
     [ "getElementBySId", "class_fbc_and.html#ab9b81fdb8570c061842115f59d12ef99", null ],
     [ "getElementBySId", "class_fbc_and.html#a77068f549f7aa55f56a072cda2960183", null ],
     [ "getElementName", "class_fbc_and.html#a39088a6e9ffff0c868c07d656c4e7252", null ],
-    [ "getFbcAssociationAsASTNode", "class_fbc_and.html#af37ff439d376373cb5843928c40877c5", null ],
     [ "getId", "class_fbc_and.html#a129bf432fe076c854d9b6e7f44ed99b8", null ],
     [ "getIdAttribute", "class_fbc_and.html#ad5ffefa4d9901ca0d55f2343c08bb057", null ],
     [ "getLevel", "class_fbc_and.html#af0a70ab6f715e912c6431072c4339f2c", null ],

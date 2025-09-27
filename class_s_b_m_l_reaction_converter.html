@@ -206,6 +206,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad48a1188a9890433e0420de5dc5d6ac3" id="r_ad48a1188a9890433e0420de5dc5d6ac3"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_conversion_properties.html">ConversionProperties</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_converter.html#ad48a1188a9890433e0420de5dc5d6ac3">getProperties</a> () const</td></tr>
 <tr class="memdesc:ad48a1188a9890433e0420de5dc5d6ac3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current properties in effect for this converter.  <br /></td></tr>
 <tr class="separator:ad48a1188a9890433e0420de5dc5d6ac3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5cff37b0ab94ffea274f77c60201725" id="r_ae5cff37b0ab94ffea274f77c60201725"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_reaction_converter.html#ae5cff37b0ab94ffea274f77c60201725">getRateRuleVariablesShouldBeParameters</a> () const</td></tr>
+<tr class="memdesc:ae5cff37b0ab94ffea274f77c60201725"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the value of the "rateRuleVariablesShouldBeParameters" property.  <br /></td></tr>
+<tr class="separator:ae5cff37b0ab94ffea274f77c60201725"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac724a6e9d284aa26ed1dc7aff0cec6e3" id="r_ac724a6e9d284aa26ed1dc7aff0cec6e3"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_converter.html#ac724a6e9d284aa26ed1dc7aff0cec6e3">getTargetNamespaces</a> ()</td></tr>
 <tr class="memdesc:ac724a6e9d284aa26ed1dc7aff0cec6e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the target SBML namespaces of the currently set properties.  <br /></td></tr>
 <tr class="separator:ac724a6e9d284aa26ed1dc7aff0cec6e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -240,18 +243,16 @@ Public Member Functions</h2></td></tr>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:a76240a109ee348c488405983bf07842b" id="r_a76240a109ee348c488405983bf07842b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_reaction_converter.html#a76240a109ee348c488405983bf07842b">createNewRateRule</a> (const std::string &amp;spId, <a class="el" href="class_a_s_t_node.html">ASTNode</a> *math)</td></tr>
 <tr class="separator:a76240a109ee348c488405983bf07842b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f5f423d0005295619d92cebb63ca049" id="r_a1f5f423d0005295619d92cebb63ca049"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_reaction_converter.html#a1f5f423d0005295619d92cebb63ca049">createParametersForRateRuleVariables</a> ()</td></tr>
+<tr class="separator:a1f5f423d0005295619d92cebb63ca049"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5faf0d08a6f0130de2e3a06def113a27" id="r_a5faf0d08a6f0130de2e3a06def113a27"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_s_t_node.html">ASTNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_reaction_converter.html#a5faf0d08a6f0130de2e3a06def113a27">createRateRuleMathForSpecies</a> (const std::string &amp;spId, <a class="el" href="class_reaction.html">Reaction</a> *rn, bool isReactant)</td></tr>
 <tr class="separator:a5faf0d08a6f0130de2e3a06def113a27"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af5edb2523187fa187a0357c048b258a8" id="r_af5edb2523187fa187a0357c048b258a8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_s_t_node.html">ASTNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_reaction_converter.html#af5edb2523187fa187a0357c048b258a8">determineStoichiometryNode</a> (bool isReactant, <a class="el" href="class_reaction.html">Reaction</a> *rn, const std::string &amp;spId)</td></tr>
 <tr class="separator:af5edb2523187fa187a0357c048b258a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9855f277b32e82a55112a3033688e8db" id="r_a9855f277b32e82a55112a3033688e8db"><td class="memItemLeft" align="right" valign="top">IdList&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_reaction_converter.html#a9855f277b32e82a55112a3033688e8db">getListAssignmentRuleVariables</a> (unsigned int &amp;numAssignmentRules)</td></tr>
-<tr class="separator:a9855f277b32e82a55112a3033688e8db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a883e993b0520e3d7328dfc9e5e9a4f97" id="r_a883e993b0520e3d7328dfc9e5e9a4f97"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_reaction_converter.html#a883e993b0520e3d7328dfc9e5e9a4f97">isDocumentValid</a> ()</td></tr>
 <tr class="separator:a883e993b0520e3d7328dfc9e5e9a4f97"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae5cd210fecb6490732bf70a4cc0d824f" id="r_ae5cd210fecb6490732bf70a4cc0d824f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_reaction_converter.html#ae5cd210fecb6490732bf70a4cc0d824f">notUsedInKineticLaw</a> (const std::string &amp;compartment, <a class="el" href="class_a_s_t_node.html">ASTNode</a> *kineticLaw)</td></tr>
 <tr class="separator:ae5cd210fecb6490732bf70a4cc0d824f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7792e62844dab0bc6f327f921abdb7e0" id="r_a7792e62844dab0bc6f327f921abdb7e0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_s_t_node.html">ASTNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_reaction_converter.html#a7792e62844dab0bc6f327f921abdb7e0">replaceMathWithAssignedVariables</a> (<a class="el" href="class_a_s_t_node.html">ASTNode</a> *original)</td></tr>
-<tr class="separator:a7792e62844dab0bc6f327f921abdb7e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa9a9069fdead0314386aa84605ccc2db" id="r_aa9a9069fdead0314386aa84605ccc2db"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_reaction_converter.html#aa9a9069fdead0314386aa84605ccc2db">replaceReactions</a> ()</td></tr>
 <tr class="separator:aa9a9069fdead0314386aa84605ccc2db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aadecef6d87baa5f54b632bf60697695d" id="r_aadecef6d87baa5f54b632bf60697695d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_reaction_converter.html#aadecef6d87baa5f54b632bf60697695d">useCompartmentSize</a> (<a class="el" href="class_species.html">Species</a> *species, <a class="el" href="class_compartment.html">Compartment</a> *compartment, <a class="el" href="class_a_s_t_node.html">ASTNode</a> *kineticLaw)</td></tr>
@@ -259,8 +260,6 @@ Private Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:af1ec45e92e01d4ff5359bf1f6a1d148f" id="r_af1ec45e92e01d4ff5359bf1f6a1d148f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_model.html">Model</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_reaction_converter.html#af1ec45e92e01d4ff5359bf1f6a1d148f">mOriginalModel</a></td></tr>
-<tr class="separator:af1ec45e92e01d4ff5359bf1f6a1d148f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5e002d19c286db6fec243afafeb9fd55" id="r_a5e002d19c286db6fec243afafeb9fd55"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_s_b_m_l_reaction_converter_8h.html#a1fac7345e6740da1a5b378301fd7b53a">RuleMap</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_reaction_converter.html#a5e002d19c286db6fec243afafeb9fd55">mRateRulesMap</a></td></tr>
 <tr class="separator:a5e002d19c286db6fec243afafeb9fd55"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2f08c8731798b6846cd5758909110577" id="r_a2f08c8731798b6846cd5758909110577"><td class="memItemLeft" align="right" valign="top">IdList&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_reaction_converter.html#a2f08c8731798b6846cd5758909110577">mReactionsToRemove</a></td></tr>
@@ -454,6 +453,31 @@ Friends</h2></td></tr>
 
 </div>
 </div>
+<a id="a1f5f423d0005295619d92cebb63ca049" name="a1f5f423d0005295619d92cebb63ca049"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f5f423d0005295619d92cebb63ca049">&#9670;&#160;</a></span>createParametersForRateRuleVariables()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SBMLReactionConverter::createParametersForRateRuleVariables </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a5faf0d08a6f0130de2e3a06def113a27" name="a5faf0d08a6f0130de2e3a06def113a27"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5faf0d08a6f0130de2e3a06def113a27">&#9670;&#160;</a></span>createRateRuleMathForSpecies()</h2>
 
@@ -625,32 +649,6 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a id="a9855f277b32e82a55112a3033688e8db" name="a9855f277b32e82a55112a3033688e8db"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9855f277b32e82a55112a3033688e8db">&#9670;&#160;</a></span>getListAssignmentRuleVariables()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">IdList SBMLReactionConverter::getListAssignmentRuleVariables </td>
-          <td>(</td>
-          <td class="paramtype">unsigned int &amp;&#160;</td>
-          <td class="paramname"><em>numAssignmentRules</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a6364ee6b136109b83680884496542bc0" name="a6364ee6b136109b83680884496542bc0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6364ee6b136109b83680884496542bc0">&#9670;&#160;</a></span>getName()</h2>
 
@@ -708,6 +706,26 @@ Friends</h2></td></tr>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_b_m_l_converter.html#a2f6cb3b5409a2fa26a45c2f0ea01acdc" title="Sets the configuration properties to be used by this converter.">setProperties</a>( ) </dd>
 <dd>
 <a class="el" href="class_s_b_m_l_reaction_converter.html#ac4aa2fec494cc60537dd74fa7f465a95" title="Returns true if this converter object&#39;s properties match the given properties.">matchesProperties</a>( ) </dd></dl>
+
+</div>
+</div>
+<a id="ae5cff37b0ab94ffea274f77c60201725" name="ae5cff37b0ab94ffea274f77c60201725"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5cff37b0ab94ffea274f77c60201725">&#9670;&#160;</a></span>getRateRuleVariablesShouldBeParameters()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SBMLReactionConverter::getRateRuleVariablesShouldBeParameters </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the value of the "rateRuleVariablesShouldBeParameters" property. </p>
+<dl class="section return"><dt>Returns</dt><dd>the value of the "rateRuleVariablesShouldBeParameters" property; the default value is <code>false</code>. </dd></dl>
 
 </div>
 </div>
@@ -898,32 +916,6 @@ Friends</h2></td></tr>
   </table>
   </dd>
 </dl>
-
-</div>
-</div>
-<a id="a7792e62844dab0bc6f327f921abdb7e0" name="a7792e62844dab0bc6f327f921abdb7e0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7792e62844dab0bc6f327f921abdb7e0">&#9670;&#160;</a></span>replaceMathWithAssignedVariables()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_a_s_t_node.html">ASTNode</a> * SBMLReactionConverter::replaceMathWithAssignedVariables </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_a_s_t_node.html">ASTNode</a> *&#160;</td>
-          <td class="paramname"><em>original</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
 
 </div>
 </div>
@@ -1143,28 +1135,6 @@ Friends</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="af1ec45e92e01d4ff5359bf1f6a1d148f" name="af1ec45e92e01d4ff5359bf1f6a1d148f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af1ec45e92e01d4ff5359bf1f6a1d148f">&#9670;&#160;</a></span>mOriginalModel</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_model.html">Model</a>* SBMLReactionConverter::mOriginalModel</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a5e002d19c286db6fec243afafeb9fd55" name="a5e002d19c286db6fec243afafeb9fd55"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5e002d19c286db6fec243afafeb9fd55">&#9670;&#160;</a></span>mRateRulesMap</h2>
 

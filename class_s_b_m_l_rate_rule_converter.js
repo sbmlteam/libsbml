@@ -1,13 +1,9 @@
 var class_s_b_m_l_rate_rule_converter =
 [
-    [ "odeIt", "class_s_b_m_l_rate_rule_converter.html#ae24fd15098d5e6baf6b3b44990abc8b9", null ],
-    [ "pairString", "class_s_b_m_l_rate_rule_converter.html#a32794db8abf20e65b5eba7ac9be2814d", null ],
-    [ "setCoeff", "class_s_b_m_l_rate_rule_converter.html#a753e185402ededd04b1e122c99479bed", null ],
-    [ "setCoeffIt", "class_s_b_m_l_rate_rule_converter.html#a14cdeddcb759547050fcba13d8bc00df", null ],
-    [ "setRnCoeffs", "class_s_b_m_l_rate_rule_converter.html#a83ced6e24b455c7c265e9d27dd15c710", null ],
     [ "SBMLRateRuleConverter", "class_s_b_m_l_rate_rule_converter.html#adbc516219ca6941770b05363abc2cf2e", null ],
     [ "SBMLRateRuleConverter", "class_s_b_m_l_rate_rule_converter.html#a8b5eb420d9018b2cffb8b1678ee1e6c9", null ],
     [ "~SBMLRateRuleConverter", "class_s_b_m_l_rate_rule_converter.html#a1c1baa26bfcffcc35bd122f4464c80a7", null ],
+    [ "checkDerivativeSign", "class_s_b_m_l_rate_rule_converter.html#aaa7e3a349e2c2f6b1726a67921b136ec", null ],
     [ "clone", "class_s_b_m_l_rate_rule_converter.html#af1300875c8cf6f1578e6eaf847e6f712", null ],
     [ "convert", "class_s_b_m_l_rate_rule_converter.html#a3903f4dcda13f46f9a0b54ec15866963", null ],
     [ "getCoeff", "class_s_b_m_l_rate_rule_converter.html#a913f2a456fa479b2207d640951330f4f", null ],
@@ -18,7 +14,7 @@ var class_s_b_m_l_rate_rule_converter =
     [ "getModifiers", "class_s_b_m_l_rate_rule_converter.html#a9c38a9002ab776f4e4a8c95d0d7e2949", null ],
     [ "getName", "class_s_b_m_l_rate_rule_converter.html#a6364ee6b136109b83680884496542bc0", null ],
     [ "getNegDer", "class_s_b_m_l_rate_rule_converter.html#a0574abc1f74a7de6c6933fe7d67a9e85", null ],
-    [ "getOde", "class_s_b_m_l_rate_rule_converter.html#a2c6bb4ba10ba72582439703268b1f6c3", null ],
+    [ "getOdePairs", "class_s_b_m_l_rate_rule_converter.html#ae6a7f0ddf12d46b1a67008c4d1d16d5c", null ],
     [ "getPosDer", "class_s_b_m_l_rate_rule_converter.html#a1a3cb25250110547d5ddf050e7074e39", null ],
     [ "getProducts", "class_s_b_m_l_rate_rule_converter.html#a8dcee72807f9347b5e6f9d640d830076", null ],
     [ "getProperties", "class_s_b_m_l_rate_rule_converter.html#ad48a1188a9890433e0420de5dc5d6ac3", null ],
@@ -27,7 +23,10 @@ var class_s_b_m_l_rate_rule_converter =
     [ "matchesProperties", "class_s_b_m_l_rate_rule_converter.html#ae4d68ccd9d62b1de9410f70c5a0cc460", null ],
     [ "mathContainsId", "class_s_b_m_l_rate_rule_converter.html#a519527f1abea77d8bdfdf417a26a7646", null ],
     [ "operator=", "class_s_b_m_l_rate_rule_converter.html#aad05f57499eae4691b53fa44cf01088f", null ],
-    [ "setDocument", "class_s_b_m_l_rate_rule_converter.html#a4b1034ee31f5dd3049d4a7784a80a959", null ],
-    [ "setDocument", "class_s_b_m_l_rate_rule_converter.html#a2486e5fc0df13b1d4c39533570257b40", null ],
+    [ "populateInitialODEinfo", "class_s_b_m_l_rate_rule_converter.html#a7800ef9639d60d6500f8a3d855248ce3", null ],
+    [ "populateODEinfo", "class_s_b_m_l_rate_rule_converter.html#aac85175cf74dbad911831c811baea8a4", null ],
+    [ "print_rn_coefficients", "class_s_b_m_l_rate_rule_converter.html#a5f403ac2b4cdc344838ddbb8713d0add", null ],
+    [ "setDocument", "class_s_b_m_l_rate_rule_converter.html#a201be3e858bc65fe2c649a922ae0ca51", null ],
+    [ "setDocument", "class_s_b_m_l_rate_rule_converter.html#a9cbbb059268e52823b66499ea2659933", null ],
     [ "setProperties", "class_s_b_m_l_rate_rule_converter.html#a2f6cb3b5409a2fa26a45c2f0ea01acdc", null ]
 ];

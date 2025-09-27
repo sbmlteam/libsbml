@@ -279,8 +279,8 @@ Example program</h2>
 <div class="line">    cerr &lt;&lt; <span class="stringliteral">&quot;Conversion failed\n&quot;</span>;</div>
 <div class="line">    document-&gt;<a class="code hl_function" href="class_s_b_m_l_document.html#a4ba64417bb8900acc865a4bb3319a4d2">printErrors</a>();</div>
 <div class="line">}</div>
-<div class="ttc" id="aclass_s_b_m_l_converter_html_a4b1034ee31f5dd3049d4a7784a80a959"><div class="ttname"><a href="class_s_b_m_l_converter.html#a4b1034ee31f5dd3049d4a7784a80a959">SBMLConverter::setDocument</a></div><div class="ttdeci">virtual int setDocument(const SBMLDocument *doc)</div><div class="ttdoc">Sets the SBML document to be converted.</div><div class="ttdef"><b>Definition</b> SBMLConverter.cpp:151</div></div>
-<div class="ttc" id="aclass_s_b_m_l_converter_html_a957d3d54eb856c66d6a2d404a0aee59e"><div class="ttname"><a href="class_s_b_m_l_converter.html#a957d3d54eb856c66d6a2d404a0aee59e">SBMLConverter::convert</a></div><div class="ttdeci">virtual int convert()</div><div class="ttdoc">Perform the conversion.</div><div class="ttdef"><b>Definition</b> SBMLConverter.cpp:204</div></div>
+<div class="ttc" id="aclass_s_b_m_l_converter_html_a4b1034ee31f5dd3049d4a7784a80a959"><div class="ttname"><a href="class_s_b_m_l_converter.html#a4b1034ee31f5dd3049d4a7784a80a959">SBMLConverter::setDocument</a></div><div class="ttdeci">virtual int setDocument(const SBMLDocument *doc)</div><div class="ttdoc">Sets the SBML document to be converted.</div><div class="ttdef"><b>Definition</b> SBMLConverter.cpp:161</div></div>
+<div class="ttc" id="aclass_s_b_m_l_converter_html_a957d3d54eb856c66d6a2d404a0aee59e"><div class="ttname"><a href="class_s_b_m_l_converter.html#a957d3d54eb856c66d6a2d404a0aee59e">SBMLConverter::convert</a></div><div class="ttdeci">virtual int convert()</div><div class="ttdoc">Perform the conversion.</div><div class="ttdef"><b>Definition</b> SBMLConverter.cpp:214</div></div>
 <div class="ttc" id="aoperation_return_values_8h_html_a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3"><div class="ttname"><a href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a></div><div class="ttdeci">@ LIBSBML_OPERATION_SUCCESS</div><div class="ttdef"><b>Definition</b> operationReturnValues.h:61</div></div>
 </div><!-- fragment --><p>    If successful, we simply write out the resulting flattened model to an output file which, for the purposes of this simple example, we assume is indicated by the second argument handed to the program on the command line by the user.  We also clean up the objects we allocated, to avoid leaking memory.</p>
 <div class="fragment"><div class="line"><span class="keyword">const</span> <span class="keywordtype">char</span>* outputFile  = argv[2];</div>
@@ -1013,7 +1013,7 @@ Public Member Functions</h2></td></tr>
 </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>Even though the argument <code>doc</code> is 'const', it is immediately cast to a non-const version, which is then usually changed by the converter upon a successful conversion. This variant of the <a class="el" href="class_s_b_m_l_converter.html#a4b1034ee31f5dd3049d4a7784a80a959" title="Sets the SBML document to be converted.">setDocument()</a> method is here solely to preserve backwards compatibility.  </dd></dl>
 
-<p>Reimplemented in <a class="el" href="class_s_b_m_l_rate_of_converter.html#a37bdbc74f1187d52f78233f9af1cc2db">SBMLRateOfConverter</a>, and <a class="el" href="class_s_b_m_l_reaction_converter.html#a2267410b46e5631dbd0eefae9411527d">SBMLReactionConverter</a>.</p>
+<p>Reimplemented in <a class="el" href="class_s_b_m_l_rate_of_converter.html#a37bdbc74f1187d52f78233f9af1cc2db">SBMLRateOfConverter</a>, <a class="el" href="class_s_b_m_l_rate_rule_converter.html#a201be3e858bc65fe2c649a922ae0ca51">SBMLRateRuleConverter</a>, and <a class="el" href="class_s_b_m_l_reaction_converter.html#a2267410b46e5631dbd0eefae9411527d">SBMLReactionConverter</a>.</p>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="flatten_model_8cpp-example.html#a10">flattenModel.cpp</a>.</dd>
 </dl>
 
@@ -1055,7 +1055,7 @@ Public Member Functions</h2></td></tr>
 </ul>
 </dd></dl>
 
-<p>Reimplemented in <a class="el" href="class_s_b_m_l_rate_of_converter.html#a8e1e81659dc8a3be02d64e95f7ed17b2">SBMLRateOfConverter</a>, and <a class="el" href="class_s_b_m_l_reaction_converter.html#a3537d895720b2a6508ef3789e8dfac31">SBMLReactionConverter</a>.</p>
+<p>Reimplemented in <a class="el" href="class_s_b_m_l_rate_of_converter.html#a8e1e81659dc8a3be02d64e95f7ed17b2">SBMLRateOfConverter</a>, <a class="el" href="class_s_b_m_l_rate_rule_converter.html#a9cbbb059268e52823b66499ea2659933">SBMLRateRuleConverter</a>, and <a class="el" href="class_s_b_m_l_reaction_converter.html#a3537d895720b2a6508ef3789e8dfac31">SBMLReactionConverter</a>.</p>
 
 </div>
 </div>

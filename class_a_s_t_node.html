@@ -301,6 +301,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a88091f57f7717247d0c72da41063ab1f" id="r_a88091f57f7717247d0c72da41063ab1f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#a88091f57f7717247d0c72da41063ab1f">canonicalize</a> ()</td></tr>
 <tr class="memdesc:a88091f57f7717247d0c72da41063ab1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts this <a class="el" href="class_a_s_t_node.html">ASTNode</a> to a canonical form and returns <code>true</code> if successful, <code>false</code> otherwise.  <br /></td></tr>
 <tr class="separator:a88091f57f7717247d0c72da41063ab1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc1e7487b49e4dcd80df4adbc8c614c2" id="r_abc1e7487b49e4dcd80df4adbc8c614c2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#abc1e7487b49e4dcd80df4adbc8c614c2">convertRootToPower</a> ()</td></tr>
+<tr class="separator:abc1e7487b49e4dcd80df4adbc8c614c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab01dd5932d3ac41680a6c4b5c75abf08" id="r_ab01dd5932d3ac41680a6c4b5c75abf08"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#ab01dd5932d3ac41680a6c4b5c75abf08">createNonBinaryTree</a> ()</td></tr>
+<tr class="separator:ab01dd5932d3ac41680a6c4b5c75abf08"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad1718696693db25031c132567b36ed1b" id="r_ad1718696693db25031c132567b36ed1b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#ad1718696693db25031c132567b36ed1b">decompose</a> ()</td></tr>
 <tr class="memdesc:ad1718696693db25031c132567b36ed1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function allows decomposition of <a class="el" href="class_a_s_t_node.html">ASTNode</a> into components such that we reduce the need for brackets.  <br /></td></tr>
 <tr class="separator:ad1718696693db25031c132567b36ed1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -310,12 +314,16 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:affc61b0ed965134978817150ef2e7036" id="r_affc61b0ed965134978817150ef2e7036"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_s_t_node.html">ASTNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#affc61b0ed965134978817150ef2e7036">derivative</a> (const std::string &amp;variable)</td></tr>
 <tr class="memdesc:affc61b0ed965134978817150ef2e7036"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an <a class="el" href="class_a_s_t_node.html">ASTNode</a> representing the derivative of this <a class="el" href="class_a_s_t_node.html">ASTNode</a> with respect to the given variable.  <br /></td></tr>
 <tr class="separator:affc61b0ed965134978817150ef2e7036"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44462bd3a2637da4176cdba9af0ccce0" id="r_a44462bd3a2637da4176cdba9af0ccce0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#a44462bd3a2637da4176cdba9af0ccce0">encompassUnaryMinus</a> ()</td></tr>
+<tr class="separator:a44462bd3a2637da4176cdba9af0ccce0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a51ed1ea50a0c15bd65590d9e599e622f" id="r_a51ed1ea50a0c15bd65590d9e599e622f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#a51ed1ea50a0c15bd65590d9e599e622f">exactlyEqual</a> (const <a class="el" href="class_a_s_t_node.html">ASTNode</a> &amp;rhs)</td></tr>
 <tr class="memdesc:a51ed1ea50a0c15bd65590d9e599e622f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function allows two ASTNodes to be compared for exact equivilance.  <br /></td></tr>
 <tr class="separator:a51ed1ea50a0c15bd65590d9e599e622f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a20ae22da3c9e91336c6e5c40c3619148" id="r_a20ae22da3c9e91336c6e5c40c3619148"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#a20ae22da3c9e91336c6e5c40c3619148">fillListOfNodes</a> (<a class="el" href="_a_s_t_node_8h.html#a6faa792f81e0be497e904b2b2e273072">ASTNodePredicate</a> predicate, <a class="el" href="class_list.html">List</a> *lst) const</td></tr>
 <tr class="memdesc:a20ae22da3c9e91336c6e5c40c3619148"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a list of nodes rooted at a given node and satisfying a given predicate.  <br /></td></tr>
 <tr class="separator:a20ae22da3c9e91336c6e5c40c3619148"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a688f1e1adbaf5ea3684f833f48d64425" id="r_a688f1e1adbaf5ea3684f833f48d64425"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#a688f1e1adbaf5ea3684f833f48d64425">fillListOfNodesWithLevel</a> (<a class="el" href="_a_s_t_node_8h.html#a6faa792f81e0be497e904b2b2e273072">ASTNodePredicate</a> predicate, ASTNodeLevels &amp;vector_pairs, unsigned int level) const</td></tr>
+<tr class="separator:a688f1e1adbaf5ea3684f833f48d64425"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a23e3154d02f10f3ad653529b6e4eefd0" id="r_a23e3154d02f10f3ad653529b6e4eefd0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#a23e3154d02f10f3ad653529b6e4eefd0">freeName</a> ()</td></tr>
 <tr class="memdesc:a23e3154d02f10f3ad653529b6e4eefd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frees the name of this <a class="el" href="class_a_s_t_node.html">ASTNode</a> and sets it to <code>NULL</code>.  <br /></td></tr>
 <tr class="separator:a23e3154d02f10f3ad653529b6e4eefd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -370,6 +378,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a6cd4a7f16a2d38586a5829cc442b2b92" id="r_a6cd4a7f16a2d38586a5829cc442b2b92"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_list.html">List</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#a6cd4a7f16a2d38586a5829cc442b2b92">getListOfNodes</a> (<a class="el" href="_a_s_t_node_8h.html#a6faa792f81e0be497e904b2b2e273072">ASTNodePredicate</a> predicate) const</td></tr>
 <tr class="memdesc:a6cd4a7f16a2d38586a5829cc442b2b92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a list of nodes satisfying a given predicate.  <br /></td></tr>
 <tr class="separator:a6cd4a7f16a2d38586a5829cc442b2b92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac428b9be7a867e3efb6d638dc53fa80a" id="r_ac428b9be7a867e3efb6d638dc53fa80a"><td class="memItemLeft" align="right" valign="top">ASTNodeLevels&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#ac428b9be7a867e3efb6d638dc53fa80a">getListOfNodesWithLevel</a> (bool operatorsOnly=false) const</td></tr>
+<tr class="separator:ac428b9be7a867e3efb6d638dc53fa80a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8da51fb905d7460d7531893906a21a1f" id="r_a8da51fb905d7460d7531893906a21a1f"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#a8da51fb905d7460d7531893906a21a1f">getMantissa</a> () const</td></tr>
 <tr class="memdesc:a8da51fb905d7460d7531893906a21a1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the mantissa value of this node.  <br /></td></tr>
 <tr class="separator:a8da51fb905d7460d7531893906a21a1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -541,6 +551,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a9f778795d2a475489457bbb1fd5a236f" id="r_a9f778795d2a475489457bbb1fd5a236f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#a9f778795d2a475489457bbb1fd5a236f">refactor</a> ()</td></tr>
 <tr class="memdesc:a9f778795d2a475489457bbb1fd5a236f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function refactors an <a class="el" href="class_a_s_t_node.html">ASTNode</a> to facilitate the use of the algorithm to construct a reaction network from a set of ordinary differential equations.  <br /></td></tr>
 <tr class="separator:a9f778795d2a475489457bbb1fd5a236f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca95716234ea68c1821d3bf0408dfa01" id="r_aca95716234ea68c1821d3bf0408dfa01"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#aca95716234ea68c1821d3bf0408dfa01">refactorNumbers</a> ()</td></tr>
+<tr class="separator:aca95716234ea68c1821d3bf0408dfa01"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a970e2b320c25a7a15877061e6a7b77c8" id="r_a970e2b320c25a7a15877061e6a7b77c8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#a970e2b320c25a7a15877061e6a7b77c8">removeChild</a> (unsigned int n, bool delremoved=false)</td></tr>
 <tr class="memdesc:a970e2b320c25a7a15877061e6a7b77c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the nth child of this <a class="el" href="class_a_s_t_node.html">ASTNode</a> object.  <br /></td></tr>
 <tr class="separator:a970e2b320c25a7a15877061e6a7b77c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -550,6 +562,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aef7055132d2fc71c9dd01dbe2ca1d968" id="r_aef7055132d2fc71c9dd01dbe2ca1d968"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#aef7055132d2fc71c9dd01dbe2ca1d968">renameUnitSIdRefs</a> (const std::string &amp;oldid, const std::string &amp;newid)</td></tr>
 <tr class="memdesc:aef7055132d2fc71c9dd01dbe2ca1d968"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renames all the UnitSIdRef attributes on this node and any child node.  <br /></td></tr>
 <tr class="separator:aef7055132d2fc71c9dd01dbe2ca1d968"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aefb3541962ad08944674c5731b802c99" id="r_aefb3541962ad08944674c5731b802c99"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#aefb3541962ad08944674c5731b802c99">reorderArguments</a> (unsigned int level=0)</td></tr>
+<tr class="separator:aefb3541962ad08944674c5731b802c99"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad93483fdf785bde427dfe0aadddd114d" id="r_ad93483fdf785bde427dfe0aadddd114d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#ad93483fdf785bde427dfe0aadddd114d">replaceArgument</a> (const std::string &amp;bvar, <a class="el" href="class_a_s_t_node.html">ASTNode</a> *arg)</td></tr>
 <tr class="memdesc:ad93483fdf785bde427dfe0aadddd114d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replaces occurrences of a given name with a given <a class="el" href="class_a_s_t_node.html">ASTNode</a>.  <br /></td></tr>
 <tr class="separator:ad93483fdf785bde427dfe0aadddd114d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -601,6 +615,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a38d4ced59cd23b76e0c332afe20ab0f3" id="r_a38d4ced59cd23b76e0c332afe20ab0f3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#a38d4ced59cd23b76e0c332afe20ab0f3">setValue</a> (long value)</td></tr>
 <tr class="memdesc:a38d4ced59cd23b76e0c332afe20ab0f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the value of this <a class="el" href="class_a_s_t_node.html">ASTNode</a> to the given (<code>long</code>) integer and sets the node type to  <a class="el" href="_a_s_t_node_type_8h.html#a67bf7933ff8461eb28819ed744bf3203a7aa940aba7b587a525c4df1d01766967">AST_INTEGER</a>    <br /></td></tr>
 <tr class="separator:a38d4ced59cd23b76e0c332afe20ab0f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4df9cba1deec746bf142f98aa79e150" id="r_ad4df9cba1deec746bf142f98aa79e150"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#ad4df9cba1deec746bf142f98aa79e150">simplify</a> ()</td></tr>
+<tr class="separator:ad4df9cba1deec746bf142f98aa79e150"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa15b06fa2fc77b84b05b26b5fdbebf23" id="r_aa15b06fa2fc77b84b05b26b5fdbebf23"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#aa15b06fa2fc77b84b05b26b5fdbebf23">swapChildren</a> (<a class="el" href="class_a_s_t_node.html">ASTNode</a> *that)</td></tr>
 <tr class="memdesc:aa15b06fa2fc77b84b05b26b5fdbebf23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Swaps the children of this <a class="el" href="class_a_s_t_node.html">ASTNode</a> object with the children of the given <a class="el" href="class_a_s_t_node.html">ASTNode</a> object.  <br /></td></tr>
 <tr class="separator:aa15b06fa2fc77b84b05b26b5fdbebf23"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -630,12 +646,10 @@ Public Member Functions</h2></td></tr>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:ab7d3a0bde9b440b5975c114e8b9bc65e" id="r_ab7d3a0bde9b440b5975c114e8b9bc65e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_s_t_node.html">ASTNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#ab7d3a0bde9b440b5975c114e8b9bc65e">combineNumbers</a> (std::vector&lt; unsigned int &gt; &amp;numbers)</td></tr>
 <tr class="separator:ab7d3a0bde9b440b5975c114e8b9bc65e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abc1e7487b49e4dcd80df4adbc8c614c2" id="r_abc1e7487b49e4dcd80df4adbc8c614c2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#abc1e7487b49e4dcd80df4adbc8c614c2">convertRootToPower</a> ()</td></tr>
-<tr class="separator:abc1e7487b49e4dcd80df4adbc8c614c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab01dd5932d3ac41680a6c4b5c75abf08" id="r_ab01dd5932d3ac41680a6c4b5c75abf08"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#ab01dd5932d3ac41680a6c4b5c75abf08">createNonBinaryTree</a> ()</td></tr>
-<tr class="separator:ab01dd5932d3ac41680a6c4b5c75abf08"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a192c46526b6d01b77cbd2dfafdfed3e9" id="r_a192c46526b6d01b77cbd2dfafdfed3e9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#a192c46526b6d01b77cbd2dfafdfed3e9">createVectorOfChildTypes</a> (std::vector&lt; unsigned int &gt; &amp;numbers, std::vector&lt; unsigned int &gt; &amp;names, std::vector&lt; unsigned int &gt; &amp;others)</td></tr>
 <tr class="separator:a192c46526b6d01b77cbd2dfafdfed3e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93b5c10cde637a1943dc76333e04a356" id="r_a93b5c10cde637a1943dc76333e04a356"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_s_t_node.html">ASTNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#a93b5c10cde637a1943dc76333e04a356">derivativeAbs</a> (const std::string &amp;variable)</td></tr>
+<tr class="separator:a93b5c10cde637a1943dc76333e04a356"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abaca4a724db6fe4ce368bd52bb4327a6" id="r_abaca4a724db6fe4ce368bd52bb4327a6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_s_t_node.html">ASTNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#abaca4a724db6fe4ce368bd52bb4327a6">derivativeDivide</a> (const std::string &amp;variable)</td></tr>
 <tr class="separator:abaca4a724db6fe4ce368bd52bb4327a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac86a05de26e77d2f8ddec8049899e89a" id="r_ac86a05de26e77d2f8ddec8049899e89a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_s_t_node.html">ASTNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#ac86a05de26e77d2f8ddec8049899e89a">derivativeExp</a> (const std::string &amp;variable)</td></tr>
@@ -652,14 +666,6 @@ Protected Member Functions</h2></td></tr>
 <tr class="separator:aceea1cbe8a0d56541bae2cfaa70d64c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3ff1f08d8e8abe07309461ea3c299d32" id="r_a3ff1f08d8e8abe07309461ea3c299d32"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_a_s_t_node.html">ASTNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#a3ff1f08d8e8abe07309461ea3c299d32">derivativeTimes</a> (const std::string &amp;variable)</td></tr>
 <tr class="separator:a3ff1f08d8e8abe07309461ea3c299d32"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a44462bd3a2637da4176cdba9af0ccce0" id="r_a44462bd3a2637da4176cdba9af0ccce0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#a44462bd3a2637da4176cdba9af0ccce0">encompassUnaryMinus</a> ()</td></tr>
-<tr class="separator:a44462bd3a2637da4176cdba9af0ccce0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aca95716234ea68c1821d3bf0408dfa01" id="r_aca95716234ea68c1821d3bf0408dfa01"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#aca95716234ea68c1821d3bf0408dfa01">refactorNumbers</a> ()</td></tr>
-<tr class="separator:aca95716234ea68c1821d3bf0408dfa01"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aefb3541962ad08944674c5731b802c99" id="r_aefb3541962ad08944674c5731b802c99"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#aefb3541962ad08944674c5731b802c99">reorderArguments</a> (unsigned int level=0)</td></tr>
-<tr class="separator:aefb3541962ad08944674c5731b802c99"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4df9cba1deec746bf142f98aa79e150" id="r_ad4df9cba1deec746bf142f98aa79e150"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_a_s_t_node.html#ad4df9cba1deec746bf142f98aa79e150">simplify</a> ()</td></tr>
-<tr class="separator:ad4df9cba1deec746bf142f98aa79e150"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -970,9 +976,6 @@ href="http://www.w3.org/TR/2007/WD-MathML3-20071005/chapter5.html#mixing.semanti
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void ASTNode::convertRootToPower </td>
@@ -981,11 +984,6 @@ href="http://www.w3.org/TR/2007/WD-MathML3-20071005/chapter5.html#mixing.semanti
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 </div>
@@ -995,9 +993,6 @@ href="http://www.w3.org/TR/2007/WD-MathML3-20071005/chapter5.html#mixing.semanti
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void ASTNode::createNonBinaryTree </td>
@@ -1006,11 +1001,6 @@ href="http://www.w3.org/TR/2007/WD-MathML3-20071005/chapter5.html#mixing.semanti
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 </div>
@@ -1121,6 +1111,32 @@ href="http://www.w3.org/TR/2007/WD-MathML3-20071005/chapter5.html#mixing.semanti
 <p>Returns an <a class="el" href="class_a_s_t_node.html">ASTNode</a> representing the derivative of this <a class="el" href="class_a_s_t_node.html">ASTNode</a> with respect to the given variable. </p>
 <p>e.g. if we have an <a class="el" href="class_a_s_t_node.html">ASTNode</a> that represents 2*x^2 and we call the function derivative("x") on this node</p>
 <p>this will return an <a class="el" href="class_a_s_t_node.html">ASTNode</a> representing 4 * x since d(2*x^2)/dx = 4*x </p>
+
+</div>
+</div>
+<a id="a93b5c10cde637a1943dc76333e04a356" name="a93b5c10cde637a1943dc76333e04a356"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93b5c10cde637a1943dc76333e04a356">&#9670;&#160;</a></span>derivativeAbs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_a_s_t_node.html">ASTNode</a> * ASTNode::derivativeAbs </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>variable</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -1337,9 +1353,6 @@ href="http://www.w3.org/TR/2007/WD-MathML3-20071005/chapter5.html#mixing.semanti
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void ASTNode::encompassUnaryMinus </td>
@@ -1348,11 +1361,6 @@ href="http://www.w3.org/TR/2007/WD-MathML3-20071005/chapter5.html#mixing.semanti
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 </div>
@@ -1418,6 +1426,40 @@ href="http://www.w3.org/TR/2007/WD-MathML3-20071005/chapter5.html#mixing.semanti
   </dd>
 </dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_a_s_t_node.html#a6cd4a7f16a2d38586a5829cc442b2b92" title="Returns a list of nodes satisfying a given predicate.">getListOfNodes</a>( ) </dd></dl>
+
+</div>
+</div>
+<a id="a688f1e1adbaf5ea3684f833f48d64425" name="a688f1e1adbaf5ea3684f833f48d64425"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a688f1e1adbaf5ea3684f833f48d64425">&#9670;&#160;</a></span>fillListOfNodesWithLevel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ASTNode::fillListOfNodesWithLevel </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_a_s_t_node_8h.html#a6faa792f81e0be497e904b2b2e273072">ASTNodePredicate</a>&#160;</td>
+          <td class="paramname"><em>predicate</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ASTNodeLevels &amp;&#160;</td>
+          <td class="paramname"><em>vector_pairs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>level</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -1926,6 +1968,24 @@ setDefinitionURL(XMLAttributes url) </dd></dl>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the list of nodes for which the predicate returned <code>true</code> (nonzero). The <a class="el" href="class_list.html">List</a> returned is owned by the caller and should be deleted after the caller is done using it. The <a class="el" href="class_a_s_t_node.html">ASTNode</a> objects in the list; however, are not owned by the caller (as they still belong to the tree itself), and therefore should not be deleted. </dd></dl>
+
+</div>
+</div>
+<a id="ac428b9be7a867e3efb6d638dc53fa80a" name="ac428b9be7a867e3efb6d638dc53fa80a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac428b9be7a867e3efb6d638dc53fa80a">&#9670;&#160;</a></span>getListOfNodesWithLevel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ASTNodeLevels ASTNode::getListOfNodesWithLevel </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>operatorsOnly</em> = <code>false</code></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -3347,9 +3407,6 @@ removeChild(unsigned int n) </dd></dl>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void ASTNode::refactorNumbers </td>
@@ -3358,11 +3415,6 @@ removeChild(unsigned int n) </dd></dl>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 </div>
@@ -3507,9 +3559,6 @@ removeChild(unsigned int n) </dd></dl>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">bool ASTNode::reorderArguments </td>
@@ -3519,11 +3568,6 @@ removeChild(unsigned int n) </dd></dl>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 </div>
@@ -4168,9 +4212,6 @@ used to define a number with value <code>10</code> and unit of measurement
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void ASTNode::simplify </td>
@@ -4179,11 +4220,6 @@ used to define a number with value <code>10</code> and unit of measurement
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 </div>

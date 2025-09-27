@@ -1,23 +1,25 @@
 <map id="SBMLRateRuleConverter.h" name="SBMLRateRuleConverter.h">
-<area shape="rect" id="Node000001" title="Definition of SBMLRateRuleConverter, a converter from raterule to reaction." alt="" coords="272,5,464,31"/>
+<area shape="rect" id="Node000001" title="Definition of SBMLRateRuleConverter, a converter from raterule to reaction." alt="" coords="517,5,709,31"/>
 <area shape="rect" id="Node000002" href="$_expression_analyser_8cpp.html" title="Implementation of ExpressionAnalyser." alt="" coords="5,152,181,177"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="335,40,116,154,114,150,333,35"/>
-<area shape="rect" id="Node000003" href="$_expression_analyser_8h.html" title="Definition of ExpressionAnalyser, a class for analysing expressions." alt="" coords="347,79,509,104"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="389,40,420,77,416,80,385,43"/>
-<area shape="rect" id="Node000004" href="$_s_b_m_l_rate_rule_converter_8cpp.html" title="Implementation of SBMLRateRuleConverter, a converter from raterule to reaction." alt="" coords="206,152,413,177"/>
-<area shape="poly" id="edge12_Node000001_Node000004" title=" " alt="" coords="356,44,337,80,323,119,315,152,309,151,318,118,332,78,351,41"/>
-<area shape="rect" id="Node000007" href="$_register_converters_8cpp.html" title="Registers all available converters." alt="" coords="694,225,869,251"/>
-<area shape="poly" id="edge11_Node000001_Node000007" title=" " alt="" coords="423,32,550,77,623,110,692,150,739,188,773,223,769,227,736,192,689,154,620,115,548,82,421,37"/>
-<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="361,109,148,154,147,149,360,104"/>
-<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="398,113,330,154,327,149,396,109"/>
-<area shape="rect" id="Node000005" href="$_s_b_m_l_reaction_converter_8cpp.html" title="Implementation of SBMLReactionConverter, a converter changing reactions into rate rules." alt="" coords="269,225,475,251"/>
-<area shape="poly" id="edge5_Node000003_Node000005" title=" " alt="" coords="434,118,433,147,426,178,409,206,388,227,385,223,405,203,422,176,428,147,428,118"/>
-<area shape="rect" id="Node000006" href="$_s_b_m_l_reaction_converter_8h.html" title="Definition of SBMLReactionConverter, a converter changing reactions into rate rules." alt="" coords="489,152,679,177"/>
-<area shape="poly" id="edge6_Node000003_Node000006" title=" " alt="" coords="467,107,560,149,557,154,464,112"/>
-<area shape="poly" id="edge10_Node000006_Node000005" title=" " alt="" coords="538,184,407,228,405,223,536,179"/>
-<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="629,179,750,223,748,228,628,184"/>
-<area shape="rect" id="Node000009" href="$_s_b_m_l_converter_types_8h.html" title="Definition of SBMLConverterTypes." alt="" coords="499,225,669,251"/>
-<area shape="poly" id="edge9_Node000006_Node000009" title=" " alt="" coords="587,191,587,225,581,225,581,191"/>
-<area shape="rect" id="Node000008" href="$_s_b_m_l_converter_registry_8cpp.html" title="Implementation of SBMLConverterRegistry, a registry of available converters." alt="" coords="681,299,882,324"/>
-<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="784,264,784,299,779,299,779,264"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="539,36,445,56,343,81,221,120,124,154,122,149,219,115,342,76,444,51,538,31"/>
+<area shape="rect" id="Node000003" href="$_expression_analyser_8h.html" title="Definition of ExpressionAnalyser, a class for analysing expressions." alt="" coords="355,79,517,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="573,38,466,81,464,76,571,33"/>
+<area shape="rect" id="Node000005" href="$_s_b_m_l_rate_rule_converter_8cpp.html" title="Implementation of SBMLRateRuleConverter, a converter from raterule to reaction." alt="" coords="645,152,851,177"/>
+<area shape="poly" id="edge13_Node000001_Node000005" title=" " alt="" coords="635,39,739,150,735,154,632,43"/>
+<area shape="rect" id="Node000008" href="$_register_converters_8cpp.html" title="Registers all available converters." alt="" coords="758,225,933,251"/>
+<area shape="poly" id="edge12_Node000001_Node000008" title=" " alt="" coords="681,32,729,48,780,73,828,106,848,127,865,151,871,170,869,191,855,226,850,224,864,190,866,171,860,153,844,131,824,110,778,77,727,53,679,37"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="368,109,149,155,148,149,367,104"/>
+<area shape="rect" id="Node000004" href="$_s_b_m_l_converter_8cpp.html" title="Implementation of SBMLConverter, the base class of package extensions." alt="" coords="206,152,354,177"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="400,112,307,154,304,149,397,107"/>
+<area shape="poly" id="edge5_Node000003_Node000005" title=" " alt="" coords="500,104,698,149,697,154,499,110"/>
+<area shape="rect" id="Node000006" href="$_s_b_m_l_reaction_converter_8cpp.html" title="Implementation of SBMLReactionConverter, a converter changing reactions into rate rules." alt="" coords="289,225,495,251"/>
+<area shape="poly" id="edge6_Node000003_Node000006" title=" " alt="" coords="431,118,420,153,398,226,393,224,415,151,426,116"/>
+<area shape="rect" id="Node000007" href="$_s_b_m_l_reaction_converter_8h.html" title="Definition of SBMLReactionConverter, a converter changing reactions into rate rules." alt="" coords="430,152,621,177"/>
+<area shape="poly" id="edge7_Node000003_Node000007" title=" " alt="" coords="463,110,512,150,509,154,459,115"/>
+<area shape="poly" id="edge11_Node000007_Node000006" title=" " alt="" coords="493,186,415,227,413,223,491,181"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="590,178,794,223,793,228,589,183"/>
+<area shape="rect" id="Node000010" href="$_s_b_m_l_converter_types_8h.html" title="Definition of SBMLConverterTypes." alt="" coords="519,225,689,251"/>
+<area shape="poly" id="edge10_Node000007_Node000010" title=" " alt="" coords="550,185,593,223,589,227,546,189"/>
+<area shape="rect" id="Node000009" href="$_s_b_m_l_converter_registry_8cpp.html" title="Implementation of SBMLConverterRegistry, a registry of available converters." alt="" coords="745,299,946,324"/>
+<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="848,264,848,299,843,299,843,264"/>
 </map>

@@ -100,7 +100,6 @@ $(document).ready(function(){initNavTree('class_s_b_m_l_rate_rule_converter.html
 <div class="header">
   <div class="summary">
 <a href="class_s_b_m_l_rate_rule_converter-members.html">List of all members</a> &#124;
-<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a>  </div>
   <div class="headertitle"><div class="title">SBMLRateRuleConverter Class Reference<div class="ingroups"><a class="el" href="group__core.html">Core libSBML</a></div></div></div>
 </div><!--header-->
@@ -182,28 +181,17 @@ Available SBML converters in libSBML</h2>
 </ul>
 </dd></dl>
 </div><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:ae24fd15098d5e6baf6b3b44990abc8b9" id="r_ae24fd15098d5e6baf6b3b44990abc8b9"><td class="memItemLeft" align="right" valign="top">typedef std::vector&lt; std::pair&lt; std::string, <a class="el" href="class_a_s_t_node.html">ASTNode</a> * &gt; &gt;::iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_rate_rule_converter.html#ae24fd15098d5e6baf6b3b44990abc8b9">odeIt</a></td></tr>
-<tr class="separator:ae24fd15098d5e6baf6b3b44990abc8b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a32794db8abf20e65b5eba7ac9be2814d" id="r_a32794db8abf20e65b5eba7ac9be2814d"><td class="memItemLeft" align="right" valign="top">typedef std::pair&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_rate_rule_converter.html#a32794db8abf20e65b5eba7ac9be2814d">pairString</a></td></tr>
-<tr class="separator:a32794db8abf20e65b5eba7ac9be2814d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a753e185402ededd04b1e122c99479bed" id="r_a753e185402ededd04b1e122c99479bed"><td class="memItemLeft" align="right" valign="top">typedef std::vector&lt; std::pair&lt; <a class="el" href="class_a_s_t_node.html">ASTNode</a> *, std::vector&lt; double &gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_rate_rule_converter.html#a753e185402ededd04b1e122c99479bed">setCoeff</a></td></tr>
-<tr class="separator:a753e185402ededd04b1e122c99479bed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a14cdeddcb759547050fcba13d8bc00df" id="r_a14cdeddcb759547050fcba13d8bc00df"><td class="memItemLeft" align="right" valign="top">typedef std::vector&lt; std::pair&lt; <a class="el" href="class_a_s_t_node.html">ASTNode</a> *, std::vector&lt; double &gt; &gt; &gt;::iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_rate_rule_converter.html#a14cdeddcb759547050fcba13d8bc00df">setCoeffIt</a></td></tr>
-<tr class="separator:a14cdeddcb759547050fcba13d8bc00df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a83ced6e24b455c7c265e9d27dd15c710" id="r_a83ced6e24b455c7c265e9d27dd15c710"><td class="memItemLeft" align="right" valign="top">typedef std::vector&lt; std::vector&lt; double &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_rate_rule_converter.html#a83ced6e24b455c7c265e9d27dd15c710">setRnCoeffs</a></td></tr>
-<tr class="separator:a83ced6e24b455c7c265e9d27dd15c710"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:aaa7e3a349e2c2f6b1726a67921b136ec" id="r_aaa7e3a349e2c2f6b1726a67921b136ec"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_rate_rule_converter.html#aaa7e3a349e2c2f6b1726a67921b136ec">checkDerivativeSign</a> (const <a class="el" href="class_a_s_t_node.html">ASTNode</a> *node, bool &amp;derivativeSign)</td></tr>
+<tr class="separator:aaa7e3a349e2c2f6b1726a67921b136ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af1300875c8cf6f1578e6eaf847e6f712" id="r_af1300875c8cf6f1578e6eaf847e6f712"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_s_b_m_l_rate_rule_converter.html">SBMLRateRuleConverter</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_rate_rule_converter.html#af1300875c8cf6f1578e6eaf847e6f712">clone</a> () const</td></tr>
 <tr class="memdesc:af1300875c8cf6f1578e6eaf847e6f712"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and returns a deep copy of this <a class="el" href="class_s_b_m_l_level_version_converter.html">SBMLLevelVersionConverter</a> object.  <br /></td></tr>
 <tr class="separator:af1300875c8cf6f1578e6eaf847e6f712"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3903f4dcda13f46f9a0b54ec15866963" id="r_a3903f4dcda13f46f9a0b54ec15866963"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_rate_rule_converter.html#a3903f4dcda13f46f9a0b54ec15866963">convert</a> ()</td></tr>
 <tr class="memdesc:a3903f4dcda13f46f9a0b54ec15866963"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform the conversion.  <br /></td></tr>
 <tr class="separator:a3903f4dcda13f46f9a0b54ec15866963"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a913f2a456fa479b2207d640951330f4f" id="r_a913f2a456fa479b2207d640951330f4f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_s_b_m_l_rate_rule_converter.html#a753e185402ededd04b1e122c99479bed">setCoeff</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_rate_rule_converter.html#a913f2a456fa479b2207d640951330f4f">getCoeff</a> ()</td></tr>
+<tr class="memitem:a913f2a456fa479b2207d640951330f4f" id="r_a913f2a456fa479b2207d640951330f4f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_s_b_m_l_rate_rule_converter_8h.html#a6b893dd0209f8b0be7b97a1f8a3efba4">setCoeff</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_rate_rule_converter.html#a913f2a456fa479b2207d640951330f4f">getCoeff</a> ()</td></tr>
 <tr class="separator:a913f2a456fa479b2207d640951330f4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a454b9c7139eb05e2f4a3ece9dab39213" id="r_a454b9c7139eb05e2f4a3ece9dab39213"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_conversion_properties.html">ConversionProperties</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_rate_rule_converter.html#a454b9c7139eb05e2f4a3ece9dab39213">getDefaultProperties</a> () const</td></tr>
 <tr class="memdesc:a454b9c7139eb05e2f4a3ece9dab39213"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the default properties of this converter.  <br /></td></tr>
@@ -216,23 +204,23 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a770d6306730cb2ad9cee2b44bec7eda1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a53d7586c53ac5c33571b7aebc1bd2a4f" id="r_a53d7586c53ac5c33571b7aebc1bd2a4f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_rate_rule_converter.html#a53d7586c53ac5c33571b7aebc1bd2a4f">getMathNotSupportedFlag</a> () const</td></tr>
 <tr class="separator:a53d7586c53ac5c33571b7aebc1bd2a4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c38a9002ab776f4e4a8c95d0d7e2949" id="r_a9c38a9002ab776f4e4a8c95d0d7e2949"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_s_b_m_l_rate_rule_converter.html#a83ced6e24b455c7c265e9d27dd15c710">setRnCoeffs</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_rate_rule_converter.html#a9c38a9002ab776f4e4a8c95d0d7e2949">getModifiers</a> ()</td></tr>
+<tr class="memitem:a9c38a9002ab776f4e4a8c95d0d7e2949" id="r_a9c38a9002ab776f4e4a8c95d0d7e2949"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_s_b_m_l_rate_rule_converter_8h.html#a2f5290afb90c7a0b06484135a8082a83">setRnCoeffs</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_rate_rule_converter.html#a9c38a9002ab776f4e4a8c95d0d7e2949">getModifiers</a> ()</td></tr>
 <tr class="separator:a9c38a9002ab776f4e4a8c95d0d7e2949"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6364ee6b136109b83680884496542bc0" id="r_a6364ee6b136109b83680884496542bc0"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_converter.html#a6364ee6b136109b83680884496542bc0">getName</a> () const</td></tr>
 <tr class="memdesc:a6364ee6b136109b83680884496542bc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the name of this converter.  <br /></td></tr>
 <tr class="separator:a6364ee6b136109b83680884496542bc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0574abc1f74a7de6c6933fe7d67a9e85" id="r_a0574abc1f74a7de6c6933fe7d67a9e85"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::vector&lt; bool &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_rate_rule_converter.html#a0574abc1f74a7de6c6933fe7d67a9e85">getNegDer</a> ()</td></tr>
 <tr class="separator:a0574abc1f74a7de6c6933fe7d67a9e85"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c6bb4ba10ba72582439703268b1f6c3" id="r_a2c6bb4ba10ba72582439703268b1f6c3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_s_b_m_l_rate_rule_converter_8h.html#a4fa079c46472905d6e67d8aa9632183f">pairODEs</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_rate_rule_converter.html#a2c6bb4ba10ba72582439703268b1f6c3">getOde</a> ()</td></tr>
-<tr class="separator:a2c6bb4ba10ba72582439703268b1f6c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6a7f0ddf12d46b1a67008c4d1d16d5c" id="r_ae6a7f0ddf12d46b1a67008c4d1d16d5c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_s_b_m_l_rate_rule_converter_8h.html#a4fa079c46472905d6e67d8aa9632183f">pairODEs</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_rate_rule_converter.html#ae6a7f0ddf12d46b1a67008c4d1d16d5c">getOdePairs</a> ()</td></tr>
+<tr class="separator:ae6a7f0ddf12d46b1a67008c4d1d16d5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1a3cb25250110547d5ddf050e7074e39" id="r_a1a3cb25250110547d5ddf050e7074e39"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::vector&lt; bool &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_rate_rule_converter.html#a1a3cb25250110547d5ddf050e7074e39">getPosDer</a> ()</td></tr>
 <tr class="separator:a1a3cb25250110547d5ddf050e7074e39"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8dcee72807f9347b5e6f9d640d830076" id="r_a8dcee72807f9347b5e6f9d640d830076"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_s_b_m_l_rate_rule_converter.html#a83ced6e24b455c7c265e9d27dd15c710">setRnCoeffs</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_rate_rule_converter.html#a8dcee72807f9347b5e6f9d640d830076">getProducts</a> ()</td></tr>
+<tr class="memitem:a8dcee72807f9347b5e6f9d640d830076" id="r_a8dcee72807f9347b5e6f9d640d830076"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_s_b_m_l_rate_rule_converter_8h.html#a2f5290afb90c7a0b06484135a8082a83">setRnCoeffs</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_rate_rule_converter.html#a8dcee72807f9347b5e6f9d640d830076">getProducts</a> ()</td></tr>
 <tr class="separator:a8dcee72807f9347b5e6f9d640d830076"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad48a1188a9890433e0420de5dc5d6ac3" id="r_ad48a1188a9890433e0420de5dc5d6ac3"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_conversion_properties.html">ConversionProperties</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_converter.html#ad48a1188a9890433e0420de5dc5d6ac3">getProperties</a> () const</td></tr>
 <tr class="memdesc:ad48a1188a9890433e0420de5dc5d6ac3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current properties in effect for this converter.  <br /></td></tr>
 <tr class="separator:ad48a1188a9890433e0420de5dc5d6ac3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6d5f93a2f5e2f54318931954de2ae9e4" id="r_a6d5f93a2f5e2f54318931954de2ae9e4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_s_b_m_l_rate_rule_converter.html#a83ced6e24b455c7c265e9d27dd15c710">setRnCoeffs</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_rate_rule_converter.html#a6d5f93a2f5e2f54318931954de2ae9e4">getReactants</a> ()</td></tr>
+<tr class="memitem:a6d5f93a2f5e2f54318931954de2ae9e4" id="r_a6d5f93a2f5e2f54318931954de2ae9e4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_s_b_m_l_rate_rule_converter_8h.html#a2f5290afb90c7a0b06484135a8082a83">setRnCoeffs</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_rate_rule_converter.html#a6d5f93a2f5e2f54318931954de2ae9e4">getReactants</a> ()</td></tr>
 <tr class="separator:a6d5f93a2f5e2f54318931954de2ae9e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac724a6e9d284aa26ed1dc7aff0cec6e3" id="r_ac724a6e9d284aa26ed1dc7aff0cec6e3"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_converter.html#ac724a6e9d284aa26ed1dc7aff0cec6e3">getTargetNamespaces</a> ()</td></tr>
 <tr class="memdesc:ac724a6e9d284aa26ed1dc7aff0cec6e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the target SBML namespaces of the currently set properties.  <br /></td></tr>
@@ -245,18 +233,24 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aad05f57499eae4691b53fa44cf01088f" id="r_aad05f57499eae4691b53fa44cf01088f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_s_b_m_l_rate_rule_converter.html">SBMLRateRuleConverter</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_rate_rule_converter.html#aad05f57499eae4691b53fa44cf01088f">operator=</a> (const <a class="el" href="class_s_b_m_l_rate_rule_converter.html">SBMLRateRuleConverter</a> &amp;rhs)</td></tr>
 <tr class="memdesc:aad05f57499eae4691b53fa44cf01088f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assignment operator for <a class="el" href="class_s_b_m_l_infer_units_converter.html">SBMLInferUnitsConverter</a>.  <br /></td></tr>
 <tr class="separator:aad05f57499eae4691b53fa44cf01088f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7800ef9639d60d6500f8a3d855248ce3" id="r_a7800ef9639d60d6500f8a3d855248ce3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_rate_rule_converter.html#a7800ef9639d60d6500f8a3d855248ce3">populateInitialODEinfo</a> ()</td></tr>
+<tr class="separator:a7800ef9639d60d6500f8a3d855248ce3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac85175cf74dbad911831c811baea8a4" id="r_aac85175cf74dbad911831c811baea8a4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_rate_rule_converter.html#aac85175cf74dbad911831c811baea8a4">populateODEinfo</a> ()</td></tr>
+<tr class="separator:aac85175cf74dbad911831c811baea8a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f403ac2b4cdc344838ddbb8713d0add" id="r_a5f403ac2b4cdc344838ddbb8713d0add"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_rate_rule_converter.html#a5f403ac2b4cdc344838ddbb8713d0add">print_rn_coefficients</a> (<a class="el" href="_s_b_m_l_rate_rule_converter_8h.html#a2f5290afb90c7a0b06484135a8082a83">setRnCoeffs</a> co)</td></tr>
+<tr class="separator:a5f403ac2b4cdc344838ddbb8713d0add"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adbc516219ca6941770b05363abc2cf2e" id="r_adbc516219ca6941770b05363abc2cf2e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_rate_rule_converter.html#adbc516219ca6941770b05363abc2cf2e">SBMLRateRuleConverter</a> ()</td></tr>
 <tr class="memdesc:adbc516219ca6941770b05363abc2cf2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_s_b_m_l_level_version_converter.html">SBMLLevelVersionConverter</a> object.  <br /></td></tr>
 <tr class="separator:adbc516219ca6941770b05363abc2cf2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8b5eb420d9018b2cffb8b1678ee1e6c9" id="r_a8b5eb420d9018b2cffb8b1678ee1e6c9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_rate_rule_converter.html#a8b5eb420d9018b2cffb8b1678ee1e6c9">SBMLRateRuleConverter</a> (const <a class="el" href="class_s_b_m_l_rate_rule_converter.html">SBMLRateRuleConverter</a> &amp;obj)</td></tr>
 <tr class="memdesc:a8b5eb420d9018b2cffb8b1678ee1e6c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor; creates a copy of an <a class="el" href="class_s_b_m_l_level_version_converter.html">SBMLLevelVersionConverter</a> object.  <br /></td></tr>
 <tr class="separator:a8b5eb420d9018b2cffb8b1678ee1e6c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4b1034ee31f5dd3049d4a7784a80a959" id="r_a4b1034ee31f5dd3049d4a7784a80a959"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_converter.html#a4b1034ee31f5dd3049d4a7784a80a959">setDocument</a> (const <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> *doc)</td></tr>
-<tr class="memdesc:a4b1034ee31f5dd3049d4a7784a80a959"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the SBML document to be converted.  <br /></td></tr>
-<tr class="separator:a4b1034ee31f5dd3049d4a7784a80a959"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2486e5fc0df13b1d4c39533570257b40" id="r_a2486e5fc0df13b1d4c39533570257b40"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_converter.html#a2486e5fc0df13b1d4c39533570257b40">setDocument</a> (<a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> *doc)</td></tr>
-<tr class="memdesc:a2486e5fc0df13b1d4c39533570257b40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the SBML document to be converted.  <br /></td></tr>
-<tr class="separator:a2486e5fc0df13b1d4c39533570257b40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a201be3e858bc65fe2c649a922ae0ca51" id="r_a201be3e858bc65fe2c649a922ae0ca51"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_rate_rule_converter.html#a201be3e858bc65fe2c649a922ae0ca51">setDocument</a> (const <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> *doc)</td></tr>
+<tr class="memdesc:a201be3e858bc65fe2c649a922ae0ca51"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the SBML document to be converted.  <br /></td></tr>
+<tr class="separator:a201be3e858bc65fe2c649a922ae0ca51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cbbb059268e52823b66499ea2659933" id="r_a9cbbb059268e52823b66499ea2659933"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_rate_rule_converter.html#a9cbbb059268e52823b66499ea2659933">setDocument</a> (<a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> *doc)</td></tr>
+<tr class="memdesc:a9cbbb059268e52823b66499ea2659933"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the SBML document to be converted.  <br /></td></tr>
+<tr class="separator:a9cbbb059268e52823b66499ea2659933"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2f6cb3b5409a2fa26a45c2f0ea01acdc" id="r_a2f6cb3b5409a2fa26a45c2f0ea01acdc"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_converter.html#a2f6cb3b5409a2fa26a45c2f0ea01acdc">setProperties</a> (const <a class="el" href="class_conversion_properties.html">ConversionProperties</a> *props)</td></tr>
 <tr class="memdesc:a2f6cb3b5409a2fa26a45c2f0ea01acdc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the configuration properties to be used by this converter.  <br /></td></tr>
 <tr class="separator:a2f6cb3b5409a2fa26a45c2f0ea01acdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -264,77 +258,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a1c1baa26bfcffcc35bd122f4464c80a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy this <a class="el" href="class_s_b_m_l_rate_rule_converter.html">SBMLRateRuleConverter</a> object.  <br /></td></tr>
 <tr class="separator:a1c1baa26bfcffcc35bd122f4464c80a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="ae24fd15098d5e6baf6b3b44990abc8b9" name="ae24fd15098d5e6baf6b3b44990abc8b9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae24fd15098d5e6baf6b3b44990abc8b9">&#9670;&#160;</a></span>odeIt</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef std::vector&lt;std::pair&lt;std::string,<a class="el" href="class_a_s_t_node.html">ASTNode</a>*&gt;&gt;::iterator <a class="el" href="class_s_b_m_l_rate_rule_converter.html#ae24fd15098d5e6baf6b3b44990abc8b9">SBMLRateRuleConverter::odeIt</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a32794db8abf20e65b5eba7ac9be2814d" name="a32794db8abf20e65b5eba7ac9be2814d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a32794db8abf20e65b5eba7ac9be2814d">&#9670;&#160;</a></span>pairString</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef std::pair&lt;std::string, std::string &gt; <a class="el" href="class_s_b_m_l_rate_rule_converter.html#a32794db8abf20e65b5eba7ac9be2814d">SBMLRateRuleConverter::pairString</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a753e185402ededd04b1e122c99479bed" name="a753e185402ededd04b1e122c99479bed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a753e185402ededd04b1e122c99479bed">&#9670;&#160;</a></span>setCoeff</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef std::vector&lt;std::pair&lt;<a class="el" href="class_a_s_t_node.html">ASTNode</a>*, std::vector&lt;double&gt; &gt; &gt; <a class="el" href="class_s_b_m_l_rate_rule_converter.html#a753e185402ededd04b1e122c99479bed">SBMLRateRuleConverter::setCoeff</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a14cdeddcb759547050fcba13d8bc00df" name="a14cdeddcb759547050fcba13d8bc00df"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a14cdeddcb759547050fcba13d8bc00df">&#9670;&#160;</a></span>setCoeffIt</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef std::vector&lt;std::pair&lt;<a class="el" href="class_a_s_t_node.html">ASTNode</a>*,std::vector&lt;double&gt;&gt;&gt;::iterator <a class="el" href="class_s_b_m_l_rate_rule_converter.html#a14cdeddcb759547050fcba13d8bc00df">SBMLRateRuleConverter::setCoeffIt</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a83ced6e24b455c7c265e9d27dd15c710" name="a83ced6e24b455c7c265e9d27dd15c710"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a83ced6e24b455c7c265e9d27dd15c710">&#9670;&#160;</a></span>setRnCoeffs</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef std::vector&lt; std::vector&lt;double&gt; &gt; <a class="el" href="class_s_b_m_l_rate_rule_converter.html#a83ced6e24b455c7c265e9d27dd15c710">SBMLRateRuleConverter::setRnCoeffs</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="adbc516219ca6941770b05363abc2cf2e" name="adbc516219ca6941770b05363abc2cf2e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adbc516219ca6941770b05363abc2cf2e">&#9670;&#160;</a></span>SBMLRateRuleConverter() <span class="overload">[1/2]</span></h2>
@@ -409,6 +332,34 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="aaa7e3a349e2c2f6b1726a67921b136ec" name="aaa7e3a349e2c2f6b1726a67921b136ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa7e3a349e2c2f6b1726a67921b136ec">&#9670;&#160;</a></span>checkDerivativeSign()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SBMLRateRuleConverter::checkDerivativeSign </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_a_s_t_node.html">ASTNode</a> *&#160;</td>
+          <td class="paramname"><em>node</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool &amp;&#160;</td>
+          <td class="paramname"><em>derivativeSign</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="af1300875c8cf6f1578e6eaf847e6f712" name="af1300875c8cf6f1578e6eaf847e6f712"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af1300875c8cf6f1578e6eaf847e6f712">&#9670;&#160;</a></span>clone()</h2>
 
@@ -489,7 +440,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_s_b_m_l_rate_rule_converter.html#a753e185402ededd04b1e122c99479bed">setCoeff</a> SBMLRateRuleConverter::getCoeff </td>
+          <td class="memname"><a class="el" href="_s_b_m_l_rate_rule_converter_8h.html#a6b893dd0209f8b0be7b97a1f8a3efba4">setCoeff</a> SBMLRateRuleConverter::getCoeff </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -618,7 +569,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_s_b_m_l_rate_rule_converter.html#a83ced6e24b455c7c265e9d27dd15c710">setRnCoeffs</a> SBMLRateRuleConverter::getModifiers </td>
+          <td class="memname"><a class="el" href="_s_b_m_l_rate_rule_converter_8h.html#a2f5290afb90c7a0b06484135a8082a83">setRnCoeffs</a> SBMLRateRuleConverter::getModifiers </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -686,8 +637,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a2c6bb4ba10ba72582439703268b1f6c3" name="a2c6bb4ba10ba72582439703268b1f6c3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c6bb4ba10ba72582439703268b1f6c3">&#9670;&#160;</a></span>getOde()</h2>
+<a id="ae6a7f0ddf12d46b1a67008c4d1d16d5c" name="ae6a7f0ddf12d46b1a67008c4d1d16d5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6a7f0ddf12d46b1a67008c4d1d16d5c">&#9670;&#160;</a></span>getOdePairs()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -696,7 +647,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="_s_b_m_l_rate_rule_converter_8h.html#a4fa079c46472905d6e67d8aa9632183f">pairODEs</a> SBMLRateRuleConverter::getOde </td>
+          <td class="memname"><a class="el" href="_s_b_m_l_rate_rule_converter_8h.html#a4fa079c46472905d6e67d8aa9632183f">pairODEs</a> SBMLRateRuleConverter::getOdePairs </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -746,7 +697,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_s_b_m_l_rate_rule_converter.html#a83ced6e24b455c7c265e9d27dd15c710">setRnCoeffs</a> SBMLRateRuleConverter::getProducts </td>
+          <td class="memname"><a class="el" href="_s_b_m_l_rate_rule_converter_8h.html#a2f5290afb90c7a0b06484135a8082a83">setRnCoeffs</a> SBMLRateRuleConverter::getProducts </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -803,7 +754,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_s_b_m_l_rate_rule_converter.html#a83ced6e24b455c7c265e9d27dd15c710">setRnCoeffs</a> SBMLRateRuleConverter::getReactants </td>
+          <td class="memname"><a class="el" href="_s_b_m_l_rate_rule_converter_8h.html#a2f5290afb90c7a0b06484135a8082a83">setRnCoeffs</a> SBMLRateRuleConverter::getReactants </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -947,8 +898,60 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a4b1034ee31f5dd3049d4a7784a80a959" name="a4b1034ee31f5dd3049d4a7784a80a959"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4b1034ee31f5dd3049d4a7784a80a959">&#9670;&#160;</a></span>setDocument() <span class="overload">[1/2]</span></h2>
+<a id="a7800ef9639d60d6500f8a3d855248ce3" name="a7800ef9639d60d6500f8a3d855248ce3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7800ef9639d60d6500f8a3d855248ce3">&#9670;&#160;</a></span>populateInitialODEinfo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SBMLRateRuleConverter::populateInitialODEinfo </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aac85175cf74dbad911831c811baea8a4" name="aac85175cf74dbad911831c811baea8a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac85175cf74dbad911831c811baea8a4">&#9670;&#160;</a></span>populateODEinfo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SBMLRateRuleConverter::populateODEinfo </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5f403ac2b4cdc344838ddbb8713d0add" name="a5f403ac2b4cdc344838ddbb8713d0add"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f403ac2b4cdc344838ddbb8713d0add">&#9670;&#160;</a></span>print_rn_coefficients()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SBMLRateRuleConverter::print_rn_coefficients </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_s_b_m_l_rate_rule_converter_8h.html#a2f5290afb90c7a0b06484135a8082a83">setRnCoeffs</a>&#160;</td>
+          <td class="paramname"><em>co</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a201be3e858bc65fe2c649a922ae0ca51" name="a201be3e858bc65fe2c649a922ae0ca51"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a201be3e858bc65fe2c649a922ae0ca51">&#9670;&#160;</a></span>setDocument() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -957,7 +960,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int SBMLConverter::setDocument </td>
+          <td class="memname">int SBMLRateRuleConverter::setDocument </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> *&#160;</td>
           <td class="paramname"><em>doc</em></td><td>)</td>
@@ -966,7 +969,7 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -982,16 +985,14 @@ Public Member Functions</h2></td></tr>
 <li><a class="el" href="operation_return_values_8h.html#a87d90022619ee855654b2b8f4997886daf67ea900ebcd56036019237463be26b3">LIBSBML_OPERATION_SUCCESS</a>   </li>
 </ul>
 </dd></dl>
-<dl class="section warning"><dt>Warning</dt><dd>Even though the argument <code>doc</code> is 'const', it is immediately cast to a non-const version, which is then usually changed by the converter upon a successful conversion. This variant of the <a class="el" href="class_s_b_m_l_converter.html#a4b1034ee31f5dd3049d4a7784a80a959" title="Sets the SBML document to be converted.">setDocument()</a> method is here solely to preserve backwards compatibility.  </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>Even though the argument <code>doc</code> is 'const', it is immediately cast to a non-const version, which is then usually changed by the converter upon a successful conversion. This variant of the <a class="el" href="class_s_b_m_l_rate_rule_converter.html#a201be3e858bc65fe2c649a922ae0ca51" title="Sets the SBML document to be converted.">setDocument()</a> method is here solely to preserve backwards compatibility.  </dd></dl>
 
-<p>Reimplemented in <a class="el" href="class_s_b_m_l_rate_of_converter.html#a37bdbc74f1187d52f78233f9af1cc2db">SBMLRateOfConverter</a>, and <a class="el" href="class_s_b_m_l_reaction_converter.html#a2267410b46e5631dbd0eefae9411527d">SBMLReactionConverter</a>.</p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="flatten_model_8cpp-example.html#a10">flattenModel.cpp</a>.</dd>
-</dl>
+<p>Reimplemented from <a class="el" href="class_s_b_m_l_converter.html#a4b1034ee31f5dd3049d4a7784a80a959">SBMLConverter</a>.</p>
 
 </div>
 </div>
-<a id="a2486e5fc0df13b1d4c39533570257b40" name="a2486e5fc0df13b1d4c39533570257b40"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2486e5fc0df13b1d4c39533570257b40">&#9670;&#160;</a></span>setDocument() <span class="overload">[2/2]</span></h2>
+<a id="a9cbbb059268e52823b66499ea2659933" name="a9cbbb059268e52823b66499ea2659933"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9cbbb059268e52823b66499ea2659933">&#9670;&#160;</a></span>setDocument() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1000,7 +1001,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int SBMLConverter::setDocument </td>
+          <td class="memname">int SBMLRateRuleConverter::setDocument </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> *&#160;</td>
           <td class="paramname"><em>doc</em></td><td>)</td>
@@ -1009,7 +1010,7 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1026,7 +1027,7 @@ Public Member Functions</h2></td></tr>
 </ul>
 </dd></dl>
 
-<p>Reimplemented in <a class="el" href="class_s_b_m_l_rate_of_converter.html#a8e1e81659dc8a3be02d64e95f7ed17b2">SBMLRateOfConverter</a>, and <a class="el" href="class_s_b_m_l_reaction_converter.html#a3537d895720b2a6508ef3789e8dfac31">SBMLReactionConverter</a>.</p>
+<p>Reimplemented from <a class="el" href="class_s_b_m_l_converter.html#a2486e5fc0df13b1d4c39533570257b40">SBMLConverter</a>.</p>
 
 </div>
 </div>

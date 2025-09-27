@@ -701,7 +701,7 @@ var searchData=
   ['replacedelement_2eh_698',['ReplacedElement.h',['../_replaced_element_8h.html',1,'']]],
   ['replacedelement_5ft_699',['ReplacedElement_t',['../compfwd_8h.html#a46c8d91a6a2310fb9c9947f65160dda7',1,'compfwd.h']]],
   ['replaceelement_700',['replaceElement',['../class_submodel.html#ab1f8cd7ae383b3609136aeaee9a7fb92',1,'Submodel']]],
-  ['replacemathwithassignedvariables_701',['replaceMathWithAssignedVariables',['../class_s_b_m_l_reaction_converter.html#a7792e62844dab0bc6f327f921abdb7e0',1,'SBMLReactionConverter']]],
+  ['replaceexpressioninnodewithnode_701',['replaceExpressionInNodeWithNode',['../class_expression_analyser.html#ad1df903a84e0fbc4cdb38125081359ea',1,'ExpressionAnalyser']]],
   ['replacereactions_702',['replaceReactions',['../class_s_b_m_l_reaction_converter.html#aa9a9069fdead0314386aa84605ccc2db',1,'SBMLReactionConverter']]],
   ['replacetoplevelannotationelement_703',['replacetoplevelannotationelement',['../class_s_base.html#a14876bd1b05a660593ed2cf46aece3ee',1,'SBase::replaceTopLevelAnnotationElement(const XMLNode *annotation)'],['../class_s_base.html#a21580da1d75f4782effcc57b45ed37c8',1,'SBase::replaceTopLevelAnnotationElement(const std::string &amp;annotation)']]],
   ['replacing_704',['replacing',['../class_replacing.html#ad57ec91b561f77aaf12aec0cc186fb0d',1,'Replacing::Replacing()'],['../class_replacing.html',1,'Replacing'],['../class_replacing.html#a6a199f898e84466ca950cde48f97191f',1,'Replacing::Replacing(unsigned int level=CompExtension::getDefaultLevel(), unsigned int version=CompExtension::getDefaultVersion(), unsigned int pkgVersion=CompExtension::getDefaultPackageVersion())'],['../class_replacing.html#ad7ea5d087640967e1bdd067abc52934d',1,'Replacing::Replacing(CompPkgNamespaces *compns)']]],
