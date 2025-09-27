@@ -308,6 +308,7 @@ SBMLConverter::getListAssignmentRuleVariables(unsigned int& numAssignmentRules)
     }
     return assignmentRuleVariables;
 }
+
 ASTNode* SBMLConverter::replaceAssignedVariablesWithMath(ASTNode* original)
 {
     // there may be bits of the math that are use a variable assigned with an assignment rule

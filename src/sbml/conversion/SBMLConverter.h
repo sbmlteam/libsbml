@@ -304,11 +304,11 @@ protected:
   ConversionProperties *mProps;
   std::string mName;
 
-  ASTNode* replaceMathWithAssignedVariables(ASTNode* original);
+  virtual ASTNode* replaceMathWithAssignedVariables(ASTNode* original);
 
-  IdList getListAssignmentRuleVariables(unsigned int& numAssignmentRules);
+  virtual IdList getListAssignmentRuleVariables(unsigned int& numAssignmentRules);
 
-  ASTNode* replaceAssignedVariablesWithMath(ASTNode* original);
+  virtual ASTNode* replaceAssignedVariablesWithMath(ASTNode* original);
 
   friend class SBMLDocument;
   /** @endcond */
