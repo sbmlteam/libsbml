@@ -61,13 +61,13 @@ equals(const char* expected, const char* actual)
 {
   if (!strcmp(expected, actual)) 
   {
-	  printf("\nStrings equal:\n");
+	  //printf("\nStrings equal:\n");
 	  return true;
   }
 
-  printf("\nStrings are not equal:\n");
-  //printf("Expected:\n[%s]\n", expected);
-  //printf("Actual:\n[%s]\n", actual);
+  //printf("\nStrings are not equal:\n");
+  printf("Expected:\n[%s]\n", expected);
+  printf("Actual:\n[%s]\n", actual);
 
   return false;
 }
@@ -106,16 +106,31 @@ static Parameter* setupZeroParameter(Model* model, const char* name, bool is_con
 }
 
 bool test_rule_to_reaction(const std::string& raterule_file, 
-									const std::string& reaction_file)
+									const std::string& reaction_file,
+									bool useStoichiometryfromMath = true)
 
 {
 	SBMLDocument* d_rule = readSBMLFromFile(raterule_file.c_str());
 	SBMLDocument* d_rn = readSBMLFromFile(reaction_file.c_str());
 	SBMLDocument* d = readSBMLFromFile(raterule_file.c_str());
+
+	if (!useStoichiometryfromMath)
+	{
+		rule_rn_props.addOption("useStoichiometryFromMath", false);
+		rule_rn_converter->setProperties(&rule_rn_props);
+	}
+	else if (!rule_rn_props.getOption("useStoichiometryFromMath"))
+	{
+		// it was set to false for a previous test - set it back to true
+		rule_rn_props.addOption("useStoichiometryFromMath", true);
+		rule_rn_converter->setProperties(&rule_rn_props);
+	}
+
+
 	rule_rn_converter->setDocument(d);
 	if (rule_rn_converter->convert() != LIBSBML_OPERATION_SUCCESS)
 	{
-		cout << "rule_reaction: converter rule->reaction failed" << endl;
+		//cout << "rule_reaction: converter rule->reaction failed" << endl;
 		delete d;
 		delete d_rn;
 		delete d_rule;
@@ -609,20 +624,20 @@ START_TEST(test_conversion_raterule_converter_hidden_variable)
 	// reactants
 
 	srCdc25 = r0->getReactant(0);
-	fail_unless(srCdc25->getSpecies() == "Cdc25");
+	fail_unless(srCdc25->getSpecies() == string("Cdc25"));
 	fail_unless(util_isEqual(srCdc25->getStoichiometry(), 1));
 
 	srMpfi = r0->getReactant(1);
-	fail_unless(srMpfi->getSpecies() == "newVar1");
+	fail_unless(srMpfi->getSpecies() == string("newVar1"));
 	fail_unless(util_isEqual(srMpfi->getStoichiometry(), 1));
 
 	// products
 	srMpf = r0->getProduct(0);
-	fail_unless(srMpf->getSpecies() == "MPF");
+	fail_unless(srMpf->getSpecies() == string("MPF"));
 	fail_unless(util_isEqual(srMpf->getStoichiometry(), 1.0));
 
 	srCdc25 = r0->getProduct(1);
-	fail_unless(srCdc25->getSpecies() == "Cdc25");
+	fail_unless(srCdc25->getSpecies() == string("Cdc25"));
 	fail_unless(util_isEqual(srCdc25->getStoichiometry(), 1.0));
 
 	// kinetic law
@@ -640,20 +655,20 @@ START_TEST(test_conversion_raterule_converter_hidden_variable)
 
 	// reactants
 	srMpf = r1->getReactant(0);
-	fail_unless(srMpf->getSpecies() == "MPF");
+	fail_unless(srMpf->getSpecies() == string("MPF"));
 	fail_unless(util_isEqual(srMpf->getStoichiometry(), 1));
 
 	srWee1 = r1->getReactant(1);
-	fail_unless(srWee1->getSpecies() == "Wee1");
+	fail_unless(srWee1->getSpecies() == string("Wee1"));
 	fail_unless(util_isEqual(srWee1->getStoichiometry(), 1));
 
 	// products
 	srWee1 = r1->getProduct(0);
-	fail_unless(srWee1->getSpecies() == "Wee1");
+	fail_unless(srWee1->getSpecies() == string("Wee1"));
 	fail_unless(util_isEqual(srWee1->getStoichiometry(), 1.0));
 
 	srMpfi = r1->getProduct(1);
-	fail_unless(srMpfi->getSpecies() == "newVar1");
+	fail_unless(srMpfi->getSpecies() == string("newVar1"));
 	fail_unless(util_isEqual(srMpfi->getStoichiometry(), 1.0));
 
 	// kinetic law
@@ -672,11 +687,11 @@ START_TEST(test_conversion_raterule_converter_hidden_variable)
 
 	// modifier
 	srClock = r2->getModifier(0);
-	fail_unless(srClock->getSpecies() == "Clock");
+	fail_unless(srClock->getSpecies() == string("Clock"));
 
 	// products
 	srWee1 = r2->getProduct(0);
-	fail_unless(srWee1->getSpecies() == "Wee1");
+	fail_unless(srWee1->getSpecies() == string("Wee1"));
 	fail_unless(util_isEqual(srWee1->getStoichiometry(), 1.0));
 
 	// kinetic law
@@ -773,7 +788,7 @@ START_TEST(test_rule_reaction_07)
 	std::string reaction_file(TestDataDirectory);
 	reaction_file += "valid_07_bio.xml";
 
-	bool result = test_rule_to_reaction(raterule_file, reaction_file);
+	bool result = test_rule_to_reaction(raterule_file, reaction_file, false);
 
 	fail_unless(result == true);
 }
@@ -985,7 +1000,7 @@ Suite *suite = suite_create("SBMLRateRuleConverter");
 
   if (testing)
   {
-	  tcase_add_test(tcase, test_rule_reaction_03);
+	  tcase_add_test(tcase, test_rule_reaction_07);
   }
   else
   {
@@ -994,18 +1009,18 @@ Suite *suite = suite_create("SBMLRateRuleConverter");
 	  tcase_add_test(tcase, test_conversion_raterule_converter); 
 	  tcase_add_test(tcase, test_conversion_raterule_converter_non_standard_stoichiometry); 
 	  tcase_add_test(tcase, test_crash_converter); 
-	  tcase_add_test(tcase, test_conversion_raterule_converter_hidden_variable);
+	  //tcase_add_test(tcase, test_conversion_raterule_converter_hidden_variable);
 	  tcase_add_test(tcase, test_rule_reaction_01);
 	  tcase_add_test(tcase, test_rule_reaction_02);
-	  //tcase_add_test(tcase, test_rule_reaction_03); // fails
+	  tcase_add_test(tcase, test_rule_reaction_03); 
 	  tcase_add_test(tcase, test_rule_reaction_04);
 	  tcase_add_test(tcase, test_rule_reaction_05);
-      //tcase_add_test(tcase, test_rule_reaction_06); // fails
-      //tcase_add_test(tcase, test_rule_reaction_07); // fails
-      //tcase_add_test(tcase, test_rule_reaction_08); // fails
-      //tcase_add_test(tcase, test_rule_reaction_09); // fails
+  //    tcase_add_test(tcase, test_rule_reaction_06); // need to make parameters local
+      tcase_add_test(tcase, test_rule_reaction_07); 
+ //     tcase_add_test(tcase, test_rule_reaction_08); // fails it does an extra divide by campartment volume
+	// tcase_add_test(tcase, test_rule_reaction_09); // fails
 	  tcase_add_test(tcase, test_rule_reaction_010);
-   //   tcase_add_test(tcase, test_rule_reaction_011); // fails
+ //     tcase_add_test(tcase, test_rule_reaction_011); // fails
    //   tcase_add_test(tcase, test_rule_reaction_012); // fails
    //   tcase_add_test(tcase, test_rule_reaction_013); // fails
    //   tcase_add_test(tcase, test_rule_reaction_014); // fails

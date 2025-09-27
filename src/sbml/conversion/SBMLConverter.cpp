@@ -330,14 +330,15 @@ ASTNode* SBMLConverter::replaceAssignedVariablesWithMath(ASTNode* original)
         if (ar != NULL && ar->isSetMath() == true)
         {
             ASTNode* arMath = ar->getMath()->deepCopy();
+            if (arMath->isCSymbolFunction() || arMath->getType() == AST_NAME_TIME)
+            {
+                // we cannot replace a CSymbolFunction as it may have different values in different contexts
+                delete arMath;
+                continue;
+            }
             ASTNode* variable = new ASTNode(AST_NAME);
             variable->setName(ar->getVariable().c_str());
-            cout << "assignment rule " << i << ": " << SBML_formulaToL3String(arMath) << " variable " 
-                << SBML_formulaToL3String(variable) << " original " << SBML_formulaToL3String(newMath) << endl;
-
             analyser.replaceExpressionInNodeWithNode(newMath, variable, arMath);
-            cout << "afterwards assignment rule " << i << ": " << SBML_formulaToL3String(arMath) << " variable "
-                << SBML_formulaToL3String(variable) << " original " << SBML_formulaToL3String(newMath) << endl;
         }
     }
     return newMath;

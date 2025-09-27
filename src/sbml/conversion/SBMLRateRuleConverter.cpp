@@ -235,7 +235,7 @@ SBMLRateRuleConverter::getDefaultProperties() const
   {
     prop.addOption("inferReactions", true,
                  "Infer reactions from rateRules in the model");    
-    prop.addOption("useStoichiometryFromMath", false,
+    prop.addOption("useStoichiometryFromMath", true,
                      "If a number appears in the math use it as the stoichiometry");
 
     init = true;
@@ -278,7 +278,7 @@ SBMLRateRuleConverter::setDocument(SBMLDocument* doc)
 {
     if (SBMLConverter::setDocument(doc) == LIBSBML_OPERATION_SUCCESS)
     {
-        if (mDocument != NULL)
+        if (mDocument != NULL && mDocument->getModel() != NULL)
         {
             mOriginalModel = mDocument->getModel()->clone();
             return LIBSBML_OPERATION_SUCCESS;
@@ -468,11 +468,11 @@ void SBMLRateRuleConverter::populateTerms()
         // Fages algo 3.6 Step 2
         createTerms(node);
     }
-    for (unsigned int n = 0; n < mTerms.size(); n++)
-    {
-        ASTNode* node = mTerms.at(n);
-        cout << "Term " << n << ": " << SBML_formulaToL3String(node) << endl;
-    }
+    //for (unsigned int n = 0; n < mTerms.size(); n++)
+    //{
+    //    ASTNode* node = mTerms.at(n);
+    //    cout << "Term " << n << ": " << SBML_formulaToL3String(node) << endl;
+    //}
     //print_vectors(mCoefficients);
 }
 
@@ -561,18 +561,15 @@ SBMLRateRuleConverter::determineCoefficient(ASTNode* ode, unsigned int termN, do
   // first child should be a number
   // take it out of the term
   // it will be used as a coefficient
-  //if (ode_node->getType() == AST_REAL)
-  //{
-  //    coeff = ode_node->getValue();
-  //    found = true;
-  //}
+  // unless we do not want it used as stoichiometry
+
   if (ode_node->getType() == AST_TIMES && ode_node->getNumChildren() > 0)
   {
     if (ode_node->getChild(0)->isNumber())
     {
       coeff = ode_node->getChild(0)->getValue();
       ode_node->removeChild(0, true);
-      // we don't want to be loved with the times node if it has only one child
+      // we don't want to be left with the times node if it has only one child
       if (ode_node->getNumChildren() == 1)
       {
           ASTNode* child = ode_node->getChild(0)->deepCopy();
@@ -951,10 +948,10 @@ SBMLRateRuleConverter::populateInitialODEinfo()
         }
     }
 
-    for (unsigned int odeIndex = 0; odeIndex < mODEs.size(); odeIndex++)
-    {
-        cout << mODEs[odeIndex].first << ": " << SBML_formulaToL3String(mODEs[odeIndex].second) << endl;
-    }
+    //for (unsigned int odeIndex = 0; odeIndex < mODEs.size(); odeIndex++)
+    //{
+    //    cout << mODEs[odeIndex].first << ": " << SBML_formulaToL3String(mODEs[odeIndex].second) << endl;
+    //}
 }
 
 
@@ -1019,7 +1016,7 @@ SBMLRateRuleConverter::populateReactionCoefficients()
 
 bool SBMLRateRuleConverter::useStoichiometryFromMath()
 {
-    bool value = false;
+    bool value = true;
     if (getProperties() == NULL || getProperties()->hasOption("useStoichiometryFromMath") == false)
     {
         return value;
@@ -1149,10 +1146,53 @@ SBMLRateRuleConverter::dealWithSpecies()
   }
 }
 
-void
-SBMLRateRuleConverter::dealWithStoichiometry()
+bool
+SBMLRateRuleConverter::needToAdjustStoichiometryAndMath(unsigned int odeNumber)
 {
-    // TO DO
+    bool adjust = false;
+    if (mODEs.at(odeNumber).second->getType() == AST_TIMES &&
+        mODEs.at(odeNumber).second->getNumChildren() > 0 &&
+        mODEs.at(odeNumber).second->getChild(0)->isNumber() &&
+        (mODEs.at(odeNumber).second->getChild(0)->getValue() > 1.0 ||
+            mODEs.at(odeNumber).second->getChild(0)->getValue() < -1.0)
+        )
+    {
+        adjust = true;
+    }
+    return adjust;
+}
+
+double
+SBMLRateRuleConverter::dealWithStoichiometry(double stoichiometry, ASTNode& math, unsigned int odeNumber)
+{
+    if (useStoichiometryFromMath())
+    {
+        return stoichiometry;
+    }
+    else
+    {
+        if (stoichiometry > 1.0 && needToAdjustStoichiometryAndMath(odeNumber) )
+        {
+
+            ASTNode* newMath = mODEs.at(odeNumber).second->deepCopy();
+            if (newMath->getType() == AST_TIMES && newMath->getNumChildren() > 0 &&
+                newMath->getChild(0)->isNumber())
+            {
+                double value = newMath->getChild(0)->getValue();
+                if (value < 0.0)
+                {
+                    // we don't want a value that is less than zero
+                    ASTNode* child = newMath->getChild(0)->deepCopy();
+                    child->setValue(-1.0 * value);
+                    newMath->replaceChild(0, child);
+               }
+            }
+            math = *newMath;
+            delete newMath;
+            stoichiometry = 1.0;
+        }
+    }
+    return stoichiometry;
 }
 
 void
@@ -1162,6 +1202,7 @@ SBMLRateRuleConverter::createReactions()
   char number[4];
   for (setCoeffIt it = mCoefficients.begin(); it != mCoefficients.end(); ++it)
   {
+    ASTNode* math = (it->first)->deepCopy();
     Reaction *r = mDocument->getModel()->createReaction();
     r->setReversible(false);
     r->setFast(false);
@@ -1175,7 +1216,7 @@ SBMLRateRuleConverter::createReactions()
       double stoichiometry = 1.0;
       if (mReactants[i][j] > 0)
       {
-        stoichiometry = mReactants[i][j];
+        stoichiometry = dealWithStoichiometry(mReactants[i][j], *math, j);
         SpeciesReference *sr = r->createReactant();
         sr->setSpecies(mODEs[j].first);
         sr->setStoichiometry(stoichiometry);
@@ -1184,7 +1225,7 @@ SBMLRateRuleConverter::createReactions()
       }
       if (mProducts[i][j] > 0)
       {
-        stoichiometry = mProducts[i][j];
+        stoichiometry = dealWithStoichiometry(mProducts[i][j], *math, j);
         SpeciesReference *sr = r->createProduct();
         sr->setSpecies(mODEs[j].first);
         sr->setStoichiometry(stoichiometry);
@@ -1201,7 +1242,7 @@ SBMLRateRuleConverter::createReactions()
     if (itemAdded && !r->isSetKineticLaw())
     {
       KineticLaw *kl = r->createKineticLaw();
-      kl->setMath(it->first);
+      kl->setMath(math);
     }
       
     // check whetherkinetic law uses a species not listed as p/r/m

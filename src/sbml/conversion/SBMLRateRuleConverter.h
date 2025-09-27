@@ -263,10 +263,11 @@ private:
   void dealWithSpecies();
   void createReactions();
   void removeRules();
-  void dealWithStoichiometry();
+  double dealWithStoichiometry(double stoichiometry, ASTNode& math, unsigned int odeNumber);
+  bool needToAdjustStoichiometryAndMath(unsigned int odeNumber);
 
+  // member variables populated during analysis;
 
-  // member variables populated during analysis
   pairODEs mODEs;
   std::vector<ASTNode*> mTerms;
   setCoeff mCoefficients;

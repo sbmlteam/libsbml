@@ -58,12 +58,12 @@ equals(const char* expected, const char* actual)
 {
     if (!strcmp(expected, actual))
     {
-        printf("\nStrings equal:\n");
+        //printf("\nStrings equal:\n");
         return true;
     }
-  printf("\nStrings are not equal:\n");
-  //printf("Expected:\n[%s]\n", expected);
-  //printf("Actual:\n[%s]\n", actual);
+  //printf("\nStrings are not equal:\n");
+  printf("Expected:\n[%s]\n", expected);
+  printf("Actual:\n[%s]\n", actual);
 
   return false;
 }
@@ -94,8 +94,8 @@ Reaction_teardown(void)
 bool test_reaction_to_rule(const std::string& raterule_file,
 						   const std::string& reaction_file,
                            bool parametersOnly = false)
-
 {
+
 	SBMLDocument* d_rule = readSBMLFromFile(raterule_file.c_str());
 	SBMLDocument* d_rn = readSBMLFromFile(reaction_file.c_str());	
 	SBMLDocument* d = readSBMLFromFile(reaction_file.c_str());
@@ -115,7 +115,7 @@ bool test_reaction_to_rule(const std::string& raterule_file,
 	rn_rule_converter->setDocument(d);
     if (rn_rule_converter->convert() != LIBSBML_OPERATION_SUCCESS)
     {
-        cout << "reaction_rule: reaction->rule conversion failed" << endl;
+        //cout << "reaction_rule: reaction->rule conversion failed" << endl;
         delete d_rn;
         delete d_rule;
         delete d;
@@ -441,7 +441,7 @@ create_suite_TestSBMLReactionConverter(void)
 
     if (testing)
     {
-        tcase_add_test(tcase, test_reaction_rule_052);
+        tcase_add_test(tcase, test_reaction_rule_03);
     }
     else
     {
@@ -457,7 +457,7 @@ create_suite_TestSBMLReactionConverter(void)
      tcase_add_test(tcase, test_reaction_rule_010);
      tcase_add_test(tcase, test_reaction_rule_011);
      tcase_add_test(tcase, test_reaction_rule_012);
-     tcase_add_test(tcase, test_reaction_rule_013); // 13 - 17 fails
+     tcase_add_test(tcase, test_reaction_rule_013); 
      tcase_add_test(tcase, test_reaction_rule_014);
     //tcase_add_test(tcase, test_reaction_rule_015);
     //tcase_add_test(tcase, test_reaction_rule_016);

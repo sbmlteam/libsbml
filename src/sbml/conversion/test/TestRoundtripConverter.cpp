@@ -110,7 +110,7 @@ bool test_rule_to_reaction_to_rule(const std::string& raterule_file,
 	rule_rn_converter->setDocument(d);
 	if (rule_rn_converter->convert() != LIBSBML_OPERATION_SUCCESS)
 	{
-		cout << "rule_reaction_rule converter rule->reaction failed" << endl;
+		//cout << "rule_reaction_rule converter rule->reaction failed" << endl;
 		delete d_rn;
 		delete d_rule;	
 		delete d_rule1;
@@ -134,7 +134,7 @@ bool test_rule_to_reaction_to_rule(const std::string& raterule_file,
     rn_rule_converter->setDocument(d);
     if (rn_rule_converter->convert() != LIBSBML_OPERATION_SUCCESS)
 	{
-		cout << "rule_reaction_rule converter reaction->rule failed" << endl;
+		//cout << "rule_reaction_rule converter reaction->rule failed" << endl;
 		delete d_rn;
 		delete d_rule;
 		delete d_rule1;
@@ -172,7 +172,7 @@ bool test_reaction_to_rule_to_reaction(const std::string& raterule_file,
 	rn_rule_converter->setDocument(d);
 	if (rn_rule_converter->convert() != LIBSBML_OPERATION_SUCCESS)
 	{
-		cout << "reaction_rule_reaction converter reaction->rule failed" << endl;
+		//cout << "reaction_rule_reaction converter reaction->rule failed" << endl;
 		delete d_rn;
 		delete d_rn1;
 		delete d_rule;
@@ -196,7 +196,7 @@ bool test_reaction_to_rule_to_reaction(const std::string& raterule_file,
 	rule_rn_converter->setDocument(d);
 	if (rule_rn_converter->convert() != LIBSBML_OPERATION_SUCCESS)
 	{
-		cout << "reaction_rule_reaction converter rule->reaction failed" << endl;
+		//cout << "reaction_rule_reaction converter rule->reaction failed" << endl;
 		delete d_rn;
 		delete d_rule;
 		delete d_rn1;
@@ -825,7 +825,7 @@ create_suite_TestSBMLRoundtripConverter(void)
 		tcase_add_test(tcase, test_roundtrip_01_reverse);
 		tcase_add_test(tcase, test_roundtrip_02);
 		tcase_add_test(tcase, test_roundtrip_02_reverse);
-		//tcase_add_test(tcase, test_roundtrip_03); // rule to reaction problem with stoichiometry
+		tcase_add_test(tcase, test_roundtrip_03); // rule to reaction problem with stoichiometry
 		tcase_add_test(tcase, test_roundtrip_03_reverse);
 		tcase_add_test(tcase, test_roundtrip_04);
 		tcase_add_test(tcase, test_roundtrip_04_reverse);
