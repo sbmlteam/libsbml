@@ -2562,16 +2562,17 @@ private:
 
 LIBSBML_CPP_NAMESPACE_END
 
+
+LIBSBML_EXTERN
+void
+printNodeLevels(LIBSBML_CPP_NAMESPACE_QUALIFIER ASTNodeLevels& vector_pairs);
+
 #endif /* __cplusplus */
 
 
 #ifndef SWIG
 
 LIBSBML_CPP_NAMESPACE_BEGIN
-LIBSBML_EXTERN
-void
-printNodeLevels(LIBSBML_CPP_NAMESPACE_QUALIFIER ASTNodeLevels vector_pairs);
-
 
 BEGIN_C_DECLS
 

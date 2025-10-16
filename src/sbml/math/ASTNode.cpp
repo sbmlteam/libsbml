@@ -4749,7 +4749,7 @@ ASTNode::unsetDeclaredNamespaces()
 
 LIBSBML_EXTERN
 void
-printNodeLevels(ASTNodeLevels vector_pairs)
+printNodeLevels(ASTNodeLevels &vector_pairs)
 {
     ASTNodeLevels::iterator it;
     for (it = vector_pairs.begin(); it != vector_pairs.end(); it++)
