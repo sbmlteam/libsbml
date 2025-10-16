@@ -46,6 +46,9 @@
 
 #include <check.h>
 
+#include <sbml/math/L3FormulaFormatter.h>
+#include <sbml/math/L3Parser.h>
+#include <sbml/math/L3ParserSettings.h>
 #include <sbml/math/FormulaParser.h>
 #include <sbml/math/FormulaFormatter.h>
 #include <sbml/math/ASTNode.h>
@@ -57,8 +60,12 @@
 
 /** @cond doxygenIgnored */
 
+#if defined(__cplusplus)
 using namespace std;
 LIBSBML_CPP_NAMESPACE_USE
+CK_CPPSTART
+#endif
+
 static bool
 equals(const char* expected, const char* actual)
 {
@@ -82,8 +89,6 @@ formulas_equal(const char* expected, ASTNode* actual)
     return equals(expected, SBML_formulaToL3StringWithSettings(actual, l3ps));
 }
 /** @endcond */
-
-CK_CPPSTART
 
 START_TEST(test_refactor_numbers_integer)
 {
@@ -671,5 +676,7 @@ create_suite_TestRefactoringFunctions()
 }
 
 
-CK_CPPEND
 
+#if defined(__cplusplus)
+CK_CPPEND
+#endif
