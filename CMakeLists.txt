@@ -595,6 +595,10 @@ if(WITH_CSHARP)
         endif()
     endif()
 
+    if(NOT CSHARP_COMPILER)
+      message(FATAL_ERROR "CSHARP_COMPILER is not found, please ensure that gmcs, csc, or mcs is installed.")
+    endif()
+
 endif(WITH_CSHARP)
 
 
