@@ -1,5 +1,6 @@
 var NAVTREEINDEX96 =
 {
+"class_list_of_function_terms.html#a5fe0e86c2c28a3226ddc42972241bddd":[3,0,152,17],
 "class_list_of_function_terms.html#a5fed1bd6da28c0cc0ec118209f7327a2":[3,0,152,106],
 "class_list_of_function_terms.html#a60f1d849c7f806d075836b21d322150f":[3,0,152,55],
 "class_list_of_function_terms.html#a611a4bd98a4e32e3573980b2481ce77e":[3,0,152,135],
@@ -248,6 +249,5 @@ var NAVTREEINDEX96 =
 "class_list_of_gene_products.html#a02a6692a180f9281c071b77f908dce0e":[3,0,154,37],
 "class_list_of_gene_products.html#a031d1da6a39bae8afd5201677fb32c02":[3,0,154,67],
 "class_list_of_gene_products.html#a050779a94ecdb2d73d7edfef73bc1e55":[3,0,154,125],
-"class_list_of_gene_products.html#a07ec2702ebbdf35aef0a0626b0ffd52f":[3,0,154,60],
-"class_list_of_gene_products.html#a07fe8dd8b43718fbb3d0df8481c72058":[3,0,154,145]
+"class_list_of_gene_products.html#a07ec2702ebbdf35aef0a0626b0ffd52f":[3,0,154,60]
 };

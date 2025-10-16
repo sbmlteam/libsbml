@@ -1,5 +1,6 @@
 var NAVTREEINDEX142 =
 {
+"class_parametric_geometry.html#a9edce014b708273961c30647431ac6cc":[3,0,239,40],
 "class_parametric_geometry.html#a9f983bd3a17d83ec06d0ef1a9237393e":[3,0,239,103],
 "class_parametric_geometry.html#a9fb99b60d2f2f0427e818187cc6f6ad9":[3,0,239,107],
 "class_parametric_geometry.html#aa01c256e9c1f5bbdd9aee8814ab8e67f":[3,0,239,67],
@@ -248,6 +249,5 @@ var NAVTREEINDEX142 =
 "class_point.html#a07fe8dd8b43718fbb3d0df8481c72058":[3,0,241,147],
 "class_point.html#a09748b8dcb7b8b1c23a253b7499fb6b7":[3,0,241,152],
 "class_point.html#a0a8fa8e4911040c0fdf6cdd03a22f564":[3,0,241,94],
-"class_point.html#a0b02092069159bda9b7ff14ecacfca5d":[3,0,241,7],
-"class_point.html#a0b3dea196e4f997ee9bd4ee85c3c8aa4":[3,0,241,91]
+"class_point.html#a0b02092069159bda9b7ff14ecacfca5d":[3,0,241,7]
 };

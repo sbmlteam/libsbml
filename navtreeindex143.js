@@ -1,5 +1,6 @@
 var NAVTREEINDEX143 =
 {
+"class_point.html#a0b3dea196e4f997ee9bd4ee85c3c8aa4":[3,0,241,91],
 "class_point.html#a0cdae98127268b63507e6719d27bb49f":[3,0,241,82],
 "class_point.html#a0df1a731505cbddfcb2c504bd86ba9c0":[3,0,241,87],
 "class_point.html#a0f5e3b2dee621fb9fa4b3ecaac6b4101":[3,0,241,136],
@@ -248,6 +249,5 @@ var NAVTREEINDEX143 =
 "class_polygon.html#a70becec9ecd5ecf42973a8e0d4609487":[3,0,242,84],
 "class_polygon.html#a726a48488b63c859b6e7c60471b587e2":[3,0,242,8],
 "class_polygon.html#a742215bbe0cc2204b09e45ee649e28c8":[3,0,242,131],
-"class_polygon.html#a75b1541bd854ad7edfe0aff79ab3231f":[3,0,242,156],
-"class_polygon.html#a77068f549f7aa55f56a072cda2960183":[3,0,242,45]
+"class_polygon.html#a75b1541bd854ad7edfe0aff79ab3231f":[3,0,242,156]
 };

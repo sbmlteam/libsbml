@@ -1,5 +1,6 @@
 var NAVTREEINDEX4 =
 {
+"_coordinate_component_8h.html":[4,0,0,0,5,8,2,15],
 "_cubic_bezier_8cpp.html":[4,0,0,0,5,4,2,4],
 "_cubic_bezier_8h.html":[4,0,0,0,5,4,2,5],
 "_curve_8cpp.html":[4,0,0,0,5,4,2,6],
@@ -248,6 +249,5 @@ var NAVTREEINDEX4 =
 "_event_assignment_8cpp.html":[4,0,0,0,23],
 "_event_assignment_8h.html":[4,0,0,0,24],
 "_expat_attributes_8cpp.html":[4,0,0,0,8,0],
-"_expat_attributes_8h.html":[4,0,0,0,8,1],
-"_expat_handler_8cpp.html":[4,0,0,0,8,2]
+"_expat_attributes_8h.html":[4,0,0,0,8,1]
 };
