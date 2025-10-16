@@ -47,13 +47,17 @@
 using namespace std;
 LIBSBML_CPP_NAMESPACE_USE
 
+
+#ifdef DEBUG_INFER_REACTIONS
 #include <intrin.h>
 #include <windows.h>
+#endif // DEBUG_INFER_REACTIONS
 
 int
 main (int argc, char *argv[])
 {
 
+#ifdef DEBUG_INFER_REACTIONS
   // Wait for debugger to attach
   while (!IsDebuggerPresent())
   {
@@ -63,6 +67,7 @@ main (int argc, char *argv[])
   // at this point for debugging purposes throw the VS abort dialog so we can
   // easily attach to the process
   __debugbreak();
+#endif // DEBUG_INFER_REACTIONS
 
   if (argc != 3)
   {
