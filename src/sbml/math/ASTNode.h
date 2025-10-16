@@ -2560,12 +2560,12 @@ private:
   void clearPlugins();
 };
 
-LIBSBML_CPP_NAMESPACE_END
-
-
 LIBSBML_EXTERN
 void
 printNodeLevels(LIBSBML_CPP_NAMESPACE_QUALIFIER ASTNodeLevels& vector_pairs);
+
+
+LIBSBML_CPP_NAMESPACE_END
 
 #endif /* __cplusplus */
 
