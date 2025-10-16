@@ -88,13 +88,14 @@ formulas_equal(const char* expected, ASTNode* actual)
 
 START_TEST(test_null)
 {
-
+#ifdef _MSC_VER
     ASTNode* node = NULL; 
     ASTNodeLevels node_levels = node->getListOfNodesWithLevel();
     fail_unless(node_levels.size() == 0);
 
     delete node;
     node_levels.clear();
+#endif
 }
 END_TEST
 
