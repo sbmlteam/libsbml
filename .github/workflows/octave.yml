@@ -1,8 +1,5 @@
 name: Octave
 
-<<<<<<< HEAD
-on: 
-=======
 on:
   push:
     paths:
@@ -12,7 +9,6 @@ on:
         - "VERSION.txt"
         - "!.github/**"
         - ".github/workflows/octave.yml"
->>>>>>> origin/development
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)

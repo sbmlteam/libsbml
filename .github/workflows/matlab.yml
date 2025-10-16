@@ -1,8 +1,5 @@
 name: Matlab (ubuntu) build and test
 
-<<<<<<< HEAD
-on: []
-=======
 on:
   push:
     paths:
@@ -12,7 +9,6 @@ on:
         - "VERSION.txt"
         - "!.github/**"
         - ".github/workflows/matlab.yml"
->>>>>>> origin/development
 
 env:
   CC: gcc-10

@@ -1,9 +1,5 @@
 name: CMake (rapid build on push)
 
-<<<<<<< HEAD
-on: 
-
-=======
 on:
   push:
     paths:
@@ -13,7 +9,8 @@ on:
         - "VERSION.txt"
         - "!.github/**"
         - ".github/workflows/brief.yml"
->>>>>>> origin/development
+
+
 env:
   BUILD_TYPE: Release
 
