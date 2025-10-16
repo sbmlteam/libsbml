@@ -46,8 +46,11 @@
 
 #include <check.h>
 
-#include <sbml/math/FormulaParser.h>
+#include <sbml/math/L3FormulaFormatter.h>
+#include <sbml/math/L3Parser.h>
+#include <sbml/math/L3ParserSettings.h>
 #include <sbml/math/FormulaFormatter.h>
+#include <sbml/math/FormulaParser.h>
 #include <sbml/math/ASTNode.h>
 #include <sbml/math/MathML.h>
 
@@ -56,9 +59,10 @@
 
 /** @cond doxygenLibsbmlInternal */
 
-using namespace std;
+#if defined(__cplusplus)
 LIBSBML_CPP_NAMESPACE_USE
-
+CK_CPPSTART
+#endif
 /** @endcond */
 
 static bool
@@ -80,10 +84,6 @@ formulas_equal(const char* expected, ASTNode* actual)
 {
     return equals(expected, SBML_formulaToL3String(actual));
 }
-
-
-
-CK_CPPSTART
 
 
 START_TEST(test_null)
@@ -284,4 +284,6 @@ create_suite_TestLevelNodeFunction()
 }
 
 
+#if defined(__cplusplus)
 CK_CPPEND
+#endif
