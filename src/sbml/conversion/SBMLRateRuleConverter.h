@@ -62,6 +62,7 @@
 #include <sbml/conversion/SBMLConverter.h>
 #include <sbml/conversion/SBMLConverterRegister.h>
 #include <sbml/math/ASTNode.h>
+#include <iostream>
 
 typedef enum
 {
@@ -75,12 +76,23 @@ typedef enum
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 typedef std::vector< std::pair< std::string, ASTNode*> > pairODEs;
+typedef std::vector< std::pair< std::string, ASTNode*> >::iterator odeIt;
+
+typedef std::pair<ASTNode*, std::vector<double> > pairCoeff;
+typedef std::vector<pairCoeff > setCoeff;
+typedef std::vector<std::pair<ASTNode*, std::vector<double> > >::iterator setCoeffIt;
+
+typedef std::pair<std::string, std::string > pairString;
+typedef std::vector< std::vector<double> > setRnCoeffs;
+
 
 class LIBSBML_EXTERN SBMLRateRuleConverter : public SBMLConverter
 {
 public:
 
-  /** @cond doxygenLibsbmlInternal */
+    void print_rn_coefficients(setRnCoeffs co);
+
+    /** @cond doxygenLibsbmlInternal */
   /**
    * Register with the ConversionRegistry.
    */
@@ -147,6 +159,9 @@ public:
    */
   virtual bool matchesProperties(const ConversionProperties &props) const;
 
+  virtual int setDocument(const SBMLDocument* doc);
+  virtual int setDocument(SBMLDocument* doc);
+
 
   /**
    * Perform the conversion.
@@ -180,14 +195,8 @@ public:
   virtual ConversionProperties getDefaultProperties() const;
 
   // helper functions whilst creating code
-  typedef std::pair<std::string, std::string > pairString;
 
-  typedef std::vector<std::pair<ASTNode*, std::vector<double> > > setCoeff;
-  typedef std::vector<std::pair<ASTNode*, std::vector<double> > >::iterator setCoeffIt;
-  typedef std::vector< std::vector<double> > setRnCoeffs;
-  typedef std::vector< std::pair< std::string, ASTNode*> >::iterator odeIt;
-
-  pairODEs getOde() { return mODEs; };
+  pairODEs getOdePairs() { return mODEs; };
 
   setCoeff getCoeff() { return mCoefficients; };
   setRnCoeffs getReactants() { return mReactants; };
@@ -199,6 +208,12 @@ public:
   std::vector< std::vector<bool> > getNegDer() { return mNegDerivative; };
   bool getMathNotSupportedFlag() const;
 
+  void populateInitialODEinfo();
+
+  void populateODEinfo();
+
+
+  bool checkDerivativeSign(const ASTNode* node, bool& derivativeSign);
 
 private:
   /** @cond doxygenLibsbmlInternal */
@@ -207,18 +222,23 @@ private:
 
   bool isDocumentAppropriate(OperationReturnValues_t& returnVal);
 
-  void populateODEinfo();
 
   void populateReactionCoefficients();
+
+  bool useStoichiometryFromMath();
 
 
   // functions for populateODEinfo()
 
   void addODEPair(std::string id, Model* model);
 
-  void addToTerms(ASTNode* node);
+  void populateTerms();
 
-  void createTerms(ASTNode* node);
+  void createAnalysisVectors();
+
+  void addToTerms(ASTNode* node, bool isToplevel);
+
+  void createTerms(ASTNode* node, bool isToplevel = true);
 
   bool determineCoefficient(ASTNode* ode, unsigned int termN, double& coeff);
 
@@ -226,26 +246,28 @@ private:
 
   unsigned int locateTerm(ASTNode* node);
 
-  bool determineDerivativeSign(std::string variable, ASTNode* term, bool& posDeriv);
+  bool determineDerivativeSign(std::string variable, ASTNode* term, bool& derivativeSign);
 
   std::vector<bool> populateDerivativeVector(unsigned int termN);
 
-  bool isPositive(const ASTNode* node, bool& posDeriv);
+//  bool checkDerivativeSign(const ASTNode* node, bool& derivativeSign);
 
   // functions for Reaction Coefficients
   void createInitialValues();
-  void analyseCoefficient(std::vector<double> coeffs, unsigned int index);
-  void analysePosDerivative(std::vector<double> coeffs, unsigned int index);
-  void analyseNegDerivative(std::vector<double> coeffs, unsigned int index);
+  void analyseCoefficient(std::vector<double> coeffs, unsigned int term_index);
+  void analysePosDerivative(unsigned int number_variables, unsigned int term_index);
+  void analyseNegDerivative(unsigned int number_variables, unsigned int term_index);
 
   // functions to reconstruct model
   void reconstructModel();
   void dealWithSpecies();
   void createReactions();
   void removeRules();
+  double dealWithStoichiometry(double stoichiometry, ASTNode& math, unsigned int odeNumber);
+  bool needToAdjustStoichiometryAndMath(unsigned int odeNumber);
 
+  // member variables populated during analysis;
 
-  // member variables populated during analysis
   pairODEs mODEs;
   std::vector<ASTNode*> mTerms;
   setCoeff mCoefficients;

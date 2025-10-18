@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" level="3" version="2">
+    <model id="m">
+        <listOfParameters>
+            <parameter id="MPF" value="1" constant="false"/>
+            <parameter id="Cdc25" value="1" constant="false"/>
+            <parameter id="Wee1" value="1" constant="false"/>
+            <parameter id="Clock" value="1" constant="false"/>
+            <parameter id="c" value="1" constant="true"/>
+            <parameter id="k1" value="1" constant="true"/>
+            <parameter id="k2" value="1" constant="true"/>
+            <parameter id="k3" value="1" constant="true"/>
+            <parameter id="k4" value="1" constant="true"/>
+        </listOfParameters>
+        <listOfRules>
+            <rateRule variable="MPF">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <apply>
+                        <minus/>
+                        <apply>
+                            <times/>
+                            <ci> k1 </ci> 
+                            <apply>
+                                <plus/>
+                                <apply>
+                                    <minus/>
+                                    <ci> MPF </ci>
+                                </apply>
+                                <ci> c </ci>
+                            </apply>
+                          <ci> Cdc25 </ci>
+                        </apply>
+                      <apply>
+                            <times/>
+                            <ci> k2 </ci>
+                            <ci> MPF </ci>
+                            <ci> Wee1 </ci>
+                        </apply>
+                    </apply>
+                </math>
+            </rateRule>
+            <rateRule variable="Wee1">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <apply>
+                        <divide/>
+                        <ci> k3 </ci>
+                        <apply>
+                            <plus/>
+                            <ci> k4 </ci>
+                            <ci> Clock </ci>
+                        </apply>
+                    </apply>
+                </math>
+            </rateRule>
+            <rateRule variable="Cdc25">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <cn type="integer"> 0 </cn>
+                </math>
+            </rateRule>
+            <rateRule variable="Clock">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <cn type="integer"> 0 </cn>
+                </math>
+            </rateRule>
+        </listOfRules>
+    </model>
+</sbml>

@@ -160,6 +160,7 @@ jobs:
         shell: bash
         run: |
           brew install check swig xerces-c expat ccache
+          brew install --cask mono-mdk
           echo PYTHON_LINKING_OPTION="-DPYTHON_USE_DYNAMIC_LOOKUP=ON" >> "${GITHUB_ENV}"
 
       - name: Unix R options

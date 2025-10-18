@@ -40,6 +40,9 @@ set(LIBSBML_CSHARP_BINDING_NATIVE_LIBRARY_NAME "libsbmlcs" CACHE STRING
                        "The name of the native library file to generate. This can be changed to avoid conflicts with other applications using another version of the library.")
 mark_as_advanced(LIBSBML_CSHARP_BINDING_NATIVE_LIBRARY_NAME)
 
+if(NOT CSHARP_COMPILER)
+  message(FATAL_ERROR "CSHARP_COMPILER is not set")
+endif()
 
 ####################################################################
 #

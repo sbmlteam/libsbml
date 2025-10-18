@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Description       : CMake build script for libSBML
+# Description       : CMake build script for libSBML 
 # Original author(s): Frank Bergmann <fbergman@caltech.edu>
 # Organization      : California Institute of Technology
 #
@@ -593,6 +593,10 @@ if(WITH_CSHARP)
             # mark libsbml library as x64
             set(CSHARP_EXTRA_ARGS -platform:x64 )
         endif()
+    endif()
+
+    if(NOT CSHARP_COMPILER)
+      message(FATAL_ERROR "CSHARP_COMPILER is not found, please ensure that gmcs, csc, or mcs is installed.")
     endif()
 
 endif(WITH_CSHARP)

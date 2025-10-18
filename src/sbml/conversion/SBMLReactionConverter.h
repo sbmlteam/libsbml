@@ -155,6 +155,14 @@ public:
    */
   virtual bool matchesProperties(const ConversionProperties &props) const;
 
+  /**
+   * Returns the value of the "rateRuleVariablesShouldBeParameters" property.
+   *
+   * @return the value of the "rateRuleVariablesShouldBeParameters" property; the default
+   * value is @c false.
+   */
+  bool getRateRuleVariablesShouldBeParameters() const;
+
 
   /**
    * Perform the conversion.
@@ -220,6 +228,9 @@ private:
     
     friend class ExpressionAnalyser;
 
+    bool createParametersForRateRuleVariables();
+
+
   ASTNode * createRateRuleMathForSpecies(const std::string& spId,
                                          Reaction * rn, bool isReactant);
 
@@ -233,12 +244,11 @@ private:
 
   bool notUsedInKineticLaw(const std::string& compartment, ASTNode* kineticLaw);
 
-  ASTNode* replaceMathWithAssignedVariables(ASTNode* original);
+  //ASTNode* replaceMathWithAssignedVariables(ASTNode* original);
 
-  IdList getListAssignmentRuleVariables(unsigned int &numAssignmentRules);
+  //IdList getListAssignmentRuleVariables(unsigned int &numAssignmentRules);
 
   bool replaceReactions();
-
 
   bool isDocumentValid();
 
@@ -248,7 +258,7 @@ private:
 
   RuleMap mRateRulesMap;
 
-  Model * mOriginalModel;
+  //Model * mOriginalModel;
 };
 
 LIBSBML_CPP_NAMESPACE_END

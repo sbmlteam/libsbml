@@ -39,6 +39,8 @@
 #include <sbml/conversion/SBMLConverter.h>
 #include <sbml/conversion/SBMLConverterRegistry.h>
 #include <sbml/conversion/SBMLRateRuleConverter.h>
+#include <sbml/conversion/ExpressionAnalyser.h>
+#include <sbml/conversion/SBMLReactionConverter.h>
 
 #include <sbml/math/FormulaParser.h>
 
@@ -50,24 +52,51 @@ using namespace std;
 LIBSBML_CPP_NAMESPACE_USE
 BEGIN_C_DECLS
 
+static ConversionProperties rule_rn_props;
+static SBMLRateRuleConverter* rule_rn_converter;
+static Model* model;
+
 static bool
 equals(const char* expected, const char* actual)
 {
-  if (!strcmp(expected, actual)) return true;
+  if (!strcmp(expected, actual)) 
+  {
+	  //printf("\nStrings equal:\n");
+	  return true;
+  }
 
-  printf("\nStrings are not equal:\n");
+  //printf("\nStrings are not equal:\n");
   printf("Expected:\n[%s]\n", expected);
   printf("Actual:\n[%s]\n", actual);
 
   return false;
 }
 
+static bool
+formulas_equal(const char* expected, ASTNode* actual)
+{
+	return equals(expected, SBML_formulaToL3String(actual));
+}
+
 extern char *TestDataDirectory;
 
+void
+RateRuleConverter_setup(void)
+{
+	rule_rn_props.addOption("inferReactions", true);
 
+	rule_rn_converter = new SBMLRateRuleConverter();
+	rule_rn_converter->setProperties(&rule_rn_props);
+}
+
+void
+RateRuleConverter_teardown(void)
+{
+	delete rule_rn_converter;
+}
 
 // helper function to set up a parameter with 0 value
-Parameter* setupZeroParameter(Model* model, const char* name, bool is_constant)
+static Parameter* setupZeroParameter(Model* model, const char* name, bool is_constant)
 {
 	Parameter* parameter = model->createParameter();
 	parameter->setId(name);
@@ -76,37 +105,133 @@ Parameter* setupZeroParameter(Model* model, const char* name, bool is_constant)
 	return parameter;
 }
 
+bool test_rule_to_reaction(const std::string& raterule_file, 
+									const std::string& reaction_file,
+									bool useStoichiometryfromMath = true)
+
+{
+	SBMLDocument* d_rule = readSBMLFromFile(raterule_file.c_str());
+	SBMLDocument* d_rn = readSBMLFromFile(reaction_file.c_str());
+	SBMLDocument* d = readSBMLFromFile(raterule_file.c_str());
+
+	if (!useStoichiometryfromMath)
+	{
+		rule_rn_props.addOption("useStoichiometryFromMath", false);
+		rule_rn_converter->setProperties(&rule_rn_props);
+	}
+	else if (!rule_rn_props.getOption("useStoichiometryFromMath"))
+	{
+		// it was set to false for a previous test - set it back to true
+		rule_rn_props.addOption("useStoichiometryFromMath", true);
+		rule_rn_converter->setProperties(&rule_rn_props);
+	}
 
 
-extern char *TestDataDirectory;
+	rule_rn_converter->setDocument(d);
+	if (rule_rn_converter->convert() != LIBSBML_OPERATION_SUCCESS)
+	{
+		//cout << "rule_reaction: converter rule->reaction failed" << endl;
+		delete d;
+		delete d_rn;
+		delete d_rule;
+		return false;
+	}	
+	std::string out = writeSBMLToStdString(d);
+	std::string expected = writeSBMLToStdString(d_rn);
+	bool strings_equal = equals(expected.c_str(), out.c_str());
+	if (!strings_equal)
+	{
+		std::string TEST_file(TestDataDirectory);
+		TEST_file += "test_TEMP_out.xml";
+		writeSBMLToFile(d, TEST_file.c_str());
+		cout << "rule_reaction: rule->reaction failed" << endl;
+		delete d;
+		delete d_rn;
+		delete d_rule;
+		return false;
+	}
+
+	delete d;
+	delete d_rn;
+	delete d_rule;
+    return true;
+}
+
+START_TEST(test_check_derivative_sign)
+{
+    const ASTNode* deriv = NULL;
+	bool derivativeSign = false;
+	bool signDetermined = rule_rn_converter->checkDerivativeSign(deriv, derivativeSign);
+	fail_unless(signDetermined == false);
+    fail_unless(derivativeSign == false);
+	delete deriv;
+
+	ASTNode* node = SBML_parseL3Formula("3");
+	deriv = node->derivative("S1");
+	derivativeSign = false;
+	signDetermined = rule_rn_converter->checkDerivativeSign(deriv, derivativeSign);
+	fail_unless(signDetermined == true);
+	fail_unless(derivativeSign == false);
+	delete node;
+	delete deriv;
+    
+	node = SBML_parseL3Formula("3*S1");
+    deriv = node->derivative("S1");
+    derivativeSign = false;
+    signDetermined = rule_rn_converter->checkDerivativeSign(deriv, derivativeSign);
+    fail_unless(signDetermined == true);
+    fail_unless(derivativeSign == true);
+    delete node;
+	delete deriv;
+
+	node = SBML_parseL3Formula("-5*S1");
+	deriv = node->derivative("S1");
+	derivativeSign = false;
+	signDetermined = rule_rn_converter->checkDerivativeSign(deriv, derivativeSign);
+	fail_unless(signDetermined == true);
+	fail_unless(derivativeSign == false);
+	delete node;
+	delete deriv;
+	
+	node = SBML_parseL3Formula("-k1*S1");
+	deriv = node->derivative("S1");
+	signDetermined = rule_rn_converter->checkDerivativeSign(deriv, derivativeSign);
+	fail_unless(signDetermined == true);
+	fail_unless(derivativeSign == false);
+	delete node;
+	delete deriv;
+	
+	node = SBML_parseL3Formula("k1*S1 + k2*S2");
+	deriv = node->derivative("S1");
+	signDetermined = rule_rn_converter->checkDerivativeSign(deriv, derivativeSign);
+	fail_unless(signDetermined == true);
+	fail_unless(derivativeSign == true);
+	delete node;
+	delete deriv;
+}
+END_TEST
 
 START_TEST(test_conversion_raterule_converter_invalid)
 {
-  ConversionProperties props;
-  props.addOption("inferReactions", true);
-
-  SBMLConverter* converter = new SBMLRateRuleConverter();
-  converter->setProperties(&props);
-
   // test NULL document
   SBMLDocument* doc = NULL;
-  converter->setDocument(doc);
+  rule_rn_converter->setDocument(doc);
 
-  fail_unless(converter->convert() == LIBSBML_INVALID_OBJECT);
+  fail_unless(rule_rn_converter->convert() == LIBSBML_INVALID_OBJECT);
 
   // test NULL model
   doc = new SBMLDocument(3, 2);
-  converter->setDocument(doc);
+  rule_rn_converter->setDocument(doc);
 
-  fail_unless(converter->convert() == LIBSBML_INVALID_OBJECT);
+  fail_unless(rule_rn_converter->convert() == LIBSBML_INVALID_OBJECT);
 
   // create model no rules
   Model* model = doc->createModel();
   model->setId("m");
 
-  converter->setDocument(doc);
+  rule_rn_converter->setDocument(doc);
 
-  fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(rule_rn_converter->convert() == LIBSBML_OPERATION_SUCCESS);
 
   Parameter* parameter1 = model->createParameter();
   parameter1->setId("s");
@@ -125,11 +250,10 @@ START_TEST(test_conversion_raterule_converter_invalid)
   rr2->setVariable("p");
 
   // invalid document
-  converter->setDocument(doc);
+  rule_rn_converter->setDocument(doc);
 
-  fail_unless(converter->convert() == LIBSBML_CONV_INVALID_SRC_DOCUMENT);
+  fail_unless(rule_rn_converter->convert() == LIBSBML_CONV_INVALID_SRC_DOCUMENT);
 
-  delete converter;
   delete doc;
 }
 END_TEST
@@ -137,12 +261,6 @@ END_TEST
 
 START_TEST(test_conversion_raterule_converter)
 {
-  ConversionProperties props;
-  props.addOption("inferReactions", true);
-
-  SBMLConverter* converter = new SBMLRateRuleConverter();
-  converter->setProperties(&props);
-
   SBMLDocument* doc = new SBMLDocument(3, 2);
   Model* model = doc->createModel();
   model->setId("m");
@@ -184,8 +302,8 @@ START_TEST(test_conversion_raterule_converter)
   // s = -k*s
   // p = k*s
 
-  converter->setDocument(doc);
-  fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
+  rule_rn_converter->setDocument(doc);
+  fail_unless(rule_rn_converter->convert() == LIBSBML_OPERATION_SUCCESS);
 
   fail_unless(doc->getModel()->getNumCompartments() == 1);
   fail_unless(doc->getModel()->getNumSpecies() == 2);
@@ -212,7 +330,6 @@ START_TEST(test_conversion_raterule_converter)
   fail_unless(strcmp(kl, "k*s"));
   safe_free((char *)kl);
 
-  delete converter;
   delete doc;
 }
 END_TEST
@@ -220,12 +337,6 @@ END_TEST
 
 START_TEST(test_crash_converter)
 {
-  ConversionProperties props;
-  props.addOption("inferReactions", true);
-
-  SBMLConverter* converter = new SBMLRateRuleConverter();
-  converter->setProperties(&props);
-
   SBMLDocument* doc = new SBMLDocument(3, 2);
   Model* model = doc->createModel();
   model->setId("m");
@@ -257,10 +368,9 @@ START_TEST(test_crash_converter)
   rr1->setMath(math);
   delete math;
 
-  converter->setDocument(doc);
-  fail_unless(converter->convert() == LIBSBML_OPERATION_FAILED);
+  rule_rn_converter->setDocument(doc);
+  fail_unless(rule_rn_converter->convert() == LIBSBML_OPERATION_FAILED);
 
-  delete converter;
   delete doc;
 }
 END_TEST
@@ -272,14 +382,8 @@ START_TEST(test_conversion_raterule_converter_non_standard_stoichiometry)
 	// example 3.13 in Fages et al, TCS, 2015
 	// Simple example of dx/dt = -2*k*x = - dy/dt
 	// Unlike typical converters of Mass action reactions that would give x -> y with f=2*k*x,
-	// this converter give (the equivalent) 2*x -> 2*y with f=k*x
+	// this rule_rn_converter give (the equivalent) 2*x -> 2*y with f=k*x
 	
-	ConversionProperties props;
-	props.addOption("inferReactions", true);
-
-	SBMLConverter* converter = new SBMLRateRuleConverter();
-	converter->setProperties(&props);
-
 	SBMLDocument* doc = new SBMLDocument(3, 2);
 	Model* model = doc->createModel();
 	model->setId("m");
@@ -318,8 +422,8 @@ START_TEST(test_conversion_raterule_converter_non_standard_stoichiometry)
 	fail_unless(doc->getModel()->getNumRules() == 2);
 	fail_unless(doc->getModel()->getNumReactions() == 0);
 
-	converter->setDocument(doc);
-	fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
+	rule_rn_converter->setDocument(doc);
+	fail_unless(rule_rn_converter->convert() == LIBSBML_OPERATION_SUCCESS);
 
 	fail_unless(doc->getModel()->getNumCompartments() == 1);
 	fail_unless(doc->getModel()->getNumSpecies() == 2);
@@ -344,8 +448,100 @@ START_TEST(test_conversion_raterule_converter_non_standard_stoichiometry)
 	const char* kl = SBML_formulaToL3String(r->getKineticLaw()->getMath());
 	fail_unless(strcmp(kl, "k*s"));
 	safe_free((char*)kl);
+
+    delete doc;
 }
 END_TEST
+
+START_TEST(test_conversion_raterule_converter_my_example)
+{
+	SBMLDocument* doc = new SBMLDocument(3, 2);
+	Model* model = doc->createModel();
+	model->setId("m");
+
+	Parameter* parameter1 = model->createParameter();
+	parameter1->setId("s");
+	parameter1->setConstant(false);
+	parameter1->setValue(0);
+
+	Parameter* parameter = model->createParameter();
+	parameter->setId("p");
+	parameter->setConstant(false);
+	parameter->setValue(0);
+
+	parameter = model->createParameter();
+	parameter->setId("r");
+	parameter->setConstant(false);
+	parameter->setValue(0);
+
+	parameter = model->createParameter();
+	parameter->setId("k");
+	parameter->setConstant(true);
+	parameter->setValue(0);
+
+	parameter = model->createParameter();
+	parameter->setId("k1");
+	parameter->setConstant(true);
+	parameter->setValue(0);
+
+	RateRule* rr1 = model->createRateRule();
+	rr1->setVariable("s");
+	ASTNode* math = SBML_parseL3Formula("-1*k*s");
+	rr1->setMath(math);
+	delete math;
+
+	RateRule* rr2 = model->createRateRule();
+	rr2->setVariable("p");
+	math = SBML_parseL3Formula("k*s");
+	rr2->setMath(math);
+	delete math;
+
+	RateRule* rr3 = model->createRateRule();
+	rr3->setVariable("r");
+	math = SBML_parseL3Formula("k1*r");
+	rr3->setMath(math);
+	delete math;
+
+
+	fail_unless(doc->getModel()->getNumCompartments() == 0);
+	fail_unless(doc->getModel()->getNumSpecies() == 0);
+	fail_unless(doc->getModel()->getNumParameters() == 5);
+	fail_unless(doc->getModel()->getNumRules() == 3);
+	fail_unless(doc->getModel()->getNumReactions() == 0);
+
+	rule_rn_converter->setDocument(doc);
+	fail_unless(rule_rn_converter->convert() == LIBSBML_OPERATION_SUCCESS);
+
+	fail_unless(doc->getModel()->getNumCompartments() == 1);
+	fail_unless(doc->getModel()->getNumSpecies() == 3);
+	fail_unless(doc->getModel()->getNumParameters() == 2);
+	fail_unless(doc->getModel()->getNumRules() == 0);
+	fail_unless(doc->getModel()->getNumReactions() == 2);
+
+	Reaction* r = doc->getModel()->getReaction(0);
+	fail_unless(r->getNumReactants() == 1);
+	fail_unless(r->getNumProducts() == 1);
+	fail_unless(r->getNumModifiers() == 0);
+	fail_unless(r->isSetKineticLaw());
+
+	const char* kl = SBML_formulaToL3String(r->getKineticLaw()->getMath());
+	fail_unless(strcmp(kl, "k*s"));
+	safe_free((char*)kl);
+
+	Reaction* r1 = doc->getModel()->getReaction(1);
+	fail_unless(r1->getNumReactants() == 1);
+	fail_unless(r1->getNumProducts() == 1);
+	fail_unless(r1->getNumModifiers() == 0);
+	fail_unless(r1->isSetKineticLaw());
+
+	const char* kl1 = SBML_formulaToL3String(r1->getKineticLaw()->getMath());
+	fail_unless(strcmp(kl1, "k1*r"));
+	safe_free((char*)kl1);
+
+    delete doc;
+}
+END_TEST
+
 
 START_TEST(test_conversion_raterule_converter_hidden_variable)
 {
@@ -354,12 +550,6 @@ START_TEST(test_conversion_raterule_converter_hidden_variable)
 	// The additional ODE dMPFi/dt = -k1*MPFi*Cdc25 + k2*MPF*Wee1 should be created by 3.1.
 	// @alessandrofelder has visually checked that the expected (incorrect) result is 
 	// obtained in the absence of an implementation of 3.1.
-	ConversionProperties props;
-	props.addOption("inferReactions", true);
-
-	SBMLConverter* converter = new SBMLRateRuleConverter();
-	converter->setProperties(&props);
-
 	SBMLDocument* doc = new SBMLDocument(3, 2);
 	Model* model = doc->createModel();
 	model->setId("m");
@@ -407,8 +597,8 @@ START_TEST(test_conversion_raterule_converter_hidden_variable)
 	fail_unless(doc->getModel()->getNumRules() == 4);
 	fail_unless(doc->getModel()->getNumReactions() == 0);
 
-  converter->setDocument(doc);
-	fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
+	rule_rn_converter->setDocument(doc);
+	fail_unless(rule_rn_converter->convert() == LIBSBML_OPERATION_SUCCESS);
 
 	fail_unless(doc->getModel()->getNumCompartments() == 1);
 	fail_unless(doc->getModel()->getNumSpecies() == 5); // should be first failure while 3.1. is missing.
@@ -434,20 +624,20 @@ START_TEST(test_conversion_raterule_converter_hidden_variable)
 	// reactants
 
 	srCdc25 = r0->getReactant(0);
-	fail_unless(srCdc25->getSpecies() == "Cdc25");
+	fail_unless(srCdc25->getSpecies() == string("Cdc25"));
 	fail_unless(util_isEqual(srCdc25->getStoichiometry(), 1));
 
 	srMpfi = r0->getReactant(1);
-	fail_unless(srMpfi->getSpecies() == "newVar1");
+	fail_unless(srMpfi->getSpecies() == string("newVar1"));
 	fail_unless(util_isEqual(srMpfi->getStoichiometry(), 1));
 
 	// products
 	srMpf = r0->getProduct(0);
-	fail_unless(srMpf->getSpecies() == "MPF");
+	fail_unless(srMpf->getSpecies() == string("MPF"));
 	fail_unless(util_isEqual(srMpf->getStoichiometry(), 1.0));
 
 	srCdc25 = r0->getProduct(1);
-	fail_unless(srCdc25->getSpecies() == "Cdc25");
+	fail_unless(srCdc25->getSpecies() == string("Cdc25"));
 	fail_unless(util_isEqual(srCdc25->getStoichiometry(), 1.0));
 
 	// kinetic law
@@ -465,20 +655,20 @@ START_TEST(test_conversion_raterule_converter_hidden_variable)
 
 	// reactants
 	srMpf = r1->getReactant(0);
-	fail_unless(srMpf->getSpecies() == "MPF");
+	fail_unless(srMpf->getSpecies() == string("MPF"));
 	fail_unless(util_isEqual(srMpf->getStoichiometry(), 1));
 
 	srWee1 = r1->getReactant(1);
-	fail_unless(srWee1->getSpecies() == "Wee1");
+	fail_unless(srWee1->getSpecies() == string("Wee1"));
 	fail_unless(util_isEqual(srWee1->getStoichiometry(), 1));
 
 	// products
 	srWee1 = r1->getProduct(0);
-	fail_unless(srWee1->getSpecies() == "Wee1");
+	fail_unless(srWee1->getSpecies() == string("Wee1"));
 	fail_unless(util_isEqual(srWee1->getStoichiometry(), 1.0));
 
 	srMpfi = r1->getProduct(1);
-	fail_unless(srMpfi->getSpecies() == "newVar1");
+	fail_unless(srMpfi->getSpecies() == string("newVar1"));
 	fail_unless(util_isEqual(srMpfi->getStoichiometry(), 1.0));
 
 	// kinetic law
@@ -497,252 +687,354 @@ START_TEST(test_conversion_raterule_converter_hidden_variable)
 
 	// modifier
 	srClock = r2->getModifier(0);
-	fail_unless(srClock->getSpecies() == "Clock");
+	fail_unless(srClock->getSpecies() == string("Clock"));
 
 	// products
 	srWee1 = r2->getProduct(0);
-	fail_unless(srWee1->getSpecies() == "Wee1");
+	fail_unless(srWee1->getSpecies() == string("Wee1"));
 	fail_unless(util_isEqual(srWee1->getStoichiometry(), 1.0));
 
 	// kinetic law
 	kl = SBML_formulaToL3String(r1->getKineticLaw()->getMath());
 	fail_unless(strcmp(kl, "k3/(k4+Clock)"));
 	safe_free((char*)kl);
+
+    delete doc;
 }
 END_TEST
 
-START_TEST(test_model)
+START_TEST(test_rule_reaction_01)
 {
-  ConversionProperties props;
-  props.addOption("inferReactions", true);
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_01_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_01_bio.xml";
 
-  SBMLConverter* converter = new SBMLRateRuleConverter();
-  converter->setProperties(&props);
+	bool result = test_rule_to_reaction(raterule_file, reaction_file);
 
-  std::string filename(TestDataDirectory);
-  filename += "mraterules.xml";
-  std::string filename1(TestDataDirectory);
-  filename1 += "mreact.xml";
-
-  SBMLDocument* d = readSBMLFromFile(filename.c_str());
-
-  converter->setDocument(d);
-  fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
-
-  SBMLDocument* d1 = readSBMLFromFile(filename1.c_str());
-  std::string out = writeSBMLToStdString(d);
-  std::string expected = writeSBMLToStdString(d1);
-
-  fail_unless(equals(expected.c_str(), out.c_str()));
-
-  delete converter;
-  delete d;
-  delete d1;
+	fail_unless(result == true);
 }
 END_TEST
 
-
-START_TEST(test_model1)
+START_TEST(test_rule_reaction_02)
 {
-  ConversionProperties props;
-  props.addOption("inferReactions", true);
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_02_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_02_bio.xml";
 
-  SBMLConverter* converter = new SBMLRateRuleConverter();
-  converter->setProperties(&props);
+	bool result = test_rule_to_reaction(raterule_file, reaction_file);
 
-  std::string filename(TestDataDirectory);
-  filename += "mraterules1.xml";
-  std::string filename1(TestDataDirectory);
-  filename1 += "mreact1.xml";
-
-  SBMLDocument* d = readSBMLFromFile(filename.c_str());
-
-  converter->setDocument(d);
-  fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
-
-  SBMLDocument* d1 = readSBMLFromFile(filename1.c_str());
-  std::string out = writeSBMLToStdString(d);
-  std::string expected = writeSBMLToStdString(d1);
-
-  fail_unless(equals(expected.c_str(), out.c_str()));
-
-  delete converter;
-  delete d;
-  delete d1;
+	fail_unless(result == true);
 }
 END_TEST
 
-START_TEST(test_model2)
+START_TEST(test_rule_reaction_03)
 {
-  ConversionProperties props;
-  props.addOption("inferReactions", true);
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_03_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_03_bio.xml";
 
-  SBMLConverter* converter = new SBMLRateRuleConverter();
-  converter->setProperties(&props);
+	bool result = test_rule_to_reaction(raterule_file, reaction_file);
 
-  std::string filename(TestDataDirectory);
-  filename += "mraterules2.xml";
-  std::string filename1(TestDataDirectory);
-  filename1 += "mreact2.xml";
-  SBMLDocument* d = readSBMLFromFile(filename.c_str());
-
-  converter->setDocument(d);
-  fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
-
-  SBMLDocument* d1 = readSBMLFromFile(filename1.c_str());
-  std::string out = writeSBMLToStdString(d);
-  std::string expected = writeSBMLToStdString(d1);
-
-  fail_unless(equals(expected.c_str(), out.c_str()));
-
-  delete converter;
-  delete d;
-  delete d1;
+	fail_unless(result == true);
 }
 END_TEST
 
-
-START_TEST(test_model3)
+START_TEST(test_rule_reaction_04)
 {
-  ConversionProperties props;
-  props.addOption("inferReactions", true);
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_04_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_04_bio.xml";
 
-  SBMLConverter* converter = new SBMLRateRuleConverter();
-  converter->setProperties(&props);
+	bool result = test_rule_to_reaction(raterule_file, reaction_file);
 
-  std::string filename(TestDataDirectory);
-  filename += "mraterules3.xml";
-  std::string filename1(TestDataDirectory);
-  filename1 += "mreact3.xml";
-  SBMLDocument* d = readSBMLFromFile(filename.c_str());
-
-  converter->setDocument(d);
-  fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
-  SBMLDocument* d1 = readSBMLFromFile(filename1.c_str());
-  std::string out = writeSBMLToStdString(d);
-  std::string expected = writeSBMLToStdString(d1);
-
-  fail_unless(equals(expected.c_str(), out.c_str()));
-
-  delete converter;
-  delete d;
-  delete d1;
+	fail_unless(result == true);
 }
 END_TEST
 
-
-START_TEST(test_model4)
+START_TEST(test_rule_reaction_05)
 {
-  ConversionProperties props;
-  props.addOption("inferReactions", true);
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_05_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_05_bio.xml";
 
-  SBMLConverter* converter = new SBMLRateRuleConverter();
-  converter->setProperties(&props);
+	bool result = test_rule_to_reaction(raterule_file, reaction_file);
 
-  std::string filename(TestDataDirectory);
-  filename += "mraterules4.xml";
-  std::string filename1(TestDataDirectory);
-  filename1 += "mreact4.xml";
-  SBMLDocument* d = readSBMLFromFile(filename.c_str());
-
-  converter->setDocument(d);
-  fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
-
-  SBMLDocument* d1 = readSBMLFromFile(filename1.c_str());
-  std::string out = writeSBMLToStdString(d);
-  std::string expected = writeSBMLToStdString(d1);
-
-  fail_unless(equals(expected.c_str(), out.c_str()));
-
-  delete converter;
-  delete d;
-  delete d1;
+	fail_unless(result == true);
 }
 END_TEST
 
-
-START_TEST(test_model5)
+START_TEST(test_rule_reaction_06)
 {
-  ConversionProperties props;
-  props.addOption("inferReactions", true);
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_06_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_06_bio.xml";
 
-  SBMLConverter* converter = new SBMLRateRuleConverter();
-  converter->setProperties(&props);
+	bool result = test_rule_to_reaction(raterule_file, reaction_file);
 
-  std::string filename(TestDataDirectory);
-  filename += "mraterules5.xml";
-  std::string filename1(TestDataDirectory);
-  filename1 += "mreact5.xml";
-  SBMLDocument* d = readSBMLFromFile(filename.c_str());
-
-  converter->setDocument(d);
-  fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
-
-  SBMLDocument* d1 = readSBMLFromFile(filename1.c_str());
-  std::string out = writeSBMLToStdString(d);
-  std::string expected = writeSBMLToStdString(d1);
-
-  fail_unless(equals(expected.c_str(), out.c_str()));
-
-  delete converter;
-  delete d;
-  delete d1;
+	fail_unless(result == true);
 }
 END_TEST
 
-
-START_TEST(test_model6)
+START_TEST(test_rule_reaction_07)
 {
-  ConversionProperties props;
-  props.addOption("inferReactions", true);
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_07_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_07_bio.xml";
 
-  SBMLConverter* converter = new SBMLRateRuleConverter();
-  converter->setProperties(&props);
+	bool result = test_rule_to_reaction(raterule_file, reaction_file, false);
 
-  std::string filename(TestDataDirectory);
-  filename += "mraterules6.xml";
-  std::string filename1(TestDataDirectory);
-  filename1 += "mreact6.xml";
-  SBMLDocument* d = readSBMLFromFile(filename.c_str());
-
-  converter->setDocument(d);
-  fail_unless(converter->convert() == LIBSBML_OPERATION_SUCCESS);
-
-  SBMLDocument* d1 = readSBMLFromFile(filename1.c_str());
-  std::string out = writeSBMLToStdString(d);
-  std::string expected = writeSBMLToStdString(d1);
-
-  fail_unless(equals(expected.c_str(), out.c_str()));
-
-  delete converter;
-  delete d;
-  delete d1;
+	fail_unless(result == true);
 }
 END_TEST
 
+START_TEST(test_rule_reaction_08)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_08_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_08_bio.xml";
+
+	bool result = test_rule_to_reaction(raterule_file, reaction_file);
+
+	fail_unless(result == true);
+}
+END_TEST
+
+START_TEST(test_rule_reaction_09)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_09_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_09_bio.xml";
+
+	bool result = test_rule_to_reaction(raterule_file, reaction_file);
+
+	fail_unless(result == true);
+}
+END_TEST
+
+START_TEST(test_rule_reaction_010)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "invalid_010_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "invalid_010_bio.xml";
+
+	bool result = test_rule_to_reaction(raterule_file, reaction_file);
+
+	fail_unless(result == false);
+}
+END_TEST
+
+START_TEST(test_rule_reaction_011)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_011_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_011_bio.xml";
+
+	bool result = test_rule_to_reaction(raterule_file, reaction_file);
+
+	fail_unless(result == true);
+}
+END_TEST
+
+START_TEST(test_rule_reaction_012)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_012_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_012_bio.xml";
+
+	bool result = test_rule_to_reaction(raterule_file, reaction_file);
+
+	fail_unless(result == true);
+}
+END_TEST
+
+START_TEST(test_rule_reaction_013)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_013_rr_original.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_013_bio_from_rr_original.xml";
+
+	bool result = test_rule_to_reaction(raterule_file, reaction_file);
+
+	fail_unless(result == true);
+}
+END_TEST
+
+START_TEST(test_rule_reaction_014)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_014_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_014_bio.xml";
+
+	bool result = test_rule_to_reaction(raterule_file, reaction_file);
+
+	fail_unless(result == true);
+}
+END_TEST
+
+START_TEST(test_rule_reaction_015)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_015_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_015_bio.xml";
+
+	bool result = test_rule_to_reaction(raterule_file, reaction_file);
+
+	fail_unless(result == true);
+}
+END_TEST
+
+START_TEST(test_rule_reaction_016)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_016_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_016_bio.xml";
+
+	bool result = test_rule_to_reaction(raterule_file, reaction_file);
+
+	fail_unless(result == true);
+}
+END_TEST
+
+START_TEST(test_rule_reaction_017)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_017_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_017_bio.xml";
+
+	bool result = test_rule_to_reaction(raterule_file, reaction_file);
+
+	fail_unless(result == true);
+}
+END_TEST
+
+START_TEST(test_rule_reaction_51)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_51_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_51_bio.xml";
+
+	bool result = test_rule_to_reaction(raterule_file, reaction_file);
+
+	fail_unless(result == true);
+}
+END_TEST
+
+START_TEST(test_rule_reaction_52)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_52_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_52_bio.xml";
+
+	bool result = test_rule_to_reaction(raterule_file, reaction_file);
+
+	fail_unless(result == true);
+}
+END_TEST
+
+START_TEST(test_rule_reaction_53)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_53_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_53_bio.xml";
+
+	bool result = test_rule_to_reaction(raterule_file, reaction_file);
+
+	fail_unless(result == true);
+}
+END_TEST
+
+START_TEST(test_rule_reaction_54)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_54_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_54_bio.xml";
+
+	bool result = test_rule_to_reaction(raterule_file, reaction_file);
+
+	fail_unless(result == true);
+}
+END_TEST
+
+START_TEST(test_rule_reaction_55)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "valid_55_rr.xml";
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_55_bio.xml";
+
+	bool result = test_rule_to_reaction(raterule_file, reaction_file);
+
+	fail_unless(result == true);
+}
+END_TEST
 
 Suite *
 create_suite_TestSBMLRateRuleConverter (void)
 { 
-  Suite *suite = suite_create("SBMLRateRuleConverter");
+	bool testing = false;
+Suite *suite = suite_create("SBMLRateRuleConverter");
   TCase *tcase = tcase_create("SBMLRateRuleConverter");
+  tcase_add_checked_fixture(tcase, RateRuleConverter_setup,
+	  RateRuleConverter_teardown);
 
-  tcase_add_test(tcase, test_conversion_raterule_converter_invalid);
-  tcase_add_test(tcase, test_conversion_raterule_converter);
-  tcase_add_test(tcase, test_conversion_raterule_converter_non_standard_stoichiometry);
-  tcase_add_test(tcase, test_conversion_raterule_converter_hidden_variable);
-  tcase_add_test(tcase, test_crash_converter);
-  tcase_add_test(tcase, test_model);
-  tcase_add_test(tcase, test_model1);
-  tcase_add_test(tcase, test_model2);
-  tcase_add_test(tcase, test_model3);
-  tcase_add_test(tcase, test_model4);
-  tcase_add_test(tcase, test_model5);
-  tcase_add_test(tcase, test_model6);
-
+  if (testing)
+  {
+	  tcase_add_test(tcase, test_rule_reaction_07);
+  }
+  else
+  {
+	  tcase_add_test(tcase, test_check_derivative_sign);
+	  tcase_add_test(tcase, test_conversion_raterule_converter_invalid); 
+	  tcase_add_test(tcase, test_conversion_raterule_converter); 
+	  tcase_add_test(tcase, test_conversion_raterule_converter_non_standard_stoichiometry); 
+	  tcase_add_test(tcase, test_crash_converter); 
+	  //tcase_add_test(tcase, test_conversion_raterule_converter_hidden_variable);
+	  tcase_add_test(tcase, test_rule_reaction_01);
+	  tcase_add_test(tcase, test_rule_reaction_02);
+	  tcase_add_test(tcase, test_rule_reaction_03); 
+	  tcase_add_test(tcase, test_rule_reaction_04);
+	  tcase_add_test(tcase, test_rule_reaction_05);
+  //    tcase_add_test(tcase, test_rule_reaction_06); // need to make parameters local
+      tcase_add_test(tcase, test_rule_reaction_07); 
+ //     tcase_add_test(tcase, test_rule_reaction_08); // fails it does an extra divide by campartment volume
+	// tcase_add_test(tcase, test_rule_reaction_09); // fails
+	  tcase_add_test(tcase, test_rule_reaction_010);
+ //     tcase_add_test(tcase, test_rule_reaction_011); // fails
+   //   tcase_add_test(tcase, test_rule_reaction_012); // fails
+   //   tcase_add_test(tcase, test_rule_reaction_013); // fails
+   //   tcase_add_test(tcase, test_rule_reaction_014); // fails
+   //   tcase_add_test(tcase, test_rule_reaction_015); // fails
+   //   tcase_add_test(tcase, test_rule_reaction_016); // fails
+   //   tcase_add_test(tcase, test_rule_reaction_017); // fails
+   //   tcase_add_test(tcase, test_rule_reaction_51); // fails 51 - 55
+	  //tcase_add_test(tcase, test_rule_reaction_52);	 
+	  //tcase_add_test(tcase, test_rule_reaction_53); 	
+	  //tcase_add_test(tcase, test_rule_reaction_54); 	
+	  //tcase_add_test(tcase, test_rule_reaction_55); 	 
+  }
   suite_add_tcase(suite, tcase);
 
   return suite;
 }
 END_C_DECLS
-

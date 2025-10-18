@@ -1130,6 +1130,23 @@ ASTNode::getListOfNodes (ASTNodePredicate predicate) const
   return lst;
 }
 
+LIBSBML_EXTERN 
+ASTNodeLevels 
+ASTNode::getListOfNodesWithLevel(bool operatorsOnly) const
+{
+    ASTNodeLevels vector_pairs;
+
+
+    fillListOfNodesWithLevel((ASTNodePredicate)ASTNode_isOperator, vector_pairs, 0);
+    if (!operatorsOnly)
+    {
+        fillListOfNodesWithLevel((ASTNodePredicate)ASTNode_isName, vector_pairs, 0);
+        fillListOfNodesWithLevel((ASTNodePredicate)ASTNode_isNumber, vector_pairs, 0);
+    }
+
+    return vector_pairs;
+}
+
 
 /*
  * This method is identical in functionality to getListOfNodes(), except
@@ -1145,8 +1162,6 @@ ASTNode::fillListOfNodes (ASTNodePredicate predicate, List* lst) const
   unsigned int c;
   unsigned int numChildren = getNumChildren();
 
-
-
   if (predicate(this) != 0)
   {
     lst->add( const_cast<ASTNode*>(this) );
@@ -1157,6 +1172,31 @@ ASTNode::fillListOfNodes (ASTNodePredicate predicate, List* lst) const
     child = getChild(c);
     child->fillListOfNodes(predicate, lst);
   }
+}
+
+void ASTNode::fillListOfNodesWithLevel(ASTNodePredicate predicate, ASTNodeLevels& vector_pairs, unsigned int level) const
+{
+    if (this == NULL || 
+        (vector_pairs.size() == 1 && vector_pairs.back().second == NULL) ||
+        predicate == NULL) 
+        return;
+
+    ASTNode* child;
+    unsigned int c;
+    unsigned int numChildren = getNumChildren();
+
+    if (predicate(this) != 0)
+    {
+        //cout << "Level " << level << ": " << SBML_formulaToL3String(this) << endl;
+        vector_pairs.push_back(std::make_pair(level, (ASTNode*)this));
+    }
+
+    for (c = 0; c < numChildren; c++)
+    {
+        child = getChild(c);
+        child->fillListOfNodesWithLevel(predicate, vector_pairs, level + 1);
+    }
+
 }
 
 
@@ -3533,49 +3573,73 @@ LIBSBML_EXTERN
 bool 
 ASTNode::exactlyEqual(const ASTNode& rhs)
 {
-  bool equal = true;
-  ASTNodeType_t type = getType();
-  if (type != rhs.getType())
-  {
-    return false;
-  }
+    bool equal = true;
+    ASTNodeType_t type = getType();
+    if (type != rhs.getType())
+    {
+        /* the only time that types might not match
+        * but we will allow the nodes be considered equal
+        * as if they are both numbers.
+        */
+        if (isNumber() && rhs.isNumber())
+        {
+            if (type == AST_INTEGER)
+            {
+                if (getValue() != rhs.getValue())
+                {
+                    return false;
+                }
+            }
+            else if (type == AST_RATIONAL || type == AST_REAL || type == AST_REAL_E)
+            {
+                if (!util_isEqual(getValue(), rhs.getValue()))
+                {
+                    return false;
+                }
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
 
-  if (type == AST_NAME)
-  {
-    const char* n1 = getName();
-    const char* n2 = rhs.getName();
-    if (n1 == NULL || n2 == NULL)
+    if (type == AST_NAME)
     {
-      return false;
+        const char* n1 = getName();
+        const char* n2 = rhs.getName();
+        if (n1 == NULL || n2 == NULL)
+        {
+            return false;
+        }
+        else if (strcmp(n1, n2) != 0)
+        {
+            return false;
+        }
     }
-    else if (strcmp(n1, n2) != 0)
+    else if (type == AST_INTEGER)
     {
-      return false;
+        if (getInteger() != rhs.getInteger())
+        {
+            return false;
+        }
     }
-  }
-  else if (type == AST_INTEGER)
-  {
-    if (getInteger() != rhs.getInteger())
+    else if (type == AST_RATIONAL || type == AST_REAL || type == AST_REAL_E)
     {
-      return false;
+        if (!util_isEqual(getValue(), rhs.getValue()))
+        {
+            return false;
+        }
     }
-  }
-  else if (type == AST_RATIONAL || type == AST_REAL || type == AST_REAL_E)
-  {
-    if (!util_isEqual(getReal(), rhs.getReal()))
-    {
-      return false;
-    }
-  }
 
-  unsigned int n = 0;
-  while (equal && n < getNumChildren())
-  {
-    equal = getChild(n)->exactlyEqual(*(rhs.getChild(n)));
-    n++;
-  }
+    unsigned int n = 0;
+    while (equal && n < getNumChildren())
+    {
+        equal = getChild(n)->exactlyEqual(*(rhs.getChild(n)));
+        n++;
+    }
 
-  return equal;
+    return equal;
 }
 
 /* change all numbers to real*/
@@ -4086,6 +4150,7 @@ LIBSBML_EXTERN
 void 
 ASTNode::refactor()
 {
+    // we need to look at whether we have got a single variable that is assigned by an assignment rule
   refactorNumbers();
   encompassUnaryMinus();
   createNonBinaryTree();
@@ -4267,9 +4332,11 @@ ASTNode::derivative(const std::string& variable)
     case AST_FUNCTION_LN:
       derivative = derivativeLn(variable);
       break;
-
     case AST_FUNCTION_EXP:
       derivative = derivativeExp(variable);
+      break;
+    case AST_FUNCTION_ABS:
+      derivative = derivativeAbs(variable);
       break;
 
 
@@ -4298,7 +4365,7 @@ ASTNode::derivativePlus(const std::string& variable)
   for (unsigned int n = 0; n < copy->getNumChildren(); ++n)
   {
     ASTNode* child_der = copy->getChild(n)->derivative(variable);
-    if (!(child_der->exactlyEqual(*zero)))
+    if (child_der && !(child_der->exactlyEqual(*zero)))
     {
       derivative->addChild(child_der->deepCopy());
     }
@@ -4324,11 +4391,11 @@ ASTNode::derivativeMinus(const std::string& variable)
   // d (A - B)/dx = dA/dx - dB/dx
   ASTNode* child_derA = copy->getChild(0)->derivative(variable);
   ASTNode* child_derB = copy->getChild(1)->derivative(variable);
-  if (child_derB->exactlyEqual(*zero))
+  if (!child_derB || child_derB->exactlyEqual(*zero))
   {
     derivative = child_derA->deepCopy();
   }
-  else if (child_derA->exactlyEqual(*zero))
+  else if (!child_derA || child_derA->exactlyEqual(*zero))
   {
     derivative = new ASTNode(AST_MINUS);
     derivative->addChild(child_derB->deepCopy());
@@ -4364,14 +4431,13 @@ ASTNode::derivativeTimes(const std::string& variable)
   // d(A*B)/dx = B * dA/dx + A * dB/dx
   ASTNode* child_derA = copy->getChild(0)->derivative(variable);
   ASTNode* child_derB = copy->getChild(1)->derivative(variable);
-  if (child_derB->exactlyEqual(*zero))
+  if (!child_derB || child_derB->exactlyEqual(*zero))
   {
-    // shouldnt get here as refactorng will put fns of x last
     derivative = new ASTNode(AST_TIMES);
     derivative->addChild(copy->getChild(1)->deepCopy());
     derivative->addChild(child_derA->deepCopy());
   }
-  else if (child_derA->exactlyEqual(*zero))
+  else if (!child_derA || child_derA->exactlyEqual(*zero))
   {
     derivative = new ASTNode(AST_TIMES);
     derivative->addChild(copy->getChild(0)->deepCopy());
@@ -4425,13 +4491,13 @@ ASTNode::derivativeDivide(const std::string& variable)
 
   ASTNode* child_derA = copy->getChild(0)->derivative(variable);
   ASTNode* child_derB = copy->getChild(1)->derivative(variable);
-  if (child_derB->exactlyEqual(*zero))
+  if (child_derB && child_derB->exactlyEqual(*zero))
   {
     nominator = new ASTNode(AST_TIMES);
     nominator->addChild(copy->getChild(1)->deepCopy());
     nominator->addChild(child_derA->deepCopy());
   }
-  else if (child_derA->exactlyEqual(*zero))
+  else if (child_derA && child_derA->exactlyEqual(*zero))
   {
     term1 = new ASTNode(AST_TIMES);
     term1->addChild(copy->getChild(0)->deepCopy());
@@ -4440,20 +4506,38 @@ ASTNode::derivativeDivide(const std::string& variable)
     nominator = new ASTNode(AST_MINUS);
     nominator->addChild(term1->deepCopy());
   }
-  else
+  else if (child_derA == NULL)
   {
-    term1 = new ASTNode(AST_TIMES);
-    term1->addChild(copy->getChild(1)->deepCopy());
-    term1->addChild(child_derA->deepCopy());
-
     term2 = new ASTNode(AST_TIMES);
     term2->addChild(copy->getChild(0)->deepCopy());
     term2->addChild(child_derB->deepCopy());
 
     nominator = new ASTNode(AST_MINUS);
-    nominator->addChild(term1->deepCopy());
     nominator->addChild(term2->deepCopy());
   }
+  else if (child_derB == NULL)
+  {
+      term1 = new ASTNode(AST_TIMES);
+      term1->addChild(copy->getChild(1)->deepCopy());
+      term1->addChild(child_derA->deepCopy());
+
+      nominator = term1->deepCopy();
+  }
+  else
+  {
+      term1 = new ASTNode(AST_TIMES);
+      term1->addChild(copy->getChild(1)->deepCopy());
+      term1->addChild(child_derA->deepCopy());
+
+      term2 = new ASTNode(AST_TIMES);
+      term2->addChild(copy->getChild(0)->deepCopy());
+      term2->addChild(child_derB->deepCopy());
+
+      nominator = new ASTNode(AST_MINUS);
+      nominator->addChild(term1->deepCopy());
+      nominator->addChild(term2->deepCopy());
+  }
+
   derivative = new ASTNode(AST_DIVIDE);
   derivative->addChild(nominator->deepCopy());
   derivative->addChild(denominator->deepCopy());
@@ -4498,7 +4582,8 @@ ASTNode::derivativePower(const std::string& variable)
     derivative->addChild(power->deepCopy());
   }
 
-  derivative->decompose();
+  if (derivative)
+    derivative->decompose();
 
   delete copy;
   delete exp;
@@ -4518,25 +4603,29 @@ ASTNode::derivativeLog(const std::string& variable)
   //d(log(base,A)/dx = dA/dx / (ln(base) *A)
 
   // in log function child0 is base
-  ASTNode *ln = new ASTNode(AST_FUNCTION_LN);
-  ASTNode *number = new ASTNode(AST_REAL);
-  number->setValue((double)(copy->getChild(0)->getValue()));
-  ln->addChild(number->deepCopy());
+  if (getChild(1)->derivative(variable) != NULL)
+  {
+      ASTNode* ln = new ASTNode(AST_FUNCTION_LN);
+      ASTNode* number = new ASTNode(AST_REAL);
+      number->setValue((double)(copy->getChild(0)->getValue()));
+      ln->addChild(number->deepCopy());
 
-  ASTNode *times = new ASTNode(AST_TIMES);
-  times->addChild(ln->deepCopy());
-  times->addChild(copy->getChild(1)->deepCopy());
+      ASTNode* times = new ASTNode(AST_TIMES);
+      times->addChild(ln->deepCopy());
+      times->addChild(copy->getChild(1)->deepCopy());
 
-  derivative = new ASTNode(AST_DIVIDE);
-  derivative->addChild(getChild(1)->derivative(variable));
-  derivative->addChild(times->deepCopy());
+      derivative = new ASTNode(AST_DIVIDE);
+      derivative->addChild(getChild(1)->derivative(variable));
+      derivative->addChild(times->deepCopy());
 
 
-  derivative->decompose();
+      derivative->decompose();
 
-  delete number;
-  delete ln;
-  delete times;
+
+      delete number;
+      delete ln;
+      delete times;
+  }
   delete copy;
   return derivative;
 }
@@ -4550,15 +4639,16 @@ ASTNode::derivativeLn(const std::string& variable)
 
   //d(ln(x)/dx = 1/(x)
   //d(ln(A)/dx = dA/dx / (A)
+  
+  if (getChild(0)->derivative(variable) != NULL)
+  {
+      derivative = new ASTNode(AST_DIVIDE);
+      derivative->addChild(getChild(0)->derivative(variable));
+      derivative->addChild(getChild(0)->deepCopy());
 
 
-  derivative = new ASTNode(AST_DIVIDE);
-  derivative->addChild(getChild(0)->derivative(variable));
-  derivative->addChild(getChild(0)->deepCopy());
-
-
-  derivative->decompose();
-
+      derivative->decompose();
+  }
   delete copy;
   return derivative;
 }
@@ -4573,16 +4663,59 @@ ASTNode::derivativeExp(const std::string& variable)
   //d(exp(x)/dx = exp(x)
   //d(exp(A)/dx = dA/dx * exp(A)
 
+  if (getChild(0)->derivative(variable) != NULL)
+  {
+      derivative = new ASTNode(AST_TIMES);
+      derivative->addChild(getChild(0)->derivative(variable));
+      derivative->addChild(copy->deepCopy());
 
-  derivative = new ASTNode(AST_TIMES);
-  derivative->addChild(getChild(0)->derivative(variable));
-  derivative->addChild(copy->deepCopy());
-
-
-  derivative->decompose();
-
+      derivative->decompose();
+  }
   delete copy;
   return derivative;
+}
+
+
+ASTNode*
+ASTNode::derivativeAbs(const std::string& variable)
+{
+    ASTNode* copy = deepCopy();
+    copy->decompose();
+    ASTNode* derivative = NULL;
+    ASTNode* one = new ASTNode(AST_REAL);
+    one->setValue(1.0);
+    ASTNode* divide = new ASTNode(AST_DIVIDE);
+
+     //d(abs(x)/dx = x/abs(x)
+    //d(abs(A)/dx = dA/dx * (A/abs(A))
+
+    if (getChild(0)->derivative(variable) != NULL)
+    {
+        if (getChild(0)->derivative(variable)->exactlyEqual(*one))
+        {
+            derivative = new ASTNode(AST_DIVIDE);
+            derivative->addChild(getChild(0)->deepCopy());
+            derivative->addChild(copy->deepCopy());
+
+            derivative->decompose();
+        }
+        else
+        {
+			derivative = new ASTNode(AST_TIMES);
+
+            divide->addChild(getChild(0)->deepCopy());
+			divide->addChild(copy->deepCopy());
+
+			derivative->addChild(getChild(0)->derivative(variable)->deepCopy());
+			derivative->addChild(divide->deepCopy());
+
+            derivative->decompose();
+        }
+    }
+    delete copy;
+	delete one;
+	delete divide;
+    return derivative;
 }
 
 XMLNamespaces* 
@@ -4613,6 +4746,18 @@ ASTNode::unsetDeclaredNamespaces()
 
 
 /** @cond doxygenIgnored */
+
+LIBSBML_EXTERN
+void
+printNodeLevels(ASTNodeLevels &vector_pairs)
+{
+    ASTNodeLevels::iterator it;
+    for (it = vector_pairs.begin(); it != vector_pairs.end(); it++)
+    {
+        cout << "level:" << it->first << " " << SBML_formulaToL3String(it->second) << endl;
+    }
+}
+
 
 LIBSBML_EXTERN
 ASTNode_t *
