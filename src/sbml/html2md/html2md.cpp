@@ -9,6 +9,7 @@
 #include <memory>
 #include <sstream>
 #include <vector>
+#include <cctype>
 
 using std::make_shared;
 using std::string;
