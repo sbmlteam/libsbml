@@ -562,16 +562,16 @@ std::string util_markdown_to_html(const std::string& markdown)
     // ones that needed to be encoded, but failed. Everything will officially
     // translate if we encode them all indiscriminately, so hey!  Here we go.
     std::regex pattern("&");
-    std::string copy = std::regex_replace(markdown, pattern, "&amp;");
+    std::string copy = std::regex_replace(markdown, pattern, std::string("&amp;"));
 
     pattern = "&amp;amp;";
-    copy = std::regex_replace(copy, pattern, "&amp;");
+    copy = std::regex_replace(copy, pattern, std::string("&amp;"));
 
     pattern = "<";
-    copy = std::regex_replace(copy, pattern, "&lt;");
+    copy = std::regex_replace(copy, pattern, std::string("&lt;"));
 
     pattern = ">";
-    copy = std::regex_replace(copy, pattern, "&gt;");
+    copy = std::regex_replace(copy, pattern, std::string("&gt;"));
 
     std::stringstream markdownInput(copy);
     static maddy::Parser parser;
@@ -581,13 +581,13 @@ std::string util_markdown_to_html(const std::string& markdown)
 std::string util_html_to_markdown(const std::string& html)
 {
     std::regex pattern("[Hh][Rr][Ee][Ff] *= *");
-    std::string copy = std::regex_replace(html, pattern, "href=");
+    std::string copy = std::regex_replace(html, pattern, std::string("href="));
     
     pattern = "< *([a-zA-Z]*) */ *>";
-    copy = std::regex_replace(copy, pattern, "<$1></$1>");
+    copy = std::regex_replace(copy, pattern, std::string("<$1></$1>"));
 
     pattern = "< */ *([a-zA-Z]*) *>";
-    copy = std::regex_replace(copy, pattern, "</$1>");
+    copy = std::regex_replace(copy, pattern, std::string("</$1>"));
 
     return html2md::Convert(copy);
 }
