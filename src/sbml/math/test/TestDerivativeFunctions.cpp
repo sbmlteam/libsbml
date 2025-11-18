@@ -1065,6 +1065,43 @@ START_TEST(test_deriv_arccos)
 }
 END_TEST
 
+START_TEST(test_deriv_arccos1)
+{
+    const std::string& x = "x";
+    ASTNode* n = SBML_parseL3Formula("arccos(x^3)");
+    fail_unless(n != NULL);
+    ASTNode* deriv = n->derivative(x);
+
+    const char* expected = "-3 * x^2 * (1 - x^3^2)^-0.5";
+    //cout << SBML_formulaToL3String(deriv) << endl;
+    //cout << expected << endl;
+
+
+    fail_unless(formulas_equal(expected, deriv) == true);
+    delete n;
+    delete deriv;
+}
+END_TEST
+
+START_TEST(test_deriv_arccos2)
+{
+    const std::string& x = "x";
+    ASTNode* n = SBML_parseL3Formula("arccos((x^3)+2*x)");
+    fail_unless(n != NULL);
+    ASTNode* deriv = n->derivative(x);
+
+    const char* expected = "-2 * (1 - (x^3 + 2 * x)^2)^-0.5 + -3 * x^2 * (1 - (x^3 + 2 * x)^2)^-0.5";
+    cout << SBML_formulaToL3String(deriv) << endl;
+    cout << expected << endl;
+
+
+    fail_unless(formulas_equal(expected, deriv) == true);
+    delete n;
+    delete deriv;
+}
+END_TEST
+
+
 START_TEST(test_deriv_not_implemented )
 {
     ASTNode* n = readMathMLFromString(
@@ -1141,6 +1178,8 @@ create_suite_TestDerivativeFunctions()
   //tcase_add_test(tcase, test_deriv_abs1);
   //tcase_add_test(tcase, test_deriv_abs2);
   tcase_add_test(tcase, test_deriv_arccos);
+  tcase_add_test(tcase, test_deriv_arccos1);
+  tcase_add_test(tcase, test_deriv_arccos2);
 
   tcase_add_test(tcase, test_deriv_not_implemented);
 
