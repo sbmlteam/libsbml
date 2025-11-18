@@ -2467,7 +2467,9 @@ setValue(value, 0);
   ASTNode* derivativeLn(const std::string& variable);
   ASTNode* derivativeExp(const std::string& variable);
   ASTNode* derivativeAbs(const std::string& variable);
-
+  ASTNode* derivativeArccos(const std::string& variable);
+  //ASTNode* derivativeArcsin(const std::string& variable);
+  //ASTNode* derivativeArctan(const std::string& variable);
 
   /*
   * produce three vectors of the child index of the ASTNodes
