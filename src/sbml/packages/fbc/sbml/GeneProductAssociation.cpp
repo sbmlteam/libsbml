@@ -305,7 +305,6 @@ FbcAssociation* GeneProductAssociation::getFbcAssociationFor(const ASTNode* astn
   default:
     return NULL;
   }
-  assert(false); //all paths through switch should return something.
   return NULL;
 }
 

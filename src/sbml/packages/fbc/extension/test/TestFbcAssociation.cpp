@@ -1277,17 +1277,17 @@ START_TEST(test_GeneProductAssociation_createFromAST)
   ListOfFbcAssociations* asns = fbcor->getListOfAssociations();
   fail_unless(asns->getNumFbcAssociations() == 2);
   vector<string> namelist = { "a", "b", "c" };
-  for (int a = 0; a < 2; a++) {
-    FbcAssociation* child = asns->get(a);
+  for (int i = 0; i < 2; i++) {
+    FbcAssociation* child = asns->get(i);
     fail_unless(child->isFbcAnd());
     FbcAnd* fbcand = static_cast<FbcAnd*>(child);
     ListOfFbcAssociations* childlist = fbcand->getListOfAssociations();
     fail_unless(childlist->getNumFbcAssociations() == 2);
-    for (int b = 0; b < 2; b++) {
-      FbcAssociation* subchild = childlist->get(b);
+    for (int j = 0; j < 2; j++) {
+      FbcAssociation* subchild = childlist->get(j);
       fail_unless(subchild->isGeneProductRef());
       GeneProductRef* gpr = static_cast<GeneProductRef*>(subchild);
-      fail_unless(gpr->getGeneProduct() == namelist[a + b]);
+      fail_unless(gpr->getGeneProduct() == namelist[i + j]);
     }
   }
 
