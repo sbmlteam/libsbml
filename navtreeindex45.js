@@ -1,6 +1,5 @@
 var NAVTREEINDEX45 =
 {
-"class_coordinate_component.html#ae1fc868c960ca731482bec49b52771be":[3,0,32,95],
 "class_coordinate_component.html#ae431ca4044e40e1fe8e0ff4136dce838":[3,0,32,114],
 "class_coordinate_component.html#ae57cbc2da2e34a8c829e42743e68dd85":[3,0,32,78],
 "class_coordinate_component.html#ae8317d5157b70e4f1bc68e33e5c84001":[3,0,32,142],
@@ -249,5 +248,6 @@ var NAVTREEINDEX45 =
 "class_curve.html#a75b1541bd854ad7edfe0aff79ab3231f":[3,0,44,116],
 "class_curve.html#a76c2089882b2b67cbfead0a479256e85":[3,0,44,18],
 "class_curve.html#a77068f549f7aa55f56a072cda2960183":[3,0,44,39],
-"class_curve.html#a776e0b06ec3f0dd2bfdafeec6c9d7cc2":[3,0,44,49]
+"class_curve.html#a776e0b06ec3f0dd2bfdafeec6c9d7cc2":[3,0,44,49],
+"class_curve.html#a78e5ac577ff9cf83d6fc413f5053d705":[3,0,44,94]
 };
