@@ -1,5 +1,6 @@
 var NAVTREEINDEX24 =
 {
+"_x_m_l_file_buffer_8cpp.html":[4,0,0,0,8,37],
 "_x_m_l_file_buffer_8h.html":[4,0,0,0,8,38],
 "_x_m_l_handler_8cpp.html":[4,0,0,0,8,39],
 "_x_m_l_handler_8h.html":[4,0,0,0,8,40],
@@ -248,6 +249,5 @@ var NAVTREEINDEX24 =
 "class_adjacent_domains.html#a7b7b199563437a7977cc13cabb21ef63":[3,0,0,126],
 "class_adjacent_domains.html#a7d34cc625c18425a35a5513b88851a73":[3,0,0,72],
 "class_adjacent_domains.html#a7e1725f1b98e08e54485ec52404d579a":[3,0,0,70],
-"class_adjacent_domains.html#a8012eba52b904a1fcfb2a483eef94810":[3,0,0,28],
-"class_adjacent_domains.html#a823eadf41ba3c431f22293d295381082":[3,0,0,31]
+"class_adjacent_domains.html#a8012eba52b904a1fcfb2a483eef94810":[3,0,0,28]
 };

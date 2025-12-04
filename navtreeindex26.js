@@ -1,5 +1,6 @@
 var NAVTREEINDEX26 =
 {
+"class_algebraic_rule.html#a2880c1c6a2df519371637a9234ed68a4":[3,0,2,45],
 "class_algebraic_rule.html#a2bcd32c8ab7537433f7f7851818c60ed":[3,0,2,69],
 "class_algebraic_rule.html#a2da81b22af670c12375835a6f992c5db":[3,0,2,83],
 "class_algebraic_rule.html#a2e322246cd669131af4bd325a99ac0fd":[3,0,2,25],
@@ -248,6 +249,5 @@ var NAVTREEINDEX26 =
 "class_analytic_geometry.html#aa30fb7536187270118db7de0a86a59e7":[3,0,3,117],
 "class_analytic_geometry.html#aa585552960ae4b7e8d4cec0c301d670e":[3,0,3,102],
 "class_analytic_geometry.html#aa78ef1ca7e89aa9be18302622aad221f":[3,0,3,131],
-"class_analytic_geometry.html#aa85fd6aa6146e1882d7c9f1fe0e572c7":[3,0,3,22],
-"class_analytic_geometry.html#aa9a0611fba68fb2d56db3565425f65a0":[3,0,3,25]
+"class_analytic_geometry.html#aa85fd6aa6146e1882d7c9f1fe0e572c7":[3,0,3,22]
 };

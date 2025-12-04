@@ -33,7 +33,6 @@ var class_fbc_species_plugin =
     [ "isSetCharge", "class_fbc_species_plugin.html#aee87fbce43aa72e72ec455b496470146", null ],
     [ "isSetChemicalFormula", "class_fbc_species_plugin.html#ad058280007aea96563f5583ffac9dac8", null ],
     [ "isValidTypeForList", "class_fbc_species_plugin.html#a22b634dc54d29892de8024a405af77be", null ],
-    [ "isWellFormedChemicalFormula", "class_fbc_species_plugin.html#a353422b970ecdc263c86705c52851e45", null ],
     [ "operator=", "class_fbc_species_plugin.html#a40cb1bd519fab5cf0ba404b67b3d034f", null ],
     [ "removeKeyValuePair", "class_fbc_species_plugin.html#a3fe34fdd4f844b0fdf9f398ccfd5eae6", null ],
     [ "removeKeyValuePair", "class_fbc_species_plugin.html#aedc92dc14cc25641e4f1ffed142f62b6", null ],

@@ -1,12 +1,5 @@
 var NAVTREEINDEX142 =
 {
-"class_parametric_geometry.html#a94ead78ebf80118b1027af5438f22516":[3,0,239,117],
-"class_parametric_geometry.html#a973c76cb7a7370cb221911591a73460a":[3,0,239,60],
-"class_parametric_geometry.html#a97b3bae14d5a7eeed90e4e4ebb9e9a20":[3,0,239,35],
-"class_parametric_geometry.html#a98c955421c92c28351610ea811ecb4fe":[3,0,239,158],
-"class_parametric_geometry.html#a997486d0a21de5d8d07bd764cd6cb21c":[3,0,239,58],
-"class_parametric_geometry.html#a9a4e7c819445f9dd1c7fe40455dbdf06":[3,0,239,164],
-"class_parametric_geometry.html#a9b9dcb83f0b3da9466817e3d32f197f0":[3,0,239,29],
 "class_parametric_geometry.html#a9edce014b708273961c30647431ac6cc":[3,0,239,40],
 "class_parametric_geometry.html#a9f983bd3a17d83ec06d0ef1a9237393e":[3,0,239,103],
 "class_parametric_geometry.html#a9fb99b60d2f2f0427e818187cc6f6ad9":[3,0,239,107],
@@ -249,5 +242,12 @@ var NAVTREEINDEX142 =
 "class_point.html#a019df71db41765ffda545248425dc2c6":[3,0,241,0],
 "class_point.html#a027dbf22b8bf74bbb0ce5cd4453851c7":[3,0,241,44],
 "class_point.html#a02a6692a180f9281c071b77f908dce0e":[3,0,241,31],
-"class_point.html#a031d1da6a39bae8afd5201677fb32c02":[3,0,241,59]
+"class_point.html#a031d1da6a39bae8afd5201677fb32c02":[3,0,241,59],
+"class_point.html#a050779a94ecdb2d73d7edfef73bc1e55":[3,0,241,120],
+"class_point.html#a05b9dcf97d733021466a9b2b7afe8291":[3,0,241,1],
+"class_point.html#a07ec2702ebbdf35aef0a0626b0ffd52f":[3,0,241,53],
+"class_point.html#a07fe8dd8b43718fbb3d0df8481c72058":[3,0,241,147],
+"class_point.html#a09748b8dcb7b8b1c23a253b7499fb6b7":[3,0,241,152],
+"class_point.html#a0a8fa8e4911040c0fdf6cdd03a22f564":[3,0,241,94],
+"class_point.html#a0b02092069159bda9b7ff14ecacfca5d":[3,0,241,7]
 };

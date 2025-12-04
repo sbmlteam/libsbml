@@ -35,7 +35,6 @@ var class_gene_product_ref =
     [ "getElementBySId", "class_gene_product_ref.html#ab9b81fdb8570c061842115f59d12ef99", null ],
     [ "getElementBySId", "class_gene_product_ref.html#a77068f549f7aa55f56a072cda2960183", null ],
     [ "getElementName", "class_gene_product_ref.html#acb263bdb1cda6f2427e0971c44f0bf71", null ],
-    [ "getFbcAssociationAsASTNode", "class_gene_product_ref.html#af37ff439d376373cb5843928c40877c5", null ],
     [ "getGeneProduct", "class_gene_product_ref.html#aa944a7e81ffd69438d716d3fd2f709ea", null ],
     [ "getId", "class_gene_product_ref.html#a7ae081a175c57bdbffa14796b27a477d", null ],
     [ "getIdAttribute", "class_gene_product_ref.html#ad5ffefa4d9901ca0d55f2343c08bb057", null ],
