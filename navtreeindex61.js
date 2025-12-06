@@ -1,5 +1,8 @@
 var NAVTREEINDEX61 =
 {
+"class_function_term.html#a0df1a731505cbddfcb2c504bd86ba9c0":[3,0,87,84],
+"class_function_term.html#a118148398f5c626bf9697887296f97b8":[3,0,87,6],
+"class_function_term.html#a11d9c02a3690d9a13362835ef0133125":[3,0,87,113],
 "class_function_term.html#a122cb031528cae7968e63a8c50f8dc70":[3,0,87,96],
 "class_function_term.html#a129bf432fe076c854d9b6e7f44ed99b8":[3,0,87,35],
 "class_function_term.html#a14876bd1b05a660593ed2cf46aece3ee":[3,0,87,111],
@@ -246,8 +249,5 @@ var NAVTREEINDEX61 =
 "class_gene_association.html#aac93855c11d3e29c120fad461d6cab80":[3,0,88,110],
 "class_gene_association.html#aad43f3efb39b3c56ec0db212b6e97cf4":[3,0,88,42],
 "class_gene_association.html#ab03cdef0daf939ae8f83b9a9ea24ff8a":[3,0,88,16],
-"class_gene_association.html#ab3428c9a9705777183a0ded66981b504":[3,0,88,62],
-"class_gene_association.html#ab4de53b00ecec3e135fcb9d36fb1bf3b":[3,0,88,60],
-"class_gene_association.html#ab65f2358ae580d6ed278789698f80209":[3,0,88,52],
-"class_gene_association.html#ab82d11594962061a02e4d6a65770ac5b":[3,0,88,11]
+"class_gene_association.html#ab3428c9a9705777183a0ded66981b504":[3,0,88,62]
 };

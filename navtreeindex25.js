@@ -1,6 +1,5 @@
 var NAVTREEINDEX25 =
 {
-"class_adjacent_domains.html#a823eadf41ba3c431f22293d295381082":[3,0,0,31],
 "class_adjacent_domains.html#a83909a09abfab77fea3429482c79e867":[3,0,0,95],
 "class_adjacent_domains.html#a852e0bd8bfc64342750faf5cbccec65e":[3,0,0,4],
 "class_adjacent_domains.html#a89f626f2593df8e83da4cdbfe79142f7":[3,0,0,142],
@@ -249,5 +248,6 @@ var NAVTREEINDEX25 =
 "class_algebraic_rule.html#a21766ad77868a914ec0780653d0e924f":[3,0,2,23],
 "class_algebraic_rule.html#a253b8d724dd9cb8d4cdfcf3f5176dfd2":[3,0,2,24],
 "class_algebraic_rule.html#a262742c15ec8de581b55a5b7d63288f3":[3,0,2,0],
-"class_algebraic_rule.html#a269ee4b549ed8c0fd3f44157500575c7":[3,0,2,28]
+"class_algebraic_rule.html#a269ee4b549ed8c0fd3f44157500575c7":[3,0,2,28],
+"class_algebraic_rule.html#a2880c1c6a2df519371637a9234ed68a4":[3,0,2,45]
 };
