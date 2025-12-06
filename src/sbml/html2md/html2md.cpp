@@ -484,7 +484,7 @@ bool Converter::ParseCharInTag(char ch) {
   }
 
   // Handle whitespace: skip leading whitespace, keep others
-  if (isspace(ch) && skipping_leading_whitespace) {
+  if (ch >= -1 && ch <= 255 && isspace(ch) && skipping_leading_whitespace) {
     return true; // Ignore leading whitespace
   }
 

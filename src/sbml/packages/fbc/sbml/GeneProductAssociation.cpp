@@ -207,6 +207,11 @@ GeneProductAssociation::getAssociation()
   return mAssociation;
 }
 
+ASTNode* GeneProductAssociation::getAssociationAsASTNode() const
+{
+  return mAssociation->getFbcAssociationAsASTNode();
+}
+
 
 /*
  * Creates a new "association" element of this GeneProductAssociation and returns it.
@@ -250,6 +255,72 @@ GeneProductAssociation::createGeneProductRef()
   delete fbcns;
   connectToChild();
   return static_cast<GeneProductRef*>(mAssociation);
+}
+
+FbcAssociation* GeneProductAssociation::getFbcAssociationFor(const ASTNode* astn, FbcPkgNamespaces* fbcns)
+{
+  if (astn == NULL) {
+    return NULL;
+  }
+  ASTNodeType_t type = astn->getType();
+  GeneProductRef* gpr = NULL;
+  FbcAnd* fbcand = NULL;
+  FbcOr* fbcor = NULL;
+  switch (type) {
+  case AST_NAME:
+    gpr = new GeneProductRef(fbcns);
+    if (gpr->setGeneProduct(astn->getName()) != LIBSBML_OPERATION_SUCCESS) {
+      delete gpr;
+      return NULL;
+    }
+    return gpr;
+  case AST_LOGICAL_AND:
+    fbcand = new FbcAnd(fbcns);
+    for (unsigned int c = 0; c < astn->getNumChildren(); c++) {
+      FbcAssociation* child_fbca = getFbcAssociationFor(astn->getChild(c), fbcns);
+      if (child_fbca == NULL) {
+        delete fbcand;
+        return NULL;
+      }
+      if (fbcand->addAssociation(child_fbca) != LIBSBML_OPERATION_SUCCESS) {
+        delete fbcand;
+        return NULL;
+      }
+    }
+    return fbcand;
+  case AST_LOGICAL_OR:
+    fbcor = new FbcOr(fbcns);
+    for (unsigned int c = 0; c < astn->getNumChildren(); c++) {
+      FbcAssociation* child_fbca = getFbcAssociationFor(astn->getChild(c), fbcns);
+      if (child_fbca == NULL) {
+        delete fbcor;
+        return NULL;
+      }
+      if (fbcor->addAssociation(child_fbca) != LIBSBML_OPERATION_SUCCESS) {
+        delete fbcor;
+        return NULL;
+      }
+    }
+    return fbcor;
+  default:
+    return NULL;
+  }
+  return NULL;
+}
+
+int GeneProductAssociation::createChildAssociationFromASTNode(const ASTNode* astn)
+{
+  if (isSetAssociation()) {
+    return LIBSBML_OPERATION_FAILED;
+  }
+  FBC_CREATE_NS_WITH_VERSION(fbcns, getSBMLNamespaces(), getPackageVersion());
+  mAssociation = getFbcAssociationFor(astn, fbcns);
+  delete fbcns;
+  if (mAssociation == NULL) {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  connectToChild();
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 

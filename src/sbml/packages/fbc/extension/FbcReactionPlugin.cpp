@@ -162,6 +162,7 @@ FbcReactionPlugin::createObject (XMLInputStream& stream)
       delete mGeneProductAssociation;
       
       mGeneProductAssociation = new GeneProductAssociation(fbcns);
+      mGeneProductAssociation->connectToParent(this->getParentSBMLObject());
 
       object = mGeneProductAssociation;
 
@@ -448,6 +449,7 @@ FbcReactionPlugin::createGeneProductAssociation()
   mGeneProductAssociation = new GeneProductAssociation(fbcns);
 
   mGeneProductAssociation->setSBMLDocument(this->getSBMLDocument());
+  mGeneProductAssociation->connectToParent(this->getParentSBMLObject());
 
   delete fbcns;
 
