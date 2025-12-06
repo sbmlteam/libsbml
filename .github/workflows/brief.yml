@@ -9,6 +9,8 @@ on:
         - "VERSION.txt"
         - "!.github/**"
         - ".github/workflows/brief.yml"
+
+
 env:
   BUILD_TYPE: Release
 
@@ -103,6 +105,7 @@ jobs:
         shell: bash
         run: |
           brew install check swig ccache
+          brew install --cask mono-mdk
           echo PYTHON_LINKING_OPTION="-DPYTHON_USE_DYNAMIC_LOOKUP=ON" >> "${GITHUB_ENV}"
 
       ### setup ccache, not on Windows ###

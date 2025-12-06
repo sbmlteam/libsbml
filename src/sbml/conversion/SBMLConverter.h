@@ -62,6 +62,7 @@
 
 #include <sbml/SBMLNamespaces.h>
 #include <sbml/conversion/ConversionProperties.h>
+#include <sbml/util/IdList.h>
 
 #ifndef LIBSBML_USE_STRICT_INCLUDES
 #include <sbml/SBMLTypes.h>
@@ -299,8 +300,16 @@ public:
 protected:
   /** @cond doxygenLibsbmlInternal */
   SBMLDocument *   mDocument;
+  Model* mOriginalModel;
+
   ConversionProperties *mProps;
   std::string mName;
+
+  virtual ASTNode* replaceMathWithAssignedVariables(ASTNode* original);
+
+  virtual IdList getListAssignmentRuleVariables(unsigned int& numAssignmentRules);
+
+  virtual ASTNode* replaceAssignedVariablesWithMath(ASTNode* original);
 
   friend class SBMLDocument;
   /** @endcond */

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created by MOCCASIN version 1.3.0 on 2024-08-21 13:39 with libSBML version 5.20.2. -->
 <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
   <model>
     <listOfCompartments>
@@ -11,7 +10,7 @@
     <listOfParameters>
       <parameter id="a" name="a" value="0.5" constant="true"/>
       <parameter id="b" name="b" constant="false"/>
-      <parameter id="t" name="t" value="0" constant="false"/>    
+      <parameter id="t" name="t" value="0" constant="false"/>
     </listOfParameters>
     <listOfRules>
       <assignmentRule variable="b">

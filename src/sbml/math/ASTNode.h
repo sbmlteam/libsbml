@@ -210,8 +210,15 @@ typedef int (*ASTNodePredicate) (const ASTNode_t *node);
 LIBSBML_CPP_NAMESPACE_END
 
 #ifdef __cplusplus
-
 LIBSBML_CPP_NAMESPACE_BEGIN
+
+#ifndef SWIG
+
+typedef std::pair<unsigned int, ASTNode*> ASTNodePair;
+typedef std::vector<ASTNodePair> ASTNodeLevels;
+typedef ASTNodeLevels::iterator ASTNodeLevelsIterator;
+
+#endif // !SWIG
 
 class List;
 class ASTBasePlugin;
@@ -604,6 +611,10 @@ int (*ASTNodePredicate) (const ASTNode *node);
   List* getListOfNodes (ASTNodePredicate predicate) const;
 
 
+  LIBSBML_EXTERN
+  ASTNodeLevels getListOfNodesWithLevel (bool operatorsOnly = false) const;
+
+
   /**
    * Returns a list of nodes rooted at a given node and satisfying a given
    * predicate.
@@ -634,6 +645,10 @@ int (*ASTNodePredicate) (const ASTNode_t *node);
    */
   LIBSBML_EXTERN
   void fillListOfNodes (ASTNodePredicate predicate, List* lst) const;
+
+  LIBSBML_EXTERN
+  void fillListOfNodesWithLevel(ASTNodePredicate predicate, ASTNodeLevels& vector_pairs, unsigned int level) const;
+
 
 
   /**
@@ -2357,19 +2372,20 @@ setValue(value, 0);
   /** @endcond */
 
 
-protected:
 
   friend class SBMLRateRuleConverter;
 
 //  void printMath(unsigned int level = 0);
 
   /* change all numbers to real*/
+  LIBSBML_EXTERN
   void refactorNumbers();
 
   /*
   * simplify the node based on math i.e 1 * x becomes x
   * see inline
   */
+  LIBSBML_EXTERN
   void simplify();
 
   /* for plus or times order arguments so we have number + names + functions
@@ -2377,6 +2393,7 @@ protected:
   * 2 * 5 becomes 10
   * sin(2+3) + 3.1 + b becomes 3.1 +b + sin(5)
   */
+  LIBSBML_EXTERN
   bool reorderArguments(unsigned int level=0 );
 
   /* remove any instances of unary minus
@@ -2405,6 +2422,7 @@ protected:
   * Level 2: b
   * Level 1: a
   */
+  LIBSBML_EXTERN
   void encompassUnaryMinus();
     
 
@@ -2425,12 +2443,16 @@ protected:
     * Level 1: c
     * Level 1: s
   */
+  LIBSBML_EXTERN
   void createNonBinaryTree();
 
   /*
   * change a root node to power ie root(2, x) becomes x^0.5
   */
+  LIBSBML_EXTERN
   void convertRootToPower();
+
+  protected:
 
   /*
   * returns derivativeof particular function
@@ -2444,6 +2466,7 @@ protected:
   ASTNode* derivativeLog(const std::string& variable);
   ASTNode* derivativeLn(const std::string& variable);
   ASTNode* derivativeExp(const std::string& variable);
+  ASTNode* derivativeAbs(const std::string& variable);
 
 
   /*
@@ -2537,6 +2560,11 @@ private:
   void clearPlugins();
 };
 
+LIBSBML_EXTERN
+void
+printNodeLevels(LIBSBML_CPP_NAMESPACE_QUALIFIER ASTNodeLevels& vector_pairs);
+
+
 LIBSBML_CPP_NAMESPACE_END
 
 #endif /* __cplusplus */
@@ -2545,6 +2573,7 @@ LIBSBML_CPP_NAMESPACE_END
 #ifndef SWIG
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+
 BEGIN_C_DECLS
 
 

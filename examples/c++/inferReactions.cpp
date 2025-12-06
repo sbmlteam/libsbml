@@ -47,10 +47,28 @@
 using namespace std;
 LIBSBML_CPP_NAMESPACE_USE
 
+
+#ifdef DEBUG_INFER_REACTIONS
+#include <intrin.h>
+#include <windows.h>
+#endif // DEBUG_INFER_REACTIONS
+
 int
 main (int argc, char *argv[])
 {
- 
+
+#ifdef DEBUG_INFER_REACTIONS
+  // Wait for debugger to attach
+  while (!IsDebuggerPresent())
+  {
+    Sleep(100); // Sleep for 100 milliseconds
+  }
+
+  // at this point for debugging purposes throw the VS abort dialog so we can
+  // easily attach to the process
+  __debugbreak();
+#endif // DEBUG_INFER_REACTIONS
+
   if (argc != 3)
   {
     cout 
@@ -64,6 +82,7 @@ main (int argc, char *argv[])
     return 1;
   }
 
+  
   const char* inputFile   = argv[1];
   const char* outputFile  = argv[2];
 
