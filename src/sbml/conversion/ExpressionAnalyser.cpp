@@ -99,6 +99,7 @@ ExpressionAnalyser::ExpressionAnalyser(Model * m, pairODEs odes)
     mHiddenNodes(NULL)
 {
   SBMLTransforms::mapComponentValues(mModel);
+  if (mModel)
   mModel->populateAllElementIdList();
   mODEs = deepCopyODEs(odes);
 }
@@ -112,6 +113,7 @@ ExpressionAnalyser::ExpressionAnalyser(const ExpressionAnalyser& orig) :
     mHiddenNodes(orig.mHiddenNodes)
 {
     SBMLTransforms::mapComponentValues(mModel);
+    if (mModel)
     mModel->populateAllElementIdList();
 }
 
@@ -131,6 +133,7 @@ ExpressionAnalyser::operator=(const ExpressionAnalyser& rhs)
     mHiddenNodes = rhs.mHiddenNodes;
   }
   SBMLTransforms::mapComponentValues(mModel);
+  if (mModel)
   mModel->populateAllElementIdList();
 
 

@@ -372,6 +372,11 @@ START_TEST(test_crash_converter)
   fail_unless(rule_rn_converter->convert() == LIBSBML_OPERATION_FAILED);
 
   delete doc;
+
+	// ensure that we dont crash on null document
+	rule_rn_converter->setDocument((SBMLDocument*)NULL);
+	fail_unless(rule_rn_converter->convert() == LIBSBML_INVALID_OBJECT);
+
 }
 END_TEST
 
@@ -716,6 +721,38 @@ START_TEST(test_rule_reaction_01)
 }
 END_TEST
 
+START_TEST(test_rule_reaction_01_boundaryCondition)
+{
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "valid_01_bio.xml";
+	SBMLDocument* d = readSBMLFromFile(reaction_file.c_str());
+
+	// convert to ode
+	auto prop = ConversionProperties();
+	prop.addOption("replaceReactions", true,
+		"Replace reactions with rateRules");
+	prop.addOption("rateRuleVariablesShouldBeParameters", false,
+		"make any species into parameters");
+
+	fail_unless(d->convert(prop) == LIBSBML_OPERATION_SUCCESS);
+
+	// ensure species is boundaryCondition (does not matter for ODEs)
+	// to test that convert back removes it
+	d->getModel()->getSpecies(0)->setBoundaryCondition(true);
+
+	// convert back
+	fail_unless(d->convert(rule_rn_props) == LIBSBML_OPERATION_SUCCESS);
+
+	std::string out = writeSBMLToStdString(d);
+
+	// species now can not have boundaryCondition true
+	fail_unless(!d->getModel()->getSpecies(0)->getBoundaryCondition() == true);
+
+	delete d;
+	
+}
+END_TEST
+
 START_TEST(test_rule_reaction_02)
 {
 	std::string raterule_file(TestDataDirectory);
@@ -1011,7 +1048,8 @@ Suite *suite = suite_create("SBMLRateRuleConverter");
 	  tcase_add_test(tcase, test_crash_converter); 
 	  //tcase_add_test(tcase, test_conversion_raterule_converter_hidden_variable);
 	  tcase_add_test(tcase, test_rule_reaction_01);
-	  tcase_add_test(tcase, test_rule_reaction_02);
+    tcase_add_test(tcase, test_rule_reaction_01_boundaryCondition);
+    tcase_add_test(tcase, test_rule_reaction_02);
 	  tcase_add_test(tcase, test_rule_reaction_03); 
 	  tcase_add_test(tcase, test_rule_reaction_04);
 	  tcase_add_test(tcase, test_rule_reaction_05);

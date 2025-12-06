@@ -256,7 +256,7 @@ SBMLRateRuleConverter::setDocument(const SBMLDocument* doc)
 {
     if (SBMLConverter::setDocument(doc) == LIBSBML_OPERATION_SUCCESS)
     {
-        if (mDocument != NULL)
+        if (mDocument != NULL && mDocument->getModel() != NULL)
         {
             mOriginalModel = mDocument->getModel()->clone();
             return LIBSBML_OPERATION_SUCCESS;
@@ -924,6 +924,10 @@ void
 SBMLRateRuleConverter::populateInitialODEinfo()
 {
     Model* model = mDocument->getModel();
+    if (model == NULL)
+    {
+        return;
+    }
 
     // Fages algo 3.6 create set O
     // create pairs of variables and their corresponding ODE
@@ -1277,10 +1281,18 @@ SBMLRateRuleConverter::removeRules()
 {
   for (unsigned int j = 0; j < mODEs.size(); ++j)
   {
-    Rule *rr = mDocument->getModel()->removeRuleByVariable(mODEs.at(j).first);
+		std::string variable = mODEs.at(j).first;
+    Rule *rr = mDocument->getModel()->removeRuleByVariable(variable);
     if (rr != NULL)
     {
       delete rr;
+    }
+
+    // ensure that if variable is species, the boundaryCondition is false
+    Species* s = mDocument->getModel()->getSpecies(variable);
+    if (s != NULL)
+    {
+      s->setBoundaryCondition(false);
     }
   }
 }
