@@ -990,6 +990,41 @@ START_TEST(test_convertRootToPower)
 END_TEST
 
 
+START_TEST(test_no_children)
+{
+  {
+    ASTNode n(ASTNodeType_t::AST_PLUS);
+    n.simplify();
+    // should be 0
+    fail_unless(n.getType() == ASTNodeType_t::AST_REAL);
+    fail_unless(n.getValue() == 0.0);
+  }
+
+  {
+    ASTNode n(ASTNodeType_t::AST_TIMES);
+    n.simplify();
+    // should be 1
+    fail_unless(n.getType() == ASTNodeType_t::AST_REAL);
+    fail_unless(n.getValue() == 1.0);
+  }
+
+  {
+    ASTNode n(ASTNodeType_t::AST_DIVIDE);
+    n.simplify();
+    // should not crash, remains DIVIDE with no children
+    fail_unless(n.getType() == ASTNodeType_t::AST_DIVIDE);
+  }
+
+
+  {
+    ASTNode n(ASTNodeType_t::AST_POWER);
+    n.simplify();
+    // should not crash, remains DIVIDE with no children
+    fail_unless(n.getType() == ASTNodeType_t::AST_POWER);
+  }
+}
+END_TEST
+
 Suite *
 create_suite_TestInferRnFunctions()
 {
@@ -1024,6 +1059,7 @@ create_suite_TestInferRnFunctions()
   tcase_add_test(tcase, test_simplify4);
   tcase_add_test(tcase, test_simplify5);
   tcase_add_test(tcase, test_simplify6);
+  tcase_add_test(tcase, test_no_children);
   tcase_add_test(tcase, test_convertRootToPower);
 
   suite_add_tcase(suite, tcase);
