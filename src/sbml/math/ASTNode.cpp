@@ -3899,6 +3899,42 @@ ASTNode::simplify()
     delete child;
   }
 
+  // special case, ensure we dont crash
+  if (numChildren == 0)
+  {
+    if (mType == AST_PLUS)
+    {
+      (*this) = *zero;
+
+      delete zero;
+      delete one;
+      delete two;
+
+      return;
+    }
+
+    if (mType == AST_TIMES)
+    {
+      (*this) = *one;
+
+      delete zero;
+      delete one;
+      delete two;
+
+      return;
+    }
+
+    if (mType == AST_POWER || mType == AST_DIVIDE || mType == AST_FUNCTION_POWER)
+    {
+      // dont crash
+      delete zero;
+      delete one;
+      delete two;
+
+      return;
+    }
+  }
+
   // if we have 1 * x * ... dont need 1
   if (mType == AST_TIMES && util_isEqual(getChild(0)->getValue(), 1.0))
   {
