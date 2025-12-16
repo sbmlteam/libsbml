@@ -363,21 +363,25 @@ SBMLRateRuleConverter::isDocumentAppropriate(OperationReturnValues_t& returnValu
   // 1. document is null or model is null
   if (mDocument == NULL)
   {
-    returnValue = LIBSBML_INVALID_OBJECT;
-    return false;
+      returnValue = LIBSBML_OPERATION_FAILED;
+      return false;
   }
   Model* mModel = mDocument->getModel();
   if (mModel == NULL)
   {
-    returnValue = LIBSBML_INVALID_OBJECT;
-    return false;
+      mDocument->getErrorLog()->logError(DocumentOrModelIsNull, mDocument->getLevel(),
+          mDocument->getVersion(), "The source document or model is null.");
+      returnValue = LIBSBML_OPERATION_FAILED;
+      return false;
   }
 
   // 2. there are no rate rules/already reactions/multiple compartments
   if (mModel->getNumRules() == 0)
   {
-    returnValue = LIBSBML_OPERATION_SUCCESS;
-    return false;
+      mDocument->getErrorLog()->logError(ModelContainsNoRateRules, mDocument->getLevel(),
+          mDocument->getVersion(), "There are no rate rules present.");
+      returnValue = LIBSBML_OPERATION_FAILED;
+      return false;
   }
   else
   {
@@ -393,27 +397,33 @@ SBMLRateRuleConverter::isDocumentAppropriate(OperationReturnValues_t& returnValu
     }
     if (!rateRule)
     {
-      returnValue = LIBSBML_OPERATION_SUCCESS;
-      return false;
+        mDocument->getErrorLog()->logError(ModelContainsNoRateRules, mDocument->getLevel(),
+            mDocument->getVersion(), "There are no rate rules present.");
+        returnValue = LIBSBML_OPERATION_FAILED;
+        return false;
     }
   }
 
   if (mModel->getNumReactions() > 0)
   {
-    returnValue = LIBSBML_OPERATION_SUCCESS;
-    return false;
+      mDocument->getErrorLog()->logError(ModelAlreadyContainsReactions, mDocument->getLevel(),
+          mDocument->getVersion(), "There are already reactions present.");
+      returnValue = LIBSBML_OPERATION_FAILED;
+      return false;
   }
 
   if (mModel->getNumCompartments() > 1)
   {
-    returnValue = LIBSBML_OPERATION_SUCCESS;
-    return false;
+      mDocument->getErrorLog()->logError(ModelContainsMultipleCompartments, mDocument->getLevel(),
+          mDocument->getVersion(), "There are multiple compartments.");
+      returnValue = LIBSBML_OPERATION_FAILED;
+      return false;
   }
 
   // 3. the document is invalid
   if (checkDocumentValidity() == false)
   {
-    returnValue = LIBSBML_CONV_INVALID_SRC_DOCUMENT;
+    returnValue = LIBSBML_OPERATION_FAILED;
     return false;
   }
 
