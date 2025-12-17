@@ -161,6 +161,8 @@ Enumerations</h2></td></tr>
 &#160;&#160;<a class="el" href="_s_b_m_l_error_8h.html#aec82216b5939329921fd2c6f00c62187ac1a41dcbf87502d2fc165061edbf5b16">LIBSBML_CAT_SBML_COMPATIBILITY</a>
 , <br />
 &#160;&#160;<a class="el" href="_s_b_m_l_error_8h.html#aec82216b5939329921fd2c6f00c62187a02b9fb9e825404638c3f60fe9d665679">LIBSBML_CAT_STRICT_UNITS_CONSISTENCY</a>
+, <br />
+&#160;&#160;<a class="el" href="_s_b_m_l_error_8h.html#aec82216b5939329921fd2c6f00c62187a6f5e8476a9ea557aedf9f51b99fc882a">LIBSBML_CAT_RATE_RULE_CONVERSION</a>
 <br />
  }</td></tr>
 <tr class="memdesc:aec82216b5939329921fd2c6f00c62187"><td class="mdescLeft">&#160;</td><td class="mdescRight">Category codes for <a class="el" href="class_s_b_m_l_error.html">SBMLError</a> diagnostics.  <a href="_s_b_m_l_error_8h.html#aec82216b5939329921fd2c6f00c62187">More...</a><br /></td></tr>
@@ -744,6 +746,14 @@ Enumerations</h2></td></tr>
 , <br />
 &#160;&#160;<a class="el" href="_s_b_m_l_error_8h.html#a64521d2629dd339aea5b194d546c3627a1a83c800e0e34d50f11f6b48756263be">CannotConvertToL1V1</a> = 90001
 , <br />
+&#160;&#160;<a class="el" href="_s_b_m_l_error_8h.html#a64521d2629dd339aea5b194d546c3627a445b99bb0c4818b13cc97ed8a90f8d53">DocumentOrModelIsNull</a> = 90101
+, <br />
+&#160;&#160;<a class="el" href="_s_b_m_l_error_8h.html#a64521d2629dd339aea5b194d546c3627a78742caa803c5057ac562446912c4f82">ModelContainsNoRateRules</a> = 90102
+, <br />
+&#160;&#160;<a class="el" href="_s_b_m_l_error_8h.html#a64521d2629dd339aea5b194d546c3627a9389a0fd9191f32020fd9eb324f087d0">ModelAlreadyContainsReactions</a> = 90103
+, <br />
+&#160;&#160;<a class="el" href="_s_b_m_l_error_8h.html#a64521d2629dd339aea5b194d546c3627a433248fdfcc404f6e86eecb8998d6bfa">ModelContainsMultipleCompartments</a> = 90104
+, <br />
 &#160;&#160;<a class="el" href="_s_b_m_l_error_8h.html#a64521d2629dd339aea5b194d546c3627a6c1b56b79e322b0382693241d9561236">NoEventsInL1</a> = 91001
 , <br />
 &#160;&#160;<a class="el" href="_s_b_m_l_error_8h.html#a64521d2629dd339aea5b194d546c3627abe69890e4cd787cac5a99dd5f7e01566">NoFunctionDefinitionsInL1</a> = 91002
@@ -1116,6 +1126,8 @@ Sarah Keating </dd></dl>
 <tr><td class="fieldname"><a id="aec82216b5939329921fd2c6f00c62187ac1a41dcbf87502d2fc165061edbf5b16" name="aec82216b5939329921fd2c6f00c62187ac1a41dcbf87502d2fc165061edbf5b16"></a>LIBSBML_CAT_SBML_COMPATIBILITY&#160;</td><td class="fielddoc"><p>Category of errors that can only occur during attempted translation from one Level/Version of SBML to another. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="aec82216b5939329921fd2c6f00c62187a02b9fb9e825404638c3f60fe9d665679" name="aec82216b5939329921fd2c6f00c62187a02b9fb9e825404638c3f60fe9d665679"></a>LIBSBML_CAT_STRICT_UNITS_CONSISTENCY&#160;</td><td class="fielddoc"><p>Category of errors that occur running the strict unit validator. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aec82216b5939329921fd2c6f00c62187a6f5e8476a9ea557aedf9f51b99fc882a" name="aec82216b5939329921fd2c6f00c62187a6f5e8476a9ea557aedf9f51b99fc882a"></a>LIBSBML_CAT_RATE_RULE_CONVERSION&#160;</td><td class="fielddoc"><p>Category of warnings about rate rule conversions </p>
 </td></tr>
 </table>
 
@@ -1726,6 +1738,14 @@ Other error code ranges are reserved for other packages.   </dd></dl>
 <tr><td class="fieldname"><a id="a64521d2629dd339aea5b194d546c3627adccf75d44c5f367be64fa13e91fd25cc" name="a64521d2629dd339aea5b194d546c3627adccf75d44c5f367be64fa13e91fd25cc"></a>LibSBMLAdditionalCodesLowerBound&#160;</td><td class="fielddoc"><p>Lower boundary of libSBML-specific diagnostic codes. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="a64521d2629dd339aea5b194d546c3627a1a83c800e0e34d50f11f6b48756263be" name="a64521d2629dd339aea5b194d546c3627a1a83c800e0e34d50f11f6b48756263be"></a>CannotConvertToL1V1&#160;</td><td class="fielddoc"><p>Cannot convert to SBML Level 1 Version 1. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a64521d2629dd339aea5b194d546c3627a445b99bb0c4818b13cc97ed8a90f8d53" name="a64521d2629dd339aea5b194d546c3627a445b99bb0c4818b13cc97ed8a90f8d53"></a>DocumentOrModelIsNull&#160;</td><td class="fielddoc"><p>The <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> or <a class="el" href="class_model.html">Model</a> pointer is null. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a64521d2629dd339aea5b194d546c3627a78742caa803c5057ac562446912c4f82" name="a64521d2629dd339aea5b194d546c3627a78742caa803c5057ac562446912c4f82"></a>ModelContainsNoRateRules&#160;</td><td class="fielddoc"><p>The model contains no rate rules. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a64521d2629dd339aea5b194d546c3627a9389a0fd9191f32020fd9eb324f087d0" name="a64521d2629dd339aea5b194d546c3627a9389a0fd9191f32020fd9eb324f087d0"></a>ModelAlreadyContainsReactions&#160;</td><td class="fielddoc"><p>The model already contains reactions. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a64521d2629dd339aea5b194d546c3627a433248fdfcc404f6e86eecb8998d6bfa" name="a64521d2629dd339aea5b194d546c3627a433248fdfcc404f6e86eecb8998d6bfa"></a>ModelContainsMultipleCompartments&#160;</td><td class="fielddoc"><p>The model contains multiple compartments. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="a64521d2629dd339aea5b194d546c3627a6c1b56b79e322b0382693241d9561236" name="a64521d2629dd339aea5b194d546c3627a6c1b56b79e322b0382693241d9561236"></a>NoEventsInL1&#160;</td><td class="fielddoc"><p>SBML Level 1 does not support events. </p>
 </td></tr>

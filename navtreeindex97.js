@@ -1,5 +1,10 @@
 var NAVTREEINDEX97 =
 {
+"class_list_of_gene_associations.html#aee8d8b8cb1ae5980d228174073fc5abc":[3,0,153,68],
+"class_list_of_gene_associations.html#aef0ea49f9a3ad67d72edb2c1cf92ad82":[3,0,153,123],
+"class_list_of_gene_associations.html#af0a70ab6f715e912c6431072c4339f2c":[3,0,153,44],
+"class_list_of_gene_associations.html#afe61eda7e799c5ed92eaf106c20f83dd":[3,0,153,16],
+"class_list_of_gene_associations.html#affcde1ad43dfb5ef45cf9e4aa308f8fd":[3,0,153,132],
 "class_list_of_gene_products.html":[3,0,154],
 "class_list_of_gene_products.html#a0143961ca5188d00203c99eef1de854e":[3,0,154,23],
 "class_list_of_gene_products.html#a027dbf22b8bf74bbb0ce5cd4453851c7":[3,0,154,51],
@@ -244,10 +249,5 @@ var NAVTREEINDEX97 =
 "class_list_of_geometry_definitions.html#a8a342a0f8387842fb6700c50c4c43344":[3,0,155,131],
 "class_list_of_geometry_definitions.html#a8c576e7dfaa4651bca4a782c9e09ac20":[3,0,155,85],
 "class_list_of_geometry_definitions.html#a8c6d9f2fe697fd3edb9563fe3687208c":[3,0,155,0],
-"class_list_of_geometry_definitions.html#a8e3e54c62bc34c720d96b421c9798dde":[3,0,155,90],
-"class_list_of_geometry_definitions.html#a8e455a93329e407b4b1d8ad307c95a22":[3,0,155,116],
-"class_list_of_geometry_definitions.html#a8ed6545c2fab20f6dc44ae0c282c4fbf":[3,0,155,87],
-"class_list_of_geometry_definitions.html#a90e4753ab8d4611987557b4d64129529":[3,0,155,60],
-"class_list_of_geometry_definitions.html#a9121d6a4f7401fe957cc75647a1e95ed":[3,0,155,145],
-"class_list_of_geometry_definitions.html#a933bafbd291a7639d73ab489968bc0a3":[3,0,155,115]
+"class_list_of_geometry_definitions.html#a8e3e54c62bc34c720d96b421c9798dde":[3,0,155,90]
 };
