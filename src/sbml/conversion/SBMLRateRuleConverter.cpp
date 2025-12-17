@@ -380,8 +380,8 @@ SBMLRateRuleConverter::isDocumentAppropriate(OperationReturnValues_t& returnValu
   {
       mDocument->getErrorLog()->logError(ModelContainsNoRateRules, mDocument->getLevel(),
           mDocument->getVersion(), "There are no rate rules present.");
-      returnValue = LIBSBML_OPERATION_FAILED;
-      return false;
+      returnValue = LIBSBML_OPERATION_SUCCESS;
+      return true;
   }
   else
   {
@@ -399,7 +399,7 @@ SBMLRateRuleConverter::isDocumentAppropriate(OperationReturnValues_t& returnValu
     {
         mDocument->getErrorLog()->logError(ModelContainsNoRateRules, mDocument->getLevel(),
             mDocument->getVersion(), "There are no rate rules present.");
-        returnValue = LIBSBML_OPERATION_FAILED;
+        returnValue = LIBSBML_OPERATION_SUCCESS;
         return false;
     }
   }

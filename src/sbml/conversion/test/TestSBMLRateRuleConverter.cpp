@@ -231,7 +231,7 @@ START_TEST(test_conversion_raterule_converter_invalid)
 
   rule_rn_converter->setDocument(doc);
 
-  fail_unless(rule_rn_converter->convert() == LIBSBML_OPERATION_FAILED);
+  fail_unless(rule_rn_converter->convert() == LIBSBML_OPERATION_SUCCESS);
 
   Parameter* parameter1 = model->createParameter();
   parameter1->setId("s");
@@ -1062,7 +1062,7 @@ START_TEST(test_converter_errors_1)
 
 	rule_rn_converter->setDocument(d);
 	int ret = rule_rn_converter->convert();
-	fail_unless(ret == LIBSBML_OPERATION_FAILED);
+	fail_unless(ret == LIBSBML_OPERATION_SUCCESS);
 	fail_unless(d->getNumErrors() == 1);
 	fail_unless(d->getError(0)->getErrorId() == 90102);
 	fail_unless(d->getError(0)->getCategory() == LIBSBML_CAT_RATE_RULE_CONVERSION);
@@ -1084,7 +1084,7 @@ START_TEST(test_converter_errors_2)
 
 	rule_rn_converter->setDocument(d);
 	int ret = rule_rn_converter->convert();
-	fail_unless(ret == LIBSBML_OPERATION_FAILED);
+    fail_unless(ret == LIBSBML_OPERATION_SUCCESS);
 	fail_unless(d->getNumErrors() == 1);
 	fail_unless(d->getError(0)->getErrorId() == 90102);
 	fail_unless(d->getError(0)->getCategory() == LIBSBML_CAT_RATE_RULE_CONVERSION);

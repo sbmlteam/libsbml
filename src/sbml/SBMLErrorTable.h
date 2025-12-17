@@ -8095,15 +8095,15 @@ static const sbmlErrorTableEntry errorTable[] =
     ModelContainsNoRateRules,
     "Model contains no rate rules",
     LIBSBML_CAT_RATE_RULE_CONVERSION,
-    LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
     "The model contains no rate rules and so cannot be converted to reactions.",
     {"",
      "",
@@ -8115,7 +8115,7 @@ static const sbmlErrorTableEntry errorTable[] =
      ""}
    },
 
-   //90103
+   //90103S.NESSTALENT SLEEP
   {
     ModelAlreadyContainsReactions,
     "Model already contains reactions",
