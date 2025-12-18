@@ -2468,9 +2468,29 @@ setValue(value, 0);
   ASTNode* derivativeExp(const std::string& variable);
   ASTNode* derivativeAbs(const std::string& variable);
   ASTNode* derivativeArccos(const std::string& variable);
-  ASTNode* derivativeArcsin(const std::string& variable);
   ASTNode* derivativeArctan(const std::string& variable);
-
+  ASTNode* derivativeArcsin(const std::string& variable);
+  ASTNode* derivativeSin(const std::string& variable);
+  ASTNode* derivativeCos(const std::string& variable);
+  ASTNode* derivativeTan(const std::string& variable);
+  ASTNode* derivativeCosh(const std::string& variable);
+  ASTNode* derivativeCot(const std::string& variable);
+  ASTNode* derivativeArcsinh(const std::string& variable);
+  ASTNode* derivativeArccosh(const std::string& variable);
+  ASTNode* derivativeArctanh(const std::string& variable);
+  ASTNode* derivativeArccot(const std::string& variable);
+  ASTNode* derivativeArcsec(const std::string& variable);
+  ASTNode* derivativeArccsc(const std::string& variable);
+  ASTNode* derivativeArccoth(const std::string& variable);
+  ASTNode* derivativeArcsech(const std::string& variable);
+  ASTNode* derivativeArccsch(const std::string& variable);
+  ASTNode* derivativeSinh(const std::string& variable);
+  ASTNode* derivativeTanh(const std::string& variable);
+  ASTNode* derivativeCoth(const std::string& variable);
+  ASTNode* derivativeSech(const std::string& variable);
+  ASTNode* derivativeCsch(const std::string& variable);
+  ASTNode* derivativeSec(const std::string& variable);
+  ASTNode* derivativeCsc(const std::string& variable);
   /*
   * produce three vectors of the child index of the ASTNodes
   * numbers : any nodes representing just a number

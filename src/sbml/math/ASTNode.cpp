@@ -4374,15 +4374,78 @@ ASTNode::derivative(const std::string& variable)
     case AST_FUNCTION_ABS:
       derivative = derivativeAbs(variable);
       break;
+    case AST_FUNCTION_ARCSIN:
+      derivative = derivativeArcsin(variable);
+      break;
     case AST_FUNCTION_ARCCOS:
       derivative = derivativeArccos(variable);
       break;
-    case AST_FUNCTION_ARCSIN:
-      derivative = derivativeArcsin(variable);  
-      break;
     case AST_FUNCTION_ARCTAN:
-      derivative = derivativeArctan(variable);  
-      break;  
+      derivative = derivativeArctan(variable);
+      break;
+    case AST_FUNCTION_SIN:
+      derivative = derivativeSin(variable);
+      break;
+    case AST_FUNCTION_COS:
+      derivative = derivativeCos(variable);
+      break;
+    case AST_FUNCTION_TAN:
+      derivative = derivativeTan(variable);
+      break;
+    case AST_FUNCTION_COT:
+      derivative = derivativeCot(variable);
+      break;
+    case AST_FUNCTION_SEC:
+      derivative = derivativeSec(variable);
+      break;
+    case AST_FUNCTION_CSC:
+      derivative = derivativeCsc(variable);
+      break;
+    case AST_FUNCTION_SINH:
+      derivative = derivativeSinh(variable);
+      break;
+    case AST_FUNCTION_COSH:
+      derivative = derivativeCosh(variable);
+      break;
+    case AST_FUNCTION_TANH:
+      derivative = derivativeTanh(variable);
+      break;
+    case AST_FUNCTION_COTH:
+      derivative = derivativeCoth(variable);
+      break;
+    case AST_FUNCTION_SECH:
+      derivative = derivativeSech(variable);
+      break;
+    case AST_FUNCTION_CSCH:
+      derivative = derivativeCsch(variable);
+      break;
+    case AST_FUNCTION_ARCSINH:
+      derivative = derivativeArcsinh(variable);
+      break;
+    case AST_FUNCTION_ARCCOSH:
+      derivative = derivativeArccosh(variable);
+      break;
+    case AST_FUNCTION_ARCTANH:
+      derivative = derivativeArctanh(variable);
+      break;
+    case AST_FUNCTION_ARCCOT:
+      derivative = derivativeArccot(variable);
+      break;
+    case AST_FUNCTION_ARCSEC:
+      derivative = derivativeArcsec(variable);
+      break;
+    case AST_FUNCTION_ARCCSC:
+      derivative = derivativeArccsc(variable);
+      break;
+    case AST_FUNCTION_ARCCOTH:
+      derivative = derivativeArccoth(variable);
+      break;
+    case AST_FUNCTION_ARCSECH:
+      derivative = derivativeArcsech(variable);
+      break;
+    case AST_FUNCTION_ARCCSCH:
+      derivative = derivativeArccsch(variable);
+      break;
 
     default:
       break;
@@ -4392,11 +4455,10 @@ ASTNode::derivative(const std::string& variable)
   delete zero;
   delete copy;
   return derivative;
-
 }
 
-ASTNode*
-ASTNode::derivativePlus(const std::string& variable)
+ASTNode *
+ASTNode::derivativePlus(const std::string &variable)
 {
   ASTNode *copy = deepCopy();
   copy->decompose();
@@ -4404,10 +4466,10 @@ ASTNode::derivativePlus(const std::string& variable)
   zero->setValue(0.0);
 
   // d (A + B)/dx = dA/dx + dB/dx
-  ASTNode * derivative = new ASTNode(AST_PLUS);
+  ASTNode *derivative = new ASTNode(AST_PLUS);
   for (unsigned int n = 0; n < copy->getNumChildren(); ++n)
   {
-    ASTNode* child_der = copy->getChild(n)->derivative(variable);
+    ASTNode *child_der = copy->getChild(n)->derivative(variable);
     if (child_der && !(child_der->exactlyEqual(*zero)))
     {
       derivative->addChild(child_der->deepCopy());
@@ -4421,19 +4483,18 @@ ASTNode::derivativePlus(const std::string& variable)
   return derivative;
 }
 
-
-ASTNode*
-ASTNode::derivativeMinus(const std::string& variable)
+ASTNode *
+ASTNode::derivativeMinus(const std::string &variable)
 {
   ASTNode *copy = deepCopy();
   copy->decompose();
   ASTNode *zero = new ASTNode(AST_REAL);
   zero->setValue(0.0);
-  ASTNode * derivative = NULL;
+  ASTNode *derivative = NULL;
 
   // d (A - B)/dx = dA/dx - dB/dx
-  ASTNode* child_derA = copy->getChild(0)->derivative(variable);
-  ASTNode* child_derB = copy->getChild(1)->derivative(variable);
+  ASTNode *child_derA = copy->getChild(0)->derivative(variable);
+  ASTNode *child_derB = copy->getChild(1)->derivative(variable);
   if (!child_derB || child_derB->exactlyEqual(*zero))
   {
     derivative = child_derA->deepCopy();
@@ -4459,21 +4520,21 @@ ASTNode::derivativeMinus(const std::string& variable)
   return derivative;
 }
 
-ASTNode*
-ASTNode::derivativeTimes(const std::string& variable)
+ASTNode *
+ASTNode::derivativeTimes(const std::string &variable)
 {
   ASTNode *copy = this->deepCopy();
   copy->decompose();
   copy->reduceToBinary();
   ASTNode *zero = new ASTNode(AST_REAL);
   zero->setValue(0.0);
-  ASTNode * derivative = NULL;
-  ASTNode * term1 = NULL;
-  ASTNode * term2 = NULL;
+  ASTNode *derivative = NULL;
+  ASTNode *term1 = NULL;
+  ASTNode *term2 = NULL;
 
   // d(A*B)/dx = B * dA/dx + A * dB/dx
-  ASTNode* child_derA = copy->getChild(0)->derivative(variable);
-  ASTNode* child_derB = copy->getChild(1)->derivative(variable);
+  ASTNode *child_derA = copy->getChild(0)->derivative(variable);
+  ASTNode *child_derB = copy->getChild(1)->derivative(variable);
   if (!child_derB || child_derB->exactlyEqual(*zero))
   {
     derivative = new ASTNode(AST_TIMES);
@@ -4495,11 +4556,10 @@ ASTNode::derivativeTimes(const std::string& variable)
     term2 = new ASTNode(AST_TIMES);
     term2->addChild(copy->getChild(0)->deepCopy());
     term2->addChild(child_derB->deepCopy());
-    
+
     derivative = new ASTNode(AST_PLUS);
     derivative->addChild(term1->deepCopy());
     derivative->addChild(term2->deepCopy());
-
   }
 
   derivative->decompose();
@@ -4513,8 +4573,8 @@ ASTNode::derivativeTimes(const std::string& variable)
   return derivative;
 }
 
-ASTNode*
-ASTNode::derivativeDivide(const std::string& variable)
+ASTNode *
+ASTNode::derivativeDivide(const std::string &variable)
 {
   ASTNode *copy = deepCopy();
   copy->decompose();
@@ -4522,18 +4582,18 @@ ASTNode::derivativeDivide(const std::string& variable)
   zero->setValue(0.0);
   ASTNode *two = new ASTNode(AST_REAL);
   two->setValue(2.0);
-  ASTNode * derivative = NULL;
-  ASTNode * nominator = NULL;
-  ASTNode * term1 = NULL;
-  ASTNode * term2 = NULL;
+  ASTNode *derivative = NULL;
+  ASTNode *nominator = NULL;
+  ASTNode *term1 = NULL;
+  ASTNode *term2 = NULL;
 
   // d(A/B)/dx = (B * dA/dx - A * dB/dx)/B^2
   ASTNode *denominator = new ASTNode(AST_POWER);
   denominator->addChild(copy->getChild(1)->deepCopy());
   denominator->addChild(two->deepCopy());
 
-  ASTNode* child_derA = copy->getChild(0)->derivative(variable);
-  ASTNode* child_derB = copy->getChild(1)->derivative(variable);
+  ASTNode *child_derA = copy->getChild(0)->derivative(variable);
+  ASTNode *child_derB = copy->getChild(1)->derivative(variable);
   if (child_derB && child_derB->exactlyEqual(*zero))
   {
     nominator = new ASTNode(AST_TIMES);
@@ -4545,7 +4605,7 @@ ASTNode::derivativeDivide(const std::string& variable)
     term1 = new ASTNode(AST_TIMES);
     term1->addChild(copy->getChild(0)->deepCopy());
     term1->addChild(child_derB->deepCopy());
-    
+
     nominator = new ASTNode(AST_MINUS);
     nominator->addChild(term1->deepCopy());
   }
@@ -4560,25 +4620,25 @@ ASTNode::derivativeDivide(const std::string& variable)
   }
   else if (child_derB == NULL)
   {
-      term1 = new ASTNode(AST_TIMES);
-      term1->addChild(copy->getChild(1)->deepCopy());
-      term1->addChild(child_derA->deepCopy());
+    term1 = new ASTNode(AST_TIMES);
+    term1->addChild(copy->getChild(1)->deepCopy());
+    term1->addChild(child_derA->deepCopy());
 
-      nominator = term1->deepCopy();
+    nominator = term1->deepCopy();
   }
   else
   {
-      term1 = new ASTNode(AST_TIMES);
-      term1->addChild(copy->getChild(1)->deepCopy());
-      term1->addChild(child_derA->deepCopy());
+    term1 = new ASTNode(AST_TIMES);
+    term1->addChild(copy->getChild(1)->deepCopy());
+    term1->addChild(child_derA->deepCopy());
 
-      term2 = new ASTNode(AST_TIMES);
-      term2->addChild(copy->getChild(0)->deepCopy());
-      term2->addChild(child_derB->deepCopy());
+    term2 = new ASTNode(AST_TIMES);
+    term2->addChild(copy->getChild(0)->deepCopy());
+    term2->addChild(child_derB->deepCopy());
 
-      nominator = new ASTNode(AST_MINUS);
-      nominator->addChild(term1->deepCopy());
-      nominator->addChild(term2->deepCopy());
+    nominator = new ASTNode(AST_MINUS);
+    nominator->addChild(term1->deepCopy());
+    nominator->addChild(term2->deepCopy());
   }
 
   derivative = new ASTNode(AST_DIVIDE);
@@ -4599,8 +4659,8 @@ ASTNode::derivativeDivide(const std::string& variable)
   return derivative;
 }
 
-ASTNode*
-ASTNode::derivativePower(const std::string& variable)
+ASTNode *
+ASTNode::derivativePower(const std::string &variable)
 {
   ASTNode *copy = deepCopy();
   copy->decompose();
@@ -4608,12 +4668,12 @@ ASTNode::derivativePower(const std::string& variable)
   ASTNode *mult = new ASTNode(AST_REAL);
   ASTNode *power = new ASTNode(AST_POWER);
 
-  ASTNode * derivative = NULL;
+  ASTNode *derivative = NULL;
 
   // dA^n/dx where n is number = nA^(n-1)
   if (copy->getChild(1)->isNumber())
-  { 
-    ASTNode* A = copy->getChild(0);
+  {
+    ASTNode *A = copy->getChild(0);
     double n = copy->getChild(1)->getValue();
     exp->setValue(n - 1);
     power->addChild(A->deepCopy());
@@ -4635,307 +4695,1328 @@ ASTNode::derivativePower(const std::string& variable)
   return derivative;
 }
 
-ASTNode*
-ASTNode::derivativeLog(const std::string& variable)
+ASTNode *
+ASTNode::derivativeLog(const std::string &variable)
 {
   ASTNode *copy = deepCopy();
   copy->decompose();
-  ASTNode * derivative = NULL;
+  ASTNode *derivative = NULL;
 
-  //d(log(base, x)/dx = 1/(ln(base) * x)
-  //d(log(base,A)/dx = dA/dx / (ln(base) *A)
+  // d(log(base, x)/dx = 1/(ln(base) * x)
+  // d(log(base,A)/dx = dA/dx / (ln(base) *A)
 
   // in log function child0 is base
   if (getChild(1)->derivative(variable) != NULL)
   {
-      ASTNode* ln = new ASTNode(AST_FUNCTION_LN);
-      ASTNode* number = new ASTNode(AST_REAL);
-      number->setValue((double)(copy->getChild(0)->getValue()));
-      ln->addChild(number->deepCopy());
+    ASTNode *ln = new ASTNode(AST_FUNCTION_LN);
+    ASTNode *number = new ASTNode(AST_REAL);
+    number->setValue((double)(copy->getChild(0)->getValue()));
+    ln->addChild(number->deepCopy());
 
-      ASTNode* times = new ASTNode(AST_TIMES);
-      times->addChild(ln->deepCopy());
-      times->addChild(copy->getChild(1)->deepCopy());
+    ASTNode *times = new ASTNode(AST_TIMES);
+    times->addChild(ln->deepCopy());
+    times->addChild(copy->getChild(1)->deepCopy());
 
-      derivative = new ASTNode(AST_DIVIDE);
-      derivative->addChild(getChild(1)->derivative(variable));
-      derivative->addChild(times->deepCopy());
+    derivative = new ASTNode(AST_DIVIDE);
+    derivative->addChild(getChild(1)->derivative(variable));
+    derivative->addChild(times->deepCopy());
 
+    derivative->decompose();
 
-      derivative->decompose();
-
-
-      delete number;
-      delete ln;
-      delete times;
+    delete number;
+    delete ln;
+    delete times;
   }
   delete copy;
   return derivative;
 }
 
-ASTNode*
-ASTNode::derivativeLn(const std::string& variable)
+ASTNode *
+ASTNode::derivativeLn(const std::string &variable)
 {
   ASTNode *copy = deepCopy();
   copy->decompose();
-  ASTNode * derivative = NULL;
+  ASTNode *derivative = NULL;
 
-  //d(ln(x)/dx = 1/(x)
-  //d(ln(A)/dx = dA/dx / (A)
-  
+  // d(ln(x)/dx = 1/(x)
+  // d(ln(A)/dx = dA/dx / (A)
+
   if (getChild(0)->derivative(variable) != NULL)
   {
+    derivative = new ASTNode(AST_DIVIDE);
+    derivative->addChild(getChild(0)->derivative(variable));
+    derivative->addChild(getChild(0)->deepCopy());
+
+    derivative->decompose();
+  }
+  delete copy;
+  return derivative;
+}
+
+ASTNode *
+ASTNode::derivativeExp(const std::string &variable)
+{
+  ASTNode *copy = deepCopy();
+  copy->decompose();
+  ASTNode *derivative = NULL;
+
+  // d(exp(x)/dx = exp(x)
+  // d(exp(A)/dx = dA/dx * exp(A)
+
+  if (getChild(0)->derivative(variable) != NULL)
+  {
+    derivative = new ASTNode(AST_TIMES);
+    derivative->addChild(getChild(0)->derivative(variable));
+    derivative->addChild(copy->deepCopy());
+
+    derivative->decompose();
+  }
+  delete copy;
+  return derivative;
+}
+
+ASTNode *
+ASTNode::derivativeAbs(const std::string &variable)
+{
+  ASTNode *copy = deepCopy();
+  copy->decompose();
+  ASTNode *derivative = NULL;
+  ASTNode *one = new ASTNode(AST_REAL);
+  one->setValue(1.0);
+  ASTNode *divide = new ASTNode(AST_DIVIDE);
+
+  // d(abs(x)/dx = x/abs(x)
+  // d(abs(A)/dx = dA/dx * (A/abs(A))
+
+  if (getChild(0)->derivative(variable) != NULL)
+  {
+    if (getChild(0)->derivative(variable)->exactlyEqual(*one))
+    {
       derivative = new ASTNode(AST_DIVIDE);
-      derivative->addChild(getChild(0)->derivative(variable));
       derivative->addChild(getChild(0)->deepCopy());
-
-
-      derivative->decompose();
-  }
-  delete copy;
-  return derivative;
-}
-
-ASTNode*
-ASTNode::derivativeExp(const std::string& variable)
-{
-  ASTNode *copy = deepCopy();
-  copy->decompose();
-  ASTNode * derivative = NULL;
-
-  //d(exp(x)/dx = exp(x)
-  //d(exp(A)/dx = dA/dx * exp(A)
-
-  if (getChild(0)->derivative(variable) != NULL)
-  {
-      derivative = new ASTNode(AST_TIMES);
-      derivative->addChild(getChild(0)->derivative(variable));
       derivative->addChild(copy->deepCopy());
 
       derivative->decompose();
+    }
+    else
+    {
+      derivative = new ASTNode(AST_TIMES);
+
+      divide->addChild(getChild(0)->deepCopy());
+      divide->addChild(copy->deepCopy());
+
+      derivative->addChild(getChild(0)->derivative(variable)->deepCopy());
+      derivative->addChild(divide->deepCopy());
+
+      derivative->decompose();
+    }
   }
   delete copy;
+  delete one;
+  delete divide;
   return derivative;
 }
 
-
-ASTNode*
-ASTNode::derivativeAbs(const std::string& variable)
+ASTNode *
+ASTNode::derivativeArccos(const std::string &variable)
 {
-    ASTNode* copy = deepCopy();
-    copy->decompose();
-    ASTNode* derivative = NULL;
-    ASTNode* one = new ASTNode(AST_REAL);
-    one->setValue(1.0);
-    ASTNode* divide = new ASTNode(AST_DIVIDE);
 
-     //d(abs(x)/dx = x/abs(x)
-    //d(abs(A)/dx = dA/dx * (A/abs(A))
+  ASTNode *copy = deepCopy();
+  copy->decompose();
+  ASTNode *derivative = NULL;
+  ASTNode *minusOne = new ASTNode(AST_REAL);
+  minusOne->setValue(-1.0);
+  ASTNode *two = new ASTNode(AST_REAL);
+  two->setValue(2.0);
+  ASTNode *one = new ASTNode(AST_REAL);
+  one->setValue(1.0);
+  ASTNode *minus_half = new ASTNode(AST_REAL);
+  minus_half->setValue(-0.5);
 
-    if (getChild(0)->derivative(variable) != NULL)
-    {
-        if (getChild(0)->derivative(variable)->exactlyEqual(*one))
-        {
-            derivative = new ASTNode(AST_DIVIDE);
-            derivative->addChild(getChild(0)->deepCopy());
-            derivative->addChild(copy->deepCopy());
+  ASTNode *sqrt = new ASTNode(AST_FUNCTION_POWER);
+  ASTNode *bracket_minus = new ASTNode(AST_MINUS);
 
-            derivative->decompose();
-        }
-        else
-        {
-			derivative = new ASTNode(AST_TIMES);
+  // d(arccos(x)/dx = -1/sqrt(1-x^2)
+  // d(arccos(A)/dx = dA/dx * -1/sqrt(1-A^2)
 
-            divide->addChild(getChild(0)->deepCopy());
-			divide->addChild(copy->deepCopy());
+  ASTNode *derivA = getChild(0)->derivative(variable);
 
-			derivative->addChild(getChild(0)->derivative(variable)->deepCopy());
-			derivative->addChild(divide->deepCopy());
+  if (derivA != NULL)
+  {
+    ASTNode *Asquared = new ASTNode(AST_POWER);
+    Asquared->addChild(getChild(0)->deepCopy());
+    Asquared->addChild(two->deepCopy());
 
-            derivative->decompose();
-        }
-    }
-    delete copy;
-	delete one;
-	delete divide;
-    return derivative;
+    bracket_minus->addChild(one->deepCopy());
+    bracket_minus->addChild(Asquared->deepCopy());
+
+    sqrt->addChild(bracket_minus->deepCopy());
+    sqrt->addChild(minus_half->deepCopy());
+
+    derivative = new ASTNode(AST_TIMES);
+    derivative->addChild(derivA->deepCopy());
+    derivative->addChild(minusOne->deepCopy());
+    derivative->addChild(sqrt->deepCopy());
+
+    derivative->decompose();
+
+    delete Asquared;
+  }
+  delete copy;
+  delete minusOne;
+  delete two;
+  delete bracket_minus;
+  delete minus_half;
+  delete one;
+  delete derivA;
+  return derivative;
+}
+
+ASTNode *
+ASTNode::derivativeArccosh(const std::string &variable)
+
+{
+
+  ASTNode *copy = deepCopy();
+  copy->decompose();
+  ASTNode *derivative = NULL;
+  ASTNode *two = new ASTNode(AST_REAL);
+  two->setValue(2.0);
+  ASTNode *one = new ASTNode(AST_REAL);
+  one->setValue(1.0);
+  ASTNode *minus_half = new ASTNode(AST_REAL);
+  minus_half->setValue(-0.5);
+
+  ASTNode *sqrt = new ASTNode(AST_FUNCTION_POWER);
+  ASTNode *bracket_minus = new ASTNode(AST_MINUS);
+
+  // d(arccosh(x)/dx = 1/sqrt(x^2-1)
+  // d(arccosh(A)/dx = dA/dx * 1/sqrt(A^2-1)
+
+  ASTNode *derivA = getChild(0)->derivative(variable);
+
+  if (derivA != NULL)
+  {
+    ASTNode *Asquared = new ASTNode(AST_POWER);
+    Asquared->addChild(getChild(0)->deepCopy());
+    Asquared->addChild(two->deepCopy());
+
+    bracket_minus->addChild(Asquared->deepCopy());
+    bracket_minus->addChild(one->deepCopy());
+
+    sqrt->addChild(bracket_minus->deepCopy());
+    sqrt->addChild(minus_half->deepCopy());
+
+    derivative = new ASTNode(AST_TIMES);
+    derivative->addChild(derivA->deepCopy());
+    derivative->addChild(sqrt->deepCopy());
+
+    derivative->decompose();
+
+    delete Asquared;
+  }
+  delete copy;
+  delete two;
+  delete bracket_minus;
+  delete minus_half;
+  delete one;
+  delete derivA;
+  return derivative;
+}
+
+ASTNode *
+ASTNode::derivativeArccot(const std::string &variable)
+
+{
+
+  ASTNode *copy = deepCopy();
+  copy->decompose();
+  ASTNode *derivative = NULL;
+  ASTNode *two = new ASTNode(AST_REAL);
+  two->setValue(2.0);
+  ASTNode *one = new ASTNode(AST_REAL);
+  one->setValue(1.0);
+  ASTNode *minusOne = new ASTNode(AST_REAL);
+  minusOne->setValue(-1.0);
+  ASTNode *minus_one = new ASTNode(AST_REAL);
+  minus_one->setValue(-1.0);
+
+  ASTNode *power = new ASTNode(AST_FUNCTION_POWER);
+  ASTNode *bracket_plus = new ASTNode(AST_PLUS);
+
+  // d(arccot(x)/dx = -1/(1+x^2)
+  // d(arccot(A)/dx = dA/dx * -1/(1+A^2)
+
+  ASTNode *derivA = getChild(0)->derivative(variable);
+
+  if (derivA != NULL)
+  {
+    ASTNode *Asquared = new ASTNode(AST_POWER);
+    Asquared->addChild(getChild(0)->deepCopy());
+    Asquared->addChild(two->deepCopy());
+
+    bracket_plus->addChild(one->deepCopy());
+    bracket_plus->addChild(Asquared->deepCopy());
+
+    power->addChild(bracket_plus->deepCopy());
+    power->addChild(minus_one->deepCopy());
+
+    derivative = new ASTNode(AST_TIMES);
+    derivative->addChild(derivA->deepCopy());
+    derivative->addChild(minusOne->deepCopy());
+    derivative->addChild(power->deepCopy());
+
+    derivative->decompose();
+
+    delete Asquared;
+  }
+  delete copy;
+  delete two;
+  delete one;
+  delete minusOne;
+  delete minus_one;
+  delete bracket_plus;
+  delete power;
+  delete derivA;
+  return derivative;
+}
+
+ASTNode *
+ASTNode::derivativeArccoth(const std::string &variable)
+
+{
+
+  ASTNode *copy = deepCopy();
+  copy->decompose();
+  ASTNode *derivative = NULL;
+  ASTNode *two = new ASTNode(AST_REAL);
+  two->setValue(2.0);
+  ASTNode *one = new ASTNode(AST_REAL);
+  one->setValue(1.0);
+  ASTNode *minus_one = new ASTNode(AST_REAL);
+  minus_one->setValue(-1.0);
+
+  ASTNode *power = new ASTNode(AST_FUNCTION_POWER);
+  ASTNode *bracket_minus = new ASTNode(AST_MINUS);
+
+  // d(arccoth(x)/dx = 1/(1-x^2)
+  // d(arccoth(A)/dx = dA/dx * 1/(1-A^2)
+
+  ASTNode *derivA = getChild(0)->derivative(variable);
+
+  if (derivA != NULL)
+  {
+    ASTNode *Asquared = new ASTNode(AST_POWER);
+    Asquared->addChild(getChild(0)->deepCopy());
+    Asquared->addChild(two->deepCopy());
+
+    bracket_minus->addChild(one->deepCopy());
+    bracket_minus->addChild(Asquared->deepCopy());
+
+    power->addChild(bracket_minus->deepCopy());
+    power->addChild(minus_one->deepCopy());
+
+    derivative = new ASTNode(AST_TIMES);
+    derivative->addChild(derivA->deepCopy());
+    derivative->addChild(power->deepCopy());
+
+    derivative->decompose();
+
+    delete Asquared;
+  }
+  delete copy;
+  delete two;
+  delete one;
+  delete minus_one;
+  delete bracket_minus;
+  delete power;
+  delete derivA;
+  return derivative;
+}
+
+ASTNode *
+ASTNode::derivativeArccsc(const std::string &variable)
+
+{
+
+  ASTNode *copy = deepCopy();
+  copy->decompose();
+  ASTNode *derivative = NULL;
+  ASTNode *two = new ASTNode(AST_REAL);
+  two->setValue(2.0);
+  ASTNode *one = new ASTNode(AST_REAL);
+  one->setValue(1.0);
+  ASTNode *minusOne = new ASTNode(AST_REAL);
+  minusOne->setValue(-1.0);
+  ASTNode *minus_half = new ASTNode(AST_REAL);
+  minus_half->setValue(-0.5);
+  ASTNode *minus_one = new ASTNode(AST_REAL);
+  minus_one->setValue(-1.0);
+
+  ASTNode *sqrt = new ASTNode(AST_FUNCTION_POWER);
+  ASTNode *bracket_minus = new ASTNode(AST_MINUS);
+  ASTNode *Apower = new ASTNode(AST_FUNCTION_POWER);
+
+  // d(arccsc(x)/dx = -1/(x*sqrt(x^2-1))
+  // d(arccsc(A)/dx = dA/dx * -1/(A*sqrt(A^2-1))
+
+  ASTNode *derivA = getChild(0)->derivative(variable);
+
+  if (derivA != NULL)
+  {
+    ASTNode *Asquared = new ASTNode(AST_POWER);
+    Asquared->addChild(getChild(0)->deepCopy());
+    Asquared->addChild(two->deepCopy());
+
+    bracket_minus->addChild(Asquared->deepCopy());
+    bracket_minus->addChild(one->deepCopy());
+
+    sqrt->addChild(bracket_minus->deepCopy());
+    sqrt->addChild(minus_half->deepCopy());
+
+    Apower->addChild(getChild(0)->deepCopy());
+    Apower->addChild(minus_one->deepCopy());
+
+    derivative = new ASTNode(AST_TIMES);
+    derivative->addChild(derivA->deepCopy());
+    derivative->addChild(minusOne->deepCopy());
+    derivative->addChild(Apower->deepCopy());
+    derivative->addChild(sqrt->deepCopy());
+
+    derivative->decompose();
+
+    delete Asquared;
+  }
+  delete copy;
+  delete two;
+  delete one;
+  delete minusOne;
+  delete bracket_minus;
+  delete minus_half;
+  delete minus_one;
+  delete Apower;
+  delete derivA;
+  return derivative;
+}
+
+ASTNode *
+ASTNode::derivativeArccsch(const std::string &variable)
+
+{
+
+  ASTNode *copy = deepCopy();
+  copy->decompose();
+  ASTNode *derivative = NULL;
+  ASTNode *two = new ASTNode(AST_REAL);
+  two->setValue(2.0);
+  ASTNode *one = new ASTNode(AST_REAL);
+  one->setValue(1.0);
+  ASTNode *minusOne = new ASTNode(AST_REAL);
+  minusOne->setValue(-1.0);
+  ASTNode *minus_half = new ASTNode(AST_REAL);
+  minus_half->setValue(-0.5);
+  ASTNode *minus_one = new ASTNode(AST_REAL);
+  minus_one->setValue(-1.0);
+
+  ASTNode *sqrt = new ASTNode(AST_FUNCTION_POWER);
+  ASTNode *bracket_plus = new ASTNode(AST_PLUS);
+  ASTNode *Apower = new ASTNode(AST_FUNCTION_POWER);
+
+  // d(arccsch(x)/dx = -1/(x*sqrt(1+x^2))
+  // d(arccsch(A)/dx = dA/dx * -1/(A*sqrt(1+A^2))
+
+  ASTNode *derivA = getChild(0)->derivative(variable);
+
+  if (derivA != NULL)
+  {
+    ASTNode *Asquared = new ASTNode(AST_POWER);
+    Asquared->addChild(getChild(0)->deepCopy());
+    Asquared->addChild(two->deepCopy());
+
+    bracket_plus->addChild(one->deepCopy());
+    bracket_plus->addChild(Asquared->deepCopy());
+
+    sqrt->addChild(bracket_plus->deepCopy());
+    sqrt->addChild(minus_half->deepCopy());
+
+    Apower->addChild(getChild(0)->deepCopy());
+    Apower->addChild(minus_one->deepCopy());
+
+    derivative = new ASTNode(AST_TIMES);
+    derivative->addChild(derivA->deepCopy());
+    derivative->addChild(minusOne->deepCopy());
+    derivative->addChild(Apower->deepCopy());
+    derivative->addChild(sqrt->deepCopy());
+
+    derivative->decompose();
+
+    delete Asquared;
+  }
+  delete copy;
+  delete two;
+  delete one;
+  delete minusOne;
+  delete bracket_plus;
+  delete minus_half;
+  delete minus_one;
+  delete Apower;
+  delete derivA;
+  return derivative;
+}
+
+ASTNode *
+ASTNode::derivativeArcsec(const std::string &variable)
+
+{
+
+  ASTNode *copy = deepCopy();
+  copy->decompose();
+  ASTNode *derivative = NULL;
+  ASTNode *two = new ASTNode(AST_REAL);
+  two->setValue(2.0);
+  ASTNode *one = new ASTNode(AST_REAL);
+  one->setValue(1.0);
+  ASTNode *minus_half = new ASTNode(AST_REAL);
+  minus_half->setValue(-0.5);
+  ASTNode *minus_one = new ASTNode(AST_REAL);
+  minus_one->setValue(-1.0);
+
+  ASTNode *sqrt = new ASTNode(AST_FUNCTION_POWER);
+  ASTNode *bracket_minus = new ASTNode(AST_MINUS);
+  ASTNode *Apower = new ASTNode(AST_FUNCTION_POWER);
+
+  // d(arcsec(x)/dx = 1/(x*sqrt(x^2-1))
+  // d(arcsec(A)/dx = dA/dx * 1/(A*sqrt(A^2-1))
+
+  ASTNode *derivA = getChild(0)->derivative(variable);
+
+  if (derivA != NULL)
+  {
+    ASTNode *Asquared = new ASTNode(AST_POWER);
+    Asquared->addChild(getChild(0)->deepCopy());
+    Asquared->addChild(two->deepCopy());
+
+    bracket_minus->addChild(Asquared->deepCopy());
+    bracket_minus->addChild(one->deepCopy());
+
+    sqrt->addChild(bracket_minus->deepCopy());
+    sqrt->addChild(minus_half->deepCopy());
+
+    Apower->addChild(getChild(0)->deepCopy());
+    Apower->addChild(minus_one->deepCopy());
+
+    derivative = new ASTNode(AST_TIMES);
+    derivative->addChild(derivA->deepCopy());
+    derivative->addChild(Apower->deepCopy());
+    derivative->addChild(sqrt->deepCopy());
+
+    derivative->decompose();
+
+    delete Asquared;
+  }
+  delete copy;
+  delete two;
+  delete one;
+  delete bracket_minus;
+  delete minus_half;
+  delete minus_one;
+  delete Apower;
+  delete derivA;
+  return derivative;
+}
+
+ASTNode *
+ASTNode::derivativeArcsech(const std::string &variable)
+
+{
+
+  ASTNode *copy = deepCopy();
+  copy->decompose();
+  ASTNode *derivative = NULL;
+  ASTNode *two = new ASTNode(AST_REAL);
+  two->setValue(2.0);
+  ASTNode *one = new ASTNode(AST_REAL);
+  one->setValue(1.0);
+  ASTNode *minusOne = new ASTNode(AST_REAL);
+  minusOne->setValue(-1.0);
+  ASTNode *minus_half = new ASTNode(AST_REAL);
+  minus_half->setValue(-0.5);
+  ASTNode *minus_one = new ASTNode(AST_REAL);
+  minus_one->setValue(-1.0);
+
+  ASTNode *sqrt = new ASTNode(AST_FUNCTION_POWER);
+  ASTNode *bracket_minus = new ASTNode(AST_MINUS);
+  ASTNode *Apower = new ASTNode(AST_FUNCTION_POWER);
+
+  // d(arcsech(x)/dx = -1/(x*sqrt(1-x^2))
+  // d(arcsech(A)/dx = dA/dx * -1/(A*sqrt(1-A^2))
+
+  ASTNode *derivA = getChild(0)->derivative(variable);
+
+  if (derivA != NULL)
+  {
+    ASTNode *Asquared = new ASTNode(AST_POWER);
+    Asquared->addChild(getChild(0)->deepCopy());
+    Asquared->addChild(two->deepCopy());
+
+    bracket_minus->addChild(one->deepCopy());
+    bracket_minus->addChild(Asquared->deepCopy());
+
+    sqrt->addChild(bracket_minus->deepCopy());
+    sqrt->addChild(minus_half->deepCopy());
+
+    Apower->addChild(getChild(0)->deepCopy());
+    Apower->addChild(minus_one->deepCopy());
+
+    derivative = new ASTNode(AST_TIMES);
+    derivative->addChild(derivA->deepCopy());
+    derivative->addChild(minusOne->deepCopy());
+    derivative->addChild(Apower->deepCopy());
+    derivative->addChild(sqrt->deepCopy());
+
+    derivative->decompose();
+
+    delete Asquared;
+  }
+  delete copy;
+  delete two;
+  delete one;
+  delete minusOne;
+  delete bracket_minus;
+  delete minus_half;
+  delete minus_one;
+  delete Apower;
+  delete derivA;
+  return derivative;
+}
+
+ASTNode *
+ASTNode::derivativeArcsin(const std::string &variable)
+{
+  ASTNode *copy = deepCopy();
+  copy->decompose();
+  ASTNode *derivative = NULL;
+  ASTNode *two = new ASTNode(AST_REAL);
+  two->setValue(2.0);
+  ASTNode *one = new ASTNode(AST_REAL);
+  one->setValue(1.0);
+  ASTNode *minus_half = new ASTNode(AST_REAL);
+  minus_half->setValue(-0.5);
+
+  ASTNode *sqrt = new ASTNode(AST_FUNCTION_POWER);
+  ASTNode *bracket_minus = new ASTNode(AST_MINUS);
+
+  // d(arcsin(x)/dx = 1/sqrt(1-x^2)
+  // d(arcsin(A)/dx = dA/dx * 1/sqrt(1-A^2)
+
+  ASTNode *derivA = getChild(0)->derivative(variable);
+
+  if (derivA != NULL)
+  {
+    ASTNode *Asquared = new ASTNode(AST_POWER);
+    Asquared->addChild(getChild(0)->deepCopy());
+    Asquared->addChild(two->deepCopy());
+
+    bracket_minus->addChild(one->deepCopy());
+    bracket_minus->addChild(Asquared->deepCopy());
+
+    sqrt->addChild(bracket_minus->deepCopy());
+    sqrt->addChild(minus_half->deepCopy());
+
+    derivative = new ASTNode(AST_TIMES);
+    derivative->addChild(derivA->deepCopy());
+    derivative->addChild(sqrt->deepCopy());
+
+    derivative->decompose();
+
+    delete Asquared;
+  }
+  delete copy;
+  delete two;
+  delete bracket_minus;
+  delete minus_half;
+  delete one;
+  delete derivA;
+  return derivative;
+}
+
+ASTNode *
+ASTNode::derivativeArcsinh(const std::string &variable)
+
+{
+
+  ASTNode *copy = deepCopy();
+  copy->decompose();
+  ASTNode *derivative = NULL;
+  ASTNode *two = new ASTNode(AST_REAL);
+  two->setValue(2.0);
+  ASTNode *one = new ASTNode(AST_REAL);
+  one->setValue(1.0);
+  ASTNode *minus_half = new ASTNode(AST_REAL);
+  minus_half->setValue(-0.5);
+
+  ASTNode *sqrt = new ASTNode(AST_FUNCTION_POWER);
+  ASTNode *bracket_plus = new ASTNode(AST_PLUS);
+
+  // d(arcsinh(x)/dx = 1/sqrt(1+x^2)
+  // d(arcsinh(A)/dx = dA/dx * 1/sqrt(1+A^2)
+
+  ASTNode *derivA = getChild(0)->derivative(variable);
+
+  if (derivA != NULL)
+  {
+    ASTNode *Asquared = new ASTNode(AST_POWER);
+    Asquared->addChild(getChild(0)->deepCopy());
+    Asquared->addChild(two->deepCopy());
+
+    bracket_plus->addChild(one->deepCopy());
+    bracket_plus->addChild(Asquared->deepCopy());
+
+    sqrt->addChild(bracket_plus->deepCopy());
+    sqrt->addChild(minus_half->deepCopy());
+
+    derivative = new ASTNode(AST_TIMES);
+    derivative->addChild(derivA->deepCopy());
+    derivative->addChild(sqrt->deepCopy());
+
+    derivative->decompose();
+
+    delete Asquared;
+  }
+  delete copy;
+  delete two;
+  delete bracket_plus;
+  delete minus_half;
+  delete one;
+  delete derivA;
+  return derivative;
+}
+
+ASTNode *
+ASTNode::derivativeArctan(const std::string &variable)
+{
+  ASTNode *copy = deepCopy();
+  copy->decompose();
+  ASTNode *derivative = NULL;
+  ASTNode *two = new ASTNode(AST_REAL);
+  two->setValue(2.0);
+  ASTNode *one = new ASTNode(AST_REAL);
+  one->setValue(1.0);
+  ASTNode *minus_one = new ASTNode(AST_REAL);
+  minus_one->setValue(-1.0);
+
+  ASTNode *power = new ASTNode(AST_FUNCTION_POWER);
+  ASTNode *bracket_plus = new ASTNode(AST_PLUS);
+
+  // d(arctan(x)/dx = 1/(1+x^2)
+  // d(arctan(A)/dx = dA/dx * 1/(1+A^2)
+
+  ASTNode *derivA = getChild(0)->derivative(variable);
+
+  if (derivA != NULL)
+  {
+    ASTNode *Asquared = new ASTNode(AST_POWER);
+    Asquared->addChild(getChild(0)->deepCopy());
+    Asquared->addChild(two->deepCopy());
+
+    bracket_plus->addChild(one->deepCopy());
+    bracket_plus->addChild(Asquared->deepCopy());
+
+    power->addChild(bracket_plus->deepCopy());
+    power->addChild(minus_one->deepCopy());
+
+    derivative = new ASTNode(AST_TIMES);
+    derivative->addChild(derivA->deepCopy());
+    derivative->addChild(power->deepCopy());
+
+    derivative->decompose();
+
+    delete Asquared;
+  }
+  delete copy;
+  delete two;
+  delete one;
+  delete minus_one;
+  delete bracket_plus;
+  delete power;
+  delete derivA;
+  return derivative;
+}
+
+ASTNode *
+ASTNode::derivativeArctanh(const std::string &variable)
+
+{
+
+  ASTNode *copy = deepCopy();
+  copy->decompose();
+  ASTNode *derivative = NULL;
+  ASTNode *two = new ASTNode(AST_REAL);
+  two->setValue(2.0);
+  ASTNode *one = new ASTNode(AST_REAL);
+  one->setValue(1.0);
+  ASTNode *minus_one = new ASTNode(AST_REAL);
+  minus_one->setValue(-1.0);
+
+  ASTNode *power = new ASTNode(AST_FUNCTION_POWER);
+  ASTNode *bracket_minus = new ASTNode(AST_MINUS);
+
+  // d(arctanh(x)/dx = 1/(1-x^2)
+  // d(arctanh(A)/dx = dA/dx * 1/(1-A^2)
+
+  ASTNode *derivA = getChild(0)->derivative(variable);
+
+  if (derivA != NULL)
+  {
+    ASTNode *Asquared = new ASTNode(AST_POWER);
+    Asquared->addChild(getChild(0)->deepCopy());
+    Asquared->addChild(two->deepCopy());
+
+    bracket_minus->addChild(one->deepCopy());
+    bracket_minus->addChild(Asquared->deepCopy());
+
+    power->addChild(bracket_minus->deepCopy());
+    power->addChild(minus_one->deepCopy());
+
+    derivative = new ASTNode(AST_TIMES);
+    derivative->addChild(derivA->deepCopy());
+    derivative->addChild(power->deepCopy());
+
+    derivative->decompose();
+
+    delete Asquared;
+  }
+  delete copy;
+  delete two;
+  delete one;
+  delete minus_one;
+  delete bracket_minus;
+  delete power;
+  delete derivA;
+  return derivative;
+}
+
+ASTNode *
+ASTNode::derivativeCos(const std::string &variable)
+
+{
+
+  ASTNode *copy = deepCopy();
+  copy->decompose();
+  ASTNode *derivative = NULL;
+  ASTNode *minusOne = new ASTNode(AST_REAL);
+  minusOne->setValue(-1.0);
+
+  // d(cos(x)/dx = -sin(x)
+  // d(cos(A)/dx = dA/dx * -sin(A)
+
+  ASTNode *derivA = getChild(0)->derivative(variable);
+
+  if (derivA != NULL)
+  {
+    ASTNode *sinA = new ASTNode(AST_FUNCTION_SIN);
+    sinA->addChild(getChild(0)->deepCopy());
+
+    derivative = new ASTNode(AST_TIMES);
+    derivative->addChild(derivA->deepCopy());
+    derivative->addChild(minusOne->deepCopy());
+    derivative->addChild(sinA->deepCopy());
+
+    derivative->decompose();
+
+    delete sinA;
+  }
+  delete copy;
+  delete minusOne;
+  delete derivA;
+  return derivative;
+}
+
+ASTNode *
+ASTNode::derivativeCosh(const std::string &variable)
+
+{
+
+  ASTNode *copy = deepCopy();
+  copy->decompose();
+  ASTNode *derivative = NULL;
+
+  // d(cosh(x)/dx = sinh(x)
+  // d(cosh(A)/dx = dA/dx * sinh(A)
+
+  ASTNode *derivA = getChild(0)->derivative(variable);
+
+  if (derivA != NULL)
+  {
+    ASTNode *sinhA = new ASTNode(AST_FUNCTION_SINH);
+    sinhA->addChild(getChild(0)->deepCopy());
+
+    derivative = new ASTNode(AST_TIMES);
+    derivative->addChild(derivA->deepCopy());
+    derivative->addChild(sinhA->deepCopy());
+
+    derivative->decompose();
+
+    delete sinhA;
+  }
+  delete copy;
+  delete derivA;
+  return derivative;
+}
+
+ASTNode *
+ASTNode::derivativeCot(const std::string &variable)
+
+{
+
+  ASTNode *copy = deepCopy();
+  copy->decompose();
+  ASTNode *derivative = NULL;
+  ASTNode *two = new ASTNode(AST_REAL);
+  two->setValue(2.0);
+  ASTNode *minusOne = new ASTNode(AST_REAL);
+  minusOne->setValue(-1.0);
+  ASTNode *minus_two = new ASTNode(AST_REAL);
+  minus_two->setValue(-2.0);
+
+  // d(cot(x)/dx = -1/sin^2(x) = -csc^2(x)
+  // d(cot(A)/dx = dA/dx * -1/sin^2(A)
+
+  ASTNode *derivA = getChild(0)->derivative(variable);
+
+  if (derivA != NULL)
+  {
+    ASTNode *sinA = new ASTNode(AST_FUNCTION_SIN);
+    sinA->addChild(getChild(0)->deepCopy());
+
+    ASTNode *sinAsquared = new ASTNode(AST_FUNCTION_POWER);
+    sinAsquared->addChild(sinA->deepCopy());
+    sinAsquared->addChild(minus_two->deepCopy());
+
+    derivative = new ASTNode(AST_TIMES);
+    derivative->addChild(derivA->deepCopy());
+    derivative->addChild(minusOne->deepCopy());
+    derivative->addChild(sinAsquared->deepCopy());
+
+    derivative->decompose();
+
+    delete sinA;
+    delete sinAsquared;
+  }
+  delete copy;
+  delete two;
+  delete minusOne;
+  delete minus_two;
+  delete derivA;
+  return derivative;
+}
+
+ASTNode *
+ASTNode::derivativeCoth(const std::string &variable)
+
+{
+
+  ASTNode *copy = deepCopy();
+  copy->decompose();
+  ASTNode *derivative = NULL;
+  ASTNode *two = new ASTNode(AST_REAL);
+  two->setValue(2.0);
+  ASTNode *minusOne = new ASTNode(AST_REAL);
+  minusOne->setValue(-1.0);
+  ASTNode *minus_two = new ASTNode(AST_REAL);
+  minus_two->setValue(-2.0);
+
+  // d(coth(x)/dx = -1/sinh^2(x) = -csch^2(x)
+  // d(coth(A)/dx = dA/dx * -1/sinh^2(A)
+
+  ASTNode *derivA = getChild(0)->derivative(variable);
+
+  if (derivA != NULL)
+  {
+    ASTNode *sinhA = new ASTNode(AST_FUNCTION_SINH);
+    sinhA->addChild(getChild(0)->deepCopy());
+
+    ASTNode *sinhAsquared = new ASTNode(AST_FUNCTION_POWER);
+    sinhAsquared->addChild(sinhA->deepCopy());
+    sinhAsquared->addChild(minus_two->deepCopy());
+
+    derivative = new ASTNode(AST_TIMES);
+    derivative->addChild(derivA->deepCopy());
+    derivative->addChild(minusOne->deepCopy());
+    derivative->addChild(sinhAsquared->deepCopy());
+
+    derivative->decompose();
+
+    delete sinhA;
+    delete sinhAsquared;
+  }
+  delete copy;
+  delete two;
+  delete minusOne;
+  delete minus_two;
+  delete derivA;
+  return derivative;
 }
 
 ASTNode*
-ASTNode::derivativeArccos(const std::string& variable)    
+ASTNode::derivativeCsc(const std::string& variable)
+{
+  ASTNode* copy = deepCopy();
+  copy->decompose();
+  ASTNode* derivative = NULL;
+  ASTNode* two = new ASTNode(AST_REAL);
+  two->setValue(2.0);
+  ASTNode* minusOne = new ASTNode(AST_REAL);
+  minusOne->setValue(-1.0);
+  ASTNode* minus_two = new ASTNode(AST_REAL);
+  minus_two->setValue(-2.0);
+
+  //d(csc(x)/dx = -csc(x)*cot(x) = -cos(x)/sin^2(x)
+  //d(csc(A)/dx = dA/dx * -cos(A)/sin^2(A)
+
+  ASTNode* derivA = getChild(0)->derivative(variable);
+
+  if (derivA != NULL)
+  {
+      ASTNode* cosA = new ASTNode(AST_FUNCTION_COS);
+      cosA->addChild(getChild(0)->deepCopy());
+
+      ASTNode* sinA = new ASTNode(AST_FUNCTION_SIN);
+      sinA->addChild(getChild(0)->deepCopy());
+
+      ASTNode* sinAsquared = new ASTNode(AST_FUNCTION_POWER);
+      sinAsquared->addChild(sinA->deepCopy());
+      sinAsquared->addChild(minus_two->deepCopy());
+
+      derivative = new ASTNode(AST_TIMES);
+      derivative->addChild(derivA->deepCopy());
+      derivative->addChild(minusOne->deepCopy());
+      derivative->addChild(cosA->deepCopy());
+      derivative->addChild(sinAsquared->deepCopy());
+
+      derivative->decompose();
+
+      delete cosA;
+      delete sinA;
+      delete sinAsquared;
+  }
+  delete copy;
+  delete two;
+  delete minusOne;
+  delete minus_two;
+  delete derivA;
+  return derivative;
+
+  }
+
+ASTNode *
+ASTNode::derivativeSin(const std::string &variable)
+
 {
 
-    ASTNode* copy = deepCopy();
-    copy->decompose();
-    ASTNode* derivative = NULL;
-    ASTNode* minusOne = new ASTNode(AST_REAL);
-    minusOne->setValue(-1.0);
-    ASTNode* two = new ASTNode(AST_REAL);
-    two->setValue(2.0);
-    ASTNode* one = new ASTNode(AST_REAL);
-    one->setValue(1.0);
-    ASTNode* minus_half = new ASTNode(AST_REAL);
-    minus_half->setValue(-0.5);
+  ASTNode *copy = deepCopy();
+  copy->decompose();
+  ASTNode *derivative = NULL;
 
-    ASTNode* sqrt = new ASTNode(AST_FUNCTION_POWER);
-    ASTNode* bracket_minus = new ASTNode(AST_MINUS);
+  // d(sin(x)/dx = cos(x)
+  // d(sin(A)/dx = dA/dx * cos(A)
 
-     //d(arccos(x)/dx = -1/sqrt(1-x^2)
-    //d(arccos(A)/dx = dA/dx * -1/sqrt(1-A^2)
+  ASTNode *derivA = getChild(0)->derivative(variable);
 
-    ASTNode* derivA = getChild(0)->derivative(variable);
+  if (derivA != NULL)
+  {
+    ASTNode *cosA = new ASTNode(AST_FUNCTION_COS);
+    cosA->addChild(getChild(0)->deepCopy());
 
-    if (derivA != NULL)
-    {
-        ASTNode* Asquared = new ASTNode(AST_POWER);
-        Asquared->addChild(getChild(0)->deepCopy());
-        Asquared->addChild(two->deepCopy());
+    derivative = new ASTNode(AST_TIMES);
+    derivative->addChild(derivA->deepCopy());
+    derivative->addChild(cosA->deepCopy());
 
-        bracket_minus->addChild(one->deepCopy());
-        bracket_minus->addChild(Asquared->deepCopy());
+    derivative->decompose();
 
-        sqrt->addChild(bracket_minus->deepCopy());
-        sqrt->addChild(minus_half->deepCopy());
-
-        derivative = new ASTNode(AST_TIMES);
-        derivative->addChild(derivA->deepCopy());
-        derivative->addChild(minusOne->deepCopy());
-        derivative->addChild(sqrt->deepCopy());
-
-        derivative->decompose();
-
-        delete Asquared;
-    }
-    delete copy;
-    delete minusOne;
-    delete two;
-    delete bracket_minus;
-    delete minus_half;
-    delete one;
-    delete derivA;
-    return derivative;
-}
-ASTNode*
-ASTNode::derivativeArcsin(const std::string& variable)                                   
-{
-    ASTNode* copy = deepCopy();
-    copy->decompose();
-    ASTNode* derivative = NULL;
-    ASTNode* two = new ASTNode(AST_REAL);
-    two->setValue(2.0);
-    ASTNode* one = new ASTNode(AST_REAL);
-    one->setValue(1.0);
-    ASTNode* minus_half = new ASTNode(AST_REAL);
-    minus_half->setValue(-0.5);
-
-    ASTNode* sqrt = new ASTNode(AST_FUNCTION_POWER);
-    ASTNode* bracket_minus = new ASTNode(AST_MINUS);
-
-    //d(arcsin(x)/dx = 1/sqrt(1-x^2)
-    //d(arcsin(A)/dx = dA/dx * 1/sqrt(1-A^2)
-
-    ASTNode* derivA = getChild(0)->derivative(variable);
-
-    if (derivA != NULL)
-    {
-        ASTNode* Asquared = new ASTNode(AST_POWER);
-        Asquared->addChild(getChild(0)->deepCopy());
-        Asquared->addChild(two->deepCopy());
-
-        bracket_minus->addChild(one->deepCopy());
-        bracket_minus->addChild(Asquared->deepCopy());
-
-        sqrt->addChild(bracket_minus->deepCopy());
-        sqrt->addChild(minus_half->deepCopy());
-
-        derivative = new ASTNode(AST_TIMES);
-        derivative->addChild(derivA->deepCopy());
-        derivative->addChild(sqrt->deepCopy());
-
-        derivative->decompose();
-
-        delete Asquared;
-    }
-    delete copy;
-    delete two;
-    delete bracket_minus;
-    delete minus_half;
-    delete one;
-    delete derivA;
-    return derivative;
-
+    delete cosA;
+  }
+  delete copy;
+  delete derivA;
+  return derivative;
 }
 
 ASTNode*
-ASTNode::derivativeArctan(const std::string& variable)                                 
-{       
-    ASTNode* copy = deepCopy();
-    copy->decompose();
-    ASTNode* derivative = NULL;
-    ASTNode* two = new ASTNode(AST_REAL);
-    two->setValue(2.0);
-    ASTNode* one = new ASTNode(AST_REAL);
-    one->setValue(1.0);
-    ASTNode* minus_one = new ASTNode(AST_REAL);
-    minus_one->setValue(-1.0);
+ASTNode::derivativeCsch(const std::string& variable)
+{
+  ASTNode* copy = deepCopy();
+  copy->decompose();
+  ASTNode* derivative = NULL;
+  ASTNode* two = new ASTNode(AST_REAL);
+  two->setValue(2.0);
+  ASTNode* minusOne = new ASTNode(AST_REAL);
+  minusOne->setValue(-1.0);
+  ASTNode* minus_two = new ASTNode(AST_REAL);
+  minus_two->setValue(-2.0);
 
-    ASTNode* power = new ASTNode(AST_FUNCTION_POWER);
-    ASTNode* bracket_plus = new ASTNode(AST_PLUS);
+  //d(csch(x)/dx = -csch(x)*coth(x) = -cosh(x)/sinh^2(x)
+  //d(csch(A)/dx = dA/dx * -cosh(A)/sinh^2(A)
 
-    //d(arctan(x)/dx = 1/(1+x^2)
-   //d(arctan(A)/dx = dA/dx * 1/(1+A^2)
+  ASTNode* derivA = getChild(0)->derivative(variable);
 
-    ASTNode* derivA = getChild(0)->derivative(variable);
+  if (derivA != NULL)
+  {
+      ASTNode* coshA = new ASTNode(AST_FUNCTION_COSH);
+      coshA->addChild(getChild(0)->deepCopy());
 
-    if (derivA != NULL)
-    {
-        ASTNode* Asquared = new ASTNode(AST_POWER);
-        Asquared->addChild(getChild(0)->deepCopy());
-        Asquared->addChild(two->deepCopy());
+      ASTNode* sinhA = new ASTNode(AST_FUNCTION_SINH);
+      sinhA->addChild(getChild(0)->deepCopy());
 
-        bracket_plus->addChild(one->deepCopy());
-        bracket_plus->addChild(Asquared->deepCopy());
+      ASTNode* sinhAsquared = new ASTNode(AST_FUNCTION_POWER);
+      sinhAsquared->addChild(sinhA->deepCopy());
+      sinhAsquared->addChild(minus_two->deepCopy());
 
-        power->addChild(bracket_plus->deepCopy());
-        power->addChild(minus_one->deepCopy());
+      derivative = new ASTNode(AST_TIMES);
+      derivative->addChild(derivA->deepCopy());
+      derivative->addChild(minusOne->deepCopy());
+      derivative->addChild(coshA->deepCopy());
+      derivative->addChild(sinhAsquared->deepCopy());
 
-        derivative = new ASTNode(AST_TIMES);
-        derivative->addChild(derivA->deepCopy());
-        derivative->addChild(power->deepCopy());
+      derivative->decompose();
 
-        derivative->decompose();
+      delete coshA;
+      delete sinhA;
+      delete sinhAsquared;
+  }
+  delete copy;
+  delete two;
+  delete minusOne;
+  delete minus_two;
+  delete derivA;
+  return derivative;
+}
 
-        delete Asquared;
-    }
-    delete copy;
-    delete two;
-    delete one;
-    delete minus_one;
-    delete bracket_plus;
-    delete power;
-    delete derivA;
-    return derivative;
-} 
+ASTNode *
+ASTNode::derivativeSinh(const std::string &variable)
 
+{
 
+  ASTNode *copy = deepCopy();
+  copy->decompose();
+  ASTNode *derivative = NULL;
 
+  // d(sinh(x)/dx = cosh(x)
+  // d(sinh(A)/dx = dA/dx * cosh(A)
 
-XMLNamespaces* 
+  ASTNode *derivA = getChild(0)->derivative(variable);
+
+  if (derivA != NULL)
+  {
+    ASTNode *coshA = new ASTNode(AST_FUNCTION_COSH);
+    coshA->addChild(getChild(0)->deepCopy());
+
+    derivative = new ASTNode(AST_TIMES);
+    derivative->addChild(derivA->deepCopy());
+    derivative->addChild(coshA->deepCopy());
+
+    derivative->decompose();
+
+    delete coshA;
+  }
+  delete copy;
+  delete derivA;
+  return derivative;
+}
+
+ASTNode *
+ASTNode::derivativeTan(const std::string &variable)
+
+{
+
+  ASTNode *copy = deepCopy();
+  copy->decompose();
+  ASTNode *derivative = NULL;
+  ASTNode *two = new ASTNode(AST_REAL);
+  two->setValue(2.0);
+  ASTNode *minus_two = new ASTNode(AST_REAL);
+  minus_two->setValue(-2.0);
+
+  // d(tan(x)/dx = 1/cos^2(x) = sec^2(x)
+  // d(tan(A)/dx = dA/dx * 1/cos^2(A)
+
+  ASTNode *derivA = getChild(0)->derivative(variable);
+
+  if (derivA != NULL)
+  {
+    ASTNode *cosA = new ASTNode(AST_FUNCTION_COS);
+    cosA->addChild(getChild(0)->deepCopy());
+
+    ASTNode *cosAsquared = new ASTNode(AST_FUNCTION_POWER);
+    cosAsquared->addChild(cosA->deepCopy());
+    cosAsquared->addChild(minus_two->deepCopy());
+
+    derivative = new ASTNode(AST_TIMES);
+    derivative->addChild(derivA->deepCopy());
+    derivative->addChild(cosAsquared->deepCopy());
+
+    derivative->decompose();
+
+    delete cosA;
+    delete cosAsquared;
+  }
+  delete copy;
+  delete two;
+  delete minus_two;
+  delete derivA;
+  return derivative;
+}
+
+ASTNode *
+ASTNode::derivativeTanh(const std::string &variable)
+
+{
+
+  ASTNode *copy = deepCopy();
+  copy->decompose();
+  ASTNode *derivative = NULL;
+  ASTNode *two = new ASTNode(AST_REAL);
+  two->setValue(2.0);
+  ASTNode *minus_two = new ASTNode(AST_REAL);
+  minus_two->setValue(-2.0);
+
+  // d(tanh(x)/dx = 1/cosh^2(x) = sech^2(x)
+  // d(tanh(A)/dx = dA/dx * 1/cosh^2(A)
+
+  ASTNode *derivA = getChild(0)->derivative(variable);
+
+  if (derivA != NULL)
+  {
+    ASTNode *coshA = new ASTNode(AST_FUNCTION_COSH);
+    coshA->addChild(getChild(0)->deepCopy());
+
+    ASTNode *coshAsquared = new ASTNode(AST_FUNCTION_POWER);
+    coshAsquared->addChild(coshA->deepCopy());
+    coshAsquared->addChild(minus_two->deepCopy());
+
+    derivative = new ASTNode(AST_TIMES);
+    derivative->addChild(derivA->deepCopy());
+    derivative->addChild(coshAsquared->deepCopy());
+
+    derivative->decompose();
+
+    delete coshA;
+    delete coshAsquared;
+  }
+  delete copy;
+  delete two;
+  delete minus_two;
+  delete derivA;
+  return derivative;
+}
+
+ASTNode *
+ASTNode::derivativeSech(const std::string &variable)
+{
+  ASTNode *copy = deepCopy();
+  copy->decompose();
+  ASTNode *derivative = NULL;
+  ASTNode *two = new ASTNode(AST_REAL);
+  two->setValue(2.0);
+  ASTNode *minusOne = new ASTNode(AST_REAL);
+  minusOne->setValue(-1.0);
+  ASTNode *minus_two = new ASTNode(AST_REAL);
+  minus_two->setValue(-2.0);
+
+  // d(sech(x)/dx = -sech(x)*tanh(x) = -sinh(x)/cosh^2(x)
+  // d(sech(A)/dx = dA/dx * -sinh(A)/cosh^2(A)
+
+  ASTNode *derivA = getChild(0)->derivative(variable);
+
+  if (derivA != NULL)
+  {
+    ASTNode *sinhA = new ASTNode(AST_FUNCTION_SINH);
+    sinhA->addChild(getChild(0)->deepCopy());
+
+    ASTNode *coshA = new ASTNode(AST_FUNCTION_COSH);
+    coshA->addChild(getChild(0)->deepCopy());
+
+    ASTNode *coshAsquared = new ASTNode(AST_FUNCTION_POWER);
+    coshAsquared->addChild(coshA->deepCopy());
+    coshAsquared->addChild(minus_two->deepCopy());
+
+    derivative = new ASTNode(AST_TIMES);
+    derivative->addChild(derivA->deepCopy());
+    derivative->addChild(minusOne->deepCopy());
+    derivative->addChild(sinhA->deepCopy());
+    derivative->addChild(coshAsquared->deepCopy());
+
+    derivative->decompose();
+
+    delete sinhA;
+    delete coshA;
+    delete coshAsquared;
+  }
+  delete copy;
+  delete two;
+  delete minusOne;
+  delete minus_two;
+  delete derivA;
+  return derivative;
+}
+
+ASTNode*
+ASTNode::derivativeSec(const std::string& variable)
+{
+  ASTNode* copy = deepCopy();
+  copy->decompose();
+  ASTNode* derivative = NULL;
+  ASTNode* two = new ASTNode(AST_REAL);
+  two->setValue(2.0);
+  ASTNode* minus_two = new ASTNode(AST_REAL);
+  minus_two->setValue(-2.0);
+
+  //d(sec(x)/dx = sec(x)*tan(x) = sin(x)/cos^2(x)
+  //d(sec(A)/dx = dA/dx * sin(A)/cos^2(A)
+
+  ASTNode* derivA = getChild(0)->derivative(variable);
+
+  if (derivA != NULL)
+  {
+      ASTNode* sinA = new ASTNode(AST_FUNCTION_SIN);
+      sinA->addChild(getChild(0)->deepCopy());
+
+      ASTNode* cosA = new ASTNode(AST_FUNCTION_COS);
+      cosA->addChild(getChild(0)->deepCopy());
+
+      ASTNode* cosAsquared = new ASTNode(AST_FUNCTION_POWER);
+      cosAsquared->addChild(cosA->deepCopy());
+      cosAsquared->addChild(minus_two->deepCopy());
+
+      derivative = new ASTNode(AST_TIMES);
+      derivative->addChild(derivA->deepCopy());
+      derivative->addChild(sinA->deepCopy());
+      derivative->addChild(cosAsquared->deepCopy());
+
+      derivative->decompose();
+
+      delete sinA;
+      delete cosA;
+      delete cosAsquared;
+  }
+  delete copy;
+  delete two;
+  delete minus_two;
+  delete derivA;
+  return derivative;
+}
+
+XMLNamespaces *
 ASTNode::getDeclaredNamespaces() const
 {
   return mNamespaces;
 }
 
-
-void 
-ASTNode::setDeclaredNamespaces(const XMLNamespaces* xmlns)
+void ASTNode::setDeclaredNamespaces(const XMLNamespaces *xmlns)
 {
   mNamespaces = xmlns->clone();
 }
 
-
-void
-ASTNode::unsetDeclaredNamespaces()
+void ASTNode::unsetDeclaredNamespaces()
 {
   if (mNamespaces != NULL)
   {
