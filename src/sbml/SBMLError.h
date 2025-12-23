@@ -767,6 +767,10 @@ typedef enum
 , LocalParameterShadowsId               = 81121 /*!< Local parameters defined within a kinetic law shadow global object symbols. */
 , LibSBMLAdditionalCodesLowerBound      = 90000 /*!< Lower boundary of libSBML-specific diagnostic codes. */
 , CannotConvertToL1V1                   = 90001 /*!< Cannot convert to SBML Level 1 Version 1. */
+, DocumentOrModelIsNull                 = 90101 /*!< The SBMLDocument or Model pointer is null. */
+, ModelContainsNoRateRules              = 90102 /*!< The model contains no rate rules. */
+, ModelAlreadyContainsReactions         = 90103 /*!< The model already contains reactions. */
+, ModelContainsMultipleCompartments     = 90104 /*!< The model contains multiple compartments. */
 , NoEventsInL1                          = 91001 /*!< SBML Level 1 does not support events. */
 , NoFunctionDefinitionsInL1             = 91002 /*!< SBML Level 1 does not support function definitions. */
 , NoConstraintsInL1                     = 91003 /*!< SBML Level 1 does not support constraints. */
@@ -1042,6 +1046,8 @@ typedef enum
   , LIBSBML_CAT_STRICT_UNITS_CONSISTENCY
     /*!< Category of errors that occur running the strict unit 
      * validator. */
+      , LIBSBML_CAT_RATE_RULE_CONVERSION
+      /*!< Category of warnings about rate rule conversions */
 
 } SBMLErrorCategory_t;
 

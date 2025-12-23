@@ -217,13 +217,13 @@ START_TEST(test_conversion_raterule_converter_invalid)
   SBMLDocument* doc = NULL;
   rule_rn_converter->setDocument(doc);
 
-  fail_unless(rule_rn_converter->convert() == LIBSBML_INVALID_OBJECT);
+  fail_unless(rule_rn_converter->convert() == LIBSBML_OPERATION_FAILED);
 
   // test NULL model
   doc = new SBMLDocument(3, 2);
   rule_rn_converter->setDocument(doc);
 
-  fail_unless(rule_rn_converter->convert() == LIBSBML_INVALID_OBJECT);
+  fail_unless(rule_rn_converter->convert() == LIBSBML_OPERATION_FAILED);
 
   // create model no rules
   Model* model = doc->createModel();
@@ -252,7 +252,7 @@ START_TEST(test_conversion_raterule_converter_invalid)
   // invalid document
   rule_rn_converter->setDocument(doc);
 
-  fail_unless(rule_rn_converter->convert() == LIBSBML_CONV_INVALID_SRC_DOCUMENT);
+  fail_unless(rule_rn_converter->convert() == LIBSBML_OPERATION_FAILED);
 
   delete doc;
 }
@@ -375,7 +375,7 @@ START_TEST(test_crash_converter)
 
 	// ensure that we dont crash on null document
 	rule_rn_converter->setDocument((SBMLDocument*)NULL);
-	fail_unless(rule_rn_converter->convert() == LIBSBML_INVALID_OBJECT);
+	fail_unless(rule_rn_converter->convert() == LIBSBML_OPERATION_FAILED);
 
 }
 END_TEST
@@ -1026,6 +1026,115 @@ START_TEST(test_rule_reaction_55)
 }
 END_TEST
 
+START_TEST(test_converter_errors)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "rn_rr_fail_90101.xml";
+
+	SBMLDocument* d = readSBMLFromFile(raterule_file.c_str());
+
+	rule_rn_props.addOption("useStoichiometryFromMath", true);
+	rule_rn_converter->setProperties(&rule_rn_props);
+
+
+	rule_rn_converter->setDocument(d);
+    int ret = rule_rn_converter->convert();
+    fail_unless(ret == LIBSBML_OPERATION_FAILED);
+	fail_unless(d->getNumErrors() == 2);
+	// we'll also contain 20201 - model must contain a document
+    fail_unless(d->getError(1)->getErrorId() == 90101);
+	fail_unless(d->getError(1)->getCategory() == LIBSBML_CAT_RATE_RULE_CONVERSION);
+
+    delete d;
+}
+END_TEST
+
+START_TEST(test_converter_errors_1)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "rn_rr_fail_90102_1.xml";
+
+	SBMLDocument* d = readSBMLFromFile(raterule_file.c_str());
+
+	rule_rn_props.addOption("useStoichiometryFromMath", true);
+	rule_rn_converter->setProperties(&rule_rn_props);
+
+
+	rule_rn_converter->setDocument(d);
+	int ret = rule_rn_converter->convert();
+	fail_unless(ret == LIBSBML_OPERATION_SUCCESS);
+	fail_unless(d->getNumErrors() == 1);
+	fail_unless(d->getError(0)->getErrorId() == 90102);
+	fail_unless(d->getError(0)->getCategory() == LIBSBML_CAT_RATE_RULE_CONVERSION);
+
+	delete d;
+}
+END_TEST
+
+START_TEST(test_converter_errors_2)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "rn_rr_fail_90102_2.xml";
+
+	SBMLDocument* d = readSBMLFromFile(raterule_file.c_str());
+
+	rule_rn_props.addOption("useStoichiometryFromMath", true);
+	rule_rn_converter->setProperties(&rule_rn_props);
+
+
+	rule_rn_converter->setDocument(d);
+	int ret = rule_rn_converter->convert();
+    fail_unless(ret == LIBSBML_OPERATION_SUCCESS);
+	fail_unless(d->getNumErrors() == 1);
+	fail_unless(d->getError(0)->getErrorId() == 90102);
+	fail_unless(d->getError(0)->getCategory() == LIBSBML_CAT_RATE_RULE_CONVERSION);
+
+	delete d;
+}
+END_TEST
+START_TEST(test_converter_errors_3)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "rn_rr_fail_90103.xml";
+
+	SBMLDocument* d = readSBMLFromFile(raterule_file.c_str());
+
+	rule_rn_props.addOption("useStoichiometryFromMath", true);
+	rule_rn_converter->setProperties(&rule_rn_props);
+
+
+	rule_rn_converter->setDocument(d);
+	int ret = rule_rn_converter->convert();
+	fail_unless(ret == LIBSBML_OPERATION_FAILED);
+	fail_unless(d->getNumErrors() == 1);
+	fail_unless(d->getError(0)->getErrorId() == 90103);
+	fail_unless(d->getError(0)->getCategory() == LIBSBML_CAT_RATE_RULE_CONVERSION);
+
+	delete d;
+}
+END_TEST
+START_TEST(test_converter_errors_4)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "rn_rr_fail_90104.xml";
+
+	SBMLDocument* d = readSBMLFromFile(raterule_file.c_str());
+
+	rule_rn_props.addOption("useStoichiometryFromMath", true);
+	rule_rn_converter->setProperties(&rule_rn_props);
+
+
+	rule_rn_converter->setDocument(d);
+	int ret = rule_rn_converter->convert();
+	fail_unless(ret == LIBSBML_OPERATION_FAILED);
+	fail_unless(d->getNumErrors() == 1);
+	fail_unless(d->getError(0)->getErrorId() == 90104);
+	fail_unless(d->getError(0)->getCategory() == LIBSBML_CAT_RATE_RULE_CONVERSION);
+
+	delete d;
+}
+END_TEST
+
 Suite *
 create_suite_TestSBMLRateRuleConverter (void)
 { 
@@ -1070,6 +1179,14 @@ Suite *suite = suite_create("SBMLRateRuleConverter");
 	  //tcase_add_test(tcase, test_rule_reaction_53); 	
 	  //tcase_add_test(tcase, test_rule_reaction_54); 	
 	  //tcase_add_test(tcase, test_rule_reaction_55); 	 
+      tcase_add_test(tcase, test_converter_errors);
+      tcase_add_test(tcase, test_converter_errors_1);
+	  tcase_add_test(tcase, test_converter_errors_2);
+	  tcase_add_test(tcase, test_converter_errors_3);
+	  tcase_add_test(tcase, test_converter_errors_4);
+
+
+	  
   }
   suite_add_tcase(suite, tcase);
 

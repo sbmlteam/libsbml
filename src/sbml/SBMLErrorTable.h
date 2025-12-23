@@ -8062,6 +8062,108 @@ static const sbmlErrorTableEntry errorTable[] =
      ""}
    },
 
+   /* --------------------------------------------------------------------------
+   * Rate rule conversion errors.
+   * ----------------------------------------------------------------------- */
+   //90101
+  {
+    DocumentOrModelIsNull,
+    "Document or model is null",
+    LIBSBML_CAT_RATE_RULE_CONVERSION,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    "There is no document or model to convert.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
+
+   //90102
+  {
+    ModelContainsNoRateRules,
+    "Model contains no rate rules",
+    LIBSBML_CAT_RATE_RULE_CONVERSION,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    "The model contains no rate rules and so cannot be converted to reactions.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
+
+   //90103S.NESSTALENT SLEEP
+  {
+    ModelAlreadyContainsReactions,
+    "Model already contains reactions",
+    LIBSBML_CAT_RATE_RULE_CONVERSION,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    "The model already contains reactions; rate rule conversiondoes not yet support converting a model with a mixture of reactions and rate rules.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
+
+   //90104
+  {
+    ModelContainsMultipleCompartments,
+    "Model contains multiple compartments",
+    LIBSBML_CAT_RATE_RULE_CONVERSION,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    "The model contains multiple compartments; rate rule conversion does not yet support models with multiple compartments.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""}
+   },
   /* --------------------------------------------------------------------------
    * L1 compatibility.
    * ----------------------------------------------------------------------- */
