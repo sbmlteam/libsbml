@@ -18,8 +18,7 @@ var _s_b_m_l_error_8h =
       [ "LIBSBML_CAT_SBML_L3V1_COMPAT", "_s_b_m_l_error_8h.html#aec82216b5939329921fd2c6f00c62187a1628a5fba7f206c16d0d2204980bbac0", null ],
       [ "LIBSBML_CAT_SBML_L3V2_COMPAT", "_s_b_m_l_error_8h.html#aec82216b5939329921fd2c6f00c62187aa70cea38b6ec8423db46b35a7989a8cf", null ],
       [ "LIBSBML_CAT_SBML_COMPATIBILITY", "_s_b_m_l_error_8h.html#aec82216b5939329921fd2c6f00c62187ac1a41dcbf87502d2fc165061edbf5b16", null ],
-      [ "LIBSBML_CAT_STRICT_UNITS_CONSISTENCY", "_s_b_m_l_error_8h.html#aec82216b5939329921fd2c6f00c62187a02b9fb9e825404638c3f60fe9d665679", null ],
-      [ "LIBSBML_CAT_RATE_RULE_CONVERSION", "_s_b_m_l_error_8h.html#aec82216b5939329921fd2c6f00c62187a6f5e8476a9ea557aedf9f51b99fc882a", null ]
+      [ "LIBSBML_CAT_STRICT_UNITS_CONSISTENCY", "_s_b_m_l_error_8h.html#aec82216b5939329921fd2c6f00c62187a02b9fb9e825404638c3f60fe9d665679", null ]
     ] ],
     [ "SBMLErrorCode_t", "_s_b_m_l_error_8h.html#a64521d2629dd339aea5b194d546c3627", [
       [ "UnknownError", "_s_b_m_l_error_8h.html#a64521d2629dd339aea5b194d546c3627a36b13bee92e122caddcb8abefb6eec31", null ],
@@ -311,10 +310,6 @@ var _s_b_m_l_error_8h =
       [ "LocalParameterShadowsId", "_s_b_m_l_error_8h.html#a64521d2629dd339aea5b194d546c3627a7e7fed5656d95ba7be097891f8f1ea0a", null ],
       [ "LibSBMLAdditionalCodesLowerBound", "_s_b_m_l_error_8h.html#a64521d2629dd339aea5b194d546c3627adccf75d44c5f367be64fa13e91fd25cc", null ],
       [ "CannotConvertToL1V1", "_s_b_m_l_error_8h.html#a64521d2629dd339aea5b194d546c3627a1a83c800e0e34d50f11f6b48756263be", null ],
-      [ "DocumentOrModelIsNull", "_s_b_m_l_error_8h.html#a64521d2629dd339aea5b194d546c3627a445b99bb0c4818b13cc97ed8a90f8d53", null ],
-      [ "ModelContainsNoRateRules", "_s_b_m_l_error_8h.html#a64521d2629dd339aea5b194d546c3627a78742caa803c5057ac562446912c4f82", null ],
-      [ "ModelAlreadyContainsReactions", "_s_b_m_l_error_8h.html#a64521d2629dd339aea5b194d546c3627a9389a0fd9191f32020fd9eb324f087d0", null ],
-      [ "ModelContainsMultipleCompartments", "_s_b_m_l_error_8h.html#a64521d2629dd339aea5b194d546c3627a433248fdfcc404f6e86eecb8998d6bfa", null ],
       [ "NoEventsInL1", "_s_b_m_l_error_8h.html#a64521d2629dd339aea5b194d546c3627a6c1b56b79e322b0382693241d9561236", null ],
       [ "NoFunctionDefinitionsInL1", "_s_b_m_l_error_8h.html#a64521d2629dd339aea5b194d546c3627abe69890e4cd787cac5a99dd5f7e01566", null ],
       [ "NoConstraintsInL1", "_s_b_m_l_error_8h.html#a64521d2629dd339aea5b194d546c3627af4b7255198a5dd3cd8f1496188b947ca", null ],
