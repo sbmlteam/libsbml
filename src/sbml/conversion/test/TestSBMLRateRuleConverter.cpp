@@ -1135,10 +1135,24 @@ START_TEST(test_converter_errors_4)
 }
 END_TEST
 
+START_TEST(test_rule_reaction_multi_compartment)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "rr_rn_multi_compartments.xml";
+	
+	std::string reaction_file(TestDataDirectory);
+	reaction_file += "rr_rn_multi_compartments_reactions.xml";
+
+	bool result = test_rule_to_reaction(raterule_file, reaction_file);
+
+	fail_unless(result == true);
+}
+END_TEST
+
 Suite *
 create_suite_TestSBMLRateRuleConverter (void)
 { 
-	bool testing = false;
+	bool testing = true;
 Suite *suite = suite_create("SBMLRateRuleConverter");
   TCase *tcase = tcase_create("SBMLRateRuleConverter");
   tcase_add_checked_fixture(tcase, RateRuleConverter_setup,
@@ -1146,7 +1160,7 @@ Suite *suite = suite_create("SBMLRateRuleConverter");
 
   if (testing)
   {
-	  tcase_add_test(tcase, test_rule_reaction_07);
+	  tcase_add_test(tcase, test_rule_reaction_multi_compartment);
   }
   else
   {
