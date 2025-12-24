@@ -414,10 +414,15 @@ SBMLRateRuleConverter::isDocumentAppropriate(OperationReturnValues_t& returnValu
 
   if (mModel->getNumCompartments() > 1)
   {
-      mDocument->getErrorLog()->logError(ModelContainsMultipleCompartments, mDocument->getLevel(),
-          mDocument->getVersion(), "There are multiple compartments.");
-      returnValue = LIBSBML_OPERATION_FAILED;
-      return false;
+      if (speciesFromMultipleCompartmentsInSameRateRule())
+      {
+          mDocument->getErrorLog()->logError(ModelContainsMultipleCompartments, mDocument->getLevel(),
+              mDocument->getVersion(), "There are multiple compartments with species in the same rate rule.");
+          returnValue = LIBSBML_OPERATION_FAILED;
+          return false;
+      }
+      returnValue = LIBSBML_OPERATION_SUCCESS;
+      return true;
   }
 
   // 3. the document is invalid
@@ -433,6 +438,93 @@ SBMLRateRuleConverter::isDocumentAppropriate(OperationReturnValues_t& returnValu
 
 
 /** @cond doxygenIgnored */
+
+bool 
+SBMLRateRuleConverter::speciesFromMultipleCompartmentsInSameRateRule()
+{
+    listPairString compartmentSpeciesPairs = getCompartmentSpeciesPairs();
+    listPairString VariablesRateRulePairs = getVariablesRateRulePairs();
+    for (listPairStringIt it1 = compartmentSpeciesPairs.begin(); 
+                          it1 != compartmentSpeciesPairs.end(); ++it1)
+    {
+        for (listPairStringIt it2 = VariablesRateRulePairs.begin(); 
+                              it2 != VariablesRateRulePairs.end(); ++it2)
+        {
+            if (it1->second == it2->first)
+            {
+                // species as variable in rate rule found
+                for (listPairStringIt it3 = compartmentSpeciesPairs.begin(); it3 != compartmentSpeciesPairs.end(); ++it3)
+                {
+                    if (it3->second == it2->first && it3 != it1)
+                    {
+                        // species from different compartment in same rate rule found
+                        if (it3->first != it1->first)
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+    }
+  return false;
+}
+
+listPairString 
+SBMLRateRuleConverter::getCompartmentSpeciesPairs()
+{
+  listPairString compartmentSpeciesPairs;
+  for (unsigned int n = 0; n < mDocument->getModel()->getNumCompartments(); n++)
+  {
+    Compartment* comp = mDocument->getModel()->getCompartment(n);
+    std::string compId = comp->getId();
+    for (unsigned int m = 0; m < mDocument->getModel()->getNumSpecies(); m++)
+    {
+      Species* spec = mDocument->getModel()->getSpecies(m);
+      if (spec->getCompartment() != compId)
+      {
+        continue;
+      }
+      pairString pair(comp->getId(), spec->getId());
+      compartmentSpeciesPairs.push_back(pair);
+    }
+  }
+
+  return compartmentSpeciesPairs;
+}
+
+listPairString 
+SBMLRateRuleConverter::getVariablesRateRulePairs()
+{
+  listPairString VariablesRateRulePairs;
+  for (unsigned int n = 0; n < mDocument->getModel()->getNumRules(); n++)
+  {
+      Rule* rule = mDocument->getModel()->getRule(n);
+      if (rule->getType() != RULE_TYPE_RATE)
+      {
+          continue;
+      }
+      std::string varId = rule->getVariable();
+      const ASTNode* math = rule->getMath();
+      List* variables = math->getListOfNodes(ASTNode_isName);
+      for (ListIterator it = variables->begin(); it != variables->end(); ++it)
+      {
+          ASTNode* m = static_cast<ASTNode*>(*it);
+          std::string mId = m->getName();
+          if (mId != varId)
+          {
+              continue;
+          }
+          else
+          {
+            pairString pair(varId, mId);
+          VariablesRateRulePairs.push_back(pair);
+          }
+      }
+  }
+  return VariablesRateRulePairs;
+}
+
 
 void 
 SBMLRateRuleConverter::addODEPair(std::string id, Model* model)
