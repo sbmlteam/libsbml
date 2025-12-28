@@ -83,8 +83,8 @@ typedef std::vector<pairCoeff > setCoeff;
 typedef std::vector<std::pair<ASTNode*, std::vector<double> > >::iterator setCoeffIt;
 
 typedef std::pair<std::string, std::string > pairString;
-typedef std::list< pairString > listPairString;
-typedef std::list< pairString >::iterator listPairStringIt;
+typedef std::vector< pairString > listPairString;
+typedef std::vector< pairString >::iterator listPairStringIt;
 typedef std::vector< std::vector<double> > setRnCoeffs;
 
 
