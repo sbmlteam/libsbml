@@ -443,23 +443,33 @@ bool
 SBMLRateRuleConverter::speciesFromMultipleCompartmentsInSameRateRule()
 {
     listPairString compartmentSpeciesPairs = getCompartmentSpeciesPairs();
-    listPairString VariablesRateRulePairs = getVariablesRateRulePairs();
-    for (listPairStringIt it1 = compartmentSpeciesPairs.begin(); 
-                          it1 != compartmentSpeciesPairs.end(); ++it1)
+    listPairString variablesRateRulePairs = getVariablesRateRulePairs();
+    for (listPairStringIt it_c = compartmentSpeciesPairs.begin(); 
+        it_c != compartmentSpeciesPairs.end(); ++it_c)
     {
-        for (listPairStringIt it2 = VariablesRateRulePairs.begin(); 
-                              it2 != VariablesRateRulePairs.end(); ++it2)
+        for (listPairStringIt it_r = variablesRateRulePairs.begin();
+            it_r != variablesRateRulePairs.end(); ++it_r)
         {
-            if (it1->second == it2->first)
+            if (it_c->second == it_r->second)
             {
-                // species as variable in rate rule found
-                for (listPairStringIt it3 = compartmentSpeciesPairs.begin(); it3 != compartmentSpeciesPairs.end(); ++it3)
+                // species from compartment it_c->first is a participant in a rule it_r
+                std::string ruleVar = it_r->first;
+                std::string compartmentId = it_c->first;
+
+                // check that the variable for this rule is in a same compartment
+                for (listPairStringIt it_c1 = compartmentSpeciesPairs.begin();
+                    it_c1 != compartmentSpeciesPairs.end(); ++it_c1)
                 {
-                    if (it3->second == it2->first && it3 != it1)
+                    if (it_c1 == it_c)
                     {
-                        // species from different compartment in same rate rule found
-                        if (it3->first != it1->first)
+                        // skip the pair we have already considered
+                        continue;
+                    }
+                    if (it_c1->second == ruleVar)
+                    {
+                        if (it_c1->first != compartmentId)
                         {
+                            // variable in different compartment
                             return true;
                         }
                     }
@@ -496,7 +506,7 @@ SBMLRateRuleConverter::getCompartmentSpeciesPairs()
 listPairString 
 SBMLRateRuleConverter::getVariablesRateRulePairs()
 {
-  listPairString VariablesRateRulePairs;
+  listPairString variablesRateRulePairs;
   for (unsigned int n = 0; n < mDocument->getModel()->getNumRules(); n++)
   {
       Rule* rule = mDocument->getModel()->getRule(n);
@@ -511,18 +521,11 @@ SBMLRateRuleConverter::getVariablesRateRulePairs()
       {
           ASTNode* m = static_cast<ASTNode*>(*it);
           std::string mId = m->getName();
-          if (mId != varId)
-          {
-              continue;
-          }
-          else
-          {
-            pairString pair(varId, mId);
-          VariablesRateRulePairs.push_back(pair);
-          }
+          pairString pair(varId, mId);
+          variablesRateRulePairs.push_back(pair);
       }
   }
-  return VariablesRateRulePairs;
+  return variablesRateRulePairs;
 }
 
 

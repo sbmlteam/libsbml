@@ -7,18 +7,17 @@
     </listOfCompartments>
     <listOfSpecies>
       <species id="y_1" name="y_1" compartment="compartmentOne" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-      <species id="y_2" name="y_2" compartment="compartmentTwo" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="y_2" name="y_2" compartment="compartmentOne" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species id="y_3" compartment="compartmentTwo" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
     </listOfSpecies>
     <listOfRules>
       <rateRule variable="y_1">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <ci> y_3 </ci>
-        </math>
-      </rateRule>
-      <rateRule variable="y_2">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">    
-          <cn> 22 </cn>
+          <apply>
+            <plus/>
+            <ci> y_2 </ci>
+            <ci> y_3 </ci>
+          </apply>
         </math>
       </rateRule>
     </listOfRules>  
