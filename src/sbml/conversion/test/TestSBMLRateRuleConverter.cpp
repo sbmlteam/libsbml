@@ -1113,7 +1113,7 @@ START_TEST(test_converter_errors_3)
 	delete d;
 }
 END_TEST
-START_TEST(test_converter_errors_4)
+ START_TEST(test_converter_errors_4)
 {
 	std::string raterule_file(TestDataDirectory);
 	raterule_file += "rn_rr_fail_90104.xml";
@@ -1134,6 +1134,48 @@ START_TEST(test_converter_errors_4)
 	delete d;
 }
 END_TEST
+START_TEST(test_converter_errors_5)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "rn_rr_pass_90104.xml";
+
+	SBMLDocument* d = readSBMLFromFile(raterule_file.c_str());
+
+	rule_rn_props.addOption("useStoichiometryFromMath", true);
+	rule_rn_converter->setProperties(&rule_rn_props);
+
+
+	rule_rn_converter->setDocument(d);
+	int ret = rule_rn_converter->convert();
+	fail_unless(ret == LIBSBML_OPERATION_SUCCESS);
+	fail_unless(d->getNumErrors() == 0);
+
+	delete d;
+}
+END_TEST
+
+START_TEST(test_converter_errors_6)
+{
+	std::string raterule_file(TestDataDirectory);
+	raterule_file += "rn_rr_fail_90104_1.xml";
+
+	SBMLDocument* d = readSBMLFromFile(raterule_file.c_str());
+
+	rule_rn_props.addOption("useStoichiometryFromMath", true);
+	rule_rn_converter->setProperties(&rule_rn_props);
+
+
+	rule_rn_converter->setDocument(d);
+	int ret = rule_rn_converter->convert();
+	fail_unless(ret == LIBSBML_OPERATION_FAILED);
+	fail_unless(d->getNumErrors() == 1);
+	fail_unless(d->getError(0)->getErrorId() == 90104);
+	fail_unless(d->getError(0)->getCategory() == LIBSBML_CAT_RATE_RULE_CONVERSION);
+
+	delete d;
+}
+END_TEST
+
 
 START_TEST(test_rule_reaction_multi_compartment)
 {
@@ -1152,15 +1194,15 @@ END_TEST
 Suite *
 create_suite_TestSBMLRateRuleConverter (void)
 { 
-	bool testing = true;
+	bool testing = false;
 Suite *suite = suite_create("SBMLRateRuleConverter");
   TCase *tcase = tcase_create("SBMLRateRuleConverter");
   tcase_add_checked_fixture(tcase, RateRuleConverter_setup,
 	  RateRuleConverter_teardown);
-
+  
   if (testing)
   {
-	  tcase_add_test(tcase, test_rule_reaction_multi_compartment);
+	  tcase_add_test(tcase, test_converter_errors_6);
   }
   else
   {
@@ -1198,6 +1240,9 @@ Suite *suite = suite_create("SBMLRateRuleConverter");
 	  tcase_add_test(tcase, test_converter_errors_2);
 	  tcase_add_test(tcase, test_converter_errors_3);
 	  tcase_add_test(tcase, test_converter_errors_4);
+	  tcase_add_test(tcase, test_converter_errors_5);
+	  tcase_add_test(tcase, test_converter_errors_6);
+	  tcase_add_test(tcase, test_rule_reaction_multi_compartment);
 
 
 	  
