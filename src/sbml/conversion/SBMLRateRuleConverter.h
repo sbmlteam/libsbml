@@ -229,6 +229,8 @@ private:
 
   bool useStoichiometryFromMath();
 
+  bool performSanityCheck();
+
   // functions to deal with multiple compartments
   bool speciesFromMultipleCompartmentsInSameRateRule();
 
