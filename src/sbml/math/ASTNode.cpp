@@ -3900,7 +3900,7 @@ ASTNode::simplify()
   }
 
   // if we have 1 * x * ... dont need 1
-  if (mType == AST_TIMES && util_isEqual(getChild(0)->getValue(), 1.0))
+  if (mType == AST_TIMES && numChildren > 0 && util_isEqual(getChild(0)->getValue(), 1.0))
   {
     ASTNode * newNode = new ASTNode(AST_TIMES);
     for (unsigned int i = 1; i < numChildren; ++i)
@@ -3913,7 +3913,7 @@ ASTNode::simplify()
   }
 
   // if we have A - A should be 0
-  if (mType == AST_MINUS && getChild(0)->exactlyEqual(*getChild(1)))
+  if (mType == AST_MINUS && numChildren > 0 && getChild(0)->exactlyEqual(*getChild(1)))
   {
       ASTNode* child = zero->deepCopy();
       (*this) = *(child);
@@ -3924,7 +3924,7 @@ ASTNode::simplify()
   // or n + a + a should get n + 2*a
   // or n + a + b + b should get n + a + 2*b
 
-  if (mType == AST_PLUS)
+  if (mType == AST_PLUS && numChildren > 0)
   {
     bool match = false;
     unsigned int i;
@@ -3948,21 +3948,21 @@ ASTNode::simplify()
     }
   }
   // if we have A/A should be 1
-  if (mType == AST_DIVIDE && getChild(0)->exactlyEqual(*getChild(1)))
+  if (mType == AST_DIVIDE && numChildren > 1  && getChild(0)->exactlyEqual(*getChild(1)))
   {
     ASTNode* child = one->deepCopy();
     (*this) = *(child);
     delete child;
   }
   // if we have A^1 just have A
-  if ((mType == AST_POWER || mType == AST_FUNCTION_POWER) && getChild(1)->exactlyEqual(*one))
+  if ((mType == AST_POWER || mType == AST_FUNCTION_POWER) && numChildren > 1 && getChild(1)->exactlyEqual(*one))
   {
     ASTNode* child = getChild(0)->deepCopy();
     (*this) = *(child);
     delete child;
   }
   // if we have A^0 just have 1
-  if ((mType == AST_POWER || mType == AST_FUNCTION_POWER) && getChild(1)->exactlyEqual(*zero))
+  if ((mType == AST_POWER || mType == AST_FUNCTION_POWER) && numChildren > 1 && getChild(1)->exactlyEqual(*zero))
   {
     ASTNode* child = one->deepCopy();
     (*this) = *(child);
@@ -4190,7 +4190,7 @@ ASTNode::decompose()
       }
     }
   }
-  else if (getType() == AST_DIVIDE)
+  else if (getType() == AST_DIVIDE && getNumChildren() > 0)
   {
     type = getChild(0)->getType();
     if (type == AST_PLUS || type == AST_MINUS)
