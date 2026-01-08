@@ -254,6 +254,18 @@ START_TEST(test_conversion_raterule_converter_invalid)
 
   fail_unless(rule_rn_converter->convert() == LIBSBML_OPERATION_FAILED);
 
+	// now override the check for suitability to force an invalid document through
+	// assuming the user knows what they are doing
+	rule_rn_props.addOption("performSanityCheck", false);
+	rule_rn_converter->setProperties(&rule_rn_props);
+
+	fail_unless(rule_rn_converter->convert() == LIBSBML_OPERATION_SUCCESS);
+	
+	// reset to default
+	rule_rn_props.setBoolValue("performSanityCheck", true);
+	rule_rn_converter->setProperties(&rule_rn_props);
+
+
   delete doc;
 }
 END_TEST

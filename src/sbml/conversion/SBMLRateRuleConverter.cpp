@@ -238,6 +238,9 @@ SBMLRateRuleConverter::getDefaultProperties() const
     prop.addOption("useStoichiometryFromMath", true,
                      "If a number appears in the math use it as the stoichiometry");
 
+		prop.addOption("performSanityCheck", true,
+			"Whether the model should be checked for suitability first");
+
     init = true;
     return prop;
   }
@@ -300,7 +303,7 @@ SBMLRateRuleConverter::convert()
 {
   // if we cannot do the conversion - dont try
   OperationReturnValues_t returnValue;
-  if (!isDocumentAppropriate(returnValue))
+  if (performSanityCheck() && !isDocumentAppropriate(returnValue))
   {
     return returnValue;
   }
@@ -1136,6 +1139,21 @@ bool SBMLRateRuleConverter::useStoichiometryFromMath()
     }
     return value;
 }
+
+bool SBMLRateRuleConverter::performSanityCheck()
+{
+	bool value = true;
+	if (getProperties() == NULL || getProperties()->hasOption("performSanityCheck") == false)
+	{
+		return value;
+	}
+	else
+	{
+		value = getProperties()->getBoolValue("performSanityCheck");
+	}
+	return value;
+}
+
 
 void
 SBMLRateRuleConverter::analyseCoefficient(std::vector<double> coeffs, unsigned int term_index)
