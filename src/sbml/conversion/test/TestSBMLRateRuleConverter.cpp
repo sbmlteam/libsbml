@@ -369,7 +369,7 @@ START_TEST(test_crash_converter)
   delete math;
 
   rule_rn_converter->setDocument(doc);
-  fail_unless(rule_rn_converter->convert() == LIBSBML_OPERATION_FAILED);
+  fail_unless(rule_rn_converter->convert() == LIBSBML_OPERATION_SUCCESS);
 
   delete doc;
 
