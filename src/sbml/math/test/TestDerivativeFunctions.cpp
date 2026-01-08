@@ -79,7 +79,7 @@ equals(const char* expected, const char* actual)
 static bool
 formulas_equal(const char* expected, ASTNode* actual)
 {
-	return equals(expected, SBML_formulaToL3String(actual));
+  return equals(expected, SBML_formulaToL3String(actual));
 }
 
 START_TEST (test_deriv_const)
@@ -173,6 +173,20 @@ START_TEST(test_deriv_plus)
   fail_unless(deriv->exactlyEqual(*node) == true);
   delete n;
   delete node;
+  delete deriv;
+
+  // test 0 args:
+  n = readMathMLFromString(
+    "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+    "  <apply>"
+    "    <plus/>"
+    "  </apply>"
+    "</math>"
+  );
+
+  deriv = n->derivative(x);
+
+  delete n;
   delete deriv;
 }
 END_TEST
@@ -299,6 +313,25 @@ START_TEST(test_deriv_times)
   delete n;
   delete node;
   delete deriv;
+
+  // also check that it does not crash on no args:
+  n = readMathMLFromString(
+    "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+    "  <apply>"
+    "    <times/>"
+    "  </apply>"
+    "</math>"
+  );
+
+  deriv = n->derivative(x);
+
+  // should be 0
+  fail_unless(deriv->isNumber() == true);
+  fail_unless(deriv->getValue() == 0.0);
+
+  delete n;
+  delete deriv;
+
 }
 END_TEST
 
@@ -360,6 +393,19 @@ START_TEST(test_deriv_divide)
   fail_unless(deriv->exactlyEqual(*node) == true);
   delete n;
   delete node;
+  delete deriv;
+
+  // test 0 args: 
+  n = readMathMLFromString(
+    "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+    "  <apply>"
+    "    <divide/>"
+    "  </apply>"
+    "</math>"
+  );
+  deriv = n->derivative(x);
+
+  delete n;
   delete deriv;
 }
 END_TEST
@@ -484,6 +530,23 @@ START_TEST(test_deriv_minus)
   delete n;
   delete node;
   delete deriv;
+
+
+  // test 0 args
+  n = readMathMLFromString(
+    "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+    "  <apply>"
+    "    <minus/>"
+    "  </apply>"
+    "</math>"
+  );
+
+  deriv = n->derivative(x);
+
+  delete n;
+  delete deriv;
+
+
 }
 END_TEST
 
@@ -612,6 +675,19 @@ START_TEST(test_deriv_power)
   fail_unless(deriv->exactlyEqual(*node) == true);
   delete n;
   delete node;
+  delete deriv;
+
+  // test 0 arg
+  n = readMathMLFromString(
+    "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+    "  <apply>"
+    "    <power/>"
+    "  </apply>"
+    "</math>"
+  );
+
+  deriv = n->derivative(x);
+  delete n;
   delete deriv;
 }
 END_TEST
@@ -810,6 +886,19 @@ START_TEST(test_deriv_log)
   delete n;
   delete node;
   delete deriv;
+
+  // test 0 args:
+  n = readMathMLFromString(
+    "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+    "  <apply>"
+    "    <log/>"
+    "  </apply>"
+    "</math>");
+
+  deriv = n->derivative(x);
+
+  delete n;
+  delete deriv;
 }
 END_TEST
 
@@ -957,6 +1046,20 @@ START_TEST(test_deriv_exp)
   delete n;
   delete node;
   delete deriv;
+
+  // test 0 args:
+  n = readMathMLFromString(
+    "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+    "  <apply>"
+    "    <exp/>"
+    "  </apply>"
+    "</math>"
+  );
+
+  deriv = n->derivative(x);
+
+  delete n;
+  delete deriv;
 }
 END_TEST
 
@@ -1015,6 +1118,20 @@ START_TEST(test_deriv_abs)
     fail_unless(deriv->exactlyEqual(*node) == true);
     delete n;
     delete node;
+    delete deriv;
+
+    // test 0 args
+    n = readMathMLFromString(
+      "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+      "  <apply>"
+      "    <abs/>"
+      "  </apply>"
+      "</math>"
+    );
+
+    deriv = n->derivative(x);
+
+    delete n;
     delete deriv;
 }
 END_TEST
