@@ -412,6 +412,7 @@ LIBSBML_CPP_NAMESPACE_USE
 %newobject writeSBMLToString;
 %newobject readMathMLFromString;
 %newobject writeMathMLToString;
+%newobject writeMathMLWithNamespaceToString;
 %newobject SBML_formulaToString;
 %newobject SBML_formulaToL3String;
 %newobject SBML_formulaToL3StringWithSettings;
