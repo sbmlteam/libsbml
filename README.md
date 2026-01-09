@@ -4,9 +4,9 @@ libSBML<img width="22%" align="right" src=".graphics/libsbml-logo-and-name.svg">
 LibSBML is an open-source library for working with SBML (the Systems Biology Markup Language).  It is written in C++ and provides language bindings for many other programming languages.
 
 [![License](https://img.shields.io/badge/License-LGPL-blue.svg?style=flat-square)](https://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html)
-[![Stable release](https://img.shields.io/badge/Stable_release-5.19.0-brightgreen.svg?style=flat-square)](https://sourceforge.net/projects/sbml/files/libsbml/5.19.0/stable/)
-[![Experimental release](https://img.shields.io/badge/Experimental_release-5.19.0-b44e88.svg?style=flat-square)](https://sourceforge.net/projects/sbml/files/libsbml/5.19.0/experimental/)
-[![Pivotal Tracker](https://img.shields.io/badge/Project_management-Pivotal-d07a3e.svg?style=flat-square)](https://www.pivotaltracker.com/n/projects/248655)
+[![Stable release](https://img.shields.io/badge/Stable_release-5.21.0-brightgreen.svg?style=flat-square)](https://github.com/sbmlteam/libsbml/releases/tag/v5.21.0)
+[![Experimental release](https://img.shields.io/badge/Experimental_release-5.21.0-b44e88.svg?style=flat-square)](https://github.com/sbmlteam/libsbml/releases/tag/v5.21.0)
+[![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/sbmlteam/libsbml)](https://github.com/sbmlteam/libsbml/issues)
 [![Discussion](https://img.shields.io/badge/Discussion-libsbml--development-lightgray.svg?style=flat-square)](https://groups.google.com/g/libsbml-development)
 [![Nightly build](https://img.shields.io/github/workflow/status/sbmlteam/libsbml/Nightly%20build%20(binaries)?label=Nightly%20build&style=flat-square)](https://github.com/sbmlteam/libsbml/actions/workflows/store-artefact.yml)
 
