@@ -85,7 +85,7 @@ FbcOr::FbcOr (FbcPkgNamespaces* fbcns)
   //
   // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
   //        in this constuctor because the functions are properly invoked in the constructor of the
-  //        base class (Transformation).
+  //        base class (FbcAssociation).
   //
 }
 
