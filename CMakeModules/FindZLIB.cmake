@@ -31,7 +31,7 @@ if (NOT (ZLIB_INCLUDE_DIR AND ZLIB_LIBRARY) OR NOT ZLIB_FOUND)
     find_path(ZLIB_INCLUDE_DIR zlib.h zlib/zlib.h
 	    PATHS $ENV{ZLIB_DIR}/include
 	          $ENV{ZLIB_DIR}
-              ${${_PROJECT_DEPENDENCY_DIR}}/include
+	          ${${_PROJECT_DEPENDENCY_DIR}}/include
 	          ~/Library/Frameworks
 	          /Library/Frameworks
 	          /sw/include        # Fink
@@ -39,8 +39,8 @@ if (NOT (ZLIB_INCLUDE_DIR AND ZLIB_LIBRARY) OR NOT ZLIB_FOUND)
 	          /opt/csw/include   # Blastwave
 	          /opt/include
 	          /usr/freeware/include
-              CMAKE_FIND_ROOT_PATH_BOTH
-              NO_DEFAULT_PATH)
+	          CMAKE_FIND_ROOT_PATH_BOTH
+	          NO_DEFAULT_PATH)
 
     if (NOT ZLIB_INCLUDE_DIR)
         find_path(ZLIB_INCLUDE_DIR zlib.h zlib/zlib.h
@@ -85,20 +85,20 @@ if (NOT (ZLIB_INCLUDE_DIR AND ZLIB_LIBRARY) OR NOT ZLIB_FOUND)
     
     # make sure that we have a valid zip library
     file(TO_CMAKE_PATH "${ZLIB_LIBRARY}" LIBZ_CMAKE_PATH)
-    include (CheckLibraryExists)
-    check_library_exists("${LIBZ_CMAKE_PATH}" "gzopen" "" LIBZ_FOUND_SYMBOL)
-    if(NOT LIBZ_FOUND_SYMBOL)
-        # this is odd, but on windows this check always fails! must be a
-        # bug in the current cmake version so for now only issue this
-        # warning on linux
-        if(UNIX)
-            message(WARNING
-"The chosen zlib library does not appear to be valid because it is
-missing certain required symbols. Please check that ${LIBZ_LIBRARY} is
-the correct zlib library. For details about the error, please see
-CMakeError.log or CMakeConfigureLog.yaml in the build directory.")
-        endif()
-    endif()
+#    include (CheckLibraryExists)
+#    check_library_exists("${LIBZ_CMAKE_PATH}" "gzopen" "" LIBZ_FOUND_SYMBOL)
+#     if(NOT LIBZ_FOUND_SYMBOL)
+#         # this is odd, but on windows this check always fails! must be a
+#         # bug in the current cmake version so for now only issue this
+#         # warning on linux
+#         if(UNIX)
+#             message(WARNING
+# "The chosen zlib library does not appear to be valid because it is
+# missing certain required symbols. Please check that ${LIBZ_LIBRARY} is
+# the correct zlib library. For details about the error, please see
+# CMakeError.log or CMakeConfigureLog.yaml in the build directory.")
+#         endif()
+#     endif()
 
     mark_as_advanced(ZLIB_INCLUDE_DIR ZLIB_LIBRARY)
 
