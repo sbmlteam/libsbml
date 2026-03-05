@@ -71,9 +71,9 @@ jobs:
         if: matrix.platform == 'windows-latest'
         shell: bash
         run: |
-          curl -L https://sourceforge.net/projects/swig/files/swigwin/swigwin-4.0.2/swigwin-4.0.2.zip/download > swig.zip
+          curl -L https://sourceforge.net/projects/swig/files/swigwin/swigwin-4.4.1/swigwin-4.4.1.zip/download > swig.zip
           unzip -o swig.zip -d swig
-          echo $GITHUB_WORKSPACE"/swig/swigwin-4.0.2/" >> $GITHUB_PATH
+          echo $GITHUB_WORKSPACE"/swig/swigwin-4.4.1/" >> $GITHUB_PATH
 
       - name: setup Windows environment
         # this is separate from the SWIG download itself, because it needs to be added to the path also when SWIG is cached
@@ -206,9 +206,9 @@ jobs:
         run: |
           yum install -y pcre-devel
           echo "SWIG_DIR=/usr/local/swig/" >> "${GITHUB_ENV}"
-          curl -L https://sourceforge.net/projects/swig/files/swig/swig-4.0.2/swig-4.0.2.tar.gz/download > swig.tar.gz
+          curl -L https://sourceforge.net/projects/swig/files/swig/swig-4.4.1/swig-4.4.1.tar.gz/download > swig.tar.gz
           tar -zxvf swig.tar.gz
-          cd swig-4.0.2/
+          cd swig-4.4.1/
           ./configure --disable-dependency-tracking --prefix=$SWIG_DIR
           make clean
           make -j 2

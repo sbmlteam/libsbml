@@ -49,7 +49,7 @@ jobs:
           curl -L https://github.com/sbmlteam/libSBML-dependencies/releases/download/latest/libSBML-dependencies-1.0.1-x64-Release-static.zip > dependencies.zip
           unzip dependencies.zip
           mv libSBML-dependencies-1.0.1-x64-Release-static dependencies
-          curl -L https://prdownloads.sourceforge.net/swig/swigwin-3.0.12.zip > swig.zip
+          curl -L https://prdownloads.sourceforge.net/swig/swigwin-4.4.1.zip > swig.zip
           unzip -o swig.zip -d swig
 
       - name: setup Windows environment

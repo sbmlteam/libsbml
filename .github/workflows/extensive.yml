@@ -111,7 +111,7 @@ jobs:
           curl -L https://github.com/sbmlteam/libSBML-dependencies/releases/download/latest/libSBML-dependencies-1.0.1-x64-Release-static.zip > dependencies.zip
           unzip dependencies.zip
           mv libSBML-dependencies-1.0.1-x64-Release-static dependencies
-          curl -L https://prdownloads.sourceforge.net/swig/swigwin-3.0.12.zip > swig.zip
+          curl -L https://prdownloads.sourceforge.net/swig/swigwin-4.4.1.zip > swig.zip
           unzip -o swig.zip -d swig
 
       - name: setup Windows environment
@@ -119,7 +119,7 @@ jobs:
         if: matrix.platform == 'windows-latest'
         shell: bash
         run: |
-          echo $GITHUB_WORKSPACE"/swig/swigwin-3.0.12/" >> $GITHUB_PATH
+          echo $GITHUB_WORKSPACE"/swig/swigwin-4.4.1/" >> $GITHUB_PATH
           echo RUNTIME_LINKING_OPTION="-DWITH_STATIC_RUNTIME=ON" >> "${GITHUB_ENV}"
           ./dev/utilities/expdef/expdef64.exe -dRlib.def -l R.dll
           echo R_PLATFORM_SPECIFIC_OPTIONS="-DR_LIB=${GITHUB_WORKSPACE}\Rlib.lib" >> "${GITHUB_ENV}"
