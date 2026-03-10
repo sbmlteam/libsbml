@@ -48,6 +48,7 @@ foreach(example
     addModelHistory
     appendAnnotation
     callExternalValidator
+    checkNotesMarkdown
     convertSBML
     convertToL1V1
     createExampleSBML
@@ -90,6 +91,13 @@ if (WITH_LIBXML)
   target_link_libraries(example_cpp_rngvalidator ${LIBSBML_LIBRARY}-static)
   target_link_libraries(example_cpp_rngvalidator LIBXML::LIBXML ${EXTRA_LIBS})
 endif()
+
+add_subdirectory(analyzeTags)
+add_subdirectory(checkTestCases)
+add_subdirectory(compileTagsFor)
+add_subdirectory(createSyntacticTests)
+add_subdirectory(generateTestsFrom)
+
 
 # run examples as test
 

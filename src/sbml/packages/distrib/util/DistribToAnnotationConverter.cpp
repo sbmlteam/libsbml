@@ -402,6 +402,9 @@ DistribToAnnotationConverter::addFunctionDefinitionWith(Model* model, const stri
     args = "scale";
     ret = "scale*sqrt(pi/2)";
     break;
+  default:
+    //This function should never be called with any other types.
+    break;
   }
 
   if (!getWriteMeans()) {

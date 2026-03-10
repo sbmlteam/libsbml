@@ -6444,7 +6444,7 @@ Model::createConstraintUnitsData(UnitFormulaFormatter * unitFormatter)
   for (unsigned int n = 0; n < getNumConstraints(); n++)
   {
     Constraint* c = getConstraint(n);
-    sprintf(newId, "constraint_%u", n);
+    snprintf(newId, 15, "constraint_%u", n);
     newID.assign(newId);
     c->setInternalId(newID);
 
@@ -6470,7 +6470,7 @@ Model::createRuleUnitsData(UnitFormulaFormatter * unitFormatter)
     // need to create an id for an algebbraic rule
     if (r->getTypeCode() == SBML_ALGEBRAIC_RULE)
     {
-      sprintf(newId, "alg_rule_%u", countAlg);
+      snprintf(newId, 12, "alg_rule_%u", countAlg);
       newID.assign(newId);
       r->setInternalId(newID);
       static_cast <AlgebraicRule *> (r)->setInternalIdOnly();
@@ -6647,7 +6647,7 @@ Model::createEventUnitsData(UnitFormulaFormatter * unitFormatter)
   {
     Event* e = getEvent(n);
 
-    sprintf(newId, "event_%u", countEvents);
+    snprintf(newId, 12, "event_%u", countEvents);
     newID.assign(newId);
     e->setInternalId(newID);
     countEvents++;

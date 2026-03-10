@@ -1334,7 +1334,7 @@ SBMLRateRuleConverter::createReactions()
     r->setReversible(false);
     r->setFast(false);
     int id = mDocument->getModel()->getNumReactions();
-    sprintf(number, "%u", id);
+    snprintf(number, 4, "%u", id);
     const std::string reactionId = "J" + string(number);
     r->setId(reactionId);
     bool itemAdded = false;

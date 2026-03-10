@@ -561,7 +561,7 @@ Style::getGroup()
 bool
 Style::isSetGroup() const
 {
-  return (&mGroup != NULL);
+  return true; // (&mGroup != NULL) is always true.
 }
 
 
@@ -1176,7 +1176,7 @@ Style::getElementBySId(const std::string& id)
 
   SBase* obj = NULL;
 
-  if (&mGroup != NULL)
+  if (isSetGroup())
   {
     if (mGroup.getId() == id)
     {
@@ -1208,7 +1208,7 @@ Style::getElementByMetaId(const std::string& metaid)
 
   SBase* obj = NULL;
 
-  if (&mGroup != NULL)
+  if (isSetGroup())
   {
     if (mGroup.getMetaId() == metaid)
     {
