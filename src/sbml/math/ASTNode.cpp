@@ -1176,7 +1176,8 @@ ASTNode::fillListOfNodes (ASTNodePredicate predicate, List* lst) const
 
 void ASTNode::fillListOfNodesWithLevel(ASTNodePredicate predicate, ASTNodeLevels& vector_pairs, unsigned int level) const
 {
-    if ((vector_pairs.size() == 1 && vector_pairs.back().second == NULL) ||
+    if (this==NULL ||
+        (vector_pairs.size() == 1 && vector_pairs.back().second == NULL) ||
         predicate == NULL) 
         return;
 
