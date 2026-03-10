@@ -382,6 +382,20 @@ public:
    
   /** @endcond */
 
+  /** @cond doxygenLibsbmlInternal */
+  /**
+   * Sets the parent SBML object of this SBML object.
+   * (Creates a child-parent relationship by the child)
+   * This function is called when a child element is
+   * set/added/created by its parent element (e.g. by setXXX,
+   * addXXX, createXXX, and connectToChild functions of the
+   * parent element).
+   *
+   * @param parent the SBML object to use.
+   */
+  virtual void connectToParent(SBase* parent);
+  /** @endcond */
+
 
 protected:
   /** @cond doxygenLibsbmlInternal */
