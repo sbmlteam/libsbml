@@ -382,30 +382,28 @@ public:
    
   /** @endcond */
 
-  /** @cond doxygenLibsbmlInternal */
   /**
-   * Sets the parent SBML object of this SBML object.
-   * (Creates a child-parent relationship by the child)
-   * This function is called when a child element is
-   * set/added/created by its parent element (e.g. by setXXX,
-   * addXXX, createXXX, and connectToChild functions of the
-   * parent element).
-   *
-   * @param parent the SBML object to use.
+   * Return the parent object of this ModelHistory.
    */
-  virtual void connectToParent(SBase* parent);
-  /** @endcond */
+  const SBase * getParentSBMLObject() const;
 
+  /**
+   * Returns whether the parent object of this ModelHistory has been set (true), or is NULL (false).
+   */
+  bool isSetParentSBMLObject() const;
+
+  /**
+   * Sets the parent object of this ModelHistory.
+   */
+  void setParentSBMLObject(const SBase * sb);
+
+  /**
+   * Sets the parent object of this ModelHistory to NULL.
+   */
+  int unsetParentSBMLObject();
 
 protected:
   /** @cond doxygenLibsbmlInternal */
-
-  // record the SBML Object on which this ModelHistory is set
-
-  const SBase * getParentSBMLObject() const;
-  bool isSetParentSBMLObject() const;
-  void setParentSBMLObject(const SBase * sb);
-  int unsetParentSBMLObject();
 
   friend class RDFAnnotationParser;
   friend class SBase;

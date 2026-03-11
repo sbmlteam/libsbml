@@ -486,21 +486,6 @@ ModelHistory::resetModifiedFlags()
 }
 /** @endcond */
 
-/*
-  * Sets the parent SBML object of this SBML object.
-  *
-  * @param sb the SBML object to use.
-  */
-void
-ModelHistory::connectToParent(SBase* parent)
-{
-  mParentSBMLObject = parent;
-}
-
-
-
-/** @cond doxygenLibsbmlInternal */
-
 const SBase * 
 ModelHistory::getParentSBMLObject() const
 {
@@ -528,8 +513,6 @@ ModelHistory::unsetParentSBMLObject()
   mParentSBMLObject = NULL;
   return LIBSBML_OPERATION_SUCCESS;
 }
-
-/** @endcond */
 
 
 #endif /* __cplusplus */
