@@ -1,5 +1,9 @@
 var NAVTREEINDEX152 =
 {
+"class_reference_glyph.html#af79cee0070768bd96a050e22be53408e":[3,0,258,46],
+"class_reference_glyph.html#afb8d1336d8ee0df1c4ab30081005217b":[3,0,258,154],
+"class_reference_glyph.html#aff9c70abeba4553aca89eb3d57c348ae":[3,0,258,1],
+"class_rel_abs_vector.html":[3,0,259],
 "class_rel_abs_vector.html#a041e9c2ca74d03f87d8458f7878eb67f":[3,0,259,19],
 "class_rel_abs_vector.html#a08ed157b32959bdb94da40b7d30f9409":[3,0,259,21],
 "class_rel_abs_vector.html#a17630cde8134a1ede9047878087028b6":[3,0,259,24],
@@ -245,9 +249,5 @@ var NAVTREEINDEX152 =
 "class_render_cubic_bezier.html#af1bb5d15ae43664a9fe9ed5751ddf4bd":[3,0,260,213],
 "class_render_cubic_bezier.html#af6413bbb21b10835eb90c1edc97214d6":[3,0,260,45],
 "class_render_cubic_bezier.html#af71753d00f8d1c58b3713094574b38c2":[3,0,260,22],
-"class_render_cubic_bezier.html#afe6c286a9c870fb4682bba8b84b20811":[3,0,260,163],
-"class_render_curve.html":[3,0,261],
-"class_render_curve.html#a011979e23fde280ea77ace68222069f2":[3,0,261,109],
-"class_render_curve.html#a0143961ca5188d00203c99eef1de854e":[3,0,261,22],
-"class_render_curve.html#a027dbf22b8bf74bbb0ce5cd4453851c7":[3,0,261,63]
+"class_render_cubic_bezier.html#afe6c286a9c870fb4682bba8b84b20811":[3,0,260,163]
 };

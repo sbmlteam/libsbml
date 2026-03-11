@@ -14,10 +14,14 @@ var class_model_history =
     [ "getModifiedDate", "class_model_history.html#a00cf5965461b4afc106390f1a50e8587", null ],
     [ "getNumCreators", "class_model_history.html#ab35d5c19e3eda7fd5f94171d3dea3cd9", null ],
     [ "getNumModifiedDates", "class_model_history.html#aed1317158aced939209bde33bba8ce12", null ],
+    [ "getParentSBMLObject", "class_model_history.html#aaa1d2a6932c75dad8123fa37859d72af", null ],
     [ "hasRequiredAttributes", "class_model_history.html#a6811a7d836d42479d97f0038a04d9a69", null ],
     [ "isSetCreatedDate", "class_model_history.html#ac71f8a07003c19fc97a6da61779087bc", null ],
     [ "isSetModifiedDate", "class_model_history.html#a3a7db978bbeae7c28b5a8a6fec7f45e4", null ],
+    [ "isSetParentSBMLObject", "class_model_history.html#a3e2c5e8eeddceebd2ede4659eafe765a", null ],
     [ "operator=", "class_model_history.html#a766d4c477a0ea87c531fd79de4b8eccb", null ],
     [ "setCreatedDate", "class_model_history.html#adb0ad57f90f2150d0d8cd26481df9688", null ],
-    [ "setModifiedDate", "class_model_history.html#a1e14e8f53f4768151454fe690929bc13", null ]
+    [ "setModifiedDate", "class_model_history.html#a1e14e8f53f4768151454fe690929bc13", null ],
+    [ "setParentSBMLObject", "class_model_history.html#a7224045c3ecda1c1ed547317aca2ad3e", null ],
+    [ "unsetParentSBMLObject", "class_model_history.html#ab61f4d141f2e1a4158bb494529fa0915", null ]
 ];
