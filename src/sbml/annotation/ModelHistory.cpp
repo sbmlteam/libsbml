@@ -486,8 +486,6 @@ ModelHistory::resetModifiedFlags()
 }
 /** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
-
 const SBase * 
 ModelHistory::getParentSBMLObject() const
 {
@@ -515,8 +513,6 @@ ModelHistory::unsetParentSBMLObject()
   mParentSBMLObject = NULL;
   return LIBSBML_OPERATION_SUCCESS;
 }
-
-/** @endcond */
 
 
 #endif /* __cplusplus */

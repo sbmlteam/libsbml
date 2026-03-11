@@ -2362,6 +2362,7 @@ SBase::setModelHistory(ModelHistory * history)
     {
       delete mHistory;
       mHistory = static_cast<ModelHistory*>(history->clone());
+      mHistory->setParentSBMLObject(this);
       mHistoryChanged = true;
       status = LIBSBML_OPERATION_SUCCESS;
     }
