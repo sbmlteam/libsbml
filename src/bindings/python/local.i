@@ -809,7 +809,7 @@ def readSBML(*args):
 
 %define WRAP_LISTWRAPPER(CLASS)
 
-%template ( ListWrapper ## CLASS ) ListWrapper<CLASS>;
+%template ( CLASS ## List ) ListWrapper<CLASS>;
 
 %extend ListWrapper<CLASS>
 {

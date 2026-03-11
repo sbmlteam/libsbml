@@ -72,14 +72,12 @@ void SBMLRateOfConverter::init()
 
 SBMLRateOfConverter::SBMLRateOfConverter() 
   : SBMLConverter("SBML Rate Of Converter")
-  , mOriginalModel (NULL)
 {
 }
 
 
 SBMLRateOfConverter::SBMLRateOfConverter(const SBMLRateOfConverter& orig) 
   : SBMLConverter(orig)
-  , mOriginalModel     (orig.mOriginalModel)
 {
 }
 
@@ -101,8 +99,6 @@ SBMLRateOfConverter::operator=(const SBMLRateOfConverter& rhs)
  */
 SBMLRateOfConverter::~SBMLRateOfConverter ()
 {
-  if (mOriginalModel != NULL)
-    delete mOriginalModel;
   mRateOfMath.clear();
 }
 

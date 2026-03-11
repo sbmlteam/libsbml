@@ -48,11 +48,19 @@
 #include <algorithm>
 #include <string>
 
+#include <sbml/math/ASTNode.h>
+#include <sbml/util/IdList.h>
+#include <sbml/conversion/ExpressionAnalyser.h>
+#include <sbml/Model.h>
+#include <sbml/AssignmentRule.h>
+#include <sbml/Rule.h>
+
 using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 SBMLConverter::SBMLConverter () :
     mDocument (NULL)
+  , mOriginalModel(NULL)
   , mProps(NULL)
   , mName("")
 {
@@ -60,6 +68,7 @@ SBMLConverter::SBMLConverter () :
 
 SBMLConverter::SBMLConverter (const std::string& name)
   : mDocument (NULL)
+  , mOriginalModel(NULL)
   , mProps(NULL)
   , mName(name)
 {
@@ -70,6 +79,7 @@ SBMLConverter::SBMLConverter (const std::string& name)
  */
 SBMLConverter::SBMLConverter(const SBMLConverter& orig) :
     mDocument (orig.mDocument)
+  , mOriginalModel(orig.mOriginalModel)
   , mProps(NULL)
   , mName(orig.mName)
 {
@@ -90,6 +100,11 @@ SBMLConverter::~SBMLConverter ()
     delete mProps;
     mProps = NULL;
   }
+  if (mOriginalModel != NULL)
+  {
+      delete mOriginalModel;
+      mOriginalModel = NULL;
+  }
 }
 
 
@@ -102,6 +117,7 @@ SBMLConverter::operator=(const SBMLConverter& rhs)
   if(&rhs!=this)
   {
     mDocument = rhs.mDocument;
+    mOriginalModel = rhs.mOriginalModel;
     mName = rhs.mName;
     
     if (mProps != NULL)
@@ -177,6 +193,26 @@ SBMLConverter::getName() const
   return mName;
 }
 
+bool SBMLConverter::mathContainsId(const ASTNode* ast, const std::string& id) const
+{
+    bool present = false;
+    List* variables = ast->getListOfNodes(ASTNode_isName);
+    IdList vars;
+    for (unsigned int i = 0; i < variables->getSize(); i++)
+    {
+        ASTNode* node = static_cast<ASTNode*>(variables->get(i));
+        string   name = node->getName() ? node->getName() : "";
+        vars.append(name);
+    }
+    if (vars.contains(id))
+    {
+        present = true;
+    }
+    delete variables;
+
+    return present;
+}
+
 int
 SBMLConverter::convert()
 {
@@ -222,7 +258,95 @@ SBMLConverter::getDefaultProperties() const
   return prop;
 }
 
-  
+ASTNode*
+SBMLConverter::replaceMathWithAssignedVariables(ASTNode* original)
+{
+    // there may be bits of the math that are actually assigned with an assignment rule
+    // and therefore should be replaced
+    // e.g. math equals 2 * k1 * A + k2 * B
+    // in a model with an assignment rule k3 = 2 * k1 * A
+    // so the math could become k3 + k2 * B
+    unsigned int numAssignmentRules = 0;
+    IdList assignmentRulesVariables = getListAssignmentRuleVariables(numAssignmentRules);
+    if (numAssignmentRules == 0)
+    {
+        return original;
+    }
+
+    ExpressionAnalyser analyser;
+    ASTNode* newMath = original->deepCopy();
+    for (unsigned int i = 0; i < numAssignmentRules; i++)
+    {
+        AssignmentRule* ar = mOriginalModel->getAssignmentRule(assignmentRulesVariables.at(i));
+        if (ar != NULL && ar->isSetMath() == true)
+        {
+            ASTNode* arMath = ar->getMath()->deepCopy();
+            ASTNode* variable = new ASTNode(AST_NAME);
+            variable->setName(ar->getVariable().c_str());
+            //cout << "assignment rule " << i << ": " << SBML_formulaToL3String(arMath) << " variable " 
+            //    << SBML_formulaToL3String(variable) << " original " << SBML_formulaToL3String(newMath) << endl;
+
+            analyser.replaceExpressionInNodeWithNode(newMath, arMath, variable);
+            //cout << "afterwards assignment rule " << i << ": " << SBML_formulaToL3String(arMath) << " variable "
+            //    << SBML_formulaToL3String(variable) << " original " << SBML_formulaToL3String(newMath) << endl;
+        }
+    }
+    return newMath;
+}
+
+
+IdList
+SBMLConverter::getListAssignmentRuleVariables(unsigned int& numAssignmentRules)
+{
+    IdList assignmentRuleVariables;
+    unsigned int numRules = mOriginalModel->getNumRules();
+    for (unsigned int i = 0; i < numRules; i++)
+    {
+        Rule* r = mOriginalModel->getRule(i);
+        if (r != NULL && r->isAssignment())
+        {
+            numAssignmentRules++;
+            assignmentRuleVariables.append(r->getVariable());
+        }
+    }
+    return assignmentRuleVariables;
+}
+
+ASTNode* SBMLConverter::replaceAssignedVariablesWithMath(ASTNode* original)
+{
+    // there may be bits of the math that are use a variable assigned with an assignment rule
+    // and therefore should be replaced with the math
+    // e.g. math equals k3 + k2 * B
+    // in a model with an assignment rule k3 = 2 * k1 * A
+    // so the math could become 2 * k1 * A + k2 * B
+    unsigned int numAssignmentRules = 0;
+    IdList assignmentRulesVariables = getListAssignmentRuleVariables(numAssignmentRules);
+    if (numAssignmentRules == 0)
+    {
+        return original;
+    }
+
+    ExpressionAnalyser analyser;
+    ASTNode* newMath = original->deepCopy();
+    for (unsigned int i = 0; i < numAssignmentRules; i++)
+    {
+        AssignmentRule* ar = mOriginalModel->getAssignmentRule(assignmentRulesVariables.at(i));
+        if (ar != NULL && ar->isSetMath() == true)
+        {
+            ASTNode* arMath = ar->getMath()->deepCopy();
+            if (arMath->isCSymbolFunction() || arMath->getType() == AST_NAME_TIME)
+            {
+                // we cannot replace a CSymbolFunction as it may have different values in different contexts
+                delete arMath;
+                continue;
+            }
+            ASTNode* variable = new ASTNode(AST_NAME);
+            variable->setName(ar->getVariable().c_str());
+            analyser.replaceExpressionInNodeWithNode(newMath, variable, arMath);
+        }
+    }
+    return newMath;
+}
 /** @cond doxygenIgnored */
 /** @endcond */
 

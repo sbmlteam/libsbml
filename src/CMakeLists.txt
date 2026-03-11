@@ -147,12 +147,9 @@ check_include_files (stdlib.h STDC_HEADERS)
 check_include_files (string.h STDC_HEADERS)
 
 set(WORDS_BIGENDIAN)
-if (UNIX)
-  include (TestBigEndian)
-  test_big_endian(WORDS_BIGENDIAN)
+if(CMAKE_C_BYTE_ORDER STREQUAL "BIG_ENDIAN")
+  set(WORDS_BIGENDIAN TRUE)
 else()
-  # test_big_endian seems to fail with nmake (VS 2010) on windows
-  # however, windows is always little endian, so catch this here
   set(WORDS_BIGENDIAN FALSE)
 endif()
 

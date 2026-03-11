@@ -49,6 +49,8 @@
 #include <sbml/Model.h>
 #include <sbml/AssignmentRule.h>
 #include <sbml/RateRule.h>
+#include <sbml/conversion/ExpressionAnalyser.h>
+#include <sbml/conversion/ConversionProperties.h>
 
 #ifdef __cplusplus
 
@@ -67,7 +69,6 @@ void SBMLReactionConverter::init()
 
 SBMLReactionConverter::SBMLReactionConverter() 
   : SBMLConverter("SBML Reaction Converter")
-  , mOriginalModel (NULL)
 {
   mReactionsToRemove.clear();
   mRateRulesMap.clear();
@@ -78,7 +79,6 @@ SBMLReactionConverter::SBMLReactionConverter(const SBMLReactionConverter& orig)
   : SBMLConverter(orig)
   , mReactionsToRemove (orig.mReactionsToRemove)
   , mRateRulesMap      (orig.mRateRulesMap)
-  , mOriginalModel     (orig.mOriginalModel)
 {
 }
 
@@ -100,8 +100,6 @@ SBMLReactionConverter::operator=(const SBMLReactionConverter& rhs)
  */
 SBMLReactionConverter::~SBMLReactionConverter ()
 {
-  if (mOriginalModel != NULL)
-    delete mOriginalModel;
 }
 
 
@@ -126,6 +124,8 @@ SBMLReactionConverter::getDefaultProperties() const
   {
     prop.addOption("replaceReactions", true,
                    "Replace reactions with rateRules");
+    prop.addOption("rateRuleVariablesShouldBeParameters", false,
+                    "make any species into parameters");
     init = true;
     return prop;
   }
@@ -140,6 +140,20 @@ SBMLReactionConverter::matchesProperties(const ConversionProperties &props) cons
   return true;
 }
 
+bool
+SBMLReactionConverter::getRateRuleVariablesShouldBeParameters() const
+{
+    bool value = false;
+    if (getProperties() == NULL || getProperties()->hasOption("rateRuleVariablesShouldBeParameters") == false)
+    {
+        return value;
+    }
+    else
+    {
+        value = getProperties()->getBoolValue("rateRuleVariablesShouldBeParameters");
+    }
+    return value;
+}
 
 int 
 SBMLReactionConverter::setDocument(const SBMLDocument* doc)
@@ -210,13 +224,25 @@ SBMLReactionConverter::convert()
   ConversionProperties props;
   props.addOption("promoteLocalParameters", true,
                  "Promotes all Local Parameters to Global ones");
-  
+
   // convert
   int parameterReplaced = mDocument->convert(props);
-
   if (parameterReplaced != LIBSBML_OPERATION_SUCCESS)
   {
-    return parameterReplaced;
+      return parameterReplaced;
+  }
+   
+  // replace any initial assignments with their values
+  // this is needed to ensure that the any stoichiometry assigned this way is replaced by value
+  ConversionProperties props_ia;
+  props_ia.addOption("expandInitialAssignments", true,
+      "Expand initial assignments in the model");
+
+  // convert
+  int initialAssignmentReplaced = mDocument->convert(props_ia);
+  if (initialAssignmentReplaced != LIBSBML_OPERATION_SUCCESS)
+  {
+    return initialAssignmentReplaced;
   }
 
   Model * model = mDocument->getModel();
@@ -241,7 +267,7 @@ SBMLReactionConverter::convert()
       ASTNode * math = createRateRuleMathForSpecies(speciesId, rn, false);
       if (math != NULL)
       {
-        mRateRulesMap.push_back(make_pair(speciesId, math));
+          mRateRulesMap.push_back(make_pair(speciesId, math));
       }
       else
       {
@@ -255,7 +281,7 @@ SBMLReactionConverter::convert()
       ASTNode * math = createRateRuleMathForSpecies(speciesId, rn, true);
       if (math != NULL)
       {
-        mRateRulesMap.push_back(make_pair(speciesId, math));
+          mRateRulesMap.push_back(make_pair(speciesId, math));
       }
       else
       {
@@ -276,6 +302,11 @@ SBMLReactionConverter::convert()
     success = replaceReactions();
   }
 
+  if (success && getRateRuleVariablesShouldBeParameters() == true)
+  {
+      success = createParametersForRateRuleVariables();
+  }
+
   if (success) 
   {
     return LIBSBML_OPERATION_SUCCESS;
@@ -289,82 +320,100 @@ SBMLReactionConverter::convert()
   }
 }
 
+bool
+SBMLReactionConverter::createParametersForRateRuleVariables()
+{
+    bool created = false;
+    Model* model = mDocument->getModel();
+    unsigned int numParams = model->getNumParameters();
+    unsigned int numSpecies = model->getNumSpecies();
+    unsigned int numTotal = numParams + numSpecies;
+    // make any species that are now variables into parameters
+    for (RuleMap::iterator it = mRateRulesMap.begin(); it != mRateRulesMap.end(); ++it)
+    {
+        const std::string& id = (*it).first;
+        Species* s = model->getSpecies(id);
+        if (s != NULL)
+        {
+            // convert to parameter
+            Parameter* p = model->createParameter();
+            p->setId(s->getId());
+            p->setValue(s->getInitialAmount());
+            p->setUnits(s->getUnits());
+            p->setConstant(false);
+            // remove the species
+            model->removeSpecies(s->getId());
+        }
+    }
+    // check we have succeeded
+    if (model->getNumParameters() >= numParams && model->getNumSpecies() <= numSpecies &&
+        (model->getNumParameters() + model->getNumSpecies()) == numTotal)
+    {
+        created = true;
+    }
+
+    return created;
+}
+
 
 ASTNode *
 SBMLReactionConverter::createRateRuleMathForSpecies(const std::string &spId, 
                                                Reaction *rn, bool isReactant)
 {
   ASTNode * math = NULL;
+  Species* species = mOriginalModel->getSpecies(spId);
+  Compartment* compartment = mOriginalModel->getCompartment(species->getCompartment());
 
-  Species * species = mOriginalModel->getSpecies(spId);
-
-  if (species == NULL) return NULL;
-
-  Compartment * comp = mOriginalModel->getCompartment(species->getCompartment());
-
-  if (comp == NULL) return NULL;
-
-  // need to work out stoichiometry
-  ASTNode * stoich;
+  // need to work out stoichiometry, return null if there is none
+  ASTNode* stoich = determineStoichiometryNode(isReactant, rn, spId);
+  if (stoich == NULL) return NULL;
   
-  if (isReactant == true)
-  {
-    SpeciesReference * sr = rn->getReactant(spId);
-    if (sr == NULL)
-    {
-      // this should not happen but lets catch it if we can
-      return NULL;
-    }
-    else
-    {
-      stoich = determineStoichiometryNode(sr, isReactant);
-    }
-  }
-  else
-  {
-    SpeciesReference * sr = rn->getProduct(spId);
-    if (sr == NULL)
-    {
-      // this should not happen but lets catch it if we can
-      return NULL;
-    }
-    else
-    {
-      stoich = determineStoichiometryNode(sr, isReactant);
-    }
-  }   
-
+  ASTNode* kineticLawMath = rn->getKineticLaw()->getMath()->deepCopy();
   ASTNode* conc_per_time = NULL;
-
-  if (util_isEqual(comp->getSpatialDimensionsAsDouble(), 0.0) ||
-    species->getHasOnlySubstanceUnits() == true)
+  bool useCompSize = useCompartmentSize(species, compartment, kineticLawMath);
+  if (useCompSize == false)
   {
-    conc_per_time = rn->getKineticLaw()->getMath()->deepCopy();
+    conc_per_time = kineticLawMath;
   }
   else
   {
     conc_per_time = new ASTNode(AST_DIVIDE);
-    conc_per_time->addChild(rn->getKineticLaw()->getMath()->deepCopy());
+    conc_per_time->addChild(kineticLawMath);
     ASTNode * compMath = new ASTNode(AST_NAME);
-    compMath->setName(comp->getId().c_str());
+    compMath->setName(compartment->getId().c_str());
     conc_per_time->addChild(compMath);
   }
 
-  math = new ASTNode(AST_TIMES);
-  math->addChild(stoich);
-  math->addChild(conc_per_time);
+  // now we need to multiply the stoichiometry by the rate
+  // but we do not need to if the stoichiometry is one
+  if (stoich->getType() == AST_REAL && util_isEqual(stoich->getValue(), 1.0))
+  {
+      delete stoich;
+      stoich = NULL;
+      return conc_per_time;
+  }
+  else
+  {
+      math = new ASTNode(AST_TIMES);
+      math->addChild(stoich);
+      math->addChild(conc_per_time);
+  }
 
+  math = replaceMathWithAssignedVariables(math);
 
   return math;
 }
 
 
 ASTNode*
-SBMLReactionConverter::determineStoichiometryNode(SpeciesReference * sr,
-                                                  bool isReactant)
+SBMLReactionConverter::determineStoichiometryNode(bool isReactant, Reaction* rn,
+                                                  const std::string& spId)
 {
-  ASTNode * stoich = NULL;
-  ASTNode * tempNode = NULL;
+    ASTNode* stoich = NULL;
+    ASTNode* tempNode = NULL; 
+    SpeciesReference* sr = isReactant ? rn->getReactant(spId) : rn->getProduct(spId);
+    
+    if (sr == NULL) return NULL;
 
   if (sr->isSetStoichiometry() == true)
   {
@@ -374,19 +423,27 @@ SBMLReactionConverter::determineStoichiometryNode(SpeciesReference * sr,
   }
   else
   {
+      // set by rule; initial assignment in level 3 or stoichiometry math
     if (sr->isSetId() == true)
     {
       std::string id = sr->getId();
       if (mOriginalModel->getInitialAssignment(id) != NULL)
       {
+          // should have been dealt with by removing initial assignments
         tempNode = mOriginalModel->getInitialAssignment(id)->isSetMath() ?
           mOriginalModel->getInitialAssignment(id)->getMath()->deepCopy() : NULL;
-
       }
       else if (mOriginalModel->getAssignmentRule(id) != NULL)
       {
-        tempNode = mOriginalModel->getAssignmentRule(id)->isSetMath() ?
-          mOriginalModel->getAssignmentRule(id)->getMath()->deepCopy() : NULL;
+          // if set by assignment then we are assuming that its a variable stoichiometry
+          // create a math node that represents the variable used
+          tempNode = new ASTNode(AST_NAME);
+          tempNode->setName(id.c_str());
+
+          // but also need a parameter for this variable
+          Parameter* p = mDocument->getModel()->createParameter();
+          p->setId(id);
+          p->setConstant(false);
       }
     }
     else if (sr->isSetStoichiometryMath() == true)
@@ -411,7 +468,7 @@ SBMLReactionConverter::determineStoichiometryNode(SpeciesReference * sr,
   }
   else
   {
-    stoich = tempNode->deepCopy();
+      stoich = tempNode->deepCopy();
   }
 
   delete tempNode;
@@ -420,7 +477,7 @@ SBMLReactionConverter::determineStoichiometryNode(SpeciesReference * sr,
 }
 
 int
-SBMLReactionConverter::createRateRule(const std::string &spId, ASTNode *math)
+SBMLReactionConverter::createNewRateRule(const std::string &spId, ASTNode *math)
 {
   int success = LIBSBML_OPERATION_SUCCESS;
   // if the species is a boundaryConsition we dont create a raterule
@@ -464,6 +521,95 @@ SBMLReactionConverter::createRateRule(const std::string &spId, ASTNode *math)
   return success;
 }
 
+bool 
+SBMLReactionConverter::useCompartmentSize(Species* species, Compartment* compartment, ASTNode* kineticLaw)
+{
+    bool useCompartmentSize = true;
+    if (species->getHasOnlySubstanceUnits() == true)
+    {
+        useCompartmentSize = false;
+    }
+    else if (compartment->getSpatialDimensionsAsDouble() == 0.0)
+    {
+        useCompartmentSize = false;
+    }
+    else if (util_isEqual(compartment->getSize(), 1.0) &&   
+             compartment->getConstant() == true &&
+             notUsedInKineticLaw(compartment->getId(), kineticLaw))
+    {
+        useCompartmentSize = false;
+    }
+    
+    return useCompartmentSize;
+}
+
+bool SBMLReactionConverter::notUsedInKineticLaw(const std::string& compartment, ASTNode* kineticLaw)
+{
+    if (kineticLaw == NULL)
+    {
+        return false;
+    }
+    
+    if (mathContainsId(kineticLaw, compartment))
+    {
+        return false;
+    }
+
+    return true;
+}
+
+//ASTNode* 
+//SBMLReactionConverter::replaceMathWithAssignedVariables(ASTNode* original)
+//{
+//    // there may be bits of the math that are actually assigned with an assignment rule
+//    // and therefore should be replaced
+//    // e.g. math equals 2 * k1 * A + k2 * B
+//    // in a model with an assignment rule k3 = 2 * k1 * A
+//    // so the math could become k3 + k2 * B
+//    unsigned int numAssignmentRules = 0;
+//    IdList assignmentRulesVariables = getListAssignmentRuleVariables(numAssignmentRules);
+//    if (numAssignmentRules == 0)
+//    {
+//        return original;
+//    }
+//    ExpressionAnalyser analyser;
+//    ASTNode* newMath = original->deepCopy();
+//    for (unsigned int i = 0; i < numAssignmentRules; i++)
+//    {
+//        AssignmentRule* ar = mOriginalModel->getAssignmentRule(assignmentRulesVariables.at(i));
+//        if (ar != NULL && ar->isSetMath() == true)
+//        {
+//            ASTNode* arMath = ar->getMath()->deepCopy();
+//            ASTNode* variable = new ASTNode(AST_NAME);
+//            variable->setName(ar->getVariable().c_str());
+//            //cout << "assignment rule " << i << ": " << SBML_formulaToL3String(arMath) << " variable " 
+//            //    << SBML_formulaToL3String(variable) << " original " << SBML_formulaToL3String(newMath) << endl;
+//
+//            analyser.replaceExpressionInNodeWithNode(newMath, arMath, variable);
+//            //cout << "afterwards assignment rule " << i << ": " << SBML_formulaToL3String(arMath) << " variable "
+//            //    << SBML_formulaToL3String(variable) << " original " << SBML_formulaToL3String(newMath) << endl;
+//        }
+//    }
+//    return newMath;
+//}
+//
+//
+//IdList
+//SBMLReactionConverter::getListAssignmentRuleVariables(unsigned int &numAssignmentRules)
+//{
+//    IdList assignmentRuleVariables;
+//    unsigned int numRules = mOriginalModel->getNumRules();
+//    for (unsigned int i = 0; i < numRules; i++)
+//    {
+//        Rule* r = mOriginalModel->getRule(i);
+//        if (r != NULL && r->isAssignment())
+//        {
+//            numAssignmentRules++;
+//            assignmentRuleVariables.append(r->getVariable());
+//        }
+//    }
+//    return assignmentRuleVariables;
+//}
 
 bool
 SBMLReactionConverter::replaceReactions()
@@ -476,7 +622,7 @@ SBMLReactionConverter::replaceReactions()
   for (it = mRateRulesMap.begin(); 
     success == LIBSBML_OPERATION_SUCCESS && it != mRateRulesMap.end(); ++it)
   {
-    success = createRateRule((*it).first, (*it).second);
+    success = createNewRateRule((*it).first, (*it).second);
   }
 
   // deallocate memory

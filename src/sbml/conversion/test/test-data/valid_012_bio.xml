@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+  <model timeUnits="second" extentUnits="mole">
+    <listOfUnitDefinitions>
+      <unitDefinition id="per_second">
+        <listOfUnits>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="litre_per_mole_second">
+        <listOfUnits>
+          <unit kind="mole" exponent="-1" scale="0" multiplier="1"/>
+          <unit kind="litre" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfCompartments>
+      <compartment id="comp" spatialDimensions="3" size="1" units="litre" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="E" compartment="comp" initialAmount="5" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="S" compartment="comp" initialAmount="1" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="ES" compartment="comp" initialAmount="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="kon" value="1000000" units="litre_per_mole_second" constant="true"/>
+      <parameter id="koff" value="0.2" units="per_second" constant="true"/>
+    </listOfParameters>
+    <listOfRules>
+        <assignmentRule variable="a">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <cn> 1.0 </cn>
+          </math>           
+        </assignmentRule>
+    </listOfRules>
+    <listOfReactions>
+      <reaction id="veq" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="E" id="a" constant="false"/>
+          <speciesReference species="S" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="ES" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> comp </ci>
+              <apply>
+                <minus/>
+                <apply>
+                  <times/>
+                  <ci> kon </ci>
+                  <ci> E </ci>
+                  <ci> S </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> koff </ci>
+                  <ci> ES </ci>
+                </apply>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>

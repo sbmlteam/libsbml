@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Description       : CMake build script for libSBML
+# Description       : CMake build script for libSBML 
 # Original author(s): Frank Bergmann <fbergman@caltech.edu>
 # Organization      : California Institute of Technology
 #
@@ -595,6 +595,10 @@ if(WITH_CSHARP)
         endif()
     endif()
 
+    if(NOT CSHARP_COMPILER)
+      message(FATAL_ERROR "CSHARP_COMPILER is not found, please ensure that gmcs, csc, or mcs is installed.")
+    endif()
+
 endif(WITH_CSHARP)
 
 
@@ -640,14 +644,14 @@ endif(WITH_CHECK)
 # documentation to be installed in PREFIX/${MISC_PREFIX}.
 #
 
-set( MISC_PREFIX )
+
 if(UNIX OR CYGWIN)
     set(PATH_SEP "/")
     set(FILE_SEP ":")
-    set( MISC_PREFIX "${CMAKE_INSTALL_DATADIR}/libsbml/" )
+    set(MISC_PREFIX "${CMAKE_INSTALL_DATADIR}/libsbml/" CACHE PATH "bindings, examples and documentation path")
     set(LIBSBML_LIBRARY sbml)
 else()
-    set( MISC_PREFIX ".\\" )
+    set(MISC_PREFIX ".\\" CACHE PATH "bindings, examples and documentation path")
     set(PATH_SEP "\\")
     set(FILE_SEP ";")
     if(MINGW)

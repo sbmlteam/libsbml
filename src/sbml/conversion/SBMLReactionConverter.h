@@ -68,6 +68,7 @@
 #include <sbml/conversion/SBMLConverter.h>
 #include <sbml/conversion/SBMLConverterRegister.h>
 #include <sbml/util/IdList.h>
+#include <sbml/conversion/ExpressionAnalyser.h>
 
 
 #ifdef __cplusplus
@@ -154,6 +155,14 @@ public:
    */
   virtual bool matchesProperties(const ConversionProperties &props) const;
 
+  /**
+   * Returns the value of the "rateRuleVariablesShouldBeParameters" property.
+   *
+   * @return the value of the "rateRuleVariablesShouldBeParameters" property; the default
+   * value is @c false.
+   */
+  bool getRateRuleVariablesShouldBeParameters() const;
+
 
   /**
    * Perform the conversion.
@@ -216,19 +225,30 @@ public:
 
 
 private:
+    
+    friend class ExpressionAnalyser;
+
+    bool createParametersForRateRuleVariables();
+
 
   ASTNode * createRateRuleMathForSpecies(const std::string& spId,
                                          Reaction * rn, bool isReactant);
 
 
-  ASTNode* determineStoichiometryNode(SpeciesReference * sr,
-                                      bool isReactant);
+  ASTNode* determineStoichiometryNode(bool isReactant, Reaction* rn,
+                                      const std::string& spId);
 
-  int createRateRule(const std::string& spId, ASTNode * math);
+  int createNewRateRule(const std::string& spId, ASTNode * math);
 
+  bool useCompartmentSize(Species* species, Compartment* compartment, ASTNode* kineticLaw);
+
+  bool notUsedInKineticLaw(const std::string& compartment, ASTNode* kineticLaw);
+
+  //ASTNode* replaceMathWithAssignedVariables(ASTNode* original);
+
+  //IdList getListAssignmentRuleVariables(unsigned int &numAssignmentRules);
 
   bool replaceReactions();
-
 
   bool isDocumentValid();
 
@@ -238,7 +258,7 @@ private:
 
   RuleMap mRateRulesMap;
 
-  Model * mOriginalModel;
+  //Model * mOriginalModel;
 };
 
 LIBSBML_CPP_NAMESPACE_END

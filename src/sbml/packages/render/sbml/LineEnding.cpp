@@ -73,7 +73,7 @@ LineEnding::LineEnding(unsigned int level,
                        unsigned int pkgVersion)
   : GraphicalPrimitive2D(level, version, pkgVersion)
     ,mEnableRotationalMapping(true)
-  , mIsSetEnableRotationalMapping (true)
+  , mIsSetEnableRotationalMapping (false)
   , mGroup (NULL)
   , mBoundingBox (NULL)
 {
@@ -90,7 +90,7 @@ LineEnding::LineEnding(unsigned int level,
 LineEnding::LineEnding(RenderPkgNamespaces *renderns)
   : GraphicalPrimitive2D(renderns)
     ,mEnableRotationalMapping(true)
-  , mIsSetEnableRotationalMapping (true)
+  , mIsSetEnableRotationalMapping (false)
   , mGroup (NULL)
   , mBoundingBox (NULL)
 {
@@ -1527,9 +1527,7 @@ LineEnding::writeAttributes(XMLOutputStream& stream) const
   //  stream.writeAttribute("id", getPrefix(), mId);
   //}
 
-  //render - FIX_ME
-  // not writing out defaults so need to write default Value
-  if (isSetEnableRotationalMapping() == true && getEnableRotationalMapping() == false)
+  if (isSetEnableRotationalMapping())
   {
     stream.writeAttribute("enableRotationalMapping", getPrefix(),
       mEnableRotationalMapping);

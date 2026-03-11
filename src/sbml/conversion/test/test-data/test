@@ -1,0 +1,165 @@
+
+Model 53
+// Reactions: mine
+  J1: newVar1 => SimData_1 + newVar1; newVar1*I*k_1/(k_7 + newVar1);
+  J2: SimData_1 => newVar1; SimData_1*k_2/(SimData_1 + k_8);
+  J3: SimData_1 + newVar1 => SimData_1 + SimData_2 + newVar1; newVar1*SimData_1*k_3/(k_9 + newVar1);
+  J4: SimData_2 => ; SimData_2*k_4/(SimData_2 + k_10);
+  J5: SimData_1 + newVar1 => SimData_1 + SimData_3 + newVar1; newVar1*SimData_1*k_5/(k_11 + newVar1);
+  J6: SimData_2 + SimData_3 => SimData_2; SimData_3*SimData_2*k_6/(SimData_3 + k_12);
+
+// once from moccasin
+  J1: SimData_1             => SimData_6;             SimData_1*(k_2/(SimData_1 + k_8));
+  J2: SimData_6             => SimData_1;             k_1*SimData_6*(I/(SimData_6 + k_7));
+  J3: SimData_2             => SimData_5;             SimData_2*(k_4/(SimData_2 + k_10));
+  J4: SimData_1 + SimData_5 => SimData_1 + SimData_2; SimData_1*SimData_5*(k_3/(SimData_5 + k_9));
+  J5: SimData_2 + SimData_3 => SimData_2 + SimData_4; SimData_2*SimData_3*(k_6/(SimData_3 + k_12));
+  J6: SimData_1 + SimData_4 => SimData_1 + SimData_3; SimData_1*SimData_4*(k_5/(SimData_4 + k_11));
+
+// new code
+J1: newVar1               => SimData_1 + newVar1;             (newVar1 * I * k_1)/(k_7 + newVar1)              = j2 with added product
+J2: SimData_1             => newVar1;                         (SimData_1 * k_2)/(SimData_1 + k_8)               = j1
+J3: SimData_1 + newVar2   => SimData_1 + SimData_2 + newVar2; (newVar2 * SimData_1 * k_3)/(k_9 + newVar2)      = j4 with added product
+j4: SimData_2             => newVar2;                         (SimData_2 * k_4)(SimData_2 + k_10)              = j3
+j5: SimData_1 + newVar3   => SimData_1 + SimData_3 + newVar3; (newVar3 * SimData_1 * k_5)/(k_11 + newVar3)     = j6 with added product
+j6: SimData_2 + SimData_3 => SimData_2 + newVar3;             (SimData_3 * SimData_2 * k_6)/(SimData_3 + k_12) = j5 with added reactant6*
+
+model five
+
+// from moccasin
+j1: newVar1   =>  c + newVar1;               newVar1
+j2:           =>  c;                         v
+
+// my code
+j1: newVar1      =>  c + newVar1;               newVar1                = J1
+j2:              =>  c;                         v                      = j2
+j3: newVar2      =>  2*newVar2;                 newVar2
+j4:              =>  newVar1;                   k
+j5: a + newVar1  =>  a;                         a
+j6: newVar1      =>                             b
+
+model 54
+
+// from moccasin
+j1: SimData_1               => SimData_6;                         SimData_1 * (k__2/(SimData_1 + k__8))
+j2: SimData_6               => SimData_1                          (k__1 * SimData_6 * I)/(SimData_6 + k__7)              
+j3: SimData_2               => SimData_5                          SimData_2 * (k__4/(SimData_2 + k__10))
+j4: SimData_1 + SimData_5   => SimData_1 + SimData_2              (SimData_1 * SimData_5 * k__3)/(SimData_5 + k__9)
+j5: SimData_2 + SimData_3   => SimData_2 + SimData_4              (SimData_2 * SimData_3 * k__6)/(SimData_3 + k__12)
+j6: SimData_1 + SimData_4   => SimData_1 + SimData_3              (SimData_1 * SimData_4 * k__5)/(SimData_4 + k__11)
+
+// my code
+j1: j2 newVar1 = SimData_6 with added product newVar1
+j2: j1 newVar1 = SimData_6
+j3: j4 newVar2 = SimData_5 with added product newVar2
+j4: j3 newVar2 = SimData_5 
+j5: j6 newVar3 = SimData_4 with added product newVar3
+j6: j5 newVar3 = SimData_4
+
+model 55
+
+// from moccasin
+
+convert function
+
+populateInitialodeInfo 
+populateodeInfo
+  ea-> detectHiddenSpecies
+        ->analyze True only add -x+y
+          ->analyzeNode
+            ->isVariableSpeciesOrParameter
+            ->isNumericalConstantOrConstantParameter
+          ->hasExpressionAlreadyBeanRecorded
+            ->expressionExists
+              ->matches*
+        ->reorderMinusExPlusYIteratively
+          ->replaceExpressioninNodeWithNode
+        ->analyze False
+          -> as above
+        ->substituteParameterForExpression
+          ->getUniqueNoParameterName
+  -> addodePair
+  -> populateTerms
+      ->createTerms
+  -> createAnalysisVectors
+      ->populateCoefficientVector
+      ->populateDerivativeVector
+populateReactionCoefficients
+  ->createInitialValues
+  ->analyzeCoefficient
+  ->analyzePosDerivative
+  ->analyzeNagDerivative
+reconstructModel
+  ->dealWithSpecies
+  ->createReactions
+  ->removeRules
+                    
+    TYPE_K_MINUS_X_MINUS_Y
+        analyzeNode k-x-y 
+        right: y 
+        left: k-x 
+        minus
+          analyzeNode k-x 
+          right: x 
+          left: k 
+          minus
+          values: k x dx type=k-x 
+        values: y dy type=k-x-y   
+  , TYPE_K_PLUS_V_MINUS_X_MINUS_Y
+        analyzeNode k+v-x-y 
+        right: y 
+        left: k+v-x 
+        minus
+          analyzeNode: k+v-x 
+          right: x 
+          left: k+v 
+          minus
+            analyzeNode: k+v 
+            right: v 
+            left: k 
+            plus
+            return False
+        values: k x dx v type=k+v-x 
+      values: y dy type=k+v-x-y 
+  , TYPE_K_MINUS_X_PLUS_W_MINUS_Y
+      analyzeNode (k-x)+w-y IT BECOMES w+(k-x)-y 
+      right: y 
+      left: w+(k-x) 
+      minus
+        analyzeNode  w+(k-x)
+        right: k-x 
+        left: w 
+        plus 
+          analyzeNode k-x 
+          right: x 
+          left: k 
+          minus 
+          values: k x dx type=k-x 
+        values: w type=k-x+w-y 
+      values: y dy  
+  , TYPE_K_MINUS_X
+      analyzeNode k-x 
+      right: x 
+      left: k 
+      minus 
+      values: k x dx type=k-x 
+  , TYPE_K_PLUS_V_MINUS_X
+      analyzeNode: k+v-x 
+      right: x 
+      left: k+v 
+      minus
+        analyzeNode: k+v 
+        right: v 
+        left: k 
+        plus
+        return False
+    values: k x dx v type=k+v-x 
+
+hasExpressionAlreadyBeanRecorded   
+  expressionExistsaround
+
+                +                    *
+    0        +     c              *     d 
+    1      a   b               *     c 
+    2                      a      b    
+    

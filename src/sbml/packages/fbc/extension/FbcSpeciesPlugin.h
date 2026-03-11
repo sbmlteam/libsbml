@@ -322,6 +322,12 @@ public:
 
 
   /**
+   * Returns true if the input string is a well-formed chemical formula; false otherwise.
+   */
+  static bool isWellFormedChemicalFormula(const std::string& chemicalFormula);
+
+
+  /**
    * Unsets the value of the "chemicalFormula" attribute of this FbcSpeciesPlugin.
    *
    * @return integer value indicating success/failure of the

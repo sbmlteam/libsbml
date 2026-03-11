@@ -432,10 +432,18 @@ START_TEST(test_FbcExtension_create_and_write_L3V1V3)
   // check annotations on several types
   FbcSBasePlugin* sbaseplugin = dynamic_cast<FbcSBasePlugin*>(compartment->getPlugin("fbc"));
 
+  auto* term = new CVTerm();
+  term->setQualifierType(BIOLOGICAL_QUALIFIER);
+  term->setBiologicalQualifierType(BQB_IS);
+  term->addResource("MyResourceThatWillBeWrittenAndRead");
+
   KeyValuePair * kvp = sbaseplugin->createKeyValuePair();
   kvp->setKey("key");
   kvp->setUri("my_annotation");
   kvp->setValue("comp-value");
+  kvp->setMetaId("metaid_kvp");
+
+  kvp->addCVTerm(term);
 
   FbcSBasePlugin* sbaseplugin1 = dynamic_cast<FbcSBasePlugin*>(species->getPlugin("fbc"));
 
@@ -471,13 +479,18 @@ START_TEST(test_FbcExtension_create_and_write_L3V1V3)
   string s1 = writeSBMLToStdString(document);
 
   //cout << s1 << endl;
+  fail_unless(s1.find("MyResourceThatWillBeWrittenAndRead") != string::npos);
+  fail_unless(s1.find("metaid=\"metaid_kvp\"") != string::npos);
 
   char *filename = safe_strcat(TestDataDirectory, "fbc_example2_v3.xml");
   SBMLDocument *document1 = readSBMLFromFile(filename);
   string s2 = writeSBMLToStdString(document1);
+  fail_unless(s2.find("MyResourceThatWillBeWrittenAndRead") != string::npos);
+  fail_unless(s2.find("metaid=\"metaid_kvp\"") != string::npos);
 
   //cout << endl << s2 << endl;
   fail_unless(s1 == s2);
+
 
   delete sbmlns;
   delete document;

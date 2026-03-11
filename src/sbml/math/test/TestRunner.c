@@ -84,6 +84,10 @@ Suite *create_suite_TestReadFromFileL3V2(void);
 Suite *create_suite_TestInferRnFunctions (void);
 Suite *create_suite_TestDerivativeFunctions(void);
 
+Suite* create_suite_TestLevelNodeFunction(void);
+
+Suite* create_suite_TestRefactoringFunctions(void);
+
 
 /**
  * Global.
@@ -128,7 +132,7 @@ main (void)
 
   setTestDataDirectory();
 
-  //SRunner *runner = srunner_create(create_suite_TestChildFunctions() );
+  //SRunner *runner = srunner_create(create_suite_TestDerivativeFunctions() );
 
   SRunner *runner = srunner_create( create_suite_ASTNode() );
 
@@ -154,6 +158,8 @@ main (void)
   srunner_add_suite(runner, create_suite_TestInferRnFunctions());
   srunner_add_suite(runner, create_suite_TestDerivativeFunctions());
 
+  srunner_add_suite(runner, create_suite_TestLevelNodeFunction());
+  srunner_add_suite(runner, create_suite_TestRefactoringFunctions());
   /* srunner_set_fork_status(runner, CK_NOFORK); */
 
   srunner_run_all(runner, CK_NORMAL);

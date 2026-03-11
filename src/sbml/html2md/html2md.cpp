@@ -9,6 +9,7 @@
 #include <memory>
 #include <sstream>
 #include <vector>
+#include <cctype>
 
 using std::make_shared;
 using std::string;
@@ -74,6 +75,16 @@ string Repeat(const string &str, size_t amount) {
 
   return out;
 }
+
+string toLower(const string &str) {
+  string lower;
+  lower.reserve(str.size());
+  for (char ch : str) {
+    lower += tolower(ch);
+  }
+  return lower;
+}
+
 } // namespace
 
 namespace html2md {
@@ -82,6 +93,7 @@ Converter::Converter(const string *html, Options *options) : html_(*html) {
   if (options)
     option = *options;
 
+  md_.reserve(html->size() * 0.8);
   tags_.reserve(41);
 
   // non-printing tags
@@ -144,22 +156,43 @@ Converter::Converter(const string *html, Options *options) : html_(*html) {
 
 void Converter::CleanUpMarkdown() {
   TidyAllLines(&md_);
+  std::string buffer;
+  buffer.reserve(md_.size());
 
-  ReplaceAll(&md_, " , ", ", ");
+  // Replace HTML symbols during the initial pass
+  for (size_t i = 0; i < md_.size();) {
+    bool replaced = false;
 
-  ReplaceAll(&md_, "\n.\n", ".\n");
-  ReplaceAll(&md_, "\n↵\n", " ↵\n");
-  ReplaceAll(&md_, "\n*\n", "\n");
-  ReplaceAll(&md_, "\n. ", ".\n");
+    // C++11 compatible iteration over htmlSymbolConversions_
+    for (const auto &symbol_replacement : htmlSymbolConversions_) {
+      const std::string &symbol = symbol_replacement.first;
+      const std::string &replacement = symbol_replacement.second;
 
-  ReplaceAll(&md_, "&quot;", '"');
-  ReplaceAll(&md_, "&lt;", "<");
-  ReplaceAll(&md_, "&gt;", ">");
-  ReplaceAll(&md_, "&amp;", '&');
-  ReplaceAll(&md_, "&nbsp;", ' ');
-  ReplaceAll(&md_, "&rarr;", "→");
+      if (md_.compare(i, symbol.size(), symbol) == 0) {
+        buffer.append(replacement);
+        i += symbol.size();
+        replaced = true;
+        break;
+      }
+    }
 
-  ReplaceAll(&md_, "\t\t  ", "\t\t");
+    if (!replaced) {
+      buffer.push_back(md_[i++]);
+    }
+  }
+
+  // Use swap instead of move assignment for better pre-C++11 compatibility
+  md_.swap(buffer);
+
+  // Optimized replacement sequence
+  const char *replacements[][2] = {
+      {" , ", ", "},   {"\n.\n", ".\n"},   {"\n↵\n", " ↵\n"}, {"\n*\n", "\n"},
+      {"\n. ", ".\n"}, {"\t\t  ", "\t\t"},
+  };
+
+  for (const auto &replacement : replacements) {
+    ReplaceAll(&md_, replacement[0], replacement[1]);
+  }
 }
 
 Converter *Converter::appendToMd(char ch) {
@@ -286,9 +319,10 @@ void Converter::TidyAllLines(string *str) {
 string Converter::ExtractAttributeFromTagLeftOf(const string &attr) {
   // Extract the whole tag from current offset, e.g. from '>', backwards
   auto tag = html_.substr(offset_lt_, index_ch_in_html_ - offset_lt_);
+  string lowerTag = toLower(tag); // Convert tag to lowercase for comparison
 
-  // locate given attribute
-  auto offset_attr = tag.find(attr);
+  // locate given attribute (case-insensitive)
+  auto offset_attr = lowerTag.find(attr);
 
   if (offset_attr == string::npos)
     return "";
@@ -387,6 +421,7 @@ string Converter::convert() {
 void Converter::OnHasEnteredTag() {
   offset_lt_ = index_ch_in_html_;
   is_in_tag_ = true;
+  is_closing_tag_ = false;
   prev_tag_ = current_tag_;
   current_tag_ = "";
 
@@ -407,28 +442,55 @@ Converter *Converter::UpdatePrevChFromMd() {
 }
 
 bool Converter::ParseCharInTag(char ch) {
+  static bool skipping_leading_whitespace = true;
+
   if (ch == '/' && !is_in_attribute_value_) {
     is_closing_tag_ = current_tag_.empty();
     is_self_closing_tag_ = !is_closing_tag_;
-
+    skipping_leading_whitespace = true; // Reset for next tag
     return true;
   }
 
-  if (ch == '>')
-    return OnHasLeftTag();
+  if (ch == '>') {
+    // Trim trailing whitespace by removing characters from current_tag_
+    while (!current_tag_.empty() && std::isspace(current_tag_.back())) {
+      current_tag_.pop_back();
+    }
+    skipping_leading_whitespace = true; // Reset for next tag
+    if (!is_self_closing_tag_)
+      return OnHasLeftTag();
+    else {
+      OnHasLeftTag();
+      is_self_closing_tag_ = false;
+      is_closing_tag_ = true;
+      return OnHasLeftTag();
+    }
+  }
 
   if (ch == '"') {
     if (is_in_attribute_value_) {
       is_in_attribute_value_ = false;
-    } else if (current_tag_[current_tag_.length() - 1] == '=') {
-      is_in_attribute_value_ = true;
+    } else {
+      size_t pos = current_tag_.length();
+      while (pos > 0 && isspace(current_tag_[pos - 1])) {
+        pos--;
+      }
+      if (pos > 0 && current_tag_[pos - 1] == '=') {
+        is_in_attribute_value_ = true;
+      }
     }
-
+    skipping_leading_whitespace = false; // Stop skipping after attribute
     return true;
   }
 
-  current_tag_ += ch;
+  // Handle whitespace: skip leading whitespace, keep others
+  if (ch >= -1 && ch <= 255 && isspace(ch) && skipping_leading_whitespace) {
+    return true; // Ignore leading whitespace
+  }
 
+  // Once we encounter a non-whitespace character, stop skipping
+  skipping_leading_whitespace = false;
+  current_tag_ += tolower(ch);
   return false;
 }
 
@@ -455,7 +517,7 @@ bool Converter::OnHasLeftTag() {
   if (!is_closing_tag_) {
     tag->OnHasLeftOpeningTag(this);
   }
-  if (is_closing_tag_ || is_self_closing_tag_) {
+  else {
     is_closing_tag_ = false;
 
     tag->OnHasLeftClosingTag(this);
@@ -962,11 +1024,17 @@ void Converter::TagTableData::OnHasLeftClosingTag(Converter *c) {}
 
 void Converter::TagBlockquote::OnHasLeftOpeningTag(Converter *c) {
   ++c->index_blockquote;
+  c->appendToMd("\n");
+  c->appendToMd(Repeat("> ", c->index_blockquote));
 }
 
 void Converter::TagBlockquote::OnHasLeftClosingTag(Converter *c) {
   --c->index_blockquote;
-  c->ShortenMarkdown(2); // Remove the '> '
+  // Only shorten if a "> " was added (i.e., a newline was processed in the blockquote)
+  if (!c->md_.empty() && c->md_.length() >= 2 &&
+      c->md_.substr(c->md_.length() - 2) == "> ") {
+    c->ShortenMarkdown(2); // Remove the '> ' only if it exists
+  }
 }
 
 void Converter::reset() {

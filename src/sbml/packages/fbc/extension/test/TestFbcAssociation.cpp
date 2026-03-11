@@ -21,6 +21,8 @@
 #include <sbml/SBMLTypeCodes.h>
 #include <sbml/SBMLReader.h>
 #include <sbml/SBMLWriter.h>
+#include <sbml/math/L3FormulaFormatter.h>
+#include <sbml/math/L3Parser.h>
 #include <string>
 
 /** @cond doxygenIgnored */
@@ -1262,7 +1264,107 @@ START_TEST(test_FbcAssociation_parseFbcInfixIdAssociation_product_ref_noAdd)
 }
 END_TEST
 
+START_TEST(test_GeneProductAssociation_createFromAST)
+{
+  string infix = "(a && b) || (b && c)";
+  GeneProductAssociation gpa(3, 1, 3);
+  ASTNode* astn = SBML_parseL3Formula(infix.c_str());
+  fail_unless(gpa.createChildAssociationFromASTNode(astn) == LIBSBML_OPERATION_SUCCESS);
+  FbcAssociation* asn = gpa.getAssociation();
+  fail_unless(asn != NULL);
+  fail_unless(asn->isFbcOr());
+  FbcOr* fbcor = static_cast<FbcOr*>(asn);
+  ListOfFbcAssociations* asns = fbcor->getListOfAssociations();
+  fail_unless(asns->getNumFbcAssociations() == 2);
+  vector<string> namelist = { "a", "b", "c" };
+  for (int i = 0; i < 2; i++) {
+    FbcAssociation* child = asns->get(i);
+    fail_unless(child->isFbcAnd());
+    FbcAnd* fbcand = static_cast<FbcAnd*>(child);
+    ListOfFbcAssociations* childlist = fbcand->getListOfAssociations();
+    fail_unless(childlist->getNumFbcAssociations() == 2);
+    for (int j = 0; j < 2; j++) {
+      FbcAssociation* subchild = childlist->get(j);
+      fail_unless(subchild->isGeneProductRef());
+      GeneProductRef* gpr = static_cast<GeneProductRef*>(subchild);
+      fail_unless(gpr->getGeneProduct() == namelist[i + j]);
+    }
+  }
 
+}
+END_TEST
+
+START_TEST(test_geneProductAssociation_getAssociationAsASTNode)
+{
+  const char* model1 =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "<sbml xmlns:html=\"http://www.w3.org/1999/xhtml\" xmlns=\"http://www.sbml.org/sbml/level3/version1/core\" xmlns:fbc=\"http://www.sbml.org/sbml/level3/version1/fbc/version2\" level=\"3\" version=\"1\" fbc:required=\"false\">\n"
+    "  <model id=\"M\" name=\"E\" timeUnits=\"dimensionless\" fbc:strict=\"false\">\n"
+    "    <listOfCompartments>\n"
+    "      <compartment id=\"comp1\" spatialDimensions=\"3\" size=\"1\" constant=\"true\"/>\n"
+    "    </listOfCompartments>\n"
+    "    <listOfSpecies>\n"
+    "      <species id=\"S\" compartment=\"comp1\" initialAmount=\"1\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\" fbc:charge=\"2\" fbc:chemicalFormula=\"S20\"/>\n"
+    "    </listOfSpecies>\n"
+    "    <listOfReactions>\n"
+    "      <reaction id=\"R1\" reversible=\"false\" fast=\"false\" fbc:lowerFluxBound=\"low\" fbc:upperFluxBound=\"up\">\n"
+    "        <listOfReactants>\n"
+    "          <speciesReference species=\"S1\" stoichiometry=\"1\" constant=\"true\"/>\n"
+    "        </listOfReactants>\n"
+    "          <fbc:geneProductAssociation fbc:id = \"ga_29\">\n"
+    "            <fbc:or>\n"
+    "              <fbc:and>\n"
+    "                <fbc:geneProductRef fbc:geneProduct = \"g_b3670\"/>\n"
+    "                <fbc:geneProductRef fbc:geneProduct = \"g_b3671\"/>\n"
+    "              </fbc:and>\n"
+    "              <fbc:and>\n"
+    "                <fbc:geneProductRef fbc:geneProduct = \"g_b0077\"/>\n"
+    "                <fbc:geneProductRef fbc:geneProduct = \"g_b0078\"/>\n"
+    "              </fbc:and>\n"
+    "              <fbc:and>\n"
+    "                <fbc:geneProductRef fbc:geneProduct = \"g_b3768\"/>\n"
+    "                <fbc:geneProductRef fbc:geneProduct = \"g_b3769\"/>\n"
+    "                <fbc:geneProductRef fbc:geneProduct = \"g_b3767\"/>\n"
+    "              </fbc:and>\n"
+    "            </fbc:or>\n"
+    "          </fbc:geneProductAssociation>\n"
+    "      </reaction>\n"
+    "    </listOfReactions>\n"
+    "    <fbc:listOfGeneProducts>\n" 
+    "      <fbc:geneProduct fbc:id = \"g_b3670\" label = \"b3670\"/>\n" 
+    "      <fbc:geneProduct fbc:id = \"g_b3671\" label = \"b3671\"/>\n" 
+    "      <fbc:geneProduct fbc:id = \"g_b0077\" label = \"b0077\"/>\n" 
+    "      <fbc:geneProduct fbc:id = \"g_b0078\" label = \"b0078\"/>\n" 
+    "      <fbc:geneProduct fbc:id = \"g_b3768\" label = \"b3768\"/>\n" 
+    "      <fbc:geneProduct fbc:id = \"g_b3769\" label = \"b3769\"/>\n" 
+    "      <fbc:geneProduct fbc:id = \"g_b3767\" label = \"b3767\"/>\n" 
+    "    </fbc:listOfGeneProducts>\n" 
+    "  </model>\n"
+    "</sbml>\n"
+    ;
+  SBMLDocument* doc = readSBMLFromString(model1);
+  fail_unless(doc->getModel() != NULL);
+  FbcModelPlugin* fbc = dynamic_cast<FbcModelPlugin*>(doc->getModel()->getPlugin("fbc"));
+  fail_unless(fbc != NULL);
+  fail_unless(fbc->getNumGeneProducts() == 7);
+
+  Reaction* r = doc->getModel()->getReaction(0);
+  fail_unless(r != NULL);
+  FbcReactionPlugin* rplug = dynamic_cast<FbcReactionPlugin*>(r->getPlugin("fbc"));
+  fail_unless(rplug != NULL);
+  fail_unless(rplug->isSetGeneProductAssociation() == true);
+
+  GeneProductAssociation* gpa = rplug->getGeneProductAssociation();
+  ASTNode* astn = gpa->getAssociationAsASTNode();
+  char* infix = SBML_formulaToL3String(astn);
+  fail_unless(string(infix) == "(g_b3670 && g_b3671) || (g_b0077 && g_b0078) || (g_b3768 && g_b3769 && g_b3767)");
+
+  delete infix;
+  delete astn;
+  delete doc;
+
+}
+END_TEST
 
 Suite *
 create_suite_FbcAssociation (void)
@@ -1287,6 +1389,9 @@ create_suite_FbcAssociation (void)
   
   tcase_add_test(tcase, test_FbcAssociation_parseFbcInfixAssociation_product_ref_noAdd);
   tcase_add_test(tcase, test_FbcAssociation_parseFbcInfixIdAssociation_product_ref_noAdd);
+
+  tcase_add_test(tcase, test_GeneProductAssociation_createFromAST);
+  tcase_add_test(tcase, test_geneProductAssociation_getAssociationAsASTNode);
 
   suite_add_tcase(suite, tcase);
 

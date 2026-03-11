@@ -1,7 +1,31 @@
 ﻿           libSBML NEWS -- History of user-visible changes
 
 ====================================================================
-5.20.4
+5.21.1 (2026-03-05)
+====================================================================
+
+This release fixes an issue with the python bindings in the pip 
+package `python-libsbml`.
+
+====================================================================
+5.21.0 (2026-01-09)
+====================================================================
+
+This release further improves the ODE to Reaction converter, 
+improves the ASTNode::derivative function to support all allowed 
+math constructs, and resolves a number of build and stability 
+issues.
+
+====================================================================
+5.20.5 (2025-05-05)
+====================================================================
+
+This release adds support for retrieving / setting notes via Markdown 
+(using the 3rdParty libraries html2md and maddy). Additionally, a 
+number of stability and build issues were resolved.
+
+====================================================================
+5.20.4 (2024-08-07)
 ====================================================================
 
 This is mostly a bug fix release enhancing stability and improving 
@@ -13,7 +37,7 @@ performance when validating models. Main points:
 
 
 ====================================================================
-5.20.2
+5.20.2 (2023-09-21)
 ====================================================================
 
 This is mostly a bug fix release enhancing stability when validating

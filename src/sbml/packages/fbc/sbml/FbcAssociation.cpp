@@ -808,8 +808,42 @@ FbcAssociation::writeAttributes (XMLOutputStream& stream) const
 
 }
 
+/** @endcond */
 
-  /** @endcond */
+/** @cond doxygenLibsbmlInternal */
+ASTNode* 
+FbcAssociation::getFbcAssociationAsASTNode() const
+{
+  ASTNode* astn = NULL;
+  const ListOfFbcAssociations* fbcas = NULL;
+  if (isGeneProductRef()) {
+    astn = new ASTNode(AST_NAME);
+    astn->setName(static_cast<const GeneProductRef*>(this)->getGeneProduct().c_str());
+    return astn;
+  }
+  if (isFbcAnd()) {
+    astn = new ASTNode(AST_LOGICAL_AND);
+    fbcas = static_cast<const FbcAnd*>(this)->getListOfAssociations();
+  }
+  else if (isFbcOr()) {
+    astn = new ASTNode(AST_LOGICAL_OR);
+    fbcas = static_cast<const FbcOr*>(this)->getListOfAssociations();
+  }
+  else {
+    assert(false);
+    return NULL;
+  }
+  for (unsigned int a = 0; a < fbcas->getNumFbcAssociations(); a++) {
+    ASTNode* child = fbcas->get(a)->getFbcAssociationAsASTNode();
+    if (child == NULL) {
+      delete astn;
+      return NULL;
+    }
+    astn->addChild(child);
+  }
+  return astn;
+}
+/** @endcond */
 
 
 /*

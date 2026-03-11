@@ -46,13 +46,13 @@ endif()
 
 
 # download file 
-file(DOWNLOAD "http://www.ebi.ac.uk/sbo/exports/Main/SBO_OBO_lite.obo" "${SRC_DIR}/dev/utilities/sboTree/sbo-obo-flat.txt")
+file(DOWNLOAD "https://github.com/EBI-BioModels/SBO/raw/refs/heads/master/SBO_OBO.obo" "${SRC_DIR}/dev/utilities/sboTree/sbo-obo-flat.txt")
 
 if (NOT EXISTS "${SRC_DIR}/dev/utilities/sboTree/sbo-obo-flat.txt")
 message ( FATAL_ERROR 
 "
 Couldn't download SBO OBO flat file, please check that the URL is still current: 
-  http://www.ebi.ac.uk/sbo/exports/Main/SBO_OBO_lite.obo  
+  https://github.com/EBI-BioModels/SBO/raw/refs/heads/master/SBO_OBO.obo  
 " 
 )
 endif()

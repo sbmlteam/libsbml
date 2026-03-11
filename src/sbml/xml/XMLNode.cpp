@@ -637,6 +637,7 @@ XMLNode* XMLNode::convertStringToXMLNode(const std::string& xmlstr, const XMLNam
   if(xis.isError() || (xmlnode_tmp->getNumChildren() == 0) )
   {
     delete xmlnode_tmp;
+    safe_free(const_cast<char*>(xmlstr_c));
     return NULL;
   }
 

@@ -75,6 +75,9 @@ Suite *create_suite_TestLevelVersionConverter(void);
 Suite *create_suite_TestRateOfConverter(void);
 Suite *create_suite_TestSBMLRateRuleConverter(void);
 
+Suite* create_suite_TestExpressionAnalyser(void);
+Suite* create_suite_TestSBMLRoundtripConverter(void);
+Suite* create_suite_TestSBMLReactionConverter(void);
 
 /**
  * Global.
@@ -118,7 +121,11 @@ main (void)
   int num_failed;
 
   setTestDataDirectory();
-//  SRunner *runner = srunner_create(create_suite_TestUnitsConverterL2());
+////SRunner* runner = srunner_create(create_suite_TestSBMLRateRuleConverter());
+// // SRunner* runner = srunner_create(create_suite_TestSBMLReactionConverter());
+// SRunner* runner = srunner_create(create_suite_TestSBMLRateRuleConverter());
+//  srunner_add_suite(runner, create_suite_TestSBMLReactionConverter());
+//  srunner_add_suite(runner, create_suite_TestSBMLRoundtripConverter());
 
   SRunner *runner = srunner_create( create_suite_TestConversionOption() );
   srunner_add_suite( runner, create_suite_TestSBMLRuleConverter      () );
@@ -131,7 +138,10 @@ main (void)
   srunner_add_suite( runner, create_suite_TestStripPackageConverter  () );
   srunner_add_suite( runner, create_suite_TestLevelVersionConverter  () );
   srunner_add_suite( runner, create_suite_TestRateOfConverter        () );
-  srunner_add_suite( runner, create_suite_TestSBMLRateRuleConverter      () );
+  srunner_add_suite(runner, create_suite_TestExpressionAnalyser());
+  srunner_add_suite( runner, create_suite_TestSBMLRateRuleConverter  () );
+  srunner_add_suite( runner, create_suite_TestSBMLRoundtripConverter  () );
+  srunner_add_suite( runner, create_suite_TestSBMLReactionConverter  () );
 
   /* srunner_set_fork_status(runner, CK_NOFORK); */
 

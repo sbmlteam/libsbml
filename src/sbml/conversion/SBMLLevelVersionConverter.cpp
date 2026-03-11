@@ -1201,26 +1201,6 @@ SBMLLevelVersionConverter::conversion_errors(unsigned int errors, bool strictUni
 
 /** @cond doxygenLibsbmlInternal */
 
-bool
-containsId(const ASTNode* ast, std::string id)
-{
-  bool present = false;
-  List* variables = ast->getListOfNodes(ASTNode_isName);
-  IdList vars;
-  for (unsigned int i = 0; i < variables->getSize(); i++)
-  {
-    ASTNode* node = static_cast<ASTNode*>(variables->get(i));
-    string   name = node->getName() ? node->getName() : "";
-    vars.append(name);
-  }
-  if (vars.contains(id))
-  {
-    present = true;
-  }
-  delete variables;
-
-  return present;
-}
 
 void
 SBMLLevelVersionConverter::populateMathElements()
@@ -1274,7 +1254,7 @@ SBMLLevelVersionConverter::speciesReferenceIdUsed()
         {
           continue;
         }
-        used = containsId(ast, id);
+        used = mathContainsId(ast, id);
         if (used) break;
       }
     }

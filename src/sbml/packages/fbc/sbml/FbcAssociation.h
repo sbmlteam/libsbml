@@ -619,6 +619,12 @@ protected:
 
   /** @endcond */
 
+  /**
+   * Convert this FBCAssociation to an ASTNode.
+   */
+  ASTNode* getFbcAssociationAsASTNode() const;
+
+
   friend class GeneProductAssociation;
 
 };

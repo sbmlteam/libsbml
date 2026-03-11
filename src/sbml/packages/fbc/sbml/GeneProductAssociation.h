@@ -228,6 +228,16 @@ public:
 
 
   /**
+   * Returns the "association" element of this GeneProductAssociation as an ASTNode.
+   * 
+   * The nodes will be some combination of AST_LOGICAL_AND, AST_LOGICAL_OR, and AST_NAME elements, with the name elements being the value of the 'geneProduct' attribute (i.e. the 'id', not the 'label', of the gene product).
+   *
+   * @return the "association" element of this GeneProductAssociation as an ASTNode.
+   */
+  virtual ASTNode* getAssociationAsASTNode() const;
+
+
+  /**
    * Creates a new "association" and sets it for this GeneProductAssociation.
    *
    * @return the FbcAnd created.
@@ -245,6 +255,18 @@ public:
    * Creates a new "association" and sets it for this GeneProductAssociation.
    */
   virtual GeneProductRef* createGeneProductRef();
+
+  /**
+   * Creates a set of child GeneProductRefs from an ASTNode.
+   *
+   * Will fail if the GeneProductAssociation is not empty (LIBSBML_OPERATION_FAILED), or if the ASTNode has anything other than 'and', 'or', and 'name' elements (LIBSBML_INVALID_OBJECT).
+   * 
+   * @copydetails doc_returns_success_code
+   * @li @sbmlconstant{LIBSBML_OPERATION_SUCCESS, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_OPERATION_FAILED, OperationReturnValues_t}
+   * @li @sbmlconstant{LIBSBML_INVALID_OBJECT, OperationReturnValues_t}
+   */
+  virtual int createChildAssociationFromASTNode(const ASTNode* astn);
 
 
   /**
@@ -850,6 +872,8 @@ protected:
 
   /** @endcond */
 
+private:
+  FbcAssociation* getFbcAssociationFor(const ASTNode* astn, FbcPkgNamespaces* fbcns);
 
 
 };

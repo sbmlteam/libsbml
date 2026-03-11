@@ -78,7 +78,7 @@ protected:
     uint32_t indentation = getIndentationWidth(line);
 
     static std::regex lineRegex("^(- )");
-    line = std::regex_replace(line, lineRegex, "");
+    line = std::regex_replace(line, lineRegex, std::string(""));
 
     static std::regex emptyBoxRegex(R"(^\[ \])");
     static std::string emptyBoxReplacement = "<input type=\"checkbox\"/>";

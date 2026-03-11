@@ -78,9 +78,9 @@ protected:
     uint32_t indentation = getIndentationWidth(line);
 
     static std::regex orderedlineRegex(R"(^[1-9]+[0-9]*\. )");
-    line = std::regex_replace(line, orderedlineRegex, "");
+    line = std::regex_replace(line, orderedlineRegex, std::string(""));
     static std::regex unorderedlineRegex(R"(^\* )");
-    line = std::regex_replace(line, unorderedlineRegex, "");
+    line = std::regex_replace(line, unorderedlineRegex, std::string(""));
 
     if (!this->isStarted)
     {

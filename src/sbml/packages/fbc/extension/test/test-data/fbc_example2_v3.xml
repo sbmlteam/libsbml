@@ -10,7 +10,19 @@
       <compartment id="comp" spatialDimensions="3" size="1" constant="true">
         <annotation>
           <listOfKeyValuePairs xmlns="http://sbml.org/fbc/keyvaluepair">
-            <keyValuePair key="key" value="comp-value" uri="my_annotation"/>
+            <keyValuePair key="key" value="comp-value" uri="my_annotation" metaid="metaid_kvp">
+              <annotation>
+                <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+                  <rdf:Description rdf:about="#metaid_kvp">
+                    <bqbiol:is>
+                      <rdf:Bag>
+                        <rdf:li rdf:resource="MyResourceThatWillBeWrittenAndRead"/>
+                      </rdf:Bag>
+                    </bqbiol:is>
+                  </rdf:Description>
+                </rdf:RDF>
+              </annotation>
+            </keyValuePair>
           </listOfKeyValuePairs>
         </annotation>
       </compartment>
