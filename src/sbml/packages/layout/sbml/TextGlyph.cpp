@@ -76,8 +76,9 @@ TextGlyph::TextGlyph (unsigned int level, unsigned int version, unsigned int pkg
   ,mGraphicalObject("")
   ,mOriginOfText("")
 {
+  connectToChild();
   //
-  // (NOTE) Developers don't have to invoke setSBMLNamespacesAndOwn function as follows (commentted line)
+  // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
   //        in this constuctor because the function is properly invoked in the constructor of the
   //        base class (GraphicalObject).
   //
@@ -96,18 +97,12 @@ TextGlyph::TextGlyph (LayoutPkgNamespaces* layoutns)
   ,mGraphicalObject("")
   ,mOriginOfText("")
 {
+  connectToChild();
   //
-  // (NOTE) Developers don't have to invoke setElementNamespace function as follows (commentted line)
-  //        in this constuctor because the function is properly invoked in the constructor of the
-  //        base class (LineSegment).
+  // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
+  //        in this constuctor because the functions are properly invoked in the constructor of the
+  //        base class (GraphicalObject).
   //
-
-  // setElementNamespace(layoutns->getURI());
-
-  //
-  // load package extensions bound with this object (if any) 
-  //
-  loadPlugins(layoutns);
 }
 
 
@@ -120,18 +115,12 @@ TextGlyph::TextGlyph (LayoutPkgNamespaces* layoutns, const std::string& id)
   ,mGraphicalObject("")
   ,mOriginOfText("")
 {
+  connectToChild();
   //
-  // (NOTE) Developers don't have to invoke setElementNamespace function as follows (commentted line)
-  //        in this constuctor because the function is properly invoked in the constructor of the
-  //        base class (LineSegment).
+  // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
+  //        in this constuctor because the functions are properly invoked in the constructor of the
+  //        base class (GraphicalObject).
   //
-
-  // setElementNamespace(layoutns->getURI());
-
-  //
-  // load package extensions bound with this object (if any) 
-  //
-  loadPlugins(layoutns);
 }
 
 /*
@@ -145,18 +134,12 @@ TextGlyph::TextGlyph (LayoutPkgNamespaces* layoutns, const std::string& id, cons
   ,mGraphicalObject("")
   ,mOriginOfText("")
 {
+  connectToChild();
   //
-  // (NOTE) Developers don't have to invoke setElementNamespace function as follows (commentted line)
-  //        in this constuctor because the function is properly invoked in the constructor of the
-  //        base class (LineSegment).
+  // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
+  //        in this constuctor because the functions are properly invoked in the constructor of the
+  //        base class (GraphicalObject).
   //
-
-  // setElementNamespace(layoutns->getURI());
-
-  //
-  // load package extensions bound with this object (if any) 
-  //
-  loadPlugins(layoutns);
 }
 
 /*

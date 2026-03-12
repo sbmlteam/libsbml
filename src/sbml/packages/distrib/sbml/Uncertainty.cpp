@@ -80,9 +80,12 @@ Uncertainty::Uncertainty(DistribPkgNamespaces *distribns)
   : DistribBase(distribns)
   , mUncertParameters (distribns)
 {
-  setElementNamespace(distribns->getURI());
   connectToChild();
-  loadPlugins(distribns);
+  //
+  // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
+  //        in this constuctor because the functions are properly invoked in the constructor of the
+  //        base class (DistribBase).
+  //
 }
 
 

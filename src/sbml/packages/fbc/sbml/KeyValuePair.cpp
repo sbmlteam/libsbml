@@ -77,6 +77,7 @@ KeyValuePair::KeyValuePair(FbcPkgNamespaces *fbcns)
   , mUri ("")
 {
   setElementNamespace(fbcns->getURI());
+  connectToChild();
   loadPlugins(fbcns);
 }
 

@@ -99,9 +99,12 @@ Image::Image(RenderPkgNamespaces *renderns)
     ,mHeight(RelAbsVector(0.0,0.0))
     ,mHref("")
 {
-  setElementNamespace(renderns->getURI());
   connectToChild();
-  loadPlugins(renderns);
+  //
+  // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
+  //        in this constuctor because the functions are properly invoked in the constructor of the
+  //        base class (Transformation).
+  //
 }
 /** @endcond */
 
@@ -169,14 +172,12 @@ Image::Image(const XMLNode& node, unsigned int l2version):Transformation2D(node,
 #endif // DEPRECATION_WARNINGS
   setId(id);
 
-        // set the element namespace of this object
-  setElementNamespace(renderns->getURI());
-
-  // connect child elements to this element.
   connectToChild();
-
-  // load package extensions bound with this object (if any) 
-  loadPlugins(renderns);
+  //
+  // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
+  //        in this constuctor because the functions are properly invoked in the constructor of the
+  //        base class (Transformation).
+  //
 }
 /** @endcond */
 #endif // OMIT_DEPRECATED

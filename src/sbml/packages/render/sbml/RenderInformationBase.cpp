@@ -246,14 +246,14 @@ RenderInformationBase::RenderInformationBase(RenderPkgNamespaces* renderns, cons
     std::cerr << "Warning. RenderInformationBase::RenderInformationBase(const std::string& id) is deprecated." << std::endl;
 #endif // DEPRECATION_WARNINGS
     setId(id);
-        // set the element namespace of this object
-  setElementNamespace(renderns->getURI());
+    // set the element namespace of this object
+    setElementNamespace(renderns->getURI());
 
-  // connect child elements to this element.
-  connectToChild();
+    // connect child elements to this element.
+    connectToChild();
 
-  // load package extensions bound with this object (if any) 
-  loadPlugins(renderns);
+    // load package extensions bound with this object (if any) 
+    loadPlugins(renderns);
 }
 /** @endcond */
 #endif // OMIT_DEPRECATED

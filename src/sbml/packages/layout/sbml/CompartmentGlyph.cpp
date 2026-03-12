@@ -76,8 +76,9 @@ CompartmentGlyph::CompartmentGlyph (unsigned int level, unsigned int version, un
   , mOrder(numeric_limits<double>::quiet_NaN())
   , mIsSetOrder(false)
 {
+  connectToChild();
   //
-  // (NOTE) Developers don't have to invoke setSBMLNamespacesAndOwn function as follows (commentted line)
+  // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
   //        in this constuctor because the function is properly invoked in the constructor of the
   //        base class (GraphicalObject).
   //
@@ -91,18 +92,12 @@ CompartmentGlyph::CompartmentGlyph(LayoutPkgNamespaces* layoutns)
   , mOrder(numeric_limits<double>::quiet_NaN())
   , mIsSetOrder(false)
 {
+  connectToChild();
   //
-  // (NOTE) Developers don't have to invoke setElementNamespace function as follows (commentted line)
-  //        in this constuctor because the function is properly invoked in the constructor of the
+  // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
+  //        in this constuctor because the functions are properly invoked in the constructor of the
   //        base class (GraphicalObject).
   //
-
-  // setElementNamespace(layoutns->getURI());
-
-  //
-  // load package extensions bound with this object (if any) 
-  //
-  loadPlugins(layoutns);
 }
 
 
@@ -116,18 +111,12 @@ CompartmentGlyph::CompartmentGlyph (LayoutPkgNamespaces* layoutns, const std::st
   , mIsSetOrder(false)
 
 {
+  connectToChild();
   //
-  // (NOTE) Developers don't have to invoke setElementNamespace function as follows (commentted line)
-  //        in this constuctor because the function is properly invoked in the constructor of the
+  // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
+  //        in this constuctor because the functions are properly invoked in the constructor of the
   //        base class (GraphicalObject).
   //
-
-  // setElementNamespace(layoutns->getURI());
-
-  //
-  // load package extensions bound with this object (if any) 
-  //
-  loadPlugins(layoutns);
 }
 
 /*
@@ -141,18 +130,12 @@ CompartmentGlyph::CompartmentGlyph (LayoutPkgNamespaces* layoutns, const std::st
   , mIsSetOrder(false)
 
 {
+  connectToChild();
   //
-  // (NOTE) Developers don't have to invoke setElementNamespace function as follows (commentted line)
-  //        in this constuctor because the function is properly invoked in the constructor of the
+  // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
+  //        in this constuctor because the functions are properly invoked in the constructor of the
   //        base class (GraphicalObject).
   //
-
-  // setElementNamespace(layoutns->getURI());
-
-  //
-  // load package extensions bound with this object (if any) 
-  //
-  loadPlugins(layoutns);
 }
 
 /*

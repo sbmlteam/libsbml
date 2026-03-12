@@ -81,14 +81,12 @@ FbcOr::FbcOr (FbcPkgNamespaces* fbcns)
   : FbcAssociation(fbcns)
   , mAssociations (fbcns)
 {
-  // set the element namespace of this object
-  setElementNamespace(fbcns->getURI());
-
-  // connect to child objects
   connectToChild();
-
-  // load package extensions bound with this object (if any) 
-  loadPlugins(fbcns);
+  //
+  // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
+  //        in this constuctor because the functions are properly invoked in the constructor of the
+  //        base class (FbcAssociation).
+  //
 }
 
 

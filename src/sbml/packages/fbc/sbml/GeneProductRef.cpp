@@ -77,11 +77,12 @@ GeneProductRef::GeneProductRef (FbcPkgNamespaces* fbcns)
   , mGeneProduct ("")
 //  , mName ("")
 {
-  // set the element namespace of this object
-  setElementNamespace(fbcns->getURI());
-
-  // load package extensions bound with this object (if any) 
-  loadPlugins(fbcns);
+  connectToChild();
+  //
+  // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
+  //        in this constuctor because the functions are properly invoked in the constructor of the
+  //        base class (FbcAssociation).
+  //
 }
 
 

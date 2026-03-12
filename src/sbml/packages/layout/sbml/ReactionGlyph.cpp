@@ -111,21 +111,12 @@ ReactionGlyph::ReactionGlyph(LayoutPkgNamespaces* layoutns)
   ,mCurve(layoutns)
   , mCurveExplicitlySet ( false )
 {
-  //
-  // (NOTE) Developers don't have to invoke setElementNamespace function as follows (commentted line)
-  //        in this constuctor because the function is properly invoked in the constructor of the
-  //        base class (LineSegment).
-  //
-
-  // setElementNamespace(layoutns->getURI());
-
-
   connectToChild();
-
   //
-  // load package extensions bound with this object (if any) 
+  // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
+  //        in this constuctor because the functions are properly invoked in the constructor of the
+  //        base class (GraphicalObject).
   //
-  loadPlugins(layoutns);
 }
 
 
@@ -139,20 +130,12 @@ ReactionGlyph::ReactionGlyph (LayoutPkgNamespaces* layoutns, const std::string& 
    ,mCurve(layoutns)
    ,mCurveExplicitlySet (false)
 {
-  //
-  // (NOTE) Developers don't have to invoke setElementNamespace function as follows (commentted line)
-  //        in this constuctor because the function is properly invoked in the constructor of the
-  //        base class (LineSegment).
-  //
-
-  // setElementNamespace(layoutns->getURI());
-
   connectToChild();
-
   //
-  // load package extensions bound with this object (if any) 
+  // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
+  //        in this constuctor because the functions are properly invoked in the constructor of the
+  //        base class (GraphicalObject).
   //
-  loadPlugins(layoutns);
 }
 
 
@@ -168,20 +151,12 @@ ReactionGlyph::ReactionGlyph (LayoutPkgNamespaces* layoutns, const std::string& 
    ,mCurve(layoutns)
    , mCurveExplicitlySet (false)
 {
-  //
-  // (NOTE) Developers don't have to invoke setElementNamespace function as follows (commentted line)
-  //        in this constuctor because the function is properly invoked in the constructor of the
-  //        base class (LineSegment).
-  //
-
-  // setElementNamespace(layoutns->getURI());
-
   connectToChild();
-
   //
-  // load package extensions bound with this object (if any) 
+  // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
+  //        in this constuctor because the functions are properly invoked in the constructor of the
+  //        base class (GraphicalObject).
   //
-  loadPlugins(layoutns);
 }
 
 /*

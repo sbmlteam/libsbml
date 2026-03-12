@@ -87,8 +87,12 @@ LocalStyle::LocalStyle(unsigned int level,
 LocalStyle::LocalStyle(RenderPkgNamespaces *renderns)
   : Style(renderns)
 {
-  setElementNamespace(renderns->getURI());
-  loadPlugins(renderns);
+  connectToChild();
+  //
+  // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
+  //        in this constuctor because the functions are properly invoked in the constructor of the
+  //        base class (Style).
+  //
 }
 
 
@@ -130,19 +134,18 @@ LocalStyle::LocalStyle(const XMLNode& node, unsigned int l2version):Style(node, 
  * constructors which take the SBML level and version or one that takes
  * an SBMLNamespaces object.
  */
-LocalStyle::LocalStyle(RenderPkgNamespaces* renderns, const std::string& id):Style(renderns,id)
+LocalStyle::LocalStyle(RenderPkgNamespaces* renderns, const std::string& id)
+    :Style(renderns,id)
 {
 #ifdef DEPRECATION_WARNINGS
     std::cerr << "Warning. LocalStyle::LocalStyle(const std::string& id) is deprecated." << std::endl;
 #endif // DEPRECATION_WARNINGS
-        // set the element namespace of this object
-  setElementNamespace(renderns->getURI());
-
-  // connect child elements to this element.
-  connectToChild();
-
-  // load package extensions bound with this object (if any) 
-  loadPlugins(renderns);
+    connectToChild();
+    //
+    // (NOTE) Developers don't have to invoke setElementNamespace or loadPlugins functions
+    //        in this constuctor because the functions are properly invoked in the constructor of the
+    //        base class (Style).
+    //
 }
 /** @endcond */
 #endif // OMIT_DEPRECATED
