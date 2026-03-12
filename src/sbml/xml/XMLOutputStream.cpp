@@ -998,7 +998,7 @@ XMLOutputStream::writeComment (const std::string& programName,
             now->tm_year+1900, now->tm_mon+1, now->tm_mday,
             now->tm_hour, now->tm_min);
 #else
-    sprintf(formattedDateAndTime, "%d-%02d-%02d %02d:%02d",
+    snprintf(formattedDateAndTime, 17, "%d-%02d-%02d %02d:%02d",
             now->tm_year+1900, now->tm_mon+1, now->tm_mday,
             now->tm_hour, now->tm_min);
 #endif

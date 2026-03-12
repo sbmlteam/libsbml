@@ -900,14 +900,14 @@ SBMLUnitsConverter::applyNewUnitDefinition(SBase &sb, Model &m,
   }
   if (newId.empty())
   {
-    sprintf(number, "%u", newIdCount);
+    snprintf(number, 4, "%u", newIdCount);
     newId = "unitSid_" + string(number);
     newIdCount++;
 
     /* double check that this id has not been used */
     while (m.getUnitDefinition(newId) != NULL)
     {
-      sprintf(number, "%u", newIdCount);
+      snprintf(number, 4, "%u", newIdCount);
       newId = "unitSid_" + string(number);
       newIdCount++;
     }
