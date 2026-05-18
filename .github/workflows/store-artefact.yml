@@ -282,7 +282,7 @@ jobs:
           ${{matrix.package_option}} \
           ${{matrix.language_bindings}} \
           -DPYTHON_EXECUTABLE=/opt/python/cp311-cp311/bin/python \
-          -DPYTHON_INCLUDE_DIR=/opt/python/cp311-cp311/include/python3.8/ \
+          -DPYTHON_INCLUDE_DIR=/opt/python/cp311-cp311/include/python3.11/ \
           -DWITH_STATIC_RUNTIME=ON \
           -DLIBSBML_DEPENDENCY_DIR=$DEPENDENCY_DIR \
           -DEXPAT_LIBRARY=$DEPENDENCY_DIR/lib64/libexpat.a \

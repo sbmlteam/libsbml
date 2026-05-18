@@ -239,7 +239,7 @@ jobs:
           ${{matrix.package_option}} \
           ${{matrix.language_bindings}} \
           -DPYTHON_EXECUTABLE=/opt/python/cp311-cp311/bin/python \
-          -DPYTHON_INCLUDE_DIR=/opt/python/cp311-cp311/include/python3.8/ \
+          -DPYTHON_INCLUDE_DIR=/opt/python/cp311-cp311/include/python3.11/ \
           -DWITH_STATIC_RUNTIME=ON \
           -DPYTHON_USE_DYNAMIC_LOOKUP=ON
           cmake --build . --config $BUILD_TYPE
