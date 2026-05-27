@@ -70,6 +70,7 @@ void SBMLReactionConverter::init()
 SBMLReactionConverter::SBMLReactionConverter() 
   : SBMLConverter("SBML Reaction Converter")
 {
+  mMainOption = "replaceReactions";
   mReactionsToRemove.clear();
   mRateRulesMap.clear();
 }

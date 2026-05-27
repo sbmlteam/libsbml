@@ -70,7 +70,7 @@ void SBMLIdConverter::init()
 SBMLIdConverter::SBMLIdConverter() 
   : SBMLConverter("SBML Id Converter")
 {
-
+  mMainOption = "renameSIds";
 }
 
 

@@ -77,6 +77,8 @@ SBMLLevelVersionConverter::SBMLLevelVersionConverter ()
   , mSRIds (NULL)
   , mMathElements (NULL)
 {
+  mMainOption = "setLevelAndVersion";
+  mRequiresTargetNamespaces = true;
 }
 
 
@@ -137,10 +139,10 @@ SBMLLevelVersionConverter::getDefaultProperties() const
   {
     SBMLNamespaces * sbmlns = new SBMLNamespaces(); // default namespaces
     prop.setTargetNamespaces(sbmlns); // this gets cloned
+    prop.addOption("setLevelAndVersion", true, 
+      "Convert the model to a given Level and Version of SBML");
     prop.addOption("strict", true,
                    "Whether validity should be strictly preserved");
-    prop.addOption("setLevelAndVersion", true, 
-                   "Convert the model to a given Level and Version of SBML");
     prop.addOption("addDefaultUnits", true,
                    "Whether default units should be added when converting to L3");
     delete sbmlns;

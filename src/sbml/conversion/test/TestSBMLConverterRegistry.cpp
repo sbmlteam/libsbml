@@ -175,6 +175,37 @@ START_TEST (test_conversion_inline)
 }
 END_TEST
 
+
+START_TEST (test_conversion_main_option)
+{
+  string filename(TestDataDirectory);
+  filename += "00856-sbml-l3v1.xml";
+
+  SBMLDocument* doc = readSBMLFromFile(filename.c_str());
+
+  fail_unless(doc->getModel() != NULL);
+
+  // get all converters, for each one
+  // check that we have a main option set
+  // and that it exists
+
+  // this test essentially just tests that the main option
+  // is set in the constructor of the converter.
+
+  for (int i = 0; i < SBMLConverterRegistry::getInstance().getNumConverters(); ++i)
+  {
+    SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterByIndex(i);
+    fail_unless(converter->getMainOption() != "");
+    ConversionProperties props = converter->getDefaultProperties();
+		auto* prop = props.getOption(converter->getMainOption());
+		fail_unless(prop != nullptr);
+    delete converter;
+  }
+
+  delete doc;
+}
+END_TEST
+
 Suite *
 create_suite_TestSBMLConverterRegistry (void)
 { 
@@ -188,6 +219,7 @@ create_suite_TestSBMLConverterRegistry (void)
   tcase_add_test(tcase, test_conversion_units);
   tcase_add_test(tcase, test_conversion_parameters);
   tcase_add_test(tcase, test_conversion_inline);
+  tcase_add_test(tcase, test_conversion_main_option);
 
   suite_add_tcase(suite, tcase);
 

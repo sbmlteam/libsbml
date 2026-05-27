@@ -68,7 +68,7 @@ void SBMLInitialAssignmentConverter::init()
 SBMLInitialAssignmentConverter::SBMLInitialAssignmentConverter() 
   : SBMLConverter("SBML Initial Assignment Converter")
 {
-
+  mMainOption = "expandInitialAssignments";
 }
 
 

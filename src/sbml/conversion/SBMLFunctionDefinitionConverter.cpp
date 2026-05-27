@@ -71,7 +71,7 @@ void SBMLFunctionDefinitionConverter::init()
 SBMLFunctionDefinitionConverter::SBMLFunctionDefinitionConverter() 
   : SBMLConverter("SBML Function Definition Converter")
 {
-
+  mMainOption = "expandFunctionDefinitions";
 }
 
 

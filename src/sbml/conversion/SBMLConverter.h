@@ -297,6 +297,37 @@ public:
 
   bool mathContainsId(const ASTNode* ast, const std::string& id) const;
 
+
+  /**
+   * @brief Set the name of the main option that is used to identify the converter.
+   * 
+   * @param mainOption the name of the main option that is used to identify the converter.
+   */
+  void setMainOption(const std::string& mainOption);
+
+  /**
+   * @brief Get the name of the main option that is used to identify the converter.
+   * 
+   * If not defined (or an empty string is returned), the converter will be identified
+   * by going through the options and checking if the converter matches the properties.
+   * 
+   * @return the name of the main option that is used to identify the converter.
+   */
+  const std::string& getMainOption() const;
+
+
+  /**
+   * @brief Set whether the converter requires a target namespace to be set.
+   * 
+   */
+
+  void setRequiresTargetNamespaces(bool requiresTargetNamespaces);
+
+  /**
+   * 
+   * @return true if the converter requires a target namespace to be set, false otherwise.
+   */
+  bool getRequiresTargetNamespaces() const;
 protected:
   /** @cond doxygenLibsbmlInternal */
   SBMLDocument *   mDocument;
@@ -304,6 +335,8 @@ protected:
 
   ConversionProperties *mProps;
   std::string mName;
+  std::string mMainOption;
+  bool mRequiresTargetNamespaces;
 
   virtual ASTNode* replaceMathWithAssignedVariables(ASTNode* original);
 

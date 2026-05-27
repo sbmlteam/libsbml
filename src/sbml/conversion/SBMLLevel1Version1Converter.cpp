@@ -70,6 +70,7 @@ void SBMLLevel1Version1Converter::init()
 SBMLLevel1Version1Converter::SBMLLevel1Version1Converter () 
   : SBMLConverter("SBML Level 1 Version 1 Converter")
 {
+  mMainOption = "convertToL1V1";
 }
 
 
@@ -124,8 +125,6 @@ SBMLLevel1Version1Converter::getDefaultProperties() const
   }
   else
   {
-    SBMLNamespaces * sbmlns = new SBMLNamespaces(1,1); // default namespaces
-    prop.setTargetNamespaces(sbmlns); // this gets cloned
     prop.addOption("convertToL1V1", true,
       "convert the document to SBML Level 1 Version 1");
     prop.addOption("changePow", false, 
@@ -134,7 +133,9 @@ SBMLLevel1Version1Converter::getDefaultProperties() const
       "if true, occurrances of compartment ids in expressions will be replaced with their initial size");
 
 
-
+    SBMLNamespaces * sbmlns = new SBMLNamespaces(1,1); // default namespaces
+    prop.setTargetNamespaces(sbmlns); // this gets cloned
+  
     delete sbmlns;
     init = true;
     return prop;

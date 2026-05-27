@@ -70,6 +70,7 @@ SBMLUnitsConverter::SBMLUnitsConverter ()
   : SBMLConverter("SBML Units Converter")
 {
   newIdCount = 0;
+  mMainOption = "units";
 }
 
 

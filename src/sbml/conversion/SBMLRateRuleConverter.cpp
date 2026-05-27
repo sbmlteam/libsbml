@@ -133,6 +133,7 @@ SBMLRateRuleConverter::SBMLRateRuleConverter()
   , mReactants ()
   , mModifiers ()
 {
+  mMainOption = "inferReactions";
 }
 
 SBMLRateRuleConverter::SBMLRateRuleConverter(const SBMLRateRuleConverter& orig) :

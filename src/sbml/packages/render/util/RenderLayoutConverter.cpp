@@ -71,7 +71,8 @@ void RenderLayoutConverter::init()
 RenderLayoutConverter::RenderLayoutConverter() 
   : SBMLConverter("Layout Converter L2 <=> L3")
 {
-
+  mMainOption = "convert layout";
+  mRequiresTargetNamespaces = true;
 }
 
 

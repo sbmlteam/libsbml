@@ -82,6 +82,7 @@ START_TEST (test_setup)
 
   fail_unless (converter->getDefaultProperties().hasOption("setLevelAndVersion") == true);
   fail_unless (converter->getDefaultProperties().hasOption("strict") == true);
+  fail_unless (converter->getRequiresTargetNamespaces() == true);
   fail_unless (converter->getDefaultProperties().getTargetNamespaces() != NULL);
   
   delete converter;
