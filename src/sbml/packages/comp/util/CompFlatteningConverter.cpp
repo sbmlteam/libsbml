@@ -78,6 +78,7 @@ CompFlatteningConverter::CompFlatteningConverter()
   : SBMLConverter("SBML Comp Flattening Converter")
   , mPkgsToStrip (NULL)
 {
+  mMainOption = "flatten comp";
   mDisabledPackages.clear();
 }
 

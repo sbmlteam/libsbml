@@ -67,6 +67,7 @@ void SBMLStripPackageConverter::init()
 SBMLStripPackageConverter::SBMLStripPackageConverter () 
   : SBMLConverter("SBML Strip Package Converter")
 {
+  mMainOption = "stripPackage";
 }
 
 

@@ -75,7 +75,7 @@ void SBMLLocalParameterConverter::init()
 SBMLLocalParameterConverter::SBMLLocalParameterConverter() 
   : SBMLConverter("SBML Local Parameter Converter")
 {
-
+  mMainOption = "promoteLocalParameters";
 }
 
 

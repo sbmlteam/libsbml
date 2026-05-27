@@ -73,6 +73,7 @@ DistribToAnnotationConverter::DistribToAnnotationConverter()
   : SBMLConverter("SBML Distributions Annotations Converter")
   , mCreatedFunctions()
 {
+  mMainOption = "convert distrib to annotations";
 }
 
 

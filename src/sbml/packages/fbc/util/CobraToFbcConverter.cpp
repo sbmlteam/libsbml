@@ -68,6 +68,7 @@ void CobraToFbcConverter::init()
 CobraToFbcConverter::CobraToFbcConverter() 
  : SBMLConverter("SBML COBRA to FBC Converter")
 {
+  mMainOption = "convert cobra";
 
 }
 

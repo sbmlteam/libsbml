@@ -73,6 +73,7 @@ void SBMLRateOfConverter::init()
 SBMLRateOfConverter::SBMLRateOfConverter() 
   : SBMLConverter("SBML Rate Of Converter")
 {
+  mMainOption = "replaceRateOf";
 }
 
 

@@ -67,6 +67,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 FbcV2ToV1Converter::FbcV2ToV1Converter()
   : SBMLConverter("SBML FBC v2 to FBC v1 Converter")
 {
+  mMainOption = "convert fbc v2 to fbc v1";
 }
 
 FbcV2ToV1Converter::FbcV2ToV1Converter(const FbcV2ToV1Converter& orig) :

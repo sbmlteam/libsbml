@@ -63,6 +63,7 @@ SBMLConverter::SBMLConverter () :
   , mOriginalModel(NULL)
   , mProps(NULL)
   , mName("")
+  , mMainOption("")
 {
 }
 
@@ -71,6 +72,7 @@ SBMLConverter::SBMLConverter (const std::string& name)
   , mOriginalModel(NULL)
   , mProps(NULL)
   , mName(name)
+  , mMainOption("")
 {
 }
 
@@ -82,6 +84,7 @@ SBMLConverter::SBMLConverter(const SBMLConverter& orig) :
   , mOriginalModel(orig.mOriginalModel)
   , mProps(NULL)
   , mName(orig.mName)
+  , mMainOption(orig.mMainOption)
 {
   if (orig.mProps != NULL) 
   {
@@ -191,6 +194,18 @@ const std::string&
 SBMLConverter::getName() const
 {
   return mName;
+}
+
+const std::string&
+SBMLConverter::getMainOption() const
+{
+  return mMainOption;
+}
+
+void 
+SBMLConverter::setMainOption(const std::string& mainOption)
+{
+  mMainOption = mainOption;
 }
 
 bool SBMLConverter::mathContainsId(const ASTNode* ast, const std::string& id) const

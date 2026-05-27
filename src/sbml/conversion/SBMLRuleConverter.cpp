@@ -75,7 +75,7 @@ void SBMLRuleConverter::init()
 SBMLRuleConverter::SBMLRuleConverter() 
   : SBMLConverter("SBML Rule Converter")
 {
-
+  mMainOption = "sortRules";
 }
 
 SBMLRuleConverter::SBMLRuleConverter(const SBMLRuleConverter& orig) :

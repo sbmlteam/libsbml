@@ -147,6 +147,7 @@ void ArraysFlatteningConverter::init()
 ArraysFlatteningConverter::ArraysFlatteningConverter() 
   : SBMLConverter("SBML Arrays Flattening Converter")
 {
+  mMainOption = "flatten arrays";
 }
 
 
