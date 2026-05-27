@@ -11,6 +11,7 @@ var class_s_b_m_l_rate_of_converter =
     [ "getMainOption", "class_s_b_m_l_rate_of_converter.html#ac233043a18c170b5ab5e6268f6f2c5d0", null ],
     [ "getName", "class_s_b_m_l_rate_of_converter.html#a6364ee6b136109b83680884496542bc0", null ],
     [ "getProperties", "class_s_b_m_l_rate_of_converter.html#ad48a1188a9890433e0420de5dc5d6ac3", null ],
+    [ "getRequiresTargetNamespaces", "class_s_b_m_l_rate_of_converter.html#a7c7fe65cf8ea740190fa94ed8a06852d", null ],
     [ "getTargetNamespaces", "class_s_b_m_l_rate_of_converter.html#ac724a6e9d284aa26ed1dc7aff0cec6e3", null ],
     [ "getToFunctionDefinition", "class_s_b_m_l_rate_of_converter.html#a3689ad574cca760a1c10c285d56b8f6a", null ],
     [ "matchesProperties", "class_s_b_m_l_rate_of_converter.html#a1bc115a77d4a31b010d4545157a9bbc0", null ],
@@ -19,5 +20,6 @@ var class_s_b_m_l_rate_of_converter =
     [ "setDocument", "class_s_b_m_l_rate_of_converter.html#a37bdbc74f1187d52f78233f9af1cc2db", null ],
     [ "setDocument", "class_s_b_m_l_rate_of_converter.html#a8e1e81659dc8a3be02d64e95f7ed17b2", null ],
     [ "setMainOption", "class_s_b_m_l_rate_of_converter.html#ace58964b1171fea3a8f0c15294aece9a", null ],
-    [ "setProperties", "class_s_b_m_l_rate_of_converter.html#a2f6cb3b5409a2fa26a45c2f0ea01acdc", null ]
+    [ "setProperties", "class_s_b_m_l_rate_of_converter.html#a2f6cb3b5409a2fa26a45c2f0ea01acdc", null ],
+    [ "setRequiresTargetNamespaces", "class_s_b_m_l_rate_of_converter.html#a7a0441755a5ea5fc7ab840a7e75fe6e1", null ]
 ];

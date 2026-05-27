@@ -1,5 +1,15 @@
 var NAVTREEINDEX60 =
 {
+"class_flux_objective.html#a118148398f5c626bf9697887296f97b8":[3,0,84,6],
+"class_flux_objective.html#a11d9c02a3690d9a13362835ef0133125":[3,0,84,117],
+"class_flux_objective.html#a14876bd1b05a660593ed2cf46aece3ee":[3,0,84,115],
+"class_flux_objective.html#a18f4e33939552603159d3feda7165107":[3,0,84,112],
+"class_flux_objective.html#a19efde8c152ee942e6d86d591a45ff0d":[3,0,84,119],
+"class_flux_objective.html#a1ac8ff6f42c81d70a4c7296accc0f42c":[3,0,84,50],
+"class_flux_objective.html#a1bfd93ef72d0f624964fcfd7a8d5cdfb":[3,0,84,144],
+"class_flux_objective.html#a1e36c78e11195a3db1d56cb45512c714":[3,0,84,131],
+"class_flux_objective.html#a1e89a7890f2fb291f1ba4c38866d1dcc":[3,0,84,142],
+"class_flux_objective.html#a1f993a0b921965d691781e5a903d7777":[3,0,84,102],
 "class_flux_objective.html#a21580da1d75f4782effcc57b45ed37c8":[3,0,84,114],
 "class_flux_objective.html#a21766ad77868a914ec0780653d0e924f":[3,0,84,23],
 "class_flux_objective.html#a253b8d724dd9cb8d4cdfcf3f5176dfd2":[3,0,84,24],
@@ -239,15 +249,5 @@ var NAVTREEINDEX60 =
 "class_function_definition.html#ab39fb9a978028a24d2b6e0ebd189f00e":[3,0,86,2],
 "class_function_definition.html#ab4de53b00ecec3e135fcb9d36fb1bf3b":[3,0,86,62],
 "class_function_definition.html#ab65f2358ae580d6ed278789698f80209":[3,0,86,53],
-"class_function_definition.html#ab6b2f72b4ac5392401ed10d717dbf87b":[3,0,86,79],
-"class_function_definition.html#ab9b81fdb8570c061842115f59d12ef99":[3,0,86,36],
-"class_function_definition.html#abbd9e46d49ea191134832353b7b91c6d":[3,0,86,102],
-"class_function_definition.html#abd78c4290e103245ce49b92b5e229375":[3,0,86,146],
-"class_function_definition.html#abd7d5017d78b0be21d34c36c42271926":[3,0,86,91],
-"class_function_definition.html#abfd80ad272a2e8d8a87749ffb6656526":[3,0,86,113],
-"class_function_definition.html#ac1db4c7f15e643a3cb27fe3b85e22f05":[3,0,86,16],
-"class_function_definition.html#ac2738b6b26177ff6383fc107f0a1577b":[3,0,86,24],
-"class_function_definition.html#ac34eff3877f512b8bf31facff83c4483":[3,0,86,52],
-"class_function_definition.html#ac39cfac9d726a12e0f05c6e393953888":[3,0,86,11],
-"class_function_definition.html#ac3b1bbfe22bad0dbc577b61c529f37bb":[3,0,86,132]
+"class_function_definition.html#ab6b2f72b4ac5392401ed10d717dbf87b":[3,0,86,79]
 };

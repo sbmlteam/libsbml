@@ -11,11 +11,13 @@ var class_render_layout_converter =
     [ "getMainOption", "class_render_layout_converter.html#ac233043a18c170b5ab5e6268f6f2c5d0", null ],
     [ "getName", "class_render_layout_converter.html#a6364ee6b136109b83680884496542bc0", null ],
     [ "getProperties", "class_render_layout_converter.html#ad48a1188a9890433e0420de5dc5d6ac3", null ],
+    [ "getRequiresTargetNamespaces", "class_render_layout_converter.html#a7c7fe65cf8ea740190fa94ed8a06852d", null ],
     [ "getTargetNamespaces", "class_render_layout_converter.html#ac724a6e9d284aa26ed1dc7aff0cec6e3", null ],
     [ "matchesProperties", "class_render_layout_converter.html#ad7cddc0fd1fcc6b05fb9ace189b60002", null ],
     [ "mathContainsId", "class_render_layout_converter.html#a519527f1abea77d8bdfdf417a26a7646", null ],
     [ "setDocument", "class_render_layout_converter.html#a4b1034ee31f5dd3049d4a7784a80a959", null ],
     [ "setDocument", "class_render_layout_converter.html#a2486e5fc0df13b1d4c39533570257b40", null ],
     [ "setMainOption", "class_render_layout_converter.html#ace58964b1171fea3a8f0c15294aece9a", null ],
-    [ "setProperties", "class_render_layout_converter.html#a2f6cb3b5409a2fa26a45c2f0ea01acdc", null ]
+    [ "setProperties", "class_render_layout_converter.html#a2f6cb3b5409a2fa26a45c2f0ea01acdc", null ],
+    [ "setRequiresTargetNamespaces", "class_render_layout_converter.html#a7a0441755a5ea5fc7ab840a7e75fe6e1", null ]
 ];

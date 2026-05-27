@@ -206,6 +206,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad48a1188a9890433e0420de5dc5d6ac3" id="r_ad48a1188a9890433e0420de5dc5d6ac3"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_conversion_properties.html">ConversionProperties</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_converter.html#ad48a1188a9890433e0420de5dc5d6ac3">getProperties</a> () const</td></tr>
 <tr class="memdesc:ad48a1188a9890433e0420de5dc5d6ac3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current properties in effect for this converter.  <br /></td></tr>
 <tr class="separator:ad48a1188a9890433e0420de5dc5d6ac3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c7fe65cf8ea740190fa94ed8a06852d" id="r_a7c7fe65cf8ea740190fa94ed8a06852d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_converter.html#a7c7fe65cf8ea740190fa94ed8a06852d">getRequiresTargetNamespaces</a> () const</td></tr>
+<tr class="separator:a7c7fe65cf8ea740190fa94ed8a06852d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac724a6e9d284aa26ed1dc7aff0cec6e3" id="r_ac724a6e9d284aa26ed1dc7aff0cec6e3"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_s_b_m_l_namespaces.html">SBMLNamespaces</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_converter.html#ac724a6e9d284aa26ed1dc7aff0cec6e3">getTargetNamespaces</a> ()</td></tr>
 <tr class="memdesc:ac724a6e9d284aa26ed1dc7aff0cec6e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the target SBML namespaces of the currently set properties.  <br /></td></tr>
 <tr class="separator:ac724a6e9d284aa26ed1dc7aff0cec6e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -235,6 +237,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a2f6cb3b5409a2fa26a45c2f0ea01acdc" id="r_a2f6cb3b5409a2fa26a45c2f0ea01acdc"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_converter.html#a2f6cb3b5409a2fa26a45c2f0ea01acdc">setProperties</a> (const <a class="el" href="class_conversion_properties.html">ConversionProperties</a> *props)</td></tr>
 <tr class="memdesc:a2f6cb3b5409a2fa26a45c2f0ea01acdc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the configuration properties to be used by this converter.  <br /></td></tr>
 <tr class="separator:a2f6cb3b5409a2fa26a45c2f0ea01acdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a0441755a5ea5fc7ab840a7e75fe6e1" id="r_a7a0441755a5ea5fc7ab840a7e75fe6e1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_converter.html#a7a0441755a5ea5fc7ab840a7e75fe6e1">setRequiresTargetNamespaces</a> (bool requiresTargetNamespaces)</td></tr>
+<tr class="memdesc:a7a0441755a5ea5fc7ab840a7e75fe6e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set whether the converter requires a target namespace to be set.  <br /></td></tr>
+<tr class="separator:a7a0441755a5ea5fc7ab840a7e75fe6e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a314b2bc82d3ab90f579d8f11e402c726" id="r_a314b2bc82d3ab90f579d8f11e402c726"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_infer_units_converter.html#a314b2bc82d3ab90f579d8f11e402c726">~SBMLInferUnitsConverter</a> ()</td></tr>
 <tr class="memdesc:a314b2bc82d3ab90f579d8f11e402c726"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys this object.  <br /></td></tr>
 <tr class="separator:a314b2bc82d3ab90f579d8f11e402c726"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -562,6 +567,32 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a7c7fe65cf8ea740190fa94ed8a06852d" name="a7c7fe65cf8ea740190fa94ed8a06852d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c7fe65cf8ea740190fa94ed8a06852d">&#9670;&#160;</a></span>getRequiresTargetNamespaces()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SBMLConverter::getRequiresTargetNamespaces </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true if the converter requires a target namespace to be set, false otherwise. </dd></dl>
+
+</div>
+</div>
 <a id="ac724a6e9d284aa26ed1dc7aff0cec6e3" name="ac724a6e9d284aa26ed1dc7aff0cec6e3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac724a6e9d284aa26ed1dc7aff0cec6e3">&#9670;&#160;</a></span>getTargetNamespaces()</h2>
 
@@ -849,6 +880,34 @@ Public Member Functions</h2></td></tr>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_s_b_m_l_converter.html#ad48a1188a9890433e0420de5dc5d6ac3" title="Returns the current properties in effect for this converter.">getProperties()</a> </dd>
 <dd>
 <a class="el" href="class_s_b_m_l_infer_units_converter.html#a392f0c8ceb76192ee391250b96b70574" title="Returns true if this converter object&#39;s properties match the given properties.">matchesProperties</a>( ) </dd></dl>
+
+</div>
+</div>
+<a id="a7a0441755a5ea5fc7ab840a7e75fe6e1" name="a7a0441755a5ea5fc7ab840a7e75fe6e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a0441755a5ea5fc7ab840a7e75fe6e1">&#9670;&#160;</a></span>setRequiresTargetNamespaces()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SBMLConverter::setRequiresTargetNamespaces </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>requiresTargetNamespaces</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set whether the converter requires a target namespace to be set. </p>
 
 </div>
 </div>
