@@ -1,5 +1,15 @@
 var NAVTREEINDEX79 =
 {
+"class_line_ending.html":[3,0,125],
+"class_line_ending.html#a0143961ca5188d00203c99eef1de854e":[3,0,125,21],
+"class_line_ending.html#a027dbf22b8bf74bbb0ce5cd4453851c7":[3,0,125,65],
+"class_line_ending.html#a02a6692a180f9281c071b77f908dce0e":[3,0,125,40],
+"class_line_ending.html#a031d1da6a39bae8afd5201677fb32c02":[3,0,125,81],
+"class_line_ending.html#a050779a94ecdb2d73d7edfef73bc1e55":[3,0,125,177],
+"class_line_ending.html#a07ec2702ebbdf35aef0a0626b0ffd52f":[3,0,125,74],
+"class_line_ending.html#a07fe8dd8b43718fbb3d0df8481c72058":[3,0,125,207],
+"class_line_ending.html#a081bd054baa2422224c7a3d1abb59b7e":[3,0,125,1],
+"class_line_ending.html#a0a8fa8e4911040c0fdf6cdd03a22f564":[3,0,125,133],
 "class_line_ending.html#a0b02092069159bda9b7ff14ecacfca5d":[3,0,125,8],
 "class_line_ending.html#a0df1a731505cbddfcb2c504bd86ba9c0":[3,0,125,114],
 "class_line_ending.html#a0eacae34c20da16074913acb0060668f":[3,0,125,173],
@@ -239,15 +249,5 @@ var NAVTREEINDEX79 =
 "class_line_segment.html#a2e322246cd669131af4bd325a99ac0fd":[3,0,126,28],
 "class_line_segment.html#a2ee9deefbebeec601c90376aace952ad":[3,0,126,1],
 "class_line_segment.html#a2f0edc025514ba75d15e6c6b5a831b66":[3,0,126,23],
-"class_line_segment.html#a30ac3f72984fb7e41ae5dc88f2a0504d":[3,0,126,88],
-"class_line_segment.html#a317ea060a5c3f97576188a22e670e683":[3,0,126,148],
-"class_line_segment.html#a31fea5f04d8d0a59aef58fa6fc8236b7":[3,0,126,72],
-"class_line_segment.html#a33897f0c6bf974b8a2418589360ae916":[3,0,126,35],
-"class_line_segment.html#a33da5a2b0b03cbe6af69730869e35212":[3,0,126,12],
-"class_line_segment.html#a37287e48bd51353012b74e4d200bb446":[3,0,126,131],
-"class_line_segment.html#a39e0febad1c149b4a8455662afd845b4":[3,0,126,105],
-"class_line_segment.html#a3b55549e37af3e0c1c6c2d5089986c17":[3,0,126,14],
-"class_line_segment.html#a3c660fee44a73d97e017eae37c1d4cbd":[3,0,126,106],
-"class_line_segment.html#a40dba8a849dbda05d3f9f42000119dc5":[3,0,126,109],
-"class_line_segment.html#a478ad1e0e2bb2dc27a9de6ab9bac4bf2":[3,0,126,127]
+"class_line_segment.html#a30ac3f72984fb7e41ae5dc88f2a0504d":[3,0,126,88]
 };

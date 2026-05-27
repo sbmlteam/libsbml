@@ -201,6 +201,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a770d6306730cb2ad9cee2b44bec7eda1" id="r_a770d6306730cb2ad9cee2b44bec7eda1"><td class="memItemLeft" align="right" valign="top">virtual const <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_converter.html#a770d6306730cb2ad9cee2b44bec7eda1">getDocument</a> () const</td></tr>
 <tr class="memdesc:a770d6306730cb2ad9cee2b44bec7eda1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the SBML document that is the subject of the conversions.  <br /></td></tr>
 <tr class="separator:a770d6306730cb2ad9cee2b44bec7eda1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac233043a18c170b5ab5e6268f6f2c5d0" id="r_ac233043a18c170b5ab5e6268f6f2c5d0"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_converter.html#ac233043a18c170b5ab5e6268f6f2c5d0">getMainOption</a> () const</td></tr>
+<tr class="memdesc:ac233043a18c170b5ab5e6268f6f2c5d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the name of the main option that is used to identify the converter.  <br /></td></tr>
+<tr class="separator:ac233043a18c170b5ab5e6268f6f2c5d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6364ee6b136109b83680884496542bc0" id="r_a6364ee6b136109b83680884496542bc0"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_converter.html#a6364ee6b136109b83680884496542bc0">getName</a> () const</td></tr>
 <tr class="memdesc:a6364ee6b136109b83680884496542bc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the name of this converter.  <br /></td></tr>
 <tr class="separator:a6364ee6b136109b83680884496542bc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -233,6 +236,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8e1e81659dc8a3be02d64e95f7ed17b2" id="r_a8e1e81659dc8a3be02d64e95f7ed17b2"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_rate_of_converter.html#a8e1e81659dc8a3be02d64e95f7ed17b2">setDocument</a> (<a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> *doc)</td></tr>
 <tr class="memdesc:a8e1e81659dc8a3be02d64e95f7ed17b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the current SBML document to the given <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object.  <br /></td></tr>
 <tr class="separator:a8e1e81659dc8a3be02d64e95f7ed17b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace58964b1171fea3a8f0c15294aece9a" id="r_ace58964b1171fea3a8f0c15294aece9a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_converter.html#ace58964b1171fea3a8f0c15294aece9a">setMainOption</a> (const std::string &amp;mainOption)</td></tr>
+<tr class="memdesc:ace58964b1171fea3a8f0c15294aece9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the name of the main option that is used to identify the converter.  <br /></td></tr>
+<tr class="separator:ace58964b1171fea3a8f0c15294aece9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2f6cb3b5409a2fa26a45c2f0ea01acdc" id="r_a2f6cb3b5409a2fa26a45c2f0ea01acdc"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_m_l_converter.html#a2f6cb3b5409a2fa26a45c2f0ea01acdc">setProperties</a> (const <a class="el" href="class_conversion_properties.html">ConversionProperties</a> *props)</td></tr>
 <tr class="memdesc:a2f6cb3b5409a2fa26a45c2f0ea01acdc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the configuration properties to be used by this converter.  <br /></td></tr>
 <tr class="separator:a2f6cb3b5409a2fa26a45c2f0ea01acdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -471,6 +477,35 @@ Public Member Functions</h2></td></tr>
 
 <p>Returns the SBML document that is the subject of the conversions. </p>
 <dl class="section return"><dt>Returns</dt><dd>the current <a class="el" href="class_s_b_m_l_document.html">SBMLDocument</a> object. </dd></dl>
+
+</div>
+</div>
+<a id="ac233043a18c170b5ab5e6268f6f2c5d0" name="ac233043a18c170b5ab5e6268f6f2c5d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac233043a18c170b5ab5e6268f6f2c5d0">&#9670;&#160;</a></span>getMainOption()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string &amp; SBMLConverter::getMainOption </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the name of the main option that is used to identify the converter. </p>
+<p>If not defined (or an empty string is returned), the converter will be identified by going through the options and checking if the converter matches the properties.</p>
+<dl class="section return"><dt>Returns</dt><dd>the name of the main option that is used to identify the converter. </dd></dl>
 
 </div>
 </div>
@@ -761,6 +796,40 @@ Public Member Functions</h2></td></tr>
 </dd></dl>
 
 <p>Reimplemented from <a class="el" href="class_s_b_m_l_converter.html#a2486e5fc0df13b1d4c39533570257b40">SBMLConverter</a>.</p>
+
+</div>
+</div>
+<a id="ace58964b1171fea3a8f0c15294aece9a" name="ace58964b1171fea3a8f0c15294aece9a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace58964b1171fea3a8f0c15294aece9a">&#9670;&#160;</a></span>setMainOption()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SBMLConverter::setMainOption </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>mainOption</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set the name of the main option that is used to identify the converter. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mainOption</td><td>the name of the main option that is used to identify the converter. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

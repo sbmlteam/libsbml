@@ -8,6 +8,7 @@ var class_fbc_v1_to_v2_converter =
     [ "getDefaultProperties", "class_fbc_v1_to_v2_converter.html#aedf738d074c30091d6f111ab55faee38", null ],
     [ "getDocument", "class_fbc_v1_to_v2_converter.html#a52872314e0e52c28938631413ecb5a23", null ],
     [ "getDocument", "class_fbc_v1_to_v2_converter.html#a770d6306730cb2ad9cee2b44bec7eda1", null ],
+    [ "getMainOption", "class_fbc_v1_to_v2_converter.html#ac233043a18c170b5ab5e6268f6f2c5d0", null ],
     [ "getName", "class_fbc_v1_to_v2_converter.html#a6364ee6b136109b83680884496542bc0", null ],
     [ "getProperties", "class_fbc_v1_to_v2_converter.html#ad48a1188a9890433e0420de5dc5d6ac3", null ],
     [ "getStrict", "class_fbc_v1_to_v2_converter.html#a70fe9e9e0bd47b01b5a0ea13f06fbe6f", null ],
@@ -16,5 +17,6 @@ var class_fbc_v1_to_v2_converter =
     [ "mathContainsId", "class_fbc_v1_to_v2_converter.html#a519527f1abea77d8bdfdf417a26a7646", null ],
     [ "setDocument", "class_fbc_v1_to_v2_converter.html#a4b1034ee31f5dd3049d4a7784a80a959", null ],
     [ "setDocument", "class_fbc_v1_to_v2_converter.html#a2486e5fc0df13b1d4c39533570257b40", null ],
+    [ "setMainOption", "class_fbc_v1_to_v2_converter.html#ace58964b1171fea3a8f0c15294aece9a", null ],
     [ "setProperties", "class_fbc_v1_to_v2_converter.html#a2f6cb3b5409a2fa26a45c2f0ea01acdc", null ]
 ];

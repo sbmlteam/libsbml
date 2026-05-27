@@ -10,6 +10,7 @@ var class_s_b_m_l_rate_rule_converter =
     [ "getDefaultProperties", "class_s_b_m_l_rate_rule_converter.html#a454b9c7139eb05e2f4a3ece9dab39213", null ],
     [ "getDocument", "class_s_b_m_l_rate_rule_converter.html#a52872314e0e52c28938631413ecb5a23", null ],
     [ "getDocument", "class_s_b_m_l_rate_rule_converter.html#a770d6306730cb2ad9cee2b44bec7eda1", null ],
+    [ "getMainOption", "class_s_b_m_l_rate_rule_converter.html#ac233043a18c170b5ab5e6268f6f2c5d0", null ],
     [ "getMathNotSupportedFlag", "class_s_b_m_l_rate_rule_converter.html#a53d7586c53ac5c33571b7aebc1bd2a4f", null ],
     [ "getModifiers", "class_s_b_m_l_rate_rule_converter.html#a9c38a9002ab776f4e4a8c95d0d7e2949", null ],
     [ "getName", "class_s_b_m_l_rate_rule_converter.html#a6364ee6b136109b83680884496542bc0", null ],
@@ -28,5 +29,6 @@ var class_s_b_m_l_rate_rule_converter =
     [ "print_rn_coefficients", "class_s_b_m_l_rate_rule_converter.html#a5f403ac2b4cdc344838ddbb8713d0add", null ],
     [ "setDocument", "class_s_b_m_l_rate_rule_converter.html#a201be3e858bc65fe2c649a922ae0ca51", null ],
     [ "setDocument", "class_s_b_m_l_rate_rule_converter.html#a9cbbb059268e52823b66499ea2659933", null ],
+    [ "setMainOption", "class_s_b_m_l_rate_rule_converter.html#ace58964b1171fea3a8f0c15294aece9a", null ],
     [ "setProperties", "class_s_b_m_l_rate_rule_converter.html#a2f6cb3b5409a2fa26a45c2f0ea01acdc", null ]
 ];

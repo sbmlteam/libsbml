@@ -8,6 +8,7 @@ var class_s_b_m_l_strip_package_converter =
     [ "getDefaultProperties", "class_s_b_m_l_strip_package_converter.html#a2f760bb3da10d1cb681074292b33d236", null ],
     [ "getDocument", "class_s_b_m_l_strip_package_converter.html#a52872314e0e52c28938631413ecb5a23", null ],
     [ "getDocument", "class_s_b_m_l_strip_package_converter.html#a770d6306730cb2ad9cee2b44bec7eda1", null ],
+    [ "getMainOption", "class_s_b_m_l_strip_package_converter.html#ac233043a18c170b5ab5e6268f6f2c5d0", null ],
     [ "getName", "class_s_b_m_l_strip_package_converter.html#a6364ee6b136109b83680884496542bc0", null ],
     [ "getPackageToStrip", "class_s_b_m_l_strip_package_converter.html#ab133cf1797b770ca9a4824bb45152cf2", null ],
     [ "getProperties", "class_s_b_m_l_strip_package_converter.html#ad48a1188a9890433e0420de5dc5d6ac3", null ],
@@ -18,5 +19,6 @@ var class_s_b_m_l_strip_package_converter =
     [ "operator=", "class_s_b_m_l_strip_package_converter.html#a23571ec3a1fee36e3b112fe047ed46fe", null ],
     [ "setDocument", "class_s_b_m_l_strip_package_converter.html#a4b1034ee31f5dd3049d4a7784a80a959", null ],
     [ "setDocument", "class_s_b_m_l_strip_package_converter.html#a2486e5fc0df13b1d4c39533570257b40", null ],
+    [ "setMainOption", "class_s_b_m_l_strip_package_converter.html#ace58964b1171fea3a8f0c15294aece9a", null ],
     [ "setProperties", "class_s_b_m_l_strip_package_converter.html#a2f6cb3b5409a2fa26a45c2f0ea01acdc", null ]
 ];
