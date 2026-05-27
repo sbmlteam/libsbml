@@ -247,11 +247,11 @@ jobs:
 
       - name: install CMake, ninja and swig using pip
         run: |
-          /opt/python/cp38-cp38/bin/pip install cmake swig ninja
-          ln -s /opt/python/cp38-cp38/bin/cmake /usr/bin/cmake
-          ln -s /opt/python/cp38-cp38/bin/ctest /usr/bin/ctest
-          ln -s /opt/python/cp38-cp38/bin/swig /usr/bin/swig
-          ln -s /opt/python/cp38-cp38/bin/ninja /usr/bin/ninja
+          /opt/python/cp311-cp311/bin/pip install cmake swig ninja
+          ln -s /opt/python/cp311-cp311/bin/cmake /usr/bin/cmake
+          ln -s /opt/python/cp311-cp311/bin/ctest /usr/bin/ctest
+          ln -s /opt/python/cp311-cp311/bin/swig /usr/bin/swig
+          ln -s /opt/python/cp311-cp311/bin/ninja /usr/bin/ninja
           cmake --version
           ctest --version
           swig -version
@@ -281,8 +281,8 @@ jobs:
           ${{matrix.xml_parser_option}} \
           ${{matrix.package_option}} \
           ${{matrix.language_bindings}} \
-          -DPYTHON_EXECUTABLE=/opt/python/cp38-cp38/bin/python \
-          -DPYTHON_INCLUDE_DIR=/opt/python/cp38-cp38/include/python3.8/ \
+          -DPYTHON_EXECUTABLE=/opt/python/cp311-cp311/bin/python \
+          -DPYTHON_INCLUDE_DIR=/opt/python/cp311-cp311/include/python3.11/ \
           -DWITH_STATIC_RUNTIME=ON \
           -DLIBSBML_DEPENDENCY_DIR=$DEPENDENCY_DIR \
           -DEXPAT_LIBRARY=$DEPENDENCY_DIR/lib64/libexpat.a \
