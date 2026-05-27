@@ -78,6 +78,7 @@ SBMLLevelVersionConverter::SBMLLevelVersionConverter ()
   , mMathElements (NULL)
 {
   mMainOption = "setLevelAndVersion";
+  mRequiresTargetNamespaces = true;
 }
 
 

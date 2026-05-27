@@ -315,6 +315,19 @@ public:
    */
   const std::string& getMainOption() const;
 
+
+  /**
+   * @brief Set whether the converter requires a target namespace to be set.
+   * 
+   */
+
+  void setRequiresTargetNamespaces(bool requiresTargetNamespaces);
+
+  /**
+   * 
+   * @return true if the converter requires a target namespace to be set, false otherwise.
+   */
+  bool getRequiresTargetNamespaces() const;
 protected:
   /** @cond doxygenLibsbmlInternal */
   SBMLDocument *   mDocument;
@@ -323,6 +336,7 @@ protected:
   ConversionProperties *mProps;
   std::string mName;
   std::string mMainOption;
+  bool mRequiresTargetNamespaces;
 
   virtual ASTNode* replaceMathWithAssignedVariables(ASTNode* original);
 

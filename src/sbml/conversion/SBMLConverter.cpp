@@ -64,6 +64,7 @@ SBMLConverter::SBMLConverter () :
   , mProps(NULL)
   , mName("")
   , mMainOption("")
+  , mRequiresTargetNamespaces(false)
 {
 }
 
@@ -73,6 +74,7 @@ SBMLConverter::SBMLConverter (const std::string& name)
   , mProps(NULL)
   , mName(name)
   , mMainOption("")
+  , mRequiresTargetNamespaces(false)
 {
 }
 
@@ -85,6 +87,7 @@ SBMLConverter::SBMLConverter(const SBMLConverter& orig) :
   , mProps(NULL)
   , mName(orig.mName)
   , mMainOption(orig.mMainOption)
+  , mRequiresTargetNamespaces(orig.mRequiresTargetNamespaces)
 {
   if (orig.mProps != NULL) 
   {
@@ -122,7 +125,9 @@ SBMLConverter::operator=(const SBMLConverter& rhs)
     mDocument = rhs.mDocument;
     mOriginalModel = rhs.mOriginalModel;
     mName = rhs.mName;
-    
+    mMainOption = rhs.mMainOption;
+    mRequiresTargetNamespaces = rhs.mRequiresTargetNamespaces;
+
     if (mProps != NULL)
     {
       delete mProps;
@@ -206,6 +211,20 @@ void
 SBMLConverter::setMainOption(const std::string& mainOption)
 {
   mMainOption = mainOption;
+}
+
+
+void 
+SBMLConverter::setRequiresTargetNamespaces(bool requiresTargetNamespaces)
+{
+  mRequiresTargetNamespaces = requiresTargetNamespaces;
+}
+
+
+bool
+SBMLConverter::getRequiresTargetNamespaces() const
+{
+  return mRequiresTargetNamespaces;
 }
 
 bool SBMLConverter::mathContainsId(const ASTNode* ast, const std::string& id) const
