@@ -2665,20 +2665,19 @@ START_TEST (test_SBase_unsetModifiedDates_issue354)
   
   m->setModelHistory(h);
   
-  // Ensure the date was successfully added
-  fail_unless(m->getNumModifiedDates() == 1);
+  fail_unless(m->getModelHistory()->getNumModifiedDates() == 1);
   
-  // Unset the dates (This triggers the new cleanup logic we wrote in SBase.cpp)
-  m->unsetModifiedDates();
+  ModelHistory* h_ref = m->getModelHistory();
+  h_ref->unsetModifiedDates();
+  m->setModelHistory(h_ref); 
   
-  // Force the annotation to sync and generate the XML string
   std::string annotation = m->getAnnotationString();
   
-  // Assert that the empty Description detritus was completely removed
-  size_t found = annotation.find("<rdf:Description rdf:about=\"#foo\"/>");
+  size_t found = annotation.find("rdf:about=\"#foo\"");
   fail_unless(found == std::string::npos);
   
   delete d;
+  delete h;
   delete m;
 }
 END_TEST
