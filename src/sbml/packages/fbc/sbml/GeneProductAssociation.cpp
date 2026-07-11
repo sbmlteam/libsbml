@@ -282,7 +282,8 @@ FbcAssociation* GeneProductAssociation::getFbcAssociationFor(const ASTNode* astn
         delete fbcand;
         return NULL;
       }
-      if (fbcand->addAssociation(child_fbca) != LIBSBML_OPERATION_SUCCESS) {
+      if (fbcand->getListOfAssociations()->appendAndOwn(child_fbca) != LIBSBML_OPERATION_SUCCESS) {
+        delete child_fbca;
         delete fbcand;
         return NULL;
       }
@@ -296,7 +297,8 @@ FbcAssociation* GeneProductAssociation::getFbcAssociationFor(const ASTNode* astn
         delete fbcor;
         return NULL;
       }
-      if (fbcor->addAssociation(child_fbca) != LIBSBML_OPERATION_SUCCESS) {
+      if (fbcor->getListOfAssociations()->appendAndOwn(child_fbca) != LIBSBML_OPERATION_SUCCESS) {
+        delete child_fbca;
         delete fbcor;
         return NULL;
       }
