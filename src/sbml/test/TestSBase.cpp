@@ -2665,17 +2665,20 @@ START_TEST (test_SBase_unsetModifiedDates_issue354)
   
   m->setModelHistory(h);
   
-  fail_unless(m->getModelHistory()->getNumModifiedDates() == 1);
+  // Verify the date is successfully added (called correctly on the Model)
+  fail_unless(m->getNumModifiedDates() == 1);
   
-  ModelHistory* h_ref = m->getModelHistory();
-  h_ref->unsetModifiedDates();
-  m->setModelHistory(h_ref); 
+  // Unset the dates (called correctly on the Model, inherited from SBase)
+  m->unsetModifiedDates();
   
+  // Force the annotation to sync and generate the XML string
   std::string annotation = m->getAnnotationString();
   
+  // Assert that the empty Description detritus was completely removed
   size_t found = annotation.find("rdf:about=\"#foo\"");
   fail_unless(found == std::string::npos);
   
+  // Clean up to prevent memory leaks during testing
   delete d;
   delete h;
   delete m;
