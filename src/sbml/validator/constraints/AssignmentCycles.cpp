@@ -414,6 +414,11 @@ AssignmentCycles::checkForImplicitCompartmentReference(const Model& m)
         && s->getHasOnlySubstanceUnits() == false)
       {
         logImplicitReference(m, id1, s);
+      } else if (s && s->getCompartment() == id1 
+          && s->getHasOnlySubstanceUnits() == true 
+          && !s->isSetInitialAmount()
+          && s->isSetInitialConcentration()) {
+        logImplicitReference(m, id1, s);
       }
     }
   }
