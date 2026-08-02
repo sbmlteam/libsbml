@@ -6470,6 +6470,28 @@ SBase::reconstructRDFAnnotation()
    }
 }
 
+if (mAnnotation != NULL)
+  {
+    int rdfIndex = mAnnotation->getIndex("RDF");
+    if (rdfIndex >= 0)
+    {
+      XMLNode& rdfNode = mAnnotation->getChild((unsigned int)rdfIndex);
+      
+      for (int i = (int)rdfNode.getNumChildren() - 1; i >= 0; i--)
+      {
+        XMLNode& child = rdfNode.getChild((unsigned int)i);
+        if (child.getName() == "Description" && child.getNumChildren() == 0)
+        {
+          delete rdfNode.removeChild((unsigned int)i);
+        }
+      }
+      
+      if (rdfNode.getNumChildren() == 0)
+      {
+        delete mAnnotation->removeChild((unsigned int)rdfIndex);
+      }
+    }
+  }
 
   if (history != NULL) delete history;
   if (cvTerms != NULL) delete cvTerms;

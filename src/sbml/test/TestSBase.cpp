@@ -2654,6 +2654,37 @@ START_TEST(test_SBase_userData1)
 }
 END_TEST
 
+START_TEST (test_SBase_unsetModifiedDates_issue354)
+{
+  Model* m = new Model(3, 2);
+  m->setMetaId("foo");
+  
+  ModelHistory* h = new ModelHistory();
+  Date* d = new Date("2019-07-29T10:53:09Z");
+  h->addModifiedDate(d);
+  
+  m->setModelHistory(h);
+  
+  // Verify the date is successfully added (called correctly on the Model)
+  fail_unless(m->getNumModifiedDates() == 1);
+  
+  // Unset the dates (called correctly on the Model, inherited from SBase)
+  m->unsetModifiedDates();
+  
+  // Force the annotation to sync and generate the XML string
+  std::string annotation = m->getAnnotationString();
+  
+  // Assert that the empty Description detritus was completely removed
+  size_t found = annotation.find("rdf:about=\"#foo\"");
+  fail_unless(found == std::string::npos);
+  
+  // Clean up to prevent memory leaks during testing
+  delete d;
+  delete h;
+  delete m;
+}
+END_TEST
+
 Suite *
 create_suite_SBase (void)
 {
@@ -2709,6 +2740,7 @@ create_suite_SBase (void)
   tcase_add_test(tcase, test_SBase_userData1);
 
   tcase_add_test(tcase, test_SBase_prefixMetaIdSBO);
+  tcase_add_test(tcase, test_SBase_unsetModifiedDates_issue354);
 
   suite_add_tcase(suite, tcase);
 
