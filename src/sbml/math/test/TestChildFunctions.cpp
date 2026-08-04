@@ -43,6 +43,8 @@
 #include <iostream>
 #include <cstring>
 #include <cstdio>
+#include <string>
+#include <vector>
 
 #include <check.h>
 
@@ -2633,6 +2635,72 @@ START_TEST (test_ChildFunctions_insertIntoRoot_3)
 END_TEST
 
 
+START_TEST (test_ChildFunctions_replaceArgumentWithConstant)
+{
+  /* 'replaceArgument' needs to replace everything about its current
+   * member variables with the new node's member variables.  This 
+   * didn't happen with 'name' for predefined constants; this ensures
+   * the problem was fixed.
+   */
+  ASTNodeType_t constantTypes[4] =
+  {
+    AST_CONSTANT_TRUE, AST_CONSTANT_FALSE, AST_CONSTANT_PI, AST_CONSTANT_E
+  };
+  const char* constantNames[4] = { "true", "false", "pi", "exponentiale" };
+
+  for (int i = 0; i < 4; i++)
+  {
+    ASTNode * bvar = new ASTNode(AST_NAME);
+    bvar->setName("x");
+
+    ASTNode * arg = new ASTNode(constantTypes[i]);
+
+    bvar->replaceArgument("x", arg);
+
+    fail_unless( bvar->getType() == constantTypes[i]);
+    fail_unless( bvar->isConstant() == true);
+    fail_unless( bvar->isName() == false);
+    fail_unless( bvar->getName() != NULL);
+    fail_unless( !strcmp(bvar->getName(), constantNames[i]));
+
+    char * formula = SBML_formulaToString(bvar);
+    fail_unless( !strcmp(formula, constantNames[i]));
+    free(formula);
+
+    delete arg;
+    delete bvar;
+  }
+}
+END_TEST
+
+
+START_TEST (test_ChildFunctions_replaceArguments_bodyIsBvar)
+{
+  ASTNode * body = new ASTNode(AST_NAME);
+  body->setName("x");
+
+  std::vector<std::string> bvars;
+  bvars.push_back("x");
+
+  ASTNode * piArg = new ASTNode(AST_CONSTANT_PI);
+  std::vector<ASTNode*> args;
+  args.push_back(piArg);
+
+  body->replaceArguments(bvars, args);
+
+  fail_unless( body->getType() == AST_CONSTANT_PI);
+  fail_unless( !strcmp(body->getName(), "pi"));
+
+  char * formula = SBML_formulaToString(body);
+  fail_unless( !strcmp(formula, "pi"));
+  free(formula);
+
+  delete piArg;
+  delete body;
+}
+END_TEST
+
+
 Suite *
 create_suite_TestChildFunctions ()
 {
@@ -2642,59 +2710,61 @@ create_suite_TestChildFunctions ()
   tcase_add_checked_fixture(tcase, TestChildFunctions_setup, 
                                    TestChildFunctions_teardown);
 
-  tcase_add_test( tcase, test_ChildFunctions_addToPiecewise_1  );
-  tcase_add_test( tcase, test_ChildFunctions_addToPiecewise_2  );
-  tcase_add_test( tcase, test_ChildFunctions_addToPiecewise_3  );
-  tcase_add_test( tcase, test_ChildFunctions_addToLambda_1  );
-  tcase_add_test( tcase, test_ChildFunctions_addToLog_1  );
-  tcase_add_test( tcase, test_ChildFunctions_addToLog_2  );
-  tcase_add_test( tcase, test_ChildFunctions_addToLog_3  );
-  tcase_add_test( tcase, test_ChildFunctions_addToRoot_1  );
-  tcase_add_test( tcase, test_ChildFunctions_addToRoot_2  );
-  tcase_add_test( tcase, test_ChildFunctions_addToRoot_3  );
-  tcase_add_test( tcase, test_ChildFunctions_getChild             );
-  tcase_add_test( tcase, test_ChildFunctions_getChildFromPiecewise_1  );
-  tcase_add_test( tcase, test_ChildFunctions_getChildFromPiecewise_2  );
-  tcase_add_test( tcase, test_ChildFunctions_getChildFromLambda_1  );
-  tcase_add_test( tcase, test_ChildFunctions_getChildFromLambda_2  );
-  tcase_add_test( tcase, test_ChildFunctions_getChildFromLog_1  );
-  tcase_add_test( tcase, test_ChildFunctions_getChildFromLog_2  );
-  tcase_add_test( tcase, test_ChildFunctions_getChildFromRoot_1  );
-  tcase_add_test( tcase, test_ChildFunctions_getChildFromRoot_2  );
-  tcase_add_test( tcase, test_ChildFunctions_remove               );
-  tcase_add_test( tcase, test_ChildFunctions_removeFromPiecewise_1  );
-  tcase_add_test( tcase, test_ChildFunctions_removeFromPiecewise_2  );
-  tcase_add_test( tcase, test_ChildFunctions_removeFromPiecewise_3  );
-  tcase_add_test( tcase, test_ChildFunctions_removeFromLambda_1  );
-  tcase_add_test( tcase, test_ChildFunctions_removeFromLambda_2  );
-  tcase_add_test( tcase, test_ChildFunctions_removeFromLambda_3  );
-  tcase_add_test( tcase, test_ChildFunctions_removeFromLog_1  );
-  tcase_add_test( tcase, test_ChildFunctions_removeFromLog_2  );
-  tcase_add_test( tcase, test_ChildFunctions_removeFromLog_3  );
-  tcase_add_test( tcase, test_ChildFunctions_removeFromLog_4  );
-  tcase_add_test( tcase, test_ChildFunctions_removeFromRoot_1  );
-  tcase_add_test( tcase, test_ChildFunctions_removeFromRoot_2  );
-  tcase_add_test( tcase, test_ChildFunctions_removeFromRoot_3  );
-  tcase_add_test( tcase, test_ChildFunctions_removeFromRoot_4  );
-  tcase_add_test( tcase, test_ChildFunctions_replace               );
-  tcase_add_test( tcase, test_ChildFunctions_replaceInPiecewise_1  );
-  tcase_add_test( tcase, test_ChildFunctions_replaceInPiecewise_2  );
-  tcase_add_test( tcase, test_ChildFunctions_replaceInPiecewise_3  );
-  tcase_add_test( tcase, test_ChildFunctions_replaceInPiecewise_4  );
-  tcase_add_test( tcase, test_ChildFunctions_insert               );
-  tcase_add_test( tcase, test_ChildFunctions_insertIntoPiecewise_1               );
-  tcase_add_test( tcase, test_ChildFunctions_insertIntoPiecewise_2               );
-  tcase_add_test( tcase, test_ChildFunctions_insertIntoPiecewise_3               );
-  tcase_add_test( tcase, test_ChildFunctions_insertIntoPiecewise_4               );
-  tcase_add_test( tcase, test_ChildFunctions_insertIntoLambda_1               );
-  tcase_add_test( tcase, test_ChildFunctions_insertIntoLambda_2               );
-  tcase_add_test( tcase, test_ChildFunctions_insertIntoLambda_3               );
-  tcase_add_test( tcase, test_ChildFunctions_insertIntoLog_1               );
-  tcase_add_test( tcase, test_ChildFunctions_insertIntoLog_2               );
-  tcase_add_test( tcase, test_ChildFunctions_insertIntoLog_3               );
-  tcase_add_test( tcase, test_ChildFunctions_insertIntoRoot_1               );
-  tcase_add_test( tcase, test_ChildFunctions_insertIntoRoot_2               );
-  tcase_add_test( tcase, test_ChildFunctions_insertIntoRoot_3               );
+  tcase_add_test( tcase, test_ChildFunctions_addToPiecewise_1);
+  tcase_add_test( tcase, test_ChildFunctions_addToPiecewise_2);
+  tcase_add_test( tcase, test_ChildFunctions_addToPiecewise_3);
+  tcase_add_test( tcase, test_ChildFunctions_addToLambda_1);
+  tcase_add_test( tcase, test_ChildFunctions_addToLog_1);
+  tcase_add_test( tcase, test_ChildFunctions_addToLog_2);
+  tcase_add_test( tcase, test_ChildFunctions_addToLog_3);
+  tcase_add_test( tcase, test_ChildFunctions_addToRoot_1);
+  tcase_add_test( tcase, test_ChildFunctions_addToRoot_2);
+  tcase_add_test( tcase, test_ChildFunctions_addToRoot_3);
+  tcase_add_test( tcase, test_ChildFunctions_getChild);
+  tcase_add_test( tcase, test_ChildFunctions_getChildFromPiecewise_1);
+  tcase_add_test( tcase, test_ChildFunctions_getChildFromPiecewise_2);
+  tcase_add_test( tcase, test_ChildFunctions_getChildFromLambda_1);
+  tcase_add_test( tcase, test_ChildFunctions_getChildFromLambda_2);
+  tcase_add_test( tcase, test_ChildFunctions_getChildFromLog_1);
+  tcase_add_test( tcase, test_ChildFunctions_getChildFromLog_2);
+  tcase_add_test( tcase, test_ChildFunctions_getChildFromRoot_1);
+  tcase_add_test( tcase, test_ChildFunctions_getChildFromRoot_2);
+  tcase_add_test( tcase, test_ChildFunctions_remove);
+  tcase_add_test( tcase, test_ChildFunctions_removeFromPiecewise_1);
+  tcase_add_test( tcase, test_ChildFunctions_removeFromPiecewise_2);
+  tcase_add_test( tcase, test_ChildFunctions_removeFromPiecewise_3);
+  tcase_add_test( tcase, test_ChildFunctions_removeFromLambda_1);
+  tcase_add_test( tcase, test_ChildFunctions_removeFromLambda_2);
+  tcase_add_test( tcase, test_ChildFunctions_removeFromLambda_3);
+  tcase_add_test( tcase, test_ChildFunctions_removeFromLog_1);
+  tcase_add_test( tcase, test_ChildFunctions_removeFromLog_2);
+  tcase_add_test( tcase, test_ChildFunctions_removeFromLog_3);
+  tcase_add_test( tcase, test_ChildFunctions_removeFromLog_4);
+  tcase_add_test( tcase, test_ChildFunctions_removeFromRoot_1);
+  tcase_add_test( tcase, test_ChildFunctions_removeFromRoot_2);
+  tcase_add_test( tcase, test_ChildFunctions_removeFromRoot_3);
+  tcase_add_test( tcase, test_ChildFunctions_removeFromRoot_4);
+  tcase_add_test( tcase, test_ChildFunctions_replace);
+  tcase_add_test( tcase, test_ChildFunctions_replaceInPiecewise_1);
+  tcase_add_test( tcase, test_ChildFunctions_replaceInPiecewise_2);
+  tcase_add_test( tcase, test_ChildFunctions_replaceInPiecewise_3);
+  tcase_add_test( tcase, test_ChildFunctions_replaceInPiecewise_4);
+  tcase_add_test( tcase, test_ChildFunctions_insert);
+  tcase_add_test( tcase, test_ChildFunctions_insertIntoPiecewise_1);
+  tcase_add_test( tcase, test_ChildFunctions_insertIntoPiecewise_2);
+  tcase_add_test( tcase, test_ChildFunctions_insertIntoPiecewise_3);
+  tcase_add_test( tcase, test_ChildFunctions_insertIntoPiecewise_4);
+  tcase_add_test( tcase, test_ChildFunctions_insertIntoLambda_1);
+  tcase_add_test( tcase, test_ChildFunctions_insertIntoLambda_2);
+  tcase_add_test( tcase, test_ChildFunctions_insertIntoLambda_3);
+  tcase_add_test( tcase, test_ChildFunctions_insertIntoLog_1);
+  tcase_add_test( tcase, test_ChildFunctions_insertIntoLog_2);
+  tcase_add_test( tcase, test_ChildFunctions_insertIntoLog_3);
+  tcase_add_test( tcase, test_ChildFunctions_insertIntoRoot_1);
+  tcase_add_test( tcase, test_ChildFunctions_insertIntoRoot_2);
+  tcase_add_test( tcase, test_ChildFunctions_insertIntoRoot_3);
+  tcase_add_test( tcase, test_ChildFunctions_replaceArgumentWithConstant);
+  tcase_add_test( tcase, test_ChildFunctions_replaceArguments_bodyIsBvar);
 
   suite_add_tcase(suite, tcase);
 
