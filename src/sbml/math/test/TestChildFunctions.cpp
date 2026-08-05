@@ -2701,6 +2701,46 @@ START_TEST (test_ChildFunctions_replaceArguments_bodyIsBvar)
 END_TEST
 
 
+START_TEST(test_ChildFunctions_replaceArgumentWithNamedConstant)
+{
+  /* 'replaceArgument' needs to replace everything about its current
+   * member variables with the new node's member variables.  This
+   * didn't happen with 'name' for predefined constants; this ensures
+   * the problem was fixed.
+   */
+  ASTNodeType_t constantTypes[4] =
+  {
+    AST_CONSTANT_TRUE, AST_CONSTANT_FALSE, AST_CONSTANT_PI, AST_CONSTANT_E
+  };
+  const char* altNames[4] = { "yup", "nope", "about_three", "that_one_ratio" };
+
+  for (int i = 0; i < 4; i++)
+  {
+    ASTNode* bvar = new ASTNode(AST_NAME);
+    bvar->setName("x");
+
+    ASTNode* arg = new ASTNode(constantTypes[i]);
+    arg->setName(altNames[i]);
+
+    bvar->replaceArgument("x", arg);
+
+    fail_unless(bvar->getType() == constantTypes[i]);
+    fail_unless(bvar->isConstant() == true);
+    fail_unless(bvar->isName() == false);
+    fail_unless(bvar->getName() != NULL);
+    fail_unless(!strcmp(bvar->getName(), altNames[i]));
+
+    char* formula = SBML_formulaToString(bvar);
+    fail_unless(!strcmp(formula, altNames[i]));
+    free(formula);
+
+    delete arg;
+    delete bvar;
+  }
+}
+END_TEST
+
+
 Suite *
 create_suite_TestChildFunctions ()
 {
@@ -2765,7 +2805,7 @@ create_suite_TestChildFunctions ()
   tcase_add_test( tcase, test_ChildFunctions_insertIntoRoot_3);
   tcase_add_test( tcase, test_ChildFunctions_replaceArgumentWithConstant);
   tcase_add_test( tcase, test_ChildFunctions_replaceArguments_bodyIsBvar);
-
+  tcase_add_test(tcase, test_ChildFunctions_replaceArgumentWithNamedConstant);
   suite_add_tcase(suite, tcase);
 
   return suite;

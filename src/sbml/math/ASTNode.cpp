@@ -2843,7 +2843,7 @@ static void copyNode(const ASTNode * source, ASTNode * dest)
     else if (source->isConstant())
     {
         dest->setType(source->getType());
-        dest->setName(NULL);
+        dest->setName(source->getName());
     }
     else
     {
