@@ -552,11 +552,11 @@ std::string& replaceAllSubStrings(
 
 std::string util_markdown_to_html(const std::string& markdown)
 {
-    // If we want to use the maddy config:
-    //std::shared_ptr<maddy::ParserConfig> config = std::make_shared<maddy::ParserConfig>();
-    //config->enabledParsers &= ~maddy::types::EMPHASIZED_PARSER; // disable emphasized parser
-    //config->enabledParsers |= maddy::types::HTML_PARSER; // do not wrap HTML in paragraph
-    //std::shared_ptr<maddy::Parser> parser = std::make_shared<maddy::Parser>(config);
+    static std::shared_ptr<maddy::ParserConfig> config = []() {
+      auto config = std::make_shared<maddy::ParserConfig>();
+      config->enabledParsers &= ~maddy::types::MADDY_SPECIFIC_PARSER; // Disables maddy-specific tables.
+      return config;
+    }();
 
     //Note:  tried to figure out difference between genuine HTML-ish of &, < and > vs. 
     // ones that needed to be encoded, but failed. Everything will officially
@@ -574,7 +574,7 @@ std::string util_markdown_to_html(const std::string& markdown)
     copy = std::regex_replace(copy, pattern, std::string("&gt;"));
 
     std::stringstream markdownInput(copy);
-    static maddy::Parser parser;
+    static maddy::Parser parser(config);
     return parser.Parse(markdownInput);
 }
 

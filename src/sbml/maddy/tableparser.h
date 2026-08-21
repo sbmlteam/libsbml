@@ -25,7 +25,25 @@ namespace maddy {
 /**
  * TableParser
  *
- * Recognizes GitHub-flavored pipe tables:
+ * Supports two independent syntaxes, chosen with `useMaddySpecificMarkdown`
+ * (see `maddy::types::MADDY_SPECIFIC_PARSER`).
+ *
+ * When true (the default, and maddy's original behavior), a table uses
+ * maddy's own sigils:
+ *
+ * ```
+ * |table>
+ * Left header|middle header|last header
+ * - | - | -
+ * Cell A1|Cell B1|Cell C1
+ * - | - | -
+ * Foot A|Foot B|Foot C
+ * |<table
+ * ```
+ *
+ * A second `- | - | -` row before `|<table` marks an optional footer.
+ *
+ * When false, a table is a GitHub-flavored-Markdown pipe table instead:
  *
  * ```
  * | Header A | Header B |
@@ -33,15 +51,11 @@ namespace maddy {
  * | Cell A1  | Cell B1  |
  * ```
  *
- * A table starts with a row of `|`-separated cells immediately followed by
- * a separator row whose cells contain only `-`, with an optional leading
- * and/or trailing `:`. It ends at the first blank line, or at the end of
- * input.
- *
- * Since `IsStartingLine` only sees one line at a time, it can't yet tell a
- * table header from an ordinary line that happens to contain a `|`. If the
- * line after it turns out not to be a valid separator row, both lines are
- * handed off to a ParagraphParser instead, since they were never a table.
+ * GFM tables have no footer concept, so this mode never produces a
+ * `<tfoot>`. Since `IsStartingLine` only sees one line at a time in this
+ * mode, it can't yet tell a table header from an ordinary line that happens
+ * to contain a `|`; if the following line isn't a valid separator row, both
+ * lines are handed off to a ParagraphParser instead.
  *
  * @class
  */
@@ -55,30 +69,46 @@ public:
    * @param {std::function<void(std::string&)>} parseLineCallback
    * @param {std::function<std::shared_ptr<BlockParser>(const std::string&
    * line)>} getBlockParserForLineCallback
+   * @param {bool} useMaddySpecificMarkdown
    */
   TableParser(
     std::function<void(std::string&)> parseLineCallback,
     std::function<std::shared_ptr<BlockParser>(const std::string& line)>
-      getBlockParserForLineCallback
+      getBlockParserForLineCallback,
+    bool useMaddySpecificMarkdown = true
   )
     : BlockParser(parseLineCallback, getBlockParserForLineCallback)
-    , state(State::EXPECT_HEADER)
+    , useMaddySpecificMarkdown(useMaddySpecificMarkdown)
+    , isStarted(false)
     , isFinished(false)
+    , currentBlock(0)
+    , currentRow(0)
+    , gfmState(GfmState::EXPECT_HEADER)
   {}
 
   /**
    * IsStartingLine
    *
-   * A table can only start with a row that has at least one `|` separating
-   * two cells. Whether it really is a table is only known once the
-   * following line (the separator row) has been seen.
+   * With maddy-specific markdown, a table starts with exact `|table>`.
+   * With GFM markdown, a table can only start with a row that has at least
+   * one `|` separating two cells; whether it really is a table is only
+   * known once the following line (the separator row) has been seen.
    *
    * @method
    * @param {const std::string&} line
+   * @param {bool} useMaddySpecificMarkdown
    * @return {bool}
    */
-  static bool IsStartingLine(const std::string& line)
+  static bool IsStartingLine(
+    const std::string& line, bool useMaddySpecificMarkdown = true
+  )
   {
+    if (useMaddySpecificMarkdown)
+    {
+      static std::string matchString("|table>");
+      return line == matchString;
+    }
+
     return IsTableRow(line);
   }
 
@@ -93,6 +123,191 @@ public:
    */
   void AddLine(std::string& line) override
   {
+    if (this->useMaddySpecificMarkdown)
+    {
+      this->AddLineMaddyStyle(line);
+    }
+    else
+    {
+      this->AddLineGfm(line);
+    }
+  }
+
+  /**
+   * IsFinished
+   *
+   * With maddy-specific markdown, a table ends with `|<table`. With GFM
+   * markdown, a table ends with a blank line, or at the end of input.
+   *
+   * @method
+   * @return {bool}
+   */
+  bool IsFinished() const override { return this->isFinished; }
+
+protected:
+  bool isInlineBlockAllowed() const override { return false; }
+
+  bool isLineParserAllowed() const override { return false; }
+
+  // Only used by the maddy-specific-markdown mode; the GFM mode writes
+  // directly into `result` from `AddLineGfm` instead.
+  void parseBlock(std::string&) override
+  {
+    result << "<table>";
+
+    bool hasHeader = false;
+    bool hasFooter = false;
+    bool isFirstBlock = true;
+    uint32_t currentBlockNumber = 0;
+
+    if (this->table.size() > 1)
+    {
+      hasHeader = true;
+    }
+
+    if (this->table.size() >= 3)
+    {
+      hasFooter = true;
+    }
+
+    for (const std::vector<std::vector<std::string>>& block : this->table)
+    {
+      bool isInHeader = false;
+      bool isInFooter = false;
+      ++currentBlockNumber;
+
+      if (hasHeader && isFirstBlock)
+      {
+        result << "<thead>";
+        isInHeader = true;
+      }
+      else if (hasFooter && currentBlockNumber == this->table.size())
+      {
+        result << "<tfoot>";
+        isInFooter = true;
+      }
+      else
+      {
+        result << "<tbody>";
+      }
+
+      for (const std::vector<std::string>& row : block)
+      {
+        result << "<tr>";
+
+        for (const std::string& column : row)
+        {
+          if (isInHeader)
+          {
+            result << "<th>";
+          }
+          else
+          {
+            result << "<td>";
+          }
+
+          result << column;
+
+          if (isInHeader)
+          {
+            result << "</th>";
+          }
+          else
+          {
+            result << "</td>";
+          }
+        }
+
+        result << "</tr>";
+      }
+
+      if (isInHeader)
+      {
+        result << "</thead>";
+      }
+      else if (isInFooter)
+      {
+        result << "</tfoot>";
+      }
+      else
+      {
+        result << "</tbody>";
+      }
+
+      isFirstBlock = false;
+    }
+
+    result << "</table>";
+  }
+
+private:
+  bool useMaddySpecificMarkdown;
+
+  // --- maddy-specific-markdown mode state ---
+  bool isStarted;
+  bool isFinished;
+  uint32_t currentBlock;
+  uint32_t currentRow;
+  std::vector<std::vector<std::vector<std::string>>> table;
+
+  void AddLineMaddyStyle(std::string& line)
+  {
+    if (!this->isStarted && line == "|table>")
+    {
+      this->isStarted = true;
+      return;
+    }
+
+    if (this->isStarted)
+    {
+      if (line == "- | - | -")
+      {
+        ++this->currentBlock;
+        this->currentRow = 0;
+        return;
+      }
+
+      if (line == "|<table")
+      {
+        static std::string emptyLine = "";
+        this->parseBlock(emptyLine);
+        this->isFinished = true;
+        return;
+      }
+
+      if (this->table.size() < this->currentBlock + 1)
+      {
+        this->table.push_back(std::vector<std::vector<std::string>>());
+      }
+      this->table[this->currentBlock].push_back(std::vector<std::string>());
+
+      std::string segment;
+      std::stringstream streamToSplit(line);
+
+      while (std::getline(streamToSplit, segment, '|'))
+      {
+        this->parseLine(segment);
+        this->table[this->currentBlock][this->currentRow].push_back(segment);
+      }
+
+      ++this->currentRow;
+    }
+  }
+
+  // --- GFM-pipe-table mode state ---
+  enum class GfmState
+  {
+    EXPECT_HEADER,
+    EXPECT_SEPARATOR,
+    IN_BODY
+  };
+
+  GfmState gfmState;
+  std::string headerLine;
+  std::shared_ptr<BlockParser> fallbackParser;
+
+  void AddLineGfm(std::string& line)
+  {
     if (this->fallbackParser)
     {
       this->fallbackParser->AddLine(line);
@@ -106,21 +321,19 @@ public:
       return;
     }
 
-    switch (this->state)
+    switch (this->gfmState)
     {
-      case State::EXPECT_HEADER:
+      case GfmState::EXPECT_HEADER:
         this->headerLine = line;
-        this->state = State::EXPECT_SEPARATOR;
+        this->gfmState = GfmState::EXPECT_SEPARATOR;
         return;
 
-      case State::EXPECT_SEPARATOR:
-        if (
-          IsSeparatorRow(line) &&
-          SplitRow(line).size() == SplitRow(this->headerLine).size()
-        )
+      case GfmState::EXPECT_SEPARATOR:
+        if (IsSeparatorRow(line) &&
+            SplitRow(line).size() == SplitRow(this->headerLine).size())
         {
-          this->WriteHeader();
-          this->state = State::IN_BODY;
+          this->WriteGfmHeader();
+          this->gfmState = GfmState::IN_BODY;
         }
         else
         {
@@ -128,7 +341,7 @@ public:
         }
         return;
 
-      case State::IN_BODY:
+      case GfmState::IN_BODY:
         if (line.empty())
         {
           this->result << "</tbody></table>";
@@ -136,36 +349,11 @@ public:
         }
         else
         {
-          this->WriteRow(line);
+          this->WriteGfmRow(line);
         }
         return;
     }
   }
-
-  /**
-   * IsFinished
-   *
-   * A table ends with a blank line, or at the end of input.
-   *
-   * @method
-   * @return {bool}
-   */
-  bool IsFinished() const override { return this->isFinished; }
-
-protected:
-  bool isInlineBlockAllowed() const override { return false; }
-
-  bool isLineParserAllowed() const override { return false; }
-
-  void parseBlock(std::string&) override {}
-
-private:
-  enum class State { EXPECT_HEADER, EXPECT_SEPARATOR, IN_BODY };
-
-  State state;
-  bool isFinished;
-  std::string headerLine;
-  std::shared_ptr<BlockParser> fallbackParser;
 
   static bool IsTableRow(const std::string& line)
   {
@@ -226,7 +414,7 @@ private:
     str = str.substr(first, last - first + 1);
   }
 
-  void WriteHeader()
+  void WriteGfmHeader()
   {
     this->result << "<table><thead><tr>";
 
@@ -239,7 +427,7 @@ private:
     this->result << "</tr></thead><tbody>";
   }
 
-  void WriteRow(const std::string& line)
+  void WriteGfmRow(const std::string& line)
   {
     this->result << "<tr>";
 
@@ -255,9 +443,7 @@ private:
   void FallBackToParagraph(const std::string& secondLine)
   {
     this->fallbackParser = std::make_shared<ParagraphParser>(
-      [this](std::string& l) { this->parseLine(l); },
-      nullptr,
-      true
+      [this](std::string& l) { this->parseLine(l); }, nullptr, true
     );
 
     std::string first = this->headerLine;

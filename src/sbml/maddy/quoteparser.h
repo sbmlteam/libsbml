@@ -132,9 +132,9 @@ protected:
   void parseBlock(std::string& line) override
   {
     static std::regex lineRegexWithSpace(R"(^\> )");
-    line = std::regex_replace(line, lineRegexWithSpace, std::string(""));
+    line = std::regex_replace(line, lineRegexWithSpace, "");
     static std::regex lineRegexWithoutSpace(R"(^\>)");
-    line = std::regex_replace(line, lineRegexWithoutSpace, std::string(""));
+    line = std::regex_replace(line, lineRegexWithoutSpace, "");
 
     if (!line.empty())
     {

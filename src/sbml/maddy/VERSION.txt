@@ -1,3 +1,3 @@
-From https://github.com/progsource/maddy
+From https://github.com/luciansmith/maddy
 
-Version 1.4.0, https://github.com/progsource/maddy/releases/download/1.4.0/maddy-src.zip
+Commit f3573472ba41df0ed2854550a56d1ebf9bf70b3d (branch make-tables-conformant, merged to master), based on upstream version 1.5.0.
