@@ -676,15 +676,13 @@ START_TEST(test_SBase_notesMarkdown_table)
      * header row overwritten by dashes. */
     std::string md = m->getNotesMarkdown();
 
-    fail_unless(md.find("Parameter values") != std::string::npos);
-    fail_unless(md.find("parameter") != std::string::npos);
-    fail_unless(md.find("value") != std::string::npos);
-    fail_unless(md.find("unit") != std::string::npos);
-    fail_unless(md.find("p1") != std::string::npos);
-    fail_unless(md.find("0.0025") != std::string::npos);
-    fail_unless(md.find("p2") != std::string::npos);
-    fail_unless(md.find("0.0784") != std::string::npos);
-    fail_unless(md.find("1/min") != std::string::npos);
+    fail_unless(md.find("**Parameter values**") != std::string::npos);
+    fail_unless(md.find("| parameter | value  | unit  |") != std::string::npos);
+    fail_unless(md.find("----|----") != std::string::npos);
+    fail_unless(md.find("| 0.0025") != std::string::npos);
+    fail_unless(md.find("| p2") != std::string::npos);
+    fail_unless(md.find("| 0.0784") != std::string::npos);
+    fail_unless(md.find("| 1/min") != std::string::npos);
 
     /* Markdown -> HTML: that same table markdown has to come back as an
      * actual <table>, not get swallowed into one <p> full of literal '|'
