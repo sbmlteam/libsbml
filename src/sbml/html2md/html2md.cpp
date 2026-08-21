@@ -152,6 +152,7 @@ Converter::Converter(const string *html, Options *options) : html_(*html) {
   tags_[kTagTableRow] = make_shared<Converter::TagTableRow>();
   tags_[kTagTableHeader] = make_shared<Converter::TagTableHeader>();
   tags_[kTagTableData] = make_shared<Converter::TagTableData>();
+  tags_[kTagTableCaption] = make_shared<Converter::TagTableCaption>();
 }
 
 void Converter::CleanUpMarkdown() {
@@ -563,6 +564,10 @@ bool Converter::ParseCharInTagContent(char ch) {
     return true;
   }
 
+  if (is_in_table_ && !is_in_table_content_ && (ch == ' ' || ch == '\t')) {
+    return true;
+  }
+
   switch (ch) {
   case '*':
     appendToMd("\\*");
@@ -963,13 +968,14 @@ void Converter::TagTable::OnHasLeftClosingTag(Converter *c) {
   c->is_in_table_ = false;
   c->appendToMd('\n');
 
-  if (!c->option.formatTable)
-    return;
+  if (c->option.formatTable) {
+    string table = c->md_.substr(c->table_start);
+    table = formatMarkdownTable(table);
+    c->ShortenMarkdown(c->md_.size() - c->table_start);
+    c->appendToMd(table);
+  }
 
-  string table = c->md_.substr(c->table_start);
-  table = formatMarkdownTable(table);
-  c->ShortenMarkdown(c->md_.size() - c->table_start);
-  c->appendToMd(table);
+  c->appendToMd('\n');
 }
 
 void Converter::TagTableRow::OnHasLeftOpeningTag(Converter *c) {
@@ -994,6 +1000,8 @@ void Converter::TagTableRow::OnHasLeftClosingTag(Converter *c) {
 }
 
 void Converter::TagTableHeader::OnHasLeftOpeningTag(Converter *c) {
+  c->is_in_table_content_ = true;
+
   auto align = c->ExtractAttributeFromTagLeftOf(kAttrinuteAlign);
 
   string line = "| ";
@@ -1013,14 +1021,39 @@ void Converter::TagTableHeader::OnHasLeftOpeningTag(Converter *c) {
   c->appendToMd("| ");
 }
 
-void Converter::TagTableHeader::OnHasLeftClosingTag(Converter *c) {}
+void Converter::TagTableHeader::OnHasLeftClosingTag(Converter *c) {
+  c->is_in_table_content_ = false;
+}
 
 void Converter::TagTableData::OnHasLeftOpeningTag(Converter *c) {
+  c->is_in_table_content_ = true;
+
   if (c->prev_prev_ch_in_md_ != '|')
     c->appendToMd("| ");
 }
 
-void Converter::TagTableData::OnHasLeftClosingTag(Converter *c) {}
+void Converter::TagTableData::OnHasLeftClosingTag(Converter *c) {
+  c->is_in_table_content_ = false;
+}
+
+// <caption> isn't part of the table's row/column grid, so it's rendered as
+// a bold line ahead of the table rather than left inside them: leaving it
+// there would shift every row index formatMarkdownTable() relies on.
+void Converter::TagTableCaption::OnHasLeftOpeningTag(Converter *c) {
+  c->is_in_table_content_ = true;
+  c->appendToMd("**");
+}
+
+void Converter::TagTableCaption::OnHasLeftClosingTag(Converter *c) {
+  c->is_in_table_content_ = false;
+  c->appendToMd("**");
+
+  // Two newlines, not one: The separation from the caption has to come from 
+  // characters that stay outside that buffer, i.e. before table_start below.
+  c->appendToMd('\n');
+  c->appendToMd('\n');
+  c->table_start = c->md_.length();
+}
 
 void Converter::TagBlockquote::OnHasLeftOpeningTag(Converter *c) {
   ++c->index_blockquote;

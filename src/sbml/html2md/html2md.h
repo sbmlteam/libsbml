@@ -337,6 +337,7 @@ private:
   static constexpr const char *kTagTableRow = "tr";
   static constexpr const char *kTagTableHeader = "th";
   static constexpr const char *kTagTableData = "td";
+  static constexpr const char *kTagTableCaption = "caption";
 
   size_t index_ch_in_html_ = 0;
 
@@ -348,6 +349,10 @@ private:
   bool is_in_pre_ = false;
   bool is_in_table_ = false;
   bool is_in_table_row_ = false;
+  // true only between an opening and closing <caption>, <th> or <td>: the
+  // only places inside a table where raw text is real content rather than
+  // the source HTML's pretty-printing indentation.
+  bool is_in_table_content_ = false;
   bool is_in_tag_ = false;
   bool is_self_closing_tag_ = false;
 
@@ -538,6 +543,11 @@ private:
   };
 
   struct TagTableData : Tag {
+    void OnHasLeftOpeningTag(Converter *c) override;
+    void OnHasLeftClosingTag(Converter *c) override;
+  };
+
+  struct TagTableCaption : Tag {
     void OnHasLeftOpeningTag(Converter *c) override;
     void OnHasLeftClosingTag(Converter *c) override;
   };

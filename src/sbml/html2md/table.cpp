@@ -25,6 +25,23 @@ void removeLeadingTrailingSpaces(string &str) {
   str = str.substr(firstNonSpace, lastNonSpace - firstNonSpace + 1);
 }
 
+// A row is the header/body separator only if every one of its cells is made
+// up of just '-' and ':' (e.g. "---", ":--", "--:"). Trusting the row's
+// actual content instead of assuming it always sits at index 1 keeps a
+// misplaced row (e.g. a table with a caption folded into it) from silently
+// overwriting real header text with dashes.
+bool isSeparatorCellsRow(const vector<string> &row) {
+  if (row.empty())
+    return false;
+
+  for (const string &cell : row) {
+    if (cell.empty() || cell.find_first_not_of("-:") != string::npos)
+      return false;
+  }
+
+  return true;
+}
+
 string enlargeTableHeaderLine(const string &str, size_t length) {
   if (str.empty() || length < MIN_LINE_LENGTH)
     return "";
@@ -88,11 +105,12 @@ string formatMarkdownTable(const string &inputTable) {
   std::ostringstream formattedTable;
   for (size_t rowNumber = 0; rowNumber < tableData.size(); ++rowNumber) {
     const auto &row = tableData[rowNumber];
+    bool isSeparatorRow = rowNumber == 1 && isSeparatorCellsRow(row);
 
     formattedTable << "|";
 
     for (size_t i = 0; i < row.size(); ++i) {
-      if (rowNumber == 1) {
+      if (isSeparatorRow) {
         formattedTable << enlargeTableHeaderLine(row[i], columnWidths[i] + 2)
                        << "|";
         continue;
