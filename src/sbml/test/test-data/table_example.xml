@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version3" level="2" metaid="metaid_0000001" version="3">
+  <model id="MDCKII_Transport" metaid="_294577" name="Bartholome2007_MDCKII">
+    <notes>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+        <p>The values for parameters and the inital concentrations of this model where directly provided by the main author:      <br/>
+        <table border="1" cellpadding="1" cellspacing="2" summary="parameter values provided by teh author.">
+          <caption>Parameter values</caption>
+          <tr>
+            <th>parameter</th>
+            <th>value</th>
+            <th>unit</th>
+          </tr>
+          <tr>
+            <td>p1</td>
+            <td>0.0025</td>
+            <td>1/min</td>
+          </tr>
+          <tr>
+            <td>p2</td>
+            <td>0.0784</td>
+            <td>1/min</td>
+          </tr>
+        </table>
+          The basal chamber volume was taken as 1 ml, the apical as 1.5. As starting values x1 was set to 88 nmole, all other species to 0.      </p>
+     </body>
+    </notes>
+  </model>
+</sbml>
