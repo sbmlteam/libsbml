@@ -1,4 +1,11 @@
 ﻿           libSBML NEWS -- History of user-visible changes
+====================================================================
+5.21.2 (2026-09-17)
+====================================================================
+
+This release contains a number of fixes with the interconversion 
+between markdown and html. As well as a number of bug fixes. This
+release is primarily made, to support python 3.15.
 
 ====================================================================
 5.21.1 (2026-03-05)
