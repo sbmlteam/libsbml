@@ -723,6 +723,23 @@ START_TEST(test_SBase_notesMarkdown_denseLinks)
 END_TEST
 
 
+START_TEST(test_SBase_notesMarkdown_trailingNonBreakingSpace)
+{
+    /* A non-breaking space (U+00A0, UTF-8 bytes 0xC2 0xA0) landing at
+     * the end of a paragraph -- as seen in several curated BioModels
+     * notes -- used to get its trailing byte stripped by html2md's
+     * line-trimming, leaving an orphaned lead byte and invalid UTF-8. */
+    Model* m = new(std::nothrow) Model(3, 1);
+    std::string notes = "<notes><body xmlns=\"http://www.w3.org/1999/xhtml\"><p>Some text\xC2\xA0</p></body></notes>";
+
+    fail_unless(m->setNotes(notes, false) == LIBSBML_OPERATION_SUCCESS);
+
+    std::string md = m->getNotesMarkdown();
+    fail_unless(md.find("Some text\xC2\xA0") != std::string::npos);
+}
+END_TEST
+
+
 START_TEST(test_SBase_setAnnotationString)
 {
   const char * annotation = "This is a test note";
@@ -2748,6 +2765,7 @@ create_suite_SBase (void)
   tcase_add_test(tcase, test_SBase_setNotesFromMarkdown3);
   tcase_add_test(tcase, test_SBase_notesMarkdown_table);
   tcase_add_test(tcase, test_SBase_notesMarkdown_denseLinks);
+  tcase_add_test(tcase, test_SBase_notesMarkdown_trailingNonBreakingSpace);
   tcase_add_test(tcase, test_SBase_setAnnotationString);
   tcase_add_test(tcase, test_SBase_unsetAnnotationWithCVTerms );
   tcase_add_test(tcase, test_SBase_unsetAnnotationWithModelHistory );
