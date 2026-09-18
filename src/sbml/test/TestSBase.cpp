@@ -705,6 +705,41 @@ START_TEST(test_SBase_notesMarkdown_table)
 END_TEST
 
 
+START_TEST(test_SBase_notesMarkdown_denseLinks)
+{
+    /* A single notes line carrying several Markdown links back to back,
+     * with no line break between them (from BIOMD0000000012 -- see
+     * antimony issue #177), drove std::regex past its complexity limit
+     * under MSVC's stricter <regex> implementation. */
+    Model* m = new(std::nothrow) Model(3, 1);
+    std::string notes = "( [KISAO_0000035](http://identifiers.org/biomodels.kisao/KISAO_0000035 \"Access to: KISAO_0000035\") ) with continuous variables ( [KISAO_0000018](http://identifiers.org/biomodels.kisao/KISAO_0000018 \"Access to: KISAO_0000018\") ). One sample algorithm to use is the CVODE solver ( [KISAO_0000019](http://identifiers.org/biomodels.kisao/KISAO_0000019 \"Access to: KISAO_0000019\") ). Second, one could simulate the system using Gillespie&apos;s direct method ( [KISAO_0000029](http://identifiers.org/biomodels.kisao/KISAO_0000029 \"Access to: KISAO_0000029\") ), which is a stochastic method ( [KISAO_0000036](http://identifiers.org/biomodels.kisao/KISAO_0000036 \"Access to: KISAO_0000036\") ) supporting adaptive timesteps ( [KISAO_0000041](http://identifiers.org/biomodels.kisao/KISAO_0000041 \"Access to: KISAO_0000041\") ) and using discrete variables ( [KISAO_0000016](http://identifiers.org/biomodels.kisao/KISAO_0000016 \"Access to: KISAO_0000016\") ). ";
+
+    fail_unless(m->setNotesFromMarkdown(notes) == LIBSBML_OPERATION_SUCCESS);
+
+    std::string html = m->getNotesString();
+    fail_unless(html.find("<a href=\"http://identifiers.org/biomodels.kisao/KISAO_0000035\" title=\"Access to: KISAO_0000035\">KISAO_0000035</a>") != std::string::npos);
+    fail_unless(html.find("<a href=\"http://identifiers.org/biomodels.kisao/KISAO_0000016\" title=\"Access to: KISAO_0000016\">KISAO_0000016</a>") != std::string::npos);
+}
+END_TEST
+
+
+START_TEST(test_SBase_notesMarkdown_trailingNonBreakingSpace)
+{
+    /* A non-breaking space (U+00A0, UTF-8 bytes 0xC2 0xA0) landing at
+     * the end of a paragraph -- as seen in several curated BioModels
+     * notes -- used to get its trailing byte stripped by html2md's
+     * line-trimming, leaving an orphaned lead byte and invalid UTF-8. */
+    Model* m = new(std::nothrow) Model(3, 1);
+    std::string notes = "<notes><body xmlns=\"http://www.w3.org/1999/xhtml\"><p>Some text\xC2\xA0</p></body></notes>";
+
+    fail_unless(m->setNotes(notes, false) == LIBSBML_OPERATION_SUCCESS);
+
+    std::string md = m->getNotesMarkdown();
+    fail_unless(md.find("Some text\xC2\xA0") != std::string::npos);
+}
+END_TEST
+
+
 START_TEST(test_SBase_setAnnotationString)
 {
   const char * annotation = "This is a test note";
@@ -2729,6 +2764,8 @@ create_suite_SBase (void)
   tcase_add_test(tcase, test_SBase_setNotesFromMarkdown2);
   tcase_add_test(tcase, test_SBase_setNotesFromMarkdown3);
   tcase_add_test(tcase, test_SBase_notesMarkdown_table);
+  tcase_add_test(tcase, test_SBase_notesMarkdown_denseLinks);
+  tcase_add_test(tcase, test_SBase_notesMarkdown_trailingNonBreakingSpace);
   tcase_add_test(tcase, test_SBase_setAnnotationString);
   tcase_add_test(tcase, test_SBase_unsetAnnotationWithCVTerms );
   tcase_add_test(tcase, test_SBase_unsetAnnotationWithModelHistory );
