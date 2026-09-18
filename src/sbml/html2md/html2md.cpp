@@ -253,19 +253,30 @@ bool Converter::ok() const {
          !is_in_tag_ && index_blockquote == 0 && index_li == 0;
 }
 
+// isspace()/isblank() are locale-dependent for byte values above 127.
+// UTF-8 continuation bytes fall in that range, so check ASCII
+// whitespace explicitly to avoid splitting a multi-byte character.
+static bool IsAsciiSpace(unsigned char ch) {
+  return ch == ' ' || ch == '\t' || ch == '\n' || ch == '\v' || ch == '\f' || ch == '\r';
+}
+
+static bool IsAsciiBlank(unsigned char ch) {
+  return ch == ' ' || ch == '\t';
+}
+
 void Converter::LTrim(string *s) {
   (*s).erase((*s).begin(),
              find_if((*s).begin(), (*s).end(),
-                     [](unsigned char ch) { return !std::isspace(ch); }));
+                     [](unsigned char ch) { return !IsAsciiSpace(ch); }));
 }
 
 Converter *Converter::RTrim(string *s, bool trim_only_blank) {
   (*s).erase(find_if((*s).rbegin(), (*s).rend(),
                      [trim_only_blank](unsigned char ch) {
                        if (trim_only_blank)
-                         return !isblank(ch);
+                         return !IsAsciiBlank(ch);
 
-                       return !isspace(ch);
+                       return !IsAsciiSpace(ch);
                      })
                  .base(),
              (*s).end());
