@@ -9,6 +9,7 @@
 #include <regex>
 #include <string>
 
+#include "maddy/codespanutils.h"
 #include "maddy/lineparser.h"
 
 // -----------------------------------------------------------------------------
@@ -43,12 +44,14 @@ public:
     // The leading and trailing `(_*)` groups absorb any leftover underscores
     // from an unbalanced run (e.g. `__foo_` or `_foo____`), re-emitted
     // outside the <em> tag instead of into its content.
-    static std::regex re(
-      R"((?!.*`.*|.*<code>.*)\b(_*)_(?![\s_])(?!.*`.*|.*<\/code>.*)(.*?[^\s])_(_*)\b(?!.*`.*|.*<\/code>.*))"
-    );
+    static std::regex re(R"(\b(_*)_(?![\s_])(.*?[^\s])_(_*)\b)");
     static std::string replacement = "$1<em>$2</em>$3";
 
-    line = std::regex_replace(line, re, replacement);
+    ApplyOutsideProtectedSpans(
+      line,
+      [](std::string& segment)
+      { segment = std::regex_replace(segment, re, replacement); }
+    );
   }
 }; // class EmphasizedParser
 
