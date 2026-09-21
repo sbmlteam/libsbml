@@ -289,6 +289,14 @@ START_TEST(test_DistribExtension_add_and_write_L3V1V1)
   UncertSpan * span = new UncertSpan(sbmlns);
   span->setValueLower(5);
   span->setValueUpper(5.32);
+
+  // test for issue #492
+	fail_unless(span->setType("coefficientOfVariation") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(span->setType("coeffientOfVariation") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(span->setType(DISTRIB_UNCERTTYPE_COEFFICIENTOFVARIATION) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(span->setType(DISTRIB_UNCERTTYPE_COEFFIENTOFVARIATION) == LIBSBML_OPERATION_SUCCESS);
+
+  // 
   span->setType("confidenceInterval");
   ASTNode* math = SBML_parseL3Formula("lognormal(0.5,0.1)");
   fail_unless(span->setMath(math) == LIBSBML_OPERATION_SUCCESS);
@@ -351,6 +359,17 @@ START_TEST(test_DistribExtension_add_and_write_L3V1V1)
 }
 END_TEST
 
+START_TEST(test_DistribExtension_coeffient)
+{
+  std::string fileName = std::string(TestDataDirectory) + std::string("/") + std::string("issue-492.xml");
+  SBMLDocument* doc = readSBMLFromFile(fileName.c_str());
+  std::string s1 = writeSBMLToStdString(doc);
+	fail_unless(s1.find("coefficientOfVariation") != std::string::npos);
+  fail_unless(s1.find("coeffientOfVariation") != std::string::npos);
+  delete doc;
+}
+END_TEST
+
 
 
 
@@ -366,6 +385,7 @@ create_suite_WriteDistribExtension(void)
   
   tcase_add_test(tcase, test_DistribExtension_create_and_write_L3V1V1);
   tcase_add_test(tcase, test_DistribExtension_add_and_write_L3V1V1);
+  tcase_add_test(tcase, test_DistribExtension_coeffient);
 
   suite_add_tcase(suite, tcase);
 

@@ -406,7 +406,7 @@ typedef enum
 {
   DISTRIB_UNCERTTYPE_DISTRIBUTION               /*!< The distrib uncerttype is @c "distribution". */
 , DISTRIB_UNCERTTYPE_EXTERNALPARAMETER          /*!< The distrib uncerttype is @c "externalParameter". */
-, DISTRIB_UNCERTTYPE_COEFFIENTOFVARIATION       /*!< The distrib uncerttype is @c "coeffientOfVariation". */
+, DISTRIB_UNCERTTYPE_COEFFIENTOFVARIATION       /*!< The distrib uncerttype is @c "coeffientOfVariation". This is a typo in previous versions of libSBML and kept for compatibility*/
 , DISTRIB_UNCERTTYPE_KURTOSIS                   /*!< The distrib uncerttype is @c "kurtosis". */
 , DISTRIB_UNCERTTYPE_MEAN                       /*!< The distrib uncerttype is @c "mean". */
 , DISTRIB_UNCERTTYPE_MEDIAN                     /*!< The distrib uncerttype is @c "median". */
@@ -420,6 +420,7 @@ typedef enum
 , DISTRIB_UNCERTTYPE_CREDIBLEINTERVAL           /*!< The distrib uncerttype is @c "credibleInterval". */
 , DISTRIB_UNCERTTYPE_INTERQUARTILERANGE         /*!< The distrib uncerttype is @c "interquartileRange". */
 , DISTRIB_UNCERTTYPE_RANGE                      /*!< The distrib uncerttype is @c "range". */
+, DISTRIB_UNCERTTYPE_COEFFICIENTOFVARIATION     /*!< The distrib uncerttype is @c "coefficientOfVariation". */
 , DISTRIB_UNCERTTYPE_INVALID                    /*!< Invalid UncertType value. */
 } UncertType_t;
 
@@ -446,6 +447,7 @@ typedef enum
  * "credibleInterval",
  * "interquartileRange",
  * "range",
+ * "coefficientOfVariation",
  * "invalid UncertType value",
  * or @c NULL if the value is @sbmlconstant{DISTRIB_UNCERTTYPE_INVALID,
  * UncertType_t} or another invalid enumeration value.
@@ -495,7 +497,7 @@ UncertType_fromString(const char* code);
  * @return @c 1 (true) if the #UncertType_t is
  * @sbmlconstant{DISTRIB_UNCERTTYPE_DISTRIBUTION, UncertType_t},
  * @sbmlconstant{DISTRIB_UNCERTTYPE_EXTERNALPARAMETER, UncertType_t},
- * @sbmlconstant{DISTRIB_UNCERTTYPE_COEFFIENTOFVARIATION, UncertType_t},
+ * @sbmlconstant{DISTRIB_UNCERTTYPE_COEFFIENTOFVARIATION, UncertType_t},  This is a typo in previous versions of libSBML and kept for compatibility
  * @sbmlconstant{DISTRIB_UNCERTTYPE_KURTOSIS, UncertType_t},
  * @sbmlconstant{DISTRIB_UNCERTTYPE_MEAN, UncertType_t},
  * @sbmlconstant{DISTRIB_UNCERTTYPE_MEDIAN, UncertType_t},
@@ -509,6 +511,7 @@ UncertType_fromString(const char* code);
  * @sbmlconstant{DISTRIB_UNCERTTYPE_CREDIBLEINTERVAL, UncertType_t},
  * @sbmlconstant{DISTRIB_UNCERTTYPE_INTERQUARTILERANGE, UncertType_t}, or
  * @sbmlconstant{DISTRIB_UNCERTTYPE_RANGE, UncertType_t};
+ * @sbmlconstant{DISTRIB_UNCERTTYPE_COEFFICIENTOFVARIATION, UncertType_t},
  * @c 0 (false) otherwise (including @sbmlconstant{DISTRIB_UNCERTTYPE_INVALID,
  * UncertType_t}).
  *
@@ -543,7 +546,8 @@ UncertType_isValid(UncertType_t ut);
  * "confidenceInterval",
  * "credibleInterval",
  * "interquartileRange",
- * "range", or
+ * "range", 
+ * "coefficientOfVariation", or
  * "invalid UncertType value";
  * @c 0 (false) otherwise.
  *
