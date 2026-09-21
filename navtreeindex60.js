@@ -1,5 +1,6 @@
 var NAVTREEINDEX60 =
 {
+"class_flux_objective.html#a0df1a731505cbddfcb2c504bd86ba9c0":[3,0,84,86],
 "class_flux_objective.html#a118148398f5c626bf9697887296f97b8":[3,0,84,6],
 "class_flux_objective.html#a11d9c02a3690d9a13362835ef0133125":[3,0,84,117],
 "class_flux_objective.html#a14876bd1b05a660593ed2cf46aece3ee":[3,0,84,115],
@@ -248,6 +249,5 @@ var NAVTREEINDEX60 =
 "class_function_definition.html#ab3428c9a9705777183a0ded66981b504":[3,0,86,64],
 "class_function_definition.html#ab39fb9a978028a24d2b6e0ebd189f00e":[3,0,86,2],
 "class_function_definition.html#ab4de53b00ecec3e135fcb9d36fb1bf3b":[3,0,86,62],
-"class_function_definition.html#ab65f2358ae580d6ed278789698f80209":[3,0,86,53],
-"class_function_definition.html#ab6b2f72b4ac5392401ed10d717dbf87b":[3,0,86,79]
+"class_function_definition.html#ab65f2358ae580d6ed278789698f80209":[3,0,86,53]
 };
