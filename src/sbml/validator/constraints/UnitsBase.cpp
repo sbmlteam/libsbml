@@ -257,8 +257,13 @@ UnitsBase::checkFunction (const Model& m,
                                           node.getChild(nodeCount));
     }
 
+    // have to check for the name variable directly, as getName() would 
+    // change the result.
+    std::string nextNodeName = fdMath->mName ? fdMath->mName : "";
+    std::string functionname = node.getName();
+
     // only check if not recursive
-    if (fdMath->isFunction() && std::string(fdMath->getName()) != std::string(node.getName()))
+    if (nextNodeName.empty() || nextNodeName != functionname)
     {
       /* check the math of the new function */
       checkUnits(m, *fdMath, sb, inKL, reactNo);
