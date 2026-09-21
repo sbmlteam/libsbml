@@ -163,7 +163,7 @@ END_TEST
 
 START_TEST (test_SpeciesReference_setName2)
 {
-  /// this aparently is valid
+  /* this apparently is valid */
   int i = SpeciesReference_setName(sr, "1cell");
 
   fail_unless( i == LIBSBML_OPERATION_SUCCESS);
