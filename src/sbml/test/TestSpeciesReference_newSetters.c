@@ -163,10 +163,11 @@ END_TEST
 
 START_TEST (test_SpeciesReference_setName2)
 {
+  /// this aparently is valid
   int i = SpeciesReference_setName(sr, "1cell");
 
-  fail_unless( i == LIBSBML_INVALID_ATTRIBUTE_VALUE );
-  fail_unless( !SpeciesReference_isSetName(sr) );
+  fail_unless( i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless( SpeciesReference_isSetName(sr) );
 
   i = SpeciesReference_unsetName(sr);
 
@@ -205,6 +206,16 @@ START_TEST (test_SpeciesReference_setName4)
 }
 END_TEST
 
+
+START_TEST(test_SpeciesReference_setName5)
+{
+  int i = SpeciesReference_setName(sr, "cell 1");
+
+  fail_unless(i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(SpeciesReference_isSetName(sr));
+
+}
+END_TEST
 
 START_TEST (test_SpeciesReference_setSpecies1)
 {
@@ -481,6 +492,7 @@ create_suite_SpeciesReference_newSetters (void)
   tcase_add_test( tcase, test_SpeciesReference_setName2              );
   tcase_add_test( tcase, test_SpeciesReference_setName3              );
   tcase_add_test( tcase, test_SpeciesReference_setName4              );
+  tcase_add_test(tcase, test_SpeciesReference_setName5);
   tcase_add_test( tcase, test_SpeciesReference_setSpecies1           );
   tcase_add_test( tcase, test_SpeciesReference_setSpecies2           );
   tcase_add_test( tcase, test_SpeciesReference_setSpecies3           ); 
