@@ -199,8 +199,8 @@ public class TestSpeciesReference_newSetters {
   public void test_SpeciesReference_setName2()
   {
     int i = sr.setName( "1cell");
-    assertTrue( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE );
-    assertEquals( false, sr.isSetName() );
+    assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
+    assertEquals( true, sr.isSetName() );
     i = sr.unsetName();
     assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
     assertEquals( false, sr.isSetName() );
