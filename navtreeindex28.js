@@ -1,5 +1,6 @@
 var NAVTREEINDEX28 =
 {
+"class_assignment_rule.html#a13163209af0021b9f804ac9408ddadae":[3,0,5,79],
 "class_assignment_rule.html#a14876bd1b05a660593ed2cf46aece3ee":[3,0,5,126],
 "class_assignment_rule.html#a1531f729b16689aba3fb7f3567202a7c":[3,0,5,138],
 "class_assignment_rule.html#a1647f096c2f5befd72c8fc7cb1c3cffd":[3,0,5,81],
@@ -248,6 +249,5 @@ var NAVTREEINDEX28 =
 "class_association.html#a9121d6a4f7401fe957cc75647a1e95ed":[3,0,6,145],
 "class_association.html#a92e907d999ac2bbceb5918e6b8ce18c5":[3,0,6,17],
 "class_association.html#a936f753a9032913c569dafa3642d8252":[3,0,6,110],
-"class_association.html#a944bad557986b43d8328d5727d1aa890":[3,0,6,70],
-"class_association.html#a94ead78ebf80118b1027af5438f22516":[3,0,6,108]
+"class_association.html#a944bad557986b43d8328d5727d1aa890":[3,0,6,70]
 };

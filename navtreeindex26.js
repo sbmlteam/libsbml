@@ -1,5 +1,6 @@
 var NAVTREEINDEX26 =
 {
+"class_advection_coefficient.html#af7a642f3a3a324c69edd76e39138a960":[3,0,1,87],
 "class_algebraic_rule.html":[3,0,2],
 "class_algebraic_rule.html#a0143961ca5188d00203c99eef1de854e":[3,0,2,16],
 "class_algebraic_rule.html#a018ab95b15d5500c45e9c71ea6fde42f":[3,0,2,38],
@@ -248,6 +249,5 @@ var NAVTREEINDEX26 =
 "class_analytic_geometry.html#a7a6dc5a02be520ea43c7cf71c5062c71":[3,0,3,138],
 "class_analytic_geometry.html#a7a9574c886d54be2db67210bbd8fcf18":[3,0,3,99],
 "class_analytic_geometry.html#a7b43de27cb29136954af762fa91d4842":[3,0,3,106],
-"class_analytic_geometry.html#a7b7b199563437a7977cc13cabb21ef63":[3,0,3,142],
-"class_analytic_geometry.html#a7d34cc625c18425a35a5513b88851a73":[3,0,3,82]
+"class_analytic_geometry.html#a7b7b199563437a7977cc13cabb21ef63":[3,0,3,142]
 };

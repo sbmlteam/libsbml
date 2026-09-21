@@ -1,5 +1,6 @@
 var NAVTREEINDEX24 =
 {
+"_x_m_l_error_8h.html#a8bd887250dc4e0fe8e4ff95d68b3fbf0acd305c87f2b8d6ec9dda10ba3f67c933":[4,0,0,0,8,33,1,0],
 "_x_m_l_error_log_8cpp.html":[4,0,0,0,8,34],
 "_x_m_l_error_log_8h.html":[4,0,0,0,8,35],
 "_x_m_l_extern_8h.html":[4,0,0,0,8,36],
@@ -248,6 +249,5 @@ var NAVTREEINDEX24 =
 "class_adjacent_domains.html#a39e0febad1c149b4a8455662afd845b4":[3,0,0,101],
 "class_adjacent_domains.html#a40dba8a849dbda05d3f9f42000119dc5":[3,0,0,105],
 "class_adjacent_domains.html#a4104f94709fa37b5538b538f637c8fb1":[3,0,0,121],
-"class_adjacent_domains.html#a478ad1e0e2bb2dc27a9de6ab9bac4bf2":[3,0,0,123],
-"class_adjacent_domains.html#a4c78f1941d1d0fc804b6b4a1dd0db54e":[3,0,0,80]
+"class_adjacent_domains.html#a478ad1e0e2bb2dc27a9de6ab9bac4bf2":[3,0,0,123]
 };
