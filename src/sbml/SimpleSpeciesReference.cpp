@@ -280,16 +280,7 @@ SimpleSpeciesReference::setName (const std::string& name)
   }
   else
   {
-    if (getLevel() == 1)
-    {
-      if (!(SyntaxChecker::isValidInternalSId(name)))
-      {
-        return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-      }
-
-      mId = name;
-    }
-    else mName = name;
+    mName = name;
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
