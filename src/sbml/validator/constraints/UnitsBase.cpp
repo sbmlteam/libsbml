@@ -256,8 +256,14 @@ UnitsBase::checkFunction (const Model& m,
         fdMath->replaceArgument(fd->getArgument(i)->getName(), 
                                           node.getChild(nodeCount));
     }
-    /* check the math of the new function */
-    checkUnits(m, *fdMath, sb, inKL, reactNo);
+
+    // only check if not recursive
+    if (fdMath->isFunction() && std::string(fdMath->getName()) != std::string(node.getName()))
+    {
+      /* check the math of the new function */
+      checkUnits(m, *fdMath, sb, inKL, reactNo);
+    }
+
 
     delete fdMath;
   }
