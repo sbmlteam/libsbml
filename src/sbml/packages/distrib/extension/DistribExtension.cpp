@@ -441,6 +441,7 @@ const char* SBML_UNCERT_TYPE_STRINGS[] =
 , "credibleInterval"
 , "interquartileRange"
 , "range"
+, "coefficientOfVariation"
 , "invalid UncertType value"
 };
 
