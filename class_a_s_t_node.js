@@ -158,6 +158,5 @@ var class_a_s_t_node =
     [ "unsetStyle", "class_a_s_t_node.html#af2be455b1eacf4e6854d5d10e36ab99a", null ],
     [ "unsetUnits", "class_a_s_t_node.html#a8e20dfaf0e5e299e906e2bc5e6966527", null ],
     [ "unsetUserData", "class_a_s_t_node.html#a8d7f8301b10f3aed387a447473650ed5", null ],
-    [ "SBMLRateRuleConverter", "class_a_s_t_node.html#a709a4cfd50fb2e3e4a9799fe7e43eb33", null ],
-    [ "UnitsBase", "class_a_s_t_node.html#aab5a4b467fc82e7e79042cf28a3aa350", null ]
+    [ "SBMLRateRuleConverter", "class_a_s_t_node.html#a709a4cfd50fb2e3e4a9799fe7e43eb33", null ]
 ];

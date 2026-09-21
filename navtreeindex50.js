@@ -1,6 +1,5 @@
 var NAVTREEINDEX50 =
 {
-"class_diffusion_coefficient.html#aa9a0611fba68fb2d56db3565425f65a0":[3,0,52,17],
 "class_diffusion_coefficient.html#aa9d5941c06064744b2c88ebf67e1cdde":[3,0,52,122],
 "class_diffusion_coefficient.html#aac93855c11d3e29c120fad461d6cab80":[3,0,52,115],
 "class_diffusion_coefficient.html#aad43f3efb39b3c56ec0db212b6e97cf4":[3,0,52,42],
@@ -249,5 +248,6 @@ var NAVTREEINDEX50 =
 "class_distrib_base.html#a33da5a2b0b03cbe6af69730869e35212":[3,0,55,8],
 "class_distrib_base.html#a37287e48bd51353012b74e4d200bb446":[3,0,55,122],
 "class_distrib_base.html#a39e0febad1c149b4a8455662afd845b4":[3,0,55,98],
-"class_distrib_base.html#a3e6ab0524a6cac2d1ffdb952ffbbd6ad":[3,0,55,90]
+"class_distrib_base.html#a3e6ab0524a6cac2d1ffdb952ffbbd6ad":[3,0,55,90],
+"class_distrib_base.html#a40dba8a849dbda05d3f9f42000119dc5":[3,0,55,102]
 };

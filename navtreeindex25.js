@@ -1,6 +1,5 @@
 var NAVTREEINDEX25 =
 {
-"class_adjacent_domains.html#a4c78f1941d1d0fc804b6b4a1dd0db54e":[3,0,0,80],
 "class_adjacent_domains.html#a4df4f196b8e11d08013c436c689465a5":[3,0,0,106],
 "class_adjacent_domains.html#a4fbf6701023075573bd76fa0bd276291":[3,0,0,18],
 "class_adjacent_domains.html#a558c93aba9913f7ba1746f1be545dff1":[3,0,0,107],
@@ -249,5 +248,6 @@ var NAVTREEINDEX25 =
 "class_advection_coefficient.html#aeebb375432d7ba746f8754f67c608bf8":[3,0,1,146],
 "class_advection_coefficient.html#aef0ea49f9a3ad67d72edb2c1cf92ad82":[3,0,1,121],
 "class_advection_coefficient.html#af0a70ab6f715e912c6431072c4339f2c":[3,0,1,39],
-"class_advection_coefficient.html#af39bd6ec3403315e5d6d9ede433ea789":[3,0,1,1]
+"class_advection_coefficient.html#af39bd6ec3403315e5d6d9ede433ea789":[3,0,1,1],
+"class_advection_coefficient.html#af7a642f3a3a324c69edd76e39138a960":[3,0,1,87]
 };
