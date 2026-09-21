@@ -374,6 +374,25 @@ START_TEST (test_conversion_inlineIA_bug)
 END_TEST
 
 
+START_TEST (test_conversion_issue_489)
+{
+  std::string filename = "/issue-489.xml";
+  filename = TestDataDirectory + filename;
+  SBMLDocument* doc = readSBMLFromFile(filename.c_str());
+  fail_unless(doc->getModel() != NULL);
+  fail_unless(doc->getNumErrors(LIBSBML_SEV_ERROR) == 0);
+
+  ConversionProperties props;
+  props.addOption("expandFunctionDefinitions", "true");
+
+  fail_unless(doc->convert(props) == LIBSBML_OPERATION_SUCCESS);
+
+  
+
+  delete doc;
+}
+END_TEST
+
 Suite *
 create_suite_TestSBMLRuleConverter (void)
 { 
@@ -387,6 +406,7 @@ create_suite_TestSBMLRuleConverter (void)
   tcase_add_test(tcase, test_conversion_ruleconverter_dontSortIA);
   tcase_add_test(tcase, test_conversion_inlineFD_bug);
   tcase_add_test(tcase, test_conversion_inlineIA_bug);
+  tcase_add_test(tcase, test_conversion_issue_489);
       
 
   suite_add_tcase(suite, tcase);
