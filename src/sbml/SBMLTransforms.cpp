@@ -633,7 +633,7 @@ SBMLTransforms::evaluateASTNode(const ASTNode * node, const IdValueMap& values, 
             const InitialAssignment *ia = 
                                 m->getInitialAssignment(node->getName());
             const Reaction *rn = m->getReaction(node->getName()); 
-            if (r != NULL)
+            if (r != NULL && r->isAssignment())
             {
               result = evaluateASTNode(r->getMath(), values, m);
             }

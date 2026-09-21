@@ -1031,6 +1031,23 @@ START_TEST(test_SBMLTransforms_multipleMaps)
 }
 END_TEST
 
+START_TEST(test_SBMLTransforms_issue491)
+{
+
+
+  std::string filename(TestDataDirectory);
+  filename += "issue-491.xml";
+	auto* doc = readSBMLFromFile(filename.c_str());
+	auto properties = ConversionProperties();
+	properties.addOption("expandInitialAssignments", true);
+	int status = doc->convert(properties);
+	fail_unless(status == LIBSBML_OPERATION_SUCCESS);
+
+  delete doc;
+
+}
+END_TEST
+
 Suite *
 create_suite_SBMLTransforms (void)
 {
@@ -1050,6 +1067,7 @@ create_suite_SBMLTransforms (void)
   tcase_add_test(tcase, test_SBMLTransforms_L3V2AssignmentNoMath);
   tcase_add_test(tcase, test_SBMLTransforms_StoichiometryMath);
 	tcase_add_test(tcase, test_SBMLTransforms_multipleMaps);
+  tcase_add_test(tcase, test_SBMLTransforms_issue491);
 
 
   suite_add_tcase(suite, tcase);
