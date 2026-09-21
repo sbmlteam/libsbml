@@ -103,8 +103,8 @@ class TestSpeciesReference_newSetters(unittest.TestCase):
 
   def test_SpeciesReference_setName2(self):
     i = self.sr.setName( "1cell")
-    self.assertTrue( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
-    self.assertEqual( False, self.sr.isSetName() )
+    self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertEqual( True, self.sr.isSetName() )
     i = self.sr.unsetName()
     self.assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.sr.isSetName() )

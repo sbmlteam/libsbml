@@ -97,8 +97,8 @@ class TestSpeciesReference_newSetters < Test::Unit::TestCase
 
   def test_SpeciesReference_setName2
     i = @@sr.setName( "1cell")
-    assert( i == LibSBML::LIBSBML_INVALID_ATTRIBUTE_VALUE )
-    assert_equal false, @@sr.isSetName()
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
+    assert_equal true, @@sr.isSetName()
     i = @@sr.unsetName()
     assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
     assert_equal false, @@sr.isSetName()
