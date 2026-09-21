@@ -385,7 +385,7 @@ START_TEST (test_conversion_issue_489)
   ConversionProperties props;
   props.addOption("expandFunctionDefinitions", "true");
 
-  fail_unless(doc->convert(props) == LIBSBML_OPERATION_FAILED);
+  fail_unless(doc->convert(props) == LIBSBML_CONV_INVALID_SRC_DOCUMENT);
 
   
 
