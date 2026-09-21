@@ -36,6 +36,37 @@
         </annotation>
       </species>
     </listOfSpecies>
+    <listOfReactions>
+      <reaction id="R" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="A" constant="true">
+            <annotation>
+              <listOfKeyValuePairs xmlns="http://sbml.org/fbc/keyvaluepair">
+                <keyValuePair key="k_speciesReference" value="v"/>
+              </listOfKeyValuePairs>
+            </annotation>
+          </speciesReference>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="B" constant="true">
+            <annotation>
+              <listOfKeyValuePairs xmlns="http://sbml.org/fbc/keyvaluepair">
+                <keyValuePair key="k_speciesReference" value="v"/>
+              </listOfKeyValuePairs>
+            </annotation>
+          </speciesReference>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="E">
+            <annotation>
+              <listOfKeyValuePairs xmlns="http://sbml.org/fbc/keyvaluepair">
+                <keyValuePair key="k_modifierSpeciesReference" value="v"/>
+              </listOfKeyValuePairs>
+            </annotation>
+          </modifierSpeciesReference>
+        </listOfModifiers>
+      </reaction>
+    </listOfReactions>
     <fbc:listOfObjectives fbc:activeObjective="obj1">
       <fbc:objective fbc:id="obj1" fbc:type="maximize">
         <annotation>
@@ -51,7 +82,7 @@
     <fbc:listOfUserDefinedConstraints>
       <fbc:userDefinedConstraint fbc:id="uc2" fbc:lowerBound="uc2lb" fbc:upperBound="uc2ub">
         <fbc:listOfUserDefinedConstraintComponents>
-          <fbc:userDefinedConstraintComponent fbc:coefficient="ucc1" fbc:variable="Avar" fbc:variableType="quadratic" fbc:variable2="Avar2"/>
+          <fbc:userDefinedConstraintComponent fbc:coefficient="ucc1" fbc:variable="Avar" fbc:variable2="Avar2" fbc:variableType="quadratic"/>
         </fbc:listOfUserDefinedConstraintComponents>
       </fbc:userDefinedConstraint>
     </fbc:listOfUserDefinedConstraints>

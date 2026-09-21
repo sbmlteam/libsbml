@@ -1228,6 +1228,12 @@ SpeciesReference::readOtherXML (XMLInputStream& stream)
       RDFAnnotationParser::parseRDFAnnotation(mAnnotation, mCVTerms, 
                                                getMetaId().c_str(), &(stream));
 
+    // need to parse annotations here, otherwise we miss them
+    for (size_t i = 0; i < mPlugins.size(); i++)
+    {
+      mPlugins[i]->parseAnnotation(this, mAnnotation);
+    }
+
     read = true;
   }
 
