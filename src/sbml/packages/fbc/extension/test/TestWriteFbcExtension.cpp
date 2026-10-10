@@ -470,6 +470,24 @@ START_TEST(test_FbcExtension_create_and_write_L3V1V3)
   fail_unless(kvp3->setUri("my_annotation") == LIBSBML_OPERATION_SUCCESS);
   fail_unless(kvp3->setValue("objective-value") == LIBSBML_OPERATION_SUCCESS);
 
+
+  // issue 493 ensure that species references work with kvps
+	auto* r = model->createReaction();
+	r->setId("R"); r->setReversible(false); r->setFast(false);
+	auto* reactant = r->createReactant(); reactant->setSpecies("A"); reactant->setConstant(true);
+	auto* product = r->createProduct(); product->setSpecies("B"); product->setConstant(true);
+	auto* modifier = r->createModifier(); modifier->setSpecies("E");
+
+	std::vector<SBase*> srefs = { reactant, product, modifier };
+
+	for (auto& sref : srefs) {
+		auto* sbaseplugin = dynamic_cast<FbcSBasePlugin*>(sref->getPlugin("fbc"));    
+		auto* kvp = sbaseplugin->createKeyValuePair();
+		kvp->setKey("k_" + std::string(sref->getElementName()));
+		kvp->setValue("v");
+    fail_unless(sbaseplugin->getNumKeyValuePairs() == 1);
+	}
+
   //FbcSBasePlugin* sbaseplugin4 = dynamic_cast<FbcSBasePlugin*>(document->getPlugin("fbc"));
   //// this dynamic cast is null
   //KeyValuePair * kvp4 = sbaseplugin4->createKeyValuePair();
@@ -481,12 +499,25 @@ START_TEST(test_FbcExtension_create_and_write_L3V1V3)
   //cout << s1 << endl;
   fail_unless(s1.find("MyResourceThatWillBeWrittenAndRead") != string::npos);
   fail_unless(s1.find("metaid=\"metaid_kvp\"") != string::npos);
+  fail_unless(s1.find("k_speciesReference") != string::npos);
+  fail_unless(s1.find("k_modifierSpeciesReference") != string::npos);
 
   char *filename = safe_strcat(TestDataDirectory, "fbc_example2_v3.xml");
   SBMLDocument *document1 = readSBMLFromFile(filename);
   string s2 = writeSBMLToStdString(document1);
   fail_unless(s2.find("MyResourceThatWillBeWrittenAndRead") != string::npos);
   fail_unless(s2.find("metaid=\"metaid_kvp\"") != string::npos);
+  fail_unless(s2.find("k_speciesReference") != string::npos);
+  fail_unless(s2.find("k_modifierSpeciesReference") != string::npos);
+
+  // ensure with api: 
+
+  auto* r2 = document1->getModel()->getReaction("R");
+  std::vector<SBase*> srefs2 = { r2->getReactant(0), r2->getProduct(0), r2->getModifier(0), document1->getModel()};
+	for (auto& sref : srefs2) {
+		auto* sbaseplugin = dynamic_cast<FbcSBasePlugin*>(sref->getPlugin("fbc"));
+		fail_unless(sbaseplugin->getNumKeyValuePairs() == 1);
+	}
 
   //cout << endl << s2 << endl;
   fail_unless(s1 == s2);
