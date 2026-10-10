@@ -21,6 +21,10 @@
 #include <sbml/conversion/SBMLConverterRegistry.h>
 #include <string>
 
+#ifdef USE_COMP
+#include <sbml/packages/comp/common/CompExtensionTypes.h>
+#endif
+
 /** @cond doxygenIgnored */
 
 using namespace std;
@@ -605,6 +609,33 @@ START_TEST(test_FbcExtension_read_L3V1V3)
 END_TEST
 
 
+#ifdef USE_COMP
+
+START_TEST(test_FbcExtension_issue_495)
+{
+	auto sbmlns = SBMLNamespaces(3, 1);
+	sbmlns.addPackageNamespace("comp", 1);
+	sbmlns.addPackageNamespace("fbc", 2);
+	SBMLDocument doc(&sbmlns);
+	doc.setPackageRequired("comp", true);
+	doc.setPackageRequired("fbc", false);
+
+	auto* model = doc.createModel();
+	model->setId("top");
+	dynamic_cast<FbcModelPlugin*>(model->getPlugin("fbc"))->setStrict(true);
+
+	auto* md = dynamic_cast<CompSBMLDocumentPlugin*>(doc.getPlugin("comp"))->createModelDefinition();
+	md->setId("md1");
+	dynamic_cast<FbcModelPlugin*>(md->getPlugin("fbc"))->setStrict(true);
+
+	auto text = writeSBMLToStdString(&doc);
+	fail_unless(text.find("fbc:strict=\"true\" fbc:strict=\"true\"") == std::string::npos);
+
+}
+END_TEST
+
+#endif
+
 Suite *
 create_suite_ReadFbcExtension(void)
 {
@@ -621,6 +652,10 @@ create_suite_ReadFbcExtension(void)
   tcase_add_test(tcase, test_FbcExtension_read_and_convert_V1ToV2);
   tcase_add_test(tcase, test_FbcExtension_read_L3V2V1_check_id);
   tcase_add_test(tcase, test_FbcExtension_read_L3V1V3);
+
+#ifdef USE_COMP
+  tcase_add_test(tcase, test_FbcExtension_issue_495);
+#endif
 
   suite_add_tcase(suite, tcase);
 

@@ -253,7 +253,7 @@ ModelDefinition::writeAttributes(XMLOutputStream& stream) const
       stream.writeAttribute("name", getSBMLPrefix(), mName);
     }
   }
-  ModelDefinition::writeExtensionAttributes(stream);
+  // ModelDefinition::writeExtensionAttributes(stream);
 }
 /** @endcond */
 
