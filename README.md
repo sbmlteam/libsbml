@@ -112,6 +112,7 @@ LibSBML's main authors are [Sarah M. Keating](https://github.com/skeating), [Fra
 * Christoph Flamm
 * Akira Funahashi
 * Ralph Gauges
+* Matthew Gillman
 * Martin Ginkel
 * Alex Gutteridge
 * Stefan Hoops
