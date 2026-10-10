@@ -302,7 +302,7 @@ static const packageErrorTableEntry distribErrorTable[] =
     "'coeffientOfVariation', 'kurtosis', 'mean', 'median', 'mode', "
     "'sampleSize', 'skewness', 'standardDeviation', 'standardError', "
     "'variance', 'confidenceInterval', 'credibleInterval', 'interquartileRange' "
-    "or 'range'.",
+    ",'range' or 'coefficientOfVariation'.",
     { "L3V1 Distrib V1 Section"
     }
   },
