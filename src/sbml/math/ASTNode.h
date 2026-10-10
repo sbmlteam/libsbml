@@ -2374,6 +2374,7 @@ setValue(value, 0);
 
 
   friend class SBMLRateRuleConverter;
+  friend class UnitsBase;
 
 //  void printMath(unsigned int level = 0);
 
