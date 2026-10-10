@@ -25,6 +25,7 @@ var _distrib_extension_8h =
       [ "DISTRIB_UNCERTTYPE_CREDIBLEINTERVAL", "_distrib_extension_8h.html#ab0c8d1dd6ac6847b1ec6e02d81daf9c8a3ee9a7b6217dd24ca2cc96bc904bba44", null ],
       [ "DISTRIB_UNCERTTYPE_INTERQUARTILERANGE", "_distrib_extension_8h.html#ab0c8d1dd6ac6847b1ec6e02d81daf9c8ad3a3259e8ad0bbd4e1d7742775d39407", null ],
       [ "DISTRIB_UNCERTTYPE_RANGE", "_distrib_extension_8h.html#ab0c8d1dd6ac6847b1ec6e02d81daf9c8ad8cd1ad9e0125418d8677f61ea1b45d5", null ],
+      [ "DISTRIB_UNCERTTYPE_COEFFICIENTOFVARIATION", "_distrib_extension_8h.html#ab0c8d1dd6ac6847b1ec6e02d81daf9c8accd088ce0e56fb30d6ff08a0ae39c45c", null ],
       [ "DISTRIB_UNCERTTYPE_INVALID", "_distrib_extension_8h.html#ab0c8d1dd6ac6847b1ec6e02d81daf9c8a56380e04fe2ace54b45aba872c77761d", null ]
     ] ],
     [ "UncertType_fromString", "_distrib_extension_8h.html#ae32b3cb570cae9ebd9a662ee4f28c90a", null ],

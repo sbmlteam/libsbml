@@ -1,5 +1,7 @@
 var NAVTREEINDEX59 =
 {
+"class_fbc_species_plugin.html#ab95cb9de549836cbd1a907f375fe0bab":[3,0,78,40],
+"class_fbc_species_plugin.html#ac0ad7ed07b3b2b7b4a135126d9757d2b":[3,0,78,6],
 "class_fbc_species_plugin.html#ad058280007aea96563f5583ffac9dac8":[3,0,78,31],
 "class_fbc_species_plugin.html#ad0f111001e03cbd6a8418828b10e9d3c":[3,0,78,13],
 "class_fbc_species_plugin.html#ad5402937e5701b359f8d3aa5b7a2797f":[3,0,78,2],
@@ -247,7 +249,5 @@ var NAVTREEINDEX59 =
 "class_flux_objective.html#a07fe8dd8b43718fbb3d0df8481c72058":[3,0,84,147],
 "class_flux_objective.html#a0a8fa8e4911040c0fdf6cdd03a22f564":[3,0,84,94],
 "class_flux_objective.html#a0b02092069159bda9b7ff14ecacfca5d":[3,0,84,5],
-"class_flux_objective.html#a0b2758d0f0cfce869b4d519f0a756479":[3,0,84,0],
-"class_flux_objective.html#a0c1f1b8e8ecd1f325ad57ca9d791610c":[3,0,84,136],
-"class_flux_objective.html#a0df1a731505cbddfcb2c504bd86ba9c0":[3,0,84,86]
+"class_flux_objective.html#a0b2758d0f0cfce869b4d519f0a756479":[3,0,84,0]
 };
