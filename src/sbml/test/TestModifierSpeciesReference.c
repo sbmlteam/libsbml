@@ -144,6 +144,17 @@ START_TEST (test_ModifierSpeciesReference_setSpecies)
 END_TEST
 
 
+START_TEST(test_ModifierSpeciesReference_setName)
+{
+  const char* species = "s 1";
+
+  int i = ModifierSpeciesReference_setName(MSR, species);
+  fail_unless(i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(ModifierSpeciesReference_isSetName(MSR));
+}
+END_TEST
+
+
 START_TEST (test_ModifierSpeciesReference_unsetSpecies)
 {
   const char *s;
@@ -217,6 +228,7 @@ create_suite_ModifierSpeciesReference (void)
   tcase_add_test( tcase, test_ModifierSpeciesReference_create     );
   tcase_add_test( tcase, test_ModifierSpeciesReference_free_NULL  );
   tcase_add_test( tcase, test_ModifierSpeciesReference_setSpecies );
+  tcase_add_test(tcase, test_ModifierSpeciesReference_setName);
   tcase_add_test( tcase, test_ModifierSpeciesReference_unsetSpecies );
   tcase_add_test( tcase, test_ModifierSpeciesReference_createWithNS         );
 
