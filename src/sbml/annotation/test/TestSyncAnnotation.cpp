@@ -712,7 +712,6 @@ START_TEST (test_SyncAnnotation_modifyCVTerms_5)
 		"          </rdf:Bag>\n"
 		"        </bqbiol:is>\n"
 		"      </rdf:Description>\n"
-		"      <rdf:Description/>\n"
 		"    </rdf:RDF>\n"
     "  </annotation>\n"
     "</compartment>";
