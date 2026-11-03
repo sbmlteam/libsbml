@@ -101,7 +101,7 @@ END_TEST
 START_TEST (test_comp_fail_whenflat)
 {
   string filename(TestDataDirectory);
-  string cfile = filename + "valid.xml";  
+  string cfile = filename + "valid.xml";
   SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
   doc->checkConsistency();
   unsigned int nerrors = doc->getNumErrors();
@@ -118,6 +118,118 @@ START_TEST (test_comp_fail_whenflat)
 }
 END_TEST
 
+/* an assignment rule of an undefined variable inside a model definition */
+static const char* INVALID_MODEL_DEFINITION =
+  "<?xml version='1.0' encoding='UTF-8'?>"
+  "<sbml xmlns='http://www.sbml.org/sbml/level3/version1/core' "
+  "xmlns:comp='http://www.sbml.org/sbml/level3/version1/comp/version1' "
+  "level='3' version='1' comp:required='true'>"
+  "<model id='top'><comp:listOfSubmodels>"
+  "<comp:submodel comp:id='s0' comp:modelRef='md0'/>"
+  "</comp:listOfSubmodels></model>"
+  "<comp:listOfModelDefinitions><comp:modelDefinition id='md0'>"
+  "<listOfRules><assignmentRule variable='x'>"
+  "<math xmlns='http://www.w3.org/1998/Math/MathML'><cn>1</cn></math>"
+  "</assignmentRule></listOfRules>"
+  "</comp:modelDefinition></comp:listOfModelDefinitions></sbml>";
+
+
+START_TEST (test_comp_fail_moddef_repeated)
+{
+  SBMLDocument* doc = readSBMLFromString(INVALID_MODEL_DEFINITION);
+  doc->getErrorLog()->clearLog();
+
+  fail_unless (doc->checkConsistency() > 0);
+  fail_unless (doc->getErrorLog()->contains(InvalidAssignRuleVariable));
+
+  /* a second check of the same document checks the model definitions again */
+  doc->getErrorLog()->clearLog();
+  fail_unless (doc->checkConsistency() > 0);
+  fail_unless (doc->getErrorLog()->contains(InvalidAssignRuleVariable));
+
+  /* and so does a copy of a document which was checked */
+  SBMLDocument copy(*doc);
+  fail_unless (copy.checkConsistency() > 0);
+  fail_unless (copy.getErrorLog()->contains(InvalidAssignRuleVariable));
+
+  delete doc;
+}
+END_TEST
+
+
+START_TEST (test_comp_fail_whenflat_repeated)
+{
+  string filename(TestDataDirectory);
+  string cfile = filename + "valid.xml";
+  SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
+  doc->checkConsistency();
+  fail_unless (doc->getNumErrors() == 6);
+
+  doc->getErrorLog()->clearLog();
+  doc->checkConsistency();
+  fail_unless (doc->getNumErrors() == 6);
+  fail_unless (doc->getError(0)->getErrorId() == 1090106);
+  fail_unless (doc->getError(1)->getErrorId() == 1090105);
+  fail_unless (doc->getError(2)->getErrorId() == 21111);
+
+  delete doc;
+}
+END_TEST
+
+/* model definitions which reference each other: md1 instantiates md0 and
+ * has an assignment rule of an undefined variable
+ */
+static const char* NESTED_MODEL_DEFINITIONS =
+  "<?xml version='1.0' encoding='UTF-8'?>"
+  "<sbml xmlns='http://www.sbml.org/sbml/level3/version1/core' "
+  "xmlns:comp='http://www.sbml.org/sbml/level3/version1/comp/version1' "
+  "level='3' version='1' comp:required='true'>"
+  "<model id='top'><comp:listOfSubmodels>"
+  "<comp:submodel comp:id='s1' comp:modelRef='md1'/>"
+  "</comp:listOfSubmodels></model>"
+  "<comp:listOfModelDefinitions>"
+  "<comp:modelDefinition id='md0'><listOfParameters>"
+  "<parameter id='p' value='1' constant='true'/>"
+  "</listOfParameters></comp:modelDefinition>"
+  "<comp:modelDefinition id='md1'><listOfRules><assignmentRule variable='x'>"
+  "<math xmlns='http://www.w3.org/1998/Math/MathML'><cn>1</cn></math>"
+  "</assignmentRule></listOfRules><comp:listOfSubmodels>"
+  "<comp:submodel comp:id='s0' comp:modelRef='md0'/>"
+  "</comp:listOfSubmodels></comp:modelDefinition>"
+  "<comp:modelDefinition id='md2'><comp:listOfSubmodels>"
+  "<comp:submodel comp:id='s1' comp:modelRef='md1'/>"
+  "</comp:listOfSubmodels></comp:modelDefinition>"
+  "</comp:listOfModelDefinitions></sbml>";
+
+
+START_TEST (test_comp_fail_nested_moddef)
+{
+  SBMLDocument* doc = readSBMLFromString(NESTED_MODEL_DEFINITIONS);
+  doc->getErrorLog()->clearLog();
+  doc->checkConsistency();
+
+  /* the error of md1 is reported once and its submodel resolves */
+  unsigned int n = 0;
+  for (unsigned int i = 0; i < doc->getNumErrors(); i++)
+  {
+    fail_unless (doc->getError(i)->getErrorId() != CompSubmodelMustReferenceModel);
+    if (doc->getError(i)->getErrorId() == InvalidAssignRuleVariable) n++;
+  }
+  fail_unless (n == 1);
+
+  /* the document itself is not changed by the check */
+  CompSBMLDocumentPlugin* plugin =
+    static_cast<CompSBMLDocumentPlugin*>(doc->getPlugin("comp"));
+  fail_unless (doc->getModel()->getId() == "top");
+  fail_unless (plugin->getNumModelDefinitions() == 3);
+  fail_unless (plugin->getModelDefinition(0)->getId() == "md0");
+  fail_unless (plugin->getModelDefinition(1)->getId() == "md1");
+  fail_unless (plugin->getModelDefinition(2)->getId() == "md2");
+
+  delete doc;
+}
+END_TEST
+
 Suite *
 create_suite_TestCheckConsistency(void)
 { 
@@ -128,6 +240,9 @@ create_suite_TestCheckConsistency(void)
   tcase_add_test(tcase, test_comp_fail_20212);
   tcase_add_test(tcase, test_comp_fail_90104);
   tcase_add_test(tcase, test_comp_fail_whenflat);
+  tcase_add_test(tcase, test_comp_fail_moddef_repeated);
+  tcase_add_test(tcase, test_comp_fail_whenflat_repeated);
+  tcase_add_test(tcase, test_comp_fail_nested_moddef);
 
   suite_add_tcase(suite, tcase);
 

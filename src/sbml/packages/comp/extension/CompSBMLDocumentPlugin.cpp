@@ -859,17 +859,43 @@ CompSBMLDocumentPlugin::checkConsistency()
     }
   }
 
-  if (mCheckingDummyDoc == false)
-  {
-    unsigned int numMD = getNumModelDefinitions();
+  unsigned int numMD = getNumModelDefinitions();
 
-    /* create dummy documents for the modelDefinitions */
+  if (mCheckingDummyDoc == false && numMD > 0)
+  {
+    /* every modelDefinition is checked as the model of a dummy document,
+     * which has the other modelDefinitions and the model of this
+     * document as its modelDefinitions, so that its submodels resolve.
+     *
+     * One dummy document is copied from this document and used for all
+     * of them: its model is swapped for the modelDefinition under check,
+     * which is taken out of its modelDefinitions meanwhile. A copy of the
+     * whole document per modelDefinition made the check quadratic in the
+     * number of modelDefinitions. The dummy document also keeps
+     * the documents of the externalModelDefinitions it resolved.
+     */
+    SBMLDocument dummyDoc = *doc;
+
+    CompSBMLDocumentPlugin * dummyPlugin =
+      static_cast<CompSBMLDocumentPlugin*>(dummyDoc.getPlugin("comp"));
+
+    /* the dummy document checks its model only: the other model
+     * definitions and the flat model are checked by this document.
+     * The flags are set on the dummy alone, so that this document,
+     * a later check of it and its copies check everything again.
+     */
+    dummyPlugin->mCheckingDummyDoc = true;
+    dummyPlugin->mFlattenAndCheck = false;
+
+    /* the model of this document is a modelDefinition of the dummy */
+    if (doc->getModel() != NULL)
+    {
+      ModelDefinition dummyDef(*(doc->getModel()));
+      dummyPlugin->addModelDefinition(&dummyDef);
+    }
+
     for (unsigned int i = 0; i < numMD; i++)
     {
-      mCheckingDummyDoc = true;
-      mFlattenAndCheck = false;
-      SBMLDocument dummyDoc = *doc;
-
       /* a document clone does not clone the error log as this was deemed
        * to be a situation where you wanted an empty log
        *
@@ -877,6 +903,7 @@ CompSBMLDocumentPlugin::checkConsistency()
        * whether there are unrecognised packages present
        * so add these errors if they exist in the original
        */
+      dummyDoc.getErrorLog()->clearLog();
       if (doc->getErrorLog()->contains(UnrequiredPackagePresent) == true)
       {
         dummyDoc.getErrorLog()->logError(UnrequiredPackagePresent, 
@@ -887,23 +914,20 @@ CompSBMLDocumentPlugin::checkConsistency()
         dummyDoc.getErrorLog()->logError(RequiredPackagePresent, 
           doc->getLevel(), doc->getVersion());
       }
-      
-      const Model * dummyModel = doc->getModel();
-      
-      CompSBMLDocumentPlugin * dummyPlugin = 
-        static_cast<CompSBMLDocumentPlugin*>(dummyDoc.getPlugin("comp"));
 
-      /* now swap the existing model with the modeldefinition */
-      ModelDefinition dummyDef(*dummyModel);
-      dummyPlugin->addModelDefinition(&dummyDef);
-
-
+      /* now swap the model with the modeldefinition: the copy of the
+       * modelDefinition in the dummy is held out of its list and put back
+       * at its place after the check
+       */
       dummyDoc.setModel(getModelDefinition(i));
-
-      delete dummyPlugin->removeModelDefinition(i);
-
+      ModelDefinition* held = dummyPlugin->removeModelDefinition(i);
 
       nerrors = dummyDoc.checkConsistency();
+
+      if (held != NULL)
+      {
+        dummyPlugin->getListOfModelDefinitions()->insertAndOwn((int)i, held);
+      }
 
       /* remove the unknown package errors as these will just get relogged
        */
@@ -948,11 +972,7 @@ CompSBMLDocumentPlugin::checkConsistency()
           return total_errors;
         }
       }
-
-      mFlattenAndCheck = true;
     }
-
-
   }
 
 
