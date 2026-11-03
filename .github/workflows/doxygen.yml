@@ -7,9 +7,14 @@ on:
     branches:
       - development
 
+permissions:
+  contents: write
+
 jobs:
   build:
-    if: github.repository_owner == 'sbmlteam'
+    if: github.repository_owner == 'sbmlteam' &&
+      (github.event_name != 'pull_request' ||
+       github.event.pull_request.head.repo.full_name == 'sbmlteam/libsbml')
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
