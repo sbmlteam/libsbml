@@ -866,8 +866,6 @@ CompSBMLDocumentPlugin::checkConsistency()
     /* create dummy documents for the modelDefinitions */
     for (unsigned int i = 0; i < numMD; i++)
     {
-      mCheckingDummyDoc = true;
-      mFlattenAndCheck = false;
       SBMLDocument dummyDoc = *doc;
 
       /* a document clone does not clone the error log as this was deemed
@@ -892,6 +890,14 @@ CompSBMLDocumentPlugin::checkConsistency()
       
       CompSBMLDocumentPlugin * dummyPlugin = 
         static_cast<CompSBMLDocumentPlugin*>(dummyDoc.getPlugin("comp"));
+
+      /* the dummy document checks its model only: the other model
+       * definitions and the flat model are checked by this document.
+       * The flags are set on the dummy alone, so that this document,
+       * a later check of it and its copies check everything again.
+       */
+      dummyPlugin->mCheckingDummyDoc = true;
+      dummyPlugin->mFlattenAndCheck = false;
 
       /* now swap the existing model with the modeldefinition */
       ModelDefinition dummyDef(*dummyModel);
@@ -948,8 +954,6 @@ CompSBMLDocumentPlugin::checkConsistency()
           return total_errors;
         }
       }
-
-      mFlattenAndCheck = true;
     }
 
 

@@ -101,7 +101,7 @@ END_TEST
 START_TEST (test_comp_fail_whenflat)
 {
   string filename(TestDataDirectory);
-  string cfile = filename + "valid.xml";  
+  string cfile = filename + "valid.xml";
   SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
   doc->checkConsistency();
   unsigned int nerrors = doc->getNumErrors();
@@ -118,6 +118,64 @@ START_TEST (test_comp_fail_whenflat)
 }
 END_TEST
 
+/* an assignment rule of an undefined variable inside a model definition */
+static const char* INVALID_MODEL_DEFINITION =
+  "<?xml version='1.0' encoding='UTF-8'?>"
+  "<sbml xmlns='http://www.sbml.org/sbml/level3/version1/core' "
+  "xmlns:comp='http://www.sbml.org/sbml/level3/version1/comp/version1' "
+  "level='3' version='1' comp:required='true'>"
+  "<model id='top'><comp:listOfSubmodels>"
+  "<comp:submodel comp:id='s0' comp:modelRef='md0'/>"
+  "</comp:listOfSubmodels></model>"
+  "<comp:listOfModelDefinitions><comp:modelDefinition id='md0'>"
+  "<listOfRules><assignmentRule variable='x'>"
+  "<math xmlns='http://www.w3.org/1998/Math/MathML'><cn>1</cn></math>"
+  "</assignmentRule></listOfRules>"
+  "</comp:modelDefinition></comp:listOfModelDefinitions></sbml>";
+
+
+START_TEST (test_comp_fail_moddef_repeated)
+{
+  SBMLDocument* doc = readSBMLFromString(INVALID_MODEL_DEFINITION);
+  doc->getErrorLog()->clearLog();
+
+  fail_unless (doc->checkConsistency() > 0);
+  fail_unless (doc->getErrorLog()->contains(InvalidAssignRuleVariable));
+
+  /* a second check of the same document checks the model definitions again */
+  doc->getErrorLog()->clearLog();
+  fail_unless (doc->checkConsistency() > 0);
+  fail_unless (doc->getErrorLog()->contains(InvalidAssignRuleVariable));
+
+  /* and so does a copy of a document which was checked */
+  SBMLDocument copy(*doc);
+  fail_unless (copy.checkConsistency() > 0);
+  fail_unless (copy.getErrorLog()->contains(InvalidAssignRuleVariable));
+
+  delete doc;
+}
+END_TEST
+
+
+START_TEST (test_comp_fail_whenflat_repeated)
+{
+  string filename(TestDataDirectory);
+  string cfile = filename + "valid.xml";
+  SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
+  doc->checkConsistency();
+  fail_unless (doc->getNumErrors() == 6);
+
+  doc->getErrorLog()->clearLog();
+  doc->checkConsistency();
+  fail_unless (doc->getNumErrors() == 6);
+  fail_unless (doc->getError(0)->getErrorId() == 1090106);
+  fail_unless (doc->getError(1)->getErrorId() == 1090105);
+  fail_unless (doc->getError(2)->getErrorId() == 21111);
+
+  delete doc;
+}
+END_TEST
+
 Suite *
 create_suite_TestCheckConsistency(void)
 { 
@@ -128,6 +186,8 @@ create_suite_TestCheckConsistency(void)
   tcase_add_test(tcase, test_comp_fail_20212);
   tcase_add_test(tcase, test_comp_fail_90104);
   tcase_add_test(tcase, test_comp_fail_whenflat);
+  tcase_add_test(tcase, test_comp_fail_moddef_repeated);
+  tcase_add_test(tcase, test_comp_fail_whenflat_repeated);
 
   suite_add_tcase(suite, tcase);
 
