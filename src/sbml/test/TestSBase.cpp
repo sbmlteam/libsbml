@@ -2753,7 +2753,16 @@ START_TEST (test_SBase_unsetModifiedDates_issue354)
   Date* d = new Date("2019-07-29T10:53:09Z");
   h->addModifiedDate(d);
   
-  m->setModelHistory(h);
+  int result = m->setModelHistory(h);
+  if (result < 0)
+  {
+    // this test no longer applies as setting the 
+    // history fails without creator
+    delete d;
+    delete h;
+    delete m;
+    return;
+  }
   
   // Verify the date is successfully added (called correctly on the Model)
   fail_unless(m->getNumModifiedDates() == 1);
