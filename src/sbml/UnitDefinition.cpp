@@ -1171,32 +1171,33 @@ UnitDefinition::areIdentical(const UnitDefinition * ud1,
   unsigned int n;
 
   /* need to order the unitDefinitions so must make copies
-   * since the arguments are const
+   * since the arguments are const; the copies are on the stack, so that
+   * every return releases them
    */
-  UnitDefinition * ud1Temp = new UnitDefinition(ud1->getSBMLNamespaces());
-  UnitDefinition * ud2Temp = new UnitDefinition(ud2->getSBMLNamespaces());
+  UnitDefinition ud1Temp(ud1->getSBMLNamespaces());
+  UnitDefinition ud2Temp(ud2->getSBMLNamespaces());
 
   for ( n = 0; n < ud1->getNumUnits(); n++)
-    ud1Temp->addUnit(ud1->getUnit(n));
+    ud1Temp.addUnit(ud1->getUnit(n));
   for ( n = 0; n < ud2->getNumUnits(); n++)
-    ud2Temp->addUnit(ud2->getUnit(n));
+    ud2Temp.addUnit(ud2->getUnit(n));
 
-  UnitDefinition::simplify(ud1Temp);
-  UnitDefinition::simplify(ud2Temp);
+  UnitDefinition::simplify(&ud1Temp);
+  UnitDefinition::simplify(&ud2Temp);
 
-  if (ud1Temp->getNumUnits() == ud2Temp->getNumUnits())
+  if (ud1Temp.getNumUnits() == ud2Temp.getNumUnits())
   {
-    UnitDefinition::reorder(ud1Temp);
-    UnitDefinition::reorder(ud2Temp);
+    UnitDefinition::reorder(&ud1Temp);
+    UnitDefinition::reorder(&ud2Temp);
 
-    if (ud1Temp->getNumUnits() > 1)
+    if (ud1Temp.getNumUnits() > 1)
     {
       // different multipliers left on different units may not match
       // but overall they 
       // e.g (2m)(sec) is tha same unit as (m)(2sec) but unit by unit
       // comparison will fail
-      double multiplier1 = extractMultiplier(ud1Temp);
-      double multiplier2 = extractMultiplier(ud2Temp);
+      double multiplier1 = extractMultiplier(&ud1Temp);
+      double multiplier2 = extractMultiplier(&ud2Temp);
 
       if (util_isEqual(multiplier1, multiplier2) == false)
       {
@@ -1205,9 +1206,9 @@ UnitDefinition::areIdentical(const UnitDefinition * ud1,
     }
     
     n = 0;
-    while (n < ud1Temp->getNumUnits())
+    while (n < ud1Temp.getNumUnits())
     {
-      if (!Unit::areIdentical(ud1Temp->getUnit(n), ud2Temp->getUnit(n)))
+      if (!Unit::areIdentical(ud1Temp.getUnit(n), ud2Temp.getUnit(n)))
       {
         break;
       }
@@ -1216,14 +1217,11 @@ UnitDefinition::areIdentical(const UnitDefinition * ud1,
         n++;
       }
     }
-    if (n == ud1Temp->getNumUnits())
+    if (n == ud1Temp.getNumUnits())
     {
       identical = true;
     }
   }
-
-  delete ud1Temp;
-  delete ud2Temp;
 
   return identical;
 }
