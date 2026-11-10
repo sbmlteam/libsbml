@@ -11,10 +11,16 @@ foreach (library @LIBSBML_LIBS@ @EXTRA_LIBS@)
       # found dependent library
       string(SUBSTRING "${library}" 0 ${index} DEPENDENT_NAME)
       message(VERBOSE "Looking for dependent library: ${DEPENDENT_NAME}")
-      find_dependency(${DEPENDENT_NAME})
+      set(_libsbml_dependency_args)
+      if (DEPENDENT_NAME STREQUAL "ZLIB")
+        # Empty, unless only the static libsbml was built; then it needs the static zlib.
+        set(_libsbml_dependency_args @LIBSBML_ZLIB_FIND_ARGS@)
+      endif()
+      find_dependency(${DEPENDENT_NAME} ${_libsbml_dependency_args})
     endif()
 
 endforeach()
+unset(_libsbml_dependency_args)
 
 if(NOT TARGET @LIBSBML_LIBRARY@-static)
     include("${LIBSBML_CMAKE_DIR}/@LIBSBML_LIBRARY@-static-targets.cmake")
