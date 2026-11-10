@@ -1,53 +1,53 @@
 <map id="CSGTransformation.h" name="CSGTransformation.h">
-<area shape="rect" id="Node000001" title="Definition of the CSGTransformation class." alt="" coords="881,5,1040,31"/>
-<area shape="rect" id="Node000002" href="$_c_s_g_homogeneous_transformation_8h.html" title="Definition of the CSGHomogeneousTransformation class." alt="" coords="559,79,813,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="904,37,731,81,730,76,903,32"/>
-<area shape="rect" id="Node000007" href="$_c_s_g_transformation_8cpp.html" title="Implementation of the CSGTransformation class." alt="" coords="297,152,472,177"/>
-<area shape="poly" id="edge26_Node000001_Node000007" title=" " alt="" coords="868,26,716,43,631,59,548,81,506,98,466,117,403,154,401,150,463,113,504,93,547,76,630,54,715,38,867,21"/>
-<area shape="rect" id="Node000009" href="$_spatial_extension_types_8h.html" title="Definition of SpatialExtensionTypes." alt="" coords="1287,152,1467,177"/>
-<area shape="poly" id="edge35_Node000001_Node000009" title=" " alt="" coords="1055,28,1147,46,1243,76,1279,93,1312,113,1364,150,1361,154,1310,118,1276,98,1241,81,1146,51,1053,33"/>
-<area shape="rect" id="Node000011" href="$_c_s_g_rotation_8h.html" title="Definition of the CSGRotation class." alt="" coords="837,79,953,104"/>
-<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="943,43,908,80,904,77,939,39"/>
-<area shape="rect" id="Node000013" href="$_c_s_g_scale_8h.html" title="Definition of the CSGScale class." alt="" coords="978,79,1074,104"/>
-<area shape="poly" id="edge18_Node000001_Node000013" title=" " alt="" coords="983,39,1017,77,1013,80,979,43"/>
-<area shape="rect" id="Node000015" href="$_c_s_g_translation_8h.html" title="Definition of the CSGTranslation class." alt="" coords="1099,79,1231,104"/>
-<area shape="poly" id="edge27_Node000001_Node000015" title=" " alt="" coords="1007,33,1133,76,1131,81,1005,38"/>
-<area shape="rect" id="Node000003" href="$_c_s_g_homogeneous_transformation_8cpp.html" title="Implementation of the CSGHomogeneousTransformation class." alt="" coords="5,152,273,177"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="585,108,228,155,227,149,584,103"/>
-<area shape="rect" id="Node000004" href="$_c_s_g_node_8cpp.html" title="Implementation of the CSGNode class." alt="" coords="652,152,763,177"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="696,117,706,151,701,153,691,118"/>
-<area shape="rect" id="Node000005" href="$_c_s_g_object_8cpp.html" title="Implementation of the CSGObject class." alt="" coords="787,152,905,177"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="725,107,821,149,819,154,723,112"/>
-<area shape="rect" id="Node000006" href="$_c_s_g_set_operator_8cpp.html" title="Implementation of the CSGSetOperator class." alt="" coords="929,152,1083,177"/>
-<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="751,104,955,149,954,154,750,110"/>
-<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="625,110,434,154,433,149,624,104"/>
-<area shape="rect" id="Node000008" href="$_list_of_c_s_g_nodes_8cpp.html" title="Implementation of the ListOfCSGNodes class." alt="" coords="1107,152,1262,177"/>
-<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="780,103,1108,150,1107,155,779,109"/>
-<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="816,103,1274,149,1287,151,1286,156,1274,155,815,108"/>
-<area shape="rect" id="Node000010" href="$_spatial_validator_8cpp.html" title="Definition of SpatialValidator." alt="" coords="1301,225,1452,251"/>
-<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="1379,191,1379,225,1374,225,1374,191"/>
-<area shape="poly" id="edge11_Node000011_Node000004" title=" " alt="" coords="853,111,739,154,737,149,852,106"/>
-<area shape="poly" id="edge12_Node000011_Node000005" title=" " alt="" coords="882,117,856,153,852,150,877,114"/>
-<area shape="poly" id="edge14_Node000011_Node000006" title=" " alt="" coords="926,109,989,150,986,154,923,114"/>
-<area shape="poly" id="edge15_Node000011_Node000007" title=" " alt="" coords="824,107,473,155,472,150,823,101"/>
-<area shape="poly" id="edge16_Node000011_Node000008" title=" " alt="" coords="956,105,1138,149,1137,154,954,110"/>
-<area shape="poly" id="edge17_Node000011_Node000009" title=" " alt="" coords="967,101,1296,149,1295,155,967,107"/>
-<area shape="rect" id="Node000012" href="$_c_s_g_rotation_8cpp.html" title="Implementation of the CSGRotation class." alt="" coords="497,152,627,177"/>
-<area shape="poly" id="edge13_Node000011_Node000012" title=" " alt="" coords="829,109,617,154,615,149,828,104"/>
-<area shape="poly" id="edge19_Node000013_Node000004" title=" " alt="" coords="965,109,760,154,758,149,964,104"/>
-<area shape="poly" id="edge20_Node000013_Node000005" title=" " alt="" coords="986,111,876,154,874,149,984,106"/>
-<area shape="poly" id="edge22_Node000013_Node000006" title=" " alt="" coords="1022,118,1012,153,1007,151,1016,117"/>
-<area shape="poly" id="edge23_Node000013_Node000007" title=" " alt="" coords="965,107,965,107,830,124,725,133,485,155,473,156,472,151,484,149,725,128,830,118,964,101,965,101"/>
-<area shape="poly" id="edge24_Node000013_Node000008" title=" " alt="" coords="1065,107,1160,149,1158,154,1063,112"/>
-<area shape="poly" id="edge25_Node000013_Node000009" title=" " alt="" coords="1088,102,1320,149,1319,155,1087,108"/>
-<area shape="rect" id="Node000014" href="$_c_s_g_scale_8cpp.html" title="Implementation of the CSGScale class." alt="" coords="1491,152,1601,177"/>
-<area shape="poly" id="edge21_Node000013_Node000014" title=" " alt="" coords="1088,102,1285,126,1478,149,1491,151,1490,156,1478,155,1284,132,1087,107"/>
-<area shape="poly" id="edge28_Node000015_Node000004" title=" " alt="" coords="1086,107,774,155,763,156,763,151,774,149,1085,102"/>
-<area shape="poly" id="edge29_Node000015_Node000005" title=" " alt="" coords="1101,110,898,154,897,149,1100,104"/>
-<area shape="poly" id="edge30_Node000015_Node000006" title=" " alt="" coords="1128,112,1033,154,1031,149,1126,107"/>
-<area shape="poly" id="edge31_Node000015_Node000007" title=" " alt="" coords="1086,107,916,123,783,132,652,141,485,155,473,156,472,151,484,149,651,135,783,127,915,118,1085,101"/>
-<area shape="poly" id="edge33_Node000015_Node000008" title=" " alt="" coords="1174,117,1184,151,1179,153,1169,118"/>
-<area shape="poly" id="edge34_Node000015_Node000009" title=" " alt="" coords="1212,106,1343,149,1341,154,1211,111"/>
-<area shape="rect" id="Node000016" href="$_c_s_g_translation_8cpp.html" title="Implementation of the CSGTranslation class." alt="" coords="1626,152,1773,177"/>
-<area shape="poly" id="edge32_Node000015_Node000016" title=" " alt="" coords="1245,101,1626,151,1625,156,1244,106"/>
+<area shape="rect" id="Node000001" title="Definition of the CSGTransformation class." alt="" coords="874,5,1033,33"/>
+<area shape="rect" id="Node000002" href="$_c_s_g_homogeneous_transformation_8h.html" title="Definition of the CSGHomogeneousTransformation class." alt="" coords="556,81,808,109"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="893,37,731,83,730,78,888,38"/>
+<area shape="rect" id="Node000007" href="$_c_s_g_transformation_8cpp.html" title="Implementation of the CSGTransformation class." alt="" coords="296,157,470,184"/>
+<area shape="poly" id="edge26_Node000001_Node000007" title=" " alt="" coords="856,25,709,45,625,61,544,84,503,100,464,121,402,159,400,154,461,116,501,95,542,78,624,56,708,39,861,24"/>
+<area shape="rect" id="Node000009" href="$_spatial_extension_types_8h.html" title="Definition of SpatialExtensionTypes." alt="" coords="1277,157,1457,184"/>
+<area shape="poly" id="edge35_Node000001_Node000009" title=" " alt="" coords="1048,29,1140,48,1188,62,1235,79,1270,96,1303,117,1354,157,1349,156,1300,121,1267,101,1233,83,1187,67,1139,53,1048,35"/>
+<area shape="rect" id="Node000011" href="$_c_s_g_rotation_8h.html" title="Definition of the CSGRotation class." alt="" coords="832,81,947,109"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="935,44,902,83,900,78,930,46"/>
+<area shape="rect" id="Node000013" href="$_c_s_g_scale_8h.html" title="Definition of the CSGScale class." alt="" coords="971,81,1067,109"/>
+<area shape="poly" id="edge18_Node000001_Node000013" title=" " alt="" coords="976,42,1010,81,1005,80,974,47"/>
+<area shape="rect" id="Node000015" href="$_c_s_g_translation_8h.html" title="Definition of the CSGTranslation class." alt="" coords="1091,81,1222,109"/>
+<area shape="poly" id="edge27_Node000001_Node000015" title=" " alt="" coords="1004,36,1123,81,1117,80,1004,41"/>
+<area shape="rect" id="Node000003" href="$_c_s_g_homogeneous_transformation_8cpp.html" title="Implementation of the CSGHomogeneousTransformation class." alt="" coords="5,157,273,184"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="569,114,237,159,236,153,570,109"/>
+<area shape="rect" id="Node000004" href="$_c_s_g_node_8cpp.html" title="Implementation of the CSGNode class." alt="" coords="648,157,758,184"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="691,122,702,158,697,155,688,126"/>
+<area shape="rect" id="Node000005" href="$_c_s_g_object_8cpp.html" title="Implementation of the CSGObject class." alt="" coords="782,157,899,184"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="724,113,815,156,810,156,723,118"/>
+<area shape="rect" id="Node000006" href="$_c_s_g_set_operator_8cpp.html" title="Implementation of the CSGSetOperator class." alt="" coords="923,157,1075,184"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="754,110,944,156,939,156,753,115"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="616,112,437,159,436,153,610,114"/>
+<area shape="rect" id="Node000008" href="$_list_of_c_s_g_nodes_8cpp.html" title="Implementation of the ListOfCSGNodes class." alt="" coords="1099,157,1254,184"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="785,109,1101,157,1096,158,785,114"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="824,107,1266,154,1280,158,1274,158,1265,159,823,113"/>
+<area shape="rect" id="Node000010" href="$_spatial_validator_8cpp.html" title="Definition of SpatialValidator." alt="" coords="1292,232,1442,260"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="1369,198,1369,234,1365,230,1365,202"/>
+<area shape="poly" id="edge11_Node000011_Node000004" title=" " alt="" coords="845,114,737,159,735,154,840,115"/>
+<area shape="poly" id="edge12_Node000011_Node000005" title=" " alt="" coords="875,120,851,158,848,154,870,123"/>
+<area shape="poly" id="edge14_Node000011_Node000006" title=" " alt="" coords="923,115,982,157,977,156,921,120"/>
+<area shape="poly" id="edge15_Node000011_Node000007" title=" " alt="" coords="814,110,470,160,470,155,819,108"/>
+<area shape="poly" id="edge16_Node000011_Node000008" title=" " alt="" coords="956,110,1128,156,1122,156,955,116"/>
+<area shape="poly" id="edge17_Node000011_Node000009" title=" " alt="" coords="963,107,1280,156,1274,157,963,112"/>
+<area shape="rect" id="Node000012" href="$_c_s_g_rotation_8cpp.html" title="Implementation of the CSGRotation class." alt="" coords="494,157,624,184"/>
+<area shape="poly" id="edge13_Node000011_Node000012" title=" " alt="" coords="819,112,619,159,618,153,814,113"/>
+<area shape="poly" id="edge19_Node000013_Node000004" title=" " alt="" coords="959,110,758,159,757,154,954,111"/>
+<area shape="poly" id="edge20_Node000013_Node000005" title=" " alt="" coords="976,114,873,159,871,154,971,115"/>
+<area shape="poly" id="edge22_Node000013_Node000006" title=" " alt="" coords="1014,122,1004,158,1001,154,1009,125"/>
+<area shape="poly" id="edge23_Node000013_Node000007" title=" " alt="" coords="954,109,823,129,718,139,482,159,471,161,470,155,481,154,717,133,822,124,959,108"/>
+<area shape="poly" id="edge24_Node000013_Node000008" title=" " alt="" coords="1061,113,1151,157,1146,156,1060,118"/>
+<area shape="poly" id="edge25_Node000013_Node000009" title=" " alt="" coords="1082,107,1307,156,1302,156,1082,112"/>
+<area shape="rect" id="Node000014" href="$_c_s_g_scale_8cpp.html" title="Implementation of the CSGScale class." alt="" coords="1481,157,1592,184"/>
+<area shape="poly" id="edge21_Node000013_Node000014" title=" " alt="" coords="1082,106,1191,122,1277,131,1362,140,1469,154,1483,159,1478,159,1468,159,1361,145,1276,136,1191,127,1081,112"/>
+<area shape="poly" id="edge28_Node000015_Node000004" title=" " alt="" coords="1078,109,770,159,759,161,758,156,769,154,1073,110"/>
+<area shape="poly" id="edge29_Node000015_Node000005" title=" " alt="" coords="1087,112,898,159,897,153,1082,113"/>
+<area shape="poly" id="edge30_Node000015_Node000006" title=" " alt="" coords="1117,115,1028,159,1026,154,1112,116"/>
+<area shape="poly" id="edge31_Node000015_Node000007" title=" " alt="" coords="1072,109,908,128,777,137,647,145,482,159,471,161,470,155,481,154,647,140,777,132,908,123,1078,109"/>
+<area shape="poly" id="edge33_Node000015_Node000008" title=" " alt="" coords="1165,122,1175,158,1171,155,1162,126"/>
+<area shape="poly" id="edge34_Node000015_Node000009" title=" " alt="" coords="1209,112,1332,156,1327,156,1208,117"/>
+<area shape="rect" id="Node000016" href="$_c_s_g_translation_8cpp.html" title="Implementation of the CSGTranslation class." alt="" coords="1615,157,1762,184"/>
+<area shape="poly" id="edge32_Node000015_Node000016" title=" " alt="" coords="1238,104,1603,154,1617,158,1612,158,1603,159,1237,110"/>
 </map>

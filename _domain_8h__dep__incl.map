@@ -1,26 +1,26 @@
 <map id="Domain.h" name="Domain.h">
-<area shape="rect" id="Node000001" title="Definition of the Domain class." alt="" coords="135,5,221,31"/>
-<area shape="rect" id="Node000002" href="$_domain_8cpp.html" title="Implementation of the Domain class." alt="" coords="5,152,105,177"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="148,41,125,59,103,80,78,119,62,153,57,151,73,116,99,77,121,55,145,37"/>
-<area shape="rect" id="Node000003" href="$_list_of_domains_8h.html" title="Definition of the ListOfDomains class." alt="" coords="113,79,243,104"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="181,44,181,79,175,79,175,44"/>
-<area shape="rect" id="Node000006" href="$_spatial_extension_types_8h.html" title="Definition of SpatialExtensionTypes." alt="" coords="268,299,448,324"/>
-<area shape="poly" id="edge13_Node000001_Node000006" title=" " alt="" coords="235,32,280,48,329,73,374,107,394,128,410,151,417,171,419,193,409,235,389,273,370,300,365,297,385,270,404,233,414,192,412,172,405,153,389,131,371,111,326,78,278,53,233,37"/>
-<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="148,113,77,154,74,149,145,108"/>
-<area shape="rect" id="Node000004" href="$_geometry_8h.html" title="Definition of the Geometry class." alt="" coords="129,152,227,177"/>
-<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="181,118,181,152,175,152,175,118"/>
-<area shape="rect" id="Node000011" href="$_list_of_domains_8cpp.html" title="Implementation of the ListOfDomains class." alt="" coords="251,152,396,177"/>
-<area shape="poly" id="edge12_Node000003_Node000011" title=" " alt="" coords="215,108,301,149,298,154,212,112"/>
-<area shape="rect" id="Node000005" href="$_geometry_8cpp.html" title="Implementation of the Geometry class." alt="" coords="215,225,327,251"/>
-<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="205,183,258,223,254,227,202,188"/>
-<area shape="poly" id="edge6_Node000004_Node000006" title=" " alt="" coords="182,191,189,221,205,249,224,265,246,278,293,296,291,301,244,283,221,270,201,252,184,223,177,192"/>
-<area shape="rect" id="Node000008" href="$_spatial_model_plugin_8h.html" title="Definition of the SpatialModelPlugin class." alt="" coords="472,225,631,251"/>
-<area shape="poly" id="edge8_Node000004_Node000008" title=" " alt="" coords="241,175,492,223,491,228,240,180"/>
-<area shape="rect" id="Node000007" href="$_spatial_validator_8cpp.html" title="Definition of SpatialValidator." alt="" coords="283,372,433,397"/>
-<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="361,338,361,372,355,372,355,338"/>
-<area shape="poly" id="edge10_Node000008_Node000006" title=" " alt="" coords="509,258,391,301,389,296,507,253"/>
-<area shape="rect" id="Node000009" href="$_spatial_extension_8cpp.html" title="Implementation of SpatialExtension." alt="" coords="472,299,631,324"/>
-<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="554,264,554,299,549,299,549,264"/>
-<area shape="rect" id="Node000010" href="$_spatial_model_plugin_8cpp.html" title="Implementation of the SpatialModelPlugin class." alt="" coords="655,299,829,324"/>
-<area shape="poly" id="edge11_Node000008_Node000010" title=" " alt="" coords="596,253,712,296,710,301,594,258"/>
+<area shape="rect" id="Node000001" title="Definition of the Domain class." alt="" coords="134,5,218,33"/>
+<area shape="rect" id="Node000002" href="$_domain_8cpp.html" title="Implementation of the Domain class." alt="" coords="5,157,105,184"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="141,44,122,62,101,83,77,122,62,157,57,155,72,119,97,79,118,58,144,40"/>
+<area shape="rect" id="Node000003" href="$_list_of_domains_8h.html" title="Definition of the ListOfDomains class." alt="" coords="112,81,241,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="177,46,179,81,174,80,176,51"/>
+<area shape="rect" id="Node000006" href="$_spatial_extension_types_8h.html" title="Definition of SpatialExtensionTypes." alt="" coords="264,308,443,336"/>
+<area shape="poly" id="edge13_Node000001_Node000006" title=" " alt="" coords="233,34,279,52,327,77,372,112,391,132,407,155,415,176,416,198,406,241,386,280,366,309,363,305,382,278,401,240,411,198,409,177,402,158,387,136,368,115,324,82,277,57,234,39"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="140,119,78,158,75,154,143,115"/>
+<area shape="rect" id="Node000004" href="$_geometry_8h.html" title="Definition of the Geometry class." alt="" coords="128,157,224,184"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="177,122,179,157,174,156,175,127"/>
+<area shape="rect" id="Node000011" href="$_list_of_domains_8cpp.html" title="Implementation of the ListOfDomains class." alt="" coords="248,157,392,184"/>
+<area shape="poly" id="edge12_Node000003_Node000011" title=" " alt="" coords="216,113,297,155,292,157,216,119"/>
+<area shape="rect" id="Node000005" href="$_geometry_8cpp.html" title="Implementation of the Geometry class." alt="" coords="214,232,325,260"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="205,191,256,231,251,232,205,197"/>
+<area shape="poly" id="edge6_Node000004_Node000006" title=" " alt="" coords="179,197,188,230,204,258,221,274,242,287,288,307,282,308,239,292,218,278,200,262,183,232,177,202"/>
+<area shape="rect" id="Node000008" href="$_spatial_model_plugin_8h.html" title="Definition of the SpatialModelPlugin class." alt="" coords="466,232,625,260"/>
+<area shape="poly" id="edge8_Node000004_Node000008" title=" " alt="" coords="240,182,479,230,475,233,240,188"/>
+<area shape="rect" id="Node000007" href="$_spatial_validator_8cpp.html" title="Definition of SpatialValidator." alt="" coords="278,384,429,411"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="356,350,356,385,352,382,352,353"/>
+<area shape="poly" id="edge10_Node000008_Node000006" title=" " alt="" coords="500,265,389,310,387,305,495,267"/>
+<area shape="rect" id="Node000009" href="$_spatial_extension_8cpp.html" title="Implementation of SpatialExtension." alt="" coords="467,308,624,336"/>
+<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="547,274,548,309,544,306,544,278"/>
+<area shape="rect" id="Node000010" href="$_spatial_model_plugin_8cpp.html" title="Implementation of the SpatialModelPlugin class." alt="" coords="648,308,822,336"/>
+<area shape="poly" id="edge11_Node000008_Node000010" title=" " alt="" coords="594,263,704,308,699,308,593,269"/>
 </map>

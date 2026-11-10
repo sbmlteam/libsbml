@@ -2,7 +2,7 @@ var searchData=
 [
   ['mactiveobjective_0',['mActiveObjective',['../class_list_of_objectives.html#ab4c96a9f9ba546c7cf2f160450508161',1,'ListOfObjectives']]],
   ['mdefaultterm_1',['mDefaultTerm',['../class_list_of_function_terms.html#aa355df1509bbdcbd2a5bee4dc364de66',1,'ListOfFunctionTerms']]],
-  ['melementname_2',['melementname',['../class_s_base_extension_point.html#ad53b9cc993f704be1da8235b4d4ab39b',1,'SBaseExtensionPoint::mElementName'],['../class_list_of_graphical_objects.html#a5a35739f54a90be2ef026f3264e3a1f6',1,'ListOfGraphicalObjects::mElementName']]],
+  ['melementname_2',['mElementName',['../class_s_base_extension_point.html#ad53b9cc993f704be1da8235b4d4ab39b',1,'SBaseExtensionPoint::mElementName'],['../class_list_of_graphical_objects.html#a5a35739f54a90be2ef026f3264e3a1f6',1,'ListOfGraphicalObjects::mElementName']]],
   ['melementonly_3',['mElementOnly',['../class_s_base_extension_point.html#a43ea4c122723b23492bdc45b4b88f072',1,'SBaseExtensionPoint']]],
   ['mhost_4',['mHost',['../class_s_b_m_l_uri.html#ae4b35af90fd3c68b3218c9a47b791117',1,'SBMLUri']]],
   ['mpackagename_5',['mPackageName',['../class_s_base_extension_point.html#aac554b42ff69ce3a89cc23f2ee75dc89',1,'SBaseExtensionPoint']]],

@@ -1,5 +1,5 @@
 <map id="SpatialReactionPlugin" name="SpatialReactionPlugin">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,79,169,104"/>
-<area shape="rect" id="Node000002" href="$class_s_base_plugin.html" title=" " alt="" coords="36,5,139,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="90,44,90,79,85,79,85,44"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,81,169,109"/>
+<area shape="rect" id="Node000002" href="$class_s_base_plugin.html" title=" " alt="" coords="36,5,138,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="89,47,89,82,85,80,85,51"/>
 </map>

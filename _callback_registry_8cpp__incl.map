@@ -1,17 +1,17 @@
 <map id="CallbackRegistry.cpp" name="CallbackRegistry.cpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="148,5,305,31"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,86,91,111"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="202,33,87,83,85,78,200,28"/>
-<area shape="rect" id="Node000003" href="$operation_return_values_8h.html" title="Enumeration of values returned by operations within libSBML." alt="" coords="115,79,339,119"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="229,31,229,65,224,65,224,31"/>
-<area shape="rect" id="Node000006" href="$_callback_registry_8h.html" title=" " alt="" coords="363,86,565,111"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="262,28,417,79,416,84,260,33"/>
-<area shape="rect" id="Node000004" href="$extern_8h.html" title="Definitions of LIBSBML_EXTERN and related things." alt="" coords="219,167,392,192"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="248,117,286,155,282,159,244,121"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="283,240,450,280"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="316,191,345,227,341,231,312,194"/>
-<area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="442,114,342,163,339,158,440,109"/>
-<area shape="poly" id="edge8_Node000006_Node000005" title=" " alt="" coords="459,113,388,230,383,227,455,110"/>
-<area shape="rect" id="Node000007" title=" " alt="" coords="467,167,530,192"/>
-<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="472,110,490,153,486,155,467,113"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="147,5,303,33"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,90,90,117"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="195,36,91,85,88,80,198,31"/>
+<area shape="rect" id="Node000003" href="$operation_return_values_8h.html" title="Enumeration of values returned by operations within libSBML." alt="" coords="113,81,336,126"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="226,31,227,66,222,64,224,36"/>
+<area shape="rect" id="Node000006" href="$_callback_registry_8h.html" title=" " alt="" coords="361,90,563,117"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="263,31,412,83,407,85,263,36"/>
+<area shape="rect" id="Node000004" href="$extern_8h.html" title="Definitions of LIBSBML_EXTERN and related things." alt="" coords="217,174,390,201"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="246,123,283,162,278,162,245,129"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="282,249,448,294"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="314,200,342,237,337,236,312,204"/>
+<area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="439,117,344,169,341,164,434,119"/>
+<area shape="poly" id="edge8_Node000006_Node000005" title=" " alt="" coords="457,117,387,238,383,234,452,119"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="464,174,527,201"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="469,115,487,160,482,159,466,120"/>
 </map>

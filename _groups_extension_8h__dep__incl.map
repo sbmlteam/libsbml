@@ -1,45 +1,45 @@
 <map id="GroupsExtension.h" name="GroupsExtension.h">
-<area shape="rect" id="Node000001" title="Definition of GroupsExtension." alt="" coords="508,5,652,31"/>
-<area shape="rect" id="Node000002" href="$_group_8h.html" title="Definition of the Group class." alt="" coords="345,225,418,251"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="513,37,474,55,439,81,414,117,398,158,389,197,385,225,380,225,384,196,393,157,410,114,435,77,471,50,511,32"/>
-<area shape="rect" id="Node000004" href="$_groups_extension_types_8h.html" title="Definition of GroupsExtensionTypes." alt="" coords="432,445,613,471"/>
-<area shape="poly" id="edge14_Node000001_Node000004" title=" " alt="" coords="566,43,535,92,504,153,491,188,485,226,485,291,494,354,508,408,521,444,516,446,503,409,489,355,479,291,480,225,486,187,499,151,530,90,562,40"/>
-<area shape="rect" id="Node000007" href="$_groups_extension_8cpp.html" title="Implementation of GroupsExtension." alt="" coords="918,445,1077,471"/>
-<area shape="poly" id="edge13_Node000001_Node000007" title=" " alt="" coords="666,28,771,47,883,75,932,93,971,113,998,136,1005,149,1008,163,1008,313,1001,445,996,445,1003,313,1003,164,1000,151,994,140,968,117,929,97,881,80,770,52,665,33"/>
-<area shape="rect" id="Node000009" href="$_list_of_groups_8h.html" title="Definition of the ListOfGroups class." alt="" coords="183,299,302,324"/>
-<area shape="poly" id="edge19_Node000001_Node000009" title=" " alt="" coords="511,37,461,54,415,81,384,107,356,136,307,200,272,259,250,300,246,297,267,256,303,197,352,133,381,103,412,76,459,50,509,32"/>
-<area shape="rect" id="Node000011" href="$_groups_s_b_m_l_document_plugin_8h.html" title="Definition of the GroupsSBMLDocumentPlugin class." alt="" coords="746,372,969,397"/>
-<area shape="poly" id="edge15_Node000001_Node000011" title=" " alt="" coords="666,25,731,40,763,51,793,65,820,83,841,106,855,132,860,163,860,239,860,372,855,372,855,239,855,164,850,134,837,109,816,88,791,70,761,56,729,45,665,30"/>
-<area shape="rect" id="Node000013" href="$_list_of_members_8h.html" title="Definition of the ListOfMembers class." alt="" coords="513,152,647,177"/>
-<area shape="poly" id="edge20_Node000001_Node000013" title=" " alt="" coords="583,45,583,152,577,152,577,45"/>
-<area shape="rect" id="Node000016" href="$_member_8h.html" title="Definition of the Member class." alt="" coords="653,79,739,104"/>
-<area shape="poly" id="edge24_Node000001_Node000016" title=" " alt="" coords="612,35,678,76,676,81,609,40"/>
-<area shape="rect" id="Node000003" href="$_group_8cpp.html" title="Implementation of the Group class." alt="" coords="347,372,435,397"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="386,265,393,372,387,372,380,265"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="399,261,517,443,513,446,394,264"/>
-<area shape="rect" id="Node000006" href="$_groups_model_plugin_8h.html" title="Definition of the GroupsModelPlugin class." alt="" coords="163,372,323,397"/>
-<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="367,264,315,326,260,374,256,370,311,322,363,260"/>
-<area shape="poly" id="edge9_Node000002_Node000009" title=" " alt="" coords="348,259,267,301,264,296,346,254"/>
-<area shape="rect" id="Node000005" href="$_groups_validator_8cpp.html" title="Definition of GroupsValidator." alt="" coords="447,519,599,544"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="525,484,525,519,520,519,520,484"/>
-<area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="301,398,478,443,477,448,300,403"/>
-<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="337,395,624,419,907,443,918,444,917,449,906,448,623,424,336,400"/>
-<area shape="rect" id="Node000008" href="$_groups_model_plugin_8cpp.html" title="Implementation of the GroupsModelPlugin class." alt="" coords="155,445,330,471"/>
-<area shape="poly" id="edge8_Node000006_Node000008" title=" " alt="" coords="245,411,245,445,240,445,240,411"/>
-<area shape="poly" id="edge10_Node000009_Node000003" title=" " alt="" coords="280,327,368,369,365,374,277,332"/>
-<area shape="poly" id="edge11_Node000009_Node000006" title=" " alt="" coords="245,338,245,372,240,372,240,338"/>
-<area shape="rect" id="Node000010" href="$_list_of_groups_8cpp.html" title="Implementation of the ListOfGroups class." alt="" coords="5,372,139,397"/>
-<area shape="poly" id="edge12_Node000009_Node000010" title=" " alt="" coords="204,332,101,374,99,369,201,327"/>
-<area shape="poly" id="edge17_Node000011_Node000004" title=" " alt="" coords="791,403,577,448,576,443,790,398"/>
-<area shape="poly" id="edge16_Node000011_Node000007" title=" " alt="" coords="893,401,976,443,973,447,891,406"/>
-<area shape="rect" id="Node000012" href="$_groups_s_b_m_l_document_plugin_8cpp.html" title="Implementation of the GroupsSBMLDocumentPlugin class." alt="" coords="655,445,894,471"/>
-<area shape="poly" id="edge18_Node000011_Node000012" title=" " alt="" coords="835,408,790,447,786,443,832,404"/>
-<area shape="poly" id="edge21_Node000013_Node000002" title=" " alt="" coords="536,184,415,228,413,223,534,179"/>
-<area shape="rect" id="Node000014" href="$_list_of_members_8cpp.html" title="Implementation of the ListOfMembers class." alt="" coords="494,225,642,251"/>
-<area shape="poly" id="edge22_Node000013_Node000014" title=" " alt="" coords="578,192,573,226,567,225,573,191"/>
-<area shape="rect" id="Node000015" href="$_member_8cpp.html" title="Implementation of the Member class." alt="" coords="666,225,769,251"/>
-<area shape="poly" id="edge23_Node000013_Node000015" title=" " alt="" coords="615,181,696,223,694,227,613,186"/>
-<area shape="poly" id="edge25_Node000016_Node000004" title=" " alt="" coords="723,112,750,139,775,173,784,192,789,212,790,232,784,252,762,289,734,322,703,352,669,379,603,421,551,448,548,443,601,416,666,375,699,348,730,319,757,286,779,250,784,231,784,213,779,194,770,176,746,142,719,115"/>
-<area shape="poly" id="edge26_Node000016_Node000013" title=" " alt="" coords="667,113,600,154,598,149,664,109"/>
-<area shape="poly" id="edge27_Node000016_Node000015" title=" " alt="" coords="702,118,718,225,713,226,697,118"/>
+<area shape="rect" id="Node000001" title="Definition of GroupsExtension." alt="" coords="505,5,648,33"/>
+<area shape="rect" id="Node000002" href="$_group_8h.html" title="Definition of the Group class." alt="" coords="345,232,417,260"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="502,40,469,58,437,83,413,120,397,163,388,202,384,233,379,231,383,201,392,161,408,118,434,79,466,54,506,37"/>
+<area shape="rect" id="Node000004" href="$_groups_extension_types_8h.html" title="Definition of GroupsExtensionTypes." alt="" coords="431,459,611,487"/>
+<area shape="poly" id="edge14_Node000001_Node000004" title=" " alt="" coords="561,44,531,97,501,158,488,194,482,233,482,260,501,375,520,460,515,458,495,376,477,260,477,232,483,193,496,156,526,95,557,48"/>
+<area shape="rect" id="Node000007" href="$_groups_extension_8cpp.html" title="Implementation of GroupsExtension." alt="" coords="912,459,1071,487"/>
+<area shape="poly" id="edge13_Node000001_Node000007" title=" " alt="" coords="664,30,769,50,879,80,927,98,966,119,992,142,1000,155,1002,169,1002,323,995,460,991,457,997,323,997,169,995,157,988,146,963,123,925,103,877,85,768,56,664,36"/>
+<area shape="rect" id="Node000009" href="$_list_of_groups_8h.html" title="Definition of the ListOfGroups class." alt="" coords="184,308,301,336"/>
+<area shape="poly" id="edge19_Node000001_Node000009" title=" " alt="" coords="497,39,454,58,412,83,381,110,353,140,306,205,271,266,250,309,246,306,266,263,301,202,349,137,378,106,409,79,452,53,502,36"/>
+<area shape="rect" id="Node000011" href="$_groups_s_b_m_l_document_plugin_8h.html" title="Definition of the GroupsSBMLDocumentPlugin class." alt="" coords="740,384,963,411"/>
+<area shape="poly" id="edge15_Node000001_Node000011" title=" " alt="" coords="663,28,728,44,789,71,815,89,836,112,849,138,854,169,854,248,854,384,849,382,849,248,849,169,844,140,831,115,812,93,786,75,726,49,664,34"/>
+<area shape="rect" id="Node000013" href="$_list_of_members_8h.html" title="Definition of the ListOfMembers class." alt="" coords="511,157,643,184"/>
+<area shape="poly" id="edge20_Node000001_Node000013" title=" " alt="" coords="578,46,579,157,574,155,575,51"/>
+<area shape="rect" id="Node000016" href="$_member_8h.html" title="Definition of the Member class." alt="" coords="647,81,733,109"/>
+<area shape="poly" id="edge24_Node000001_Node000016" title=" " alt="" coords="610,39,673,80,667,81,610,44"/>
+<area shape="rect" id="Node000003" href="$_group_8cpp.html" title="Implementation of the Group class." alt="" coords="345,384,432,411"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="384,273,391,384,386,382,381,277"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="398,270,515,459,510,459,395,275"/>
+<area shape="rect" id="Node000006" href="$_groups_model_plugin_8h.html" title="Definition of the GroupsModelPlugin class." alt="" coords="161,384,320,411"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="366,271,315,338,260,385,257,381,311,334,362,274"/>
+<area shape="poly" id="edge9_Node000002_Node000009" title=" " alt="" coords="341,269,268,310,265,305,345,266"/>
+<area shape="rect" id="Node000005" href="$_groups_validator_8cpp.html" title="Definition of GroupsValidator." alt="" coords="445,535,596,563"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="523,501,523,536,519,533,519,505"/>
+<area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="305,413,473,458,468,460,305,418"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="336,409,496,424,620,433,744,441,901,457,915,461,909,461,901,462,744,447,620,438,495,429,336,414"/>
+<area shape="rect" id="Node000008" href="$_groups_model_plugin_8cpp.html" title="Implementation of the GroupsModelPlugin class." alt="" coords="154,459,328,487"/>
+<area shape="poly" id="edge8_Node000006_Node000008" title=" " alt="" coords="242,425,243,460,238,458,239,429"/>
+<area shape="poly" id="edge10_Node000009_Node000003" title=" " alt="" coords="282,340,365,383,360,384,282,346"/>
+<area shape="poly" id="edge11_Node000009_Node000006" title=" " alt="" coords="243,349,244,384,239,382,240,354"/>
+<area shape="rect" id="Node000010" href="$_list_of_groups_8cpp.html" title="Implementation of the ListOfGroups class." alt="" coords="5,384,138,411"/>
+<area shape="poly" id="edge12_Node000009_Node000010" title=" " alt="" coords="196,344,103,385,100,381,199,340"/>
+<area shape="poly" id="edge17_Node000011_Node000004" title=" " alt="" coords="780,415,581,461,580,456,774,416"/>
+<area shape="poly" id="edge16_Node000011_Node000007" title=" " alt="" coords="891,416,969,459,964,459,890,422"/>
+<area shape="rect" id="Node000012" href="$_groups_s_b_m_l_document_plugin_8cpp.html" title="Implementation of the GroupsSBMLDocumentPlugin class." alt="" coords="652,459,889,487"/>
+<area shape="poly" id="edge18_Node000011_Node000012" title=" " alt="" coords="828,421,786,461,783,457,823,423"/>
+<area shape="poly" id="edge21_Node000013_Node000002" title=" " alt="" coords="525,192,417,234,414,230,530,189"/>
+<area shape="rect" id="Node000014" href="$_list_of_members_8cpp.html" title="Implementation of the ListOfMembers class." alt="" coords="491,232,638,260"/>
+<area shape="poly" id="edge22_Node000013_Node000014" title=" " alt="" coords="574,198,569,233,565,230,571,202"/>
+<area shape="rect" id="Node000015" href="$_member_8cpp.html" title="Implementation of the Member class." alt="" coords="662,232,764,260"/>
+<area shape="poly" id="edge23_Node000013_Node000015" title=" " alt="" coords="615,189,691,232,686,232,614,195"/>
+<area shape="poly" id="edge25_Node000016_Node000004" title=" " alt="" coords="718,117,746,146,770,181,784,221,784,241,778,261,757,298,730,332,699,362,667,389,603,433,550,461,548,456,600,428,664,385,696,358,726,328,752,295,773,259,779,240,779,221,765,184,742,149,717,122"/>
+<area shape="poly" id="edge26_Node000016_Node000013" title=" " alt="" coords="655,119,598,158,595,154,659,116"/>
+<area shape="poly" id="edge27_Node000016_Node000015" title=" " alt="" coords="696,121,713,233,708,231,693,126"/>
 </map>

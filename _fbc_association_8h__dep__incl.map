@@ -1,59 +1,59 @@
 <map id="FbcAssociation.h" name="FbcAssociation.h">
-<area shape="rect" id="Node000001" title="Implementation of the FbcAssociation class." alt="" coords="379,5,511,31"/>
-<area shape="rect" id="Node000002" href="$_fbc_and_8h.html" title="Implementation of the FbcAnd class." alt="" coords="404,79,487,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="448,44,448,79,443,79,443,44"/>
-<area shape="rect" id="Node000005" href="$_fbc_association_8cpp.html" title="Implementation of the FbcAssociation class." alt="" coords="49,152,196,177"/>
-<area shape="poly" id="edge13_Node000001_Node000005" title=" " alt="" coords="403,38,297,81,146,154,144,149,295,76,401,33"/>
-<area shape="rect" id="Node000006" href="$_fbc_extension_types_8h.html" title="Includes all SBML types of the fbc package extension in a single header file." alt="" coords="590,225,749,251"/>
-<area shape="poly" id="edge14_Node000001_Node000006" title=" " alt="" coords="366,26,236,38,167,49,103,65,52,85,32,96,18,109,10,123,9,139,15,156,28,175,56,189,108,200,261,217,438,228,590,233,590,238,438,233,261,223,107,206,54,194,25,179,10,159,3,139,5,122,14,106,29,92,49,80,102,60,166,44,236,33,365,20"/>
-<area shape="rect" id="Node000013" href="$_gene_product_association_8cpp.html" title="Implementation of the GeneProductAssociation class." alt="" coords="882,152,1089,177"/>
-<area shape="poly" id="edge22_Node000001_Node000013" title=" " alt="" coords="502,32,943,149,942,154,501,37"/>
-<area shape="rect" id="Node000014" href="$_fbc_or_8h.html" title="Implementation of the FbcOr class." alt="" coords="309,79,379,104"/>
-<area shape="poly" id="edge15_Node000001_Node000014" title=" " alt="" coords="419,41,362,81,359,76,416,36"/>
-<area shape="rect" id="Node000015" href="$_gene_product_association_8h.html" title="Implementation of the GeneProductAssociation class." alt="" coords="960,79,1152,104"/>
-<area shape="poly" id="edge23_Node000001_Node000015" title=" " alt="" coords="526,26,960,76,959,81,525,31"/>
-<area shape="rect" id="Node000019" href="$_gene_product_ref_8h.html" title="Implementation of the GeneProductRef class." alt="" coords="511,79,649,104"/>
-<area shape="poly" id="edge30_Node000001_Node000019" title=" " alt="" coords="480,35,559,76,557,81,478,39"/>
-<area shape="rect" id="Node000003" href="$_association_8cpp.html" title="Implementation of Association, the contents of a GeneAssociation." alt="" coords="331,152,455,177"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="431,117,404,153,400,150,427,114"/>
-<area shape="rect" id="Node000004" href="$_fbc_and_8cpp.html" title="Implementation of the FbcAnd class." alt="" coords="531,152,629,177"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="480,108,559,149,557,154,478,113"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="391,107,175,155,174,149,390,102"/>
-<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="462,114,487,145,520,175,573,204,626,223,624,228,571,209,517,180,484,149,458,117"/>
-<area shape="rect" id="Node000012" href="$_fbc_or_8cpp.html" title="Implementation of the FbcOr class." alt="" coords="221,152,307,177"/>
-<area shape="poly" id="edge11_Node000002_Node000012" title=" " alt="" coords="405,111,295,154,293,149,403,106"/>
-<area shape="poly" id="edge12_Node000002_Node000013" title=" " alt="" coords="501,102,708,131,882,151,882,156,707,136,500,107"/>
-<area shape="rect" id="Node000007" href="$_cobra_to_fbc_converter_8cpp.html" title="Implementation of a cobra 2 fbc converter." alt="" coords="156,299,343,324"/>
-<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="589,256,317,301,317,296,588,250"/>
-<area shape="rect" id="Node000008" href="$_fbc_to_cobra_converter_8cpp.html" title="Implementation of a fbc 2 cobra converter." alt="" coords="367,299,553,324"/>
-<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="623,258,495,301,493,296,622,253"/>
-<area shape="rect" id="Node000009" href="$_fbc_v1_to_v2_converter_8cpp.html" title="Implementation of a fbc v1 to fbc v2 converter." alt="" coords="578,299,761,324"/>
-<area shape="poly" id="edge8_Node000006_Node000009" title=" " alt="" coords="672,264,672,299,667,299,667,264"/>
-<area shape="rect" id="Node000010" href="$_fbc_v2_to_v1_converter_8cpp.html" title="Implementation of a fbc v2 to fbc v1 converter." alt="" coords="785,299,967,324"/>
-<area shape="poly" id="edge9_Node000006_Node000010" title=" " alt="" coords="716,253,843,296,842,301,715,258"/>
-<area shape="rect" id="Node000011" href="$_fbc_validator_8cpp.html" title="Base class for SBML Validators." alt="" coords="991,299,1121,324"/>
-<area shape="poly" id="edge10_Node000006_Node000011" title=" " alt="" coords="746,251,994,296,993,301,745,256"/>
-<area shape="poly" id="edge16_Node000014_Node000003" title=" " alt="" coords="362,114,388,150,383,153,358,117"/>
-<area shape="poly" id="edge17_Node000014_Node000004" title=" " alt="" coords="394,105,543,149,541,154,392,110"/>
-<area shape="poly" id="edge18_Node000014_Node000005" title=" " alt="" coords="297,111,159,154,158,149,295,106"/>
-<area shape="poly" id="edge19_Node000014_Node000006" title=" " alt="" coords="295,97,226,103,149,113,81,130,56,141,39,154,35,165,39,175,66,189,117,200,267,217,441,227,590,232,590,238,440,233,267,222,116,205,64,194,35,179,29,165,35,150,53,136,79,125,148,108,226,98,295,92"/>
-<area shape="poly" id="edge20_Node000014_Node000012" title=" " alt="" coords="323,115,279,154,275,150,319,111"/>
-<area shape="poly" id="edge21_Node000014_Node000013" title=" " alt="" coords="393,101,627,129,882,152,882,157,627,134,392,106"/>
-<area shape="poly" id="edge24_Node000015_Node000006" title=" " alt="" coords="1082,112,1095,127,1105,144,1109,162,1102,179,1078,197,1043,211,999,221,950,229,845,238,749,240,749,235,844,233,949,224,998,216,1041,206,1075,192,1098,176,1104,162,1100,146,1091,130,1078,116"/>
-<area shape="poly" id="edge29_Node000015_Node000013" title=" " alt="" coords="1037,116,999,154,995,150,1033,112"/>
-<area shape="rect" id="Node000016" href="$_fbc_reaction_plugin_8h.html" title="Implementation of the FbcReactionPlugin class." alt="" coords="1164,152,1319,177"/>
-<area shape="poly" id="edge25_Node000015_Node000016" title=" " alt="" coords="1099,106,1212,149,1210,154,1097,111"/>
-<area shape="poly" id="edge27_Node000016_Node000006" title=" " alt="" coords="1150,180,749,230,748,224,1150,175"/>
-<area shape="rect" id="Node000017" href="$_fbc_extension_8cpp.html" title="Implementation of FbcExtension, the core module of fbc package." alt="" coords="1261,225,1397,251"/>
-<area shape="poly" id="edge26_Node000016_Node000017" title=" " alt="" coords="1268,184,1317,223,1313,227,1264,188"/>
-<area shape="rect" id="Node000018" href="$_fbc_reaction_plugin_8cpp.html" title="Implementation of the FbcReactionPlugin class." alt="" coords="1067,225,1237,251"/>
-<area shape="poly" id="edge28_Node000016_Node000018" title=" " alt="" coords="1218,188,1168,227,1165,223,1215,184"/>
-<area shape="poly" id="edge31_Node000019_Node000003" title=" " alt="" coords="538,111,425,154,423,149,537,106"/>
-<area shape="poly" id="edge32_Node000019_Node000004" title=" " alt="" coords="583,118,583,152,577,152,577,118"/>
-<area shape="poly" id="edge33_Node000019_Node000005" title=" " alt="" coords="498,108,197,155,196,149,497,103"/>
-<area shape="poly" id="edge34_Node000019_Node000006" title=" " alt="" coords="664,100,757,119,795,133,819,150,827,165,826,178,818,190,806,200,771,216,731,228,729,223,769,211,803,195,814,186,821,176,821,166,815,154,793,138,755,124,663,105"/>
-<area shape="poly" id="edge35_Node000019_Node000012" title=" " alt="" coords="517,110,308,156,307,151,516,104"/>
-<area shape="poly" id="edge36_Node000019_Node000013" title=" " alt="" coords="659,104,921,149,920,155,658,109"/>
-<area shape="rect" id="Node000020" href="$_gene_product_ref_8cpp.html" title="Implementation of the GeneProductRef class." alt="" coords="653,152,806,177"/>
-<area shape="poly" id="edge37_Node000019_Node000020" title=" " alt="" coords="617,107,706,149,704,154,615,112"/>
+<area shape="rect" id="Node000001" title="Implementation of the FbcAssociation class." alt="" coords="384,5,515,33"/>
+<area shape="rect" id="Node000002" href="$_fbc_and_8h.html" title="Implementation of the FbcAnd class." alt="" coords="409,81,490,109"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="451,47,452,82,447,79,448,51"/>
+<area shape="rect" id="Node000005" href="$_fbc_association_8cpp.html" title="Implementation of the FbcAssociation class." alt="" coords="58,157,204,184"/>
+<area shape="poly" id="edge13_Node000001_Node000005" title=" " alt="" coords="399,41,304,83,156,159,153,154,302,79,403,38"/>
+<area shape="rect" id="Node000006" href="$_fbc_extension_types_8h.html" title="Includes all SBML types of the fbc package extension in a single header file." alt="" coords="592,232,750,260"/>
+<area shape="poly" id="edge14_Node000001_Node000006" title=" " alt="" coords="366,27,238,41,168,53,104,69,52,90,32,102,18,115,10,129,9,145,15,163,29,182,56,196,108,208,262,225,440,235,595,243,589,244,440,241,262,230,108,213,54,201,25,186,10,165,3,146,5,128,14,112,29,97,49,85,102,64,167,48,237,36,370,23"/>
+<area shape="rect" id="Node000013" href="$_gene_product_association_8cpp.html" title="Implementation of the GeneProductAssociation class." alt="" coords="881,157,1087,184"/>
+<area shape="poly" id="edge22_Node000001_Node000013" title=" " alt="" coords="511,35,940,155,935,157,511,40"/>
+<area shape="rect" id="Node000014" href="$_fbc_or_8h.html" title="Implementation of the FbcOr class." alt="" coords="314,81,385,109"/>
+<area shape="poly" id="edge15_Node000001_Node000014" title=" " alt="" coords="422,41,369,83,366,78,417,44"/>
+<area shape="rect" id="Node000015" href="$_gene_product_association_8h.html" title="Implementation of the GeneProductAssociation class." alt="" coords="958,81,1149,109"/>
+<area shape="poly" id="edge23_Node000001_Node000015" title=" " alt="" coords="530,28,960,80,956,83,530,33"/>
+<area shape="rect" id="Node000019" href="$_gene_product_ref_8h.html" title="Implementation of the GeneProductRef class." alt="" coords="514,81,652,109"/>
+<area shape="poly" id="edge30_Node000001_Node000019" title=" " alt="" coords="487,38,562,80,557,81,486,43"/>
+<area shape="rect" id="Node000003" href="$_association_8cpp.html" title="Implementation of Association, the contents of a GeneAssociation." alt="" coords="337,157,461,184"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="434,120,410,158,406,154,430,123"/>
+<area shape="rect" id="Node000004" href="$_fbc_and_8cpp.html" title="Implementation of the FbcAnd class." alt="" coords="535,157,631,184"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="487,114,562,156,557,156,486,119"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="393,111,190,159,188,154,396,107"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="467,119,493,152,525,182,574,210,625,232,620,232,571,215,521,186,489,156,465,124"/>
+<area shape="rect" id="Node000012" href="$_fbc_or_8cpp.html" title="Implementation of the FbcOr class." alt="" coords="228,157,314,184"/>
+<area shape="poly" id="edge11_Node000002_Node000012" title=" " alt="" coords="402,116,304,159,302,154,406,114"/>
+<area shape="poly" id="edge12_Node000002_Node000013" title=" " alt="" coords="505,106,709,137,883,159,878,160,708,143,505,112"/>
+<area shape="rect" id="Node000007" href="$_cobra_to_fbc_converter_8cpp.html" title="Implementation of a cobra 2 fbc converter." alt="" coords="159,308,345,336"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="584,263,328,310,327,305,578,263"/>
+<area shape="rect" id="Node000008" href="$_fbc_to_cobra_converter_8cpp.html" title="Implementation of a fbc 2 cobra converter." alt="" coords="370,308,556,336"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="622,265,501,310,500,305,617,266"/>
+<area shape="rect" id="Node000009" href="$_fbc_v1_to_v2_converter_8cpp.html" title="Implementation of a fbc v1 to fbc v2 converter." alt="" coords="580,308,762,336"/>
+<area shape="poly" id="edge8_Node000006_Node000009" title=" " alt="" coords="673,274,673,309,669,306,669,278"/>
+<area shape="rect" id="Node000010" href="$_fbc_v2_to_v1_converter_8cpp.html" title="Implementation of a fbc v2 to fbc v1 converter." alt="" coords="786,308,969,336"/>
+<area shape="poly" id="edge9_Node000006_Node000010" title=" " alt="" coords="723,263,843,308,838,307,722,268"/>
+<area shape="rect" id="Node000011" href="$_fbc_validator_8cpp.html" title="Base class for SBML Validators." alt="" coords="993,308,1122,336"/>
+<area shape="poly" id="edge10_Node000006_Node000011" title=" " alt="" coords="756,261,996,308,990,308,755,266"/>
+<area shape="poly" id="edge16_Node000014_Node000003" title=" " alt="" coords="368,119,393,157,388,156,366,124"/>
+<area shape="poly" id="edge17_Node000014_Node000004" title=" " alt="" coords="399,109,544,155,539,157,399,114"/>
+<area shape="poly" id="edge18_Node000014_Node000005" title=" " alt="" coords="298,115,171,158,169,154,302,111"/>
+<area shape="poly" id="edge19_Node000014_Node000006" title=" " alt="" coords="297,97,205,100,106,112,67,123,42,138,35,147,34,157,38,169,47,182,74,196,124,207,272,224,444,235,594,243,589,243,444,240,272,230,123,212,72,201,44,186,33,171,29,158,30,145,38,134,65,118,105,107,205,95,301,94"/>
+<area shape="poly" id="edge20_Node000014_Node000012" title=" " alt="" coords="327,118,287,158,283,154,322,121"/>
+<area shape="poly" id="edge21_Node000014_Node000013" title=" " alt="" coords="400,106,630,135,883,160,878,161,630,140,400,112"/>
+<area shape="poly" id="edge24_Node000015_Node000006" title=" " alt="" coords="1081,117,1095,134,1105,151,1108,169,1101,186,1077,204,1042,218,999,228,950,236,845,245,750,248,750,243,845,240,949,231,998,223,1041,213,1075,199,1097,183,1103,169,1100,153,1091,137,1079,122"/>
+<area shape="poly" id="edge29_Node000015_Node000013" title=" " alt="" coords="1033,119,998,159,995,154,1028,122"/>
+<area shape="rect" id="Node000016" href="$_fbc_reaction_plugin_8h.html" title="Implementation of the FbcReactionPlugin class." alt="" coords="1162,157,1316,184"/>
+<area shape="poly" id="edge25_Node000015_Node000016" title=" " alt="" coords="1101,112,1209,156,1203,156,1100,117"/>
+<area shape="poly" id="edge27_Node000016_Node000006" title=" " alt="" coords="1144,184,1143,187,750,237,750,232,1143,182,1150,183"/>
+<area shape="rect" id="Node000017" href="$_fbc_extension_8cpp.html" title="Implementation of FbcExtension, the core module of fbc package." alt="" coords="1259,232,1395,260"/>
+<area shape="poly" id="edge26_Node000016_Node000017" title=" " alt="" coords="1267,192,1314,233,1309,231,1265,197"/>
+<area shape="rect" id="Node000018" href="$_fbc_reaction_plugin_8cpp.html" title="Implementation of the FbcReactionPlugin class." alt="" coords="1067,232,1235,260"/>
+<area shape="poly" id="edge28_Node000016_Node000018" title=" " alt="" coords="1214,194,1168,234,1166,229,1209,195"/>
+<area shape="poly" id="edge31_Node000019_Node000003" title=" " alt="" coords="533,116,433,159,431,154,538,114"/>
+<area shape="poly" id="edge32_Node000019_Node000004" title=" " alt="" coords="585,122,585,158,581,155,581,127"/>
+<area shape="poly" id="edge33_Node000019_Node000005" title=" " alt="" coords="498,112,205,160,204,155,500,107"/>
+<area shape="poly" id="edge34_Node000019_Node000006" title=" " alt="" coords="667,104,759,124,797,138,821,155,828,169,828,183,821,195,809,205,775,222,735,234,734,229,773,217,806,201,817,191,823,181,823,170,817,158,794,142,758,129,667,109"/>
+<area shape="poly" id="edge35_Node000019_Node000012" title=" " alt="" coords="510,114,315,162,313,157,514,111"/>
+<area shape="poly" id="edge36_Node000019_Node000013" title=" " alt="" coords="667,109,915,156,910,157,667,114"/>
+<area shape="rect" id="Node000020" href="$_gene_product_ref_8cpp.html" title="Implementation of the GeneProductRef class." alt="" coords="655,157,807,184"/>
+<area shape="poly" id="edge37_Node000019_Node000020" title=" " alt="" coords="623,113,707,156,702,156,623,119"/>
 </map>

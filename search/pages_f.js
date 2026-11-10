@@ -1,5 +1,26 @@
 var searchData=
 [
-  ['reading_20and_20writing_20sbml_20content_0',['Reading and writing SBML content',['../libsbml-reading-files.html',1,'libsbml-api-guide']]],
-  ['reporting_20issues_1',['Asking questions, reporting issues',['../libsbml-communications.html',1,'libsbml-help']]]
+  ['general_20characteristics_20of_20the_20model_20to_20be_20created_0',['General characteristics of the model to be created',['../libsbml-example.html#characteristics',1,'']]],
+  ['general_20conversion_20options_20for_20compflatteningconverter_1',['Additional general conversion options for CompFlatteningConverter',['../class_comp_flattening_converter.html#general-flattener-options',1,'']]],
+  ['general_20information_20about_20package_20specific_20validators_2',['General information about package-specific validators',['../classdoc__section__package__validators__general__info.html#general-pkg-validators',1,'']]],
+  ['general_20information_20about_20the_20use_20of_20sbml_20converters_3',['General information about the use of SBML converters',['../classdoc__section__using__sbml__converters.html#using-converters',1,'']]],
+  ['general_20summary_20of_20sbml_20rules_4',['General summary of SBML rules',['../classdoc__rules__general__summary.html#rules-general',1,'']]],
+  ['generating_20c_20and_20c_20docs_5',['6.1 Generating C++ and C docs',['../libsbml-coding.html#doc-process-c',1,'']]],
+  ['generating_20java_20docs_6',['6.3 Generating Java docs',['../libsbml-coding.html#doc-process-java',1,'']]],
+  ['generating_20python_20docs_7',['6.2 Generating Python docs',['../libsbml-coding.html#doc-process-python',1,'']]],
+  ['generation_20process_8',['6. LibSBML&apos;s documentation-generation process',['../libsbml-coding.html#coding-doc-process',1,'']]],
+  ['getpackagename_20method_9',['1. Define the getPackageName() method',['../classdoc__extension__sbmlextension.html#ext-getpackagename',1,'']]],
+  ['getsbmlextensionnamespaces_10',['6. Override the method getSBMLExtensionNamespaces()',['../classdoc__extension__sbmlextension.html#ext-virtual-ns',1,'']]],
+  ['getstringfromtypecode_11',['8. Override the method getStringFromTypeCode()',['../classdoc__extension__sbmlextension.html#ext-virtual-typecodes',1,'']]],
+  ['getting_20started_12',['Getting started',['../libsbml-api-guide.html',1,'index']]],
+  ['getting_20started_3a_20the_201_20minute_20introduction_13',['Getting started: the 1-minute introduction',['../libsbml-reading-files.html#rf-started',1,'']]],
+  ['glance_14',['LibSBML features at a glance',['../libsbml-features.html',1,'libsbml-api-guide']]],
+  ['group_20kinds_15',['Group kinds',['../class_group.html#group-kinds',1,'']]],
+  ['group_20memberships_16',['group memberships',['../class_group.html#groups-semantics',1,'Semantics of group memberships'],['../class_list_of_members.html#listofmembers-groups-semantics',1,'Semantics of group memberships']]],
+  ['groups_17',['Package: Groups',['../libsbml-example-files.html#package-groups-examples',1,'']]],
+  ['groups_20and_20their_20members_18',['Groups and their members',['../class_group.html#group-membership-rules',1,'']]],
+  ['guidelines_20for_20cpp_20files_19',['3.2 Guidelines for .cpp files',['../libsbml-coding.html#coding-doc-cpp',1,'']]],
+  ['guidelines_20for_20different_20file_20types_20',['3. Guidelines for different file types',['../libsbml-coding.html#coding-docs',1,'']]],
+  ['guidelines_20for_20h_20files_21',['3.1 Guidelines for .h files',['../libsbml-coding.html#coding-doc-h',1,'']]],
+  ['guidelines_20for_20libsbml_22',['2. Basic guidelines for libSBML',['../libsbml-coding.html#coding-basic',1,'']]]
 ];

@@ -1,11 +1,11 @@
 <map id="MultiCompartmentPlugin.h" name="MultiCompartmentPlugin.h">
-<area shape="rect" id="Node000001" title=": Implementation of the MultiCompartmentPlugin class" alt="" coords="217,5,414,31"/>
-<area shape="rect" id="Node000002" href="$_multi_compartment_plugin_8cpp.html" title=": Implementation of the MultiCompartmentPlugin class" alt="" coords="5,79,217,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="271,38,145,81,143,76,269,33"/>
-<area shape="rect" id="Node000003" href="$_multi_extension_8cpp.html" title=": Implementation of the MultiExtension class" alt="" coords="242,79,389,104"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="318,44,318,79,313,79,313,44"/>
-<area shape="rect" id="Node000004" href="$_multi_extension_types_8h.html" title=": Implementation of the MultiExtensionTypes class" alt="" coords="413,79,581,104"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="358,33,468,76,466,81,356,38"/>
-<area shape="rect" id="Node000005" href="$_multi_validator_8cpp.html" title=": Implementation of the MultiValidator class" alt="" coords="427,152,566,177"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="499,118,499,152,494,152,494,118"/>
+<area shape="rect" id="Node000001" title=": Implementation of the MultiCompartmentPlugin class" alt="" coords="216,5,412,33"/>
+<area shape="rect" id="Node000002" href="$_multi_compartment_plugin_8cpp.html" title=": Implementation of the MultiCompartmentPlugin class" alt="" coords="5,81,217,109"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="261,40,148,83,146,78,265,37"/>
+<area shape="rect" id="Node000003" href="$_multi_extension_8cpp.html" title=": Implementation of the MultiExtension class" alt="" coords="241,81,386,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="315,47,316,82,311,79,312,51"/>
+<area shape="rect" id="Node000004" href="$_multi_extension_types_8h.html" title=": Implementation of the MultiExtensionTypes class" alt="" coords="410,81,577,109"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="360,37,464,80,459,81,359,42"/>
+<area shape="rect" id="Node000005" href="$_multi_validator_8cpp.html" title=": Implementation of the MultiValidator class" alt="" coords="424,157,563,184"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="496,123,496,158,492,155,492,126"/>
 </map>

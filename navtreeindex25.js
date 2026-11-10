@@ -1,16 +1,5 @@
 var NAVTREEINDEX25 =
 {
-"class_adjacent_domains.html#a478ad1e0e2bb2dc27a9de6ab9bac4bf2":[3,0,0,123],
-"class_adjacent_domains.html#a4c78f1941d1d0fc804b6b4a1dd0db54e":[3,0,0,80],
-"class_adjacent_domains.html#a4df4f196b8e11d08013c436c689465a5":[3,0,0,106],
-"class_adjacent_domains.html#a4fbf6701023075573bd76fa0bd276291":[3,0,0,18],
-"class_adjacent_domains.html#a558c93aba9913f7ba1746f1be545dff1":[3,0,0,107],
-"class_adjacent_domains.html#a5696d0d1bc7c4a3ff732dfc66876c0e6":[3,0,0,88],
-"class_adjacent_domains.html#a5912bd9dc06f63029b86dbda467bb3c5":[3,0,0,61],
-"class_adjacent_domains.html#a5af865a159b3b1c5a16729bce7e4e3c2":[3,0,0,85],
-"class_adjacent_domains.html#a5bca707ae547873a5dea083038c8ccda":[3,0,0,21],
-"class_adjacent_domains.html#a5fd4be8061a6a0338ebc2b8018ffbd46":[3,0,0,32],
-"class_adjacent_domains.html#a5fe0e86c2c28a3226ddc42972241bddd":[3,0,0,12],
 "class_adjacent_domains.html#a5fed1bd6da28c0cc0ec118209f7327a2":[3,0,0,96],
 "class_adjacent_domains.html#a60f1d849c7f806d075836b21d322150f":[3,0,0,45],
 "class_adjacent_domains.html#a611a4bd98a4e32e3573980b2481ce77e":[3,0,0,124],
@@ -249,5 +238,16 @@ var NAVTREEINDEX25 =
 "class_advection_coefficient.html#aee8d8b8cb1ae5980d228174073fc5abc":[3,0,1,63],
 "class_advection_coefficient.html#aeebb375432d7ba746f8754f67c608bf8":[3,0,1,146],
 "class_advection_coefficient.html#aef0ea49f9a3ad67d72edb2c1cf92ad82":[3,0,1,121],
-"class_advection_coefficient.html#af0a70ab6f715e912c6431072c4339f2c":[3,0,1,39]
+"class_advection_coefficient.html#af0a70ab6f715e912c6431072c4339f2c":[3,0,1,39],
+"class_advection_coefficient.html#af39bd6ec3403315e5d6d9ede433ea789":[3,0,1,1],
+"class_advection_coefficient.html#af7a642f3a3a324c69edd76e39138a960":[3,0,1,87],
+"class_algebraic_rule.html":[3,0,2],
+"class_algebraic_rule.html#a0143961ca5188d00203c99eef1de854e":[3,0,2,16],
+"class_algebraic_rule.html#a018ab95b15d5500c45e9c71ea6fde42f":[3,0,2,38],
+"class_algebraic_rule.html#a027dbf22b8bf74bbb0ce5cd4453851c7":[3,0,2,48],
+"class_algebraic_rule.html#a02a6692a180f9281c071b77f908dce0e":[3,0,2,32],
+"class_algebraic_rule.html#a031d1da6a39bae8afd5201677fb32c02":[3,0,2,63],
+"class_algebraic_rule.html#a03f9bf57527675f2a63ab9d66ae8a01f":[3,0,2,9],
+"class_algebraic_rule.html#a050779a94ecdb2d73d7edfef73bc1e55":[3,0,2,136],
+"class_algebraic_rule.html#a063b67902078c0da04162d958133ecfa":[3,0,2,89]
 };

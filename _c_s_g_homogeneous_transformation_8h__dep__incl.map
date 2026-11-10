@@ -1,19 +1,19 @@
 <map id="CSGHomogeneousTransformation.h" name="CSGHomogeneousTransformation.h">
-<area shape="rect" id="Node000001" title="Definition of the CSGHomogeneousTransformation class." alt="" coords="525,5,778,31"/>
-<area shape="rect" id="Node000002" href="$_c_s_g_homogeneous_transformation_8cpp.html" title="Implementation of the CSGHomogeneousTransformation class." alt="" coords="5,79,273,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="556,35,222,81,221,76,555,30"/>
-<area shape="rect" id="Node000003" href="$_c_s_g_node_8cpp.html" title="Implementation of the CSGNode class." alt="" coords="297,79,408,104"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="591,36,402,81,400,76,589,31"/>
-<area shape="rect" id="Node000004" href="$_c_s_g_object_8cpp.html" title="Implementation of the CSGObject class." alt="" coords="432,79,551,104"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="614,39,519,81,516,76,612,34"/>
-<area shape="rect" id="Node000005" href="$_c_s_g_set_operator_8cpp.html" title="Implementation of the CSGSetOperator class." alt="" coords="575,79,728,104"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="654,44,654,79,649,79,649,44"/>
-<area shape="rect" id="Node000006" href="$_c_s_g_transformation_8cpp.html" title="Implementation of the CSGTransformation class." alt="" coords="752,79,927,104"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="695,33,810,76,808,81,693,38"/>
-<area shape="rect" id="Node000007" href="$_list_of_c_s_g_nodes_8cpp.html" title="Implementation of the ListOfCSGNodes class." alt="" coords="951,79,1106,104"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="726,31,968,76,967,81,725,36"/>
-<area shape="rect" id="Node000008" href="$_spatial_extension_types_8h.html" title="Definition of SpatialExtensionTypes." alt="" coords="1131,79,1311,104"/>
-<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="757,30,1131,76,1130,81,756,35"/>
-<area shape="rect" id="Node000009" href="$_spatial_validator_8cpp.html" title="Definition of SpatialValidator." alt="" coords="1145,152,1296,177"/>
-<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="1223,118,1223,152,1218,152,1218,118"/>
+<area shape="rect" id="Node000001" title="Definition of the CSGHomogeneousTransformation class." alt="" coords="521,5,773,33"/>
+<area shape="rect" id="Node000002" href="$_c_s_g_homogeneous_transformation_8cpp.html" title="Implementation of the CSGHomogeneousTransformation class." alt="" coords="5,81,273,109"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="540,38,231,83,230,78,541,33"/>
+<area shape="rect" id="Node000003" href="$_c_s_g_node_8cpp.html" title="Implementation of the CSGNode class." alt="" coords="296,81,406,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="576,38,405,83,404,78,582,37"/>
+<area shape="rect" id="Node000004" href="$_c_s_g_object_8cpp.html" title="Implementation of the CSGObject class." alt="" coords="430,81,547,109"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="607,39,517,83,516,78,602,41"/>
+<area shape="rect" id="Node000005" href="$_c_s_g_set_operator_8cpp.html" title="Implementation of the CSGSetOperator class." alt="" coords="571,81,723,109"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="649,47,649,82,645,79,645,51"/>
+<area shape="rect" id="Node000006" href="$_c_s_g_transformation_8cpp.html" title="Implementation of the CSGTransformation class." alt="" coords="747,81,920,109"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="695,36,803,81,798,80,694,42"/>
+<area shape="rect" id="Node000007" href="$_list_of_c_s_g_nodes_8cpp.html" title="Implementation of the ListOfCSGNodes class." alt="" coords="944,81,1099,109"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="729,34,957,80,952,81,729,39"/>
+<area shape="rect" id="Node000008" href="$_spatial_extension_types_8h.html" title="Definition of SpatialExtensionTypes." alt="" coords="1123,81,1302,109"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="764,33,1125,81,1120,82,763,38"/>
+<area shape="rect" id="Node000009" href="$_spatial_validator_8cpp.html" title="Definition of SpatialValidator." alt="" coords="1137,157,1288,184"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="1214,123,1214,158,1210,154,1210,126"/>
 </map>

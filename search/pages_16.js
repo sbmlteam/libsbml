@@ -1,0 +1,28 @@
+var searchData=
+[
+  ['namespace_20uris_0',['3. Define methods returning the package namespace URIs',['../classdoc__extension__sbmlextension.html#ext-ns',1,'']]],
+  ['namespaces_1',['namespaces',['../classdoc__extension__sbaseplugin.html#sbp-methods-xmlns',1,'2.5 Override SBasePlugin virtual methods for XML namespaces'],['../classdoc__extension__sbmldocumentplugin.html#sdp-methods-xmlns',1,'2.6 Override virtual methods for XML namespaces']]],
+  ['nbsp_201_2',['Semantics of events in SBML Level&amp;#160;3 Version&amp;#160;1',['../class_event.html#semantics',1,'']]],
+  ['nbsp_201_20ndash_202_3',['The spatialSizeUnits attribute in SBML Level&amp;#160;2 Versions&amp;#160;1&amp;ndash;2',['../class_species.html#species-other',1,'']]],
+  ['nbsp_201_20s_20syntax_4',['Simpler scheme based on SBML Level&amp;#160;1&apos;s syntax',['../libsbml-math.html#math-original',1,'']]],
+  ['nbsp_202_5',['nbsp 2',['../class_compartment.html#comp-l2',1,'Additional considerations in SBML Level&amp;#160;2'],['../class_delay.html#delay-restrictions',1,'Restrictions relaxed in SBML Level&amp;#160;3 Version&amp;#160;2'],['../class_event.html#l3v2_restrictions',1,'Restrictions relaxed in SBML Level&amp;#160;3 Version&amp;#160;2'],['../class_event_assignment.html#event-asnt-restrictions',1,'Restrictions relaxed in SBML Level&amp;#160;3 Version&amp;#160;2'],['../class_priority.html#priority-restrictions',1,'Restrictions relaxed in SBML Level&amp;#160;3 Version&amp;#160;2'],['../class_s_b_m_l_extension.html#sbmlextension-l2-special',1,'Special handling for SBML Level&amp;#160;2']]],
+  ['nbsp_202_20ndash_204_6',['The speciesType attribute in SBML Level&amp;#160;2 Versions&amp;#160;2&amp;ndash;4',['../class_species.html#species-l2-type',1,'']]],
+  ['nbsp_202_20versions_20nbsp_201_20ndash_202_7',['The spatialSizeUnits attribute in SBML Level&amp;#160;2 Versions&amp;#160;1&amp;ndash;2',['../class_species.html#species-other',1,'']]],
+  ['nbsp_202_20versions_20nbsp_202_20ndash_204_8',['The speciesType attribute in SBML Level&amp;#160;2 Versions&amp;#160;2&amp;ndash;4',['../class_species.html#species-l2-type',1,'']]],
+  ['nbsp_203_9',['nbsp 3',['../class_compartment.html#comp-l3',1,'Additional considerations in SBML Level&amp;#160;3'],['../class_model.html#model-l3-attrib',1,'Model attributes introduced in SBML Level&amp;#160;3'],['../class_species.html#species-l2-convfactor',1,'The conversionFactor attribute in SBML Level&amp;#160;3']]],
+  ['nbsp_203_20packages_10',['Options for handling Level&amp;#160;3 packages',['../class_comp_flattening_converter.html#behavior-if-unflattenable',1,'']]],
+  ['nbsp_203_20version_20nbsp_201_11',['Semantics of events in SBML Level&amp;#160;3 Version&amp;#160;1',['../class_event.html#semantics',1,'']]],
+  ['nbsp_203_20version_20nbsp_202_12',['nbsp 3 Version nbsp 2',['../class_delay.html#delay-restrictions',1,'Restrictions relaxed in SBML Level&amp;#160;3 Version&amp;#160;2'],['../class_event.html#l3v2_restrictions',1,'Restrictions relaxed in SBML Level&amp;#160;3 Version&amp;#160;2'],['../class_event_assignment.html#event-asnt-restrictions',1,'Restrictions relaxed in SBML Level&amp;#160;3 Version&amp;#160;2'],['../class_priority.html#priority-restrictions',1,'Restrictions relaxed in SBML Level&amp;#160;3 Version&amp;#160;2']]],
+  ['ndash_202_13',['The spatialSizeUnits attribute in SBML Level&amp;#160;2 Versions&amp;#160;1&amp;ndash;2',['../class_species.html#species-other',1,'']]],
+  ['ndash_204_14',['The speciesType attribute in SBML Level&amp;#160;2 Versions&amp;#160;2&amp;ndash;4',['../class_species.html#species-l2-type',1,'']]],
+  ['necessary_15',['3. Derive a class from SBMLDocumentPlugin if necessary',['../libsbml-howto-implement-extension.html#implem-sbmldocument',1,'']]],
+  ['necessary_20to_20sbmldocument_16',['1. Identify the changes necessary to SBMLDocument',['../classdoc__extension__sbmldocumentplugin.html#sdp-identify',1,'']]],
+  ['necessary_20value_20of_20the_20required_20attribute_17',['2.2 Determine the necessary value of the &quot;required&quot; attribute',['../classdoc__extension__sbmldocumentplugin.html#sdp-required',1,'']]],
+  ['need_20to_20be_20extended_18',['1. Identify the SBML components that need to be extended',['../classdoc__extension__sbaseplugin.html#sbp-identify',1,'']]],
+  ['needed_19',['needed',['../classdoc__extension__sbaseplugin.html#sbp-methods-hooks',1,'2.6 Implement additional methods as needed'],['../classdoc__extension__sbmldocumentplugin.html#sdp-methods-hooks',1,'2.7 Implement additional methods as needed']]],
+  ['not_20be_20overdetermined_20',['A model must not be overdetermined',['../classdoc__rules__general__summary.html#rules-not-overdetermined',1,'']]],
+  ['not_20contain_20algebraic_20loops_21',['A model must not contain algebraic loops',['../classdoc__rules__general__summary.html#rules-no-loops',1,'']]],
+  ['notes_22',['7. Miscellaneous Doxygen notes',['../libsbml-coding.html#coding-misc-doxygen',1,'']]],
+  ['notes_20and_20warnings_23',['4.5 Notes and warnings',['../libsbml-coding.html#coding-common-text',1,'']]],
+  ['numerical_20value_20of_20a_20species_24',['Additional considerations for interpreting the numerical value of a species',['../class_species.html#species-math',1,'']]]
+];

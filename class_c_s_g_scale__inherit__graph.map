@@ -1,9 +1,9 @@
 <map id="CSGScale" name="CSGScale">
-<area shape="rect" id="Node000001" title=" " alt="" coords="37,225,121,251"/>
-<area shape="rect" id="Node000002" href="$class_c_s_g_transformation.html" title=" " alt="" coords="5,152,152,177"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="81,191,81,225,76,225,76,191"/>
-<area shape="rect" id="Node000003" href="$class_c_s_g_node.html" title=" " alt="" coords="37,79,120,104"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="81,118,81,152,76,152,76,118"/>
-<area shape="rect" id="Node000004" href="$class_s_base.html" title=" " alt="" coords="47,5,110,31"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="81,44,81,79,76,79,76,44"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="37,232,120,260"/>
+<area shape="rect" id="Node000002" href="$class_c_s_g_transformation.html" title=" " alt="" coords="5,157,152,184"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="80,198,81,233,76,231,77,202"/>
+<area shape="rect" id="Node000003" href="$class_c_s_g_node.html" title=" " alt="" coords="37,81,120,109"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="80,122,81,157,76,156,77,127"/>
+<area shape="rect" id="Node000004" href="$class_s_base.html" title=" " alt="" coords="48,5,109,33"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="79,46,81,81,76,80,78,51"/>
 </map>

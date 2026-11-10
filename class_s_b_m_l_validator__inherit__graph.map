@@ -1,5 +1,5 @@
 <map id="SBMLValidator" name="SBMLValidator">
-<area shape="rect" id="Node000001" title=" " alt="" coords="31,5,146,31"/>
-<area shape="rect" id="Node000002" href="$class_s_b_m_l_internal_validator.html" title=" " alt="" coords="5,79,172,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="91,44,91,79,86,79,86,44"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="31,5,145,33"/>
+<area shape="rect" id="Node000002" href="$class_s_b_m_l_internal_validator.html" title=" " alt="" coords="5,81,171,109"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="90,47,90,82,86,80,86,51"/>
 </map>

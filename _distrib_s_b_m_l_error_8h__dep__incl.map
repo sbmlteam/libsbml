@@ -1,23 +1,23 @@
 <map id="DistribSBMLError.h" name="DistribSBMLError.h">
-<area shape="rect" id="Node000001" title="Definition of the DistribSBMLError class." alt="" coords="843,5,985,31"/>
-<area shape="rect" id="Node000002" href="$_distrib_base_8cpp.html" title="Implementation of the DistribBase class." alt="" coords="5,79,129,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="829,26,525,46,334,62,142,81,130,83,129,78,142,76,334,57,525,41,829,21"/>
-<area shape="rect" id="Node000003" href="$_distrib_s_b_m_l_document_plugin_8cpp.html" title="Implementation of the DistribSBMLDocumentPlugin class." alt="" coords="154,79,389,104"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="829,31,375,81,374,76,828,26"/>
-<area shape="rect" id="Node000004" href="$_distrib_s_b_m_l_error_table_8h.html" title="Definition of the DistribSBMLErrorTable class." alt="" coords="413,79,591,104"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="835,36,569,81,568,76,834,30"/>
-<area shape="rect" id="Node000006" href="$_distrib_s_base_plugin_8cpp.html" title="Implementation of the DistribSBasePlugin class." alt="" coords="616,79,788,104"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="868,37,737,81,735,76,866,32"/>
-<area shape="rect" id="Node000007" href="$_list_of_uncert_parameters_8cpp.html" title="Implementation of the ListOfUncertParameters class." alt="" coords="812,79,1016,104"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="917,44,917,79,911,79,911,44"/>
-<area shape="rect" id="Node000008" href="$_list_of_uncertainties_8cpp.html" title="Implementation of the ListOfUncertainties class." alt="" coords="1040,79,1215,104"/>
-<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="962,32,1094,76,1092,81,960,37"/>
-<area shape="rect" id="Node000009" href="$_uncert_parameter_8cpp.html" title="Implementation of the UncertParameter class." alt="" coords="1239,79,1397,104"/>
-<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="993,30,1253,76,1252,81,992,36"/>
-<area shape="rect" id="Node000010" href="$_uncert_span_8cpp.html" title="Implementation of the UncertSpan class." alt="" coords="1421,79,1545,104"/>
-<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="999,26,1410,76,1421,78,1421,83,1410,81,999,31"/>
-<area shape="rect" id="Node000011" href="$_uncertainty_8cpp.html" title="Implementation of the Uncertainty class." alt="" coords="1570,79,1693,104"/>
-<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="999,23,1250,44,1558,76,1570,78,1569,83,1558,81,1250,49,999,28"/>
-<area shape="rect" id="Node000005" href="$_distrib_extension_8cpp.html" title="Implementation of DistribExtension." alt="" coords="424,152,580,177"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="505,118,505,152,499,152,499,118"/>
+<area shape="rect" id="Node000001" title="Definition of the DistribSBMLError class." alt="" coords="838,5,981,33"/>
+<area shape="rect" id="Node000002" href="$_distrib_base_8cpp.html" title="Implementation of the DistribBase class." alt="" coords="5,81,129,109"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="820,26,521,47,331,63,141,84,130,85,128,80,140,78,331,58,520,42,825,24"/>
+<area shape="rect" id="Node000003" href="$_distrib_s_b_m_l_document_plugin_8cpp.html" title="Implementation of the DistribSBMLDocumentPlugin class." alt="" coords="152,81,387,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="822,33,385,83,385,78,824,28"/>
+<area shape="rect" id="Node000004" href="$_distrib_s_b_m_l_error_table_8h.html" title="Definition of the DistribSBMLErrorTable class." alt="" coords="410,81,588,109"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="821,36,573,83,572,78,826,35"/>
+<area shape="rect" id="Node000006" href="$_distrib_s_base_plugin_8cpp.html" title="Implementation of the DistribSBasePlugin class." alt="" coords="612,81,783,109"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="860,38,736,83,735,78,855,39"/>
+<area shape="rect" id="Node000007" href="$_list_of_uncert_parameters_8cpp.html" title="Implementation of the ListOfUncertParameters class." alt="" coords="808,81,1011,109"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="911,47,912,82,908,79,908,51"/>
+<area shape="rect" id="Node000008" href="$_list_of_uncertainties_8cpp.html" title="Implementation of the ListOfUncertainties class." alt="" coords="1035,81,1208,109"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="962,36,1086,81,1081,80,962,41"/>
+<area shape="rect" id="Node000009" href="$_uncert_parameter_8cpp.html" title="Implementation of the UncertParameter class." alt="" coords="1232,81,1390,109"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="997,34,1242,80,1236,80,996,39"/>
+<area shape="rect" id="Node000010" href="$_uncert_span_8cpp.html" title="Implementation of the UncertSpan class." alt="" coords="1413,81,1537,109"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="996,27,1183,49,1402,78,1416,83,1410,83,1401,84,1182,54,996,33"/>
+<area shape="rect" id="Node000011" href="$_uncertainty_8cpp.html" title="Implementation of the Uncertainty class." alt="" coords="1560,81,1683,109"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="996,24,1245,45,1549,78,1563,83,1557,83,1548,84,1245,50,996,29"/>
+<area shape="rect" id="Node000005" href="$_distrib_extension_8cpp.html" title="Implementation of DistribExtension." alt="" coords="421,157,577,184"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="501,123,501,158,497,155,497,126"/>
 </map>

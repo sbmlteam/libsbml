@@ -1,23 +1,23 @@
 <map id="LayoutModelPlugin.h" name="LayoutModelPlugin.h">
-<area shape="rect" id="Node000001" title="Definition of LayoutModelPlugin, the plugin class of layout package for Model element." alt="" coords="385,5,544,31"/>
-<area shape="rect" id="Node000002" href="$_layout_annotation_8cpp.html" title="Layout annotation I/O." alt="" coords="5,79,169,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="391,36,149,81,148,76,390,31"/>
-<area shape="rect" id="Node000003" href="$_layout_extension_8cpp.html" title="Implementation of LayoutExtension, the core module of layout package." alt="" coords="194,79,351,104"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="422,38,305,81,303,76,420,33"/>
-<area shape="rect" id="Node000004" href="$_layout_extension_types_8h.html" title="Include all SBML types of layout extension in a single header file." alt="" coords="375,79,554,104"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="467,44,467,79,462,79,462,44"/>
-<area shape="rect" id="Node000010" href="$_layout_model_plugin_8cpp.html" title="Implementation of LayoutModelPlugin, the plugin class of layout package for the Model element." alt="" coords="578,79,751,104"/>
-<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="511,33,633,76,631,81,509,38"/>
-<area shape="rect" id="Node000011" href="$_render_extension_8cpp.html" title="Implementation of RenderExtension, the core module of the render package." alt="" coords="776,79,935,104"/>
-<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="541,30,793,76,792,81,540,36"/>
-<area shape="rect" id="Node000005" href="$_graphical_object_8cpp.html" title="Implementation of GraphicalObject for SBML Layout." alt="" coords="11,152,164,177"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="391,109,149,155,148,149,390,104"/>
-<area shape="rect" id="Node000006" href="$_layout_validator_8cpp.html" title="Implementation of the LayoutValidator class." alt="" coords="188,152,339,177"/>
-<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="420,111,297,154,295,149,418,106"/>
-<area shape="rect" id="Node000007" href="$_render_layout_converter_8cpp.html" title="Simple converter to convert Layout + Render from l2 to L3 and vice versa." alt="" coords="363,152,566,177"/>
-<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="467,118,467,152,462,152,462,118"/>
-<area shape="rect" id="Node000008" href="$_render_list_of_layouts_plugin_8cpp.html" title="Implementation of RenderListOfLayoutsPlugin, the plugin class of the fbc package for the Model elemen..." alt="" coords="590,152,814,177"/>
-<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="517,105,664,149,663,154,515,110"/>
-<area shape="rect" id="Node000009" href="$_render_utilities_8cpp.html" title="implementation of RenderUtilities, a class of utility functions for the render package" alt="" coords="838,152,985,177"/>
-<area shape="poly" id="edge8_Node000004_Node000009" title=" " alt="" coords="550,104,840,149,839,155,550,109"/>
+<area shape="rect" id="Node000001" title="Definition of LayoutModelPlugin, the plugin class of layout package for Model element." alt="" coords="384,5,542,33"/>
+<area shape="rect" id="Node000002" href="$_layout_annotation_8cpp.html" title="Layout annotation I/O." alt="" coords="5,81,169,109"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="380,39,155,83,154,78,381,34"/>
+<area shape="rect" id="Node000003" href="$_layout_extension_8cpp.html" title="Implementation of LayoutExtension, the core module of layout package." alt="" coords="193,81,349,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="417,38,306,83,304,78,412,40"/>
+<area shape="rect" id="Node000004" href="$_layout_extension_types_8h.html" title="Include all SBML types of layout extension in a single header file." alt="" coords="374,81,552,109"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="465,47,465,82,461,79,461,51"/>
+<area shape="rect" id="Node000010" href="$_layout_model_plugin_8cpp.html" title="Implementation of LayoutModelPlugin, the plugin class of layout package for the Model element." alt="" coords="577,81,749,109"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="513,36,630,80,625,81,512,41"/>
+<area shape="rect" id="Node000011" href="$_render_extension_8cpp.html" title="Implementation of RenderExtension, the core module of the render package." alt="" coords="773,81,932,109"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="548,34,785,80,780,81,548,39"/>
+<area shape="rect" id="Node000005" href="$_graphical_object_8cpp.html" title="Implementation of GraphicalObject for SBML Layout." alt="" coords="12,157,164,184"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="381,115,156,159,155,153,380,110"/>
+<area shape="rect" id="Node000006" href="$_layout_validator_8cpp.html" title="Implementation of the LayoutValidator class." alt="" coords="188,157,338,184"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="416,114,300,159,298,154,411,115"/>
+<area shape="rect" id="Node000007" href="$_render_layout_converter_8cpp.html" title="Simple converter to convert Layout + Render from l2 to L3 and vice versa." alt="" coords="362,157,564,184"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="465,123,465,158,461,155,461,126"/>
+<area shape="rect" id="Node000008" href="$_render_list_of_layouts_plugin_8cpp.html" title="Implementation of RenderListOfLayoutsPlugin, the plugin class of the fbc package for the Model elemen..." alt="" coords="587,157,811,184"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="520,111,659,156,654,156,519,116"/>
+<area shape="rect" id="Node000009" href="$_render_utilities_8cpp.html" title="implementation of RenderUtilities, a class of utility functions for the render package" alt="" coords="834,157,980,184"/>
+<area shape="poly" id="edge8_Node000004_Node000009" title=" " alt="" coords="558,109,837,157,831,157,558,114"/>
 </map>

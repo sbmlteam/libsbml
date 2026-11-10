@@ -1,11 +1,11 @@
 <map id="SpatialCompartmentPlugin.h" name="SpatialCompartmentPlugin.h">
-<area shape="rect" id="Node000001" title="Definition of the SpatialCompartmentPlugin class." alt="" coords="229,5,438,31"/>
-<area shape="rect" id="Node000002" href="$_spatial_compartment_plugin_8cpp.html" title="Implementation of the SpatialCompartmentPlugin class." alt="" coords="5,79,229,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="286,37,153,81,151,76,285,32"/>
-<area shape="rect" id="Node000003" href="$_spatial_extension_8cpp.html" title="Implementation of SpatialExtension." alt="" coords="254,79,413,104"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="336,44,336,79,331,79,331,44"/>
-<area shape="rect" id="Node000004" href="$_spatial_extension_types_8h.html" title="Definition of SpatialExtensionTypes." alt="" coords="437,79,617,104"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="378,33,496,76,494,81,376,38"/>
-<area shape="rect" id="Node000005" href="$_spatial_validator_8cpp.html" title="Definition of SpatialValidator." alt="" coords="451,152,602,177"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="529,118,529,152,524,152,524,118"/>
+<area shape="rect" id="Node000001" title="Definition of the SpatialCompartmentPlugin class." alt="" coords="228,5,436,33"/>
+<area shape="rect" id="Node000002" href="$_spatial_compartment_plugin_8cpp.html" title="Implementation of the SpatialCompartmentPlugin class." alt="" coords="5,81,229,109"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="277,40,156,83,154,78,281,37"/>
+<area shape="rect" id="Node000003" href="$_spatial_extension_8cpp.html" title="Implementation of SpatialExtension." alt="" coords="253,81,410,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="333,47,334,82,329,79,330,51"/>
+<area shape="rect" id="Node000004" href="$_spatial_extension_types_8h.html" title="Definition of SpatialExtensionTypes." alt="" coords="434,81,613,109"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="380,36,492,80,487,81,380,41"/>
+<area shape="rect" id="Node000005" href="$_spatial_validator_8cpp.html" title="Definition of SpatialValidator." alt="" coords="448,157,599,184"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="526,123,526,158,522,155,522,126"/>
 </map>

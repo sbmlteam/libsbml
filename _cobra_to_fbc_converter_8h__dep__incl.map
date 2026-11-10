@@ -1,7 +1,7 @@
 <map id="CobraToFbcConverter.h" name="CobraToFbcConverter.h">
-<area shape="rect" id="Node000001" title="Definition of a cobra 2 fbc converter." alt="" coords="105,5,277,31"/>
-<area shape="rect" id="Node000002" href="$_cobra_to_fbc_converter_8cpp.html" title="Implementation of a cobra 2 fbc converter." alt="" coords="5,79,192,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="167,41,115,81,112,76,164,37"/>
-<area shape="rect" id="Node000003" href="$_fbc_extension_8cpp.html" title="Implementation of FbcExtension, the core module of fbc package." alt="" coords="216,79,352,104"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="218,37,270,76,267,81,215,41"/>
+<area shape="rect" id="Node000001" title="Definition of a cobra 2 fbc converter." alt="" coords="105,5,276,33"/>
+<area shape="rect" id="Node000002" href="$_cobra_to_fbc_converter_8cpp.html" title="Implementation of a cobra 2 fbc converter." alt="" coords="5,81,192,109"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="165,42,116,83,113,78,160,43"/>
+<area shape="rect" id="Node000003" href="$_fbc_extension_8cpp.html" title="Implementation of FbcExtension, the core module of fbc package." alt="" coords="216,81,352,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="220,40,270,81,265,80,218,45"/>
 </map>

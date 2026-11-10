@@ -1,7 +1,7 @@
 <map id="SBMLInternalValidator.h" name="SBMLInternalValidator.h">
-<area shape="rect" id="Node000001" title="Definition of SBMLInternalValidator, the validator for all internal validation performed by libSBML." alt="" coords="90,5,267,31"/>
-<area shape="rect" id="Node000002" href="$_s_b_m_l_document_8cpp.html" title="Implementation of the top&#45;level container for an SBML Model and associated data." alt="" coords="5,79,157,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="153,41,99,81,96,76,150,37"/>
-<area shape="rect" id="Node000003" href="$_s_b_m_l_internal_validator_8cpp.html" title="Implementation of SBMLInternalValidator, the validator for all internal validation performed by libSB..." alt="" coords="181,79,373,104"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="207,36,263,76,260,81,204,41"/>
+<area shape="rect" id="Node000001" title="Definition of SBMLInternalValidator, the validator for all internal validation performed by libSBML." alt="" coords="90,5,266,33"/>
+<area shape="rect" id="Node000002" href="$_s_b_m_l_document_8cpp.html" title="Implementation of the top&#45;level container for an SBML Model and associated data." alt="" coords="5,81,157,109"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="152,42,100,83,97,78,146,43"/>
+<area shape="rect" id="Node000003" href="$_s_b_m_l_internal_validator_8cpp.html" title="Implementation of SBMLInternalValidator, the validator for all internal validation performed by libSB..." alt="" coords="181,81,373,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="209,40,262,81,257,81,207,45"/>
 </map>

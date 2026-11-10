@@ -1,5 +1,5 @@
 <map id="Domain" name="Domain">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,79,79,104"/>
-<area shape="rect" id="Node000002" href="$class_s_base.html" title=" " alt="" coords="11,5,73,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="45,44,45,79,39,79,39,44"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,81,78,109"/>
+<area shape="rect" id="Node000002" href="$class_s_base.html" title=" " alt="" coords="11,5,72,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="43,47,44,81,39,80,40,51"/>
 </map>

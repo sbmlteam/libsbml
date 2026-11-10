@@ -1,9 +1,9 @@
 <map id="List.h" name="List.h">
-<area shape="rect" id="Node000001" title="Simple, generic list utility class." alt="" coords="137,5,194,31"/>
-<area shape="rect" id="Node000002" href="$extern_8h.html" title="Definitions of LIBSBML_EXTERN and related things." alt="" coords="5,79,179,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="155,33,116,71,112,67,151,29"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="203,79,274,104"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="179,29,219,67,215,71,176,33"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="9,152,175,192"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="95,104,95,138,89,138,89,104"/>
+<area shape="rect" id="Node000001" title="Simple, generic list utility class." alt="" coords="135,5,192,33"/>
+<area shape="rect" id="Node000002" href="$extern_8h.html" title="Definitions of LIBSBML_EXTERN and related things." alt="" coords="5,81,178,109"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="149,36,117,72,113,68,152,32"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="202,81,272,109"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="177,31,216,70,210,70,176,36"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="8,157,175,201"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="93,107,94,142,89,140,90,111"/>
 </map>

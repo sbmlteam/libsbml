@@ -1,27 +1,27 @@
 <map id="Transformation2D" name="Transformation2D">
-<area shape="rect" id="Node000001" title=" " alt="" coords="407,152,546,177"/>
-<area shape="rect" id="Node000004" href="$class_graphical_primitive1_d.html" title=" " alt="" coords="328,225,489,251"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="458,189,422,227,418,223,454,185"/>
-<area shape="rect" id="Node000013" href="$class_image.html" title=" " alt="" coords="513,225,576,251"/>
-<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="499,185,536,223,532,227,495,189"/>
-<area shape="rect" id="Node000002" href="$class_transformation.html" title=" " alt="" coords="417,79,537,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="479,118,479,152,474,152,474,118"/>
-<area shape="rect" id="Node000003" href="$class_s_base.html" title=" " alt="" coords="445,5,508,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="479,44,479,79,474,79,474,44"/>
-<area shape="rect" id="Node000005" href="$class_graphical_primitive2_d.html" title=" " alt="" coords="169,299,331,324"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="372,259,277,301,275,296,370,254"/>
-<area shape="rect" id="Node000011" href="$class_render_curve.html" title=" " alt="" coords="355,299,462,324"/>
-<area shape="poly" id="edge10_Node000004_Node000011" title=" " alt="" coords="411,264,411,299,406,299,406,264"/>
-<area shape="rect" id="Node000012" href="$class_text.html" title=" " alt="" coords="487,299,536,324"/>
-<area shape="poly" id="edge11_Node000004_Node000012" title=" " alt="" coords="438,256,496,296,493,301,435,261"/>
-<area shape="rect" id="Node000006" href="$class_ellipse.html" title=" " alt="" coords="5,372,71,397"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="204,331,72,375,70,370,202,326"/>
-<area shape="rect" id="Node000007" href="$class_line_ending.html" title=" " alt="" coords="95,372,189,397"/>
-<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="223,334,161,374,158,370,220,329"/>
-<area shape="rect" id="Node000008" href="$class_polygon.html" title=" " alt="" coords="213,372,287,397"/>
-<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="253,338,253,372,247,372,247,338"/>
-<area shape="rect" id="Node000009" href="$class_rectangle.html" title=" " alt="" coords="312,372,399,397"/>
-<area shape="poly" id="edge8_Node000005_Node000009" title=" " alt="" coords="280,330,340,370,337,374,277,334"/>
-<area shape="rect" id="Node000010" href="$class_render_group.html" title=" " alt="" coords="423,372,530,397"/>
-<area shape="poly" id="edge9_Node000005_Node000010" title=" " alt="" coords="300,326,441,369,439,374,299,331"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="404,157,541,184"/>
+<area shape="rect" id="Node000004" href="$class_graphical_primitive1_d.html" title=" " alt="" coords="324,232,484,260"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="452,194,418,234,415,230,447,197"/>
+<area shape="rect" id="Node000013" href="$class_image.html" title=" " alt="" coords="509,232,571,260"/>
+<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="495,193,531,232,525,231,494,199"/>
+<area shape="rect" id="Node000002" href="$class_transformation.html" title=" " alt="" coords="412,81,532,109"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="474,122,475,157,470,155,471,127"/>
+<area shape="rect" id="Node000003" href="$class_s_base.html" title=" " alt="" coords="442,5,503,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="473,46,475,82,470,79,471,51"/>
+<area shape="rect" id="Node000005" href="$class_graphical_primitive2_d.html" title=" " alt="" coords="167,308,327,336"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="365,266,276,310,274,305,360,268"/>
+<area shape="rect" id="Node000011" href="$class_render_curve.html" title=" " alt="" coords="352,308,457,336"/>
+<area shape="poly" id="edge10_Node000004_Node000011" title=" " alt="" coords="406,274,406,309,402,306,402,278"/>
+<area shape="rect" id="Node000012" href="$class_text.html" title=" " alt="" coords="481,308,530,336"/>
+<area shape="poly" id="edge11_Node000004_Node000012" title=" " alt="" coords="435,267,490,308,485,307,434,272"/>
+<area shape="rect" id="Node000006" href="$class_ellipse.html" title=" " alt="" coords="5,384,70,411"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="196,344,71,387,69,382,194,339"/>
+<area shape="rect" id="Node000007" href="$class_line_ending.html" title=" " alt="" coords="94,384,186,411"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="218,344,160,386,158,381,213,345"/>
+<area shape="rect" id="Node000008" href="$class_polygon.html" title=" " alt="" coords="210,384,284,411"/>
+<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="249,350,249,385,245,382,245,353"/>
+<area shape="rect" id="Node000009" href="$class_rectangle.html" title=" " alt="" coords="308,384,394,411"/>
+<area shape="poly" id="edge8_Node000005_Node000009" title=" " alt="" coords="278,342,335,383,330,383,277,347"/>
+<area shape="rect" id="Node000010" href="$class_render_group.html" title=" " alt="" coords="418,384,524,411"/>
+<area shape="poly" id="edge9_Node000005_Node000010" title=" " alt="" coords="302,338,433,383,428,383,301,344"/>
 </map>

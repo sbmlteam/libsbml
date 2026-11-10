@@ -1,9 +1,9 @@
 <map id="IdFilter.h" name="IdFilter.h">
-<area shape="rect" id="Node000001" title=" " alt="" coords="271,5,349,31"/>
-<area shape="rect" id="Node000002" href="$_layout_s_b_m_l_document_plugin_8cpp.html" title="Implementation of the LayoutSBMLDocumentPlugin class." alt="" coords="5,79,241,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="268,38,155,81,153,76,267,33"/>
-<area shape="rect" id="Node000003" href="$_model_8cpp.html" title="Implementation of Model." alt="" coords="265,79,355,104"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="313,44,313,79,307,79,307,44"/>
-<area shape="rect" id="Node000004" href="$_s_base_plugin_8cpp.html" title="Implementation of SBasePlugin, the base class of extension entities plugged in SBase derived classes ..." alt="" coords="379,79,508,104"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="345,35,423,76,420,81,342,39"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="270,5,347,33"/>
+<area shape="rect" id="Node000002" href="$_layout_s_b_m_l_document_plugin_8cpp.html" title="Implementation of the LayoutSBMLDocumentPlugin class." alt="" coords="5,81,241,109"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="264,39,157,83,155,78,259,39"/>
+<area shape="rect" id="Node000003" href="$_model_8cpp.html" title="Implementation of Model." alt="" coords="264,81,352,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="310,47,310,82,306,79,306,51"/>
+<area shape="rect" id="Node000004" href="$_s_base_plugin_8cpp.html" title="Implementation of SBasePlugin, the base class of extension entities plugged in SBase derived classes ..." alt="" coords="376,81,504,109"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="346,38,420,81,414,80,345,44"/>
 </map>

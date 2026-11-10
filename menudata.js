@@ -266,4 +266,4 @@ var menudata={children:[
 {text:"r",url:"globals_defs.html#index_r"},
 {text:"s",url:"globals_defs.html#index_s"},
 {text:"y",url:"globals_defs.html#index_y"}]}]}]},
-{text:"Examples",url:"libsbml-example-files.html"}]}
+{text:"Examples",url:"libsbml-example-files.html#libsbml-example-files"}]}

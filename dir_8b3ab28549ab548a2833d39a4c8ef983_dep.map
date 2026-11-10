@@ -1,10 +1,10 @@
 <map id="common" name="common">
-<area shape="rect" id="node1" href="dir_ab1b1ffda98de0e92cf76dc2624b069b.html" title="extension" alt="" coords="27,125,114,151"/>
-<area shape="rect" id="node2" href="dir_f4f0951108b46b0bffdb59bcb5c11e91.html" title="sbml" alt="" coords="138,125,193,151"/>
-<area shape="rect" id="node3" href="dir_8b3ab28549ab548a2833d39a4c8ef983.html" title="common" alt="" coords="73,52,151,77"/>
-<area shape="poly" id="edge1" href="dir_000003_000016.html" alt="" coords="107,79,87,115,82,112,103,76"/>
-<area shape="rect" id="edge1-headlabel" href="dir_000003_000016.html" title="3" alt="" coords="89,107,98,121"/>
-<area shape="poly" id="edge2" href="dir_000003_000034.html" alt="" coords="123,76,151,113,146,116,119,79"/>
-<area shape="rect" id="edge2-headlabel" href="dir_000003_000034.html" title="4" alt="" coords="148,98,157,113"/>
-<area shape="rect" id="clust1" href="dir_d17c5e5a75c371b2757c74298eb5dae8.html" title="distrib" alt="" coords="16,16,204,161"/>
+<area shape="rect" id="node1" href="dir_ab1b1ffda98de0e92cf76dc2624b069b.html" title="extension" alt="" coords="27,130,112,158"/>
+<area shape="rect" id="node2" href="dir_f4f0951108b46b0bffdb59bcb5c11e91.html" title="sbml" alt="" coords="136,130,189,158"/>
+<area shape="rect" id="node3" href="dir_8b3ab28549ab548a2833d39a4c8ef983.html" title="common" alt="" coords="70,54,148,82"/>
+<area shape="poly" id="edge1" href="dir_000003_000016.html" alt="" coords="104,81,86,118,82,115,100,84"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000003_000016.html" title="3" alt="" coords="89,109,97,126"/>
+<area shape="poly" id="edge2" href="dir_000003_000034.html" alt="" coords="120,80,147,117,142,117,118,85"/>
+<area shape="rect" id="edge2-headlabel" href="dir_000003_000034.html" title="4" alt="" coords="145,101,153,118"/>
+<area shape="rect" id="clust1" href="dir_d17c5e5a75c371b2757c74298eb5dae8.html" title="distrib" alt="" coords="16,16,200,168"/>
 </map>

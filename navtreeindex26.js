@@ -1,16 +1,5 @@
 var NAVTREEINDEX26 =
 {
-"class_advection_coefficient.html#af39bd6ec3403315e5d6d9ede433ea789":[3,0,1,1],
-"class_advection_coefficient.html#af7a642f3a3a324c69edd76e39138a960":[3,0,1,87],
-"class_algebraic_rule.html":[3,0,2],
-"class_algebraic_rule.html#a0143961ca5188d00203c99eef1de854e":[3,0,2,16],
-"class_algebraic_rule.html#a018ab95b15d5500c45e9c71ea6fde42f":[3,0,2,38],
-"class_algebraic_rule.html#a027dbf22b8bf74bbb0ce5cd4453851c7":[3,0,2,48],
-"class_algebraic_rule.html#a02a6692a180f9281c071b77f908dce0e":[3,0,2,32],
-"class_algebraic_rule.html#a031d1da6a39bae8afd5201677fb32c02":[3,0,2,63],
-"class_algebraic_rule.html#a03f9bf57527675f2a63ab9d66ae8a01f":[3,0,2,9],
-"class_algebraic_rule.html#a050779a94ecdb2d73d7edfef73bc1e55":[3,0,2,136],
-"class_algebraic_rule.html#a063b67902078c0da04162d958133ecfa":[3,0,2,89],
 "class_algebraic_rule.html#a07ec2702ebbdf35aef0a0626b0ffd52f":[3,0,2,57],
 "class_algebraic_rule.html#a07fe8dd8b43718fbb3d0df8481c72058":[3,0,2,157],
 "class_algebraic_rule.html#a0a8fa8e4911040c0fdf6cdd03a22f564":[3,0,2,106],
@@ -249,5 +238,16 @@ var NAVTREEINDEX26 =
 "class_analytic_geometry.html#a7a260cec1705d70d0fea2259b5665b92":[3,0,3,108],
 "class_analytic_geometry.html#a7a6dc5a02be520ea43c7cf71c5062c71":[3,0,3,138],
 "class_analytic_geometry.html#a7a9574c886d54be2db67210bbd8fcf18":[3,0,3,99],
-"class_analytic_geometry.html#a7b43de27cb29136954af762fa91d4842":[3,0,3,106]
+"class_analytic_geometry.html#a7b43de27cb29136954af762fa91d4842":[3,0,3,106],
+"class_analytic_geometry.html#a7b7b199563437a7977cc13cabb21ef63":[3,0,3,142],
+"class_analytic_geometry.html#a7d34cc625c18425a35a5513b88851a73":[3,0,3,82],
+"class_analytic_geometry.html#a7e1725f1b98e08e54485ec52404d579a":[3,0,3,80],
+"class_analytic_geometry.html#a8012eba52b904a1fcfb2a483eef94810":[3,0,3,36],
+"class_analytic_geometry.html#a83909a09abfab77fea3429482c79e867":[3,0,3,110],
+"class_analytic_geometry.html#a8509f3b2aa4f0298f734d73a5aee09bb":[3,0,3,124],
+"class_analytic_geometry.html#a852e0bd8bfc64342750faf5cbccec65e":[3,0,3,5],
+"class_analytic_geometry.html#a8606928be5ee248a7b6129f7ff926080":[3,0,3,43],
+"class_analytic_geometry.html#a89f626f2593df8e83da4cdbfe79142f7":[3,0,3,157],
+"class_analytic_geometry.html#a8a342a0f8387842fb6700c50c4c43344":[3,0,3,133],
+"class_analytic_geometry.html#a8c2705c0c69e02371cf2e3cd5e2b67e2":[3,0,3,90]
 };

@@ -371,7 +371,7 @@ var hierarchy =
       [ "SBMLStripPackageConverter", "class_s_b_m_l_strip_package_converter.html", null ],
       [ "SBMLUnitsConverter", "class_s_b_m_l_units_converter.html", null ]
     ] ],
-    [ "SBMLConverterRegister< SBMLConversionType >", "class_s_b_m_l_converter_register.html", null ],
+    [ "SBMLConverterRegister&lt; SBMLConversionType &gt;", "class_s_b_m_l_converter_register.html", null ],
     [ "SBMLConverterRegistry", "class_s_b_m_l_converter_registry.html", null ],
     [ "SBMLExtension", "class_s_b_m_l_extension.html", [
       [ "CompExtension", "class_comp_extension.html", null ],
@@ -384,9 +384,18 @@ var hierarchy =
       [ "RenderExtension", "class_render_extension.html", null ],
       [ "SpatialExtension", "class_spatial_extension.html", null ]
     ] ],
-    [ "SBMLExtensionRegister< SBMLExtensionType >", "class_s_b_m_l_extension_register.html", null ],
+    [ "SBMLExtensionRegister&lt; SBMLExtensionType &gt;", "class_s_b_m_l_extension_register.html", null ],
     [ "SBMLExtensionRegistry", "class_s_b_m_l_extension_registry.html", null ],
     [ "SBMLNamespaces", "class_s_b_m_l_namespaces.html", [
+      [ "SBMLExtensionNamespaces< CompExtension >", "class_s_b_m_l_extension_namespaces.html", null ],
+      [ "SBMLExtensionNamespaces< FbcExtension >", "class_s_b_m_l_extension_namespaces.html", null ],
+      [ "SBMLExtensionNamespaces< GroupsExtension >", "class_s_b_m_l_extension_namespaces.html", null ],
+      [ "SBMLExtensionNamespaces< LayoutExtension >", "class_s_b_m_l_extension_namespaces.html", null ],
+      [ "SBMLExtensionNamespaces< RenderExtension >", "class_s_b_m_l_extension_namespaces.html", null ],
+      [ "SBMLExtensionNamespaces< SpatialExtension >", "class_s_b_m_l_extension_namespaces.html", null ],
+      [ "SBMLExtensionNamespaces< DistribExtension >", "class_s_b_m_l_extension_namespaces.html", null ],
+      [ "SBMLExtensionNamespaces< MultiExtension >", "class_s_b_m_l_extension_namespaces.html", null ],
+      [ "SBMLExtensionNamespaces< QualExtension >", "class_s_b_m_l_extension_namespaces.html", null ],
       [ "SBMLExtensionNamespaces< SBMLExtensionType >", "class_s_b_m_l_extension_namespaces.html", null ]
     ] ],
     [ "SBMLReader", "class_s_b_m_l_reader.html", null ],

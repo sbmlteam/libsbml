@@ -1,50 +1,44 @@
 <map id="qualfwd.h" name="qualfwd.h">
-<area shape="rect" id="Node000001" title="SBML Qual C structure declarations." alt="" coords="393,5,479,31"/>
-<area shape="rect" id="Node000002" href="$_default_term_8h.html" title="Implementation of the DefaultTerm class." alt="" coords="181,79,296,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="392,38,272,81,270,76,391,33"/>
-<area shape="rect" id="Node000004" href="$_function_term_8h.html" title="Implementation of the FunctionTerm class." alt="" coords="277,152,398,177"/>
-<area shape="poly" id="edge16_Node000001_Node000004" title=" " alt="" coords="423,44,347,153,343,150,418,41"/>
-<area shape="rect" id="Node000006" href="$_qual_extension_types_8h.html" title="Include all SBML types of qual extension in a single header file." alt="" coords="529,372,695,397"/>
-<area shape="poly" id="edge25_Node000001_Node000006" title=" " alt="" coords="380,29,272,46,149,74,94,92,49,113,19,137,11,150,8,164,8,239,12,257,23,274,41,289,65,303,128,326,205,345,291,358,377,368,529,378,529,384,377,373,290,364,204,350,126,331,63,308,38,293,19,277,7,259,3,240,3,163,6,148,15,134,46,109,92,87,148,69,271,41,379,24"/>
-<area shape="rect" id="Node000008" href="$_transition_8h.html" title="Implementation of the Transition class." alt="" coords="385,225,482,251"/>
-<area shape="poly" id="edge30_Node000001_Node000008" title=" " alt="" coords="438,45,436,225,431,225,433,45"/>
-<area shape="rect" id="Node000013" href="$_input_8h.html" title="Implementation of the Input class." alt="" coords="616,152,683,177"/>
-<area shape="poly" id="edge17_Node000001_Node000013" title=" " alt="" coords="466,36,634,150,631,154,463,41"/>
-<area shape="rect" id="Node000015" href="$_output_8h.html" title="Implementation of the Output class." alt="" coords="478,152,557,177"/>
-<area shape="poly" id="edge21_Node000001_Node000015" title=" " alt="" coords="452,42,513,150,508,153,447,44"/>
-<area shape="rect" id="Node000017" href="$_qualitative_species_8h.html" title="Implementation of the QualitativeSpecies class." alt="" coords="833,225,989,251"/>
-<area shape="poly" id="edge26_Node000001_Node000017" title=" " alt="" coords="475,34,887,223,884,228,472,39"/>
-<area shape="rect" id="Node000003" href="$_default_term_8cpp.html" title="Implementation of the DefaultTerm class." alt="" coords="43,152,173,177"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="207,113,131,154,128,149,204,108"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="267,110,323,150,320,154,264,114"/>
-<area shape="poly" id="edge15_Node000002_Node000006" title=" " alt="" coords="234,118,224,161,219,216,220,245,225,273,236,299,251,322,269,336,296,347,367,364,450,374,529,379,529,384,450,379,366,369,294,352,266,340,247,326,231,302,220,275,215,246,213,216,218,161,228,117"/>
-<area shape="rect" id="Node000005" href="$_function_term_8cpp.html" title="Implementation of the FunctionTerm class." alt="" coords="277,299,413,324"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="341,191,347,298,342,299,336,192"/>
-<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="317,189,290,218,267,253,259,271,256,289,258,306,267,322,284,335,308,346,376,363,454,373,529,378,529,384,454,378,375,368,307,351,281,340,263,326,253,308,251,289,254,270,262,250,286,214,313,185"/>
-<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="365,183,419,223,416,227,362,188"/>
-<area shape="rect" id="Node000007" href="$_qual_validator_8cpp.html" title="Base class for SBML Validators." alt="" coords="544,445,680,471"/>
-<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="615,411,615,445,609,445,609,411"/>
-<area shape="poly" id="edge8_Node000008_Node000005" title=" " alt="" coords="410,261,361,301,358,296,407,257"/>
-<area shape="poly" id="edge9_Node000008_Node000006" title=" " alt="" coords="486,253,526,271,563,297,579,315,593,335,610,370,605,373,588,337,575,318,560,301,523,276,484,258"/>
-<area shape="rect" id="Node000009" href="$_qual_model_plugin_8h.html" title="Definition of QualModelPlugin, the plugin class of qual package for the Model element." alt="" coords="776,299,920,324"/>
-<area shape="poly" id="edge10_Node000008_Node000009" title=" " alt="" coords="496,247,782,296,781,301,495,253"/>
-<area shape="rect" id="Node000012" href="$_transition_8cpp.html" title="Implementation of the Transition class." alt="" coords="437,299,549,324"/>
-<area shape="poly" id="edge14_Node000008_Node000012" title=" " alt="" coords="454,260,486,297,482,300,450,263"/>
-<area shape="poly" id="edge12_Node000009_Node000006" title=" " alt="" coords="798,330,651,374,649,369,796,325"/>
-<area shape="rect" id="Node000010" href="$_qual_extension_8cpp.html" title="Implementation of QualExtension, the core module of qual package." alt="" coords="926,372,1069,397"/>
-<area shape="poly" id="edge11_Node000009_Node000010" title=" " alt="" coords="885,327,974,369,972,374,883,332"/>
-<area shape="rect" id="Node000011" href="$_qual_model_plugin_8cpp.html" title="Implementation of QualModelPlugin, the plugin class of qual package for the Model element." alt="" coords="743,372,902,397"/>
-<area shape="poly" id="edge13_Node000009_Node000011" title=" " alt="" coords="842,338,829,373,824,371,837,336"/>
-<area shape="poly" id="edge19_Node000013_Node000006" title=" " alt="" coords="659,190,668,253,667,289,658,325,643,352,626,374,622,370,639,349,654,323,662,289,663,253,654,191"/>
-<area shape="poly" id="edge20_Node000013_Node000008" title=" " alt="" coords="603,184,469,228,467,223,602,179"/>
-<area shape="rect" id="Node000014" href="$_input_8cpp.html" title="Implementation of the Input class." alt="" coords="725,225,808,251"/>
-<area shape="poly" id="edge18_Node000013_Node000014" title=" " alt="" coords="681,182,749,223,746,227,679,187"/>
-<area shape="poly" id="edge23_Node000015_Node000006" title=" " alt="" coords="525,190,534,219,548,249,558,263,569,272,581,282,592,297,607,337,613,371,608,372,602,339,587,300,577,286,566,277,555,267,543,252,529,221,520,191"/>
-<area shape="poly" id="edge24_Node000015_Node000008" title=" " alt="" coords="495,188,449,227,445,223,492,184"/>
-<area shape="rect" id="Node000016" href="$_output_8cpp.html" title="Implementation of the Output class." alt="" coords="557,225,651,251"/>
-<area shape="poly" id="edge22_Node000015_Node000016" title=" " alt="" coords="543,184,592,223,588,227,540,188"/>
-<area shape="poly" id="edge27_Node000017_Node000006" title=" " alt="" coords="868,258,765,301,691,340,632,374,629,370,688,335,763,296,865,253"/>
-<area shape="poly" id="edge28_Node000017_Node000009" title=" " alt="" coords="893,263,860,300,856,297,889,259"/>
-<area shape="rect" id="Node000018" href="$_qualitative_species_8cpp.html" title="Implementation of the QualitativeSpecies class." alt="" coords="944,299,1115,324"/>
-<area shape="poly" id="edge29_Node000017_Node000018" title=" " alt="" coords="943,255,1011,296,1009,301,940,260"/>
+<area shape="rect" id="Node000001" title="SBML Qual C structure declarations." alt="" coords="363,5,448,33"/>
+<area shape="rect" id="Node000002" href="$_default_term_8h.html" title="Implementation of the DefaultTerm class." alt="" coords="113,81,226,109"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="347,40,213,83,210,78,351,36"/>
+<area shape="rect" id="Node000004" href="$_function_term_8h.html" title="Implementation of the FunctionTerm class." alt="" coords="157,157,278,184"/>
+<area shape="poly" id="edge13_Node000001_Node000004" title=" " alt="" coords="360,42,330,61,298,83,258,122,229,158,224,155,254,119,294,79,327,56,364,38"/>
+<area shape="rect" id="Node000006" href="$_transition_8h.html" title="Implementation of the Transition class." alt="" coords="317,232,414,260"/>
+<area shape="poly" id="edge24_Node000001_Node000006" title=" " alt="" coords="383,43,372,63,363,82,355,124,355,166,365,233,360,231,349,166,349,123,358,80,367,60,380,47"/>
+<area shape="rect" id="Node000009" href="$_qual_extension_types_8h.html" title="Include all SBML types of qual extension in a single header file." alt="" coords="837,384,1001,411"/>
+<area shape="poly" id="edge20_Node000001_Node000009" title=" " alt="" coords="462,22,595,35,674,47,752,62,824,81,883,105,906,118,923,134,935,151,939,169,939,248,933,325,923,385,919,381,928,324,934,247,934,169,930,153,919,137,903,123,880,109,822,86,750,67,673,52,595,41,464,27"/>
+<area shape="rect" id="Node000013" href="$_input_8h.html" title="Implementation of the Input class." alt="" coords="372,81,439,109"/>
+<area shape="poly" id="edge14_Node000001_Node000013" title=" " alt="" coords="407,46,408,81,403,80,404,51"/>
+<area shape="rect" id="Node000015" href="$_output_8h.html" title="Implementation of the Output class." alt="" coords="484,81,562,109"/>
+<area shape="poly" id="edge17_Node000001_Node000015" title=" " alt="" coords="439,39,505,80,499,81,439,44"/>
+<area shape="rect" id="Node000017" href="$_qualitative_species_8h.html" title="Implementation of the QualitativeSpecies class." alt="" coords="613,81,768,109"/>
+<area shape="poly" id="edge21_Node000001_Node000017" title=" " alt="" coords="463,32,642,79,637,81,463,38"/>
+<area shape="rect" id="Node000003" href="$_default_term_8cpp.html" title="Implementation of the DefaultTerm class." alt="" coords="5,157,134,184"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="138,120,89,158,85,155,141,116"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="186,119,212,156,206,157,186,124"/>
+<area shape="rect" id="Node000005" href="$_function_term_8cpp.html" title="Implementation of the FunctionTerm class." alt="" coords="150,308,285,336"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="219,198,220,308,215,307,216,202"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="258,189,342,231,337,233,258,194"/>
+<area shape="poly" id="edge6_Node000006_Node000005" title=" " alt="" coords="323,269,245,310,242,305,328,266"/>
+<area shape="rect" id="Node000007" href="$_qual_model_plugin_8h.html" title="Definition of QualModelPlugin, the plugin class of qual package for the Model element." alt="" coords="619,308,762,336"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="429,259,635,307,630,308,429,264"/>
+<area shape="rect" id="Node000012" href="$_transition_8cpp.html" title="Implementation of the Transition class." alt="" coords="310,308,421,336"/>
+<area shape="poly" id="edge12_Node000006_Node000012" title=" " alt="" coords="367,274,368,309,363,306,364,278"/>
+<area shape="rect" id="Node000008" href="$_qual_extension_8cpp.html" title="Implementation of QualExtension, the core module of qual package." alt="" coords="637,384,779,411"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="699,349,707,385,703,382,696,353"/>
+<area shape="poly" id="edge9_Node000007_Node000009" title=" " alt="" coords="746,338,881,383,875,383,746,343"/>
+<area shape="rect" id="Node000011" href="$_qual_model_plugin_8cpp.html" title="Implementation of QualModelPlugin, the plugin class of qual package for the Model element." alt="" coords="454,384,613,411"/>
+<area shape="poly" id="edge11_Node000007_Node000011" title=" " alt="" coords="652,342,562,386,560,381,646,343"/>
+<area shape="rect" id="Node000010" href="$_qual_validator_8cpp.html" title="Base class for SBML Validators." alt="" coords="851,459,986,487"/>
+<area shape="poly" id="edge10_Node000009_Node000010" title=" " alt="" coords="921,425,921,461,917,457,917,429"/>
+<area shape="poly" id="edge16_Node000013_Node000006" title=" " alt="" coords="400,122,371,233,367,230,396,126"/>
+<area shape="rect" id="Node000014" href="$_input_8cpp.html" title="Implementation of the Input class." alt="" coords="404,157,485,184"/>
+<area shape="poly" id="edge15_Node000013_Node000014" title=" " alt="" coords="420,120,440,157,435,156,419,125"/>
+<area shape="poly" id="edge19_Node000015_Node000006" title=" " alt="" coords="522,122,516,156,500,186,481,203,459,217,415,236,413,231,457,213,478,199,495,183,511,154,519,126"/>
+<area shape="rect" id="Node000016" href="$_output_8cpp.html" title="Implementation of the Output class." alt="" coords="561,157,653,184"/>
+<area shape="poly" id="edge18_Node000015_Node000016" title=" " alt="" coords="550,117,595,156,589,156,549,122"/>
+<area shape="poly" id="edge22_Node000017_Node000007" title=" " alt="" coords="693,122,693,309,688,306,689,126"/>
+<area shape="rect" id="Node000018" href="$_qualitative_species_8cpp.html" title="Implementation of the QualitativeSpecies class." alt="" coords="728,157,899,184"/>
+<area shape="poly" id="edge23_Node000017_Node000018" title=" " alt="" coords="726,114,794,156,789,156,726,120"/>
 </map>

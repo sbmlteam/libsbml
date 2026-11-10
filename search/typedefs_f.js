@@ -13,7 +13,7 @@ var searchData=
   ['sbmlerror_5ft_10',['SBMLError_t',['../sbmlfwd_8h.html#a5d9a211dd5836342706bb25212097d40',1,'sbmlfwd.h']]],
   ['sbmlerrorlog_5ft_11',['SBMLErrorLog_t',['../sbmlfwd_8h.html#ac04c8aec623efb0ac55e732f2c7f071f',1,'sbmlfwd.h']]],
   ['sbmlextension_5ft_12',['SBMLExtension_t',['../sbmlfwd_8h.html#a5a31d03fb6f197e87f1332dd8ad89c67',1,'sbmlfwd.h']]],
-  ['sbmlextensionnamespaces_5ft_13',['SBMLExtensionNamespaces_t',['../sbmlfwd_8h.html#a4e00a7bb511a1e92fc80cc501829ce10',1,'sbmlfwd.h']]],
+  ['sbmlextensionnamespaces_5ft_13',['SBMLExtensionNamespaces_t',['../sbmlfwd_8h.html#a542ac282cd522343cc99aafa0ce52736',1,'sbmlfwd.h']]],
   ['sbmlnamespaces_5ft_14',['SBMLNamespaces_t',['../sbmlfwd_8h.html#a9d371851bb341b7efc8935a3d0c2b4df',1,'sbmlfwd.h']]],
   ['sbmlreader_5ft_15',['SBMLReader_t',['../sbmlfwd_8h.html#ab72ed507d5be020ac1e261c525aa599c',1,'sbmlfwd.h']]],
   ['sbmlwriter_5ft_16',['SBMLWriter_t',['../sbmlfwd_8h.html#a715c227342dd5fbe68ace7d4933cf043',1,'sbmlfwd.h']]],

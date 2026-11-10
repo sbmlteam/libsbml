@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['help_20and_20feedback_0',['Help and feedback',['../libsbml-help.html',1,'index']]],
-  ['history_1',['Version history',['../libsbml-news.html',1,'index']]],
-  ['how_20to_20extend_20libsbml_20to_20support_20sbml_20packages_2',['How to extend libSBML to support SBML packages',['../libsbml-extending.html',1,'libsbml-other']]]
+  ['8_20define_20files_20for_20package_20registration_0',['8. Define files for package registration',['../libsbml-howto-implement-extension.html#config-macros',1,'']]],
+  ['8_20override_20the_20method_20getstringfromtypecode_1',['8. Override the method getStringFromTypeCode()',['../classdoc__extension__sbmlextension.html#ext-virtual-typecodes',1,'']]]
 ];

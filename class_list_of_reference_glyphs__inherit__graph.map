@@ -1,7 +1,7 @@
 <map id="ListOfReferenceGlyphs" name="ListOfReferenceGlyphs">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,152,176,177"/>
-<area shape="rect" id="Node000002" href="$class_list_of.html" title=" " alt="" coords="61,79,121,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="93,118,93,152,88,152,88,118"/>
-<area shape="rect" id="Node000003" href="$class_s_base.html" title=" " alt="" coords="59,5,122,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="93,44,93,79,88,79,88,44"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,157,176,184"/>
+<area shape="rect" id="Node000002" href="$class_list_of.html" title=" " alt="" coords="61,81,120,109"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,123,93,157,88,155,89,126"/>
+<area shape="rect" id="Node000003" href="$class_s_base.html" title=" " alt="" coords="60,5,121,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="92,46,93,81,88,80,89,51"/>
 </map>

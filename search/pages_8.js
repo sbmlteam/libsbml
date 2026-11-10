@@ -1,8 +1,5 @@
 var searchData=
 [
-  ['implementation_20of_20an_20extension_0',['Step by step summary of the implementation of an extension',['../libsbml-howto-implement-extension.html',1,'libsbml-extending']]],
-  ['installation_1',['Installation',['../libsbml-installation-guide.html',1,'index']]],
-  ['installing_20libsbml_2',['Building and installing libSBML',['../libsbml-installation.html',1,'libsbml-installation-guide']]],
-  ['issues_3',['Asking questions, reporting issues',['../libsbml-communications.html',1,'libsbml-help']]],
-  ['issues_20and_20pitfalls_4',['Known issues and pitfalls',['../libsbml-issues.html',1,'libsbml-installation-guide']]]
+  ['9_20hook_20into_20the_20language_20bindings_0',['9. Hook into the language bindings',['../libsbml-howto-implement-extension.html#hook-bindings',1,'']]],
+  ['9_20implement_20an_20init_20method_1',['9. Implement an init() method',['../classdoc__extension__sbmlextension.html#ext-init',1,'']]]
 ];

@@ -1,7 +1,7 @@
 <map id="CompExtensionTypes.h" name="CompExtensionTypes.h">
-<area shape="rect" id="Node000001" title="Include all SBML types of Comp extension in a single header file." alt="" coords="128,5,301,31"/>
-<area shape="rect" id="Node000002" href="$_comp_flattening_converter_8cpp.html" title="Implementation of a first flattening converter." alt="" coords="5,79,221,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="189,41,131,81,128,76,186,36"/>
-<area shape="rect" id="Node000003" href="$_comp_validator_8cpp.html" title=" " alt="" coords="245,79,389,104"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="244,36,302,76,299,81,241,41"/>
+<area shape="rect" id="Node000001" title="Include all SBML types of Comp extension in a single header file." alt="" coords="128,5,300,33"/>
+<area shape="rect" id="Node000002" href="$_comp_flattening_converter_8cpp.html" title="Implementation of a first flattening converter." alt="" coords="5,81,221,109"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="186,42,132,83,130,78,181,43"/>
+<area shape="rect" id="Node000003" href="$_comp_validator_8cpp.html" title=" " alt="" coords="245,81,389,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="246,40,301,81,296,80,244,45"/>
 </map>

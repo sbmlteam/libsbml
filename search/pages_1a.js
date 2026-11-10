@@ -1,0 +1,25 @@
+var searchData=
+[
+  ['r_0',['R',['../libsbml-accessing.html#config-import-r',1,'']]],
+  ['reading_20and_20writing_20mathml_20directly_1',['Reading and Writing MathML directly',['../libsbml-math.html#math-reading',1,'']]],
+  ['reading_20and_20writing_20sbml_20content_2',['Reading and writing SBML content',['../libsbml-reading-files.html',1,'libsbml-api-guide']]],
+  ['reading_20compressed_20files_3',['Support for reading compressed files',['../class_s_b_m_l_reader.html#compression',1,'']]],
+  ['reading_20sbml_4',['Reading SBML',['../libsbml-reading-files.html#rf-reading',1,'']]],
+  ['referring_20to_20libsbml_20constants_5',['4.1.1 Referring to libSBML constants',['../libsbml-coding.html#coding-constant-refs',1,'']]],
+  ['referring_20to_20libsbml_20pure_20functions_6',['4.1.2 Referring to libSBML pure functions',['../libsbml-coding.html#coding-function-refs',1,'']]],
+  ['registration_7',['8. Define files for package registration',['../libsbml-howto-implement-extension.html#config-macros',1,'']]],
+  ['related_20definitions_8',['5. Create SBMLExtensionNamespaces-related definitions',['../classdoc__extension__sbmlextension.html#ext-typedef',1,'']]],
+  ['related_20methods_9',['related methods',['../classdoc__extension__sbmldocumentplugin.html#sdp-class',1,'2.1 Override SBasePlugin class-related methods'],['../classdoc__extension__sbaseplugin.html#sbp-class-methods',1,'2.2 Override SBasePlugin class-related methods']]],
+  ['relationships_20between_20sbo_20and_20sbml_10',['Relationships between SBO and SBML',['../class_s_b_o.html#relationship',1,'']]],
+  ['relaxed_20in_20sbml_20level_20nbsp_203_20version_20nbsp_202_11',['relaxed in SBML Level nbsp 3 Version nbsp 2',['../class_delay.html#delay-restrictions',1,'Restrictions relaxed in SBML Level&amp;#160;3 Version&amp;#160;2'],['../class_event.html#l3v2_restrictions',1,'Restrictions relaxed in SBML Level&amp;#160;3 Version&amp;#160;2'],['../class_event_assignment.html#event-asnt-restrictions',1,'Restrictions relaxed in SBML Level&amp;#160;3 Version&amp;#160;2'],['../class_priority.html#priority-restrictions',1,'Restrictions relaxed in SBML Level&amp;#160;3 Version&amp;#160;2']]],
+  ['reporting_20issues_12',['Asking questions, reporting issues',['../libsbml-communications.html',1,'libsbml-help']]],
+  ['required_20attribute_13',['2.2 Determine the necessary value of the &quot;required&quot; attribute',['../classdoc__extension__sbmldocumentplugin.html#sdp-required',1,'']]],
+  ['resources_14',['Standard format for annotations linking data resources',['../class_s_base.html#sbase-miriam',1,'']]],
+  ['restrictions_20on_20sbml_20rules_15',['Additional restrictions on SBML rules',['../classdoc__rules__general__summary.html#rules-restrictions',1,'']]],
+  ['restrictions_20relaxed_20in_20sbml_20level_20nbsp_203_20version_20nbsp_202_16',['Restrictions relaxed in SBML Level nbsp 3 Version nbsp 2',['../class_delay.html#delay-restrictions',1,'Restrictions relaxed in SBML Level&amp;#160;3 Version&amp;#160;2'],['../class_event.html#l3v2_restrictions',1,'Restrictions relaxed in SBML Level&amp;#160;3 Version&amp;#160;2'],['../class_event_assignment.html#event-asnt-restrictions',1,'Restrictions relaxed in SBML Level&amp;#160;3 Version&amp;#160;2'],['../class_priority.html#priority-restrictions',1,'Restrictions relaxed in SBML Level&amp;#160;3 Version&amp;#160;2']]],
+  ['returning_20package_20version_20information_17',['2. Define methods returning package version information',['../classdoc__extension__sbmlextension.html#ext-version-methods',1,'']]],
+  ['returning_20the_20package_20namespace_20uris_18',['3. Define methods returning the package namespace URIs',['../classdoc__extension__sbmlextension.html#ext-ns',1,'']]],
+  ['reusing_20common_20text_19',['4.2 Reusing common text',['../libsbml-coding.html#coding-reusing-text',1,'']]],
+  ['rule_20types_20for_20sbml_20level_201_20',['Rule types for SBML Level 1',['../classdoc__rules__general__summary.html#RuleType_t',1,'']]],
+  ['rules_21',['rules',['../classdoc__rules__general__summary.html#rules-restrictions',1,'Additional restrictions on SBML rules'],['../classdoc__rules__general__summary.html#rules-general',1,'General summary of SBML rules']]]
+];

@@ -1,9 +1,9 @@
 <map id="CompressionUtil.h" name="CompressionUtil.h">
-<area shape="rect" id="Node000001" title="Functions useful for various compression algorithms." alt="" coords="61,5,204,31"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,79,68,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="119,33,65,72,62,68,116,29"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="93,79,173,104"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="135,31,135,65,130,65,130,31"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="197,79,263,104"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="150,29,204,68,201,72,147,33"/>
+<area shape="rect" id="Node000001" title="Functions useful for various compression algorithms." alt="" coords="60,5,202,33"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,81,68,109"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="117,33,67,73,64,69,112,34"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="92,81,171,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="133,32,134,66,129,64,129,36"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="195,81,259,109"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="149,31,201,71,195,72,147,36"/>
 </map>

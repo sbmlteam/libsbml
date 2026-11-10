@@ -1,71 +1,71 @@
 <map id="GeometryDefinition.h" name="GeometryDefinition.h">
-<area shape="rect" id="Node000001" title="Definition of the GeometryDefinition class." alt="" coords="589,5,752,31"/>
-<area shape="rect" id="Node000002" href="$_analytic_geometry_8h.html" title="Definition of the AnalyticGeometry class." alt="" coords="343,152,494,177"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="640,40,440,154,437,150,637,35"/>
-<area shape="rect" id="Node000005" href="$_geometry_definition_8cpp.html" title="Implementation of the GeometryDefinition class." alt="" coords="291,225,469,251"/>
-<area shape="poly" id="edge16_Node000001_Node000005" title=" " alt="" coords="576,30,512,44,444,67,412,83,382,103,355,126,333,153,329,162,328,171,336,190,350,208,366,223,363,227,346,212,331,193,323,172,324,161,328,151,352,122,379,99,410,79,442,62,510,39,575,25"/>
-<area shape="rect" id="Node000008" href="$_spatial_extension_types_8h.html" title="Definition of SpatialExtensionTypes." alt="" coords="1137,299,1317,324"/>
-<area shape="poly" id="edge48_Node000001_Node000008" title=" " alt="" coords="576,26,379,42,269,58,167,80,82,109,50,127,26,146,12,168,9,192,18,219,40,249,55,255,86,262,188,273,500,290,856,301,1136,306,1136,312,856,306,500,296,188,279,85,267,53,260,37,253,13,221,4,193,7,166,22,143,47,122,80,104,165,75,268,53,378,37,575,20"/>
-<area shape="rect" id="Node000010" href="$_c_s_geometry_8h.html" title="Definition of the CSGeometry class." alt="" coords="569,152,684,177"/>
-<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="651,42,638,60,628,79,623,118,627,151,621,152,618,118,623,78,633,57,647,39"/>
-<area shape="rect" id="Node000012" href="$_list_of_geometry_definitions_8h.html" title="Definition of the ListOfGeometryDefinitions class." alt="" coords="638,79,845,104"/>
-<area shape="poly" id="edge17_Node000001_Node000012" title=" " alt="" coords="694,39,732,77,728,80,690,43"/>
-<area shape="rect" id="Node000017" href="$_mixed_geometry_8h.html" title="Definition of the MixedGeometry class." alt="" coords="779,152,915,177"/>
-<area shape="poly" id="edge33_Node000001_Node000017" title=" " alt="" coords="767,24,817,43,839,57,858,77,866,96,866,117,855,152,850,151,860,116,861,97,854,80,836,62,814,47,765,29"/>
-<area shape="rect" id="Node000018" href="$_parametric_geometry_8h.html" title="Definition of the ParametricGeometry class." alt="" coords="939,152,1106,177"/>
-<area shape="poly" id="edge34_Node000001_Node000018" title=" " alt="" coords="738,31,807,50,880,76,953,114,1008,150,1005,154,950,119,878,81,806,55,737,36"/>
-<area shape="rect" id="Node000020" href="$_sampled_field_geometry_8h.html" title="Definition of the SampledFieldGeometry class." alt="" coords="1130,152,1315,177"/>
-<area shape="poly" id="edge41_Node000001_Node000020" title=" " alt="" coords="735,31,922,76,1185,149,1183,155,921,81,734,36"/>
-<area shape="rect" id="Node000003" href="$_analytic_geometry_8cpp.html" title="Implementation of the AnalyticGeometry class." alt="" coords="51,225,216,251"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="360,183,180,228,179,223,359,178"/>
-<area shape="rect" id="Node000004" href="$_geometry_8cpp.html" title="Implementation of the Geometry class." alt="" coords="1171,225,1283,251"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="508,171,1108,223,1171,229,1170,234,1108,228,507,176"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="408,191,389,226,384,224,403,188"/>
-<area shape="rect" id="Node000006" href="$_list_of_geometry_definitions_8cpp.html" title="Implementation of the ListOfGeometryDefinitions class." alt="" coords="698,225,921,251"/>
-<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="495,177,746,223,746,228,494,182"/>
-<area shape="rect" id="Node000007" href="$_mixed_geometry_8cpp.html" title="Implementation of the MixedGeometry class." alt="" coords="945,225,1095,251"/>
-<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="508,173,932,223,945,224,944,230,932,228,507,179"/>
-<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="354,184,318,196,288,212,278,220,273,229,274,238,280,249,315,259,393,269,632,286,1136,305,1136,310,632,291,392,274,314,264,277,253,269,240,268,228,274,217,285,207,316,191,352,178"/>
-<area shape="rect" id="Node000009" href="$_spatial_validator_8cpp.html" title="Definition of SpatialValidator." alt="" coords="1151,372,1302,397"/>
-<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="1229,338,1229,372,1224,372,1224,338"/>
-<area shape="poly" id="edge11_Node000010_Node000004" title=" " alt="" coords="698,172,1171,227,1170,233,697,177"/>
-<area shape="poly" id="edge12_Node000010_Node000005" title=" " alt="" coords="575,184,421,228,419,223,573,179"/>
-<area shape="poly" id="edge13_Node000010_Node000006" title=" " alt="" coords="670,180,780,223,778,228,668,185"/>
-<area shape="poly" id="edge14_Node000010_Node000007" title=" " alt="" coords="698,176,957,223,956,228,697,181"/>
-<area shape="poly" id="edge15_Node000010_Node000008" title=" " alt="" coords="585,185,559,199,538,215,528,232,529,240,534,249,545,256,563,263,619,275,782,292,972,302,1136,306,1136,312,972,307,782,298,618,280,561,268,542,261,530,253,523,242,523,231,534,212,556,195,583,181"/>
-<area shape="rect" id="Node000011" href="$_c_s_geometry_8cpp.html" title="Implementation of the CSGeometry class." alt="" coords="545,225,674,251"/>
-<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="623,191,615,226,609,225,618,190"/>
-<area shape="poly" id="edge25_Node000012_Node000005" title=" " alt="" coords="688,110,558,154,506,180,406,228,403,223,504,175,556,150,687,105"/>
-<area shape="poly" id="edge26_Node000012_Node000006" title=" " alt="" coords="749,117,757,146,769,176,785,202,801,224,797,227,780,205,764,179,752,148,744,118"/>
-<area shape="rect" id="Node000013" href="$_geometry_8h.html" title="Definition of the Geometry class." alt="" coords="1573,152,1670,177"/>
-<area shape="poly" id="edge18_Node000012_Node000013" title=" " alt="" coords="859,99,1573,157,1572,162,858,105"/>
-<area shape="poly" id="edge27_Node000012_Node000017" title=" " alt="" coords="771,110,831,150,828,154,768,114"/>
-<area shape="poly" id="edge19_Node000013_Node000004" title=" " alt="" coords="1559,180,1283,229,1282,224,1558,175"/>
-<area shape="poly" id="edge20_Node000013_Node000008" title=" " alt="" coords="1684,168,1745,177,1802,192,1824,203,1838,217,1841,234,1830,253,1804,266,1757,277,1620,294,1459,304,1317,310,1317,305,1459,299,1619,289,1756,272,1802,261,1826,249,1835,233,1833,219,1821,208,1800,197,1744,182,1683,174"/>
-<area shape="rect" id="Node000014" href="$_spatial_model_plugin_8h.html" title="Definition of the SpatialModelPlugin class." alt="" coords="1891,225,2050,251"/>
-<area shape="poly" id="edge21_Node000013_Node000014" title=" " alt="" coords="1684,176,1915,223,1914,228,1683,181"/>
-<area shape="poly" id="edge23_Node000014_Node000008" title=" " alt="" coords="1877,253,1872,253,1317,305,1317,300,1872,248,1877,247"/>
-<area shape="rect" id="Node000015" href="$_spatial_extension_8cpp.html" title="Implementation of SpatialExtension." alt="" coords="1795,299,1954,324"/>
-<area shape="poly" id="edge22_Node000014_Node000015" title=" " alt="" coords="1946,261,1892,301,1889,296,1943,257"/>
-<area shape="rect" id="Node000016" href="$_spatial_model_plugin_8cpp.html" title="Implementation of the SpatialModelPlugin class." alt="" coords="1978,299,2153,324"/>
-<area shape="poly" id="edge24_Node000014_Node000016" title=" " alt="" coords="1998,257,2051,296,2048,301,1995,261"/>
-<area shape="poly" id="edge28_Node000017_Node000004" title=" " alt="" coords="921,177,1171,224,1170,229,920,182"/>
-<area shape="poly" id="edge29_Node000017_Node000005" title=" " alt="" coords="765,181,455,228,455,223,764,176"/>
-<area shape="poly" id="edge30_Node000017_Node000006" title=" " alt="" coords="836,191,818,226,813,224,832,188"/>
-<area shape="poly" id="edge31_Node000017_Node000007" title=" " alt="" coords="888,180,993,223,991,228,886,185"/>
-<area shape="poly" id="edge32_Node000017_Node000008" title=" " alt="" coords="924,177,1028,199,1109,223,1141,240,1171,260,1215,296,1212,300,1167,264,1138,244,1107,228,1027,204,923,183"/>
-<area shape="poly" id="edge35_Node000018_Node000004" title=" " alt="" coords="1069,179,1194,223,1193,228,1067,184"/>
-<area shape="poly" id="edge36_Node000018_Node000005" title=" " alt="" coords="925,180,469,230,469,225,925,175"/>
-<area shape="poly" id="edge37_Node000018_Node000006" title=" " alt="" coords="976,184,845,228,843,223,975,179"/>
-<area shape="poly" id="edge38_Node000018_Node000007" title=" " alt="" coords="1024,191,1023,225,1018,225,1019,191"/>
-<area shape="poly" id="edge40_Node000018_Node000008" title=" " alt="" coords="1111,177,1227,199,1272,211,1296,223,1302,235,1302,246,1291,267,1271,286,1249,301,1246,296,1268,282,1287,264,1297,245,1297,236,1293,227,1270,216,1226,204,1110,182"/>
-<area shape="rect" id="Node000019" href="$_parametric_geometry_8cpp.html" title="Implementation of the ParametricGeometry class." alt="" coords="1358,225,1541,251"/>
-<area shape="poly" id="edge39_Node000018_Node000019" title=" " alt="" coords="1105,177,1381,223,1380,228,1104,182"/>
-<area shape="poly" id="edge42_Node000020_Node000004" title=" " alt="" coords="1227,191,1229,225,1223,225,1221,191"/>
-<area shape="poly" id="edge43_Node000020_Node000005" title=" " alt="" coords="1117,180,469,232,469,227,1116,175"/>
-<area shape="poly" id="edge44_Node000020_Node000006" title=" " alt="" coords="1143,182,876,228,875,223,1142,177"/>
-<area shape="poly" id="edge45_Node000020_Node000007" title=" " alt="" coords="1178,184,1054,228,1052,223,1176,179"/>
-<area shape="poly" id="edge47_Node000020_Node000008" title=" " alt="" coords="1329,168,1396,174,1463,185,1519,201,1540,211,1555,224,1561,238,1555,252,1540,265,1517,276,1457,292,1386,303,1317,309,1316,304,1385,297,1456,287,1515,271,1537,261,1551,249,1556,238,1551,227,1538,216,1517,206,1462,190,1396,180,1329,173"/>
-<area shape="rect" id="Node000021" href="$_sampled_field_geometry_8cpp.html" title="Implementation of the SampledFieldGeometry class." alt="" coords="1616,225,1816,251"/>
-<area shape="poly" id="edge46_Node000020_Node000021" title=" " alt="" coords="1316,177,1637,223,1636,228,1315,182"/>
+<area shape="rect" id="Node000001" title="Definition of the GeometryDefinition class." alt="" coords="585,5,746,33"/>
+<area shape="rect" id="Node000002" href="$_analytic_geometry_8h.html" title="Definition of the AnalyticGeometry class." alt="" coords="340,157,489,184"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="633,40,438,158,435,154,628,42"/>
+<area shape="rect" id="Node000005" href="$_geometry_definition_8cpp.html" title="Implementation of the GeometryDefinition class." alt="" coords="290,232,467,260"/>
+<area shape="poly" id="edge16_Node000001_Node000005" title=" " alt="" coords="567,31,506,47,440,71,408,88,378,107,352,131,330,158,326,167,326,176,333,196,347,215,364,232,359,232,343,218,328,199,320,177,321,166,326,155,348,127,375,103,405,83,438,66,505,42,571,29"/>
+<area shape="rect" id="Node000008" href="$_spatial_extension_types_8h.html" title="Definition of SpatialExtensionTypes." alt="" coords="1129,308,1308,336"/>
+<area shape="poly" id="edge48_Node000001_Node000008" title=" " alt="" coords="567,27,374,47,266,64,164,87,81,117,49,135,25,155,12,177,9,201,18,228,40,258,55,265,85,271,187,283,497,300,850,311,1131,319,1126,319,850,316,496,305,186,288,85,276,53,270,37,262,13,231,4,202,7,176,21,152,46,131,78,112,163,82,265,58,373,41,571,24"/>
+<area shape="rect" id="Node000010" href="$_c_s_geometry_8h.html" title="Definition of the CSGeometry class." alt="" coords="565,157,678,184"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="644,43,632,63,624,82,619,122,621,157,616,155,613,122,619,80,628,60,640,47"/>
+<area shape="rect" id="Node000012" href="$_list_of_geometry_definitions_8h.html" title="Definition of the ListOfGeometryDefinitions class." alt="" coords="633,81,839,109"/>
+<area shape="poly" id="edge17_Node000001_Node000012" title=" " alt="" coords="689,42,726,81,721,80,688,47"/>
+<area shape="rect" id="Node000017" href="$_mixed_geometry_8h.html" title="Definition of the MixedGeometry class." alt="" coords="774,157,909,184"/>
+<area shape="poly" id="edge33_Node000001_Node000017" title=" " alt="" coords="761,26,812,45,834,60,853,80,861,99,861,121,849,158,846,155,856,120,855,100,848,82,831,64,810,50,761,32"/>
+<area shape="rect" id="Node000018" href="$_parametric_geometry_8h.html" title="Definition of the ParametricGeometry class." alt="" coords="933,157,1099,184"/>
+<area shape="poly" id="edge34_Node000001_Node000018" title=" " alt="" coords="741,35,807,53,874,79,945,117,1001,156,996,156,943,122,872,83,806,58,741,40"/>
+<area shape="rect" id="Node000020" href="$_sampled_field_geometry_8h.html" title="Definition of the SampledFieldGeometry class." alt="" coords="1124,157,1308,184"/>
+<area shape="poly" id="edge41_Node000001_Node000020" title=" " alt="" coords="737,34,917,78,1176,156,1171,156,915,84,738,40"/>
+<area shape="rect" id="Node000003" href="$_analytic_geometry_8cpp.html" title="Implementation of the AnalyticGeometry class." alt="" coords="51,232,215,260"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="348,191,185,234,183,229,352,187"/>
+<area shape="rect" id="Node000004" href="$_geometry_8cpp.html" title="Implementation of the Geometry class." alt="" coords="1163,232,1274,260"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="505,177,553,182,1100,230,1165,239,1160,239,1100,235,553,187,505,183"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="403,197,387,234,383,230,399,200"/>
+<area shape="rect" id="Node000006" href="$_list_of_geometry_definitions_8cpp.html" title="Implementation of the ListOfGeometryDefinitions class." alt="" coords="693,232,915,260"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="500,185,736,231,731,232,500,190"/>
+<area shape="rect" id="Node000007" href="$_mixed_geometry_8cpp.html" title="Implementation of the MixedGeometry class." alt="" coords="938,232,1088,260"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="505,179,927,230,940,234,935,234,926,235,505,184"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="345,191,314,205,286,221,278,230,273,239,274,248,280,258,314,268,391,278,628,295,1131,317,1126,319,628,301,391,284,313,274,277,262,269,250,268,238,273,227,283,217,311,200,350,188"/>
+<area shape="rect" id="Node000009" href="$_spatial_validator_8cpp.html" title="Definition of SpatialValidator." alt="" coords="1143,384,1294,411"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="1220,350,1221,385,1217,381,1217,353"/>
+<area shape="poly" id="edge11_Node000010_Node000004" title=" " alt="" coords="694,178,1165,237,1160,239,694,183"/>
+<area shape="poly" id="edge12_Node000010_Node000005" title=" " alt="" coords="561,190,423,234,421,229,566,188"/>
+<area shape="poly" id="edge13_Node000010_Node000006" title=" " alt="" coords="668,188,774,232,769,232,668,193"/>
+<area shape="poly" id="edge14_Node000010_Node000007" title=" " alt="" coords="693,183,945,231,940,232,693,188"/>
+<area shape="poly" id="edge15_Node000010_Node000008" title=" " alt="" coords="579,190,554,208,534,225,525,242,526,250,531,258,560,272,615,284,777,302,965,312,1131,319,1126,319,965,317,777,307,614,290,558,277,527,262,521,252,520,241,530,221,550,204,574,193"/>
+<area shape="rect" id="Node000011" href="$_c_s_geometry_8cpp.html" title="Implementation of the CSGeometry class." alt="" coords="541,232,669,260"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="617,198,610,234,606,230,613,202"/>
+<area shape="poly" id="edge25_Node000012_Node000005" title=" " alt="" coords="673,114,616,135,554,159,502,187,407,234,404,229,500,182,552,154,615,130,678,113"/>
+<area shape="poly" id="edge26_Node000012_Node000006" title=" " alt="" coords="743,121,752,153,764,183,779,209,795,233,790,231,774,212,759,185,747,154,740,126"/>
+<area shape="rect" id="Node000013" href="$_geometry_8h.html" title="Definition of the Geometry class." alt="" coords="1564,157,1660,184"/>
+<area shape="poly" id="edge18_Node000012_Node000013" title=" " alt="" coords="854,103,1566,164,1561,167,854,109"/>
+<area shape="poly" id="edge27_Node000012_Node000017" title=" " alt="" coords="767,115,825,156,820,156,767,120"/>
+<area shape="poly" id="edge19_Node000013_Node000004" title=" " alt="" coords="1551,183,1275,237,1274,232,1546,184"/>
+<area shape="poly" id="edge20_Node000013_Node000008" title=" " alt="" coords="1676,175,1737,185,1793,201,1814,212,1827,226,1830,243,1819,262,1793,275,1746,287,1610,303,1450,314,1308,321,1308,315,1450,309,1609,298,1745,281,1791,270,1815,258,1825,242,1822,229,1811,217,1791,206,1735,190,1675,180"/>
+<area shape="rect" id="Node000014" href="$_spatial_model_plugin_8h.html" title="Definition of the SpatialModelPlugin class." alt="" coords="1879,232,2038,260"/>
+<area shape="poly" id="edge21_Node000013_Node000014" title=" " alt="" coords="1675,183,1899,232,1894,232,1675,188"/>
+<area shape="poly" id="edge23_Node000014_Node000008" title=" " alt="" coords="1867,259,1862,263,1558,293,1309,316,1308,310,1557,288,1861,257,1861,260"/>
+<area shape="rect" id="Node000015" href="$_spatial_extension_8cpp.html" title="Implementation of SpatialExtension." alt="" coords="1785,308,1943,336"/>
+<area shape="poly" id="edge22_Node000014_Node000015" title=" " alt="" coords="1932,269,1882,310,1880,305,1927,271"/>
+<area shape="rect" id="Node000016" href="$_spatial_model_plugin_8cpp.html" title="Implementation of the SpatialModelPlugin class." alt="" coords="1967,308,2140,336"/>
+<area shape="poly" id="edge24_Node000014_Node000016" title=" " alt="" coords="1988,267,2039,308,2034,307,1987,272"/>
+<area shape="poly" id="edge28_Node000017_Node000004" title=" " alt="" coords="924,185,1165,234,1160,234,924,191"/>
+<area shape="poly" id="edge29_Node000017_Node000005" title=" " alt="" coords="755,186,463,234,461,229,760,184"/>
+<area shape="poly" id="edge30_Node000017_Node000006" title=" " alt="" coords="830,197,812,234,809,230,826,200"/>
+<area shape="poly" id="edge31_Node000017_Node000007" title=" " alt="" coords="886,188,985,232,980,232,886,194"/>
+<area shape="poly" id="edge32_Node000017_Node000008" title=" " alt="" coords="924,185,1025,207,1101,230,1133,247,1162,268,1208,308,1203,307,1159,272,1130,252,1099,235,1024,212,924,190"/>
+<area shape="poly" id="edge35_Node000018_Node000004" title=" " alt="" coords="1067,187,1185,232,1180,232,1066,193"/>
+<area shape="poly" id="edge36_Node000018_Node000005" title=" " alt="" coords="915,187,467,238,467,233,919,183"/>
+<area shape="poly" id="edge37_Node000018_Node000006" title=" " alt="" coords="966,189,843,234,841,229,961,191"/>
+<area shape="poly" id="edge38_Node000018_Node000007" title=" " alt="" coords="1017,198,1016,234,1012,230,1013,202"/>
+<area shape="poly" id="edge40_Node000018_Node000008" title=" " alt="" coords="1113,185,1224,207,1266,219,1288,230,1294,242,1295,253,1284,275,1264,294,1242,310,1240,305,1261,290,1280,272,1290,252,1289,243,1285,234,1264,224,1223,212,1113,190"/>
+<area shape="rect" id="Node000019" href="$_parametric_geometry_8cpp.html" title="Implementation of the ParametricGeometry class." alt="" coords="1349,232,1531,260"/>
+<area shape="poly" id="edge39_Node000018_Node000019" title=" " alt="" coords="1107,185,1366,231,1361,232,1107,190"/>
+<area shape="poly" id="edge42_Node000020_Node000004" title=" " alt="" coords="1219,198,1220,234,1216,230,1215,202"/>
+<area shape="poly" id="edge43_Node000020_Node000005" title=" " alt="" coords="1106,185,817,213,529,235,468,240,467,235,529,230,817,208,1111,184"/>
+<area shape="poly" id="edge44_Node000020_Node000006" title=" " alt="" coords="1124,188,879,234,878,229,1129,187"/>
+<area shape="poly" id="edge45_Node000020_Node000007" title=" " alt="" coords="1168,189,1050,234,1049,229,1163,191"/>
+<area shape="poly" id="edge47_Node000020_Node000008" title=" " alt="" coords="1323,175,1390,181,1455,192,1509,208,1530,218,1545,231,1551,246,1545,262,1529,275,1507,285,1447,302,1377,312,1309,319,1309,314,1377,307,1446,296,1505,280,1526,270,1540,258,1546,246,1540,234,1527,223,1507,213,1454,197,1389,187,1323,180"/>
+<area shape="rect" id="Node000021" href="$_sampled_field_geometry_8cpp.html" title="Implementation of the SampledFieldGeometry class." alt="" coords="1606,232,1805,260"/>
+<area shape="poly" id="edge46_Node000020_Node000021" title=" " alt="" coords="1319,185,1620,232,1614,232,1319,190"/>
 </map>

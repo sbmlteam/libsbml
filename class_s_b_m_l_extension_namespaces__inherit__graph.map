@@ -1,5 +1,23 @@
 <map id="SBMLExtensionNamespaces&lt; SBMLExtensionType &gt;" name="SBMLExtensionNamespaces&lt; SBMLExtensionType &gt;">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,79,212,119"/>
-<area shape="rect" id="Node000002" href="$class_s_b_m_l_namespaces.html" title=" " alt="" coords="37,5,180,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="111,44,111,79,106,79,106,44"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="196,287,401,332"/>
+<area shape="rect" id="Node000003" href="$class_s_b_m_l_extension_namespaces.html" title=" " alt="" coords="597,10,803,54"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="307,270,322,225,346,172,379,120,400,96,424,76,464,54,508,39,553,30,599,27,595,30,554,35,510,44,466,59,427,81,404,100,384,123,350,174,327,227,312,273"/>
+<area shape="rect" id="Node000004" href="$class_s_b_m_l_extension_namespaces.html" title=" " alt="" coords="597,79,803,124"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="317,272,360,210,390,178,424,152,465,132,510,117,600,103,595,106,511,123,467,137,427,157,393,182,364,213,321,275"/>
+<area shape="rect" id="Node000005" href="$class_s_b_m_l_extension_namespaces.html" title=" " alt="" coords="597,148,803,193"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="337,275,378,247,424,223,511,195,600,180,595,182,513,200,426,228,381,252,340,280"/>
+<area shape="rect" id="Node000006" href="$class_s_b_m_l_extension_namespaces.html" title=" " alt="" coords="597,218,803,262"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="403,280,425,276,599,250,595,253,426,281,405,285"/>
+<area shape="rect" id="Node000007" href="$class_s_b_m_l_extension_namespaces.html" title=" " alt="" coords="597,287,803,332"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="416,307,599,308,594,310,417,312"/>
+<area shape="rect" id="Node000008" href="$class_s_b_m_l_extension_namespaces.html" title=" " alt="" coords="597,356,803,401"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="405,333,426,337,600,365,595,367,425,342,406,338"/>
+<area shape="rect" id="Node000009" href="$class_s_b_m_l_extension_namespaces.html" title=" " alt="" coords="597,426,803,470"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="339,338,381,366,426,390,513,418,600,437,595,437,511,423,424,395,378,371,339,343"/>
+<area shape="rect" id="Node000010" href="$class_s_b_m_l_extension_namespaces.html" title=" " alt="" coords="597,495,803,540"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="320,342,364,405,393,436,427,461,467,481,511,496,600,514,595,514,510,501,465,486,424,466,390,440,360,409,318,348"/>
+<area shape="rect" id="Node000011" href="$class_s_b_m_l_extension_namespaces.html" title=" " alt="" coords="597,564,803,609"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="310,344,327,391,350,444,383,496,404,519,427,539,466,561,510,575,554,584,600,590,594,590,553,589,508,580,464,566,424,543,400,523,379,499,346,447,322,393,308,349"/>
+<area shape="rect" id="Node000002" href="$class_s_b_m_l_namespaces.html" title=" " alt="" coords="5,295,147,323"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="161,307,198,308,193,311,163,312"/>
 </map>

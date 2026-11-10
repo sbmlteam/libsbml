@@ -1,9 +1,9 @@
 <map id="CSGHomogeneousTransformation" name="CSGHomogeneousTransformation">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,225,247,251"/>
-<area shape="rect" id="Node000002" href="$class_c_s_g_transformation.html" title=" " alt="" coords="53,152,199,177"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="129,191,129,225,123,225,123,191"/>
-<area shape="rect" id="Node000003" href="$class_c_s_g_node.html" title=" " alt="" coords="85,79,167,104"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="129,118,129,152,123,152,123,118"/>
-<area shape="rect" id="Node000004" href="$class_s_base.html" title=" " alt="" coords="95,5,157,31"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="129,44,129,79,123,79,123,44"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,232,246,260"/>
+<area shape="rect" id="Node000002" href="$class_c_s_g_transformation.html" title=" " alt="" coords="52,157,199,184"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="127,198,128,233,123,231,124,202"/>
+<area shape="rect" id="Node000003" href="$class_c_s_g_node.html" title=" " alt="" coords="84,81,167,109"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="127,122,128,157,123,155,124,127"/>
+<area shape="rect" id="Node000004" href="$class_s_base.html" title=" " alt="" coords="95,5,156,33"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="126,46,128,81,123,80,125,51"/>
 </map>

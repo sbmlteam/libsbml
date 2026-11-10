@@ -1,7 +1,7 @@
 <map id="FormulaTokenizer.h" name="FormulaTokenizer.h">
-<area shape="rect" id="Node000001" title="Tokenizes an SBML formula string." alt="" coords="19,5,165,31"/>
-<area shape="rect" id="Node000002" href="$extern_8h.html" title="Definitions of LIBSBML_EXTERN and related things." alt="" coords="5,79,179,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="95,31,95,65,89,65,89,31"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="9,152,175,192"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="95,104,95,138,89,138,89,104"/>
+<area shape="rect" id="Node000001" title="Tokenizes an SBML formula string." alt="" coords="18,5,165,33"/>
+<area shape="rect" id="Node000002" href="$extern_8h.html" title="Definitions of LIBSBML_EXTERN and related things." alt="" coords="5,81,178,109"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,31,94,66,89,65,91,36"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="8,157,175,201"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="93,107,94,142,89,140,90,111"/>
 </map>

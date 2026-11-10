@@ -2,7 +2,7 @@ var searchData=
 [
   ['k_5freal_5fvalue_0',['k_real_value',['../struct_substitution_values__t.html#a6ca6719389896f1c449210a7c51fad1f',1,'SubstitutionValues_t']]],
   ['k_5fvalue_1',['k_value',['../struct_substitution_values__t.html#a1c7e0d554a34cc9f96f9a4da05c712d6',1,'SubstitutionValues_t']]],
-  ['keyvaluepair_2',['keyvaluepair',['../class_key_value_pair.html',1,'KeyValuePair'],['../class_key_value_pair.html#ae19b16bff6e0d1876442148ed6b9c815',1,'KeyValuePair::KeyValuePair(unsigned int level=FbcExtension::getDefaultLevel(), unsigned int version=FbcExtension::getDefaultVersion(), unsigned int pkgVersion=FbcExtension::getDefaultPackageVersion())'],['../class_key_value_pair.html#aa38b9e412fcf54ff0b029f65a7532525',1,'KeyValuePair::KeyValuePair(FbcPkgNamespaces *fbcns)'],['../class_key_value_pair.html#a4f77a92c7e7369571df092def9812bc7',1,'KeyValuePair::KeyValuePair(const KeyValuePair &amp;orig)']]],
+  ['keyvaluepair_2',['KeyValuePair',['../class_key_value_pair.html',1,'KeyValuePair'],['../class_key_value_pair.html#ae19b16bff6e0d1876442148ed6b9c815',1,'KeyValuePair::KeyValuePair(unsigned int level=FbcExtension::getDefaultLevel(), unsigned int version=FbcExtension::getDefaultVersion(), unsigned int pkgVersion=FbcExtension::getDefaultPackageVersion())'],['../class_key_value_pair.html#aa38b9e412fcf54ff0b029f65a7532525',1,'KeyValuePair::KeyValuePair(FbcPkgNamespaces *fbcns)'],['../class_key_value_pair.html#a4f77a92c7e7369571df092def9812bc7',1,'KeyValuePair::KeyValuePair(const KeyValuePair &amp;orig)']]],
   ['keyvaluepair_2ecpp_3',['KeyValuePair.cpp',['../_key_value_pair_8cpp.html',1,'']]],
   ['keyvaluepair_2eh_4',['KeyValuePair.h',['../_key_value_pair_8h.html',1,'']]],
   ['keyvaluepair_5fclone_5',['KeyValuePair_clone',['../_key_value_pair_8cpp.html#ae0fc5f1dc28c99d226d3ea5d2fbb2149',1,'KeyValuePair.cpp']]],
@@ -31,7 +31,7 @@ var searchData=
   ['keyvaluepair_5funseturi_28',['KeyValuePair_unsetUri',['../_key_value_pair_8cpp.html#ab1faee68688e160df3f377121d8160c7',1,'KeyValuePair.cpp']]],
   ['keyvaluepair_5funsetvalue_29',['KeyValuePair_unsetValue',['../_key_value_pair_8cpp.html#a55ca4f1b91fdb418ab3968243462120e',1,'KeyValuePair.cpp']]],
   ['kinds_30',['Group kinds',['../class_group.html#group-kinds',1,'']]],
-  ['kineticlaw_31',['kineticlaw',['../class_kinetic_law.html#ab8a032c23fc0ee8114f8f8d83d5488a8',1,'KineticLaw::KineticLaw(const KineticLaw &amp;orig)'],['../class_kinetic_law.html#ac16afc61123325c7561f114312e9d500',1,'KineticLaw::KineticLaw(SBMLNamespaces *sbmlns)'],['../class_kinetic_law.html#a9ff8a7acdc141c252c3dc113fc36d66d',1,'KineticLaw::KineticLaw(unsigned int level, unsigned int version)'],['../class_kinetic_law.html',1,'KineticLaw']]],
+  ['kineticlaw_31',['KineticLaw',['../class_kinetic_law.html',1,'KineticLaw'],['../class_kinetic_law.html#a9ff8a7acdc141c252c3dc113fc36d66d',1,'KineticLaw::KineticLaw(unsigned int level, unsigned int version)'],['../class_kinetic_law.html#ac16afc61123325c7561f114312e9d500',1,'KineticLaw::KineticLaw(SBMLNamespaces *sbmlns)'],['../class_kinetic_law.html#ab8a032c23fc0ee8114f8f8d83d5488a8',1,'KineticLaw::KineticLaw(const KineticLaw &amp;orig)']]],
   ['kineticlaw_2ecpp_32',['KineticLaw.cpp',['../_kinetic_law_8cpp.html',1,'']]],
   ['kineticlaw_2eh_33',['KineticLaw.h',['../_kinetic_law_8h.html',1,'']]],
   ['kineticlaw_5ft_34',['KineticLaw_t',['../sbmlfwd_8h.html#a1ad5a3548e75284b2645e4510fcb9ea2',1,'sbmlfwd.h']]],

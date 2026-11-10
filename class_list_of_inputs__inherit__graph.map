@@ -1,7 +1,7 @@
 <map id="ListOfInputs" name="ListOfInputs">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,152,105,177"/>
-<area shape="rect" id="Node000002" href="$class_list_of.html" title=" " alt="" coords="25,79,85,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="58,118,58,152,53,152,53,118"/>
-<area shape="rect" id="Node000003" href="$class_s_base.html" title=" " alt="" coords="24,5,87,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="58,44,58,79,53,79,53,44"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,157,105,184"/>
+<area shape="rect" id="Node000002" href="$class_list_of.html" title=" " alt="" coords="25,81,85,109"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="57,123,58,157,52,156,53,126"/>
+<area shape="rect" id="Node000003" href="$class_s_base.html" title=" " alt="" coords="24,5,86,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="56,46,58,81,52,80,54,51"/>
 </map>

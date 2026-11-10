@@ -1,9 +1,9 @@
 <map id="Style" name="Style">
-<area shape="rect" id="Node000001" title=" " alt="" coords="85,79,140,104"/>
-<area shape="rect" id="Node000003" href="$class_global_style.html" title=" " alt="" coords="5,152,103,177"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="96,116,66,154,61,150,92,113"/>
-<area shape="rect" id="Node000004" href="$class_local_style.html" title=" " alt="" coords="127,152,216,177"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="133,113,164,150,160,154,129,116"/>
-<area shape="rect" id="Node000002" href="$class_s_base.html" title=" " alt="" coords="81,5,144,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="115,44,115,79,110,79,110,44"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="84,81,138,109"/>
+<area shape="rect" id="Node000003" href="$class_global_style.html" title=" " alt="" coords="5,157,102,184"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="94,120,66,158,62,154,89,122"/>
+<area shape="rect" id="Node000004" href="$class_local_style.html" title=" " alt="" coords="125,157,214,184"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="132,119,162,156,156,156,130,123"/>
+<area shape="rect" id="Node000002" href="$class_s_base.html" title=" " alt="" coords="80,5,142,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="112,46,113,81,108,80,110,51"/>
 </map>

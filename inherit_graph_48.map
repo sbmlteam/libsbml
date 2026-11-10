@@ -1,13 +1,13 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" title=" " alt="" coords="5,55,120,80"/>
-<area shape="rect" id="Node000001" title=" " alt="" coords="168,55,287,80"/>
-<area shape="poly" id="edge306_Node000000_Node000001" title=" " alt="" coords="134,65,168,65,168,70,134,70"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="335,55,499,80"/>
-<area shape="poly" id="edge307_Node000001_Node000002" title=" " alt="" coords="300,65,334,65,334,70,300,70"/>
-<area shape="rect" id="Node000003" href="$class_s_b_m_l_constructor_exception.html" title=" " alt="" coords="547,5,744,31"/>
-<area shape="poly" id="edge308_Node000002_Node000003" title=" " alt="" coords="489,49,585,28,586,33,490,54"/>
-<area shape="rect" id="Node000004" href="$class_s_b_m_l_extension_exception.html" title=" " alt="" coords="552,55,739,80"/>
-<area shape="poly" id="edge309_Node000002_Node000004" title=" " alt="" coords="512,65,552,65,552,70,512,70"/>
-<area shape="rect" id="Node000005" href="$class_x_m_l_constructor_exception.html" title=" " alt="" coords="551,104,740,129"/>
-<area shape="poly" id="edge310_Node000002_Node000005" title=" " alt="" coords="490,80,586,101,585,107,489,86"/>
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,57,119,85"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="167,57,285,85"/>
+<area shape="poly" id="edge315_Node000000_Node000001" title=" " alt="" coords="134,69,169,70,164,72,135,74"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="333,57,496,85"/>
+<area shape="poly" id="edge316_Node000001_Node000002" title=" " alt="" coords="300,69,335,71,330,71,301,74"/>
+<area shape="rect" id="Node000003" href="$class_s_b_m_l_constructor_exception.html" title=" " alt="" coords="544,5,741,33"/>
+<area shape="poly" id="edge317_Node000002_Node000003" title=" " alt="" coords="493,51,576,34,581,33,494,56"/>
+<area shape="rect" id="Node000004" href="$class_s_b_m_l_extension_exception.html" title=" " alt="" coords="550,57,735,85"/>
+<area shape="poly" id="edge318_Node000002_Node000004" title=" " alt="" coords="512,69,552,71,547,71,512,74"/>
+<area shape="rect" id="Node000005" href="$class_x_m_l_constructor_exception.html" title=" " alt="" coords="548,109,737,137"/>
+<area shape="poly" id="edge319_Node000002_Node000005" title=" " alt="" coords="494,86,581,109,576,109,493,92"/>
 </map>

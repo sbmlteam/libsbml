@@ -9,6 +9,6 @@ var dir_909df41e089bc57b29bc62cc6d76d6dc =
     [ "ModelHistory.cpp", "_model_history_8cpp.html", null ],
     [ "ModelHistory.h", "_model_history_8h.html", null ],
     [ "RDFAnnotation.h", "_r_d_f_annotation_8h.html", null ],
-    [ "RDFAnnotationParser.cpp", "_r_d_f_annotation_parser_8cpp.html", "_r_d_f_annotation_parser_8cpp" ],
+    [ "RDFAnnotationParser.cpp", "_r_d_f_annotation_parser_8cpp.html", null ],
     [ "RDFAnnotationParser.h", "_r_d_f_annotation_parser_8h.html", null ]
 ];
