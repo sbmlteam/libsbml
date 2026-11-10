@@ -537,6 +537,13 @@ INSTALL(EXPORT ${LIBSBML_LIBRARY}-static-targets
 
 if (${CMAKE_VERSION} VERSION_GREATER 2.8.7)
 
+# When only the static libsbml is built, its package file asks for the static zlib, as a zlib
+# that was built static-only has no shared target to find.
+set(LIBSBML_ZLIB_FIND_ARGS "")
+if (LIBSBML_SKIP_SHARED_LIBRARY)
+  set(LIBSBML_ZLIB_FIND_ARGS COMPONENTS static)
+endif()
+
 CONFIGURE_PACKAGE_CONFIG_FILE(
   ${CMAKE_CURRENT_LIST_DIR}/libsbml-static-config.cmake.in
   ${CMAKE_CURRENT_BINARY_DIR}/${LIBSBML_LIBRARY}-static-config.cmake
