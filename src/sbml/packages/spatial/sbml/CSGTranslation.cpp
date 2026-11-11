@@ -88,7 +88,7 @@ CSGTranslation::CSGTranslation(SpatialPkgNamespaces *spatialns)
   , mIsSetTranslateZ (false)
 {
   setElementNamespace(spatialns->getURI());
-  loadPlugins(spatialns);
+  // the plugins are loaded by the constructor of the base class (CSGTransformation)
 }
 
 

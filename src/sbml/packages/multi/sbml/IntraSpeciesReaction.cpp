@@ -74,8 +74,7 @@ IntraSpeciesReaction::IntraSpeciesReaction (MultiPkgNamespaces* multins)
   // set the element namespace of this object
   setElementNamespace(multins->getURI());
 
-  // load package extensions bound with this object (if any) 
-  loadPlugins(multins);
+  // the plugins are loaded by the constructor of the base class (Reaction)
 }
 
 

@@ -180,6 +180,84 @@ START_TEST (test_comp_modeldefinition)
 END_TEST
 
   
+START_TEST (test_comp_modeldefinition_plugins)
+{
+  // however it is created, a model definition has one comp plugin, a CompModelPlugin
+  ModelDefinition fromLevel(3, 1, 1);
+  fail_unless(fromLevel.getNumPlugins() == 1);
+  fail_unless(dynamic_cast<CompModelPlugin*>(fromLevel.getPlugin("comp")) != NULL);
+
+  CompPkgNamespaces compns(3, 1, 1);
+  ModelDefinition fromNamespaces(&compns);
+  fail_unless(fromNamespaces.getNumPlugins() == 1);
+  fail_unless(dynamic_cast<CompModelPlugin*>(fromNamespaces.getPlugin("comp")) != NULL);
+
+  ModelDefinition copied(fromNamespaces);
+  fail_unless(copied.getNumPlugins() == 1);
+  fail_unless(dynamic_cast<CompModelPlugin*>(copied.getPlugin("comp")) != NULL);
+
+  // a model without comp
+  Model model(3, 1);
+  fail_unless(model.getNumPlugins() == 0);
+
+  ModelDefinition fromModel(model);
+  fail_unless(fromModel.getNumPlugins() == 1);
+  fail_unless(dynamic_cast<CompModelPlugin*>(fromModel.getPlugin("comp")) != NULL);
+
+  ModelDefinition assigned(3, 1, 1);
+  assigned = model;
+  fail_unless(assigned.getNumPlugins() == 1);
+  fail_unless(dynamic_cast<CompModelPlugin*>(assigned.getPlugin("comp")) != NULL);
+}
+END_TEST
+
+
+START_TEST (test_comp_copy_plugins)
+{
+  // a comp object has one comp plugin when created, and copies do not add more
+  CompPkgNamespaces compns(3, 1, 1);
+
+  Submodel submodel(3, 1, 1);
+  fail_unless(submodel.getNumPlugins() == 1);
+  Submodel submodelFromNamespaces(&compns);
+  fail_unless(submodelFromNamespaces.getNumPlugins() == 1);
+
+  Submodel submodelCopy(submodel);
+  fail_unless(submodelCopy.getNumPlugins() == 1);
+  Submodel submodelCopy2(submodelCopy);
+  fail_unless(submodelCopy2.getNumPlugins() == 1);
+  submodelCopy2 = submodelFromNamespaces;
+  fail_unless(submodelCopy2.getNumPlugins() == 1);
+
+  Submodel* submodelClone = submodelCopy.clone();
+  fail_unless(submodelClone->getNumPlugins() == 1);
+  delete submodelClone;
+
+  Port port(3, 1, 1);
+  fail_unless(port.getNumPlugins() == 1);
+  Port portFromNamespaces(&compns);
+  fail_unless(portFromNamespaces.getNumPlugins() == 1);
+
+  Port portCopy(port);
+  fail_unless(portCopy.getNumPlugins() == 1);
+  Port portCopy2(portCopy);
+  fail_unless(portCopy2.getNumPlugins() == 1);
+  portCopy2 = portFromNamespaces;
+  fail_unless(portCopy2.getNumPlugins() == 1);
+
+  ReplacedElement replaced(3, 1, 1);
+  fail_unless(replaced.getNumPlugins() == 1);
+  ReplacedElement replacedCopy(replaced);
+  fail_unless(replacedCopy.getNumPlugins() == 1);
+
+  Deletion deletion(3, 1, 1);
+  fail_unless(deletion.getNumPlugins() == 1);
+  Deletion deletionCopy(deletion);
+  fail_unless(deletionCopy.getNumPlugins() == 1);
+}
+END_TEST
+
+
 START_TEST (test_comp_port)
 {
   Port port(3, 1);
@@ -614,6 +692,8 @@ create_suite_TestCompSBaseObjects(void)
   tcase_add_test(tcase, test_comp_deletion);
   tcase_add_test(tcase, test_comp_externalmodeldefinition);
   tcase_add_test(tcase, test_comp_modeldefinition);
+  tcase_add_test(tcase, test_comp_modeldefinition_plugins);
+  tcase_add_test(tcase, test_comp_copy_plugins);
   tcase_add_test(tcase, test_comp_port);
   tcase_add_test(tcase, test_comp_replacedby);
   tcase_add_test(tcase, test_comp_replacedelement);

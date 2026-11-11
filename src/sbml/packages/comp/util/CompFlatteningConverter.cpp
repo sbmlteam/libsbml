@@ -586,7 +586,16 @@ CompFlatteningConverter::validateOriginalDocument()
   }
   delete tempdoc;
 
+  // keep the failures of the model definitions if the flat document keeps them
+  mModelDefinitionFailures.clear();
+  if (getLeaveDefinitions() == true)
+  {
+    plugin->mModelDefinitionFailures = &mModelDefinitionFailures;
+  }
+
   mDocument->checkConsistency();
+
+  plugin->mModelDefinitionFailures = NULL;
 
   unsigned int errors = mDocument->getErrorLog()
                       ->getNumFailsWithSeverity(LIBSBML_SEV_ERROR);
@@ -731,11 +740,33 @@ CompFlatteningConverter::validateFlatDocument(Model * flatmodel,
     delete tempdoc;
   }
 
+  // the model definitions are those of the original document, which
+  // validateOriginalDocument checked: report its failures instead of
+  // checking them again
+  if (dummyPlugin != NULL)
+  {
+    dummyPlugin->mCheckingDummyDoc = true;
+  }
+
   dummy.checkConsistency();
 
   if (dummyPlugin != NULL)
   {
     dummyPlugin->setOverrideCompFlattening(false);
+    dummyPlugin->mCheckingDummyDoc = false;
+  }
+
+  if (mModelDefinitionFailures.empty() == false)
+  {
+    if (dummy.getErrorLog()->contains(CompLineNumbersUnreliable) == false)
+    {
+      dummy.getErrorLog()->logPackageError("comp", CompLineNumbersUnreliable,
+        pkgVersion, level, version);
+    }
+    for (size_t n = 0; n < mModelDefinitionFailures.size(); n++)
+    {
+      dummy.getErrorLog()->add(mModelDefinitionFailures[n]);
+    }
   }
 
   errors = dummy.getErrorLog()->getNumFailsWithSeverity(LIBSBML_SEV_ERROR);

@@ -589,7 +589,7 @@ ListOfLocalParameters::ListOfLocalParameters (unsigned int level, unsigned int v
  * Creates a new ListOfLocalParameters items.
  */
 ListOfLocalParameters::ListOfLocalParameters (SBMLNamespaces* sbmlns)
-  : ListOfParameters(sbmlns)
+  : ListOfParameters(sbmlns, true)
 {
   loadPlugins(sbmlns);
 }

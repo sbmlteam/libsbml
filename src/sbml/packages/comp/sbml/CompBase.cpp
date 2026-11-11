@@ -61,6 +61,9 @@ CompBase::CompBase (unsigned int level, unsigned int version, unsigned int pkgVe
   // connect child elements to this element.
   connectToChild();
 
+  // load package extensions bound with this object (if any) 
+  loadPlugins(mSBMLNamespaces);
+
   mSBMLExt = SBMLExtensionRegistry::getInstance().getExtension(mSBMLNamespaces->getURI());
 }
 
@@ -87,8 +90,7 @@ CompBase::CompBase(const CompBase& source)
   // connect child elements to this element.
   connectToChild();
 
-  // load package extensions bound with this object (if any) 
-  loadPlugins(mSBMLNamespaces);
+  // the plugins are copied from the source
 }
 
 CompBase& CompBase::operator=(const CompBase& source)
@@ -103,8 +105,7 @@ CompBase& CompBase::operator=(const CompBase& source)
     // connect child elements to this element.
     connectToChild();
 
-    // load package extensions bound with this object (if any) 
-    loadPlugins(mSBMLNamespaces);
+    // the plugins are copied from the source
   }
 
   return *this;

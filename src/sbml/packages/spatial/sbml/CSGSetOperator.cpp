@@ -94,7 +94,7 @@ CSGSetOperator::CSGSetOperator(SpatialPkgNamespaces *spatialns)
 {
   setElementNamespace(spatialns->getURI());
   connectToChild();
-  loadPlugins(spatialns);
+  // the plugins are loaded by the constructor of the base class (CSGNode)
 }
 
 
