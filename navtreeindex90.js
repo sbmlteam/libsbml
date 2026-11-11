@@ -1,6 +1,5 @@
 var NAVTREEINDEX90 =
 {
-"class_list_of_domain_types.html#a2ccf4239be063ca04aa161a58679d3c3":[3,0,143,44],
 "class_list_of_domain_types.html#a2da81b22af670c12375835a6f992c5db":[3,0,143,87],
 "class_list_of_domain_types.html#a2e322246cd669131af4bd325a99ac0fd":[3,0,143,34],
 "class_list_of_domain_types.html#a2f0edc025514ba75d15e6c6b5a831b66":[3,0,143,29],
@@ -249,5 +248,6 @@ var NAVTREEINDEX90 =
 "class_list_of_domains.html#ac34eff3877f512b8bf31facff83c4483":[3,0,142,60],
 "class_list_of_domains.html#ac39cfac9d726a12e0f05c6e393953888":[3,0,142,17],
 "class_list_of_domains.html#ac3b1bbfe22bad0dbc577b61c529f37bb":[3,0,142,139],
-"class_list_of_domains.html#ac92975919a08b70b0ded5f1364f5ec44":[3,0,142,81]
+"class_list_of_domains.html#ac92975919a08b70b0ded5f1364f5ec44":[3,0,142,81],
+"class_list_of_domains.html#ac9f9a3703526cd1fb929778df3050692":[3,0,142,128]
 };

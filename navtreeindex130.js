@@ -1,6 +1,5 @@
 var NAVTREEINDEX130 =
 {
-"class_list_of_uncertainties.html#aef1dda0cebddfc141b1aba5278725753":[3,0,206,1],
 "class_list_of_uncertainties.html#af0a70ab6f715e912c6431072c4339f2c":[3,0,206,48],
 "class_list_of_uncertainties.html#affcde1ad43dfb5ef45cf9e4aa308f8fd":[3,0,206,138],
 "class_list_of_unit_definitions.html":[3,0,208],
@@ -249,5 +248,6 @@ var NAVTREEINDEX130 =
 "class_list_of_units.html#a973c76cb7a7370cb221911591a73460a":[3,0,209,59],
 "class_list_of_units.html#a98c955421c92c28351610ea811ecb4fe":[3,0,209,137],
 "class_list_of_units.html#a997486d0a21de5d8d07bd764cd6cb21c":[3,0,209,57],
-"class_list_of_units.html#a9b9dcb83f0b3da9466817e3d32f197f0":[3,0,209,30]
+"class_list_of_units.html#a9b9dcb83f0b3da9466817e3d32f197f0":[3,0,209,30],
+"class_list_of_units.html#a9fb99b60d2f2f0427e818187cc6f6ad9":[3,0,209,92]
 };

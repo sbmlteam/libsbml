@@ -1,6 +1,5 @@
 var NAVTREEINDEX76 =
 {
-"class_intra_species_reaction.html#abd78c4290e103245ce49b92b5e229375":[3,0,113,191],
 "class_intra_species_reaction.html#abe078d54c7cf0ab899c7520fc94bcf38":[3,0,113,146],
 "class_intra_species_reaction.html#abec0f55a683dd1d82d1f6a15955a7746":[3,0,113,145],
 "class_intra_species_reaction.html#ac1db4c7f15e643a3cb27fe3b85e22f05":[3,0,113,26],
@@ -249,5 +248,6 @@ var NAVTREEINDEX76 =
 "class_kinetic_law.html#a317ea060a5c3f97576188a22e670e683":[3,0,115,174],
 "class_kinetic_law.html#a31fea5f04d8d0a59aef58fa6fc8236b7":[3,0,115,90],
 "class_kinetic_law.html#a33897f0c6bf974b8a2418589360ae916":[3,0,115,39],
-"class_kinetic_law.html#a33da5a2b0b03cbe6af69730869e35212":[3,0,115,10]
+"class_kinetic_law.html#a33da5a2b0b03cbe6af69730869e35212":[3,0,115,10],
+"class_kinetic_law.html#a37287e48bd51353012b74e4d200bb446":[3,0,115,158]
 };

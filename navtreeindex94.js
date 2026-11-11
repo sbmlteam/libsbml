@@ -1,6 +1,5 @@
 var NAVTREEINDEX94 =
 {
-"class_list_of_fbc_associations.html#aad43f3efb39b3c56ec0db212b6e97cf4":[3,0,148,49],
 "class_list_of_fbc_associations.html#aafaa66c504225273f0fe22df147ec53b":[3,0,148,114],
 "class_list_of_fbc_associations.html#ab3428c9a9705777183a0ded66981b504":[3,0,148,70],
 "class_list_of_fbc_associations.html#ab4de53b00ecec3e135fcb9d36fb1bf3b":[3,0,148,68],
@@ -249,5 +248,6 @@ var NAVTREEINDEX94 =
 "class_list_of_flux_objectives.html#a5fed1bd6da28c0cc0ec118209f7327a2":[3,0,150,103],
 "class_list_of_flux_objectives.html#a60f1d849c7f806d075836b21d322150f":[3,0,150,52],
 "class_list_of_flux_objectives.html#a611a4bd98a4e32e3573980b2481ce77e":[3,0,150,130],
-"class_list_of_flux_objectives.html#a616754bfc4592922a488f2159f96b3ce":[3,0,150,137]
+"class_list_of_flux_objectives.html#a616754bfc4592922a488f2159f96b3ce":[3,0,150,137],
+"class_list_of_flux_objectives.html#a63bf923bf768a4b2a8a7aee09854f797":[3,0,150,62]
 };

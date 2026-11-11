@@ -1,6 +1,5 @@
 var NAVTREEINDEX168 =
 {
-"class_spatial_compartment_plugin.html#a678b2da9277ffa7cecca893fa05650c2":[3,0,325,27],
 "class_spatial_compartment_plugin.html#a6cbd8c9b415ccb8d4f437b749e009b0d":[3,0,325,0],
 "class_spatial_compartment_plugin.html#a70257de82da9ea894348f1d601395e83":[3,0,325,28],
 "class_spatial_compartment_plugin.html#a737ab5a086a835d0f1050fa8989674be":[3,0,325,5],
@@ -249,5 +248,6 @@ var NAVTREEINDEX168 =
 "class_spatial_points.html#aaa33a2ed4bc5236cb95962f789bc0564":[3,0,330,42],
 "class_spatial_points.html#aaac69460cb7d5553dec19a13f86e768b":[3,0,330,11],
 "class_spatial_points.html#aab33d5a2ee3f134f77027bbd96c2f5dc":[3,0,330,132],
-"class_spatial_points.html#aabd015c9b4eab8e06e715579593c30ce":[3,0,330,0]
+"class_spatial_points.html#aabd015c9b4eab8e06e715579593c30ce":[3,0,330,0],
+"class_spatial_points.html#aac93855c11d3e29c120fad461d6cab80":[3,0,330,127]
 };

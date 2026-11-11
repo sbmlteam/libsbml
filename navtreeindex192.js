@@ -1,6 +1,5 @@
 var NAVTREEINDEX192 =
 {
-"libsbml-version_8h.html#a443a258b6c2383b8a875e8e84be5df26":[4,0,0,0,1,6,4],
 "libsbml-version_8h.html#a699767ac0e2c8bee27cd46a1e6d653ef":[4,0,0,0,1,6,7],
 "libsbml-version_8h.html#a8daa984f64b730c902f99993db926f0b":[4,0,0,0,1,6,1],
 "libsbml-version_8h.html#abb5f9322d4ffcb92c812df978d389b0b":[4,0,0,0,1,6,6],
@@ -249,5 +248,6 @@ var NAVTREEINDEX192 =
 "util_8cpp.html#af26763812f56ddd83264710e46b21f81":[4,0,0,0,6,24,8],
 "util_8h.html":[4,0,0,0,6,25],
 "util_8h.html#a3cf8f56b8e61118fee84c48652ab92df":[4,0,0,0,6,25,12],
-"util_8h.html#a4d0079bd8534eef5b1cf57d032490f56":[4,0,0,0,6,25,1]
+"util_8h.html#a4d0079bd8534eef5b1cf57d032490f56":[4,0,0,0,6,25,1],
+"util_8h.html#a5be3bdf4083e871f6fc28911f0d5261f":[4,0,0,0,6,25,7]
 };

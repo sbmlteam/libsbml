@@ -1,6 +1,5 @@
 var NAVTREEINDEX102 =
 {
-"class_list_of_groups.html#a98fd54a2457efe73beaa0df7debc4fa2":[3,0,161,5],
 "class_list_of_groups.html#a997486d0a21de5d8d07bd764cd6cb21c":[3,0,161,63],
 "class_list_of_groups.html#a9b9dcb83f0b3da9466817e3d32f197f0":[3,0,161,36],
 "class_list_of_groups.html#a9fb99b60d2f2f0427e818187cc6f6ad9":[3,0,161,99],
@@ -249,5 +248,6 @@ var NAVTREEINDEX102 =
 "class_list_of_initial_assignments.html#a4cf8825fb83925a508eaac3d7f8fbb8c":[3,0,162,143],
 "class_list_of_initial_assignments.html#a4df4f196b8e11d08013c436c689465a5":[3,0,162,111],
 "class_list_of_initial_assignments.html#a4fbf6701023075573bd76fa0bd276291":[3,0,162,24],
-"class_list_of_initial_assignments.html#a58adfb8b4bc384e47ff1a8bc3110f66d":[3,0,162,19]
+"class_list_of_initial_assignments.html#a58adfb8b4bc384e47ff1a8bc3110f66d":[3,0,162,19],
+"class_list_of_initial_assignments.html#a5912bd9dc06f63029b86dbda467bb3c5":[3,0,162,66]
 };
