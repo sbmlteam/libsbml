@@ -69,6 +69,7 @@ CompSBMLDocumentPlugin::CompSBMLDocumentPlugin (const string& uri, const string 
   , mCheckingDummyDoc (false)
   , mFlattenAndCheck (true)
   , mOverrideCompFlattening (false)
+  , mModelDefinitionFailures (NULL)
 {
   connectToChild();
 }
@@ -82,6 +83,7 @@ CompSBMLDocumentPlugin::CompSBMLDocumentPlugin(const CompSBMLDocumentPlugin& ori
   , mCheckingDummyDoc (orig.mCheckingDummyDoc)
   , mFlattenAndCheck (orig.mFlattenAndCheck)
   , mOverrideCompFlattening (orig.mOverrideCompFlattening)
+  , mModelDefinitionFailures (NULL)
 {
   connectToChild();
 }
@@ -963,6 +965,11 @@ CompSBMLDocumentPlugin::checkConsistency()
             != CompLineNumbersUnreliable)
           {
             log->add( *(dummyDoc.getErrorLog()->getError(n)) );
+            if (mModelDefinitionFailures != NULL)
+            {
+              mModelDefinitionFailures->push_back(
+                *(dummyDoc.getErrorLog()->getError(n)) );
+            }
           }
         }
 

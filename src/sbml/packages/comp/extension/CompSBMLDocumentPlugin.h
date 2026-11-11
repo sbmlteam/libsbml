@@ -78,6 +78,7 @@
 #include <iostream>
 #include <string>
 #include <map>
+#include <vector>
 
 #include <sbml/packages/comp/extension/CompExtension.h>
 #include <sbml/packages/comp/common/compfwd.h>
@@ -89,6 +90,7 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 class CompValidator;
+class CompFlatteningConverter;
 
 class LIBSBML_EXTERN CompSBMLDocumentPlugin : public SBMLDocumentPlugin
 {
@@ -643,6 +645,7 @@ public:
   /** @endcond */
 
   friend class ExternalModelDefinition; //So that it can call 'getSBMLDocumentFromURI' but nothing else can.
+  friend class CompFlatteningConverter; //So that it can check the model definitions of a document once only.
 
   /** @cond doxygenLibsbmlInternal */
   /* retrieve the override flattening flag */
@@ -703,6 +706,9 @@ private:
   bool mCheckingDummyDoc;
   bool mFlattenAndCheck;
   bool mOverrideCompFlattening;
+
+  /* if set, also receives the failures found in the model definitions; not owned or copied */
+  std::vector<SBMLError>* mModelDefinitionFailures;
 
   /** @endcond */
 };

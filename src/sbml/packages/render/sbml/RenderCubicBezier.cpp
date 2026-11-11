@@ -86,7 +86,7 @@ RenderCubicBezier::RenderCubicBezier(unsigned int level,
 
   connectToChild();
 
-  loadPlugins(renderns);
+  // the plugins are loaded by the constructor of the base class (RenderPoint)
 }
 
 

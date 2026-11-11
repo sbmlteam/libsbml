@@ -80,8 +80,7 @@ ModelDefinition::ModelDefinition(CompPkgNamespaces* compns)
   // connect child elements to this element.
   connectToChild();
 
-  // load package extensions bound with this object (if any) 
-  loadPlugins(compns);
+  // the plugins are loaded by the constructor of the base class (Model)
 }
 
 
@@ -96,15 +95,18 @@ ModelDefinition::ModelDefinition(const Model& source)
   }
   // connect child elements to this element.
   connectToChild();
-  // load package extensions bound with this object (if any) 
-  loadPlugins(getSBMLNamespaces());
+  // the plugins are copied from the source: a model without comp gets them here
+  if (getPlugin(mURI) == NULL)
+  {
+    enablePackageInternal(mURI, CompExtension::getPackageName(), true);
+  }
 }
 
 ModelDefinition& ModelDefinition::operator=(const Model& source)
 {
   if(&source!=this)
   {
-    ModelDefinition::operator=(source);
+    Model::operator=(source);
     if (source.getTypeCode() == SBML_MODEL) {
       CompPkgNamespaces* moddef = new CompPkgNamespaces(); //Take the default level/version/version
       moddef->addNamespaces(source.getSBMLNamespaces()->getNamespaces());
@@ -112,9 +114,12 @@ ModelDefinition& ModelDefinition::operator=(const Model& source)
     }
     // connect child elements to this element.
     connectToChild();
+    // the plugins are copied from the source: a model without comp gets them here
+    if (getPlugin(mURI) == NULL)
+    {
+      enablePackageInternal(mURI, CompExtension::getPackageName(), true);
+    }
   }
-  // load package extensions bound with this object (if any) 
-  loadPlugins(getSBMLNamespaces());
 
   return *this;
 }

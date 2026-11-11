@@ -1244,6 +1244,8 @@ public:
 
 protected:
   /** @cond doxygenLibsbmlInternal */
+  ListOfParameters (SBMLNamespaces* sbmlns, bool isLocal);
+
   /**
    * Create a ListOfParameters object corresponding to the next token in
    * the XML input stream.

@@ -1779,6 +1779,17 @@ ListOfParameters::ListOfParameters (SBMLNamespaces* sbmlns)
 }
 
 
+/** @cond doxygenLibsbmlInternal */
+/*
+ * Creates a new ListOfParameters for a ListOfLocalParameters, which loads its own plugins.
+ */
+ListOfParameters::ListOfParameters (SBMLNamespaces* sbmlns, bool)
+  : ListOf(sbmlns)
+{
+}
+/** @endcond */
+
+
 /*
  * @return a (deep) copy of this ListOfParameters.
  */

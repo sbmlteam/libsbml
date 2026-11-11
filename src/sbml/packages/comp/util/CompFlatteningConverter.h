@@ -489,6 +489,7 @@ writer.writeSBML(doc, args[1]);
 #define CompFlatteningConverter_h
 
 #include <sbml/SBMLNamespaces.h>
+#include <sbml/SBMLError.h>
 #include <sbml/packages/comp/extension/CompModelPlugin.h>
 #include <sbml/conversion/SBMLConverter.h>
 #include <sbml/conversion/SBMLConverterRegister.h>
@@ -668,6 +669,9 @@ private:
 
   PackageValueMap mPackageValues;
   IdList * mPkgsToStrip;
+
+  // failures found in the model definitions of the original document
+  std::vector<SBMLError> mModelDefinitionFailures;
 
   void analyseDocument();
 

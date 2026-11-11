@@ -78,7 +78,7 @@ CSGPrimitive::CSGPrimitive(SpatialPkgNamespaces *spatialns)
   , mPrimitiveType (SPATIAL_PRIMITIVEKIND_INVALID)
 {
   setElementNamespace(spatialns->getURI());
-  loadPlugins(spatialns);
+  // the plugins are loaded by the constructor of the base class (CSGNode)
 }
 
 
