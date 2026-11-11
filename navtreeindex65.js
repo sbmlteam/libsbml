@@ -1,5 +1,6 @@
 var NAVTREEINDEX65 =
 {
+"class_geometry.html#a33e7d72c78a289116e1150defdb1d2b0":[3,0,93,19],
 "class_geometry.html#a37287e48bd51353012b74e4d200bb446":[3,0,93,204],
 "class_geometry.html#a38154e4cfa4339bcbe479dd360193fbf":[3,0,93,209],
 "class_geometry.html#a3966b3a059671df93db7baf3d3264586":[3,0,93,87],
@@ -248,6 +249,5 @@ var NAVTREEINDEX65 =
 "class_geometry_definition.html#a77068f549f7aa55f56a072cda2960183":[3,0,94,33],
 "class_geometry_definition.html#a776e0b06ec3f0dd2bfdafeec6c9d7cc2":[3,0,94,42],
 "class_geometry_definition.html#a7a260cec1705d70d0fea2259b5665b92":[3,0,94,96],
-"class_geometry_definition.html#a7a6dc5a02be520ea43c7cf71c5062c71":[3,0,94,124],
-"class_geometry_definition.html#a7a9574c886d54be2db67210bbd8fcf18":[3,0,94,87]
+"class_geometry_definition.html#a7a6dc5a02be520ea43c7cf71c5062c71":[3,0,94,124]
 };

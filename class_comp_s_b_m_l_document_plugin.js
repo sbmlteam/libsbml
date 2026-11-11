@@ -54,5 +54,6 @@ var class_comp_s_b_m_l_document_plugin =
     [ "setElementNamespace", "class_comp_s_b_m_l_document_plugin.html#a70257de82da9ea894348f1d601395e83", null ],
     [ "setRequired", "class_comp_s_b_m_l_document_plugin.html#a203982f5001cd3ae8d29fe0b5b1e3472", null ],
     [ "unsetRequired", "class_comp_s_b_m_l_document_plugin.html#a2655a84f1c27bf1976e92b0fc2a86331", null ],
+    [ "CompFlatteningConverter", "class_comp_s_b_m_l_document_plugin.html#a644686908e68bfccd82197239f77614e", null ],
     [ "ExternalModelDefinition", "class_comp_s_b_m_l_document_plugin.html#ac99cd0427597f52a78301d2035bc7333", null ]
 ];

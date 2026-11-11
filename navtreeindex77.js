@@ -1,5 +1,6 @@
 var NAVTREEINDEX77 =
 {
+"class_kinetic_law.html#a37287e48bd51353012b74e4d200bb446":[3,0,115,158],
 "class_kinetic_law.html#a3826e71b6bd49f54107a5be25f1c5335":[3,0,115,146],
 "class_kinetic_law.html#a39e0febad1c149b4a8455662afd845b4":[3,0,115,128],
 "class_kinetic_law.html#a3a5d41cc95aad8d145d3176d172256dc":[3,0,115,159],
@@ -248,6 +249,5 @@ var NAVTREEINDEX77 =
 "class_layout.html#a707a3defeec9bd05fb35a7beec63a7b3":[3,0,117,125],
 "class_layout.html#a70becec9ecd5ecf42973a8e0d4609487":[3,0,117,108],
 "class_layout.html#a74a2656b70b4c7be5e7743f1902481f3":[3,0,117,23],
-"class_layout.html#a75b1541bd854ad7edfe0aff79ab3231f":[3,0,117,178],
-"class_layout.html#a7665a8bdf41d33da3660d16e678fa7e8":[3,0,117,163]
+"class_layout.html#a75b1541bd854ad7edfe0aff79ab3231f":[3,0,117,178]
 };

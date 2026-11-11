@@ -1,5 +1,6 @@
 var NAVTREEINDEX153 =
 {
+"class_render_cubic_bezier.html#aeacb4b7fcddff829e23d8cd2df6acd1c":[3,0,260,143],
 "class_render_cubic_bezier.html#aeba49f001770e1554c7b31cfd49953e6":[3,0,260,19],
 "class_render_cubic_bezier.html#aed8f42e0f220bd85af8d01b51d87aeff":[3,0,260,102],
 "class_render_cubic_bezier.html#aee8d8b8cb1ae5980d228174073fc5abc":[3,0,260,87],
@@ -248,6 +249,5 @@ var NAVTREEINDEX153 =
 "class_render_extension.html#af692905ad7f015117c82324a962d6d84":[3,0,262,21],
 "class_render_graphical_object_plugin.html":[3,0,263],
 "class_render_graphical_object_plugin.html#a006883ed55ce76a4bcb85a86d2d72b26":[3,0,263,19],
-"class_render_graphical_object_plugin.html#a1ee76c910ef727545fe52fc33e266e35":[3,0,263,2],
-"class_render_graphical_object_plugin.html#a20f21bc972f3ee724924adf058e0e9a3":[3,0,263,24]
+"class_render_graphical_object_plugin.html#a1ee76c910ef727545fe52fc33e266e35":[3,0,263,2]
 };
