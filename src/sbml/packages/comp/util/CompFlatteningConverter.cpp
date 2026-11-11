@@ -529,10 +529,14 @@ CompFlatteningConverter::reconstructDocument(Model * flatmodel,
       if (dummyRecon == true)
       {
         result = dummyDoc.setModel(flatmodel);
-        dummyDoc.enablePackage
-                   (CompExtension::getXmlnsL3V1V1(), "comp", true);
-      // need to make sure comp required attribute is set
-      // or validation of dummyDoc will fail
+        // the copied model has no comp plugins: give it empty ones
+        if (result == LIBSBML_OPERATION_SUCCESS)
+        {
+          dummyDoc.getModel()->enablePackageInternal
+                     (CompExtension::getXmlnsL3V1V1(), "comp", true);
+        }
+        // need to make sure comp required attribute is set
+        // or validation of dummyDoc will fail
         docPlug = static_cast<CompSBMLDocumentPlugin *>
                               (dummyDoc.getPlugin("comp"));
         docPlug->setRequired(true);
@@ -540,8 +544,12 @@ CompFlatteningConverter::reconstructDocument(Model * flatmodel,
       else
       {
         result = mDocument->setModel(flatmodel);
-        mDocument->enablePackage
-                   (CompExtension::getXmlnsL3V1V1(), "comp", true);
+        // the copied model has no comp plugins: give it empty ones
+        if (result == LIBSBML_OPERATION_SUCCESS)
+        {
+          mDocument->getModel()->enablePackageInternal
+                     (CompExtension::getXmlnsL3V1V1(), "comp", true);
+        }
       }
     }
   }

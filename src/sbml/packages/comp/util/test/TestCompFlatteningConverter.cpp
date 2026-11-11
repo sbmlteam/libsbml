@@ -1096,6 +1096,51 @@ START_TEST (test_comp_flatten_converter_properties3)
 END_TEST
 
 
+START_TEST (test_comp_flatten_converter_definitions_model_plugin)
+{ 
+  string filename(TestDataDirectory);
+  
+  ConversionProperties props;
+  
+  props.addOption("flatten comp");
+  props.addOption("basePath", filename);
+  props.addOption("listModelDefinitions", true);
+
+  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(props);
+  
+  string cfile = filename + "test14.xml";  
+  SBMLDocument* doc = readSBMLFromFile(cfile.c_str());
+
+  fail_unless(doc->getModel() != NULL);
+
+  converter->setDocument(doc);
+  int result = converter->convert();
+
+  fail_unless(result == LIBSBML_OPERATION_SUCCESS);
+
+  // the document keeps comp, so its flat model must have a comp plugin
+  CompSBMLDocumentPlugin* docPlug = 
+    static_cast<CompSBMLDocumentPlugin*>(doc->getPlugin("comp"));
+  fail_unless(docPlug != NULL);
+  fail_unless(docPlug->getNumModelDefinitions() > 0);
+
+  CompModelPlugin* modelPlug = 
+    dynamic_cast<CompModelPlugin*>(doc->getModel()->getPlugin("comp"));
+  fail_unless(modelPlug != NULL);
+  fail_unless(modelPlug->getNumSubmodels() == 0);
+  fail_unless(modelPlug->getNumPorts() == 0);
+
+  // checking the converted document swaps its model into the model definitions
+  doc->getErrorLog()->clearLog();
+  doc->checkConsistency();
+  fail_unless(doc->getErrorLog()->getNumFailsWithSeverity(LIBSBML_SEV_ERROR) == 0);
+
+  delete doc;
+  delete converter;
+}
+END_TEST
+
+
 START_TEST (test_comp_flatten_converter_properties4)
 { 
   string filename(TestDataDirectory);
@@ -2223,6 +2268,7 @@ create_suite_TestFlatteningConverter (void)
   tcase_add_test(tcase, test_comp_flatten_converter_properties1);
   tcase_add_test(tcase, test_comp_flatten_converter_properties2);
   tcase_add_test(tcase, test_comp_flatten_converter_properties3);
+  tcase_add_test(tcase, test_comp_flatten_converter_definitions_model_plugin);
   tcase_add_test(tcase, test_comp_flatten_converter_properties4);
   tcase_add_test(tcase, test_comp_flatten_converter_properties5);
   tcase_add_test(tcase, test_comp_flatten_converter_properties6);
