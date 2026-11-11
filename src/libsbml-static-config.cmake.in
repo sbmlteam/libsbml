@@ -13,7 +13,7 @@ foreach (library @LIBSBML_LIBS@ @EXTRA_LIBS@)
       message(VERBOSE "Looking for dependent library: ${DEPENDENT_NAME}")
       set(_libsbml_dependency_args)
       if (DEPENDENT_NAME STREQUAL "ZLIB")
-        # Empty, unless only the static libsbml was built; then it needs the static zlib.
+        # Empty, unless libsbml was built against a zlib that exports ZLIB::ZLIBSTATIC.
         set(_libsbml_dependency_args @LIBSBML_ZLIB_FIND_ARGS@)
       endif()
       find_dependency(${DEPENDENT_NAME} ${_libsbml_dependency_args})
