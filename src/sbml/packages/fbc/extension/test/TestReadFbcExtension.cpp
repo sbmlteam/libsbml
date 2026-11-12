@@ -570,14 +570,152 @@ START_TEST(test_FbcExtension_read_L3V2V1_check_id)
     "</sbml>\n"
     ;
 
+  const char* expected =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "<sbml xmlns=\"http://www.sbml.org/sbml/level3/version2/core\" xmlns:fbc=\"http://www.sbml.org/sbml/level3/version1/fbc/version1\" level=\"3\" version=\"2\" fbc:required=\"false\">\n"
+    "  <model>\n"
+    "    <listOfCompartments>\n"
+    "      <compartment id=\"cytosol\" constant=\"true\"/>\n"
+    "    </listOfCompartments>\n"
+    "    <listOfSpecies>\n"
+    "      <species id=\"ATPm\" compartment=\"mitochon\" initialConcentration=\"2\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"/>\n"
+    "    </listOfSpecies>\n"
+    "    <fbc:listOfObjectives fbc:activeObjective=\"obj1\">\n"
+    "      <fbc:objective id=\"obj1\" fbc:type=\"maximize\"/>\n"
+    "    </fbc:listOfObjectives>\n"
+    "    <fbc:listOfFluxBounds>\n"
+    "      <fbc:fluxBound id=\"bound1\" fbc:reaction=\"J0\" fbc:operation=\"equal\" fbc:value=\"10\"/>\n"
+    "    </fbc:listOfFluxBounds>\n"
+    "  </model>\n"
+    "</sbml>\n"
+    ;
+
   SBMLDocument *document = readSBMLFromString(s1);
 
   char * output = writeSBMLToString(document);
 
-  fail_unless(equals(s1, output));
+  fail_unless(equals(expected, output));
 
   safe_free(output);
 
+  delete document;
+}
+END_TEST
+
+START_TEST(test_FbcExtension_read_L3V2V1_id_and_prefixed_id_match)
+{
+  const char* s1 =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "<sbml xmlns=\"http://www.sbml.org/sbml/level3/version2/core\" xmlns:fbc=\"http://www.sbml.org/sbml/level3/version1/fbc/version1\" level=\"3\" version=\"2\" fbc:required=\"false\">\n"
+    "  <model>\n"
+    "    <listOfCompartments>\n"
+    "      <compartment id=\"cytosol\" constant=\"true\"/>\n"
+    "    </listOfCompartments>\n"
+    "    <listOfSpecies>\n"
+    "      <species id=\"ATPm\" compartment=\"mitochon\" initialConcentration=\"2\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"/>\n"
+    "    </listOfSpecies>\n"
+    "    <fbc:listOfObjectives fbc:activeObjective=\"obj1\">\n"
+    "      <fbc:objective fbc:id=\"obj1\" fbc:type=\"maximize\"/>\n"
+    "    </fbc:listOfObjectives>\n"
+    "    <fbc:listOfFluxBounds>\n"
+    "      <fbc:fluxBound id=\"bound1\" fbc:id=\"bound1\" fbc:reaction=\"J0\" fbc:operation=\"equal\" fbc:value=\"10\"/>\n"
+    "    </fbc:listOfFluxBounds>\n"
+    "  </model>\n"
+    "</sbml>\n"
+    ;
+
+  SBMLDocument *document = readSBMLFromString(s1);
+
+  fail_unless(!document->getErrorLog()->contains(FbcFluxBoundAllowedL3Attributes));
+
+  FbcModelPlugin* mplugin = static_cast<FbcModelPlugin*>(document->getModel()->getPlugin("fbc"));
+  fail_unless(mplugin->getFluxBound(0)->getId() == "bound1");
+
+  delete document;
+}
+END_TEST
+
+START_TEST(test_FbcExtension_read_L3V2V1_id_and_prefixed_id_differ)
+{
+  const char* s1 =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "<sbml xmlns=\"http://www.sbml.org/sbml/level3/version2/core\" xmlns:fbc=\"http://www.sbml.org/sbml/level3/version1/fbc/version1\" level=\"3\" version=\"2\" fbc:required=\"false\">\n"
+    "  <model>\n"
+    "    <listOfCompartments>\n"
+    "      <compartment id=\"cytosol\" constant=\"true\"/>\n"
+    "    </listOfCompartments>\n"
+    "    <listOfSpecies>\n"
+    "      <species id=\"ATPm\" compartment=\"mitochon\" initialConcentration=\"2\" hasOnlySubstanceUnits=\"false\" boundaryCondition=\"false\" constant=\"false\"/>\n"
+    "    </listOfSpecies>\n"
+    "    <fbc:listOfObjectives fbc:activeObjective=\"obj1\">\n"
+    "      <fbc:objective fbc:id=\"obj1\" fbc:type=\"maximize\"/>\n"
+    "    </fbc:listOfObjectives>\n"
+    "    <fbc:listOfFluxBounds>\n"
+    "      <fbc:fluxBound id=\"bound1\" fbc:id=\"bound2\" fbc:reaction=\"J0\" fbc:operation=\"equal\" fbc:value=\"10\"/>\n"
+    "    </fbc:listOfFluxBounds>\n"
+    "  </model>\n"
+    "</sbml>\n"
+    ;
+
+  SBMLDocument *document = readSBMLFromString(s1);
+
+  fail_unless(document->getErrorLog()->contains(FbcFluxBoundAllowedL3Attributes));
+
+  FbcModelPlugin* mplugin = static_cast<FbcModelPlugin*>(document->getModel()->getPlugin("fbc"));
+  fail_unless(mplugin->getFluxBound(0)->getId() == "bound1");
+
+  delete document;
+}
+END_TEST
+
+START_TEST(test_FbcExtension_downconvert_L3V2_to_L3V1_ids)
+{
+  const char* s1 =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "<sbml xmlns=\"http://www.sbml.org/sbml/level3/version2/core\" xmlns:fbc=\"http://www.sbml.org/sbml/level3/version1/fbc/version1\" level=\"3\" version=\"2\" fbc:required=\"false\">\n"
+    "  <model id=\"m1\" name=\"m1name\">\n"
+    "    <listOfCompartments>\n"
+    "      <compartment id=\"cytosol\" constant=\"true\"/>\n"
+    "    </listOfCompartments>\n"
+    "    <fbc:listOfObjectives fbc:activeObjective=\"obj1\" id=\"lo1\" name=\"lo1name\">\n"
+    "      <fbc:objective id=\"obj1\" fbc:type=\"maximize\"/>\n"
+    "    </fbc:listOfObjectives>\n"
+    "    <fbc:listOfFluxBounds id=\"lfb1\" name=\"lfb1name\">\n"
+    "      <fbc:fluxBound id=\"bound1\" fbc:reaction=\"J0\" fbc:operation=\"equal\" fbc:value=\"10\"/>\n"
+    "    </fbc:listOfFluxBounds>\n"
+    "  </model>\n"
+    "</sbml>\n"
+    ;
+
+  SBMLDocument *document = readSBMLFromString(s1);
+  fail_unless(document->getNumErrors(LIBSBML_SEV_ERROR) == 0);
+
+  FbcModelPlugin* mplugin = static_cast<FbcModelPlugin*>(document->getModel()->getPlugin("fbc"));
+  fail_unless(mplugin->getListOfFluxBounds()->getIdAttribute() == "lfb1");
+
+  fail_unless(document->setLevelAndVersion(3, 1, false));
+  string out = writeSBMLToStdString(document);
+  delete document;
+
+  // the list elements have no id or name in the L3V1 fbc spec
+  fail_unless(out.find("lo1") == string::npos);
+  fail_unless(out.find("lfb1") == string::npos);
+
+  // the elements that define them write the prefixed attributes
+  fail_unless(out.find("fbc:id=\"obj1\"") != string::npos);
+  fail_unless(out.find("fbc:id=\"bound1\"") != string::npos);
+  fail_unless(out.find(" id=\"obj1\"") == string::npos);
+  fail_unless(out.find(" id=\"bound1\"") == string::npos);
+
+  // the core model keeps its id and name
+  fail_unless(out.find(" id=\"m1\"") != string::npos);
+  fail_unless(out.find(" name=\"m1name\"") != string::npos);
+
+  document = readSBMLFromString(out.c_str());
+  fail_unless(document->getNumErrors(LIBSBML_SEV_ERROR) == 0);
+  mplugin = static_cast<FbcModelPlugin*>(document->getModel()->getPlugin("fbc"));
+  fail_unless(mplugin->getFluxBound(0)->getId() == "bound1");
+  fail_unless(mplugin->getListOfFluxBounds()->getIdAttribute().empty());
   delete document;
 }
 END_TEST
@@ -651,6 +789,9 @@ create_suite_ReadFbcExtension(void)
   tcase_add_test(tcase, test_FbcExtension_read_and_convert);
   tcase_add_test(tcase, test_FbcExtension_read_and_convert_V1ToV2);
   tcase_add_test(tcase, test_FbcExtension_read_L3V2V1_check_id);
+  tcase_add_test(tcase, test_FbcExtension_read_L3V2V1_id_and_prefixed_id_match);
+  tcase_add_test(tcase, test_FbcExtension_read_L3V2V1_id_and_prefixed_id_differ);
+  tcase_add_test(tcase, test_FbcExtension_downconvert_L3V2_to_L3V1_ids);
   tcase_add_test(tcase, test_FbcExtension_read_L3V1V3);
 
 #ifdef USE_COMP

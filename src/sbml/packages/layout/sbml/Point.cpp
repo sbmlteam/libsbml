@@ -605,7 +605,7 @@ void Point::readAttributes (const XMLAttributes& attributes,
 void Point::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
-  if (isSetId())
+  if ((getLevel() < 3 || getVersion() == 1) && isSetId())
   {
     stream.writeAttribute("id", getPrefix(), mId);
   }

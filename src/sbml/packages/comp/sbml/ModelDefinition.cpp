@@ -212,7 +212,7 @@ ModelDefinition::readAttributes (const XMLAttributes& attributes,
   string coreid = attributes.getValue("id", "");
   string compname = attributes.getValue("name", mURI);
   string corename = attributes.getValue("name", "");
-  if (!compid.empty())
+  if (sbmlVersion == 1 && !compid.empty())
   {
     string details = "The <comp:modelDefinition> element ";
     if (!coreid.empty()) {
@@ -222,7 +222,7 @@ ModelDefinition::readAttributes (const XMLAttributes& attributes,
       + "' may not use a 'comp:id': the id attribute from core must be used instead.";
     log->logError(AllowedAttributesOnModel, sbmlLevel, sbmlVersion, details);
   }
-  if (!compname.empty())
+  if (sbmlVersion == 1 && !compname.empty())
   {
     string details = "The <comp:modelDefinition> element ";
     if (!corename.empty()) {
@@ -235,27 +235,6 @@ ModelDefinition::readAttributes (const XMLAttributes& attributes,
 }
 /** @endcond */
 
-/** @cond doxygenLibsbmlInternal */
-void
-ModelDefinition::writeAttributes(XMLOutputStream& stream) const
-{
-  Model::writeAttributes(stream);
-
-  // the id and name attribute on a ModelDefinition come from the parent model
-  // BUT if the document is an L3V2 doc and we are using comp l3v1v1 we need to write
-  // the id and name here but still in the sbml ns
-  if (getSBMLDocument()->getVersion() > 1 && this->getPackageCoreVersion() == 1)
-  {
-    if (isSetId()) {
-      stream.writeAttribute("id", getSBMLPrefix(), mId);
-    }
-    if (isSetName()) {
-      stream.writeAttribute("name", getSBMLPrefix(), mName);
-    }
-  }
-  // ModelDefinition::writeExtensionAttributes(stream);
-}
-/** @endcond */
 
 
 

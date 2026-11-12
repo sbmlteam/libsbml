@@ -655,10 +655,10 @@ DynElement::writeAttributes (XMLOutputStream& stream) const
   if (isSetIdRef() == true)
     stream.writeAttribute("idRef", getPrefix(), mIdRef);
 
-  if (isSetId() == true)
+  if (getVersion() == 1 && isSetId() == true)
     stream.writeAttribute("id", getPrefix(), mId);
 
-  if (isSetName() == true)
+  if (getVersion() == 1 && isSetName() == true)
     stream.writeAttribute("name", getPrefix(), mName);
 
   if (isSetMetaIdRef() == true)

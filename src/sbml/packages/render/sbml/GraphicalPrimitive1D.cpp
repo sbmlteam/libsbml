@@ -1195,7 +1195,7 @@ GraphicalPrimitive1D::writeAttributes(XMLOutputStream& stream) const
 {
   Transformation2D::writeAttributes(stream);
 
-  if (isSetId() == true)
+  if ((getLevel() < 3 || getVersion() == 1) && isSetId() == true)
   {
     stream.writeAttribute("id", getPrefix(), mId);
   }

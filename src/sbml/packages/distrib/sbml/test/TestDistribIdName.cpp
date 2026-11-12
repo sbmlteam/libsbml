@@ -44,6 +44,7 @@
 
 #include <iostream>
 #include <check.h>
+#include <sbml/SBMLWriter.h>
 #include <sbml/SBMLTypes.h>
 #include <sbml/extension/SBMLExtensionRegistry.h>
 #include <sbml/packages/distrib/common/DistribExtensionTypes.h>
@@ -76,68 +77,91 @@ equals(std::string& expected, std::string& actual)
 }
 
 
-//START_TEST(test_IdName_prefix_read_write_l3v1)
-//{
-//  std::string expected =
-//    "<distrib:uncertainty distrib:id=\"u1\">\n"
-//    "  <distrib:listOfExternalParameters distrib:id=\"loep\">\n"
-//    "    <distrib:externalParameter distrib:name=\"Beta\" distrib:var=\"beta\" distrib:definitionURL=\"http://www.probonto.org/ontology#PROB_k0000362\"/>\n"
-//    "  </distrib:listOfExternalParameters>\n" 
-//    "</distrib:uncertainty>";
-//    
-//  std::string fileName = std::string(TestDataDirectory) + std::string("/") + std::string("distrib_statistics.xml");
-//  SBMLDocument *doc = readSBMLFromFile(fileName.c_str());
-//  Parameter* p = doc->getModel()->getParameter(2);
-//
-//  DistribSBasePlugin * plug = static_cast<DistribSBasePlugin*>(p->getPlugin("distrib"));
-//  Uncertainty * uncert = plug->getUncertainty();
-//  ListOfExternalParameters * loep = uncert->getListOfExternalParameters();
-//
-//  fail_unless(uncert->setId("u1") == LIBSBML_OPERATION_SUCCESS);
-//  fail_unless(loep->setId("loep") == LIBSBML_OPERATION_SUCCESS);
-//
-//  ostringstream oss;
-//  oss << uncert->toSBML();
-//
-//  std::string actual = oss.str();
-//
-//  fail_unless(equals(expected, actual));
-//
-//  delete doc;
-//}
-//END_TEST
-//
-//
-//START_TEST(test_IdName_prefix_read_write_l3v2)
-//{
-//  std::string expected =
-//    "<distrib:uncertainty distrib:id=\"u1\">\n"
-//    "  <distrib:listOfExternalParameters distrib:id=\"loep\">\n"
-//    "    <distrib:externalParameter distrib:name=\"Beta\" distrib:var=\"beta\" distrib:definitionURL=\"http://www.probonto.org/ontology#PROB_k0000362\"/>\n"
-//    "  </distrib:listOfExternalParameters>\n"
-//    "</distrib:uncertainty>";
-//
-//  std::string fileName = std::string(TestDataDirectory) + std::string("/") + std::string("distrib_statistics_l3v2.xml");
-//  SBMLDocument *doc = readSBMLFromFile(fileName.c_str());
-//  Parameter* p = doc->getModel()->getParameter(2);
-//
-//  DistribSBasePlugin * plug = static_cast<DistribSBasePlugin*>(p->getPlugin("distrib"));
-//  Uncertainty * uncert = plug->getUncertainty();
-//  ListOfExternalParameters * loep = uncert->getListOfExternalParameters();
-//
-//  fail_unless(uncert->setId("u1") == LIBSBML_OPERATION_SUCCESS);
-//  fail_unless(loep->setId("loep") == LIBSBML_OPERATION_SUCCESS);
-//
-//  ostringstream oss;
-//  oss << uncert->toSBML();
-//
-//  std::string actual = oss.str();
-//
-//  fail_unless(equals(expected, actual));
-//
-//  delete doc;
-//}
-//END_TEST
+START_TEST(test_IdName_prefix_read_write_l3v1)
+{
+  std::string fileName = std::string(TestDataDirectory) + std::string("/") + std::string("distrib_statistics.xml");
+  SBMLDocument *doc = readSBMLFromFile(fileName.c_str());
+  Parameter* p = doc->getModel()->getParameter(0);
+
+  DistribSBasePlugin * plug = static_cast<DistribSBasePlugin*>(p->getPlugin("distrib"));
+  Uncertainty * uncert = plug->getUncertainty(0);
+  fail_unless(uncert != NULL);
+
+  fail_unless(uncert->setId("u1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(uncert->setName("u1name") == LIBSBML_OPERATION_SUCCESS);
+
+  std::string actual = writeSBMLToStdString(doc);
+  delete doc;
+
+  fail_unless(actual.find("<distrib:uncertainty distrib:id=\"u1\" distrib:name=\"u1name\">") != std::string::npos);
+}
+END_TEST
+
+
+START_TEST(test_IdName_noprefix_read_write_l3v2)
+{
+  std::string fileName = std::string(TestDataDirectory) + std::string("/") + std::string("distrib_statistics_l3v2.xml");
+  SBMLDocument *doc = readSBMLFromFile(fileName.c_str());
+  Parameter* p = doc->getModel()->getParameter(0);
+
+  DistribSBasePlugin * plug = static_cast<DistribSBasePlugin*>(p->getPlugin("distrib"));
+  Uncertainty * uncert = plug->getUncertainty(0);
+  fail_unless(uncert != NULL);
+
+  fail_unless(uncert->setId("u1") == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(uncert->setName("u1name") == LIBSBML_OPERATION_SUCCESS);
+
+  std::string actual = writeSBMLToStdString(doc);
+  delete doc;
+
+  fail_unless(actual.find("<distrib:uncertainty id=\"u1\" name=\"u1name\">") != std::string::npos);
+  fail_unless(actual.find("distrib:id=") == std::string::npos);
+  fail_unless(actual.find("distrib:name=") == std::string::npos);
+
+  doc = readSBMLFromString(actual.c_str());
+  p = doc->getModel()->getParameter(0);
+  plug = static_cast<DistribSBasePlugin*>(p->getPlugin("distrib"));
+  fail_unless(plug->getUncertainty(0)->getId() == "u1");
+  fail_unless(plug->getUncertainty(0)->getName() == "u1name");
+  delete doc;
+}
+END_TEST
+
+
+START_TEST(test_IdName_duplicate_id_logged_once_l3v2)
+{
+  std::string fileName = std::string(TestDataDirectory) + std::string("/") + std::string("distrib_statistics_l3v2.xml");
+  SBMLDocument *doc = readSBMLFromFile(fileName.c_str());
+  Parameter* p = doc->getModel()->getParameter(0);
+
+  DistribSBasePlugin * plug = static_cast<DistribSBasePlugin*>(p->getPlugin("distrib"));
+  Uncertainty * uncert = plug->getUncertainty(0);
+  fail_unless(uncert != NULL);
+  fail_unless(uncert->setId("u1") == LIBSBML_OPERATION_SUCCESS);
+
+  std::string text = writeSBMLToStdString(doc);
+  delete doc;
+
+  // give the uncertainty a distrib:id that differs from its plain id
+  const std::string target = "<distrib:uncertainty id=\"u1\"";
+  const std::size_t pos = text.find(target);
+  fail_unless(pos != std::string::npos);
+  text.insert(pos + target.size(), " distrib:id=\"u2\"");
+
+  doc = readSBMLFromString(text.c_str());
+  unsigned int duplicates = 0;
+  for (unsigned int n = 0; n < doc->getNumErrors(); n++)
+  {
+    if (doc->getError(n)->getMessage().find("twice with different values") != std::string::npos)
+    {
+      duplicates++;
+    }
+  }
+  fail_unless(duplicates == 1);
+  fail_unless(doc->getNumErrors() == 1);
+  delete doc;
+}
+END_TEST
 
 
 Suite *
@@ -146,8 +170,9 @@ create_suite_test_IdName(void)
   Suite *suite = suite_create("TestIdName");
   TCase *tcase = tcase_create("TestIdName");
 
-  //tcase_add_test(tcase, test_IdName_prefix_read_write_l3v1);
-  //tcase_add_test(tcase, test_IdName_prefix_read_write_l3v2);
+  tcase_add_test(tcase, test_IdName_prefix_read_write_l3v1);
+  tcase_add_test(tcase, test_IdName_noprefix_read_write_l3v2);
+  tcase_add_test(tcase, test_IdName_duplicate_id_logged_once_l3v2);
 
 
   suite_add_tcase(suite, tcase);

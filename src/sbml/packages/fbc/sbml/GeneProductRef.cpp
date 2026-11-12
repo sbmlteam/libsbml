@@ -864,13 +864,13 @@ GeneProductRef::writeAttributes (XMLOutputStream& stream) const
 {
   FbcAssociation::writeAttributes(stream);
 
-  if (isSetId() == true)
+  if (getVersion() == 1 && isSetId() == true)
     stream.writeAttribute("id", getPrefix(), mId);
 
   if (isSetGeneProduct() == true)
     stream.writeAttribute("geneProduct", getPrefix(), mGeneProduct);
 
-  if (isSetName() == true)
+  if (getVersion() == 1 && isSetName() == true)
     stream.writeAttribute("name", getPrefix(), mName);
 
 }

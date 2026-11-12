@@ -1171,7 +1171,7 @@ QualitativeSpecies::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
-  if (isSetId() == true)
+  if (getVersion() == 1 && isSetId() == true)
     stream.writeAttribute("id", getPrefix(), mId);
 
   if (isSetCompartment() == true)
@@ -1180,7 +1180,7 @@ QualitativeSpecies::writeAttributes (XMLOutputStream& stream) const
   if (isSetConstant() == true)
     stream.writeAttribute("constant", getPrefix(), mConstant);
 
-  if (isSetName() == true)
+  if (getVersion() == 1 && isSetName() == true)
     stream.writeAttribute("name", getPrefix(), mName);
 
   if (isSetInitialLevel() == true)

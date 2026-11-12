@@ -206,6 +206,18 @@ protected:
                                    const std::string& element);
 
 
+  /**
+   * Logs a duplicate id/name error with the code of the element being read.
+   */
+  virtual void logDuplicateIdName(const std::string& message);
+
+
+  /**
+   * Logs an empty or invalid plain id with the comp SId syntax code.
+   */
+  virtual void logInvalidIdValue(const std::string& value);
+
+
 
   /**
    * Predicate returning @c true if this
@@ -258,6 +270,9 @@ private:
   //
   const SBMLExtension  *mSBMLExt;
   /** @endcond */
+
+  // the error code of the element being read, used for duplicate id/name errors
+  CompSBMLErrorCode_t mReadErrCode;
 };
 
 LIBSBML_CPP_NAMESPACE_END

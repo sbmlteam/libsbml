@@ -1044,7 +1044,7 @@ Image::readAttributes(const XMLAttributes& attributes,
 void Image::writeAttributes (XMLOutputStream& stream) const
 {
     Transformation2D::writeAttributes(stream);
-    if(this->isSetId())
+    if ((getLevel() < 3 || getVersion() == 1) && this->isSetId())
     {
         stream.writeAttribute("id", getPrefix(), this->getId());
     }

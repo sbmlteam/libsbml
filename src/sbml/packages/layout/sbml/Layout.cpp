@@ -1736,9 +1736,12 @@ Layout::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
-  stream.writeAttribute("id", getPrefix(), mId);
+  if (getLevel() < 3 || getVersion() == 1)
+  {
+    stream.writeAttribute("id", getPrefix(), mId);
+  }
 
-  if (isSetName())
+  if ((getLevel() < 3 || getVersion() == 1) && isSetName())
   {
     stream.writeAttribute("name", getPrefix(), mName);
   }

@@ -3615,6 +3615,21 @@ protected:
 
 
   /**
+   * Logs the error for an element that gives its 'id' or 'name' twice, with
+   * different values, in the plain and the package namespace.  Packages may
+   * override this to log an element-specific error.
+   */
+  virtual void logDuplicateIdName(const std::string& message);
+
+
+  /**
+   * Logs the error for a plain 'id' that is empty or is not a valid SId.
+   * Packages may override this to log a package-specific error.
+   */
+  virtual void logInvalidIdValue(const std::string& value);
+
+
+  /**
    * Subclasses should override this method to add the list of
    * expected attributes. Be sure to call your parent's implementation 
    * of this method as well.

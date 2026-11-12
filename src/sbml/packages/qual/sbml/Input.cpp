@@ -1139,7 +1139,7 @@ Input::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
-  if (isSetId() == true)
+  if (getVersion() == 1 && isSetId() == true)
     stream.writeAttribute("id", getPrefix(), mId);
 
   if (isSetQualitativeSpecies() == true)
@@ -1149,7 +1149,7 @@ Input::writeAttributes (XMLOutputStream& stream) const
     stream.writeAttribute("transitionEffect", getPrefix(), 
                      InputTransitionEffect_toString(mTransitionEffect));
 
-  if (isSetName() == true)
+  if (getVersion() == 1 && isSetName() == true)
     stream.writeAttribute("name", getPrefix(), mName);
 
   if (isSetSign() == true)

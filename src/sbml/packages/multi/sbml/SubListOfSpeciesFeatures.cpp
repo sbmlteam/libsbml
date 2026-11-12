@@ -678,7 +678,7 @@ SubListOfSpeciesFeatures::readAttributes (const XMLAttributes& attributes,
 void
 SubListOfSpeciesFeatures::writeAttributes (XMLOutputStream& stream) const
 {
-  if (isSetId() == true)
+  if (getVersion() == 1 && isSetId() == true)
     stream.writeAttribute("id", getPrefix(), mId);
 
   if (isSetRelation() == true)
