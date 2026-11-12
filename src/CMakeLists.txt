@@ -537,6 +537,21 @@ INSTALL(EXPORT ${LIBSBML_LIBRARY}-static-targets
 
 if (${CMAKE_VERSION} VERSION_GREATER 2.8.7)
 
+# The exported targets link to what ZLIB::ZLIB is an alias of. When that is a target exported as
+# ZLIB::ZLIBSTATIC, only the zlib package file defines that name, so the package file asks for it.
+set(LIBSBML_ZLIB_FIND_ARGS "")
+if (TARGET ZLIB::ZLIB)
+  get_target_property(_libsbml_zlib_real ZLIB::ZLIB ALIASED_TARGET)
+  if (_libsbml_zlib_real)
+    get_target_property(_libsbml_zlib_export_name ${_libsbml_zlib_real} EXPORT_NAME)
+    if (_libsbml_zlib_export_name STREQUAL "ZLIBSTATIC")
+      set(LIBSBML_ZLIB_FIND_ARGS CONFIG COMPONENTS static)
+    endif()
+  endif()
+  unset(_libsbml_zlib_real)
+  unset(_libsbml_zlib_export_name)
+endif()
+
 CONFIGURE_PACKAGE_CONFIG_FILE(
   ${CMAKE_CURRENT_LIST_DIR}/libsbml-static-config.cmake.in
   ${CMAKE_CURRENT_BINARY_DIR}/${LIBSBML_LIBRARY}-static-config.cmake
