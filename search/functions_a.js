@@ -366,12 +366,10 @@ var searchData=
   ['localstyle_5fhasrequiredattributes_363',['LocalStyle_hasRequiredAttributes',['../_local_style_8cpp.html#ad14dfb156d6f3ad8d1dfdf4b8ada3da9',1,'LocalStyle.cpp']]],
   ['localstyle_5fissetidlist_364',['LocalStyle_isSetIdList',['../_local_style_8cpp.html#a72007269c686fee52a37fb96c08e200b',1,'LocalStyle.cpp']]],
   ['localstyle_5fsetidlist_365',['LocalStyle_setIdList',['../_local_style_8cpp.html#aef5876ef9f50513974491652e7452261',1,'LocalStyle.cpp']]],
-  ['logduplicateidname_366',['logDuplicateIdName',['../class_comp_base.html#aa44fbc1a9031c81ff6d3093eb5f7d56c',1,'CompBase']]],
-  ['logemptystring_367',['logEmptyString',['../class_comp_base.html#a1c71d043d9bed87b16f3fa538a4b6bcd',1,'CompBase']]],
-  ['logfailure_368',['logFailure',['../class_s_b_m_l_validator.html#a52413a56a05e8ec6ce9c1d10d5c7314b',1,'SBMLValidator::logFailure()'],['../class_validator.html#a5505a69a3a572113dc7be070449f0906',1,'Validator::logFailure()']]],
-  ['loginvalidid_369',['logInvalidId',['../class_comp_s_base_plugin.html#aacd97152699501735840c258a33c4090',1,'CompSBasePlugin::logInvalidId()'],['../class_comp_base.html#ad43daa3902bcf32eaddd17b36f2c5eed',1,'CompBase::logInvalidId(const std::string &amp;attribute, const std::string &amp;wrongattribute, const std::string object=&quot;&quot;)']]],
-  ['loginvalididvalue_370',['logInvalidIdValue',['../class_comp_base.html#a4731b3949c99b3a853661f40076405ec',1,'CompBase']]],
-  ['logmissingattribute_371',['logMissingAttribute',['../class_comp_base.html#aa31b2beecfbd08e63da6510be7135091',1,'CompBase']]],
-  ['logunknownattribute_372',['logUnknownAttribute',['../class_comp_base.html#ad90f7e00ea7e356157d314e895822be6',1,'CompBase']]],
-  ['logunknownelement_373',['logUnknownElement',['../class_comp_base.html#a04357eddaccf7e7fb8224c31f31e7d59',1,'CompBase']]]
+  ['logemptystring_366',['logEmptyString',['../class_comp_base.html#a1c71d043d9bed87b16f3fa538a4b6bcd',1,'CompBase']]],
+  ['logfailure_367',['logFailure',['../class_s_b_m_l_validator.html#a52413a56a05e8ec6ce9c1d10d5c7314b',1,'SBMLValidator::logFailure()'],['../class_validator.html#a5505a69a3a572113dc7be070449f0906',1,'Validator::logFailure()']]],
+  ['loginvalidid_368',['logInvalidId',['../class_comp_s_base_plugin.html#aacd97152699501735840c258a33c4090',1,'CompSBasePlugin::logInvalidId()'],['../class_comp_base.html#ad43daa3902bcf32eaddd17b36f2c5eed',1,'CompBase::logInvalidId(const std::string &amp;attribute, const std::string &amp;wrongattribute, const std::string object=&quot;&quot;)']]],
+  ['logmissingattribute_369',['logMissingAttribute',['../class_comp_base.html#aa31b2beecfbd08e63da6510be7135091',1,'CompBase']]],
+  ['logunknownattribute_370',['logUnknownAttribute',['../class_comp_base.html#ad90f7e00ea7e356157d314e895822be6',1,'CompBase']]],
+  ['logunknownelement_371',['logUnknownElement',['../class_comp_base.html#a04357eddaccf7e7fb8224c31f31e7d59',1,'CompBase']]]
 ];

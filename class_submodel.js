@@ -122,10 +122,8 @@ var class_submodel =
     [ "isSetSubstanceConversionFactor", "class_submodel.html#a7feb9c275ff710bf01286e755ef59aeb", null ],
     [ "isSetTimeConversionFactor", "class_submodel.html#ae0a56d43080c7768ec082d9e2ea39466", null ],
     [ "isSetUserData", "class_submodel.html#abbd9e46d49ea191134832353b7b91c6d", null ],
-    [ "logDuplicateIdName", "class_submodel.html#aa44fbc1a9031c81ff6d3093eb5f7d56c", null ],
     [ "logEmptyString", "class_submodel.html#a1c71d043d9bed87b16f3fa538a4b6bcd", null ],
     [ "logInvalidId", "class_submodel.html#ad43daa3902bcf32eaddd17b36f2c5eed", null ],
-    [ "logInvalidIdValue", "class_submodel.html#a4731b3949c99b3a853661f40076405ec", null ],
     [ "logMissingAttribute", "class_submodel.html#aa31b2beecfbd08e63da6510be7135091", null ],
     [ "logUnknownAttribute", "class_submodel.html#ad90f7e00ea7e356157d314e895822be6", null ],
     [ "logUnknownElement", "class_submodel.html#a04357eddaccf7e7fb8224c31f31e7d59", null ],
@@ -186,6 +184,5 @@ var class_submodel =
     [ "unsetSubstanceConversionFactor", "class_submodel.html#a0a2999c0aca3bb479be1c6895d906b7d", null ],
     [ "unsetTimeConversionFactor", "class_submodel.html#ac9ba06b4ac1052a90ecd206aec7b7383", null ],
     [ "unsetUserData", "class_submodel.html#abd78c4290e103245ce49b92b5e229375", null ],
-    [ "writeAttributes", "class_submodel.html#a3bdfc697cbe152983f4042d5a72f4a3e", null ],
-    [ "mReadErrCode", "class_submodel.html#af21e256218fb315fabbf08e6a445cc19", null ]
+    [ "writeAttributes", "class_submodel.html#a3bdfc697cbe152983f4042d5a72f4a3e", null ]
 ];

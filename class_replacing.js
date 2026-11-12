@@ -115,10 +115,8 @@ var class_replacing =
     [ "isSetSubmodelRef", "class_replacing.html#a5b5ac4edcc11bf8c4938e7e7db8276ac", null ],
     [ "isSetUnitRef", "class_replacing.html#a327b82490cd8faf8e4900df633a73dfa", null ],
     [ "isSetUserData", "class_replacing.html#abbd9e46d49ea191134832353b7b91c6d", null ],
-    [ "logDuplicateIdName", "class_replacing.html#aa44fbc1a9031c81ff6d3093eb5f7d56c", null ],
     [ "logEmptyString", "class_replacing.html#a1c71d043d9bed87b16f3fa538a4b6bcd", null ],
     [ "logInvalidId", "class_replacing.html#ad43daa3902bcf32eaddd17b36f2c5eed", null ],
-    [ "logInvalidIdValue", "class_replacing.html#a4731b3949c99b3a853661f40076405ec", null ],
     [ "logMissingAttribute", "class_replacing.html#aa31b2beecfbd08e63da6510be7135091", null ],
     [ "logUnknownAttribute", "class_replacing.html#ad90f7e00ea7e356157d314e895822be6", null ],
     [ "logUnknownElement", "class_replacing.html#a04357eddaccf7e7fb8224c31f31e7d59", null ],
@@ -183,6 +181,5 @@ var class_replacing =
     [ "unsetSubmodelRef", "class_replacing.html#a94a49d0fc74c3b8d6448345b2d72aa09", null ],
     [ "unsetUnitRef", "class_replacing.html#a313caa1d084982ffd1837af17861331a", null ],
     [ "unsetUserData", "class_replacing.html#abd78c4290e103245ce49b92b5e229375", null ],
-    [ "writeAttributes", "class_replacing.html#a3bdfc697cbe152983f4042d5a72f4a3e", null ],
-    [ "mReadErrCode", "class_replacing.html#af21e256218fb315fabbf08e6a445cc19", null ]
+    [ "writeAttributes", "class_replacing.html#a3bdfc697cbe152983f4042d5a72f4a3e", null ]
 ];

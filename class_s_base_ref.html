@@ -457,14 +457,10 @@ Static Public Member Functions</h2></td></tr>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:a16bcad8c7763e034931eb0658e0092eb" id="r_a16bcad8c7763e034931eb0658e0092eb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_base.html#a16bcad8c7763e034931eb0658e0092eb">hasValidLevelVersionNamespaceCombination</a> ()</td></tr>
 <tr class="memdesc:a16bcad8c7763e034931eb0658e0092eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Predicate returning <code>true</code> if this object's level/version and namespace values correspond to a valid SBML specification.  <br /></td></tr>
-<tr class="memitem:aa44fbc1a9031c81ff6d3093eb5f7d56c" id="r_aa44fbc1a9031c81ff6d3093eb5f7d56c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_base.html#aa44fbc1a9031c81ff6d3093eb5f7d56c">logDuplicateIdName</a> (const std::string &amp;message)</td></tr>
-<tr class="memdesc:aa44fbc1a9031c81ff6d3093eb5f7d56c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logs a duplicate id/name error with the code of the element being read.  <br /></td></tr>
 <tr class="memitem:a1c71d043d9bed87b16f3fa538a4b6bcd" id="r_a1c71d043d9bed87b16f3fa538a4b6bcd"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_base.html#a1c71d043d9bed87b16f3fa538a4b6bcd">logEmptyString</a> (const std::string &amp;attribute, const std::string &amp;element)</td></tr>
 <tr class="memdesc:a1c71d043d9bed87b16f3fa538a4b6bcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper to log a common type of error.  <br /></td></tr>
 <tr class="memitem:ad43daa3902bcf32eaddd17b36f2c5eed" id="r_ad43daa3902bcf32eaddd17b36f2c5eed"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_base.html#ad43daa3902bcf32eaddd17b36f2c5eed">logInvalidId</a> (const std::string &amp;attribute, const std::string &amp;wrongattribute, const std::string object=&quot;&quot;)</td></tr>
 <tr class="memdesc:ad43daa3902bcf32eaddd17b36f2c5eed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper to log a common type of error.  <br /></td></tr>
-<tr class="memitem:a4731b3949c99b3a853661f40076405ec" id="r_a4731b3949c99b3a853661f40076405ec"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_base.html#a4731b3949c99b3a853661f40076405ec">logInvalidIdValue</a> (const std::string &amp;value)</td></tr>
-<tr class="memdesc:a4731b3949c99b3a853661f40076405ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logs an empty or invalid plain id with the comp SId syntax code.  <br /></td></tr>
 <tr class="memitem:aa31b2beecfbd08e63da6510be7135091" id="r_aa31b2beecfbd08e63da6510be7135091"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_base.html#aa31b2beecfbd08e63da6510be7135091">logMissingAttribute</a> (const std::string &amp;attribute, const std::string &amp;element)</td></tr>
 <tr class="memdesc:aa31b2beecfbd08e63da6510be7135091"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper to log a common type of error.  <br /></td></tr>
 <tr class="memitem:ad90f7e00ea7e356157d314e895822be6" id="r_ad90f7e00ea7e356157d314e895822be6"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_base.html#ad90f7e00ea7e356157d314e895822be6">logUnknownAttribute</a> (const std::string &amp;attribute, const std::string &amp;element)</td></tr>
@@ -487,10 +483,6 @@ Static Protected Member Functions</h2></td></tr>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:ac4a4bc03fa7ab1ae82a15ef4c4603691" id="r_ac4a4bc03fa7ab1ae82a15ef4c4603691"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac4a4bc03fa7ab1ae82a15ef4c4603691">collectDeletions</a> (std::set&lt; <a class="el" href="class_s_base.html">SBase</a> * &gt; *removed, std::set&lt; <a class="el" href="class_s_base.html">SBase</a> * &gt; *toremove)</td></tr>
 <tr class="memdesc:ac4a4bc03fa7ab1ae82a15ef4c4603691"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collects (in 'toremove') the referenced object, plus any other elements that element points to through <a class="el" href="class_replaced_element.html">ReplacedElement</a> or <a class="el" href="class_replaced_by.html">ReplacedBy</a> children.  <br /></td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:af21e256218fb315fabbf08e6a445cc19" id="r_af21e256218fb315fabbf08e6a445cc19"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_comp_s_b_m_l_error_8h.html#ac44f9ef8a150cee1759825082751b5f7">CompSBMLErrorCode_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_comp_base.html#af21e256218fb315fabbf08e6a445cc19">mReadErrCode</a></td></tr>
 </table>
 <a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="adad35324065afdf44658e03d42db0598" name="adad35324065afdf44658e03d42db0598"></a>
@@ -4556,33 +4548,6 @@ Level&#160;3 Version&#160;1 Package&#160;Version&#160;1: <code>"http://www.sbml.
 
 </div>
 </div>
-<a id="aa44fbc1a9031c81ff6d3093eb5f7d56c" name="aa44fbc1a9031c81ff6d3093eb5f7d56c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa44fbc1a9031c81ff6d3093eb5f7d56c">&#9670;&#160;</a></span>logDuplicateIdName()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void CompBase::logDuplicateIdName </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>message</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel protected">protected</span><span class="mlabel virtual">virtual</span><span class="mlabel inherited">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Logs a duplicate id/name error with the code of the element being read. </p>
-
-</div>
-</div>
 <a id="a1c71d043d9bed87b16f3fa538a4b6bcd" name="a1c71d043d9bed87b16f3fa538a4b6bcd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1c71d043d9bed87b16f3fa538a4b6bcd">&#9670;&#160;</a></span>logEmptyString()</h2>
 
@@ -4647,33 +4612,6 @@ Level&#160;3 Version&#160;1 Package&#160;Version&#160;1: <code>"http://www.sbml.
 </div><div class="memdoc">
 
 <p>Helper to log a common type of error. </p>
-
-</div>
-</div>
-<a id="a4731b3949c99b3a853661f40076405ec" name="a4731b3949c99b3a853661f40076405ec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4731b3949c99b3a853661f40076405ec">&#9670;&#160;</a></span>logInvalidIdValue()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void CompBase::logInvalidIdValue </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>value</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel protected">protected</span><span class="mlabel virtual">virtual</span><span class="mlabel inherited">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Logs an empty or invalid plain id with the comp SId syntax code. </p>
 
 </div>
 </div>
@@ -7197,29 +7135,6 @@ date" portion of this <a class="el" href="class_model_history.html">ModelHistory
 <p>Subclasses should override this method to write their XML attributes to the <a class="el" href="class_x_m_l_output_stream.html">XMLOutputStream</a>. </p>
 <p>Be sure to call your parent's implementation of this method as well. For example:</p>
 <p>SBase::writeAttributes(stream); stream.writeAttribute( "submodel" , mSubmodel ); ... </p>
-
-</div>
-</div>
-<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
-<a id="af21e256218fb315fabbf08e6a445cc19" name="af21e256218fb315fabbf08e6a445cc19"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af21e256218fb315fabbf08e6a445cc19">&#9670;&#160;</a></span>mReadErrCode</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="_comp_s_b_m_l_error_8h.html#ac44f9ef8a150cee1759825082751b5f7">CompSBMLErrorCode_t</a> CompBase::mReadErrCode</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span><span class="mlabel inherited">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
 
 </div>
 </div>

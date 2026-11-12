@@ -113,10 +113,8 @@ var class_deletion =
     [ "isSetSBOTerm", "class_deletion.html#a5fed1bd6da28c0cc0ec118209f7327a2", null ],
     [ "isSetUnitRef", "class_deletion.html#a327b82490cd8faf8e4900df633a73dfa", null ],
     [ "isSetUserData", "class_deletion.html#abbd9e46d49ea191134832353b7b91c6d", null ],
-    [ "logDuplicateIdName", "class_deletion.html#aa44fbc1a9031c81ff6d3093eb5f7d56c", null ],
     [ "logEmptyString", "class_deletion.html#a1c71d043d9bed87b16f3fa538a4b6bcd", null ],
     [ "logInvalidId", "class_deletion.html#ad43daa3902bcf32eaddd17b36f2c5eed", null ],
-    [ "logInvalidIdValue", "class_deletion.html#a4731b3949c99b3a853661f40076405ec", null ],
     [ "logMissingAttribute", "class_deletion.html#aa31b2beecfbd08e63da6510be7135091", null ],
     [ "logUnknownAttribute", "class_deletion.html#ad90f7e00ea7e356157d314e895822be6", null ],
     [ "logUnknownElement", "class_deletion.html#a04357eddaccf7e7fb8224c31f31e7d59", null ],
@@ -177,6 +175,5 @@ var class_deletion =
     [ "unsetSBOTerm", "class_deletion.html#a317ea060a5c3f97576188a22e670e683", null ],
     [ "unsetUnitRef", "class_deletion.html#a313caa1d084982ffd1837af17861331a", null ],
     [ "unsetUserData", "class_deletion.html#abd78c4290e103245ce49b92b5e229375", null ],
-    [ "writeAttributes", "class_deletion.html#a3bdfc697cbe152983f4042d5a72f4a3e", null ],
-    [ "mReadErrCode", "class_deletion.html#af21e256218fb315fabbf08e6a445cc19", null ]
+    [ "writeAttributes", "class_deletion.html#a3bdfc697cbe152983f4042d5a72f4a3e", null ]
 ];

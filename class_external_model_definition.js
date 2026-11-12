@@ -103,10 +103,8 @@ var class_external_model_definition =
     [ "isSetSBOTerm", "class_external_model_definition.html#a5fed1bd6da28c0cc0ec118209f7327a2", null ],
     [ "isSetSource", "class_external_model_definition.html#a286f626242deae8edb2eda4c32817f14", null ],
     [ "isSetUserData", "class_external_model_definition.html#abbd9e46d49ea191134832353b7b91c6d", null ],
-    [ "logDuplicateIdName", "class_external_model_definition.html#aa44fbc1a9031c81ff6d3093eb5f7d56c", null ],
     [ "logEmptyString", "class_external_model_definition.html#a1c71d043d9bed87b16f3fa538a4b6bcd", null ],
     [ "logInvalidId", "class_external_model_definition.html#ad43daa3902bcf32eaddd17b36f2c5eed", null ],
-    [ "logInvalidIdValue", "class_external_model_definition.html#a4731b3949c99b3a853661f40076405ec", null ],
     [ "logMissingAttribute", "class_external_model_definition.html#aa31b2beecfbd08e63da6510be7135091", null ],
     [ "logUnknownAttribute", "class_external_model_definition.html#ad90f7e00ea7e356157d314e895822be6", null ],
     [ "logUnknownElement", "class_external_model_definition.html#a04357eddaccf7e7fb8224c31f31e7d59", null ],
@@ -162,6 +160,5 @@ var class_external_model_definition =
     [ "unsetSource", "class_external_model_definition.html#aee48ddcc9d8545be9d8e7c8adcaa3a1f", null ],
     [ "unsetUserData", "class_external_model_definition.html#abd78c4290e103245ce49b92b5e229375", null ],
     [ "writeAttributes", "class_external_model_definition.html#a3bdfc697cbe152983f4042d5a72f4a3e", null ],
-    [ "Submodel", "class_external_model_definition.html#af63d3f844794eeb8a5829078deb740ae", null ],
-    [ "mReadErrCode", "class_external_model_definition.html#af21e256218fb315fabbf08e6a445cc19", null ]
+    [ "Submodel", "class_external_model_definition.html#af63d3f844794eeb8a5829078deb740ae", null ]
 ];
