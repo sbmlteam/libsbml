@@ -43,7 +43,7 @@
             <localParameter id="k" value="0.1" units="vol_per_time"/>
           </listOfLocalParameters>
         </kineticLaw>
-        <fbc:geneProductAssociation fbc:id="gg1">
+        <fbc:geneProductAssociation id="gg1">
           <fbc:geneProductRef sboTerm="SBO:0000007" fbc:geneProduct="g_1"/>
         </fbc:geneProductAssociation>
       </reaction>
@@ -66,7 +66,7 @@
             <localParameter id="k" value="0.1" units="vol_per_time"/>
           </listOfLocalParameters>
         </kineticLaw>
-        <fbc:geneProductAssociation fbc:id="gg2">
+        <fbc:geneProductAssociation id="gg2">
           <fbc:or metaid="ss">
             <fbc:geneProductRef fbc:geneProduct="g_1"/>
             <fbc:geneProductRef fbc:geneProduct="g_2"/>
@@ -92,7 +92,7 @@
             <localParameter id="k" value="0.1" units="vol_per_time"/>
           </listOfLocalParameters>
         </kineticLaw>
-        <fbc:geneProductAssociation fbc:id="gg3">
+        <fbc:geneProductAssociation id="gg3">
           <fbc:or metaid="ss">
             <fbc:geneProductRef fbc:geneProduct="g_1"/>
             <fbc:geneProductRef fbc:geneProduct="g_2"/>
@@ -105,15 +105,15 @@
       </reaction>
     </listOfReactions>
     <fbc:listOfObjectives fbc:activeObjective="o">
-      <fbc:objective fbc:id="o" fbc:type="maximize">
+      <fbc:objective id="o" fbc:type="maximize">
         <fbc:listOfFluxObjectives>
           <fbc:fluxObjective fbc:reaction="R1" fbc:coefficient="1"/>
         </fbc:listOfFluxObjectives>
       </fbc:objective>
     </fbc:listOfObjectives>
     <fbc:listOfGeneProducts>
-      <fbc:geneProduct fbc:id="g_1" fbc:label="g_1"/>
-      <fbc:geneProduct fbc:id="g_2" fbc:label="g_2"/>
+      <fbc:geneProduct id="g_1" fbc:label="g_1"/>
+      <fbc:geneProduct id="g_2" fbc:label="g_2"/>
     </fbc:listOfGeneProducts>
   </model>
 </sbml>
