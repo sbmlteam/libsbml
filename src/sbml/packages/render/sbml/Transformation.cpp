@@ -864,7 +864,7 @@ Transformation::writeAttributes(XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
-  if (isSetName() == true)
+  if ((getLevel() < 3 || getVersion() == 1) && isSetName() == true)
   {
     stream.writeAttribute("name", getPrefix(), mName);
   }

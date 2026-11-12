@@ -2557,7 +2557,7 @@ Geometry::writeAttributes(XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
-  if (isSetId() == true)
+  if (getVersion() == 1 && isSetId() == true)
   {
     stream.writeAttribute("id", getPrefix(), mId);
   }

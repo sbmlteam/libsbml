@@ -672,10 +672,10 @@ InSpeciesTypeBond::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
-  if (isSetId() == true)
+  if (getVersion() == 1 && isSetId() == true)
     stream.writeAttribute("id", getPrefix(), mId);
 
-  if (isSetName() == true)
+  if (getVersion() == 1 && isSetName() == true)
     stream.writeAttribute("name", getPrefix(), mName);
 
   if (isSetBindingSite1() == true)

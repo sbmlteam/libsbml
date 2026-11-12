@@ -89,7 +89,7 @@ START_TEST (test_comp_upconvert)
   const char* expected = wrapSBML_L3v2(
     "  <model id=\"aggregate\">\n"
     "    <comp:listOfSubmodels>\n"
-    "      <comp:submodel comp:id=\"submod1\" comp:modelRef=\"enzyme\"/>\n"
+    "      <comp:submodel id=\"submod1\" comp:modelRef=\"enzyme\"/>\n"
     "    </comp:listOfSubmodels>\n"
     "  </model>\n"
     "  <comp:listOfModelDefinitions>\n"
@@ -197,6 +197,78 @@ END_TEST
 
 
 
+START_TEST(test_comp_downconvert_drops_undefined_ids_names)
+{
+  const char* input = wrapSBML_L3v2(
+    "  <model id=\"aggregate\">\n"
+    "    <listOfParameters>\n"
+    "      <parameter id=\"a\" value=\"3\" constant=\"true\">\n"
+    "        <comp:listOfReplacedElements>\n"
+    "          <comp:replacedElement id=\"re1\" name=\"re1name\" comp:idRef=\"a\" comp:submodelRef=\"S1\">\n"
+    "            <comp:sBaseRef id=\"sb1\" name=\"sb1name\" comp:portRef=\"p\"/>\n"
+    "          </comp:replacedElement>\n"
+    "        </comp:listOfReplacedElements>\n"
+    "      </parameter>\n"
+    "      <parameter id=\"b\" value=\"3\" constant=\"true\">\n"
+    "        <comp:replacedBy id=\"rb1\" name=\"rb1name\" comp:idRef=\"a\" comp:submodelRef=\"S1\"/>\n"
+    "      </parameter>\n"
+    "    </listOfParameters>\n"
+    "    <comp:listOfSubmodels>\n"
+    "      <comp:submodel id=\"S1\" name=\"S1name\" comp:modelRef=\"foo\">\n"
+    "        <comp:listOfDeletions>\n"
+    "          <comp:deletion id=\"d1\" name=\"d1name\" comp:portRef=\"p\"/>\n"
+    "        </comp:listOfDeletions>\n"
+    "      </comp:submodel>\n"
+    "    </comp:listOfSubmodels>\n"
+    "    <comp:listOfPorts>\n"
+    "      <comp:port id=\"p1\" name=\"p1name\" comp:idRef=\"a\"/>\n"
+    "    </comp:listOfPorts>\n"
+    "  </model>\n"
+    "  <comp:listOfModelDefinitions>\n"
+    "    <comp:modelDefinition id=\"foo\" name=\"foo\"/>\n"
+    "  </comp:listOfModelDefinitions>\n");
+
+  SBMLDocument* doc = readSBMLFromString(input);
+  fail_unless(doc->getNumErrors() == 0);
+  fail_unless(doc->setLevelAndVersion(3, 1, false));
+
+  string out = writeSBMLToStdString(doc);
+  delete doc;
+
+  // elements whose L3V1 spec has no id or name lose them
+  fail_unless(out.find("re1") == string::npos);
+  fail_unless(out.find("sb1") == string::npos);
+  fail_unless(out.find("rb1") == string::npos);
+
+  // elements whose L3V1 spec defines them write them with the comp prefix
+  fail_unless(out.find("comp:id=\"S1\"") != string::npos);
+  fail_unless(out.find("comp:name=\"S1name\"") != string::npos);
+  fail_unless(out.find("comp:id=\"d1\"") != string::npos);
+  fail_unless(out.find("comp:name=\"d1name\"") != string::npos);
+  fail_unless(out.find("comp:id=\"p1\"") != string::npos);
+  fail_unless(out.find("comp:name=\"p1name\"") != string::npos);
+
+  // the model definition takes its id and name from the core model
+  fail_unless(out.find(" id=\"foo\"") != string::npos);
+  fail_unless(out.find("comp:id=\"foo\"") == string::npos);
+
+  doc = readSBMLFromString(out.c_str());
+  fail_unless(doc->getNumErrors(LIBSBML_SEV_ERROR) == 0);
+
+  Model* model = doc->getModel();
+  CompModelPlugin* mplugin = static_cast<CompModelPlugin*>(model->getPlugin("comp"));
+  fail_unless(mplugin->getSubmodel(0)->getIdAttribute() == "S1");
+  fail_unless(mplugin->getSubmodel(0)->getName() == "S1name");
+
+  CompSBasePlugin* pa = static_cast<CompSBasePlugin*>(model->getParameter("a")->getPlugin("comp"));
+  fail_unless(pa->getReplacedElement(0)->getIdAttribute().empty());
+  fail_unless(pa->getReplacedElement(0)->getName().empty());
+  delete doc;
+}
+END_TEST
+
+
+
 Suite *
 create_suite_TestLevelVersionConversion (void)
 { 
@@ -205,6 +277,7 @@ create_suite_TestLevelVersionConversion (void)
   
   tcase_add_test(tcase, test_comp_upconvert);
   tcase_add_test(tcase, test_comp_downconvert);
+  tcase_add_test(tcase, test_comp_downconvert_drops_undefined_ids_names);
 
   suite_add_tcase(suite, tcase);
 

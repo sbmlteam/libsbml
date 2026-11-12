@@ -550,7 +550,7 @@ Dimensions::writeElements (XMLOutputStream& stream) const
 void Dimensions::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
-  if (isSetId())
+  if ((getLevel() < 3 || getVersion() == 1) && isSetId())
   {
     stream.writeAttribute("id", getPrefix(), mId);
   }

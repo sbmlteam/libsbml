@@ -5545,6 +5545,39 @@ SBase::logEmptyString( const string& attribute,
 
 /** @cond doxygenLibsbmlInternal */
 /*
+ * Logs a duplicate id/name error: a package element reports it as an unknown
+ * core attribute so the package can remap it to its own code.
+ */
+void
+SBase::logDuplicateIdName(const std::string& message)
+{
+  const bool isPackage = !getPackageName().empty() && getPackageName() != "core";
+  logError(isPackage ? UnknownCoreAttribute : NotSchemaConformant,
+           getLevel(), getVersion(), message);
+}
+
+
+/*
+ * Logs an error for a plain id that is empty or has invalid syntax.
+ */
+void
+SBase::logInvalidIdValue(const std::string& value)
+{
+  if (value.empty())
+  {
+    logEmptyString("id", getLevel(), getVersion(),
+         SBMLTypeCode_toString(getTypeCode(), getPackageName().c_str()));
+  }
+  else
+  {
+    logError(InvalidIdSyntax);
+  }
+}
+/** @endcond */
+
+
+/** @cond doxygenLibsbmlInternal */
+/*
  * Convenience method for easily logging problems from within method
  * implementations.
  *
@@ -5717,30 +5750,49 @@ SBase::readAttributes (const XMLAttributes& attributes,
       message, getLine(), getColumn());
   }
 
-  // for l3v2 and above
-  // read id and name
-  if (level == 3 && version > 1)
+  // read id and name: for any element in L3V2, and in L3V1 only for package
+  // elements that define them.  The attribute may have no namespace or the
+  // namespace of the element's package; both mean the same attribute.
+  if (level == 3)
   {
-    XMLTriple tripleId("id", "", "");
-
-    bool assigned = attributes.readInto(tripleId, mId, getErrorLog(), false, 
-                                         getLine(), getColumn());
-
-    if (assigned && mId.empty())
+    for (int n = 0; n < 2; n++)
     {
-      logEmptyString("id", level, version,
-           SBMLTypeCode_toString(getTypeCode(), getPackageName().c_str()));
+      const std::string attr = (n == 0) ? "id" : "name";
+      std::string& value = (n == 0) ? mId : mName;
+
+      if (version == 1 && (getPackageName().empty() || getPackageName() == "core"
+          || !expectedAttributes.hasAttribute(attr)))
+      {
+        continue;
+      }
+
+      const bool hasPlain = attributes.hasAttribute(attr, "");
+      const bool hasNS = !mURI.empty() && attributes.hasAttribute(attr, mURI);
+      const std::string plain = attributes.getValue(attr, "");
+      const std::string nsValue = hasNS ? attributes.getValue(attr, mURI) : "";
+
+      if (hasPlain && hasNS && plain != nsValue)
+      {
+        std::ostringstream msg;
+        msg << "The <" << getElementName() << "> element defines the '" << attr
+            << "' attribute twice with different values: '" << plain << "' and '"
+            << nsValue << "'.";
+        logDuplicateIdName(msg.str());
+      }
+
+      if (hasPlain || hasNS)
+      {
+        value = (hasNS && (version == 1 || !hasPlain)) ? nsValue : plain;
+      }
+
+      if (n == 0 && hasPlain && version > 1)
+      {
+        if (plain.empty() || !SyntaxChecker::isValidInternalSId(plain))
+        {
+          logInvalidIdValue(plain);
+        }
+      }
     }
-
-    if (isSetId() && !SyntaxChecker::isValidInternalSId(mId))
-    {
-      logError(InvalidIdSyntax);
-    }
-
-    XMLTriple tripleName("name", "", "");
-    attributes.readInto(tripleName, mName, getErrorLog(), false,
-                        getLine(), getColumn());
-
   }
   //
   // (EXTENSION)
@@ -5970,20 +6022,11 @@ SBase::writeAttributes (XMLOutputStream& stream) const
     SBO::writeTerm(stream, mSBOTerm, sbmlPrefix);
   }
 
-  // only write for l3v2 and above
-  // but do not write for an l3v1 package
+  // only write for l3v2 and above, for any element, with no namespace
   if (level == 3 && version > 1)
   {
-    if (getPackageName().empty() || getPackageName() == "core")
-    {
-      stream.writeAttribute("id", mId);
-      stream.writeAttribute("name", mName);
-    }
-    else if (getPackageCoreVersion() > 1)
-    {
-      stream.writeAttribute("id", mId);
-      stream.writeAttribute("name", mName);
-    }
+    stream.writeAttribute("id", mId);
+    stream.writeAttribute("name", mName);
   }
 }
 

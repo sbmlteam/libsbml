@@ -36,6 +36,8 @@
 
 #include <sbml/SBMLReader.h>
 #include <sbml/SBMLTypes.h>
+#include <sbml/SBMLWriter.h>
+#include <sbml/packages/comp/common/CompExtensionTypes.h>
 #include <sbml/packages/comp/validator/CompSBMLError.h>
 
 #include <string>
@@ -95,10 +97,7 @@ START_TEST (test_comp_AttributeNamespaces_submod_id_coreNotComp)
     "</sbml>";
   SBMLDocument* doc = readSBMLFromString(input.c_str());
   SBMLErrorLog* errors = doc->getErrorLog();
-  fail_unless(errors->getNumErrors() == 1);
-  const SBMLError* error = errors->getError(0);
-  fail_unless(error->getErrorId() == CompSubmodelAllowedAttributes);
-  fail_unless( !strcmp(error->getMessage().c_str(), "A <submodel> object must have the attributes 'comp:id' and 'comp:modelRef' because they are required, and may also have the optional attributes 'comp:name', 'comp:timeConversionFactor, and/or 'comp:extentConversionFactor'.  No other attributes from the Hierarchical Model Composition namespace are permitted on a <submodel> object.\nReference: L3V1 Comp V1 Section 3.5\n The <comp:submodel> element with the 'id' with value 'A' must use 'comp:id' instead.\n"), NULL);
+  fail_unless(errors->getNumErrors() == 0);
   delete doc;
 }
 END_TEST
@@ -127,7 +126,7 @@ START_TEST (test_comp_AttributeNamespaces_submod_id_coreAndComp_error)
   const SBMLError* error = errors->getError(0);
   fail_unless(error->getErrorId() == CompSubmodelAllowedAttributes);
   fail_unless(error->getSeverity() == LIBSBML_SEV_ERROR);
-  fail_unless( !strcmp(error->getMessage().c_str(), "A <submodel> object must have the attributes 'comp:id' and 'comp:modelRef' because they are required, and may also have the optional attributes 'comp:name', 'comp:timeConversionFactor, and/or 'comp:extentConversionFactor'.  No other attributes from the Hierarchical Model Composition namespace are permitted on a <submodel> object.\nReference: L3V1 Comp V1 Section 3.5\n The <comp:submodel> element with the 'id' with value 'A' and the 'comp:id' with value 'A2' must only use the 'comp:id' attribute.\n"), NULL);
+  fail_unless( !strcmp(error->getMessage().c_str(), "A <submodel> object must have the attributes 'comp:id' and 'comp:modelRef' because they are required, and may also have the optional attributes 'comp:name', 'comp:timeConversionFactor, and/or 'comp:extentConversionFactor'.  No other attributes from the Hierarchical Model Composition namespace are permitted on a <submodel> object.\nReference: L3V1 Comp V1 Section 3.5\n The <submodel> element defines the 'id' attribute twice with different values: 'A' and 'A2'.\n"), NULL);
   delete doc;
 }
 END_TEST
@@ -152,11 +151,7 @@ START_TEST (test_comp_AttributeNamespaces_submod_id_coreAndComp_warning)
     "</sbml>";
   SBMLDocument* doc = readSBMLFromString(input.c_str());
   SBMLErrorLog* errors = doc->getErrorLog();
-  fail_unless(errors->getNumErrors() == 1);
-  const SBMLError* error = errors->getError(0);
-  fail_unless(error->getErrorId() == CompSubmodelAllowedAttributes);
-  fail_unless(error->getSeverity() == LIBSBML_SEV_WARNING);
-  fail_unless( !strcmp(error->getMessage().c_str(), "A <submodel> object must have the attributes 'comp:id' and 'comp:modelRef' because they are required, and may also have the optional attributes 'comp:name', 'comp:timeConversionFactor, and/or 'comp:extentConversionFactor'.  No other attributes from the Hierarchical Model Composition namespace are permitted on a <submodel> object.\nReference: L3V1 Comp V1 Section 3.5\n The <comp:submodel> element with the 'id' with value 'A' and the 'comp:id' with value 'A' must only use the 'comp:id' attribute.\n"), NULL);
+  fail_unless(errors->getNumErrors() == 0);
   delete doc;
 }
 END_TEST
@@ -181,10 +176,7 @@ START_TEST (test_comp_AttributeNamespaces_submod_name_coreNotComp)
     "</sbml>";
   SBMLDocument* doc = readSBMLFromString(input.c_str());
   SBMLErrorLog* errors = doc->getErrorLog();
-  fail_unless(errors->getNumErrors() == 1);
-  const SBMLError* error = errors->getError(0);
-  fail_unless(error->getErrorId() == CompSubmodelAllowedAttributes);
-  fail_unless( !strcmp(error->getMessage().c_str(), "A <submodel> object must have the attributes 'comp:id' and 'comp:modelRef' because they are required, and may also have the optional attributes 'comp:name', 'comp:timeConversionFactor, and/or 'comp:extentConversionFactor'.  No other attributes from the Hierarchical Model Composition namespace are permitted on a <submodel> object.\nReference: L3V1 Comp V1 Section 3.5\n The <comp:submodel> element with the 'name' with value 'Aname' must use 'comp:name' instead.\n"), NULL);
+  fail_unless(errors->getNumErrors() == 0);
   delete doc;
 }
 END_TEST
@@ -213,7 +205,7 @@ START_TEST (test_comp_AttributeNamespaces_submod_name_coreAndComp_error)
   const SBMLError* error = errors->getError(0);
   fail_unless(error->getErrorId() == CompSubmodelAllowedAttributes);
   fail_unless(error->getSeverity() == LIBSBML_SEV_ERROR);
-  fail_unless( !strcmp(error->getMessage().c_str(), "A <submodel> object must have the attributes 'comp:id' and 'comp:modelRef' because they are required, and may also have the optional attributes 'comp:name', 'comp:timeConversionFactor, and/or 'comp:extentConversionFactor'.  No other attributes from the Hierarchical Model Composition namespace are permitted on a <submodel> object.\nReference: L3V1 Comp V1 Section 3.5\n The <comp:submodel> element with the 'name' with value 'Aname' and the 'comp:name' with value 'A2name' must only use the 'comp:name' attribute.\n"), NULL);
+  fail_unless( !strcmp(error->getMessage().c_str(), "A <submodel> object must have the attributes 'comp:id' and 'comp:modelRef' because they are required, and may also have the optional attributes 'comp:name', 'comp:timeConversionFactor, and/or 'comp:extentConversionFactor'.  No other attributes from the Hierarchical Model Composition namespace are permitted on a <submodel> object.\nReference: L3V1 Comp V1 Section 3.5\n The <submodel> element defines the 'name' attribute twice with different values: 'Aname' and 'A2name'.\n"), NULL);
   delete doc;
 }
 END_TEST
@@ -238,11 +230,7 @@ START_TEST (test_comp_AttributeNamespaces_submod_name_coreAndComp_warning)
     "</sbml>";
   SBMLDocument* doc = readSBMLFromString(input.c_str());
   SBMLErrorLog* errors = doc->getErrorLog();
-  fail_unless(errors->getNumErrors() == 1);
-  const SBMLError* error = errors->getError(0);
-  fail_unless(error->getErrorId() == CompSubmodelAllowedAttributes);
-  fail_unless(error->getSeverity() == LIBSBML_SEV_WARNING);
-  fail_unless( !strcmp(error->getMessage().c_str(), "A <submodel> object must have the attributes 'comp:id' and 'comp:modelRef' because they are required, and may also have the optional attributes 'comp:name', 'comp:timeConversionFactor, and/or 'comp:extentConversionFactor'.  No other attributes from the Hierarchical Model Composition namespace are permitted on a <submodel> object.\nReference: L3V1 Comp V1 Section 3.5\n The <comp:submodel> element with the 'name' with value 'Aname' and the 'comp:name' with value 'Aname' must only use the 'comp:name' attribute.\n"), NULL);
+  fail_unless(errors->getNumErrors() == 0);
   delete doc;
 }
 END_TEST
@@ -270,10 +258,7 @@ START_TEST (test_comp_AttributeNamespaces_port_id_coreNotComp)
     "</sbml>";
   SBMLDocument* doc = readSBMLFromString(input.c_str());
   SBMLErrorLog* errors = doc->getErrorLog();
-  fail_unless(errors->getNumErrors() == 1);
-  const SBMLError* error = errors->getError(0);
-  fail_unless(error->getErrorId() == CompPortAllowedAttributes);
-  fail_unless( !strcmp(error->getMessage().c_str(), "A <port> object must have a value for the required attribute 'comp:id', and one, and only one, of the attributes 'comp:idRef', 'comp:unitRef', or 'comp:metaIdRef'.  No other attributes from the Hierarchical Model Composition namespace are permitted on a <port> object.\nReference: L3V1 Comp V1 Section 3.4.3\n The <comp:port> element with the 'id' with value 'a' must use 'comp:id' instead.\n"), NULL);
+  fail_unless(errors->getNumErrors() == 0);
   delete doc;
 }
 END_TEST
@@ -305,7 +290,7 @@ START_TEST (test_comp_AttributeNamespaces_port_id_coreAndComp_error)
   const SBMLError* error = errors->getError(0);
   fail_unless(error->getErrorId() == CompPortAllowedAttributes);
   fail_unless(error->getSeverity() == LIBSBML_SEV_ERROR);
-  fail_unless( !strcmp(error->getMessage().c_str(), "A <port> object must have a value for the required attribute 'comp:id', and one, and only one, of the attributes 'comp:idRef', 'comp:unitRef', or 'comp:metaIdRef'.  No other attributes from the Hierarchical Model Composition namespace are permitted on a <port> object.\nReference: L3V1 Comp V1 Section 3.4.3\n The <comp:port> element with the 'id' with value 'a' and the 'comp:id' with value 'a2' must only use the 'comp:id' attribute.\n"), NULL);
+  fail_unless( !strcmp(error->getMessage().c_str(), "A <port> object must have a value for the required attribute 'comp:id', and one, and only one, of the attributes 'comp:idRef', 'comp:unitRef', or 'comp:metaIdRef'.  No other attributes from the Hierarchical Model Composition namespace are permitted on a <port> object.\nReference: L3V1 Comp V1 Section 3.4.3\n The <port> element defines the 'id' attribute twice with different values: 'a' and 'a2'.\n"), NULL);
   delete doc;
 }
 END_TEST
@@ -333,11 +318,7 @@ START_TEST (test_comp_AttributeNamespaces_port_id_coreAndComp_warning)
     "</sbml>";
   SBMLDocument* doc = readSBMLFromString(input.c_str());
   SBMLErrorLog* errors = doc->getErrorLog();
-  fail_unless(errors->getNumErrors() == 1);
-  const SBMLError* error = errors->getError(0);
-  fail_unless(error->getErrorId() == CompPortAllowedAttributes);
-  fail_unless(error->getSeverity() == LIBSBML_SEV_WARNING);
-  fail_unless( !strcmp(error->getMessage().c_str(), "A <port> object must have a value for the required attribute 'comp:id', and one, and only one, of the attributes 'comp:idRef', 'comp:unitRef', or 'comp:metaIdRef'.  No other attributes from the Hierarchical Model Composition namespace are permitted on a <port> object.\nReference: L3V1 Comp V1 Section 3.4.3\n The <comp:port> element with the 'id' with value 'a' and the 'comp:id' with value 'a' must only use the 'comp:id' attribute.\n"), NULL);
+  fail_unless(errors->getNumErrors() == 0);
   delete doc;
 }
 END_TEST
@@ -365,10 +346,7 @@ START_TEST (test_comp_AttributeNamespaces_port_name_coreNotComp)
     "</sbml>";
   SBMLDocument* doc = readSBMLFromString(input.c_str());
   SBMLErrorLog* errors = doc->getErrorLog();
-  fail_unless(errors->getNumErrors() == 1);
-  const SBMLError* error = errors->getError(0);
-  fail_unless(error->getErrorId() == CompPortAllowedAttributes);
-  fail_unless( !strcmp(error->getMessage().c_str(), "A <port> object must have a value for the required attribute 'comp:id', and one, and only one, of the attributes 'comp:idRef', 'comp:unitRef', or 'comp:metaIdRef'.  No other attributes from the Hierarchical Model Composition namespace are permitted on a <port> object.\nReference: L3V1 Comp V1 Section 3.4.3\n The <comp:port> element with the 'name' with value 'a' must use 'comp:name' instead.\n"), NULL);
+  fail_unless(errors->getNumErrors() == 0);
   delete doc;
 }
 END_TEST
@@ -400,7 +378,7 @@ START_TEST (test_comp_AttributeNamespaces_port_name_coreAndComp_error)
   const SBMLError* error = errors->getError(0);
   fail_unless(error->getErrorId() == CompPortAllowedAttributes);
   fail_unless(error->getSeverity() == LIBSBML_SEV_ERROR);
-  fail_unless( !strcmp(error->getMessage().c_str(), "A <port> object must have a value for the required attribute 'comp:id', and one, and only one, of the attributes 'comp:idRef', 'comp:unitRef', or 'comp:metaIdRef'.  No other attributes from the Hierarchical Model Composition namespace are permitted on a <port> object.\nReference: L3V1 Comp V1 Section 3.4.3\n The <comp:port> element with the 'name' with value 'a2' and the 'comp:name' with value 'a' must only use the 'comp:name' attribute.\n"), NULL);
+  fail_unless( !strcmp(error->getMessage().c_str(), "A <port> object must have a value for the required attribute 'comp:id', and one, and only one, of the attributes 'comp:idRef', 'comp:unitRef', or 'comp:metaIdRef'.  No other attributes from the Hierarchical Model Composition namespace are permitted on a <port> object.\nReference: L3V1 Comp V1 Section 3.4.3\n The <port> element defines the 'name' attribute twice with different values: 'a2' and 'a'.\n"), NULL);
   delete doc;
 }
 END_TEST
@@ -428,11 +406,7 @@ START_TEST (test_comp_AttributeNamespaces_port_name_coreAndComp_warning)
     "</sbml>";
   SBMLDocument* doc = readSBMLFromString(input.c_str());
   SBMLErrorLog* errors = doc->getErrorLog();
-  fail_unless(errors->getNumErrors() == 1);
-  const SBMLError* error = errors->getError(0);
-  fail_unless(error->getErrorId() == CompPortAllowedAttributes);
-  fail_unless(error->getSeverity() == LIBSBML_SEV_WARNING);
-  fail_unless( !strcmp(error->getMessage().c_str(), "A <port> object must have a value for the required attribute 'comp:id', and one, and only one, of the attributes 'comp:idRef', 'comp:unitRef', or 'comp:metaIdRef'.  No other attributes from the Hierarchical Model Composition namespace are permitted on a <port> object.\nReference: L3V1 Comp V1 Section 3.4.3\n The <comp:port> element with the 'name' with value 'a' and the 'comp:name' with value 'a' must only use the 'comp:name' attribute.\n"), NULL);
+  fail_unless(errors->getNumErrors() == 0);
   delete doc;
 }
 END_TEST
@@ -461,10 +435,7 @@ START_TEST (test_comp_AttributeNamespaces_deletion_id_coreNotComp)
     "</sbml>";
   SBMLDocument* doc = readSBMLFromString(input.c_str());
   SBMLErrorLog* errors = doc->getErrorLog();
-  fail_unless(errors->getNumErrors() == 1);
-  const SBMLError* error = errors->getError(0);
-  fail_unless(error->getErrorId() == CompDeletionAllowedAttributes);
-  fail_unless( !strcmp(error->getMessage().c_str(), "A <deletion> object must have a value for one, and only one, of the attributes 'comp:portRef', 'comp:idRef', 'comp:unitRef', and 'comp:metaIdRef'.  It may also have the optional attributes 'comp:id' and 'comp:name'.  No other attributes from the Hierarchical Model Composition namespace are permitted on a <deletion> object.\nReference: L3V1 Comp V1 Section 3.5.3\n The <comp:deletion> element with the 'id' with value 'del1' must use 'comp:id' instead.\n"), NULL);
+  fail_unless(errors->getNumErrors() == 0);
   delete doc;
 }
 END_TEST
@@ -497,7 +468,7 @@ START_TEST (test_comp_AttributeNamespaces_deletion_id_coreAndComp_error)
   const SBMLError* error = errors->getError(0);
   fail_unless(error->getErrorId() == CompDeletionAllowedAttributes);
   fail_unless(error->getSeverity() == LIBSBML_SEV_ERROR);
-  fail_unless( !strcmp(error->getMessage().c_str(), "A <deletion> object must have a value for one, and only one, of the attributes 'comp:portRef', 'comp:idRef', 'comp:unitRef', and 'comp:metaIdRef'.  It may also have the optional attributes 'comp:id' and 'comp:name'.  No other attributes from the Hierarchical Model Composition namespace are permitted on a <deletion> object.\nReference: L3V1 Comp V1 Section 3.5.3\n The <comp:deletion> element with the 'id' with value 'del1b' and the 'comp:id' with value 'del1' must only use the 'comp:id' attribute.\n"), NULL);
+  fail_unless( !strcmp(error->getMessage().c_str(), "A <deletion> object must have a value for one, and only one, of the attributes 'comp:portRef', 'comp:idRef', 'comp:unitRef', and 'comp:metaIdRef'.  It may also have the optional attributes 'comp:id' and 'comp:name'.  No other attributes from the Hierarchical Model Composition namespace are permitted on a <deletion> object.\nReference: L3V1 Comp V1 Section 3.5.3\n The <deletion> element defines the 'id' attribute twice with different values: 'del1b' and 'del1'.\n"), NULL);
   delete doc;
 }
 END_TEST
@@ -526,11 +497,7 @@ START_TEST (test_comp_AttributeNamespaces_deletion_id_coreAndComp_warning)
     "</sbml>";
   SBMLDocument* doc = readSBMLFromString(input.c_str());
   SBMLErrorLog* errors = doc->getErrorLog();
-  fail_unless(errors->getNumErrors() == 1);
-  const SBMLError* error = errors->getError(0);
-  fail_unless(error->getErrorId() == CompDeletionAllowedAttributes);
-  fail_unless(error->getSeverity() == LIBSBML_SEV_WARNING);
-  fail_unless( !strcmp(error->getMessage().c_str(), "A <deletion> object must have a value for one, and only one, of the attributes 'comp:portRef', 'comp:idRef', 'comp:unitRef', and 'comp:metaIdRef'.  It may also have the optional attributes 'comp:id' and 'comp:name'.  No other attributes from the Hierarchical Model Composition namespace are permitted on a <deletion> object.\nReference: L3V1 Comp V1 Section 3.5.3\n The <comp:deletion> element with the 'id' with value 'del1' and the 'comp:id' with value 'del1' must only use the 'comp:id' attribute.\n"), NULL);
+  fail_unless(errors->getNumErrors() == 0);
   delete doc;
 }
 END_TEST
@@ -559,10 +526,7 @@ START_TEST (test_comp_AttributeNamespaces_deletion_name_coreNotComp)
     "</sbml>";
   SBMLDocument* doc = readSBMLFromString(input.c_str());
   SBMLErrorLog* errors = doc->getErrorLog();
-  fail_unless(errors->getNumErrors() == 1);
-  const SBMLError* error = errors->getError(0);
-  fail_unless(error->getErrorId() == CompDeletionAllowedAttributes);
-  fail_unless( !strcmp(error->getMessage().c_str(), "A <deletion> object must have a value for one, and only one, of the attributes 'comp:portRef', 'comp:idRef', 'comp:unitRef', and 'comp:metaIdRef'.  It may also have the optional attributes 'comp:id' and 'comp:name'.  No other attributes from the Hierarchical Model Composition namespace are permitted on a <deletion> object.\nReference: L3V1 Comp V1 Section 3.5.3\n The <comp:deletion> element with the 'name' with value 'del1' must use 'comp:name' instead.\n"), NULL);
+  fail_unless(errors->getNumErrors() == 0);
   delete doc;
 }
 END_TEST
@@ -595,7 +559,7 @@ START_TEST (test_comp_AttributeNamespaces_deletion_name_coreAndComp_error)
   const SBMLError* error = errors->getError(0);
   fail_unless(error->getErrorId() == CompDeletionAllowedAttributes);
   fail_unless(error->getSeverity() == LIBSBML_SEV_ERROR);
-  fail_unless( !strcmp(error->getMessage().c_str(), "A <deletion> object must have a value for one, and only one, of the attributes 'comp:portRef', 'comp:idRef', 'comp:unitRef', and 'comp:metaIdRef'.  It may also have the optional attributes 'comp:id' and 'comp:name'.  No other attributes from the Hierarchical Model Composition namespace are permitted on a <deletion> object.\nReference: L3V1 Comp V1 Section 3.5.3\n The <comp:deletion> element with the 'name' with value 'del1b' and the 'comp:name' with value 'del1' must only use the 'comp:name' attribute.\n"), NULL);
+  fail_unless( !strcmp(error->getMessage().c_str(), "A <deletion> object must have a value for one, and only one, of the attributes 'comp:portRef', 'comp:idRef', 'comp:unitRef', and 'comp:metaIdRef'.  It may also have the optional attributes 'comp:id' and 'comp:name'.  No other attributes from the Hierarchical Model Composition namespace are permitted on a <deletion> object.\nReference: L3V1 Comp V1 Section 3.5.3\n The <deletion> element defines the 'name' attribute twice with different values: 'del1b' and 'del1'.\n"), NULL);
   delete doc;
 }
 END_TEST
@@ -624,11 +588,7 @@ START_TEST (test_comp_AttributeNamespaces_deletion_name_coreAndComp_warning)
     "</sbml>";
   SBMLDocument* doc = readSBMLFromString(input.c_str());
   SBMLErrorLog* errors = doc->getErrorLog();
-  fail_unless(errors->getNumErrors() == 1);
-  const SBMLError* error = errors->getError(0);
-  fail_unless(error->getErrorId() == CompDeletionAllowedAttributes);
-  fail_unless(error->getSeverity() == LIBSBML_SEV_WARNING);
-  fail_unless( !strcmp(error->getMessage().c_str(), "A <deletion> object must have a value for one, and only one, of the attributes 'comp:portRef', 'comp:idRef', 'comp:unitRef', and 'comp:metaIdRef'.  It may also have the optional attributes 'comp:id' and 'comp:name'.  No other attributes from the Hierarchical Model Composition namespace are permitted on a <deletion> object.\nReference: L3V1 Comp V1 Section 3.5.3\n The <comp:deletion> element with the 'name' with value 'del1' and the 'comp:name' with value 'del1' must only use the 'comp:name' attribute.\n"), NULL);
+  fail_unless(errors->getNumErrors() == 0);
   delete doc;
 }
 END_TEST
@@ -649,10 +609,7 @@ START_TEST (test_comp_AttributeNamespaces_extmod_id_coreNotComp)
     "</sbml>";
   SBMLDocument* doc = readSBMLFromString(input.c_str());
   SBMLErrorLog* errors = doc->getErrorLog();
-  fail_unless(errors->getNumErrors() == 1);
-  const SBMLError* error = errors->getError(0);
-  fail_unless(error->getErrorId() == CompExtModDefAllowedAttributes);
-  fail_unless( !strcmp(error->getMessage().c_str(), "An <externalModelDefinition> object must have the attributes 'comp:id' and 'comp:source', and may have the optional attributes 'comp:name', 'comp:modelRef', and 'comp:md5'. No other attributes from the Hierarchical Model Composition namespace are permitted on an <externalModelDefinition> object.\nReference: L3V1 Comp V1 Section 3.3.2\n The <comp:externalModelDefinition> element with the 'id' with value 'EM1' must use 'comp:id' instead.\n"), NULL);
+  fail_unless(errors->getNumErrors() == 0);
   delete doc;
 }
 END_TEST
@@ -677,7 +634,7 @@ START_TEST (test_comp_AttributeNamespaces_extmod_id_coreAndComp_error)
   const SBMLError* error = errors->getError(0);
   fail_unless(error->getErrorId() == CompExtModDefAllowedAttributes);
   fail_unless(error->getSeverity() == LIBSBML_SEV_ERROR);
-  fail_unless( !strcmp(error->getMessage().c_str(), "An <externalModelDefinition> object must have the attributes 'comp:id' and 'comp:source', and may have the optional attributes 'comp:name', 'comp:modelRef', and 'comp:md5'. No other attributes from the Hierarchical Model Composition namespace are permitted on an <externalModelDefinition> object.\nReference: L3V1 Comp V1 Section 3.3.2\n The <comp:externalModelDefinition> element with the 'id' with value 'EM1' and the 'comp:id' with value 'EM1b' must only use the 'comp:id' attribute.\n"), NULL);
+  fail_unless( !strcmp(error->getMessage().c_str(), "An <externalModelDefinition> object must have the attributes 'comp:id' and 'comp:source', and may have the optional attributes 'comp:name', 'comp:modelRef', and 'comp:md5'. No other attributes from the Hierarchical Model Composition namespace are permitted on an <externalModelDefinition> object.\nReference: L3V1 Comp V1 Section 3.3.2\n The <externalModelDefinition> element defines the 'id' attribute twice with different values: 'EM1' and 'EM1b'.\n"), NULL);
   delete doc;
 }
 END_TEST
@@ -698,11 +655,7 @@ START_TEST (test_comp_AttributeNamespaces_extmod_id_coreAndComp_warning)
     "</sbml>";
   SBMLDocument* doc = readSBMLFromString(input.c_str());
   SBMLErrorLog* errors = doc->getErrorLog();
-  fail_unless(errors->getNumErrors() == 1);
-  const SBMLError* error = errors->getError(0);
-  fail_unless(error->getErrorId() == CompExtModDefAllowedAttributes);
-  fail_unless(error->getSeverity() == LIBSBML_SEV_WARNING);
-  fail_unless( !strcmp(error->getMessage().c_str(), "An <externalModelDefinition> object must have the attributes 'comp:id' and 'comp:source', and may have the optional attributes 'comp:name', 'comp:modelRef', and 'comp:md5'. No other attributes from the Hierarchical Model Composition namespace are permitted on an <externalModelDefinition> object.\nReference: L3V1 Comp V1 Section 3.3.2\n The <comp:externalModelDefinition> element with the 'id' with value 'EM1' and the 'comp:id' with value 'EM1' must only use the 'comp:id' attribute.\n"), NULL);
+  fail_unless(errors->getNumErrors() == 0);
   delete doc;
 }
 END_TEST
@@ -723,10 +676,7 @@ START_TEST (test_comp_AttributeNamespaces_extmod_name_coreNotComp)
     "</sbml>";
   SBMLDocument* doc = readSBMLFromString(input.c_str());
   SBMLErrorLog* errors = doc->getErrorLog();
-  fail_unless(errors->getNumErrors() == 1);
-  const SBMLError* error = errors->getError(0);
-  fail_unless(error->getErrorId() == CompExtModDefAllowedAttributes);
-  fail_unless( !strcmp(error->getMessage().c_str(), "An <externalModelDefinition> object must have the attributes 'comp:id' and 'comp:source', and may have the optional attributes 'comp:name', 'comp:modelRef', and 'comp:md5'. No other attributes from the Hierarchical Model Composition namespace are permitted on an <externalModelDefinition> object.\nReference: L3V1 Comp V1 Section 3.3.2\n The <comp:externalModelDefinition> element with the 'name' with value 'EM1' must use 'comp:name' instead.\n"), NULL);
+  fail_unless(errors->getNumErrors() == 0);
   delete doc;
 }
 END_TEST
@@ -751,7 +701,7 @@ START_TEST (test_comp_AttributeNamespaces_extmod_name_coreAndComp_error)
   const SBMLError* error = errors->getError(0);
   fail_unless(error->getErrorId() == CompExtModDefAllowedAttributes);
   fail_unless(error->getSeverity() == LIBSBML_SEV_ERROR);
-  fail_unless( !strcmp(error->getMessage().c_str(), "An <externalModelDefinition> object must have the attributes 'comp:id' and 'comp:source', and may have the optional attributes 'comp:name', 'comp:modelRef', and 'comp:md5'. No other attributes from the Hierarchical Model Composition namespace are permitted on an <externalModelDefinition> object.\nReference: L3V1 Comp V1 Section 3.3.2\n The <comp:externalModelDefinition> element with the 'name' with value 'EM1b' and the 'comp:name' with value 'EM1' must only use the 'comp:name' attribute.\n"), NULL);
+  fail_unless( !strcmp(error->getMessage().c_str(), "An <externalModelDefinition> object must have the attributes 'comp:id' and 'comp:source', and may have the optional attributes 'comp:name', 'comp:modelRef', and 'comp:md5'. No other attributes from the Hierarchical Model Composition namespace are permitted on an <externalModelDefinition> object.\nReference: L3V1 Comp V1 Section 3.3.2\n The <externalModelDefinition> element defines the 'name' attribute twice with different values: 'EM1b' and 'EM1'.\n"), NULL);
   delete doc;
 }
 END_TEST
@@ -772,11 +722,7 @@ START_TEST (test_comp_AttributeNamespaces_extmod_name_coreAndComp_warning)
     "</sbml>";
   SBMLDocument* doc = readSBMLFromString(input.c_str());
   SBMLErrorLog* errors = doc->getErrorLog();
-  fail_unless(errors->getNumErrors() == 1);
-  const SBMLError* error = errors->getError(0);
-  fail_unless(error->getErrorId() == CompExtModDefAllowedAttributes);
-  fail_unless(error->getSeverity() == LIBSBML_SEV_WARNING);
-  fail_unless( !strcmp(error->getMessage().c_str(), "An <externalModelDefinition> object must have the attributes 'comp:id' and 'comp:source', and may have the optional attributes 'comp:name', 'comp:modelRef', and 'comp:md5'. No other attributes from the Hierarchical Model Composition namespace are permitted on an <externalModelDefinition> object.\nReference: L3V1 Comp V1 Section 3.3.2\n The <comp:externalModelDefinition> element with the 'name' with value 'EM1' and the 'comp:name' with value 'EM1' must only use the 'comp:name' attribute.\n"), NULL);
+  fail_unless(errors->getNumErrors() == 0);
   delete doc;
 }
 END_TEST
@@ -808,10 +754,7 @@ START_TEST (test_comp_AttributeNamespaces_replacedElement_id_compNotCore)
     "</sbml>";
   SBMLDocument* doc = readSBMLFromString(input.c_str());
   SBMLErrorLog* errors = doc->getErrorLog();
-  fail_unless(errors->getNumErrors() == 1);
-  const SBMLError* error = errors->getError(0);
-  fail_unless(error->getErrorId() == CompReplacedElementAllowedAttributes);
-  fail_unless( !strcmp(error->getMessage().c_str(), "A <replacedElement> object must have a value for the required attribute 'comp:submodelRef', and a value for one, and only one, of the following attributes: 'comp:portRef', 'comp:idRef', 'comp:unitRef', 'comp:metaIdRef', or 'comp:deletion'. It may also have a value for the optional attribute 'comp:conversionFactor'. No other attributes from the HierarchicalModel Composition namespace are permitted on a <replacedElement> object.\nReference: L3V1 Comp V1 Section 3.6.2\n The <comp:replacedElement> element with the 'comp:id' with value 're1' must not use the 'comp:id' attribute.\n"), NULL);
+  fail_unless(errors->getNumErrors() == 0);
   delete doc;
 }
 END_TEST
@@ -847,7 +790,7 @@ START_TEST (test_comp_AttributeNamespaces_replacedElement_id_coreAndComp_error)
   const SBMLError* error = errors->getError(0);
   fail_unless(error->getErrorId() == CompReplacedElementAllowedAttributes);
   fail_unless(error->getSeverity() == LIBSBML_SEV_ERROR);
-  fail_unless( !strcmp(error->getMessage().c_str(), "A <replacedElement> object must have a value for the required attribute 'comp:submodelRef', and a value for one, and only one, of the following attributes: 'comp:portRef', 'comp:idRef', 'comp:unitRef', 'comp:metaIdRef', or 'comp:deletion'. It may also have a value for the optional attribute 'comp:conversionFactor'. No other attributes from the HierarchicalModel Composition namespace are permitted on a <replacedElement> object.\nReference: L3V1 Comp V1 Section 3.6.2\n The <comp:replacedElement> element with the 'comp:id' with value 're1b' and the 'id' with value 're1' must not use the 'comp:id' attribute.\n"), NULL);
+  fail_unless( !strcmp(error->getMessage().c_str(), "A <replacedElement> object must have a value for the required attribute 'comp:submodelRef', and a value for one, and only one, of the following attributes: 'comp:portRef', 'comp:idRef', 'comp:unitRef', 'comp:metaIdRef', or 'comp:deletion'. It may also have a value for the optional attribute 'comp:conversionFactor'. No other attributes from the HierarchicalModel Composition namespace are permitted on a <replacedElement> object.\nReference: L3V1 Comp V1 Section 3.6.2\n The <replacedElement> element defines the 'id' attribute twice with different values: 're1' and 're1b'.\n"), NULL);
   delete doc;
 }
 END_TEST
@@ -879,11 +822,7 @@ START_TEST (test_comp_AttributeNamespaces_replacedElement_id_coreAndComp_error2)
     "</sbml>";
   SBMLDocument* doc = readSBMLFromString(input.c_str());
   SBMLErrorLog* errors = doc->getErrorLog();
-  fail_unless(errors->getNumErrors() == 1);
-  const SBMLError* error = errors->getError(0);
-  fail_unless(error->getErrorId() == CompReplacedElementAllowedAttributes);
-  fail_unless(error->getSeverity() == LIBSBML_SEV_ERROR);
-  fail_unless( !strcmp(error->getMessage().c_str(), "A <replacedElement> object must have a value for the required attribute 'comp:submodelRef', and a value for one, and only one, of the following attributes: 'comp:portRef', 'comp:idRef', 'comp:unitRef', 'comp:metaIdRef', or 'comp:deletion'. It may also have a value for the optional attribute 'comp:conversionFactor'. No other attributes from the HierarchicalModel Composition namespace are permitted on a <replacedElement> object.\nReference: L3V1 Comp V1 Section 3.6.2\n The <comp:replacedElement> element with the 'comp:id' with value 're1' and the 'id' with value 're1' must not use the 'comp:id' attribute.\n"), NULL);
+  fail_unless(errors->getNumErrors() == 0);
   delete doc;
 }
 END_TEST
@@ -913,10 +852,7 @@ START_TEST (test_comp_AttributeNamespaces_replacedBy_id_compNotCore)
     "</sbml>";
   SBMLDocument* doc = readSBMLFromString(input.c_str());
   SBMLErrorLog* errors = doc->getErrorLog();
-  fail_unless(errors->getNumErrors() == 1);
-  const SBMLError* error = errors->getError(0);
-  fail_unless(error->getErrorId() == CompReplacedByAllowedAttributes);
-  fail_unless( !strcmp(error->getMessage().c_str(), "A <replacedBy> object must have a value for the required attribute 'comp:submodelRef', and a value for one, and only one, of the following attributes: 'comp:portRef', 'comp:idRef', 'comp:unitRef' or 'comp:metaIdRef'. No other attributes from the HierarchicalModel Composition namespace are permitted on a <replacedBy> object.\nReference: L3V1 Comp V1 Section 3.6.4\n The <comp:replacedBy> element with the 'comp:id' with value 're1' must not use the 'comp:id' attribute.\n"), NULL);
+  fail_unless(errors->getNumErrors() == 0);
   delete doc;
 }
 END_TEST
@@ -950,7 +886,7 @@ START_TEST (test_comp_AttributeNamespaces_replacedBy_id_coreAndComp_error)
   const SBMLError* error = errors->getError(0);
   fail_unless(error->getErrorId() == CompReplacedByAllowedAttributes);
   fail_unless(error->getSeverity() == LIBSBML_SEV_ERROR);
-  fail_unless( !strcmp(error->getMessage().c_str(), "A <replacedBy> object must have a value for the required attribute 'comp:submodelRef', and a value for one, and only one, of the following attributes: 'comp:portRef', 'comp:idRef', 'comp:unitRef' or 'comp:metaIdRef'. No other attributes from the HierarchicalModel Composition namespace are permitted on a <replacedBy> object.\nReference: L3V1 Comp V1 Section 3.6.4\n The <comp:replacedBy> element with the 'comp:id' with value 're1b' and the 'id' with value 're1' must not use the 'comp:id' attribute.\n"), NULL);
+  fail_unless( !strcmp(error->getMessage().c_str(), "A <replacedBy> object must have a value for the required attribute 'comp:submodelRef', and a value for one, and only one, of the following attributes: 'comp:portRef', 'comp:idRef', 'comp:unitRef' or 'comp:metaIdRef'. No other attributes from the HierarchicalModel Composition namespace are permitted on a <replacedBy> object.\nReference: L3V1 Comp V1 Section 3.6.4\n The <replacedBy> element defines the 'id' attribute twice with different values: 're1' and 're1b'.\n"), NULL);
   delete doc;
 }
 END_TEST
@@ -980,11 +916,7 @@ START_TEST (test_comp_AttributeNamespaces_replacedBy_id_coreAndComp_error2)
     "</sbml>";
   SBMLDocument* doc = readSBMLFromString(input.c_str());
   SBMLErrorLog* errors = doc->getErrorLog();
-  fail_unless(errors->getNumErrors() == 1);
-  const SBMLError* error = errors->getError(0);
-  fail_unless(error->getErrorId() == CompReplacedByAllowedAttributes);
-  fail_unless(error->getSeverity() == LIBSBML_SEV_ERROR);
-  fail_unless( !strcmp(error->getMessage().c_str(), "A <replacedBy> object must have a value for the required attribute 'comp:submodelRef', and a value for one, and only one, of the following attributes: 'comp:portRef', 'comp:idRef', 'comp:unitRef' or 'comp:metaIdRef'. No other attributes from the HierarchicalModel Composition namespace are permitted on a <replacedBy> object.\nReference: L3V1 Comp V1 Section 3.6.4\n The <comp:replacedBy> element with the 'comp:id' with value 're1' and the 'id' with value 're1' must not use the 'comp:id' attribute.\n"), NULL);
+  fail_unless(errors->getNumErrors() == 0);
   delete doc;
 }
 END_TEST
@@ -1014,10 +946,7 @@ START_TEST (test_comp_AttributeNamespaces_replacedBy_name_compNotCore)
     "</sbml>";
   SBMLDocument* doc = readSBMLFromString(input.c_str());
   SBMLErrorLog* errors = doc->getErrorLog();
-  fail_unless(errors->getNumErrors() == 1);
-  const SBMLError* error = errors->getError(0);
-  fail_unless(error->getErrorId() == CompReplacedByAllowedAttributes);
-  fail_unless( !strcmp(error->getMessage().c_str(), "A <replacedBy> object must have a value for the required attribute 'comp:submodelRef', and a value for one, and only one, of the following attributes: 'comp:portRef', 'comp:idRef', 'comp:unitRef' or 'comp:metaIdRef'. No other attributes from the HierarchicalModel Composition namespace are permitted on a <replacedBy> object.\nReference: L3V1 Comp V1 Section 3.6.4\n The <comp:replacedBy> element with the 'comp:name' with value 're1' must not use the 'comp:name' attribute.\n"), NULL);
+  fail_unless(errors->getNumErrors() == 0);
   delete doc;
 }
 END_TEST
@@ -1051,7 +980,7 @@ START_TEST (test_comp_AttributeNamespaces_replacedBy_name_coreAndComp_error)
   const SBMLError* error = errors->getError(0);
   fail_unless(error->getErrorId() == CompReplacedByAllowedAttributes);
   fail_unless(error->getSeverity() == LIBSBML_SEV_ERROR);
-  fail_unless( !strcmp(error->getMessage().c_str(), "A <replacedBy> object must have a value for the required attribute 'comp:submodelRef', and a value for one, and only one, of the following attributes: 'comp:portRef', 'comp:idRef', 'comp:unitRef' or 'comp:metaIdRef'. No other attributes from the HierarchicalModel Composition namespace are permitted on a <replacedBy> object.\nReference: L3V1 Comp V1 Section 3.6.4\n The <comp:replacedBy> element with the 'comp:name' with value 're1' and the 'name' with value 're1b' must not use the 'comp:name' attribute.\n"), NULL);
+  fail_unless( !strcmp(error->getMessage().c_str(), "A <replacedBy> object must have a value for the required attribute 'comp:submodelRef', and a value for one, and only one, of the following attributes: 'comp:portRef', 'comp:idRef', 'comp:unitRef' or 'comp:metaIdRef'. No other attributes from the HierarchicalModel Composition namespace are permitted on a <replacedBy> object.\nReference: L3V1 Comp V1 Section 3.6.4\n The <replacedBy> element defines the 'name' attribute twice with different values: 're1b' and 're1'.\n"), NULL);
   delete doc;
 }
 END_TEST
@@ -1081,11 +1010,7 @@ START_TEST (test_comp_AttributeNamespaces_replacedBy_name_coreAndComp_error2)
     "</sbml>";
   SBMLDocument* doc = readSBMLFromString(input.c_str());
   SBMLErrorLog* errors = doc->getErrorLog();
-  fail_unless(errors->getNumErrors() == 1);
-  const SBMLError* error = errors->getError(0);
-  fail_unless(error->getErrorId() == CompReplacedByAllowedAttributes);
-  fail_unless(error->getSeverity() == LIBSBML_SEV_ERROR);
-  fail_unless( !strcmp(error->getMessage().c_str(), "A <replacedBy> object must have a value for the required attribute 'comp:submodelRef', and a value for one, and only one, of the following attributes: 'comp:portRef', 'comp:idRef', 'comp:unitRef' or 'comp:metaIdRef'. No other attributes from the HierarchicalModel Composition namespace are permitted on a <replacedBy> object.\nReference: L3V1 Comp V1 Section 3.6.4\n The <comp:replacedBy> element with the 'comp:name' with value 're1' and the 'name' with value 're1' must not use the 'comp:name' attribute.\n"), NULL);
+  fail_unless(errors->getNumErrors() == 0);
   delete doc;
 }
 END_TEST
@@ -1110,10 +1035,212 @@ START_TEST (test_comp_AttributeNamespaces_moddef_id_compNotCore)
     "</sbml>";
   SBMLDocument* doc = readSBMLFromString(input.c_str());
   SBMLErrorLog* errors = doc->getErrorLog();
-  fail_unless(errors->getNumErrors() == 1);
-  const SBMLError* error = errors->getError(0);
-  fail_unless(error->getErrorId() == AllowedAttributesOnModel);
-  fail_unless( !strcmp(error->getMessage().c_str(), "A Model object may only have the following attributes, all of which are optional: 'metaid', 'sboTerm', 'id', 'name', 'substanceUnits', 'timeUnits', 'volumeUnits', 'areaUnits', 'lengthUnits', 'extentUnits' and 'conversionFactor'. No other attributes from the SBML Level 3 Core namespace are permitted on a Model object.\nReference: L3V2 Section 4.2\n The <comp:modelDefinition> element with the 'comp:id' with value 'foo' may not use a 'comp:id': the id attribute from core must be used instead.\n"), NULL);
+  fail_unless(errors->getNumErrors() == 0);
+  delete doc;
+}
+END_TEST
+
+
+static void
+checkReplacementIdsAndNames(SBMLDocument* doc)
+{
+  fail_unless(doc->getNumErrors() == 0);
+
+  Model* model = doc->getModel();
+  CompSBasePlugin* pa = static_cast<CompSBasePlugin*>(model->getParameter("a")->getPlugin("comp"));
+  ReplacedElement* re = pa->getReplacedElement(0);
+  fail_unless(re->getIdAttribute() == "re1");
+  fail_unless(re->getName() == "re1name");
+
+  SBaseRef* ref = re->getSBaseRef();
+  fail_unless(ref != NULL);
+  fail_unless(ref->getIdAttribute() == "sb1");
+  fail_unless(ref->getName() == "sb1name");
+
+  CompSBasePlugin* pb = static_cast<CompSBasePlugin*>(model->getParameter("b")->getPlugin("comp"));
+  ReplacedBy* rb = pb->getReplacedBy();
+  fail_unless(rb->getIdAttribute() == "rb1");
+  fail_unless(rb->getName() == "rb1name");
+}
+
+
+START_TEST (test_comp_AttributeNamespaces_L3V2_replacing_id_name_roundtrip)
+{
+  string input = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+    "<sbml xmlns:comp=\"http://www.sbml.org/sbml/level3/version1/comp/version1\" xmlns=\"http://www.sbml.org/sbml/level3/version2/core\" level=\"3\" version=\"2\" comp:required=\"true\">"
+    "  <model id=\"bar\">"
+    "    <listOfParameters>"
+    "      <parameter id=\"a\" value=\"3\" constant=\"true\">"
+    "        <comp:listOfReplacedElements>"
+    "          <comp:replacedElement id=\"re1\" name=\"re1name\" comp:idRef=\"a\" comp:submodelRef=\"S1\">"
+    "            <comp:sBaseRef id=\"sb1\" name=\"sb1name\" comp:portRef=\"p\"/>"
+    "          </comp:replacedElement>"
+    "        </comp:listOfReplacedElements>"
+    "      </parameter>"
+    "      <parameter id=\"b\" value=\"3\" constant=\"true\">"
+    "        <comp:replacedBy id=\"rb1\" name=\"rb1name\" comp:idRef=\"a\" comp:submodelRef=\"S1\"/>"
+    "      </parameter>"
+    "    </listOfParameters>"
+    "    <comp:listOfSubmodels>"
+    "      <comp:submodel comp:id=\"S1\" comp:modelRef=\"foo\"/>"
+    "    </comp:listOfSubmodels>"
+    "  </model>"
+    "  <comp:listOfModelDefinitions>"
+    "    <comp:modelDefinition id=\"foo\" name=\"foo\">"
+    "      <listOfParameters>"
+    "        <parameter id=\"a\" value=\"3\" constant=\"true\"/>"
+    "      </listOfParameters>"
+    "    </comp:modelDefinition>"
+    "  </comp:listOfModelDefinitions>"
+    "</sbml>";
+  SBMLDocument* doc = readSBMLFromString(input.c_str());
+  checkReplacementIdsAndNames(doc);
+
+  string output = writeSBMLToStdString(doc);
+  delete doc;
+
+  fail_unless(output.find("comp:id=\"re1\"") == string::npos);
+  fail_unless(output.find("comp:name=\"re1name\"") == string::npos);
+  fail_unless(output.find(" id=\"re1\"") != string::npos);
+  fail_unless(output.find(" name=\"re1name\"") != string::npos);
+  fail_unless(output.find(" id=\"sb1\"") != string::npos);
+  fail_unless(output.find(" name=\"sb1name\"") != string::npos);
+  fail_unless(output.find(" id=\"rb1\"") != string::npos);
+  fail_unless(output.find(" name=\"rb1name\"") != string::npos);
+
+  doc = readSBMLFromString(output.c_str());
+  checkReplacementIdsAndNames(doc);
+  delete doc;
+}
+END_TEST
+
+
+START_TEST (test_comp_AttributeNamespaces_L3V1_plain_id_name_on_defining_element)
+{
+  string input = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+    "<sbml xmlns:comp=\"http://www.sbml.org/sbml/level3/version1/comp/version1\" xmlns=\"http://www.sbml.org/sbml/level3/version1/core\" level=\"3\" version=\"1\" comp:required=\"true\">"
+    "  <model id=\"bar\">"
+    "    <comp:listOfSubmodels>"
+    "      <comp:submodel id=\"A\" name=\"Aname\" comp:modelRef=\"foo\"/>"
+    "    </comp:listOfSubmodels>"
+    "  </model>"
+    "  <comp:listOfModelDefinitions>"
+    "    <comp:modelDefinition id=\"foo\" name=\"foo\">"
+    "      <listOfParameters>"
+    "        <parameter id=\"a\" value=\"3\" constant=\"true\"/>"
+    "      </listOfParameters>"
+    "    </comp:modelDefinition>"
+    "  </comp:listOfModelDefinitions>"
+    "</sbml>";
+  SBMLDocument* doc = readSBMLFromString(input.c_str());
+  fail_unless(doc->getNumErrors() == 0);
+
+  CompModelPlugin* mplugin = static_cast<CompModelPlugin*>(doc->getModel()->getPlugin("comp"));
+  Submodel* submodel = mplugin->getSubmodel(0);
+  fail_unless(submodel->getIdAttribute() == "A");
+  fail_unless(submodel->getName() == "Aname");
+  delete doc;
+}
+END_TEST
+
+
+START_TEST (test_comp_AttributeNamespaces_L3V1_plain_id_on_nondefining_element)
+{
+  string input = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+    "<sbml xmlns:comp=\"http://www.sbml.org/sbml/level3/version1/comp/version1\" xmlns=\"http://www.sbml.org/sbml/level3/version1/core\" level=\"3\" version=\"1\" comp:required=\"true\">"
+    "  <model id=\"bar\">"
+    "    <listOfParameters>"
+    "      <parameter id=\"a\" value=\"3\" constant=\"true\">"
+    "        <comp:listOfReplacedElements>"
+    "          <comp:replacedElement id=\"re1\" comp:idRef=\"a\" comp:submodelRef=\"S1\"/>"
+    "        </comp:listOfReplacedElements>"
+    "      </parameter>"
+    "    </listOfParameters>"
+    "    <comp:listOfSubmodels>"
+    "      <comp:submodel comp:id=\"S1\" comp:modelRef=\"foo\"/>"
+    "    </comp:listOfSubmodels>"
+    "  </model>"
+    "  <comp:listOfModelDefinitions>"
+    "    <comp:modelDefinition id=\"foo\" name=\"foo\">"
+    "      <listOfParameters>"
+    "        <parameter id=\"a\" value=\"3\" constant=\"true\"/>"
+    "      </listOfParameters>"
+    "    </comp:modelDefinition>"
+    "  </comp:listOfModelDefinitions>"
+    "</sbml>";
+  SBMLDocument* doc = readSBMLFromString(input.c_str());
+  fail_unless(doc->getNumErrors() == 1);
+  delete doc;
+}
+END_TEST
+
+
+static SBMLDocument*
+readSubmodelWithAttributes(unsigned int version, const string& attributes)
+{
+  string input = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+    "<sbml xmlns:comp=\"http://www.sbml.org/sbml/level3/version1/comp/version1\" "
+    "xmlns=\"http://www.sbml.org/sbml/level3/version";
+  input += (version == 1) ? "1" : "2";
+  input += "/core\" level=\"3\" version=\"";
+  input += (version == 1) ? "1" : "2";
+  input += "\" comp:required=\"true\">"
+    "  <model id=\"bar\">"
+    "    <comp:listOfSubmodels>"
+    "      <comp:submodel " + attributes + "/>"
+    "    </comp:listOfSubmodels>"
+    "  </model>"
+    "  <comp:listOfModelDefinitions>"
+    "    <comp:modelDefinition id=\"foo\" name=\"foo\"/>"
+    "  </comp:listOfModelDefinitions>"
+    "</sbml>";
+  return readSBMLFromString(input.c_str());
+}
+
+
+START_TEST (test_comp_AttributeNamespaces_invalid_id_uses_comp_code)
+{
+  const char* idAttributes[] = { "id=\"1bad\"", "comp:id=\"1bad\"" };
+
+  for (unsigned int version = 1; version <= 2; version++)
+  {
+    for (unsigned int n = 0; n < 2; n++)
+    {
+      SBMLDocument* doc = readSubmodelWithAttributes(version,
+        string(idAttributes[n]) + " comp:modelRef=\"foo\"");
+      fail_unless(doc->getNumErrors() == 1);
+      fail_unless(doc->getError(0)->getErrorId() == CompInvalidSIdSyntax);
+      delete doc;
+    }
+  }
+}
+END_TEST
+
+
+START_TEST (test_comp_AttributeNamespaces_duplicate_after_unrelated_error)
+{
+  string input = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+    "<sbml xmlns:comp=\"http://www.sbml.org/sbml/level3/version1/comp/version1\" xmlns=\"http://www.sbml.org/sbml/level3/version2/core\" level=\"3\" version=\"2\" comp:required=\"true\">"
+    "  <model id=\"bar\">"
+    "    <listOfParameters>"
+    "      <parameter id=\"a\" value=\"3\" constant=\"true\" bogus=\"x\"/>"
+    "    </listOfParameters>"
+    "    <comp:listOfSubmodels>"
+    "      <comp:submodel id=\"A\" comp:id=\"A2\" comp:modelRef=\"foo\"/>"
+    "    </comp:listOfSubmodels>"
+    "  </model>"
+    "  <comp:listOfModelDefinitions>"
+    "    <comp:modelDefinition id=\"foo\" name=\"foo\"/>"
+    "  </comp:listOfModelDefinitions>"
+    "</sbml>";
+  SBMLDocument* doc = readSBMLFromString(input.c_str());
+  fail_unless(doc->getNumErrors() == 2);
+
+  // the error from the unrelated parameter attribute is kept, and the duplicate
+  // is logged with the code of the submodel
+  fail_unless(doc->getError(0)->getErrorId() != CompSubmodelAllowedAttributes);
+  fail_unless(doc->getError(1)->getErrorId() == CompSubmodelAllowedAttributes);
+  fail_unless(doc->getError(1)->getMessage().find("twice with different values") != string::npos);
   delete doc;
 }
 END_TEST
@@ -1175,6 +1302,11 @@ create_suite_TestComp_AttributeNamespaces (void)
   tcase_add_test(tcase, test_comp_AttributeNamespaces_replacedBy_name_coreAndComp_error);
   tcase_add_test(tcase, test_comp_AttributeNamespaces_replacedBy_name_coreAndComp_error2);
   tcase_add_test(tcase, test_comp_AttributeNamespaces_moddef_id_compNotCore);
+  tcase_add_test(tcase, test_comp_AttributeNamespaces_L3V2_replacing_id_name_roundtrip);
+  tcase_add_test(tcase, test_comp_AttributeNamespaces_L3V1_plain_id_name_on_defining_element);
+  tcase_add_test(tcase, test_comp_AttributeNamespaces_L3V1_plain_id_on_nondefining_element);
+  tcase_add_test(tcase, test_comp_AttributeNamespaces_invalid_id_uses_comp_code);
+  tcase_add_test(tcase, test_comp_AttributeNamespaces_duplicate_after_unrelated_error);
   tcase_add_test(tcase, test_comp_AttributeNamespaces_model_extraCompAtt);
 
   suite_add_tcase(suite, tcase);

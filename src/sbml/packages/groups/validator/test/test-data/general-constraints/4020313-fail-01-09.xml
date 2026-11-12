@@ -9,8 +9,8 @@
     <groups:listOfGroups>
       <groups:group groups:kind="collection" groups:id="g1">
         <groups:listOfMembers sboTerm="SBO:0000045" groups:id="lom_1">
-          <groups:member id="m_1_1" groups:id="m_1_2" groups:metaIdRef="__p"/>
-          <groups:member id="m_1_2" groups:id="m_1_2" groups:idRef="m_2_1"/>
+          <groups:member groups:id="m_1_1" groups:metaIdRef="__p"/>
+          <groups:member groups:id="m_1_2" groups:idRef="m_2_1"/>
         </groups:listOfMembers>
       </groups:group>
       <groups:group groups:kind="collection">

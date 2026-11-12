@@ -2445,6 +2445,40 @@ START_TEST(test_LayoutWriting_multipleTimes)
 END_TEST
 
 
+
+START_TEST (test_LayoutWriting_L3V2_ids_unprefixed)
+{
+  std::string s =
+  "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+  "<sbml xmlns=\"http://www.sbml.org/sbml/level3/version2/core\" xmlns:layout=\"http://www.sbml.org/sbml/level3/version1/layout/version1\" level=\"3\" version=\"2\" layout:required=\"false\">"
+  "  <model id=\"m\">"
+  "    <layout:listOfLayouts>"
+  "      <layout:layout layout:id=\"Layout_1\" layout:name=\"Layout_1_name\">"
+  "        <layout:dimensions layout:width=\"100\" layout:height=\"50\"/>"
+  "      </layout:layout>"
+  "    </layout:listOfLayouts>"
+  "  </model>"
+  "</sbml>";
+
+  SBMLDocument* doc = readSBMLFromString(s.c_str());
+  fail_unless(doc->getLevel() == 3);
+  fail_unless(doc->getVersion() == 2);
+  std::string output = writeSBMLToStdString(doc);
+  delete doc;
+
+  fail_unless(output.find("layout:id=") == std::string::npos);
+  fail_unless(output.find("layout:name=") == std::string::npos);
+  fail_unless(output.find("<layout:layout id=\"Layout_1\" name=\"Layout_1_name\"") != std::string::npos);
+
+  doc = readSBMLFromString(output.c_str());
+  LayoutModelPlugin* plugin = static_cast<LayoutModelPlugin*>(doc->getModel()->getPlugin("layout"));
+  fail_unless(plugin->getLayout(0)->getId() == "Layout_1");
+  fail_unless(plugin->getLayout(0)->getName() == "Layout_1_name");
+  delete doc;
+}
+END_TEST
+
+
 Suite *
 create_suite_LayoutWriting (void)
 {
@@ -2457,6 +2491,7 @@ create_suite_LayoutWriting (void)
   
   tcase_add_test( tcase, test_LayoutWriting_multipleTimes              );
   tcase_add_test( tcase, test_LayoutWriting                            );
+  tcase_add_test( tcase, test_LayoutWriting_L3V2_ids_unprefixed              );
   suite_add_tcase(suite, tcase);
   
   return suite;

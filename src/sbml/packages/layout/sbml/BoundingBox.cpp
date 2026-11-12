@@ -736,7 +736,10 @@ void BoundingBox::readAttributes (const XMLAttributes& attributes,
 void BoundingBox::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
-  stream.writeAttribute("id", getPrefix(), mId);
+  if (getLevel() < 3 || getVersion() == 1)
+  {
+    stream.writeAttribute("id", getPrefix(), mId);
+  }
 
   //
   // (EXTENSION)

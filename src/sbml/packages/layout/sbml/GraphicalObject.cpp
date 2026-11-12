@@ -919,7 +919,10 @@ GraphicalObject::writeElements(XMLOutputStream& stream) const
 void GraphicalObject::writeAttributes(XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
-  stream.writeAttribute("id", getPrefix(), mId);
+  if (getLevel() < 3 || getVersion() == 1)
+  {
+    stream.writeAttribute("id", getPrefix(), mId);
+  }
 
   if (isSetMetaIdRef())
     stream.writeAttribute("metaidRef", getPrefix(), mMetaIdRef);

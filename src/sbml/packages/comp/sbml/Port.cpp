@@ -263,10 +263,10 @@ Port::writeAttributes (XMLOutputStream& stream) const
 {
   SBaseRef::writeAttributes(stream);
 
-  if (isSetId()) {
+  if (getVersion() == 1 && isSetId()) {
     stream.writeAttribute("id", getPrefix(), mId);
   }
-  if (isSetName()) {
+  if (getVersion() == 1 && isSetName()) {
     stream.writeAttribute("name", getPrefix(), mName);
   }
 }

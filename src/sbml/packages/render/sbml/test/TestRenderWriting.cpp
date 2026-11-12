@@ -6265,6 +6265,49 @@ START_TEST (test_RenderWriting_write_L3_model_2)
 END_TEST
 
 
+
+START_TEST (test_RenderWriting_write_L3V2_ids_unprefixed)
+{
+  SBMLDocument *document = new SBMLDocument(3, 2);
+  document->enablePackage(LayoutExtension::getXmlnsL3V1V1(), "layout", true);
+  document->enablePackage(RenderExtension::getXmlnsL3V1V1(), "render", true);
+
+  Model* pModel = document->createModel();
+  pModel->setId("TestModel");
+
+  LayoutModelPlugin* mPlugin = (LayoutModelPlugin*)pModel->getPlugin("layout");
+  Layout* pLayout = mPlugin->createLayout();
+  pLayout->setId("TestLayout");
+
+  RenderLayoutPlugin* rPlugin = (RenderLayoutPlugin*)pLayout->getPlugin("render");
+  LocalRenderInformation* pRenderInfo = rPlugin->createLocalRenderInformation();
+  pRenderInfo->setId("TestRenderInfo");
+  ColorDefinition* pColor = pRenderInfo->createColorDefinition();
+  pColor->setId("TestBlack");
+  pColor->setColorValue("#000000");
+
+  std::string output = writeSBMLToStdString(document);
+  delete document;
+
+  fail_unless(output.find("render:id=") == std::string::npos);
+  fail_unless(output.find("layout:id=") == std::string::npos);
+  fail_unless(output.find(" id=\"TestRenderInfo\"") != std::string::npos);
+  fail_unless(output.find(" id=\"TestBlack\"") != std::string::npos);
+  fail_unless(output.find(" id=\"TestLayout\"") != std::string::npos);
+
+  document = readSBMLFromString(output.c_str());
+  mPlugin = (LayoutModelPlugin*)document->getModel()->getPlugin("layout");
+  fail_unless(mPlugin->getLayout(0)->getId() == "TestLayout");
+  rPlugin = (RenderLayoutPlugin*)mPlugin->getLayout(0)->getPlugin("render");
+  fail_unless(rPlugin->getNumLocalRenderInformationObjects() == 1);
+  pRenderInfo = rPlugin->getRenderInformation(0);
+  fail_unless(pRenderInfo->getId() == "TestRenderInfo");
+  fail_unless(pRenderInfo->getColorDefinition(0)->getId() == "TestBlack");
+  delete document;
+}
+END_TEST
+
+
 Suite *
 create_suite_RenderWriting (void)
 {
@@ -6280,6 +6323,7 @@ create_suite_RenderWriting (void)
   tcase_add_test( tcase, test_RenderWriting_write_model_1                );
   tcase_add_test( tcase, test_RenderWriting_write_L3_model_1             );
   tcase_add_test( tcase, test_RenderWriting_write_L3_model_2             );
+  tcase_add_test( tcase, test_RenderWriting_write_L3V2_ids_unprefixed       );
 
   suite_add_tcase(suite, tcase);
 

@@ -205,19 +205,6 @@ protected:
                                const ExpectedAttributes& expectedAttributes);
   /** @endcond */
 
-  /** @cond doxygenLibsbmlInternal */
-  /**
-  * Subclasses should override this method to write their XML attributes
-  * to the XMLOutputStream.  Be sure to call your parent's implementation
-  * of this method as well.  For example:
-  *
-  *   SBase::writeAttributes(stream);
-  *   stream.writeAttribute( "submodel" , mSubmodel );
-  *   ...
-  */
-  virtual void writeAttributes(XMLOutputStream& stream) const;
-  /** @endcond */
-
 
 
 };

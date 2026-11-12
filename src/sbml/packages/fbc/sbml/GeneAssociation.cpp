@@ -507,7 +507,10 @@ GeneAssociation::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
-  stream.writeAttribute("id",   getPrefix(), mId);
+  if (getVersion() == 1)
+  {
+    stream.writeAttribute("id",   getPrefix(), mId);
+  }
   stream.writeAttribute("reaction",   getPrefix(), mReaction);
 
   //

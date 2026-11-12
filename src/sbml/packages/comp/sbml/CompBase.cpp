@@ -53,6 +53,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 CompBase::CompBase (unsigned int level, unsigned int version, unsigned int pkgVersion) 
   : SBase (level,version)
+  , mReadErrCode(CompUnknown)
 {
   // set an SBMLNamespaces derived object (CompPkgNamespaces) of this package.
   CompPkgNamespaces* cpn = new CompPkgNamespaces(level,version,pkgVersion);
@@ -71,6 +72,7 @@ CompBase::CompBase (unsigned int level, unsigned int version, unsigned int pkgVe
 CompBase::CompBase(CompPkgNamespaces* compns)
   : SBase(compns)
   , mSBMLExt(SBMLExtensionRegistry::getInstance().getExtension(compns->getURI()))
+  , mReadErrCode(CompUnknown)
 {
   // set the element namespace of this object
   setElementNamespace(compns->getURI());
@@ -83,6 +85,7 @@ CompBase::CompBase(CompPkgNamespaces* compns)
 CompBase::CompBase(const CompBase& source) 
   : SBase (source)
   , mSBMLExt(NULL)
+  , mReadErrCode(CompUnknown)
 {
   if (source.mSBMLExt != NULL) {
     mSBMLExt = source.mSBMLExt->clone();
@@ -166,7 +169,11 @@ CompBase::readAttributes (const XMLAttributes& attributes,
                           const ExpectedAttributes& expectedAttributes,
                           bool hasCompIdName, bool idRequired, CompSBMLErrorCode_t errcode)
 {
+  SBMLErrorLog* log = getErrorLog();
+
+  mReadErrCode = errcode;
   SBase::readAttributes(attributes,expectedAttributes);
+  mReadErrCode = CompUnknown;
 
   //const unsigned int sbmlLevel   = getLevel  ();
   //const unsigned int sbmlVersion = getVersion();
@@ -190,7 +197,6 @@ CompBase::readAttributes (const XMLAttributes& attributes,
     }      
   }
 
-  SBMLErrorLog* log = getErrorLog();
   const unsigned int sbmlLevel   = getLevel  ();
   const unsigned int sbmlVersion = getVersion();
   const unsigned int pkgVersion  = getPackageVersion();
@@ -202,72 +208,34 @@ CompBase::readAttributes (const XMLAttributes& attributes,
 
   if (hasCompIdName)
   {
-    XMLTriple tripleId("id", mURI, getPrefix());
-    bool assigned = attributes.readInto(tripleId, mId);
-
-    if (!assigned && idRequired && coreid.empty())
+    if (!isSetIdAttribute() && idRequired)
     {
       string message = "Comp attribute 'comp:id' is missing.";
       getErrorLog()->logPackageError("comp", errcode,
         pkgVersion, sbmlLevel, sbmlVersion, message, getLine(), getColumn());
     }
-    else if (!assigned && !coreid.empty())
+
+    // SBase checks a plain id at L3V2; the other forms are checked here
+    if (attributes.hasAttribute("id", mURI) && !SyntaxChecker::isValidSBMLSId(compid))
     {
-      string details = "The <comp:";
-      details += getElementName() + "> element with the 'id' with value '"
-        + coreid + "' must use 'comp:id' instead.";
-      log->logPackageError("comp", errcode,
-        pkgVersion, sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+      logInvalidId("comp:id", compid);
     }
-    else if (!coreid.empty())
+    else if (sbmlVersion == 1 && attributes.hasAttribute("id", "")
+             && !SyntaxChecker::isValidSBMLSId(coreid))
     {
-      //Both core and comp id's
-      unsigned int severity = LIBSBML_SEV_ERROR;
-      if (coreid == compid) {
-        severity = LIBSBML_SEV_WARNING;
-      }
-      string details = "The <comp:";
-      details += getElementName() + "> element with the 'id' with value '"
-        + coreid + "' and the 'comp:id' with value '"
-        + compid + "' must only use the 'comp:id' attribute.";
-      log->logPackageError("comp", errcode,
-        pkgVersion, sbmlLevel, sbmlVersion, details, getLine(), getColumn(), severity);
-      //log->getError(log->getNumErrors() - 1)->setSeverity(severity);
+      logInvalidId("comp:id", coreid);
     }
 
-    if (assigned && !SyntaxChecker::isValidSBMLSId(mId)) {
-      logInvalidId("comp:id", mId);
-    }
-
-    XMLTriple tripleName("name", mURI, getPrefix());
-    assigned = attributes.readInto(tripleName, mName);
-    if (!assigned && !corename.empty())
+    if (attributes.hasAttribute("name", mURI) && compname.empty())
     {
-      string details = "The <comp:";
-      details += getElementName() + "> element with the 'name' with value '"
-        + corename + "' must use 'comp:name' instead.";
-      log->logPackageError("comp", errcode,
-        pkgVersion, sbmlLevel, sbmlVersion, details, getLine(), getColumn());
+      logInvalidId("comp:name", compname);
     }
-    else if (!corename.empty())
+    else if (sbmlVersion == 1 && attributes.hasAttribute("name", "") && corename.empty())
     {
-      //Both core and comp name's
-      unsigned int severity = LIBSBML_SEV_ERROR;
-      if (corename == compname) {
-        severity = LIBSBML_SEV_WARNING;
-      }
-      string details = "The <comp:";
-      details += getElementName() + "> element with the 'name' with value '"
-        + corename + "' and the 'comp:name' with value '"
-        + compname + "' must only use the 'comp:name' attribute.";
-      log->logPackageError("comp", errcode,
-        pkgVersion, sbmlLevel, sbmlVersion, details, getLine(), getColumn(), severity);
-    }
-    if (assigned && mName.empty()) {
-      logInvalidId("comp:name", mName);
+      logInvalidId("comp:name", corename);
     }
   }
-  else
+  else if (sbmlVersion == 1)
   {
     if (!compid.empty())
     {
@@ -526,6 +494,29 @@ CompBase::logMissingAttribute(const std::string& attribute,
         getLine(), getColumn());
     }
   }
+}
+
+
+void
+CompBase::logDuplicateIdName(const std::string& message)
+{
+  SBMLErrorLog* errlog = getErrorLog();
+  if (errlog != NULL && mReadErrCode != CompUnknown)
+  {
+    errlog->logPackageError("comp", mReadErrCode, getPackageVersion(), getLevel(),
+      getVersion(), message, getLine(), getColumn());
+  }
+  else
+  {
+    SBase::logDuplicateIdName(message);
+  }
+}
+
+
+void
+CompBase::logInvalidIdValue(const std::string& value)
+{
+  logInvalidId("comp:id", value);
 }
 
 
