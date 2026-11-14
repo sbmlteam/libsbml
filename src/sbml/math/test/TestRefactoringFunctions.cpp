@@ -350,6 +350,38 @@ START_TEST(test_refactor_create_non_binary_tree_2)
 }
 END_TEST
 
+START_TEST(test_refactor_create_non_binary_tree_3)
+{
+    ASTNode* n = readMathMLFromString(
+        "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+        "   <apply>"
+        "      <divide/>"
+        "       <ci> a </ci>"
+        "       <apply>"
+        "          <divide/>"
+        "          <ci> b </ci>"
+        "          <ci> c </ci>"
+        "       </apply>"
+        "   </apply>"
+        "</math>"
+    );
+
+    fail_unless(n != NULL);
+    fail_unless(n->getType() == AST_DIVIDE);
+    fail_unless(n->getNumChildren() == 2);
+    fail_unless(n->getChild(0)->getType() == AST_NAME);
+    fail_unless(n->getChild(1)->getType() == AST_DIVIDE);
+    fail_unless(n->getChild(1)->getChild(0)->getType() == AST_NAME);
+    fail_unless(n->getChild(1)->getChild(1)->getType() == AST_NAME);
+
+    n->createNonBinaryTree();
+
+    fail_unless(n->getType() == AST_DIVIDE);
+    fail_unless(n->getNumChildren() == 2);
+    delete n;
+}
+END_TEST
+
 START_TEST(test_refactor_reorder_arguments_1)
 {
     // 4.3 + 2.8 becomes 7.1
@@ -573,6 +605,33 @@ START_TEST(test_refactor_reorder_arguments_8)
 }
 END_TEST
 
+START_TEST(test_refactor_reorder_arguments_9)
+{
+    // 3/6 becomes 0.5
+    ASTNode* n = readMathMLFromString(
+        "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+        "   <apply>"
+        "      <divide/>"
+        "      <cn> 3 </cn>"
+        "      <cn> 6 </cn>"
+        "   </apply>"
+        "</math>"
+    );
+
+    fail_unless(n != NULL);
+    fail_unless(n->getType() == AST_DIVIDE);
+    fail_unless(n->getNumChildren() == 2);
+    fail_unless(formulas_equal("3 / 6", n));
+
+    n->reorderArguments();
+
+    fail_unless(n->getType() == AST_REAL);
+    fail_unless(n->getNumChildren() == 0);
+    fail_unless(formulas_equal("0.5", n));
+    delete n;
+}
+END_TEST
+
 START_TEST(test_refactor_1)
 {
     // this will require the wholly refactor function
@@ -644,7 +703,7 @@ create_suite_TestRefactoringFunctions()
 {
   Suite *suite = suite_create("TestRefactoringFunctions");
   TCase *tcase = tcase_create("TestRefactoringFunctions");
-
+  
   tcase_add_test(tcase, test_refactor_numbers_integer); 
   tcase_add_test(tcase, test_refactor_numbers_real); 
   tcase_add_test(tcase, test_refactor_numbers_e_notation); 
@@ -657,6 +716,7 @@ create_suite_TestRefactoringFunctions()
   
   tcase_add_test(tcase, test_refactor_create_non_binary_tree_1);
   tcase_add_test(tcase, test_refactor_create_non_binary_tree_2);
+  tcase_add_test(tcase, test_refactor_create_non_binary_tree_3);
   
   tcase_add_test(tcase, test_refactor_reorder_arguments_1);
   tcase_add_test(tcase, test_refactor_reorder_arguments_2);
@@ -666,10 +726,11 @@ create_suite_TestRefactoringFunctions()
   tcase_add_test(tcase, test_refactor_reorder_arguments_6);
   tcase_add_test(tcase, test_refactor_reorder_arguments_7);
   tcase_add_test(tcase, test_refactor_reorder_arguments_8);
+  tcase_add_test(tcase, test_refactor_reorder_arguments_9);
 
   tcase_add_test(tcase, test_refactor_1);
   tcase_add_test(tcase, test_refactor_2);
-
+  
   suite_add_tcase(suite, tcase);
 
   return suite;

@@ -49,6 +49,7 @@
 #include <sbml/math/FormulaParser.h>
 #include <sbml/math/L3Parser.h>
 #include <sbml/math/FormulaFormatter.h>
+#include <sbml/math/L3FormulaFormatter.h>
 #include <sbml/math/ASTNode.h>
 #include <sbml/math/MathML.h>
 
@@ -59,6 +60,54 @@
 
 using namespace std;
 LIBSBML_CPP_NAMESPACE_USE
+
+static bool
+equals(const char* expected, const char* actual)
+{
+    if (!strcmp(expected, actual)) return true;
+
+    printf("\nStrings are not equal:\n");
+    printf("Expected:\n[%s]\n", expected);
+    printf("Actual:\n[%s]\n", actual);
+
+    return false;
+}
+
+
+
+static bool
+formulas_equal(const char* expected, ASTNode* actual)
+{
+    L3ParserSettings_t* l3ps = new L3ParserSettings_t();
+    l3ps->setParseUnits(false);
+
+    return equals(expected, SBML_formulaToL3StringWithSettings(actual, l3ps));
+}
+
+void printMath(const ASTNode* node, unsigned int level = 0)
+{
+    if (node == NULL)
+    {
+        cout << "Level " << level << ": NULL" << endl;
+        return;
+    }
+
+    cout << "Level " << level << ": " << SBML_formulaToString(node) << endl;
+
+    //cout << ((node->returnsBoolean()) ? "Boolean\n" : "Not boolean\n");
+
+    //cout << "node is " << &node << endl;
+    //const ASTBase *parent = node->getPlugin("arrays")->getParentASTObject();
+    //cout << "plugin points to parent " << &parent << endl;
+
+    for (unsigned int i = 0; i < node->getNumChildren(); i++)
+    {
+        printMath(node->getChild(i), level + 1);
+    }
+
+
+}
+
 
 /** @endcond */
 
@@ -98,7 +147,7 @@ START_TEST(test_refactor_numbers)
     "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
     "  <apply>"
     "    <plus/>"
-    "    <cn> 4 </cn>"
+    "    <cn> 4.0 </cn>"
     "    <ci> s </ci>"
     "  </apply>"
     "</math>"
@@ -108,7 +157,8 @@ START_TEST(test_refactor_numbers)
   ASTNode *node = SBML_parseFormula("4+s");
   // nodetreats 4 as integer
 
-  fail_unless(node->exactlyEqual(*n) == false);
+  // exactlyEqual now standardizes values to integer if they can be
+  fail_unless(node->exactlyEqual(*n) == true);
 
   node->refactor();
 
@@ -707,10 +757,10 @@ START_TEST(test_decompose4)
     "  </apply>"
     "</math>"
   );
+
   L3ParserSettings ps;
   ps.setParseCollapseMinus(true);
-  ASTNode * node = SBML_parseL3FormulaWithSettings("1.0 + (a/4.0)", &ps);
-
+  ASTNode * node = SBML_parseL3FormulaWithSettings("1.0 + (a / 4.0)", &ps);
   fail_unless(n != NULL);
 
   fail_unless(node->exactlyEqual(*n) == false);
@@ -744,14 +794,11 @@ START_TEST(test_decompose5)
   );
   L3ParserSettings ps;
   ps.setParseCollapseMinus(true);
-  ASTNode * node = SBML_parseL3FormulaWithSettings("-0.5+(a/6.0)", &ps);
-
+  ASTNode * node = SBML_parseL3FormulaWithSettings("(a/6.0)-0.5", &ps);
   fail_unless(n != NULL);
 
   fail_unless(node->exactlyEqual(*n) == false);
-
   n->decompose();
-
   fail_unless(node->exactlyEqual(*n) == true);
   delete n;
   delete node;
@@ -775,7 +822,7 @@ START_TEST(test_decompose6)
   );
   L3ParserSettings ps;
   ps.setParseCollapseMinus(true);
-  ASTNode * node = SBML_parseL3FormulaWithSettings("-1.0+(a/4.0)", &ps);
+  ASTNode * node = SBML_parseL3FormulaWithSettings("(a/4.0)-1.0", &ps);
 
   fail_unless(n != NULL);
 
@@ -786,6 +833,73 @@ START_TEST(test_decompose6)
   fail_unless(node->exactlyEqual(*n) == true);
   delete n;
   delete node;
+}
+END_TEST
+
+START_TEST(test_decompose7)
+{
+    ASTNode* n = readMathMLFromString(
+        "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+        "  <apply>"
+        "    <times/>"
+        "    <ci> c </ci>"
+        "    <apply>"
+        "      <minus/>"
+        "      <ci> a </ci>"
+        "      <ci> b </ci>"
+        "   </apply>"
+        "  </apply>"
+        "</math>"
+    );
+
+    L3ParserSettings ps;
+    ps.setParseCollapseMinus(true);
+    const char* expected = "a * c + -1 * b * c";
+    ASTNode* node = SBML_parseL3FormulaWithSettings(expected, &ps);
+    fail_unless(n != NULL);
+
+    fail_unless(node->exactlyEqual(*n) == false);
+    n->decompose();
+
+    fail_unless(node->isWellFormedASTNode());
+    fail_unless(formulas_equal(expected, n));
+
+    fail_unless(node->exactlyEqual(*n) == true);
+    delete n;
+    delete node;
+}
+END_TEST
+
+START_TEST(test_decompose8)
+{
+    ASTNode* n = readMathMLFromString(
+        "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+        "  <apply>"
+        "    <divide/>"
+        "    <apply>"
+        "      <minus/>"
+        "      <ci> a </ci>"
+        "      <ci> b </ci>"
+        "   </apply>"
+        "    <ci> c </ci>"
+        "  </apply>"
+        "</math>"
+    );
+
+    L3ParserSettings ps;
+    ps.setParseCollapseMinus(true);
+    const char* expected = "a / c - b / c";
+    ASTNode* node = SBML_parseL3FormulaWithSettings(expected, &ps);
+    fail_unless(n != NULL);
+
+    fail_unless(node->exactlyEqual(*n) == false);
+    n->decompose();
+    fail_unless(node->isWellFormedASTNode());
+    fail_unless(formulas_equal(expected, n));
+
+    fail_unless(node->exactlyEqual(*n) == true);
+    delete n;
+    delete node;
 }
 END_TEST
 
@@ -1031,9 +1145,10 @@ create_suite_TestInferRnFunctions()
   Suite *suite = suite_create("TestInferRnFunctions");
   TCase *tcase = tcase_create("TestInferRnFunctions");
 
+  
   tcase_add_test(tcase, test_eqivalent);
   tcase_add_test(tcase, test_refactor_numbers);
-  tcase_add_test(tcase, test_encompass_uminus1);
+ tcase_add_test(tcase, test_encompass_uminus1);
   tcase_add_test(tcase, test_encompass_uminus2);
   tcase_add_test(tcase, test_encompass_uminus3);
   tcase_add_test(tcase, test_encompass_uminus4);
@@ -1053,6 +1168,8 @@ create_suite_TestInferRnFunctions()
   tcase_add_test(tcase, test_decompose4);
   tcase_add_test(tcase, test_decompose5);
   tcase_add_test(tcase, test_decompose6);
+   tcase_add_test(tcase, test_decompose7);
+  tcase_add_test(tcase, test_decompose8);
   tcase_add_test(tcase, test_simplify1);
   tcase_add_test(tcase, test_simplify2);
   tcase_add_test(tcase, test_simplify3);
@@ -1061,7 +1178,7 @@ create_suite_TestInferRnFunctions()
   tcase_add_test(tcase, test_simplify6);
   tcase_add_test(tcase, test_no_children);
   tcase_add_test(tcase, test_convertRootToPower);
-
+  
   suite_add_tcase(suite, tcase);
 
   return suite;

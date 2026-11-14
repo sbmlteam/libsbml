@@ -3575,6 +3575,7 @@ bool
 ASTNode::exactlyEqual(const ASTNode& rhs)
 {
     bool equal = true;
+    bool numbersChecked = false;
     ASTNodeType_t type = getType();
     if (type != rhs.getType())
     {
@@ -3590,6 +3591,10 @@ ASTNode::exactlyEqual(const ASTNode& rhs)
                 {
                     return false;
                 }
+                else
+                {
+                    numbersChecked = true;
+                }
             }
             else if (type == AST_RATIONAL || type == AST_REAL || type == AST_REAL_E)
             {
@@ -3597,6 +3602,11 @@ ASTNode::exactlyEqual(const ASTNode& rhs)
                 {
                     return false;
                 }
+                else
+                {
+                    numbersChecked = true;
+                }
+
             }
         }
         else
@@ -3618,18 +3628,21 @@ ASTNode::exactlyEqual(const ASTNode& rhs)
             return false;
         }
     }
-    else if (type == AST_INTEGER)
+    else if (numbersChecked == false)
     {
-        if (getInteger() != rhs.getInteger())
+        if (type == AST_INTEGER)
         {
-            return false;
+            if (getInteger() != rhs.getInteger())
+            {
+                return false;
+            }
         }
-    }
-    else if (type == AST_RATIONAL || type == AST_REAL || type == AST_REAL_E)
-    {
-        if (!util_isEqual(getValue(), rhs.getValue()))
+        else if (type == AST_RATIONAL || type == AST_REAL || type == AST_REAL_E)
         {
-            return false;
+            if (!util_isEqual(getValue(), rhs.getValue()))
+            {
+                return false;
+            }
         }
     }
 
@@ -3749,25 +3762,26 @@ ASTNode::createVectorOfChildTypes(std::vector<unsigned int>& numbers,
 
 }
 
+LIBSBML_EXTERN
 
-//void 
-//ASTNode::printMath(unsigned int level)
-//{
-//  if (this == NULL)
-//  {
-//    std::cout << "Level " << level << ": NULL" << std::endl;
-//    return;
-//  }
-//
-//  const char * str = SBML_formulaToL3String(this);
-//  std::cout << "Level " << level << ": " << str << std::endl;
-//  safe_free((char *)(str));
-//
-//  for (unsigned int i = 0; i < getNumChildren(); i++)
-//  {
-//    getChild(i)->printMath(level + 1);
-//  }
-//}
+void 
+ASTNode::printMath(unsigned int level)
+{
+  if (this == NULL)
+  {
+    std::cout << "Level " << level << ": NULL" << std::endl;
+    return;
+  }
+
+  const char * str = SBML_formulaToL3String(this);
+  std::cout << "Level " << level << ": " << str << std::endl;
+  safe_free((char *)(str));
+
+  for (unsigned int i = 0; i < getNumChildren(); i++)
+  {
+    getChild(i)->printMath(level + 1);
+  }
+}
 
 /* combine numbers:
 * returns AST that is number 
@@ -3798,7 +3812,7 @@ ASTNode::combineNumbers(std::vector<unsigned int>& numbers)
       number = number - (getChild(*it)->getValue());
       break;
     case AST_DIVIDE:
-      number = number / (getChild(*it)->getValue());
+      number = (getChild(*it)->getValue()) / number;
       break;
     case AST_POWER:
     case AST_FUNCTION_POWER:
@@ -4192,10 +4206,10 @@ void
 ASTNode::refactor()
 {
     // we need to look at whether we have got a single variable that is assigned by an assignment rule
-  refactorNumbers();
-  encompassUnaryMinus();
-  createNonBinaryTree();
-  if (reorderArguments())
+    refactorNumbers();
+    encompassUnaryMinus();
+    createNonBinaryTree();
+    if (reorderArguments())
   {
     refactor();
   }
@@ -4207,6 +4221,9 @@ ASTNode::refactor()
  * (a + B) * c becomes ac + Bc
  * (5 + 3)/(a-4) becomes 8/(a-4)
  * (a + 4)/4 becomes 1 + a/4
+ * 
+ * BUT NEED BE CAREFUL WITH DIVISION
+ * (a - b)/c
  */
 LIBSBML_EXTERN
 void
@@ -4214,6 +4231,7 @@ ASTNode::decompose()
 {
   refactor();
   bool decompose = false;
+  bool decomposeDivide = false;
   unsigned int childNo = 0;
   ASTNodeType_t type, origType;
 
@@ -4231,15 +4249,17 @@ ASTNode::decompose()
       }
     }
   }
-  else if (getType() == AST_DIVIDE && getNumChildren() > 0)
+  else if (getType() == AST_DIVIDE && getNumChildren() == 2)
   {
-    type = getChild(0)->getType();
-    if (type == AST_PLUS || type == AST_MINUS)
-    {
-      decompose = true;
-      childNo = 0;
-      origType = AST_DIVIDE;
-    }
+     // should not need decompose a divide if the numerator is a single expression eg 'a'
+      ASTNode* denominator = getChild(1);
+      ASTNode* numerator = getChild(0);
+
+      if (numerator->getNumChildren() > 0)
+      {
+          origType = numerator->getType();
+          decomposeDivide = true;
+      }
   }
   else
   {
@@ -4251,56 +4271,80 @@ ASTNode::decompose()
 
   if (decompose)
   {
-    ASTNode* minusOne = new ASTNode(AST_REAL);
-    minusOne->setValue((double)(-1.0));
+        ASTNode* minusOne = new ASTNode(AST_REAL);
+        minusOne->setValue((double)(-1.0));
     
-    ASTNode* distrib = (ASTNode*)(mChildren->remove(childNo));
-    std::vector<ASTNode*> otherChildren;
-    for (unsigned int i = getNumChildren(); i > 0; --i)
-    {
-      otherChildren.push_back((ASTNode*)(mChildren->remove(i-1)));
-    }
-    std::vector<ASTNode*>::iterator it = otherChildren.begin();
-    this->setType(AST_PLUS);
-    // if the numchildren not 2 for minus - get out before we hit problems
-    if (type == AST_MINUS && distrib->getNumChildren() != 2)
-    {
-      delete minusOne;
-      return;
-    }
+        ASTNode* distrib = (ASTNode*)(mChildren->remove(childNo));
+        std::vector<ASTNode*> otherChildren;
+        for (unsigned int i = getNumChildren(); i > 0; --i)
+        {
+          otherChildren.push_back((ASTNode*)(mChildren->remove(i-1)));
+        }
+        std::vector<ASTNode*>::iterator it = otherChildren.begin();
+        this->setType(AST_PLUS);
+        // if the numchildren not 2 for minus - get out before we hit problems
+        if (type == AST_MINUS && distrib->getNumChildren() != 2)
+        {
+          delete minusOne;
+          return;
+        }
 
-    for (unsigned int j = 0; j < distrib->getNumChildren(); ++j)
-    {
-      ASTNode* newNode = new ASTNode(origType);
-      if (type == AST_MINUS && j == 1)
-      {
-        ASTNode* first = otherChildren.at(0);
-        if (first->isNumber())
+        for (unsigned int j = 0; j < distrib->getNumChildren(); ++j)
         {
-          double newVal = first->getValue() * -1.0;
-          first->setValue(newVal);
+          ASTNode* newNode = new ASTNode(origType);
+          if (type == AST_MINUS && j == 1)
+          {
+            ASTNode* first = otherChildren.at(0);
+            if (first->isNumber())
+            {
+              double newVal = first->getValue() * -1.0;
+              first->setValue(newVal);
+            }
+            else
+            {
+              newNode->addChild(minusOne->deepCopy());
+            }
+          }
+          newNode->addChild(distrib->getChild(j)->deepCopy());
+          for (it = otherChildren.begin(); it != otherChildren.end(); it++)
+          {
+            newNode->addChild((*it)->deepCopy());
+          }
+          newNode->refactor();
+          this->addChild(newNode->deepCopy());
+          delete newNode;
         }
-        else
+        // cleanup memory
+        delete minusOne;
+        delete distrib;
+        for (it = otherChildren.begin(); it != otherChildren.end(); it++)
         {
-          newNode->addChild(minusOne->deepCopy());
+          delete *it;
         }
-      }
-      newNode->addChild(distrib->getChild(j)->deepCopy());
-      for (it = otherChildren.begin(); it != otherChildren.end(); it++)
-      {
-        newNode->addChild((*it)->deepCopy());
-      }
-      newNode->refactor();
-      this->addChild(newNode->deepCopy());
-      delete newNode;
-    }
-    delete minusOne;
-    delete distrib;
-    for (it = otherChildren.begin(); it != otherChildren.end(); it++)
-    {
-      delete *it;
-    }
-    otherChildren.clear();
+        otherChildren.clear();
+  }
+  else if (decomposeDivide)
+  {
+ //     ASTNode* denominator = (ASTNode*)(mChildren->remove(0));
+      ASTNode* nominator = (ASTNode*)(mChildren->remove(0));
+      ASTNode* denominator = (ASTNode*)(mChildren->remove(0));
+
+      ASTNode* newChildNode1 = new ASTNode(AST_DIVIDE);
+      ASTNode* newChildNode2 = new ASTNode(AST_DIVIDE);
+
+      newChildNode1->addChild(nominator->getChild(0)->deepCopy());     
+      newChildNode1->addChild(denominator->deepCopy());
+      newChildNode1->refactor();
+
+
+      newChildNode2->addChild(nominator->getChild(1)->deepCopy());
+      newChildNode2->addChild(denominator->deepCopy());
+      newChildNode2->refactor();
+      this->setType(origType);
+      this->addChild(newChildNode1);
+      this->addChild(newChildNode2);
+
+
   }
   refactor();
 }

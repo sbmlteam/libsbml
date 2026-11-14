@@ -132,9 +132,10 @@ main (void)
 
   setTestDataDirectory();
 
-  //SRunner *runner = srunner_create(create_suite_TestDerivativeFunctions() );
+/*  SRunner *runner = srunner_create(create_suite_TestInferRnFunctions() );
+  srunner_add_suite(runner, create_suite_TestRefactoringFunctions());*/
 
-  SRunner *runner = srunner_create( create_suite_ASTNode() );
+  SRunner* runner = srunner_create(create_suite_ASTNode());
 
   srunner_add_suite( runner, create_suite_FormulaFormatter     () );
   srunner_add_suite( runner, create_suite_FormulaParser        () );
@@ -160,6 +161,7 @@ main (void)
 
   srunner_add_suite(runner, create_suite_TestLevelNodeFunction());
   srunner_add_suite(runner, create_suite_TestRefactoringFunctions());
+  
   /* srunner_set_fork_status(runner, CK_NOFORK); */
 
   srunner_run_all(runner, CK_NORMAL);
