@@ -2,6 +2,8 @@
 <area shape="rect" id="Node000001" title="Enumeration of values returned by operations within libSBML." alt="" coords="5,5,187,33"/>
 <area shape="rect" id="Node000002" href="$extern_8h.html" title="Definitions of LIBSBML_EXTERN and related things." alt="" coords="10,81,182,109"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="97,31,99,66,93,65,95,36"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="13,157,179,201"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="98,107,99,142,93,140,94,111"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="6,165,55,193"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="88,108,52,155,48,152,83,111"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="80,157,246,201"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="108,107,138,144,133,144,106,112"/>
 </map>

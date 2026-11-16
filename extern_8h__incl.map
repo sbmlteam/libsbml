@@ -1,5 +1,7 @@
 <map id="extern.h" name="extern.h">
-<area shape="rect" id="Node000001" title="Definitions of LIBSBML_EXTERN and related things." alt="" coords="51,5,126,33"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,81,172,126"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="90,31,91,66,86,64,87,36"/>
+<area shape="rect" id="Node000001" title="Definitions of LIBSBML_EXTERN and related things." alt="" coords="57,5,132,33"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,90,54,117"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="86,32,51,79,47,76,82,35"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="78,81,245,126"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="107,31,137,68,131,69,105,36"/>
 </map>

@@ -2,7 +2,9 @@
 <area shape="rect" id="Node000001" title="Base class of element filters." alt="" coords="93,5,212,33"/>
 <area shape="rect" id="Node000002" href="$extern_8h.html" title="Definitions of LIBSBML_EXTERN and related things." alt="" coords="5,81,178,109"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="140,36,114,71,110,67,144,31"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="70,157,236,201"/>
-<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="164,31,181,53,193,80,195,97,193,114,180,145,176,142,187,113,190,97,188,82,176,56,163,36"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="102,107,130,144,125,144,100,112"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="132,157,299,201"/>
+<area shape="poly" id="edge4_Node000001_Node000004" title=" " alt="" coords="163,31,193,80,211,142,206,141,188,82,161,36"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="59,165,108,193"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="92,107,89,151,84,149,88,111"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="112,107,172,147,167,148,111,112"/>
 </map>

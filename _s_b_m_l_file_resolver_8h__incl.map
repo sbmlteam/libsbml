@@ -2,24 +2,26 @@
 <area shape="rect" id="Node000001" title="A file&#45;based resolver for SBML Documents." alt="" coords="149,5,298,33"/>
 <area shape="rect" id="Node000002" href="$sbmlfwd_8h.html" title="Forward declarations for all opaque C types." alt="" coords="5,174,191,201"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="147,33,104,51,84,65,68,82,62,101,63,121,71,141,81,160,76,161,66,143,58,122,56,100,64,80,81,61,102,46,150,28"/>
-<area shape="rect" id="Node000008" title=" " alt="" coords="272,174,330,201"/>
-<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="270,31,307,50,323,63,336,80,343,101,340,123,322,162,318,159,335,121,337,101,332,82,320,67,304,54,271,36"/>
-<area shape="rect" id="Node000009" title=" " alt="" coords="260,90,322,117"/>
-<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="234,31,274,77,268,78,234,36"/>
-<area shape="rect" id="Node000010" href="$_s_b_m_l_resolver_8h.html" title="Definition of SBMLResolver, the base class for resolving SBML documents." alt="" coords="78,81,236,126"/>
-<area shape="poly" id="edge11_Node000001_Node000010" title=" " alt="" coords="211,36,186,70,182,67,214,31"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="262,510,428,555"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="89,205,75,237,58,285,53,311,52,337,56,362,66,385,82,408,101,428,147,462,198,488,249,509,244,509,195,493,144,467,98,432,78,411,61,388,50,363,46,337,48,310,53,283,70,235,91,199"/>
-<area shape="rect" id="Node000004" href="$libsbml-config_8h.html" title="Decides whether to #include Unix or Windows configuration variables." alt="" coords="170,249,336,294"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="122,199,201,240,196,243,123,205"/>
-<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="336,279,367,287,397,300,424,317,445,340,462,372,467,401,461,431,446,464,429,486,407,504,405,499,425,482,441,461,456,429,461,401,457,373,441,344,420,321,394,304,365,292,337,284"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="272,174,330,201"/>
+<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="270,31,307,50,323,63,336,80,343,101,340,123,322,162,318,159,335,121,337,101,332,82,320,67,304,54,271,36"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="260,90,322,117"/>
+<area shape="poly" id="edge11_Node000001_Node000010" title=" " alt="" coords="234,31,274,77,268,78,234,36"/>
+<area shape="rect" id="Node000011" href="$_s_b_m_l_resolver_8h.html" title="Definition of SBMLResolver, the base class for resolving SBML documents." alt="" coords="78,81,236,126"/>
+<area shape="poly" id="edge12_Node000001_Node000011" title=" " alt="" coords="211,36,186,70,182,67,214,31"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="191,510,357,555"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="90,204,76,237,60,283,54,336,57,361,66,385,93,423,127,455,166,481,205,503,200,504,163,486,124,459,89,427,61,388,52,363,48,336,55,282,71,235,91,199"/>
+<area shape="rect" id="Node000004" href="$libsbml-config_8h.html" title="Decides whether to #include Unix or Windows configuration variables." alt="" coords="135,249,301,294"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="117,199,176,239,171,241,118,205"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="232,292,255,341,271,423,276,496,271,494,266,424,250,343,231,297"/>
 <area shape="rect" id="Node000005" title=" " alt="" coords="75,342,241,387"/>
-<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="228,296,193,333,189,330,232,292"/>
-<area shape="rect" id="Node000006" href="$libsbml-version_8h.html" title="Define libSBML version numbers for access from client software." alt="" coords="266,342,432,387"/>
-<area shape="poly" id="edge6_Node000004_Node000006" title=" " alt="" coords="276,292,318,331,312,332,275,297"/>
-<area shape="rect" id="Node000007" href="$extern_8h.html" title="Definitions of LIBSBML_EXTERN and related things." alt="" coords="258,435,431,462"/>
-<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="349,385,348,420,344,418,346,389"/>
-<area shape="poly" id="edge8_Node000007_Node000003" title=" " alt="" coords="346,461,347,496,342,493,343,465"/>
-<area shape="poly" id="edge12_Node000010_Node000002" title=" " alt="" coords="140,129,119,162,114,159,142,124"/>
-<area shape="poly" id="edge13_Node000010_Node000008" title=" " alt="" coords="194,124,267,165,262,167,195,129"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="205,292,183,331,178,328,202,296"/>
+<area shape="rect" id="Node000006" href="$libsbml-version_8h.html" title="Define libSBML version numbers for access from client software." alt="" coords="318,342,484,387"/>
+<area shape="poly" id="edge6_Node000004_Node000006" title=" " alt="" coords="262,292,346,334,341,336,262,297"/>
+<area shape="rect" id="Node000007" href="$extern_8h.html" title="Definitions of LIBSBML_EXTERN and related things." alt="" coords="316,435,488,462"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="403,385,404,420,399,418,399,389"/>
+<area shape="poly" id="edge9_Node000007_Node000003" title=" " alt="" coords="384,462,322,504,319,499,379,464"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="382,519,430,546"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="404,461,407,505,402,502,401,465"/>
+<area shape="poly" id="edge13_Node000011_Node000002" title=" " alt="" coords="140,129,119,162,114,159,142,124"/>
+<area shape="poly" id="edge14_Node000011_Node000009" title=" " alt="" coords="194,124,267,165,262,167,195,129"/>
 </map>

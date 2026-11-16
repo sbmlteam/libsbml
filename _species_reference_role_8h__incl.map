@@ -1,7 +1,9 @@
 <map id="SpeciesReferenceRole.h" name="SpeciesReferenceRole.h">
-<area shape="rect" id="Node000001" title="Definition of SpeciesReferenceRole enum for SBML Layout." alt="" coords="5,5,184,33"/>
-<area shape="rect" id="Node000002" href="$extern_8h.html" title="Definitions of LIBSBML_EXTERN and related things." alt="" coords="8,81,181,109"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="95,31,97,66,92,65,94,36"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="11,157,178,201"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="96,107,97,142,92,140,93,111"/>
+<area shape="rect" id="Node000001" title="Definition of SpeciesReferenceRole enum for SBML Layout." alt="" coords="6,5,184,33"/>
+<area shape="rect" id="Node000002" href="$extern_8h.html" title="Definitions of LIBSBML_EXTERN and related things." alt="" coords="9,81,181,109"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="96,31,97,66,92,65,94,36"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,165,54,193"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="86,108,51,155,47,152,82,111"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="78,157,245,201"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="107,107,137,144,131,144,105,112"/>
 </map>

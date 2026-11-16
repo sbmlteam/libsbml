@@ -4,14 +4,16 @@
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="195,36,91,85,88,80,198,31"/>
 <area shape="rect" id="Node000003" href="$operation_return_values_8h.html" title="Enumeration of values returned by operations within libSBML." alt="" coords="113,81,336,126"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="226,31,227,66,222,64,224,36"/>
-<area shape="rect" id="Node000006" href="$_callback_registry_8h.html" title=" " alt="" coords="361,90,563,117"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="263,31,412,83,407,85,263,36"/>
-<area shape="rect" id="Node000004" href="$extern_8h.html" title="Definitions of LIBSBML_EXTERN and related things." alt="" coords="217,174,390,201"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="246,123,283,162,278,162,245,129"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="282,249,448,294"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="314,200,342,237,337,236,312,204"/>
-<area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="439,117,344,169,341,164,434,119"/>
-<area shape="poly" id="edge8_Node000006_Node000005" title=" " alt="" coords="457,117,387,238,383,234,452,119"/>
-<area shape="rect" id="Node000007" title=" " alt="" coords="464,174,527,201"/>
-<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="469,115,487,160,482,159,466,120"/>
+<area shape="rect" id="Node000007" href="$_callback_registry_8h.html" title=" " alt="" coords="361,90,563,117"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="263,31,412,83,407,85,263,36"/>
+<area shape="rect" id="Node000004" href="$extern_8h.html" title="Definitions of LIBSBML_EXTERN and related things." alt="" coords="213,174,386,201"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="245,124,280,162,274,162,244,129"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="271,258,320,286"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="301,200,299,244,295,241,297,204"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="344,249,511,294"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="321,199,384,241,378,241,319,205"/>
+<area shape="poly" id="edge8_Node000007_Node000004" title=" " alt="" coords="438,117,340,169,338,164,434,119"/>
+<area shape="poly" id="edge9_Node000007_Node000006" title=" " alt="" coords="462,116,437,235,433,232,457,119"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="464,174,527,201"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="469,115,487,160,482,159,466,120"/>
 </map>

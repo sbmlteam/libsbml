@@ -6,6 +6,8 @@
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="139,31,180,69,175,71,139,36"/>
 <area shape="rect" id="Node000004" href="$extern_8h.html" title="Definitions of LIBSBML_EXTERN and related things." alt="" coords="124,174,297,201"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="212,124,213,159,208,157,209,128"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="128,249,294,294"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="212,200,213,235,208,232,209,204"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="121,258,170,286"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="203,201,167,248,163,244,198,203"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="194,249,360,294"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="222,199,253,237,247,236,220,204"/>
 </map>

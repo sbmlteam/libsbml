@@ -1,7 +1,9 @@
 <map id="libsbml&#45;version.h" name="libsbml&#45;version.h">
-<area shape="rect" id="Node000001" title="Define libSBML version numbers for access from client software." alt="" coords="25,5,158,33"/>
-<area shape="rect" id="Node000002" href="$extern_8h.html" title="Definitions of LIBSBML_EXTERN and related things." alt="" coords="5,81,178,109"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,31,94,66,89,65,91,36"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="8,157,175,201"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="93,107,94,142,89,140,90,111"/>
+<area shape="rect" id="Node000001" title="Define libSBML version numbers for access from client software." alt="" coords="28,5,162,33"/>
+<area shape="rect" id="Node000002" href="$extern_8h.html" title="Definitions of LIBSBML_EXTERN and related things." alt="" coords="9,81,181,109"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="96,31,97,66,92,65,94,36"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,165,54,193"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="86,108,51,155,47,152,82,111"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="78,157,245,201"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="107,107,137,144,131,144,105,112"/>
 </map>
