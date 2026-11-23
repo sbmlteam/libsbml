@@ -42,6 +42,11 @@
 #ifndef LIBSBML_EXTERN_H
 #define LIBSBML_EXTERN_H
 
+#ifdef __cplusplus
+#include <new>   // <-- workaround against compilation errors caused by std::nothrow
+#endif
+
+
 #include <sbml/common/libsbml-namespace.h>
 
 #if ( defined(WIN32) && !defined(CYGWIN) && !defined(__MINGW32__))
