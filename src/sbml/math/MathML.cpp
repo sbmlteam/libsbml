@@ -1794,6 +1794,13 @@ static void
 writeLambda (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sbmlns)
 {
 
+  if (node.getNumChildren() == 0)
+  {
+    stream.startElement("lambda");
+    stream.endElement("lambda");
+    return;
+  }
+
   bool bodyPresent = true;
   unsigned int bvars = node.getNumChildren() - 1;
   unsigned int n = bvars;

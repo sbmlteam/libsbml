@@ -45,10 +45,12 @@
 
 #include <sbml/math/ASTNode.h>
 #include <sbml/math/FormulaFormatter.h>
+#include <sbml/math/L3Parser.h>
 
 #include <sbml/SBMLTypes.h>
 #include <sbml/SBMLReader.h>
 #include <sbml/SBMLError.h>
+#include <sbml/units/UnitFormulaFormatter.h>
 
 #include <check.h>
 
@@ -97,6 +99,7 @@ CK_CPPSTART
 static SBMLDocument_t *D;
 static Model_t        *M;
 
+extern char *TestDataDirectory;
 
 static void
 ReadSBML_setup ()
@@ -2913,7 +2916,88 @@ START_TEST(test_ReadSBML_bad_indents_4)
 }
 END_TEST
 
+START_TEST(test_issue_522)
+{
+  std::string testFile = std::string(TestDataDirectory) + "/issue-522.xml";
+  auto* d = readSBMLFromFile(testFile.c_str());
+  fail_unless(d != nullptr);
 
+  std::cout << d->getErrorLog()->toString() << std::endl;
+
+  auto* m = d->getModel();
+  fail_unless(m != nullptr);
+
+  UnitFormulaFormatter formatter(m);
+  UnitDefinition* functionUnit = formatter.getUnitDefinition(m->getRule(0)->getMath());
+  fail_unless(functionUnit != nullptr);
+  fail_unless(functionUnit->getNumUnits() == 0);
+  fail_unless(formatter.getContainsUndeclaredUnits());
+  delete functionUnit;
+
+  auto* p = m->getParameter(0);
+  fail_unless(p != nullptr);
+
+  auto unit = p->getDerivedUnitDefinition();
+
+  d->setLevelAndVersion(3, 2, false);
+
+  auto sbml = d->toSBML();
+
+  delete d;
+}
+END_TEST
+
+START_TEST(test_recursive_function_units)
+{
+  SBMLDocument document(3, 2);
+  Model* model = document.createModel();
+  FunctionDefinition* first = model->createFunctionDefinition();
+  first->setId("first");
+  ASTNode* math = SBML_parseL3Formula("lambda(x, second(x))");
+  fail_unless(math != NULL);
+  fail_unless(first->setMath(math) == LIBSBML_OPERATION_SUCCESS);
+  delete math;
+
+  FunctionDefinition* second = model->createFunctionDefinition();
+  second->setId("second");
+  math = SBML_parseL3Formula("lambda(x, first(x))");
+  fail_unless(math != NULL);
+  fail_unless(second->setMath(math) == LIBSBML_OPERATION_SUCCESS);
+  delete math;
+
+  FunctionDefinition* identity = model->createFunctionDefinition();
+  identity->setId("identity");
+  math = SBML_parseL3Formula("lambda(x, x)");
+  fail_unless(math != NULL);
+  fail_unless(identity->setMath(math) == LIBSBML_OPERATION_SUCCESS);
+  delete math;
+
+  Parameter* parameter = model->createParameter();
+  parameter->setId("p");
+  parameter->setUnits("second");
+
+  UnitFormulaFormatter formatter(model);
+  math = SBML_parseL3Formula("first(p)");
+  fail_unless(math != NULL);
+  UnitDefinition* unit = formatter.getUnitDefinition(math);
+  fail_unless(unit != NULL);
+  fail_unless(unit->getNumUnits() == 0);
+  fail_unless(formatter.getContainsUndeclaredUnits());
+  delete unit;
+  delete math;
+
+  formatter.resetFlags();
+  math = SBML_parseL3Formula("identity(identity(p))");
+  fail_unless(math != NULL);
+  unit = formatter.getUnitDefinition(math);
+  fail_unless(unit != NULL);
+  fail_unless(unit->getNumUnits() == 1);
+  fail_unless(unit->getUnit(0)->getKind() == UNIT_KIND_SECOND);
+  fail_unless(!formatter.getContainsUndeclaredUnits());
+  delete unit;
+  delete math;
+}
+END_TEST
 
 Suite *
 create_suite_ReadSBML (void)
@@ -3014,6 +3098,9 @@ create_suite_ReadSBML (void)
   tcase_add_test(tcase, test_ReadSBML_bad_indents_2);
   tcase_add_test(tcase, test_ReadSBML_bad_indents_3);
   tcase_add_test(tcase, test_ReadSBML_bad_indents_4);
+  
+  tcase_add_test(tcase, test_issue_522);
+  tcase_add_test(tcase, test_recursive_function_units);
 
   suite_add_tcase(suite, tcase);
 

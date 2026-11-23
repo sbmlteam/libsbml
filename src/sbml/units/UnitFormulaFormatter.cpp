@@ -47,6 +47,8 @@
 #include <sbml/util/util.h>
 #include <sbml/util/IdList.h>
 
+#include <set>
+
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -360,7 +362,42 @@ UnitFormulaFormatter::getUnitDefinition(const ASTNode * node,
 
 
 /* @cond doxygenLibsbmlInternal */
-/** 
+static bool
+hasRecursiveFunction(const ASTNode *node, const Model *model,
+                     std::set<const FunctionDefinition*>& active,
+                     std::set<const FunctionDefinition*>& checked)
+{
+  if (node == NULL)
+    return false;
+
+  if (node->getType() == AST_FUNCTION && node->getName() != NULL)
+  {
+    const FunctionDefinition *function = model->getFunctionDefinition(node->getName());
+    if (function != NULL && function->isSetMath())
+    {
+      if (active.count(function) != 0)
+        return true;
+      if (checked.count(function) == 0)
+      {
+        active.insert(function);
+        bool recursive = hasRecursiveFunction(function->getMath(), model, active, checked);
+        active.erase(function);
+        if (recursive)
+          return true;
+        checked.insert(function);
+      }
+    }
+  }
+
+  for (unsigned int index = 0; index < node->getNumChildren(); ++index)
+  {
+    if (hasRecursiveFunction(node->getChild(index), model, active, checked))
+      return true;
+  }
+  return false;
+}
+
+/**
   * returns the unitDefinition for the ASTNode from a function
   */
 UnitDefinition * 
@@ -382,7 +419,20 @@ UnitFormulaFormatter::getUnitDefinitionFromFunction(const ASTNode * node,
     // model->getFunctionDefinition to avoid crashing.
     const FunctionDefinition *fd = node->getName() == NULL ? NULL :
                                model->getFunctionDefinition(node->getName());
+    bool recursive = false;
     if (fd && fd->isSetMath())
+    {
+      std::set<const FunctionDefinition*> active;
+      std::set<const FunctionDefinition*> checked;
+      active.insert(fd);
+      recursive = hasRecursiveFunction(fd->getMath(), model, active, checked);
+      if (recursive)
+      {
+        mContainsUndeclaredUnits = true;
+        mCanIgnoreUndeclaredUnits = 0;
+      }
+    }
+    if (fd && fd->isSetMath() && !recursive)
     {
       noBvars = fd->getNumArguments();
       if (noBvars == 0)
