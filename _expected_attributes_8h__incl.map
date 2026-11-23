@@ -1,17 +1,15 @@
 <map id="ExpectedAttributes.h" name="ExpectedAttributes.h">
-<area shape="rect" id="Node000001" title="Definition of ExpectedAttributes, the class allowing the specification of attributes to expect." alt="" coords="240,5,398,33"/>
-<area shape="rect" id="Node000002" href="$extern_8h.html" title="Definitions of LIBSBML_EXTERN and related things." alt="" coords="9,81,181,109"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="277,36,150,78,148,73,281,32"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="206,81,264,109"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="306,32,263,73,260,68,302,35"/>
-<area shape="rect" id="Node000006" title=" " alt="" coords="288,81,350,109"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="320,31,321,67,316,64,317,36"/>
-<area shape="rect" id="Node000007" title=" " alt="" coords="374,81,459,109"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="337,31,390,72,384,72,336,36"/>
-<area shape="rect" id="Node000008" title=" " alt="" coords="483,81,568,109"/>
-<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="356,31,477,75,471,76,356,36"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="5,165,54,193"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="86,108,51,155,47,152,82,111"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="78,157,245,201"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="107,107,137,144,131,144,105,112"/>
+<area shape="rect" id="Node000001" title="Definition of ExpectedAttributes, the class allowing the specification of attributes to expect." alt="" coords="237,5,394,33"/>
+<area shape="rect" id="Node000002" href="$extern_8h.html" title="Definitions of LIBSBML_EXTERN and related things." alt="" coords="5,81,178,109"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="274,36,147,78,145,73,277,31"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="202,81,261,109"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="303,32,259,73,256,68,298,35"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="284,81,347,109"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="317,31,318,67,313,64,314,36"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="370,81,456,109"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="333,31,386,72,381,72,332,36"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="480,81,564,109"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="353,31,473,75,468,76,352,36"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="8,157,175,201"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="93,107,94,142,89,140,90,111"/>
 </map>

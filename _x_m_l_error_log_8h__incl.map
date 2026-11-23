@@ -1,48 +1,46 @@
 <map id="XMLErrorLog.h" name="XMLErrorLog.h">
-<area shape="rect" id="Node000001" title="Stores errors (and messages) encountered while processing XML." alt="" coords="505,5,620,33"/>
+<area shape="rect" id="Node000001" title="Stores errors (and messages) encountered while processing XML." alt="" coords="570,5,686,33"/>
 <area shape="rect" id="Node000002" href="$_x_m_l_extern_8h.html" title="Defines LIBLAX_EXTERN." alt="" coords="5,157,174,184"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="502,35,419,57,324,84,222,119,137,152,133,148,221,114,322,78,418,51,507,32"/>
-<area shape="rect" id="Node000004" href="$_x_m_l_error_8h.html" title="Represents errors (and messages) encountered during an XML parse." alt="" coords="369,81,525,109"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="540,35,482,75,479,70,544,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="568,34,368,84,246,120,143,153,140,149,245,115,366,78,572,31"/>
+<area shape="rect" id="Node000004" href="$_x_m_l_error_8h.html" title="Represents errors (and messages) encountered during an XML parse." alt="" coords="434,81,590,109"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="605,35,547,75,544,70,610,32"/>
 <area shape="rect" id="Node000006" href="$sbmlfwd_8h.html" title="Forward declarations for all opaque C types." alt="" coords="198,157,384,184"/>
-<area shape="poly" id="edge23_Node000001_Node000006" title=" " alt="" coords="502,29,431,48,393,63,358,83,328,112,306,145,302,142,324,109,355,79,391,58,430,43,507,26"/>
-<area shape="rect" id="Node000015" title=" " alt="" coords="736,157,795,184"/>
-<area shape="poly" id="edge25_Node000001_Node000015" title=" " alt="" coords="564,31,571,69,578,89,590,107,638,125,724,155,719,156,637,130,587,111,574,92,566,71,562,36"/>
-<area shape="rect" id="Node000017" title=" " alt="" coords="600,81,680,109"/>
-<area shape="poly" id="edge24_Node000001_Node000017" title=" " alt="" coords="577,31,618,70,613,70,576,36"/>
-<area shape="rect" id="Node000018" title=" " alt="" coords="704,81,766,109"/>
-<area shape="poly" id="edge26_Node000001_Node000018" title=" " alt="" coords="593,31,693,74,688,75,594,36"/>
-<area shape="rect" id="Node000019" title=" " alt="" coords="790,81,832,109"/>
-<area shape="poly" id="edge27_Node000001_Node000019" title=" " alt="" coords="614,31,778,80,773,81,614,36"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="145,493,311,538"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="84,187,72,234,59,303,58,340,62,378,73,413,93,444,119,466,150,486,145,487,116,471,89,447,68,415,56,379,52,341,54,302,67,232,85,182"/>
-<area shape="poly" id="edge5_Node000004_Node000002" title=" " alt="" coords="381,111,170,155,168,151,384,107"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="460,241,525,268"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="452,107,487,226,482,225,449,111"/>
-<area shape="poly" id="edge6_Node000004_Node000006" title=" " alt="" coords="417,111,334,152,331,148,421,107"/>
-<area shape="rect" id="Node000012" href="$util_8h.html" title="Utility functions." alt="" coords="509,157,624,184"/>
-<area shape="poly" id="edge15_Node000004_Node000012" title=" " alt="" coords="468,107,535,148,530,149,468,112"/>
-<area shape="rect" id="Node000014" title=" " alt="" coords="648,157,712,184"/>
-<area shape="poly" id="edge19_Node000004_Node000014" title=" " alt="" coords="488,107,636,154,631,155,489,112"/>
-<area shape="poly" id="edge20_Node000004_Node000015" title=" " alt="" coords="514,107,724,155,719,157,514,112"/>
-<area shape="rect" id="Node000016" href="$operation_return_values_8h.html" title="Enumeration of values returned by operations within libSBML." alt="" coords="518,325,741,370"/>
-<area shape="poly" id="edge21_Node000004_Node000016" title=" " alt="" coords="444,107,437,142,431,185,433,233,439,255,450,275,474,300,506,321,501,321,471,305,446,279,435,257,428,233,425,185,431,141,441,111"/>
-<area shape="poly" id="edge7_Node000006_Node000003" title=" " alt="" coords="253,187,211,208,161,237,114,277,94,300,79,326,72,349,73,371,82,393,95,414,134,452,178,484,173,485,130,456,91,417,77,395,68,372,67,348,74,324,90,297,110,273,158,233,209,203,256,183"/>
-<area shape="rect" id="Node000007" href="$libsbml-config_8h.html" title="Decides whether to #include Unix or Windows configuration variables." alt="" coords="208,232,374,277"/>
-<area shape="poly" id="edge8_Node000006_Node000007" title=" " alt="" coords="292,182,293,217,288,216,290,187"/>
-<area shape="poly" id="edge9_Node000007_Node000003" title=" " alt="" coords="288,275,268,370,240,479,236,477,263,369,284,279"/>
-<area shape="rect" id="Node000008" title=" " alt="" coords="88,325,254,370"/>
-<area shape="poly" id="edge10_Node000007_Node000008" title=" " alt="" coords="260,279,213,317,210,313,264,275"/>
-<area shape="rect" id="Node000009" href="$libsbml-version_8h.html" title="Define libSBML version numbers for access from client software." alt="" coords="328,325,494,370"/>
-<area shape="poly" id="edge11_Node000007_Node000009" title=" " alt="" coords="320,275,373,315,367,316,319,280"/>
-<area shape="rect" id="Node000010" href="$extern_8h.html" title="Definitions of LIBSBML_EXTERN and related things." alt="" coords="390,418,562,445"/>
-<area shape="poly" id="edge12_Node000009_Node000010" title=" " alt="" coords="429,368,459,406,454,405,427,373"/>
-<area shape="poly" id="edge14_Node000010_Node000003" title=" " alt="" coords="439,445,309,491,307,485,434,446"/>
-<area shape="rect" id="Node000011" title=" " alt="" coords="452,502,500,530"/>
-<area shape="poly" id="edge13_Node000010_Node000011" title=" " alt="" coords="478,444,478,488,474,485,474,448"/>
-<area shape="poly" id="edge16_Node000012_Node000005" title=" " alt="" coords="557,183,516,231,512,227,553,187"/>
-<area shape="poly" id="edge18_Node000012_Node000010" title=" " alt="" coords="597,182,659,214,693,235,724,259,750,285,766,313,769,342,765,357,755,372,728,390,684,405,578,424,577,419,683,400,725,386,752,368,760,355,764,341,761,315,746,288,721,263,690,239,656,219,597,188"/>
-<area shape="rect" id="Node000013" title=" " alt="" coords="548,241,623,268"/>
-<area shape="poly" id="edge17_Node000012_Node000013" title=" " alt="" coords="571,183,582,227,577,225,569,187"/>
-<area shape="poly" id="edge22_Node000016_Node000010" title=" " alt="" coords="591,369,515,413,513,408,586,371"/>
+<area shape="poly" id="edge22_Node000001_Node000006" title=" " alt="" coords="568,34,499,55,423,83,367,115,321,149,317,145,364,111,420,79,497,49,572,31"/>
+<area shape="rect" id="Node000014" title=" " alt="" coords="736,157,795,184"/>
+<area shape="poly" id="edge24_Node000001_Node000014" title=" " alt="" coords="630,31,638,69,645,89,656,107,687,134,725,155,719,155,684,139,651,110,640,91,632,70,628,36"/>
+<area shape="rect" id="Node000016" title=" " alt="" coords="666,81,745,109"/>
+<area shape="poly" id="edge23_Node000001_Node000016" title=" " alt="" coords="642,31,684,70,678,70,642,36"/>
+<area shape="rect" id="Node000017" title=" " alt="" coords="769,81,831,109"/>
+<area shape="poly" id="edge25_Node000001_Node000017" title=" " alt="" coords="659,31,758,74,753,75,659,36"/>
+<area shape="rect" id="Node000018" title=" " alt="" coords="856,81,897,109"/>
+<area shape="poly" id="edge26_Node000001_Node000018" title=" " alt="" coords="679,31,843,80,838,81,679,36"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="93,493,259,538"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="72,187,56,207,40,233,19,292,9,342,10,366,14,390,24,416,40,444,59,467,86,485,81,487,56,471,35,447,19,418,9,391,4,366,4,342,14,291,35,231,51,204,74,182"/>
+<area shape="poly" id="edge5_Node000004_Node000002" title=" " alt="" coords="435,112,181,156,179,151,438,107"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="574,241,640,268"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="521,107,594,228,589,227,519,112"/>
+<area shape="poly" id="edge6_Node000004_Node000006" title=" " alt="" coords="471,111,346,154,344,149,475,108"/>
+<area shape="rect" id="Node000011" href="$util_8h.html" title="Utility functions." alt="" coords="408,157,523,184"/>
+<area shape="poly" id="edge14_Node000004_Node000011" title=" " alt="" coords="506,107,484,145,480,142,502,111"/>
+<area shape="rect" id="Node000013" title=" " alt="" coords="598,157,661,184"/>
+<area shape="poly" id="edge18_Node000004_Node000013" title=" " alt="" coords="533,107,599,148,594,149,533,112"/>
+<area shape="poly" id="edge19_Node000004_Node000014" title=" " alt="" coords="557,107,724,156,719,157,558,112"/>
+<area shape="rect" id="Node000015" href="$operation_return_values_8h.html" title="Enumeration of values returned by operations within libSBML." alt="" coords="580,325,804,370"/>
+<area shape="poly" id="edge20_Node000004_Node000015" title=" " alt="" coords="590,105,637,123,658,137,676,155,695,192,704,234,705,275,701,311,697,308,700,274,698,234,690,194,671,158,655,141,635,128,591,110"/>
+<area shape="poly" id="edge7_Node000006_Node000003" title=" " alt="" coords="254,187,214,208,165,237,119,277,99,300,84,326,77,347,77,368,81,389,90,409,114,448,144,482,138,483,110,452,85,412,76,390,72,368,72,346,79,324,95,297,115,273,162,233,212,203,258,183"/>
+<area shape="rect" id="Node000007" href="$libsbml-config_8h.html" title="Decides whether to #include Unix or Windows configuration variables." alt="" coords="210,232,377,277"/>
+<area shape="poly" id="edge8_Node000006_Node000007" title=" " alt="" coords="292,182,295,217,290,216,290,187"/>
+<area shape="poly" id="edge9_Node000007_Node000003" title=" " alt="" coords="293,275,288,322,273,371,241,432,205,483,202,479,237,429,268,369,282,320,290,280"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="93,325,259,370"/>
+<area shape="poly" id="edge10_Node000007_Node000008" title=" " alt="" coords="264,279,218,317,214,313,268,276"/>
+<area shape="rect" id="Node000009" href="$libsbml-version_8h.html" title="Define libSBML version numbers for access from client software." alt="" coords="333,325,499,370"/>
+<area shape="poly" id="edge11_Node000007_Node000009" title=" " alt="" coords="323,275,378,315,372,316,322,280"/>
+<area shape="rect" id="Node000010" href="$extern_8h.html" title="Definitions of LIBSBML_EXTERN and related things." alt="" coords="391,418,564,445"/>
+<area shape="poly" id="edge12_Node000009_Node000010" title=" " alt="" coords="433,368,461,406,456,404,431,373"/>
+<area shape="poly" id="edge13_Node000010_Node000003" title=" " alt="" coords="432,445,271,491,270,486,426,446"/>
+<area shape="poly" id="edge15_Node000011_Node000005" title=" " alt="" coords="488,182,574,232,568,233,488,188"/>
+<area shape="poly" id="edge17_Node000011_Node000010" title=" " alt="" coords="480,182,499,204,513,231,524,269,526,301,523,332,513,371,497,406,494,403,508,369,517,331,521,301,518,270,508,233,495,207,479,187"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="424,241,499,268"/>
+<area shape="poly" id="edge16_Node000011_Node000012" title=" " alt="" coords="466,183,465,227,460,224,463,187"/>
+<area shape="poly" id="edge21_Node000015_Node000010" title=" " alt="" coords="638,370,527,414,525,409,633,371"/>
 </map>

@@ -1,17 +1,15 @@
 <map id="SBMLTypeCodes.h" name="SBMLTypeCodes.h">
-<area shape="rect" id="Node000001" title="Enumeration to identify SBML objects at runtime." alt="" coords="206,5,344,33"/>
-<area shape="rect" id="Node000002" href="$libsbml-config_8h.html" title="Decides whether to #include Unix or Windows configuration variables." alt="" coords="132,81,298,126"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="267,31,242,70,238,67,264,36"/>
-<area shape="rect" id="Node000006" href="$extern_8h.html" title="Definitions of LIBSBML_EXTERN and related things." alt="" coords="224,266,396,294"/>
-<area shape="poly" id="edge8_Node000001_Node000006" title=" " alt="" coords="292,31,321,55,353,87,384,127,407,173,413,196,407,220,387,244,362,261,359,256,383,240,402,217,408,196,402,175,379,130,349,91,317,59,292,36"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="5,342,172,387"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="130,115,102,124,74,136,48,153,27,175,18,193,14,213,16,233,21,254,40,294,63,329,58,331,35,297,16,256,10,234,9,213,13,192,22,172,44,149,71,131,101,119,133,111"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="36,174,202,218"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="191,128,155,165,151,161,194,124"/>
-<area shape="rect" id="Node000005" href="$libsbml-version_8h.html" title="Define libSBML version numbers for access from client software." alt="" coords="227,174,393,218"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="238,123,279,163,274,163,237,129"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="311,217,312,252,307,249,308,221"/>
-<area shape="poly" id="edge7_Node000006_Node000003" title=" " alt="" coords="277,294,162,339,161,334,272,295"/>
-<area shape="rect" id="Node000007" title=" " alt="" coords="286,350,334,378"/>
-<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="312,293,312,336,308,334,308,297"/>
+<area shape="rect" id="Node000001" title="Enumeration to identify SBML objects at runtime." alt="" coords="199,5,337,33"/>
+<area shape="rect" id="Node000002" href="$libsbml-config_8h.html" title="Decides whether to #include Unix or Windows configuration variables." alt="" coords="125,81,291,126"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="257,36,235,70,230,67,260,31"/>
+<area shape="rect" id="Node000006" href="$extern_8h.html" title="Definitions of LIBSBML_EXTERN and related things." alt="" coords="216,266,389,294"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="284,31,313,55,345,87,376,127,400,173,406,196,399,220,380,244,354,261,352,256,376,240,395,217,401,196,395,175,372,130,341,91,310,59,285,36"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="63,342,230,387"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="122,115,95,124,66,136,40,153,19,175,10,196,9,217,15,238,27,259,62,298,103,332,98,334,59,302,23,262,10,240,4,217,5,194,15,172,37,149,64,131,93,119,126,111"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="29,174,195,218"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="183,128,147,165,143,161,187,124"/>
+<area shape="rect" id="Node000005" href="$libsbml-version_8h.html" title="Define libSBML version numbers for access from client software." alt="" coords="219,174,386,218"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="230,123,272,163,267,164,230,129"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="304,217,305,252,300,249,301,221"/>
+<area shape="poly" id="edge6_Node000006_Node000003" title=" " alt="" coords="280,294,202,337,200,332,275,295"/>
 </map>
