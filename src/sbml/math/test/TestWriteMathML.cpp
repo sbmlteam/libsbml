@@ -1124,6 +1124,14 @@ START_TEST (test_MathMLFormatter_ci_style)
 END_TEST
 
 
+START_TEST (test_issue_521)
+{
+  auto node = ASTNode(AST_LAMBDA);
+  auto sbml = writeMathMLToStdString(&node);
+  fail_unless( sbml.find("<lambda/>") != std::string::npos );
+}
+END_TEST
+
 Suite *
 create_suite_WriteMathML ()
 {
@@ -1190,6 +1198,8 @@ create_suite_WriteMathML ()
   tcase_add_test( tcase, test_MathMLFormatter_ci_id                    );
   tcase_add_test( tcase, test_MathMLFormatter_ci_class                 );
   tcase_add_test( tcase, test_MathMLFormatter_ci_style                 );
+
+  tcase_add_test( tcase, test_issue_521                     );
 
   suite_add_tcase(suite, tcase);
 
