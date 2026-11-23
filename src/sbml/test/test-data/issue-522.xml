@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created by COPASI version 4.46 (Build 300) on 2026-11-23 14:11 with libSBML version 5.20.5. -->
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4">
+  <model metaid="COPASI0" id="New_Model" name="New Model">
+    <listOfUnitDefinitions>
+      <unitDefinition id="length" name="length">
+        <listOfUnits>
+          <unit kind="metre" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="area" name="area">
+        <listOfUnits>
+          <unit kind="metre" exponent="2" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="volume" name="volume">
+        <listOfUnits>
+          <unit kind="litre" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="time" name="time">
+        <listOfUnits>
+          <unit kind="second" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="substance" name="substance">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfParameters>
+      <parameter id="x" name="x" value="0" constant="true"/>
+    </listOfParameters>
+    <listOfFunctionDefinitions>
+    <functionDefinition id="f0">
+  <math xmlns="http://www.w3.org/1998/Math/MathML">
+    <lambda><bvar><ci> y </ci></bvar><apply><ci> f0 </ci><ci> y </ci></apply></lambda>
+  </math>
+</functionDefinition>
+    </listOfFunctionDefinitions>
+
+    <listOfRules>
+<assignmentRule variable="x">
+  <math xmlns="http://www.w3.org/1998/Math/MathML"><apply><ci> f0 </ci><ci> a </ci></apply></math>
+</assignmentRule>
+    </listOfRules>
+  </model>
+</sbml>
